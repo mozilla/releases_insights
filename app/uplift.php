@@ -16,7 +16,7 @@ function getBugsFromHgWeb($query) :array
 				continue;
 			}
 
-			if (inString($subitem, ['a=test-only', 'a=release', 'a=npotb'])) {
+			if (inString($subitem, ['a=test-only', 'a=release', 'a=npotb', 'a=searchfox-only'])) {
 				continue;
 			}
 
