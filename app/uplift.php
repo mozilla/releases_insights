@@ -19,7 +19,9 @@ function getBugsFromHgWeb($query) :array
 			// Commits can be ignored if they contain one of these strings
 			if (inString($subitem, [
 				'a=test-only', 'a=release', 'a=npotb', 'a=searchfox-only',
-				'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing'])) {
+				'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing',
+				'[mozharness]', 'r=aki', 'r=tomprince', 'r=mtabara', 'a=jorgk'
+			])) {
 				continue;
 			}
 
