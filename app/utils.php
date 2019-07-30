@@ -28,10 +28,10 @@ function startsWith($haystack, $needles)
     return false;
 }
 
-function getJson($url, $cache_id, $time = 1080)
+function getJson($url, $time = 1080)
 {
 
-	$cache_id = CACHE_PATH . sha1($cache_id) . '.cache';
+	$cache_id = CACHE_PATH . sha1($url) . '.cache';
 
 	// Serve from cache if it is younger than $cache_time
 	$cache_ok = file_exists($cache_id) && time() - $time < filemtime($cache_id);

@@ -4,7 +4,7 @@ require_once __DIR__ . '/../app/bootstrap.php';
 $query = 'https://bugzilla.mozilla.org/rest/bug?include_fields=id&chfield=cf_status_firefox67&chfieldfrom=2019-03-18&chfieldto=NOW&chfieldvalue=fixed&f0=OP&f1=OP&f10=delta_ts&f11=CP&f12=CP&f13=days_elapsed&f14=attachments.ispatch&f15=flagtypes.name&f2=flagtypes.name&f3=flagtypes.name&f4=flagtypes.name&f5=flagtypes.name&f6=CP&f7=CP&f8=OP&f9=OP&include_fields=id%2Csummary%2Cstatus%2Cproduct%2Ccomponent%2Ckeywords&j9=OR&o10=changedby&o14=substring&o15=substring&o2=substring&o3=substring&o4=changedafter&o5=substring&v15=approval-mozilla-beta%2B';
 
 $results = array_column(getJson($query, $query)['bugs'], 'id');
-$real = getJson('https://pascalc.net/firefoxuplifts/?version=67&json', 'https://pascalc.net/firefoxuplifts/?version=67&json')['uplifts'];
+$real = getJson('https://pascalc.net/firefoxuplifts/?version=67&json')['uplifts'];
 $results= [
 1533654,
 1536059,

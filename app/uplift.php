@@ -2,7 +2,7 @@
 
 function getBugsFromHgWeb($query) :array
 {
-	$results    = getJson($query, sha1($query))['pushes'];
+	$results    = getJson($query)['pushes'];
 	$changesets = array_column($results, 'changesets');
 	$uplifts    = [];
 	$backouts   = [];
