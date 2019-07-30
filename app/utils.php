@@ -142,5 +142,9 @@ function inString($haystack, $needles, $match_all = false)
         }
     }
 
+    if (! $match_all) {
+        return false;
+    }
+
     return $matches == count($needles);
 }
