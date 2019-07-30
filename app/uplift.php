@@ -33,7 +33,7 @@ function getBugsFromHgWeb($query) :array
 				continue;
 			}
 
-			if (startsWith($subitem, 'backed out')) {
+			if (inString($subitem, ['backed out', 'back out'])) {
 				$counter = count($uplifts);
 				$uplifts = array_diff($uplifts, $get_bugs($subitem));
 				if ($counter == count($uplifts)) {
