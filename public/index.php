@@ -11,7 +11,19 @@ if ($redirect) {
 }
 
 if ($json) {
-	print outputJson(bzBugList($bugs['uplifts'], false));
+	print outputJson(
+		bzBugList(
+			[
+				'desc' => 'Beta uplifts and backouts',
+				'version' => $params['version'],
+				'uplifts_count' => count($bugs['uplifts']),
+				'backouts_count' => count($bugs['backouts']),
+				'uplifts' => $bugs['uplifts'],
+				'backouts' => $bugs['backouts']
+			],
+			false
+		)
+	);
 	exit;
 }
 
