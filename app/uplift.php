@@ -9,8 +9,8 @@ function getBugsFromHgWeb($query) :array
 
 	// extract bug number from commit message
 	$get_bugs = function($str) {
-		if (preg_match("/bug \d+/", $str, $matches)) {
-			return [trim(str_replace('bug', '', $matches[0]))];
+		if (preg_match_all("/bug \d+/", $str, $matches)) {
+			return array_map('trim', str_replace('bug', '', $matches[0]));
 		}
 		return [];
 	};
@@ -34,8 +34,11 @@ function getBugsFromHgWeb($query) :array
 			}
 
 			if (startsWith($subitem, 'backed out')) {
-				$backouts[] = $subitem;
+				$counter = count($uplifts);
 				$uplifts = array_diff($uplifts, $get_bugs($subitem));
+				if ($counter == count($uplifts)) {
+					$backouts[] = $subitem;
+				}
 				continue;
 			}
 
