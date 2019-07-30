@@ -7,6 +7,14 @@ function getBugsFromHgWeb($query) :array
 	$uplifts    = [];
 	$backouts   = [];
 
+	// extract bug number from commit message
+	$get_bugs = function($str) {
+		if (preg_match("/bug \d+/", $str, $matches)) {
+			return [trim(str_replace('bug', '', $matches[0]))];
+		}
+		return [];
+	};
+
 	foreach($changesets as $items) {
 		foreach ($items as $subitem) {
 			$subitem = explode("\n", $subitem['desc'])[0];
@@ -27,32 +35,27 @@ function getBugsFromHgWeb($query) :array
 
 			if (startsWith($subitem, 'backed out')) {
 				$backouts[] = $subitem;
+				$uplifts = array_diff($uplifts, $get_bugs($subitem));
 				continue;
 			}
 
-			if (preg_match("/bug \d+/", $subitem, $matches)) {
-				$uplifts[] = trim(str_replace('bug', '', $matches[0]));
-			}
+			$uplifts = array_merge($uplifts, $get_bugs($subitem));
 		}
 	}
 
 	$uplifts = array_unique($uplifts);
 
-
 	$backed_out_bugs = [];
+
 	foreach($backouts as $backout) {
-		if (preg_match_all("/bug \d+/", $backout, $matches) !== false) {
-			$matches = str_replace('bug ', '', $matches[0]);
-			$backed_out_bugs = array_merge($backed_out_bugs, $matches);
-		}
+		$backed_out_bugs = array_merge($backed_out_bugs, $get_bugs($backout));
 	}
 
-	$backed_out_bugs= array_unique($backed_out_bugs);
-
+	$backed_out_bugs = array_unique($backed_out_bugs);
 
 	// Substract uplifts that were backed out later
-	$clean_uplifts = array_diff($uplifts, $backed_out_bugs);
-
+	// $clean_uplifts = array_diff($uplifts, $backed_out_bugs);
+	$clean_uplifts = $uplifts;
 	$clean_backed_out_bugs = array_diff($backed_out_bugs, $uplifts);
 
 	return [
