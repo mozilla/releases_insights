@@ -117,3 +117,30 @@ function outputJson(array $data, $jsonp = false, $pretty_print = false)
 
     return $json;
 }
+
+
+/**
+ * Check if $needles are in $haystack
+ *
+ * @param string  $haystack  String to analyze
+ * @param mixed   $needles   The string (or array of strings) to look for
+ * @param boolean $match_all True if we need to match all $needles, false
+ *                           if it's enough to match one. Default: false
+ *
+ * @return boolean True if the $haystack string contains any/all $needles
+ */
+function inString($haystack, $needles, $match_all = false)
+{
+    $matches = 0;
+    foreach ((array) $needles as $needle) {
+        if (mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false) {
+            // If I need to match any needle, I can stop at the first match
+            if (! $match_all) {
+                return true;
+            }
+            $matches++;
+        }
+    }
+
+    return $matches == count($needles);
+}

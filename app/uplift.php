@@ -16,6 +16,10 @@ function getBugsFromHgWeb($query) :array
 				continue;
 			}
 
+			if (inString($subitem, ['a=test-only', 'a=release', 'a=npotb'])) {
+				continue;
+			}
+
 			if (startsWith($subitem, 'backed out')) {
 				$backouts[] = $subitem;
 				continue;
