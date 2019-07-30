@@ -340,7 +340,7 @@ $results= [
 1545232,
 ];
 
-echo "<h3>In 67 hg but not in bugzilla query:</h3>";
+echo "<h3>In 67 hg but not in bugzilla query (" . count(array_diff($real, $results)). " bugs):</h3>";
 
 function bugLink($id) {
 	return '<a href="https://bugzilla.mozilla.org/' . $id . '">' . $id . '</a>';
@@ -349,7 +349,7 @@ foreach(array_diff($real, $results) as $notinhg) {
 	print bugLink($notinhg) . '<br>';
 }
 
-echo "<h3>In bugzilla query but was not committed to 67 beta:</h3>";
+echo "<h3>In bugzilla query but was not committed to 67 beta (" . count(array_diff($results, $real)). " bugs):</h3>";
 foreach(array_diff($results, $real) as $notinbz) {
 	print bugLink($notinbz) . '<br>';
 }
