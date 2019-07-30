@@ -28,7 +28,7 @@ function startsWith($haystack, $needles)
     return false;
 }
 
-function getJson($url, $cache_id, $time = 10800)
+function getJson($url, $cache_id, $time = 1080)
 {
 
 	$cache_id = CACHE_PATH . sha1($cache_id) . '.cache';
