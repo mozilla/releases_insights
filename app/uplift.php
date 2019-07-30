@@ -16,6 +16,7 @@ function getBugsFromHgWeb($query) :array
 				continue;
 			}
 
+			// Commits can be ignored if they contain one of these strings
 			if (inString($subitem, [
 				'a=test-only', 'a=release', 'a=npotb', 'a=searchfox-only',
 				'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing'])) {
@@ -35,6 +36,7 @@ function getBugsFromHgWeb($query) :array
 
 	$uplifts = array_unique($uplifts);
 
+
 	$backed_out_bugs = [];
 	foreach($backouts as $backout) {
 		if (preg_match_all("/bug \d+/", $backout, $matches) !== false) {
@@ -45,7 +47,17 @@ function getBugsFromHgWeb($query) :array
 
 	$backed_out_bugs= array_unique($backed_out_bugs);
 
-	return ['uplifts' => $uplifts, 'backouts' => $backed_out_bugs];
+
+	// Substract uplifts that were backed out later
+	$clean_uplifts = array_diff($uplifts, $backed_out_bugs);
+
+	$clean_backed_out_bugs = array_diff($backed_out_bugs, $uplifts);
+
+	return [
+		'uplifts' 	=> array_values($clean_uplifts),
+		'backouts' 	=> array_values($clean_backed_out_bugs),
+		'total' 	=> array_values(array_merge($clean_uplifts, $clean_backed_out_bugs))
+	];
 }
 
 

@@ -18,8 +18,10 @@ if ($json) {
 				'version' => $params['version'],
 				'uplifts_count' => count($bugs['uplifts']),
 				'backouts_count' => count($bugs['backouts']),
+				'total_count' => count($bugs['total']),
 				'uplifts' => $bugs['uplifts'],
-				'backouts' => $bugs['backouts']
+				'backouts' => $bugs['backouts'],
+				'total' => $bugs['total']
 			],
 			false
 		)
@@ -30,4 +32,5 @@ if ($json) {
 print "<h3>Beta uplifts in Firefox ${params['version']}</h3>";
 print 'Uplifts: <a href="'. bzBugList($bugs['uplifts']) . '">' . count(array_unique($bugs['uplifts'])) . '</a><br>';
 print 'Backouts: <a href="'. bzBugList($bugs['backouts']) . '">' . count($bugs['backouts']) . '</a><br>';
+print 'Total: <a href="'. bzBugList($bugs['total']) . '">' . count($bugs['total']) . '</a><br>';
 exit;
