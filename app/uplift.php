@@ -42,7 +42,8 @@ function getBugsFromHgWeb($query) :array
 				continue;
 			}
 
-			$uplifts = array_merge($uplifts, $get_bugs($subitem));
+			// We only include the first bug number mentionned for normal cases
+            $uplifts = array_merge($uplifts, array_slice($get_bugs($subitem), 0, 1));
 		}
 	}
 
