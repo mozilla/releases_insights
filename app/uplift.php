@@ -29,7 +29,7 @@ function getBugsFromHgWeb($query) :array
                 'a=test-only', 'a=release', 'a=npotb', 'a=searchfox-only',
                 'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing',
                 '[mozharness]', 'r=aki', 'r=tomprince', 'r=mtabara', 'a=jorgk',
-                'beetmover', '[taskgraph]'
+                'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage'
             ])) {
                 continue;
             }
