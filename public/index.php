@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../app/bootstrap.php';
 
-
 $bugs = getBugsFromHgWeb($query);
 
 // redirect to Bugzilla if &redirect is set in url
