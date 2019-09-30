@@ -1,34 +1,22 @@
 <?php
-namespace ReleaseInsights;
 
-if ($api_url) {
-    $page = 'api';
-} else {
-    $page = isset($urls[$url['path']]) ? $urls[$url['path']] : 'notfound';
-}
-
-$template = true;
-$extra = null;
-$experimental = false;
+// Default values for pages, can be overriden in the switch
 $show_title = true;
-$css_files = ['transvision.css'];
-$js_files = ['/js/base.js'];
+$template = true;
+$page = '';
+$css_files = ['base.css'];
+$js_files = [];
 
 switch ($url['path']) {
     case '/':
         $controller = 'homepage';
-        $show_title = false;
+        $page_title = 'Firefox Release Insights tools';
         break;
-    case Strings::StartsWith($url['path'], 'api'):
-        $controller = 'api';
+    case 'api/nightly':
+        $controller = 'api_nightly';
         $page_title = 'API response';
         $page_descr = '';
         $template = false;
-        break;
-    case 'credits':
-        $view = 'credits';
-        $page_title = 'Credits';
-        $page_descr = '';
         break;
     default:
         $view = '404';
@@ -38,6 +26,7 @@ switch ($url['path']) {
 }
 
 if ($template) {
+
     ob_start();
 
     if (isset($view)) {
@@ -50,6 +39,7 @@ if ($template) {
     ob_end_clean();
 
     ob_start();
+
     // display the page
     require_once VIEWS . 'templates/base.php';
     $content = ob_get_contents();
@@ -65,10 +55,6 @@ if ($template) {
     ob_end_clean();
 }
 
-ob_start();
-
-ob_end_clean();
-
-print $perf_header . $content;
+print $content;
 
 die;
