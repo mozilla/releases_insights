@@ -34,15 +34,22 @@ if (! $data = Cache::getKey($cache_id)) {
 
     // Extract into an array the values we want from the data source
     $data = json_decode($data, true);
+
     $data = array_column($data['hits']['hits'], '_source');
+
+    // No data returned, bug or incorrect date, don't cache.
+    if (empty($data)) {
+        return [];
+    }
 
     // Build a [buildid => revision] array
     $filtered = [];
     foreach($data as $value) {
         $filtered[$value['build']['id']] = $value['source']['revision'];
     }
+
     $data = $filtered;
-    error_log("set key");
+
     Cache::setKey($cache_id, $data);
 }
 
