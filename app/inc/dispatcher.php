@@ -66,6 +66,7 @@ if ($template) {
 }
 
 ob_start();
+
 ob_end_clean();
 
 print $perf_header . $content;

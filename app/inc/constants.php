@@ -1,7 +1,7 @@
 <?php
 
 // Constants for the project
-define('INSTALL_ROOT',  realpath('/home/pascalc/repos/github/releases_insights') . '/');
+define('INSTALL_ROOT',  realpath($install) . '/');
 define('WEB_ROOT',      INSTALL_ROOT . 'public/');
 define('APP_ROOT',      INSTALL_ROOT . 'app/');
 define('INC',           APP_ROOT . 'inc/');
