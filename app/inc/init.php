@@ -9,10 +9,10 @@ date_default_timezone_set('Europe/Paris');
 
 
 // Load all constants for the application
-if (php_sapi_name() != 'cli') {
-    $install = '/home/pascalc/releases_insights';
-} else {
+if (php_sapi_name() == 'cli-server' || php_sapi_name() == 'cli') {
     $install = '/home/pascalc/repos/github/releases_insights';
+} else {
+    $install = '/home/pascalc/releases_insights';
 }
 
 require_once __DIR__ . '/constants.php';
