@@ -12,6 +12,6 @@ define('CACHE_ENABLED', isset($_GET['nocache']) ? false : true);
 define('CACHE_PATH',    INSTALL_ROOT . 'cache/');
 define('APP_SCHEME',    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://');
 
-if (php_sapi_name() != 'cli') {
-    define('API_ROOT',  APP_SCHEME . htmlspecialchars($_SERVER['HTTP_HOST'], ENT_QUOTES, 'UTF-8') . '/api/v1/');
+if (php_sapi_name() != 'cli-server') {
+    define('API_ROOT',  APP_SCHEME . htmlspecialchars($_SERVER['HTTP_HOST'], ENT_QUOTES, 'UTF-8') . '/api/');
 }
