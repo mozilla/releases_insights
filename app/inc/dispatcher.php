@@ -12,6 +12,10 @@ switch ($url['path']) {
         $controller = 'homepage';
         $page_title = 'Firefox Release Insights tools';
         break;
+    case 'nightly':
+        $controller = 'nightly';
+        $page_title = 'Nightly crashes for a day';
+        break;
     case 'api/nightly':
         $controller = 'api_nightly';
         $page_title = 'API response';

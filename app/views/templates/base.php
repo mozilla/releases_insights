@@ -1,8 +1,4 @@
-<?php
-namespace ReleaseInsights;
-?>
 <!doctype html>
-
 <html lang="en" dir="ltr">
   <head>
     <title><?php if ($show_title == true) { print $page_title; } ?></title>

@@ -42,6 +42,7 @@ if (! $data = Cache::getKey($cache_id)) {
         $filtered[$value['build']['id']] = $value['source']['revision'];
     }
     $data = $filtered;
+    error_log("set key");
     Cache::setKey($cache_id, $data);
 }
 
