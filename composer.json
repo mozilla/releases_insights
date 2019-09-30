@@ -1,0 +1,39 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mozilla-l10n/phpclass-bugzilla",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mozilla-l10n/phpclass-cache",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mozilla-l10n/phpclass-json",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/pascalchevrel/Verif/",
+            "no-api": true
+        }
+    ],
+   "require": {
+        "mozillal10n/cache": "~0.1",
+        "mozillal10n/json": "~0.1"
+    },
+    "require-dev": {
+        "atoum/atoum" : "~3.0",
+        "symfony/var-dumper": "~2.6",
+        "friendsofphp/php-cs-fixer": "~2.1",
+        "pchevrel/verif": "0.4"
+    },
+
+    "autoload": {
+        "psr-0": {"ReleaseInsight": "app/classes/"},
+        "files": ["app/helpers/debug.php"]
+    }
+}
