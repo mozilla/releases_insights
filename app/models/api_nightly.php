@@ -2,6 +2,7 @@
 
 use Cache\Cache;
 
+// Make sure we have a date, cast user provided string to an int for security
 $date = isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
 
 $options = [
@@ -26,8 +27,11 @@ $options = [
     ],
 ];
 
+// The date in the string varies so we create a unique file name in cache
 $cache_id = $options['http']['content'];
 
+// If we can't retrieve cached data, we create and cache it.
+// We cache because we want to avoid http request latency
 if (!$data = Cache::getKey($cache_id)) {
     $data = file_get_contents(
         'https://buildhub.moz.tools/api/search',
@@ -37,7 +41,6 @@ if (!$data = Cache::getKey($cache_id)) {
 
     // Extract into an array the values we want from the data source
     $data = json_decode($data, true);
-
     $data = array_column($data['hits']['hits'], '_source');
 
     // No data returned, bug or incorrect date, don't cache.

@@ -1,1 +1,1 @@
-<p>foobar</p>
+<p>Home page</p>

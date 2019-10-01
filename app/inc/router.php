@@ -1,7 +1,7 @@
 <?php
 
 /*
-    In Transvision we can have queries with a colon and a number that lead
+    We can have queries with a colon and a number that lead
     to URLs that parse_url() can't parse probably because it thinks that it is a
     port definition. ex:
     ?sourcelocale=en-US&locale=fr&repo=beta&search_type=entities&recherche=mail/chrome/messenger/mime.properties:1008
@@ -29,11 +29,8 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].$url['path'])
     return false;
 }
 
-// Define if an url is for the API or the site
-$api_url = (bool) !strncmp($url['path'], '/api/', strlen('/api/'));
-
 // Don't process non-PHP files, even if they don't exist on the server
-if (isset($file['extension']) && $file['extension'] != 'php' && !$api_url) {
+if (isset($file['extension']) && $file['extension'] != 'php') {
     return false;
 }
 
@@ -44,9 +41,6 @@ if ($url['path'] != '/') {
     $url['path'] = array_values($url['path']); // Reorder keys
     $url['path'] = implode('/', $url['path']);
 }
-
-// Include all valid urls here
-require_once __DIR__.'/urls.php';
 
 // Always redirect to an url ending with slashes
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
