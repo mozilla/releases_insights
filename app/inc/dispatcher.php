@@ -33,9 +33,9 @@ if ($template) {
     ob_start();
 
     if (isset($view)) {
-        include VIEWS . $view . '.php';
+        include VIEWS.$view.'.php';
     } else {
-        include CONTROLLERS . $controller . '.php';
+        include CONTROLLERS.$controller.'.php';
     }
 
     $content = ob_get_contents();
@@ -44,20 +44,20 @@ if ($template) {
     ob_start();
 
     // display the page
-    require_once VIEWS . 'templates/base.php';
+    require_once VIEWS.'templates/base.php';
     $content = ob_get_contents();
     ob_end_clean();
 } else {
     ob_start();
     if (isset($view)) {
-        include VIEWS . $view . '.php';
+        include VIEWS.$view.'.php';
     } else {
-        include CONTROLLERS . $controller . '.php';
+        include CONTROLLERS.$controller.'.php';
     }
     $content = ob_get_contents();
     ob_end_clean();
 }
 
-print $content;
+echo $content;
 
 die;

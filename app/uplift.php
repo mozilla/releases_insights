@@ -2,16 +2,17 @@
 
 function getBugsFromHgWeb($query) :array
 {
-    $results    = getJson($query)['pushes'];
+    $results = getJson($query)['pushes'];
     $changesets = array_column($results, 'changesets');
-    $uplifts    = [];
-    $backouts   = [];
+    $uplifts = [];
+    $backouts = [];
 
     // extract bug number from commit message
     $get_bugs = function ($str) {
         if (preg_match_all("/bug \d+/", $str, $matches)) {
             return array_map('trim', str_replace('bug', '', $matches[0]));
         }
+
         return [];
     };
 
@@ -29,7 +30,7 @@ function getBugsFromHgWeb($query) :array
                 'a=test-only', 'a=release', 'a=npotb', 'a=searchfox-only',
                 'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing',
                 '[mozharness]', 'r=aki', 'r=tomprince', 'r=mtabara', 'a=jorgk',
-                'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage', 'a=expectation-update-for-worker-image'
+                'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage', 'a=expectation-update-for-worker-image',
             ])) {
                 continue;
             }
@@ -66,6 +67,6 @@ function getBugsFromHgWeb($query) :array
     return [
         'uplifts'   => array_values($clean_uplifts),
         'backouts'  => array_values($clean_backed_out_bugs),
-        'total'     => array_values(array_merge($clean_uplifts, $clean_backed_out_bugs))
+        'total'     => array_values(array_merge($clean_uplifts, $clean_backed_out_bugs)),
     ];
 }

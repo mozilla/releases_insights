@@ -1,7 +1,7 @@
 <?php
 /**
  * Utility function to get symfony dump() function output to the CLI
- * http://symfony.com/doc/current/components/var_dumper/
+ * http://symfony.com/doc/current/components/var_dumper/.
  */
 function cli_dump()
 {

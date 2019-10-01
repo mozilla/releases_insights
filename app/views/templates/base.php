@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <title><?php if ($show_title == true) {
-    print $page_title;
+    echo $page_title;
 } ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
