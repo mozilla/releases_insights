@@ -30,7 +30,6 @@ function startsWith($haystack, $needles)
 
 function getJson($url, $time = 1080)
 {
-
     $cache_id = CACHE_PATH . sha1($url) . '.cache';
 
     // Serve from cache if it is younger than $cache_time
@@ -47,17 +46,18 @@ function getJson($url, $time = 1080)
 function bzBugList($arr, $str_output=true)
 {
     if ($str_output) {
-        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C',$arr);
+        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $arr);
     }
     return $arr;
 }
 
-function var_error_log( $object=null ){
+function var_error_log($object=null)
+{
     ob_start();                    // start buffer capture
-    var_dump( $object );           // dump the values
+    var_dump($object);           // dump the values
     $contents = ob_get_contents(); // put the buffer into a variable
     ob_end_clean();                // end capture
-    error_log( $contents );        // log contents of the result of var_dump( $object )
+    error_log($contents);        // log contents of the result of var_dump( $object )
 }
 
 /**

@@ -8,14 +8,14 @@ function getBugsFromHgWeb($query) :array
     $backouts   = [];
 
     // extract bug number from commit message
-    $get_bugs = function($str) {
+    $get_bugs = function ($str) {
         if (preg_match_all("/bug \d+/", $str, $matches)) {
             return array_map('trim', str_replace('bug', '', $matches[0]));
         }
         return [];
     };
 
-    foreach($changesets as $items) {
+    foreach ($changesets as $items) {
         foreach ($items as $subitem) {
             $subitem = explode("\n", $subitem['desc'])[0];
             $subitem = strtolower(mtrim($subitem));
@@ -52,7 +52,7 @@ function getBugsFromHgWeb($query) :array
 
     $backed_out_bugs = [];
 
-    foreach($backouts as $backout) {
+    foreach ($backouts as $backout) {
         $backed_out_bugs = array_merge($backed_out_bugs, $get_bugs($backout));
     }
 
@@ -69,5 +69,3 @@ function getBugsFromHgWeb($query) :array
         'total'     => array_values(array_merge($clean_uplifts, $clean_backed_out_bugs))
     ];
 }
-
-

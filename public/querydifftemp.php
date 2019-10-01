@@ -22,15 +22,15 @@ $results = [
 
 echo "<h3>In $version hg but not in bugzilla query (" . count(array_diff($real, $results[$version])). " bugs):</h3>";
 
-function bugLink($id) {
+function bugLink($id)
+{
     return '<a href="https://bugzilla.mozilla.org/' . $id . '">' . $id . '</a>';
 }
-foreach(array_diff($real, $results[$version]) as $notinhg) {
+foreach (array_diff($real, $results[$version]) as $notinhg) {
     print bugLink($notinhg) . '<br>';
 }
 
 echo "<h3>In bugzilla query but was not committed to $version beta (" . count(array_diff($results[$version], $real)). " bugs):</h3>";
-foreach(array_diff($results[$version], $real) as $notinbz) {
+foreach (array_diff($results[$version], $real) as $notinbz) {
     print bugLink($notinbz) . '<br>';
 }
-

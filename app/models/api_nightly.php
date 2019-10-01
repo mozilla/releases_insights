@@ -27,7 +27,7 @@ $options = [
 
 $cache_id = $options['http']['content'];
 
-if (! $data = Cache::getKey($cache_id)) {
+if (!$data = Cache::getKey($cache_id)) {
     $data = file_get_contents(
         'https://buildhub.moz.tools/api/search',
         false,
@@ -46,7 +46,7 @@ if (! $data = Cache::getKey($cache_id)) {
 
     // Build a [buildid => revision] array
     $filtered = [];
-    foreach($data as $value) {
+    foreach ($data as $value) {
         $filtered[$value['build']['id']] = $value['source']['revision'];
     }
 

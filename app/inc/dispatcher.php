@@ -30,7 +30,6 @@ switch ($url['path']) {
 }
 
 if ($template) {
-
     ob_start();
 
     if (isset($view)) {
