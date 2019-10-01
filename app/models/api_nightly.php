@@ -1,6 +1,8 @@
 <?php
 use Cache\Cache;
 
+$date = isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
+
 $options = [
     'http' => [
         'method'  => 'POST',
@@ -15,7 +17,7 @@ $options = [
             { "match": { "target.locale": "en-US" }},
             { "match": { "target.channel": "nightly" }},
             { "regexp": { "build.target": "x86_64.*" }},
-            { "regexp": { "build.id": "' . ($_GET['date'] ?? '20190101') . '.*" }}
+            { "regexp": { "build.id": "' . $date . '.*" }}
           ]
         }
       }
@@ -50,15 +52,11 @@ if (! $data = Cache::getKey($cache_id)) {
 
     $data = $filtered;
 
-    Cache::setKey($cache_id, $data);
+    // We don't cache today because we may miss the second nightly build
+    if ($date != date('Ymd')) {
+        Cache::setKey($cache_id, $data);
+    }
 }
 
 // Just in case we have duplicates
 return array_unique($data);
-
-
-
-
-
-
-
