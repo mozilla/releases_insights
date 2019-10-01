@@ -149,3 +149,14 @@ function inString($haystack, $needles, $match_all = false)
 
     return $matches == count($needles);
 }
+
+
+function includeBuffering(string $file): string {
+    ob_start();
+    // display the page
+    include $file;
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return $content;
+}

@@ -1,5 +1,7 @@
 <?php
 
+Use \ReleaseInsights\Utils as Utils;
+
 // Default values for pages, can be overriden in the switch
 $show_title = true;
 $template = true;
@@ -23,41 +25,16 @@ switch ($url['path']) {
         $template = false;
         break;
     default:
-        $view = '404';
         $page_title = '404: Page Not Found';
         $page_descr = '';
         break;
 }
 
-if ($template) {
-    ob_start();
-
-    if (isset($view)) {
-        include VIEWS.$view.'.php';
-    } else {
-        include CONTROLLERS.$controller.'.php';
-    }
-
-    $content = ob_get_contents();
-    ob_end_clean();
-
-    ob_start();
-
-    // display the page
-    require_once VIEWS.'templates/base.php';
-    $content = ob_get_contents();
-    ob_end_clean();
-} else {
-    ob_start();
-    if (isset($view)) {
-        include VIEWS.$view.'.php';
-    } else {
-        include CONTROLLERS.$controller.'.php';
-    }
-    $content = ob_get_contents();
-    ob_end_clean();
+if (!$template) {
+    echo Utils::includeBuffering(CONTROLLERS.$controller.'.php');
+    exit;
 }
 
-echo $content;
-
-die;
+$content = Utils::includeBuffering(CONTROLLERS.$controller.'.php');
+include VIEWS.'templates/base.php';
+exit;

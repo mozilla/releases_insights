@@ -1,7 +1,4 @@
 <?php
-
-namespace ReleaseInsights;
-
 http_response_code(404);
 ?>
 <div id="pagecontent">

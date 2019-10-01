@@ -1,3 +1,1 @@
 <?php
-
-namespace ReleaseInsights;
