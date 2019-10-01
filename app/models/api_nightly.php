@@ -1,4 +1,5 @@
 <?php
+
 use Cache\Cache;
 
 $date = isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
@@ -17,12 +18,12 @@ $options = [
             { "match": { "target.locale": "en-US" }},
             { "match": { "target.channel": "nightly" }},
             { "regexp": { "build.target": "x86_64.*" }},
-            { "regexp": { "build.id": "' . $date . '.*" }}
+            { "regexp": { "build.id": "'.$date.'.*" }}
           ]
         }
       }
-    }'
-    ]
+    }',
+    ],
 ];
 
 $cache_id = $options['http']['content'];
