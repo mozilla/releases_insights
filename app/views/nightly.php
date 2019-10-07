@@ -10,7 +10,11 @@ foreach ($nightly_pairs as $dataset) {
     . ' <span> '
     . '<a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange='. $dataset['prev_changeset'] .'&tochange=' .$dataset['changeset']. '">Changelog</a>'
     . ' </span>'
-    . '<span>' . getCrashesForBuildID($dataset['buildid'])['total'] .  ' crashes </span>'
+    . '<span><a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id='
+    . $dataset['buildid']
+    . '&_facets=signature">'
+    . getCrashesForBuildID($dataset['buildid'])['total']
+    . ' crashes</a> </span>'
     . '</li>'
     . "\n";
 }
