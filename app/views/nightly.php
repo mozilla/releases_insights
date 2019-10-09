@@ -1,7 +1,8 @@
 <?php
 use Cache\Cache;
+use \ReleaseInsights\Utils as Utils;
 
-echo '<h1>'.date('Y M d', strtotime($date)).'</h1>';
+echo '<h1>'.$display_date.'</h1>';
 echo "<ul>\n";
 foreach ($nightly_pairs as $dataset) {
     echo '<li><span>'
@@ -13,7 +14,7 @@ foreach ($nightly_pairs as $dataset) {
     . '<span><a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id='
     . $dataset['buildid']
     . '&_facets=signature">'
-    . getCrashesForBuildID($dataset['buildid'])['total']
+    . Utils::getCrashesForBuildID($dataset['buildid'])['total']
     . ' crashes</a> </span>'
     . '</li>'
     . "\n";
