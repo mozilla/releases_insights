@@ -10,6 +10,8 @@ date_default_timezone_set('America/Los_Angeles');
 // TODO:create a config.ini-dist file
 if (php_sapi_name() == 'cli-server' || php_sapi_name() == 'cli') {
     $install = '/home/pascalc/repos/github/releases_insights';
+} elseif (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'])) {
+    $install = '/home/pascalc/repos/github/releases_insights';
 } else {
     $install = '/home/pascalc/releases_insights';
 }
