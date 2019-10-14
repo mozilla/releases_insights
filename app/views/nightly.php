@@ -1,6 +1,6 @@
 <?php
 use Cache\Cache;
-use \ReleaseInsights\Utils as Utils;
+use ReleaseInsights\Utils as Utils;
 
 echo '<h1>'.$display_date.'</h1>';
 echo "<ul>\n";

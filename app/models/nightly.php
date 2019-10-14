@@ -36,10 +36,3 @@ foreach ($nightlies as $buildid => $changeset) {
     ];
     $previous_changeset = $changeset;
 }
-
-// Cache Socorro data
-$crashes = [];
-
-foreach ($nightly_pairs as $dataset) {
-    $crashes = json_decode($cache_id, true);
-}

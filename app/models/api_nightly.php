@@ -1,9 +1,9 @@
 <?php
 
 use Cache\Cache;
+Use ReleaseInsights\Utils as Utils;
 
-// Make sure we have a date, cast user provided string to an int for security
-$date = isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
+$date = Utils::buildIDFromDate();
 
 $options = [
     'http' => [

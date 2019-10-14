@@ -29,4 +29,10 @@ class Utils
         return json_decode($crashes, true);
     }
 
+    public static function buildIDFromDate() : string
+    {
+        // Make sure we have a date, cast user provided string to an int for security
+        return isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
+    }
+
 }

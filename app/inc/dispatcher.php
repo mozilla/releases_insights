@@ -25,7 +25,6 @@ switch ($url['path']) {
         break;
     case 'api/nightly':
         $controller = 'api_nightly';
-        $page_title = 'API response';
         $template = false;
         break;
     default:
