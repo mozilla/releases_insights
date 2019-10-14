@@ -36,9 +36,7 @@ switch ($url['path']) {
 // Pages can be output directly and not go into a template, especially json raw files
 if (!$template) {
     echo Utils::includeBuffering(CONTROLLERS.$controller.'.php');
-    exit;
+} else {
+    $content = Utils::includeBuffering(CONTROLLERS.$controller.'.php');
+    include VIEWS.'templates/base.php';
 }
-
-$content = Utils::includeBuffering(CONTROLLERS.$controller.'.php');
-include VIEWS.'templates/base.php';
-exit;
