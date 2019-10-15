@@ -1,6 +1,7 @@
 <?php
 namespace ReleaseInsights;
 use Cache\Cache;
+use DateTime;
 
 class Utils
 {
@@ -39,6 +40,29 @@ class Utils
     {
         // Make sure we have a date, cast user provided string to an int for security
         return isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
+    }
+
+    public static function isBuildID($buildid) : bool
+    {
+        //  BuildIDs should be 14 digits
+        if (strlen($buildid) !==  14) {
+            return false;
+        }
+
+        //  BuildIDs should be valid dates, if we can't create a date return false
+        if (!$date = date_create($buildid)) {
+            return false;
+        }
+
+        // The date shouldn't be in the future
+        $date = new DateTime($buildid);
+        $today = new DateTime();
+
+        if ($date > $today) {
+            return false;
+        }
+
+        return true;
     }
 
 }
