@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+  <header><h1>{{ display_date  }}</h1></header>
+{% endblock %}
+
+{% block main %}
+   <ul>
+{% for dataset in nightly_pairs %}
+    <li>
+        <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}">{{  dataset.buildid }}</a>
+        <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}">Changelog</a>
+        <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature">{{build_crashes[dataset.buildid] }} crashes</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+{% endblock %}

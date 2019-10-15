@@ -2,7 +2,7 @@
 
 require_once MODELS.'home.php';
 
-$template = $twig->loadTemplate('normal.html.twig');
+$template = $twig->loadTemplate('regular.html.twig');
 echo $template->render([
     'page_title' => $page_title,
     'css_files' => $css_files,
