@@ -1,13 +1,8 @@
 <?php
-use ReleaseInsights\Utils as Utils;
-
 
 require_once MODELS.'nightly.php';
 
 $template = $twig->loadTemplate('nightly.html.twig');
-foreach ($nightly_pairs as $dataset) {
-    $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
-}
 
 echo $template->render([
     'page_title' => $page_title,

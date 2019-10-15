@@ -1,5 +1,6 @@
 <?php
 use Cache\Cache;
+use ReleaseInsights\Utils as Utils;
 
 // Get nightlies for the GET Request (or today's nightly)
 $nightlies = include MODELS.'api_nightly.php';
@@ -35,4 +36,8 @@ foreach ($nightlies as $buildid => $changeset) {
         'prev_changeset' => $previous_changeset,
     ];
     $previous_changeset = $changeset;
+}
+
+foreach ($nightly_pairs as $dataset) {
+    $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
 }
