@@ -38,6 +38,7 @@ foreach ($nightlies as $buildid => $changeset) {
     $previous_changeset = $changeset;
 }
 
+$build_crashes = [];
 foreach ($nightly_pairs as $dataset) {
     $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
 }
