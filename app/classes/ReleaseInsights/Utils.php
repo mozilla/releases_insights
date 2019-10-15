@@ -22,14 +22,20 @@ class Utils
 
         // If we can't retrieve cached data, we create and cache it.
         // We cache because we want to avoid http request latency
-        if (!$crashes = Cache::getKey($cache_id)) {
-            $crashes = file_get_contents($cache_id);
+        if (!$data = Cache::getKey($cache_id)) {
+            $data = file_get_contents($cache_id);
+
+           // No data returned, bug or incorrect date, don't cache.
+            if (empty($data)) {
+                return [];
+            }
+            Cache::setKey($cache_id, $data);
         }
 
-        return json_decode($crashes, true);
+        return json_decode($data, true);
     }
 
-    public static function buildIDFromDate() : string
+    public static function getDate() : string
     {
         // Make sure we have a date, cast user provided string to an int for security
         return isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');

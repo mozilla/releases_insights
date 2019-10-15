@@ -3,7 +3,7 @@
 use Cache\Cache;
 Use ReleaseInsights\Utils as Utils;
 
-$date = Utils::buildIDFromDate();
+$date = Utils::getDate();
 
 $options = [
     'http' => [
