@@ -36,11 +36,9 @@ switch ($url['path']) {
         $page_title = '404: Page Not Found';
         break;
 }
-
 // Pages can be output directly and not go into a template, especially json raw files
 if (!$template) {
     echo Utils::includeBuffering(CONTROLLERS.$controller.'.php');
 } else {
-    $content = Utils::includeBuffering(CONTROLLERS.$controller.'.php');
-    include VIEWS.'templates/base.php';
+    include CONTROLLERS.$controller.'.php';
 }
