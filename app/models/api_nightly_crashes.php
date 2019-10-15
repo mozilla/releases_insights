@@ -4,7 +4,7 @@ use Json\Json;
 Use ReleaseInsights\Utils as Utils;
 
 // TODO: remove hardcoded value for buildid
-$buildid = '20191014213051';
+$buildid = Utils::getBuildID();
 
 if (!Utils::isBuildID($buildid)) {
     return ['Error' => 'Invalid build ID'];

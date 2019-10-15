@@ -38,8 +38,34 @@ class Utils
 
     public static function getDate() : string
     {
-        // Make sure we have a date, cast user provided string to an int for security
-        return isset($_GET['date']) ? (int) $_GET['date'] : date('Ymd');
+
+        // No date provided by the http call, return Today
+        if (!isset($_GET['date'])) {
+            return date('Ymd');
+        }
+
+        // Cast user provided date to an int for security
+        $date = (int) $_GET['date'];
+
+        return self::secureText($date);
+    }
+
+    public static function getBuildID() : string
+    {
+        $fallback_buildid = '20191014213051';
+
+        // No buildid provided by the http call, return a default value
+        if (!isset($_GET['buildid'])) {
+            return $fallback_buildid;
+        }
+
+        // Check that the string provided is correct
+        if (!self::isBuildID($_GET['buildid'])) {
+            return $fallback_buildid;
+        }
+
+        return self::secureText($_GET['buildid']);
+
     }
 
     public static function isBuildID($buildid) : bool
@@ -64,5 +90,32 @@ class Utils
 
         return true;
     }
+    /**
+     * Sanitize a string or an array of strings for security before template use.
+     *
+     * @param string $string The string we want to sanitize
+     *
+     * @return string Sanitized string for security
+     */
+    public static function secureText($string)
+    {
+        $sanitize = function ($v) {
+            // CRLF XSS
+            $v = str_replace(['%0D', '%0A'], '', $v);
+            // We want to convert line breaks into spaces
+            $v = str_replace("\n", ' ', $v);
+            // Escape HTML tags and remove ASCII characters below 32
+            $v = filter_var(
+                $v,
+                FILTER_SANITIZE_SPECIAL_CHARS,
+                FILTER_FLAG_STRIP_LOW
+            );
+
+            return $v;
+        };
+
+        return is_array($string) ? array_map($sanitize, $string) : $sanitize($string);
+    }
+
 
 }
