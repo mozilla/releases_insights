@@ -1,0 +1,17 @@
+<!-- base.html.twig -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>{{ page_title }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% for css_file in css_files %}
+    <link rel="stylesheet" href="/style/{{ css_file }}" type="text/css" media="all" />
+{% endfor %}
+  </head>
+  <body id="{{ css_page_id }}">
+    {% block header %}{% endblock %}
+    {% block main   %}{% endblock %}
+    {% block footer %}{% endblock %}
+  </body>
+</html>
