@@ -50,21 +50,14 @@ class Utils
         return self::secureText($date);
     }
 
-    public static function getBuildID() : string
+    public static function getBuildID(string $buildid) : string
     {
-        $fallback_buildid = '20191014213051';
-
-        // No buildid provided by the http call, return a default value
-        if (!isset($_GET['buildid'])) {
-            return $fallback_buildid;
-        }
-
         // Check that the string provided is correct
-        if (!self::isBuildID($_GET['buildid'])) {
-            return $fallback_buildid;
+        if (!self::isBuildID($buildid)) {
+            return '20191014213051'; // hardcoded fallback value
         }
 
-        return self::secureText($_GET['buildid']);
+        return self::secureText($buildid);
 
     }
 
