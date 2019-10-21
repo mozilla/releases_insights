@@ -9,7 +9,6 @@ echo $template->render([
     'display_date' => $display_date,
     'css_files' => $css_files,
     'css_page_id' => $css_page_id,
-    'page_content' => $content,
     'nightly_pairs' => $nightly_pairs,
     'build_crashes' => $build_crashes,
 ]);
