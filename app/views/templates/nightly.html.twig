@@ -11,6 +11,11 @@
         <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}">{{  dataset.buildid }}</a>
         <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}">Changelog</a>
         <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature">{{build_crashes[dataset.buildid] }} crashes</a>
+        <ul>
+        {% for sig in top_sigs[dataset.buildid] %}
+            <li>{{ sig.term }} : {{ sig.count }}</li>
+        {% endfor %}
+        </ul>
     </li>
 {% endfor %}
 </ul>
