@@ -54,6 +54,9 @@ if (!$data = Cache::getKey($cache_id)) {
         $filtered[$value['build']['id']] = $value['source']['revision'];
     }
 
+    // We sort the array by key because we want the builds to be in chronological order
+    ksort($filtered);
+
     $data = $filtered;
 
     // We don't cache today because we may miss the second nightly build
