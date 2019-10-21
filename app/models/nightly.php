@@ -45,7 +45,8 @@ foreach ($nightly_pairs as $dataset) {
 
 $top_sigs = [];
 foreach ($nightly_pairs as $dataset) {
-    $top_sigs[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'];
+    $top_sigs[$dataset['buildid']] = array_splice(
+        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'], 0, 4
+    );
 }
 
-cli_dump($top_sigs);
