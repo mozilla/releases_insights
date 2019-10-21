@@ -3,7 +3,7 @@
 require_once MODELS.'nightly.php';
 
 $template = $twig->loadTemplate('nightly.html.twig');
-cli_dump($top_sigs);
+
 echo $template->render([
     'page_title' => $page_title,
     'display_date' => $display_date,
