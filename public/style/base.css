@@ -112,6 +112,9 @@ table tr td:first-child {
 }
 
 /* localhost/nightly page */
+#todayinnightly ul  {
+    list-style-type:none;
+}
 #todayinnightly ul li.header > a {
     border: 1px solid #3c8fd1;
     background-color: white;
