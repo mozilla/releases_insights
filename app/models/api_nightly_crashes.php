@@ -5,7 +5,7 @@ Use ReleaseInsights\Utils as Utils;
 
 $buildid = Utils::getBuildID($_GET['buildid']);
 
-$cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature';
+$cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency

@@ -12,6 +12,7 @@ echo $template->render([
     'nightly_pairs' => $nightly_pairs,
     'build_crashes' => $build_crashes,
     'top_sigs' => $top_sigs,
+    'bug_list' => $bug_list,
 ]);
 
 

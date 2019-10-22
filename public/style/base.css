@@ -110,3 +110,10 @@ td a em {
 table tr td:first-child {
     color: #3c8fd1;
 }
+
+/* localhost/nightly page */
+#todayinnightly ul > li a {
+    border: 1px solid #3c8fd1;
+    display: inline-block;
+    padding: 5px;
+}

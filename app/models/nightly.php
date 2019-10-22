@@ -1,6 +1,7 @@
 <?php
 use Cache\Cache;
 use ReleaseInsights\Utils as Utils;
+use ReleaseInsights\Bugzilla as Bz;
 
 // Get nightlies for the GET Request (or today's nightly)
 $nightlies = include MODELS.'api_nightly.php';
@@ -46,7 +47,20 @@ foreach ($nightly_pairs as $dataset) {
 $top_sigs = [];
 foreach ($nightly_pairs as $dataset) {
     $top_sigs[$dataset['buildid']] = array_splice(
-        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'], 0, 4
+        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'], 0, 10
     );
 }
 
+$bug_list = [];
+foreach ($nightly_pairs as $dataset) {
+    $bugs = Bz::getBugsFromHgWeb(
+            'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange='.$dataset['prev_changeset'].'&tochange='.$dataset['changeset'] . '&full&version=2'
+        )['total'];
+    $url = Bz::getBugListLink($bugs);
+
+    $bug_list[$dataset['buildid']] = [
+        'bugs' => $bugs,
+        'url' => $url,
+        'count' => count($bugs)
+    ];
+}

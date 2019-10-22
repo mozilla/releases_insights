@@ -1,5 +1,6 @@
 <?php
 namespace ReleaseInsights;
+
 use Cache\Cache;
 use DateTime;
 
@@ -19,7 +20,7 @@ class Utils
     public static function getCrashesForBuildID(int $buildid) : array
     {
         // The date in the string varies so we create a unique file name in cache
-        $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature';
+        $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
         // If we can't retrieve cached data, we create and cache it.
         // We cache because we want to avoid http request latency
@@ -110,5 +111,77 @@ class Utils
         return is_array($string) ? array_map($sanitize, $string) : $sanitize($string);
     }
 
+    public static function getJson(string $url) : array
+    {
+        if (!$data = Cache::getKey($url)) {
+            $data = file_get_contents($url);
 
+           // No data returned, bug or incorrect date, don't cache.
+            if (empty($data)) {
+                return [];
+            }
+            Cache::setKey($url, $data);
+        }
+
+        return json_decode($data, true);
+    }
+
+    public static function mtrim($string)
+    {
+        $string = explode(' ', $string);
+        $string = array_filter($string);
+        $string = implode(' ', $string);
+
+        return $string;
+    }
+
+    /**
+     * Check if $haystack starts with a string in $needles.
+     * $needles can be a string or an array of strings.
+     *
+     * @param string $haystack String to analyse
+     * @param array  $needles  The string to look for
+     *
+     * @return bool True if the $haystack string starts with a string in $needles
+     */
+    public static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $prefix) {
+            if (!strncmp($haystack, $prefix, mb_strlen($prefix))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if $needles are in $haystack.
+     *
+     * @param string $haystack  String to analyze
+     * @param mixed  $needles   The string (or array of strings) to look for
+     * @param bool   $match_all True if we need to match all $needles, false
+     *                          if it's enough to match one. Default: false
+     *
+     * @return bool True if the $haystack string contains any/all $needles
+     */
+    public static function inString($haystack, $needles, $match_all = false)
+    {
+        $matches = 0;
+        foreach ((array) $needles as $needle) {
+            if (mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false) {
+                // If I need to match any needle, I can stop at the first match
+                if (!$match_all) {
+                    return true;
+                }
+                $matches++;
+            }
+        }
+
+        if (!$match_all) {
+            return false;
+        }
+
+        return $matches == count($needles);
+    }
 }
