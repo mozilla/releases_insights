@@ -112,8 +112,13 @@ table tr td:first-child {
 }
 
 /* localhost/nightly page */
-#todayinnightly ul > li a {
+#todayinnightly ul li.header > a {
     border: 1px solid #3c8fd1;
+    background-color: white;
     display: inline-block;
-    padding: 5px;
+    padding: 0 5px;
+    min-width: 9em;
+    text-align:center;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
 }

@@ -7,14 +7,14 @@
 {% block main %}
    <ul>
 {% for dataset in nightly_pairs %}
-    <li>
+    <li class="header">
         <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}">{{  dataset.buildid }}</a>
         <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}">Changelog</a>
         <a href="{{ bug_list[dataset.buildid].url }}">Patches for {{ bug_list[dataset.buildid].count }} bugs</a>
         <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature&product=Firefox">{{build_crashes[dataset.buildid] }} crashes</a>
         <ol>
         {% for sig in top_sigs[dataset.buildid] %}
-            <li>{{ sig.term }} <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b></li>
+            <li><a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a> <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b></li>
         {% endfor %}
         </ol>
     </li>
