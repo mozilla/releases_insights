@@ -31,7 +31,7 @@ function startsWith($haystack, $needles)
 
 function getJson($url, $time = 1080)
 {
-    $cache_id = CACHE_PATH.sha1($url).'.cache';
+    $cache_id = CACHE_PATH . sha1($url) . '.cache';
 
     // Serve from cache if it is younger than $cache_time
     $cache_ok = file_exists($cache_id) && time() - $time < filemtime($cache_id);
@@ -46,7 +46,7 @@ function getJson($url, $time = 1080)
 function bzBugList($arr, $str_output = true)
 {
     if ($str_output) {
-        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id='.implode('%2C', $arr);
+        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $arr);
     }
 
     return $arr;
@@ -106,13 +106,13 @@ function outputJson(array $data, $jsonp = false, $pretty_print = false)
 
     if ($jsonp) {
         $mime = 'application/javascript';
-        $json = $jsonp.'('.$json.')';
+        $json = $jsonp . '(' . $json . ')';
     }
 
     ob_start();
     header('access-control-allow-origin: *');
     header("Content-type: {$mime}; charset=UTF-8");
-    header('Content-Length: '.strlen($json));
+    header('Content-Length: ' . strlen($json));
     echo $json;
     $json = ob_get_contents();
     ob_end_clean();
@@ -149,7 +149,6 @@ function inString($haystack, $needles, $match_all = false)
 
     return $matches == count($needles);
 }
-
 
 function includeBuffering(string $file): string {
     ob_start();

@@ -5,11 +5,10 @@ class Bugzilla
 {
     public static function getBugListLink(array $bug_numbers) : string
     {
-        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id='.implode('%2C', $bug_numbers);
+        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 
-
-    public static function getBugsFromHgWeb(string $query, bool $detect_backouts=false) : array
+    public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false) : array
     {
         $results = Utils::getJson($query)['pushes'];
         $changesets = array_column($results, 'changesets');
@@ -74,8 +73,8 @@ class Bugzilla
 
         return [
             'bug_fixes'   => array_values($clean_bug_fixes),
-            'backouts'  => array_values($clean_backed_out_bugs),
-            'total'     => array_values(array_merge($clean_bug_fixes, $clean_backed_out_bugs)),
+            'backouts'    => array_values($clean_backed_out_bugs),
+            'total'       => array_values(array_merge($clean_bug_fixes, $clean_backed_out_bugs)),
         ];
     }
 }

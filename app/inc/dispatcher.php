@@ -1,6 +1,6 @@
 <?php
 
-Use \ReleaseInsights\Utils as Utils;
+Use ReleaseInsights\Utils as Utils;
 
 /* Default values for pages, can be overriden in the switch. */
 
@@ -39,7 +39,7 @@ switch ($url['path']) {
 }
 // Pages can be output directly and not go into a template, especially json raw files
 if (!$template) {
-    echo Utils::includeBuffering(CONTROLLERS.$controller.'.php');
+    echo Utils::includeBuffering(CONTROLLERS . $controller . '.php');
 } else {
-    include CONTROLLERS.$controller.'.php';
+    include CONTROLLERS . $controller . '.php';
 }

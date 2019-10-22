@@ -17,14 +17,14 @@ if (isset($url['query'])) {
 
 // Log any other case of URL not parsable that we don't know of yet.
 if ($url === false) {
-    error_log('app/inc/router.php: '.$_SERVER['REQUEST_URI'].' is not parsable.');
+    error_log('app/inc/router.php: ' . $_SERVER['REQUEST_URI'] . ' is not parsable.');
     $url['path'] = '404';
 }
 
 $file = pathinfo($url['path']);
 
 // Real files and folders don't get pre-processed
-if (file_exists($_SERVER['DOCUMENT_ROOT'].$url['path'])
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path'])
     && $url['path'] != '/') {
     return false;
 }
@@ -46,9 +46,9 @@ if ($url['path'] != '/') {
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
 if (substr($temp_url['path'], -1) != '/') {
     unset($temp_url);
-    header('Location:/'.$url['path'].'/');
+    header('Location:/' . $url['path'] . '/');
     exit;
 }
 
 // We can now initialize the application and dispatch urls
-require_once __DIR__.'/init.php';
+require_once __DIR__ . '/init.php';

@@ -16,16 +16,16 @@ if (php_sapi_name() == 'cli-server' || php_sapi_name() == 'cli') {
     $install = '/home/pascalc/releases_insights';
 }
 
-require_once __DIR__.'/constants.php';
+require_once __DIR__ . '/constants.php';
 
 // Autoloading of classes (both /vendor and /classes)
-require_once INSTALL_ROOT.'vendor/autoload.php';
+require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // Initialie our Templating system
-$twig_loader = new Twig_Loader_Filesystem(INSTALL_ROOT.'app/views/templates');
+$twig_loader = new Twig_Loader_Filesystem(INSTALL_ROOT . 'app/views/templates');
 $twig = new Twig_Environment($twig_loader, ['cache' => false]);
 
 // Dispatch urls, we do that only in a Web server context (dev or prod)
 if (php_sapi_name() != 'cli') {
-    require_once INC.'dispatcher.php';
+    require_once INC . 'dispatcher.php';
 }

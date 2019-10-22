@@ -1,6 +1,5 @@
 <?php
 use Cache\Cache;
-use Json\Json;
 Use ReleaseInsights\Utils as Utils;
 
 $buildid = Utils::getBuildID($_GET['buildid']);
@@ -24,7 +23,7 @@ if (!$data = Cache::getKey($cache_id)) {
     $signatures = $data['facets']['signature'];
 
     $data = [
-        'total' => $total_crashes,
+        'total'      => $total_crashes,
         'signatures' => $signatures,
     ];
 

@@ -56,19 +56,19 @@ case "$1" in
         ;;
     -tests)
         php ./vendor/atoum/atoum/bin/atoum -d tests/units/ --use-light-report
-        php ./tests/functional/api.php
-        php ./tests/functional/pages.php
+        # php ./tests/functional/api.php
+        # php ./tests/functional/pages.php
         vendor/bin/php-cs-fixer --diff --dry-run -v fix
-        echo "Checking JavaScript files with ESLint..."
-        if hash eslint 2>/dev/null
-        then
-            if eslint public/js
-            then
-                echogreen "No issues found in JavaScript files."
-            fi
-        else
-            echored "WARNING: eslint is not available. See README.md for instructions."
-        fi
+        # echo "Checking JavaScript files with ESLint..."
+        # if hash eslint 2>/dev/null
+        # then
+        #     if eslint public/js
+        #     then
+        #         echogreen "No issues found in JavaScript files."
+        #     fi
+        # else
+        #     echored "WARNING: eslint is not available. See README.md for instructions."
+        # fi
         exit 1
         ;;
     -tests-server)

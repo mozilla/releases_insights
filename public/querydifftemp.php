@@ -1,12 +1,12 @@
 <?php
 
-require_once __DIR__.'/../app/bootstrap.php';
+require_once __DIR__ . '/../app/bootstrap.php';
 
 $version = $params['version'];
 $query = 'https://bugzilla.mozilla.org/rest/bug?include_fields=id&chfield=cf_status_firefox67&chfieldfrom=2019-03-18&chfieldto=NOW&chfieldvalue=fixed&f0=OP&f1=OP&f10=delta_ts&f11=CP&f12=CP&f13=days_elapsed&f14=attachments.ispatch&f15=flagtypes.name&f2=flagtypes.name&f3=flagtypes.name&f4=flagtypes.name&f5=flagtypes.name&f6=CP&f7=CP&f8=OP&f9=OP&include_fields=id%2Csummary%2Cstatus%2Cproduct%2Ccomponent%2Ckeywords&j9=OR&o10=changedby&o14=substring&o15=substring&o2=substring&o3=substring&o4=changedafter&o5=substring&v15=approval-mozilla-beta%2B';
 // $results = array_column(getJson($query, $query)['bugs'], 'id');
 
-$real = getJson('https://pascalc.net/firefoxuplifts/?version='.$version.'&json')['total'];
+$real = getJson('https://pascalc.net/firefoxuplifts/?version=' . $version . '&json')['total'];
 
 // copy/pasted from a csv for 67 until I get a working api call
 $results = [
@@ -21,17 +21,17 @@ $results = [
     ],
 ];
 
-echo "<h3>In $version hg but not in bugzilla query (".count(array_diff($real, $results[$version])).' bugs):</h3>';
+echo "<h3>In $version hg but not in bugzilla query (" . count(array_diff($real, $results[$version])) . ' bugs):</h3>';
 
 function bugLink($id)
 {
-    return '<a href="https://bugzilla.mozilla.org/'.$id.'">'.$id.'</a>';
+    return '<a href="https://bugzilla.mozilla.org/' . $id . '">' . $id . '</a>';
 }
 foreach (array_diff($real, $results[$version]) as $notinhg) {
-    echo bugLink($notinhg).'<br>';
+    echo bugLink($notinhg) . '<br>';
 }
 
-echo "<h3>In bugzilla query but was not committed to $version beta (".count(array_diff($results[$version], $real)).' bugs):</h3>';
+echo "<h3>In bugzilla query but was not committed to $version beta (" . count(array_diff($results[$version], $real)) . ' bugs):</h3>';
 foreach (array_diff($results[$version], $real) as $notinbz) {
-    echo bugLink($notinbz).'<br>';
+    echo bugLink($notinbz) . '<br>';
 }

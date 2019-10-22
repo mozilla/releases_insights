@@ -39,7 +39,6 @@ class Utils
 
     public static function getDate() : string
     {
-
         // No date provided by the http call, return Today
         if (!isset($_GET['date'])) {
             return date('Ymd');
@@ -59,13 +58,12 @@ class Utils
         }
 
         return self::secureText($buildid);
-
     }
 
     public static function isBuildID($buildid) : bool
     {
         //  BuildIDs should be 14 digits
-        if (strlen($buildid) !==  14) {
+        if (strlen($buildid) !== 14) {
             return false;
         }
 

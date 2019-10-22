@@ -19,7 +19,7 @@ $options = [
             { "match": { "target.locale": "en-US" }},
             { "match": { "target.channel": "nightly" }},
             { "regexp": { "build.target": "x86_64.*" }},
-            { "regexp": { "build.id": "'.$date.'.*" }}
+            { "regexp": { "build.id": "' . $date . '.*" }}
           ]
         }
       }
