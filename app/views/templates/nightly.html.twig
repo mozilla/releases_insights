@@ -1,37 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-  <header>
+  <header class="mx-auto">
     <h1>
       <a href="?date={{ previous_date }}">«</a>
       &nbsp;{{ display_date  }}&nbsp;
-      {% if requested_date != today %}<a href="?date={{ next_date }}">»</a>{% endif %}
+      {% if requested_date != today %}<a href="?date={{ next_date }}">»</a><br><a href="?date={{ today }}" class="btn btn-primary">Today</a>{% endif %}
     </h1>
   </header>
 {% endblock %}
 {% block main %}
-   <ul>
 {% for dataset in nightly_pairs %}
-    <li class="header">
-        <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}">{{  dataset.buildid }}</a>
-        <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}">Changelog</a>
-        <a href="{{ bug_list[dataset.buildid].url }}">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
-        <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature&product=Firefox">{{build_crashes[dataset.buildid] }} crashes</a>
-        <ol>
-{%for sig in top_sigs[dataset.buildid] %}
-            <li
-{%- if sig.term == 'IPCError-browser | ShutDownKill' %}
- class="shutDownCrash"
-{%- elseif ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) > 10 %}
- class="topCrash"
-{%- endif %}><a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a> <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b></li>
-{% endfor %}
-        </ol>
+   <ul class="list-group list-group-horizontal">
+        <li class="list-group-item bg-info">
+            <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}" class="text-light">{{  dataset.buildid }}</a>
+        </li>
+        <li class="list-group-item text-light bg-secondary">
+            <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
+        </li>
+        <li class="list-group-item text-light bg-success">
+            <a href="{{ bug_list[dataset.buildid].url }}" class="text-light">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
+        </li>
+        <li class="list-group-item text-light bg-danger">
+            <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
+        </li>
+    </ul>
+    <ol>
+    {%for sig in top_sigs[dataset.buildid] %}
+    {% if sig.term == 'IPCError-browser | ShutDownKill' %}
+        {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
+    {% elseif ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) > 10 %}
+        {% set button, alert = 'btn btn-danger btn-sm', 'Top crash' %}
+    {% else %}
+        {% set button, alert = '', '' %}
+    {% endif %}
+    <li>
+        <a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}" ">{{ sig.term }}</a> <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span>
     </li>
+    {% endfor %}
+    </ol>
 {% else %}
 <p>No Nightly build released yet today</p>
 {% endfor %}
-</ul>
 {% endblock %}
 
 {% block footer %}

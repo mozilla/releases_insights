@@ -2,150 +2,27 @@
 
 
 /* General structure */
-
-html {
-    background-color: #cce0f0;
-}
-
 body {
-    color: #333;
-    font-family: Arial, sans-serif;
-    font-size: 1em;
-    line-height: 1.5;
-    margin: 0 auto;
-    padding: 0;
+    width: 80%;
 }
 
-#pagecontent {
-    padding: 0 15px;
-}
-
-a,
-a:visited {
-    color: #0095dd;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #00539f;
-    text-decoration: underline;
-}
-
-/* Titles */
-
-h1,
-h2 {
-    color: #333;
-    font-size: 1.5em;
+header {
+    width: 30%;
     text-align: center;
-    margin: 0.5em auto;
-    width: 90%;
-    clear: both;
-    max-width: 1014px;
 }
 
-h1 a,
-h1 a:visited {
-    color: #333;
-}
-
-h2 {
-    border-bottom: 1px solid #a9a9a9;
-    padding: 15px 0;
-}
-
-h3 {
-    width: 100%;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 18px;
-    margin: 0 auto;
-}
-
-h1,
-h2,
-h3 {
-    font-weight: normal;
-}
-
-/* Tables */
-
-table {
-    border-collapse: collapse;
-    margin: 0.5em auto;
-}
-
-tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.6);
-}
-
-tr.column_headers {
-    background-color: transparent;
-    box-shadow: none;
-}
-
-th {
-    padding: 0.5em;
-}
-
-td {
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    padding: 0.5em;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    vertical-align: top;
-}
-
-td a em {
-    font-style: normal;
-    color: #ed3860;
-}
-
-/* colors for results */
-
-table tr td:first-child {
-    color: #3c8fd1;
-}
-
-/* localhost/nightly page */
-#todayinnightly ul  {
-    list-style-type:none;
-}
-#todayinnightly ul li.header > a {
-    border: 1px solid #3c8fd1;
-    background-color: white;
-    display: inline-block;
-    padding: 0 5px;
-    min-width: 9em;
-    text-align:center;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-}
 
 /* crashes on Nightly page */
-.shutDownCrash:after {
-    content: " regular top crash";
-    color: gray;
+
+#todayinnightly .btn-sm {
+    line-height: 1em;
 }
 
-
-.topCrash  {
-    max-width: 40%;
-}
-.topCrash  * {
-    background-color: red;
-    color: white !important;
-    display:  block;
-    float:left;
-    padding-right: 1em;
+#todayinnightly ol {
+    line-height: 1.5em;
+    margin-top: 1em;
 }
 
-.topCrash:after {
-    content: "Top crash";
-    color: red;
-    padding: 0 1em;
+#todayinnightly ol li {
+    margin-top: 0.4em;
 }

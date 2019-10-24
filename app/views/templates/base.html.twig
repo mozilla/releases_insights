@@ -5,13 +5,18 @@
     <title>{{ page_title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 {% for css_file in css_files %}
     <link rel="stylesheet" href="/style/{{ css_file }}" type="text/css" media="all" />
 {% endfor %}
   </head>
-  <body id="{{ css_page_id }}">
+  <body id="{{ css_page_id }}" class="container-fluid  px-lg-5">
     {% block header %}{% endblock %}
+  <div class="row center">
+    <div class="col">
     {% block main   %}{% endblock %}
+    </div>
+  </div>
     {% block footer %}{% endblock %}
   </body>
 </html>
