@@ -24,7 +24,8 @@
    "require": {
         "mozillal10n/cache": "~0.1",
         "mozillal10n/json": "~0.1",
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+        "twbs/bootstrap": "4.3.1"
     },
     "require-dev": {
         "atoum/atoum" : "~3.0",
@@ -36,5 +37,11 @@
     "autoload": {
         "psr-0": {"ReleaseInsight": "app/classes/"},
         "files": ["app/helpers/debug.php"]
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "rm -rf public/assets/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap"
+        ]
     }
 }
