@@ -125,3 +125,27 @@ table tr td:first-child {
     margin-top: 1em;
     margin-bottom: 0.5em;
 }
+
+/* crashes on Nightly page */
+.shutDownCrash:after {
+    content: " regular top crash";
+    color: gray;
+}
+
+
+.topCrash  {
+    max-width: 40%;
+}
+.topCrash  * {
+    background-color: red;
+    color: white !important;
+    display:  block;
+    float:left;
+    padding-right: 1em;
+}
+
+.topCrash:after {
+    content: "Top crash";
+    color: red;
+    padding: 0 1em;
+}
