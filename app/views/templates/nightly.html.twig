@@ -21,14 +21,15 @@
         <li class="list-group-item text-light bg-success">
             <a href="{{ bug_list[dataset.buildid].url }}" class="text-light">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
         </li>
+        <li class="list-group-item text-light bg-primary">
+              <a class="text-light" data-toggle="collapse" href="#collapseExample{{  dataset.buildid }}">Show list of bugs</a>
+        </li>
         <li class="list-group-item text-light bg-danger">
             <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
         </li>
     </ul>
     <p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{  dataset.buildid }}">
-    Show list of bugs
-  </a>
+
 </p>
 <div class="collapse" id="collapseExample{{  dataset.buildid }}">
   <div class="card card-body">
