@@ -13,7 +13,7 @@
 {% for dataset in nightly_pairs %}
    <ul class="list-group list-group-horizontal">
         <li class="list-group-item bg-info">
-            <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}" class="text-light">{{  dataset.buildid }}</a>
+            <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}" class="text-light">{{ dataset.buildid }}</a>
         </li>
         <li class="list-group-item text-light bg-secondary">
             <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
@@ -25,6 +25,23 @@
             <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
         </li>
     </ul>
+    <p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{  dataset.buildid }}">
+    Show list of bugs
+  </a>
+</p>
+<div class="collapse" id="collapseExample{{  dataset.buildid }}">
+  <div class="card card-body">
+    <ul>
+    {%for details in bug_list[dataset.buildid].bugs %}
+    <li>
+        <a href="https://bugzilla.mozilla.org/{{ details.id }}">{{ details.id }}</a> {{ details.summary }}
+    </li>
+    {% endfor %}
+
+    </ul>
+  </div>
+</div>
     <ol>
     {%for sig in top_sigs[dataset.buildid] %}
     {% if sig.term == 'IPCError-browser | ShutDownKill' %}
@@ -35,7 +52,7 @@
         {% set button, alert = '', '' %}
     {% endif %}
     <li>
-        <a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}" ">{{ sig.term }}</a> <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span>
+        <a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a> <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span>
     </li>
     {% endfor %}
     </ol>
