@@ -2,7 +2,7 @@
 use Cache\Cache;
 Use ReleaseInsights\Utils as Utils;
 
-$buildid = Utils::getBuildID($_GET['buildid']);
+$buildid = Utils::getBuildID($_GET['buildid'] ?? '');
 
 $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
@@ -23,6 +23,7 @@ if (!$data = Cache::getKey($cache_id)) {
     $signatures = $data['facets']['signature'];
 
     $data = [
+        'buildid'    => $buildid,
         'total'      => $total_crashes,
         'signatures' => $signatures,
     ];
