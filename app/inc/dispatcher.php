@@ -24,6 +24,11 @@ switch ($url['path']) {
         $css_page_id = 'todayinnightly';
         $page_title = 'Nightly crashes for a day';
         break;
+    case 'beta':
+        $controller = 'beta';
+        $css_page_id = 'beta';
+        $page_title = 'General statictics for betas';
+        break;
     case 'api/nightly':
         $controller = 'api_nightly';
         $template = false;
