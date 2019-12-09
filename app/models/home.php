@@ -28,6 +28,10 @@ $content = <<<'EOD'
         <td><a href="/nightly/?date=20190923">/nightly/?date=20190923</a></td>
         <td>Provides the list of nightly buildids for a day, their crashes, changelog, bugs fixed</td>
     </tr>
+    <tr>
+        <td><a href="/beta/">/beta</a></td>
+        <td>Provides the list of beta builds for the current release, their crashes, uplifts</td>
+    </tr>
 </table>
 
 
