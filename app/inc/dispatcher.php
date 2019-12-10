@@ -27,7 +27,12 @@ switch ($url['path']) {
     case 'beta':
         $controller = 'beta';
         $css_page_id = 'beta';
-        $page_title = 'General statictics for betas';
+        $page_title = 'General statistics for betas';
+        break;
+    case 'release':
+        $controller = 'release';
+        $css_page_id = 'release';
+        $page_title = 'General statistics for releases';
         break;
     case 'api/nightly':
         $controller = 'api_nightly';

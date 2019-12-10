@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+  <header><h1>{{ page_title  }}</h1></header>
+{% endblock %}
+
+{% block main %}
+
+
+  <h3>Current Release: {{ current_release }}</h3>
+  <p>{{ page_content | raw}}</p>
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+{% endblock %}

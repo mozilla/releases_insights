@@ -109,9 +109,9 @@ class Utils
         return is_array($string) ? array_map($sanitize, $string) : $sanitize($string);
     }
 
-    public static function getJson(string $url) : array
+    public static function getJson(string $url, $ttl = 0) : array
     {
-        if (!$data = Cache::getKey($url)) {
+        if (!$data = Cache::getKey($url, $ttl = 0)) {
             $data = file_get_contents($url);
 
            // No data returned, bug or incorrect date, don't cache.

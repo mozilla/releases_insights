@@ -32,6 +32,10 @@ $content = <<<'EOD'
         <td><a href="/beta/">/beta</a></td>
         <td>Provides the list of beta builds for the current release, their crashes, uplifts</td>
     </tr>
+    <tr>
+        <td><a href="/release/">/release</a></td>
+        <td>Provides historical data for past releases</td>
+    </tr>
 </table>
 
 
