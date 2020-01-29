@@ -70,3 +70,5 @@ foreach ($nightly_pairs as $dataset) {
         'count' => count($bugs),
     ];
 }
+
+$known_top_crashes = ['IPCError-browser | ShutDownKill', 'OOM | small'];
