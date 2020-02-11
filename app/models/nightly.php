@@ -71,4 +71,10 @@ foreach ($nightly_pairs as $dataset) {
     ];
 }
 
-$known_top_crashes = ['IPCError-browser | ShutDownKill', 'OOM | small'];
+$known_top_crashes = [
+    'IPCError-browser | ShutDownKill | mozilla::ipc::MessagePump::Run',
+    'IPCError-browser | ShutDownKill | NtYieldExecution',
+    'IPCError-browser | ShutDownKill | EMPTY: no crashing thread identified; ERROR_NO_MINIDUMP_HEADER',
+    'IPCError-browser | ShutDownKill',
+    'OOM | small',
+];
