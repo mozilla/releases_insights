@@ -51,7 +51,7 @@ foreach ($nightly_pairs as $dataset) {
 $top_sigs = [];
 foreach ($nightly_pairs as $dataset) {
     $top_sigs[$dataset['buildid']] = array_splice(
-        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'], 0, 10
+        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'], 0, 20
     );
 }
 
@@ -70,3 +70,11 @@ foreach ($nightly_pairs as $dataset) {
         'count' => count($bugs),
     ];
 }
+
+$known_top_crashes = [
+    'IPCError-browser | ShutDownKill | mozilla::ipc::MessagePump::Run',
+    'IPCError-browser | ShutDownKill | NtYieldExecution',
+    'IPCError-browser | ShutDownKill | EMPTY: no crashing thread identified; ERROR_NO_MINIDUMP_HEADER',
+    'IPCError-browser | ShutDownKill',
+    'OOM | small',
+];

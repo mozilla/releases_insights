@@ -1,6 +1,8 @@
 <?php
+
+$yesterday = date('Ymd',strtotime("yesterday"));
 // No data to prepare yet
-$content = <<<'EOD'
+$content = <<<"EOD"
 
 <h3>Public Json API</h3>
 <p>All APIs are under the <code>api/</code> endpoint.
@@ -10,7 +12,7 @@ $content = <<<'EOD'
         <th>url</th><th>Description</th>
     </tr>
     <tr>
-        <td><a href="/api/nightly/?date=20190923">/api/nightly/?date=20190923</a></td>
+        <td><a href="/api/nightly/?date={$yesterday}">/api/nightly/?date={$yesterday}</a></td>
         <td>Provides the list of nightly buildids for a day and the changeset they were built (data from buildhub)</td>
     </tr>
     <tr>
@@ -25,7 +27,7 @@ $content = <<<'EOD'
         <th>url</th><th>Description</th>
     </tr>
     <tr>
-        <td><a href="/nightly/?date=20190923">/nightly/?date=20190923</a></td>
+        <td><a href="/nightly/?date={$yesterday}">/nightly/?date={$yesterday}</a></td>
         <td>Provides the list of nightly buildids for a day, their crashes, changelog, bugs fixed</td>
     </tr>
     <tr>
