@@ -61,7 +61,6 @@ $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
 
 // Number of Beta builds
 // $beta_count= count($firefox_releases['firefox-' . FIREFOX_RELEASE] . 'b');
-
 $beta_count = count(array_filter(
     $firefox_releases,
     function($k) use ($requested_version) {
@@ -72,3 +71,24 @@ $beta_count = count(array_filter(
 
 // Number of RC builds
 $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
+
+// Number of dot releases
+$dot_release_count = count(array_filter(
+    $firefox_releases,
+    function($k) use ($requested_version) {
+        return Utils::startsWith($k, 'firefox-' . $requested_version . '.');
+    },
+    ARRAY_FILTER_USE_KEY
+));
+
+// Number of bugs fixed in nightly
+$nightly_fixes = Bz::getBugsFromHgWeb(
+    'https://hg.mozilla.org/mozilla-central/json-pushes'
+    . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version -1) . '_END'
+    . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
+    . '&full&version=2'
+    , true
+);
+
+// $nightly_fixes_url  = Bz::getBugListLink($nightly_fixes['total']);
+// $nightly_fixess_url = Bz::getBugListLink($nightly_fixes['backouts']);
