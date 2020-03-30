@@ -5,8 +5,10 @@ require_once MODELS . 'release.php';
 echo $twig->render(
     'release.html.twig',
     [
-        'release'               => (int) $requested_version,
+        'css_files'             => $css_files,
+        'css_page_id'           => $css_page_id,
         'page_title'            => $page_title,
+        'release'               => (int) $requested_version,
         'release_date'          => $last_release_date,
         'previous_release_date' => $previous_release_date,
         'beta_cycle_length'     => $beta_cycle_length,

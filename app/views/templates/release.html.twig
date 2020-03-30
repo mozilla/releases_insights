@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-  <header><h1>{{ page_title  }}</h1></header>
+  <header class="mx-auto">
+    <h1>
+      <a href="?version={{ release -1 }}">«</a>
+      &nbsp;Firefox&nbsp;{{ release }}&nbsp;
+      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Current</a>{% endif %}
+    </h1>
+  </header>
 {% endblock %}
 
 {% block main %}
-
-
-  <h3>Release: {{ release }}</h3>
   <ul>
     <li>Release Date: {{ release_date }} </li>
-    <li><em>(<a href="./?version={{ release -1 }}">Previous Release: {{ previous_release_date }}</a>)</em></li>
     <li>Beta cycle length: {{ beta_cycle_length }} weeks</li>
     <li>Nightly cycle length: {{ nightly_cycle_length }} weeks</li>
     <li>Uplifts in Beta: <a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ beta_backouts_url }}">{{ beta_uplifts.backouts|length }} backed out</a></li>

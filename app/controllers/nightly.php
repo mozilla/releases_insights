@@ -5,10 +5,10 @@ require_once MODELS . 'nightly.php';
 echo $twig->render(
     'nightly.html.twig',
     [
-        'page_title'        => $page_title,
-        'display_date'      => $display_date,
         'css_files'         => $css_files,
         'css_page_id'       => $css_page_id,
+        'page_title'        => $page_title,
+        'display_date'      => $display_date,
         'nightly_pairs'     => $nightly_pairs,
         'build_crashes'     => $build_crashes,
         'top_sigs'          => $top_sigs,
