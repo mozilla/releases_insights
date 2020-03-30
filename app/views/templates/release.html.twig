@@ -10,7 +10,7 @@
   <h3>Release: {{ release }}</h3>
   <ul>
     <li>Release Date: {{ release_date }} </li>
-    <li><em>(Previous Release: {{ previous_release_date }})</em></li>
+    <li><em>(<a href="./?version={{ release -1 }}">Previous Release: {{ previous_release_date }}</a>)</em></li>
     <li>Beta cycle length: {{ beta_cycle_length }} weeks</li>
     <li>Nightly cycle length: {{ nightly_cycle_length }} weeks</li>
     <li>Uplifts in Beta: <a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ beta_backouts_url }}">{{ beta_uplifts.backouts|length }} backed out</a></li>
