@@ -5,7 +5,18 @@ require_once MODELS . 'release.php';
 $template = $twig->loadTemplate('release.html.twig');
 
 echo $template->render([
-    'current_release'=> FIREFOX_RELEASE,
-    'page_title'     => $page_title,
+    'release'               => (int) $requested_version,
+    'page_title'            => $page_title,
+    'release_date'          => $last_release_date,
+    'previous_release_date' => $previous_release_date,
+    'cycle_length'          => $cycle_length,
+    'beta_uplifts'          => $beta_uplifts,
+    'rc_uplifts'            => $rc_uplifts,
+    'rc_uplifts_url'        => $rc_uplifts_url,
+    'rc_backouts_url'       => $rc_backouts_url,
+    'beta_uplifts_url'      => $beta_uplifts_url,
+    'beta_backouts_url'     => $beta_backouts_url,
+    'rc_count'              => $rc_count,
+    'beta_count'            => $beta_count,
 ]);
 

@@ -7,8 +7,19 @@
 {% block main %}
 
 
-  <h3>Current Release: {{ current_release }}</h3>
+  <h3>Release: {{ release }}</h3>
+  <ul>
+    <li>Release Date: {{ release_date }} </li>
+    <li><em>(Previous Release: {{ previous_release_date }})</em></li>
+    <li>Cycle length: {{ cycle_length }} weeks</li>
+    <li>Uplifts in Beta: <a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ beta_backouts_url }}">{{ beta_uplifts.backouts|length }} backed out</a></li>
+    <li>Uplifts in RC: <a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ rc_backouts_url }}">{{ rc_uplifts.backouts|length }} backed out</a></li>
+    <li>Number of RC builds: {{ rc_count }}</li>
+    <li>Number of Beta builds: {{ beta_count }}</li>
+  </ul>
+
   <p>{{ page_content | raw}}</p>
+
 {% endblock %}
 
 {% block footer %}

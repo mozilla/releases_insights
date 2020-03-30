@@ -39,6 +39,7 @@ class Bugzilla
                     'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing',
                     '[mozharness]', 'r=aki', 'r=tomprince', 'r=mtabara', 'a=jorgk',
                     'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage', 'a=expectation-update-for-worker-image',
+                    'a=repo-update'
                 ])) {
                     continue;
                 }
