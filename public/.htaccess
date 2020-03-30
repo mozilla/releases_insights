@@ -54,6 +54,7 @@
         AddOutputFilterByType DEFLATE text/javascript
         AddOutputFilterByType DEFLATE text/plain
         AddOutputFilterByType DEFLATE text/xml
+        AddOutputFilterByType DEFLATE text/html
     </IfModule>
 
 </IfModule>
