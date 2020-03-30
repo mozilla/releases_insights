@@ -6,7 +6,7 @@
       }
 
       path {
-        fill: transparent !important;
+        fill: white !important;
       }
     }
 
