@@ -15,12 +15,19 @@ $requested_version = number_format($requested_version, 1);
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
 $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
+
+// Needed for beta cycle length calculation
 $previous_release_date = $firefox_releases['firefox-' . number_format(($requested_version - 1.0), 1)]['date'];
+
+// Needed for nightly cycle length calculation
+$nightly_start_date = $firefox_releases['firefox-' . number_format(($requested_version - 2.0), 1)]['date'];
 
 // Calculate the number of weeks between the 2 releases
 $date1 = new DateTime($last_release_date);
 $date2 = new DateTime($previous_release_date);
-$cycle_length = $date1->diff($date2)->days / 7;
+$date3 = new DateTime($nightly_start_date);
+$beta_cycle_length = $date1->diff($date2)->days / 7;
+$nightly_cycle_length = $date2->diff($date3)->days / 7;
 
 // Get Beta uplifts
 
