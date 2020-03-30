@@ -2,10 +2,12 @@
 
 require_once MODELS . 'home.php';
 
-$template = $twig->loadTemplate('regular.html.twig');
-echo $template->render([
-    'page_title'   => $page_title,
-    'css_files'    => $css_files,
-    'css_page_id'  => $css_page_id,
-    'page_content' => $content,
-]);
+echo $twig->render(
+    'regular.html.twig',
+    [
+        'page_title'   => $page_title,
+        'css_files'    => $css_files,
+        'css_page_id'  => $css_page_id,
+        'page_content' => $content,
+    ]
+);

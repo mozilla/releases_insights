@@ -44,8 +44,8 @@ $main_esr     = (int) (ESR_NEXT != "" ? ESR_NEXT : ESR);
 $last_beta    = (int) str_replace($main_beta .'.0b', '', FIREFOX_BETA);
 
 // Initialize our Templating system
-$twig_loader = new Twig_Loader_Filesystem(INSTALL_ROOT . 'app/views/templates');
-$twig = new Twig_Environment($twig_loader, ['cache' => false]);
+$twig_loader = new \Twig\Loader\FilesystemLoader(INSTALL_ROOT . 'app/views/templates');
+$twig = new \Twig\Environment($twig_loader, ['cache' => false]);
 
 // Dispatch urls, we do that only in a Web server context (dev or prod)
 if (php_sapi_name() != 'cli') {
