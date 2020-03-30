@@ -14,11 +14,6 @@
             "type": "vcs",
             "url": "https://github.com/mozilla-l10n/phpclass-json",
             "no-api": true
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/pascalchevrel/Verif/",
-            "no-api": true
         }
     ],
    "require": {
@@ -26,13 +21,12 @@
         "mozillal10n/json": "~0.1",
         "twig/twig": "^2.0",
         "twbs/bootstrap": "4.3.1",
-        "psy/psysh": "@stable"
+        "psy/psysh": "@stable",
+        "components/jquery": "^3.4"
     },
     "require-dev": {
-        "atoum/atoum" : "~3.0",
         "symfony/var-dumper": "~2.6",
-        "friendsofphp/php-cs-fixer": "~2.1",
-        "pchevrel/verif": "0.4"
+        "friendsofphp/php-cs-fixer": "~2.1"
     },
 
     "autoload": {
@@ -42,7 +36,10 @@
     "scripts": {
         "post-update-cmd": [
             "rm -rf public/assets/bootstrap",
-            "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap"
+            "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap",
+            "rm -rf public/assets/jquery",
+            "cp -R vendor/components/jquery/ public/assets/jquery",
+            "rm public/assets/jquery/README.md"
         ]
     }
 }
