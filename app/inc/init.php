@@ -25,7 +25,7 @@ require_once __DIR__ . '/constants.php';
 require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // Caching defaults
-const CACHE_TIME = 3600*6;
+const CACHE_TIME = 3600*72;
 
 // Cache Product Details versions, we use Firefox version numbers in most views
 $firefox_versions = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_versions.json');

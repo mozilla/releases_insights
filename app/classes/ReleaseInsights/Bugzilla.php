@@ -8,9 +8,9 @@ class Bugzilla
         return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 
-    public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false) : array
+    public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0) : array
     {
-        $results = Utils::getJson($query)['pushes'];
+        $results = Utils::getJson($query, $cache_ttl)['pushes'];
         $changesets = array_column($results, 'changesets');
         $bug_fixes = [];
         $backouts = [];

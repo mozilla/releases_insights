@@ -40,6 +40,7 @@ $beta_uplifts = Bz::getBugsFromHgWeb(
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2'
     , true
+    , 3600 * 24 * 365
 );
 
 $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
@@ -54,6 +55,7 @@ $rc_uplifts = Bz::getBugsFromHgWeb(
     . '&tochange=FIREFOX_RELEASE_' . ((int) $requested_version) . '_END'. $typo_fix_74
     . '&full&version=2'
     , true
+    , 3600 * 24 * 365
 );
 
 $rc_uplifts_url  = Bz::getBugListLink($rc_uplifts['total']);
@@ -88,7 +90,5 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
     . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
     . '&full&version=2'
     , true
+    , 3600 * 24 * 365
 );
-
-// $nightly_fixes_url  = Bz::getBugListLink($nightly_fixes['total']);
-// $nightly_fixess_url = Bz::getBugListLink($nightly_fixes['backouts']);
