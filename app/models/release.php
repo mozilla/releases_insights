@@ -34,14 +34,14 @@ $nightly_cycle_length = $date2->diff($date3)->days / 7;
 // Before 4 week schedule, uplifts started with beta 3
 $uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' :'_0b3_RELEASE';
 
-$beta_uplifts = Bz::getBugsFromHgWeb(
-    'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
+
+$beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '?fromchange=FIREFOX_' . (int) $requested_version . $uplift_start
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
-    . '&full&version=2'
-    , true
-    , 3600 * 24 * 365
-);
+    . '&full&version=2';
+
+$beta_uplifts = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
+$beta_changelog = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
 
 $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
 $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
@@ -49,14 +49,13 @@ $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
 $typo_fix_74 = (int) $requested_version == '74' ? '.' : '';
 
 // Get RC uplifts
-$rc_uplifts = Bz::getBugsFromHgWeb(
-    'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
+$rc_changelog = 'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
     . '?fromchange=FIREFOX_RELEASE_' . ((int) $requested_version) . '_BASE'
     . '&tochange=FIREFOX_RELEASE_' . ((int) $requested_version) . '_END'. $typo_fix_74
-    . '&full&version=2'
-    , true
-    , 3600 * 24 * 365
-);
+    . '&full&version=2';
+
+$rc_uplifts = Bz::getBugsFromHgWeb($rc_changelog, true, 3600 * 24 * 365);
+$rc_changelog = str_replace('json-pushes', 'pushloghtml', $rc_changelog);
 
 $rc_uplifts_url  = Bz::getBugListLink($rc_uplifts['total']);
 $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);

@@ -18,8 +18,8 @@
     {% if release > 57 %}
     <li>Fixes in nightly: {{ nightly_fixes.total|length }} bugs fixed</li>
     {% endif %}
-    <li>Uplifts in Beta: <a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ beta_backouts_url }}">{{ beta_uplifts.backouts|length }} backed out</a></li>
-    <li>Uplifts in RC: <a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ rc_backouts_url }}">{{ rc_uplifts.backouts|length }} backed out</a></li>
+    <li>Uplifts in <a href="{{ beta_changelog }}">Beta</a>: <a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ beta_backouts_url }}">{{ beta_uplifts.backouts|length }} backed out</a></li>
+    <li>Uplifts in <a href="{{ rc_changelog }}">RC</a>: <a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }} uplifted bugs</a>  of which <a href="{{ rc_backouts_url }}">{{ rc_uplifts.backouts|length }} backed out</a></li>
     <li>Number of RC builds: {{ rc_count }}</li>
     <li>Number of Beta builds: {{ beta_count }}</li>
     <li>Number of dot releases: {{ dot_release_count }}</li>
