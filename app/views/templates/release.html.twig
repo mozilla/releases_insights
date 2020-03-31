@@ -5,26 +5,46 @@
     <h1>
       <a href="?version={{ release -1 }}">«</a>
       &nbsp;Firefox&nbsp;{{ release }}&nbsp;
-      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Current</a>{% endif %}
+      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Latest Release</a>{% endif %}
     </h1>
   </header>
 {% endblock %}
 
 {% block main %}
-  <ul>
-    <li>Release Date: {{ release_date }} </li>
-    <li>Beta cycle length: {{ beta_cycle_length|number_format }} weeks</li>
-    <li>Nightly cycle length: {{ nightly_cycle_length|number_format }} weeks</li>
+  <table class="table table-striped table-bordered table-sm w-50 justify-content-center">
+    <tr>
+      <th class=" w-25">Release Date</th><td>{{ release_date }}</td>
+    </tr>
+    <tr>
+      <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
+    </tr>
+    <tr>
+      <th>Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
+    </tr>
     {% if release > 57 %}
-    <li>Fixes in nightly: {{ nightly_fixes.total|length }} bugs fixed</li>
+    <tr>
+      <th>Bugs fixed in nightly</th><td>{{ nightly_fixes.total|length }}</td>
+    </tr>
     {% endif %}
-    <li>Uplifts in <a href="{{ beta_changelog }}">Beta</a>: <a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }} uplifted bugs</a> of which {{ beta_uplifts.backouts|length }} backouts</li>
-    <li>Uplifts in <a href="{{ rc_changelog }}">RC</a>: <a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }} uplifted bugs</a>  of which {{ rc_uplifts.backouts|length }} backouts</li>
-    <li>Total number of uplifts {{ beta_uplifts.total|length + rc_uplifts.total|length}} </li>
-    <li>Number of RC builds: {{ rc_count }}</li>
-    <li>Number of Beta builds: {{ beta_count }}</li>
-    <li>Number of dot releases: {{ dot_release_count }}</li>
-  </ul>
+    <tr>
+      <th>Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backouts)</td>
+    </tr>
+    <tr>
+      <th>Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backouts)</td>
+    </tr>
+    <tr>
+      <th>Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length}}</td>
+    </tr>
+    <tr>
+      <th>Betas</th><td>{{ beta_count }}</td>
+    </tr>
+    <tr>
+      <th>Release Candidates</th><td>{{ rc_count }}</td>
+    </tr>
+    <tr>
+      <th>Dot releases</th><td>{{ dot_release_count }}</td>
+    </tr>
+    </table>
 
   <p>{{ page_content | raw}}</p>
 

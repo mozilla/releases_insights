@@ -30,3 +30,8 @@ header {
 nav svg {
     fill: #c91111;
 }
+
+.table {
+    margin: 0 auto;
+    width: 90%;
+}
