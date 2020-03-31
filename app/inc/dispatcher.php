@@ -17,6 +17,7 @@ $css_files = ['base.css'];
 switch ($url['path']) {
     case '/':
         $controller = 'homepage';
+        $css_page_id = 'home';
         $page_title = 'Firefox Release Insights tools';
         break;
     case 'nightly':

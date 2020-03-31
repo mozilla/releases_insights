@@ -26,3 +26,7 @@ header {
 #todayinnightly ol li {
     margin-top: 0.4em;
 }
+
+nav svg {
+    fill: #c91111;
+}

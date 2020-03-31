@@ -2,7 +2,7 @@
   <style>
     @media (prefers-color-scheme: dark) {
       svg {
-        background-color: darkred !important;
+        background-color: #c91111 !important;
       }
 
       path {
@@ -15,7 +15,7 @@
         background-color: transparent !important;
       }
       path {
-        fill: darkred !important;
+        fill: #c91111 !important;
       }
     }
 </style></svg>
