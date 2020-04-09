@@ -46,12 +46,10 @@ $beta_changelog = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
 $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
 $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
 
-$typo_fix_74 = (int) $requested_version == '74' ? '.' : '';
-
 // Get RC uplifts
 $rc_changelog = 'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
     . '?fromchange=FIREFOX_RELEASE_' . ((int) $requested_version) . '_BASE'
-    . '&tochange=FIREFOX_RELEASE_' . ((int) $requested_version) . '_END'. $typo_fix_74
+    . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
     . '&full&version=2';
 
 $rc_uplifts = Bz::getBugsFromHgWeb($rc_changelog, true, 3600 * 24 * 365);
