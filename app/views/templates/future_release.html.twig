@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+  <header class="mx-auto">
+    <h1>
+      <a href="?version={{ release -1 }}">«</a>
+      &nbsp;Firefox&nbsp;{{ release }}&nbsp;
+      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Latest Release</a>{% endif %}
+    </h1>
+  </header>
+{% endblock %}
+
+{% block main %}
+
+
+  <p>{{ page_content | raw}}</p>
+
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+{% endblock %}

@@ -3,15 +3,6 @@ use Cache\Cache;
 use ReleaseInsights\Utils as Utils;
 use ReleaseInsights\Bugzilla as Bz;
 
-
-// Analyse version requested
-if (!isset($_GET['version'])) {
-    $_GET['version'] = FIREFOX_RELEASE;
-}
-
-$requested_version = abs((int) $_GET['version']);
-$requested_version = number_format($requested_version, 1);
-
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
 $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
