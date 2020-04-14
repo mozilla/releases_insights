@@ -29,7 +29,7 @@
 
     {% if beta_uplifts %}
     <tr>
-      <th>Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backouts)</td>
+      <th>Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
     </tr>
     {% else %}
     <tr>
@@ -38,7 +38,7 @@
     {% endif %}
 
     <tr>
-      <th>Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backouts)</td>
+      <th>Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backout{{ rc_uplifts.backouts|length != 1 ? 's' }})</td>
     </tr>
     <tr>
       <th>Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length}}</td>

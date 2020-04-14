@@ -31,7 +31,7 @@ $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2';
 
-if ($requested_version != 53 && $requested_version > 47 ) {
+if ($requested_version != 53 && $requested_version > 46 ) {
     $beta_uplifts = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
     $beta_changelog = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
