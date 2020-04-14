@@ -26,9 +26,17 @@
       <th>Bugs fixed in nightly</th><td>{{ nightly_fixes.total|length }}</td>
     </tr>
     {% endif %}
+
+    {% if beta_uplifts %}
     <tr>
       <th>Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backouts)</td>
     </tr>
+    {% else %}
+    <tr>
+      <th>Uplifts in Beta</th><td>Data cannot be extracted from mercurial (missing HG tag for beta)</td>
+    </tr>
+    {% endif %}
+
     <tr>
       <th>Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backouts)</td>
     </tr>

@@ -31,11 +31,14 @@ $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2';
 
-$beta_uplifts = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
-$beta_changelog = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
-
-$beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
-$beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
+if ($requested_version != 53 && $requested_version > 47 ) {
+    $beta_uplifts = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
+    $beta_changelog = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
+    $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
+    $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
+} else {
+        $beta_uplifts = $beta_changelog = $beta_uplifts_url = $beta_backouts_url = false;
+}
 
 // Get RC uplifts
 $rc_changelog = 'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
