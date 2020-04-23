@@ -8,7 +8,7 @@ $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buil
 
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency
-if (!$data = Cache::getKey($cache_id, 3600)) {
+if (!$data = Cache::getKey($cache_id, 1)) {
     $data = file_get_contents($cache_id);
 
     // Extract into an array the values we want from the data source
