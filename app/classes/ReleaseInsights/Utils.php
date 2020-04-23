@@ -24,7 +24,7 @@ class Utils
 
         // If we can't retrieve cached data, we create and cache it.
         // We cache because we want to avoid http request latency
-        if (!$data = Cache::getKey($cache_id)) {
+        if (!$data = Cache::getKey($cache_id, 30)) {
             $data = file_get_contents($cache_id);
 
            // No data returned, bug or incorrect date, don't cache.
