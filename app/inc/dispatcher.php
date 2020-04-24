@@ -4,9 +4,6 @@ Use ReleaseInsights\Utils as Utils;
 
 /* Default values for pages, can be overriden in the switch. */
 
-// Do we insert the page in a Twig template or do we output content directly?
-$template = true;
-
 // We can insert an id to the body of an html page to apply separate styles
 $css_page_id = '';
 
@@ -37,20 +34,14 @@ switch ($url['path']) {
         break;
     case 'api/nightly':
         $controller = 'api_nightly';
-        $template = false;
         break;
     case 'api/nightly/crashes':
         $controller = 'api_nightly_crashes';
-        $template = false;
         break;
     default:
         $controller = '404';
         $page_title = '404: Page Not Found';
         break;
 }
-// Pages can be output directly and not go into a template, especially json raw files
-if (!$template) {
-    echo Utils::includeBuffering(CONTROLLERS . $controller . '.php');
-} else {
-    include CONTROLLERS . $controller . '.php';
-}
+
+include CONTROLLERS . $controller . '.php';
