@@ -4,7 +4,7 @@ Use ReleaseInsights\Utils as Utils;
 
 /* Default values for pages, can be overriden in the switch. */
 
-// Do we insert the page in our default template base.php?
+// Do we insert the page in a Twig template or do we output content directly?
 $template = true;
 
 // We can insert an id to the body of an html page to apply separate styles
