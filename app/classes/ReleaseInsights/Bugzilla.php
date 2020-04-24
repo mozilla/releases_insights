@@ -18,7 +18,15 @@ class Bugzilla
         // Extract bug number from commit message
         $get_bugs = function (string $str) : array {
             if (preg_match_all("/bug \d+/", $str, $matches)) {
-                return array_map('trim', str_replace('bug', '', $matches[0]));
+
+                $matches[0] = array_map(
+                    function (string $str) { return str_replace('bug', '', $str); },
+                    $matches[0]
+                );
+
+                $matches[0] = array_map('trim',$matches[0]);
+
+                return $matches[0];
             }
 
             return [];
