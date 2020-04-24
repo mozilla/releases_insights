@@ -10,13 +10,13 @@ class Bugzilla
 
     public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0) : array
     {
-        $results = Utils::getJson($query, $cache_ttl)['pushes'];
+        $results    = Utils::getJson($query, $cache_ttl)['pushes'];
         $changesets = array_column($results, 'changesets');
-        $bug_fixes = [];
-        $backouts = [];
+        $bug_fixes  = [];
+        $backouts   = [];
 
-        // extract bug number from commit message
-        $get_bugs = function ($str) {
+        // Extract bug number from commit message
+        $get_bugs = function (string $str) : array {
             if (preg_match_all("/bug \d+/", $str, $matches)) {
                 return array_map('trim', str_replace('bug', '', $matches[0]));
             }
@@ -34,13 +34,16 @@ class Bugzilla
                 }
 
                 // Commits can be ignored if they contain one of these strings
-                if (Utils::inString($subitem, [
+                $ignore_list = [
                     'a=test-only', 'a=release', 'a=npotb', 'a=searchfox-only',
                     'try-staging', 'taskcluster', 'a=tomprince', 'a=aki', 'a=testing',
                     '[mozharness]', 'r=aki', 'r=tomprince', 'r=mtabara', 'a=jorgk',
-                    'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage', 'a=expectation-update-for-worker-image',
+                    'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage',
+                    'a=expectation-update-for-worker-image',
                     'a=repo-update'
-                ])) {
+                ];
+
+                if (Utils::inString($subitem, $ignore_list)) {
                     continue;
                 }
 
@@ -73,9 +76,9 @@ class Bugzilla
         $clean_backed_out_bugs = array_diff($backed_out_bugs, $bug_fixes);
 
         return [
-            'bug_fixes'   => array_values($clean_bug_fixes),
-            'backouts'    => array_values($clean_backed_out_bugs),
-            'total'       => array_values(array_merge($clean_bug_fixes, $clean_backed_out_bugs)),
+            'bug_fixes' => array_values($clean_bug_fixes),
+            'backouts'  => array_values($clean_backed_out_bugs),
+            'total'     => array_values(array_merge($clean_bug_fixes, $clean_backed_out_bugs)),
         ];
     }
 }

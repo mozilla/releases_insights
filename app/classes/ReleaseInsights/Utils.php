@@ -7,7 +7,7 @@ use DateTime;
 class Utils
 {
     /* Utility function to include a file and return the output as a string */
-    public static function includeBuffering(string $file): string
+    public static function includeBuffering(string $file) : string
     {
         ob_start();
         include $file;
@@ -47,7 +47,7 @@ class Utils
         // Cast user provided date to an int for security
         $date = (int) $_GET['date'];
 
-        return self::secureText($date);
+        return self::secureText((string) $date);
     }
 
     public static function getBuildID(string $buildid) : string
@@ -60,7 +60,7 @@ class Utils
         return self::secureText($buildid);
     }
 
-    public static function isBuildID($buildid) : bool
+    public static function isBuildID(string $buildid) : bool
     {
         //  BuildIDs should be 14 digits
         if (strlen($buildid) !== 14) {
@@ -73,7 +73,7 @@ class Utils
         }
 
         // The date shouldn't be in the future
-        $date = new DateTime($buildid);
+        $date  = new DateTime($buildid);
         $today = new DateTime();
 
         if ($date > $today) {
@@ -83,33 +83,29 @@ class Utils
         return true;
     }
     /**
-     * Sanitize a string or an array of strings for security before template use.
+     * Sanitize a string for security before template use.
      *
      * @param string $string The string we want to sanitize
      *
      * @return string Sanitized string for security
      */
-    public static function secureText($string)
+    public static function secureText(string $string) : string
     {
-        $sanitize = function ($v) {
-            // CRLF XSS
-            $v = str_replace(['%0D', '%0A'], '', $v);
-            // We want to convert line breaks into spaces
-            $v = str_replace("\n", ' ', $v);
-            // Escape HTML tags and remove ASCII characters below 32
-            $v = filter_var(
-                $v,
-                FILTER_SANITIZE_SPECIAL_CHARS,
-                FILTER_FLAG_STRIP_LOW
-            );
+        // CRLF XSS
+        $string = str_replace(['%0D', '%0A'], '', $string);
+        // We want to convert line breaks into spaces
+        $string = str_replace("\n", ' ', $string);
+        // Escape HTML tags and remove ASCII characters below 32
+        $string = filter_var(
+            $string,
+            FILTER_SANITIZE_SPECIAL_CHARS,
+            FILTER_FLAG_STRIP_LOW
+        );
 
-            return $v;
-        };
-
-        return is_array($string) ? array_map($sanitize, $string) : $sanitize($string);
+        return $string;
     }
 
-    public static function getJson(string $url, $ttl = 0) : array
+    public static function getJson(string $url, int $ttl = 0) : array
     {
         if (!$data = Cache::getKey($url, $ttl = 0)) {
             $data = file_get_contents($url);
@@ -124,7 +120,7 @@ class Utils
         return json_decode($data, true);
     }
 
-    public static function mtrim($string)
+    public static function mtrim(string $string) : string
     {
         $string = explode(' ', $string);
         $string = array_filter($string);
@@ -142,7 +138,7 @@ class Utils
      *
      * @return bool True if the $haystack string starts with a string in $needles
      */
-    public static function startsWith($haystack, $needles)
+    public static function startsWith($haystack, $needles) : bool
     {
         foreach ((array) $needles as $prefix) {
             if (!strncmp($haystack, $prefix, mb_strlen($prefix))) {
