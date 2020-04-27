@@ -6,7 +6,7 @@ $content = <<<"EOD"
 
 <h3>Public Json API</h3>
 <p>All APIs are under the <code>api/</code> endpoint.
-<p>List of currently implemented APIs:</p>
+<h3>APIs</h3>
 <table class="table table-bordered">
     <tr class="thead-dark">
         <th>url</th><th>Description</th>
@@ -27,7 +27,12 @@ $content = <<<"EOD"
         <th>url</th><th>Description</th>
     </tr>
     <tr>
-        <td><a href="/nightly/?date={$yesterday}">/nightly/?date={$yesterday}</a></td>
+        <td>
+            <ul class="list-unstyled mb-0">
+                <li><a href="/nightly/">/nightly/</a> (today)</li>
+                <li><a href="/nightly/?date={$yesterday}">/nightly/?date={$yesterday}</a></li>
+            </ul>
+        </td>
         <td>Provides the list of nightly buildids for a day, their crashes, changelog, bugs fixed</td>
     </tr>
     <tr>
@@ -36,7 +41,7 @@ $content = <<<"EOD"
     </tr>
     <tr>
         <td><a href="/release/">/release</a></td>
-        <td>Provides historical data for past releases</td>
+        <td>Provides historical data for past releases and basic release date information for future releases.</td>
     </tr>
 </table>
 
