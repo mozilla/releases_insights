@@ -1,6 +1,7 @@
 <?php
 use Cache\Cache;
 use ReleaseInsights\Utils as Utils;
+use Twig\Extra\Intl\IntlExtension;
 
 // We always work with UTF8 encoding
 mb_internal_encoding('UTF-8');
@@ -46,6 +47,7 @@ $last_beta    = (int) str_replace($main_beta .'.0b', '', FIREFOX_BETA);
 // Initialize our Templating system
 $twig_loader = new \Twig\Loader\FilesystemLoader(INSTALL_ROOT . 'app/views/templates');
 $twig = new \Twig\Environment($twig_loader, ['cache' => false]);
+$twig->addExtension(new IntlExtension());
 
 // Dispatch urls, we do that only in a Web server context (dev or prod)
 if (php_sapi_name() != 'cli') {

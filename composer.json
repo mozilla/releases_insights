@@ -22,7 +22,8 @@
         "twig/twig": "^3.0",
         "twbs/bootstrap": "4.3.1",
         "psy/psysh": "@stable",
-        "components/jquery": "^3.4"
+        "components/jquery": "^3.4",
+        "twig/intl-extra": "^3.0"
     },
     "require-dev": {
         "symfony/var-dumper": "~2.6",
