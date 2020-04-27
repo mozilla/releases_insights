@@ -11,8 +11,11 @@ if (!isset($_GET['version'])) {
 $requested_version = abs((int) $_GET['version']);
 $requested_version = number_format($requested_version, 1);
 
+// Planned releases
+$upcoming_releases = include DATA .'upcoming_releases.php';
+
 // If this is a release we already shipped, display stats for the release
-if ($requested_version <= FIREFOX_RELEASE)  {
+if ($requested_version <= FIREFOX_RELEASE) {
     require_once MODELS . 'past_release.php';
     $template_file = 'past_release.html.twig';
     $template_data = [
@@ -36,18 +39,34 @@ if ($requested_version <= FIREFOX_RELEASE)  {
         'rc_count'              => $rc_count,
         'beta_count'            => $beta_count,
         'dot_release_count'     => $dot_release_count,
+        'fallback_content'      => ''
     ];
-}
-
-if ($requested_version > FIREFOX_RELEASE)  {
+} elseif ($requested_version > FIREFOX_RELEASE
+    && array_key_exists(
+        (int) $requested_version,
+        $upcoming_releases)
+){
     require_once MODELS . 'future_release.php';
+    $template_file = 'future_release.html.twig';
+    $template_data = [
+        'css_files'             => $css_files,
+        'css_page_id'           => $css_page_id,
+        'page_title'            => $page_title,
+        'release'               => (int) $requested_version,
+        'release_date'          => $release_date,
+        'beta_cycle_length'     => $beta_cycle_length,
+        'nightly_cycle_length'  => $nightly_cycle_length,
+        'fallback_content'      => ''
+    ];
+
+} else {
     $template_file = 'future_release.html.twig';
     $template_data = [
         'css_files'    => $css_files,
         'css_page_id'  => $css_page_id,
         'page_title'   => $page_title,
         'release'      => (int) $requested_version,
-        'page_content' => 'Version not released yet.'
+        'fallback_content' => 'The release date for this version is not yet available in this tool.'
     ];
 
 }

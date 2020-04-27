@@ -4,6 +4,7 @@
 define('INSTALL_ROOT', realpath($install) . '/');
 define('WEB_ROOT', INSTALL_ROOT . 'public/');
 define('APP_ROOT', INSTALL_ROOT . 'app/');
+define('DATA', APP_ROOT . 'data/');
 define('INC', APP_ROOT . 'inc/');
 define('VIEWS', APP_ROOT . 'views/');
 define('MODELS', APP_ROOT . 'models/');
