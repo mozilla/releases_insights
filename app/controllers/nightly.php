@@ -6,7 +6,7 @@ echo $twig->render(
     'nightly.html.twig',
     [
         'css_files'         => $css_files,
-        'css_page_id'       => $css_page_id,
+        'css_page_id'       => $controller,
         'page_title'        => $page_title,
         'display_date'      => $display_date,
         'nightly_pairs'     => $nightly_pairs,
