@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+  <header class="mx-auto">
+      <dl class="list-group list-group-horizontal justify-content-center">
+        <dt class="list-group-item bg-dark text-white">Nightly</dt>
+        <dd class="list-group-item">{{ constant('FIREFOX_NIGHTLY') }}</dd>
+        <dt class="list-group-item bg-dark text-white">Beta</dt>
+        <dd class="list-group-item">{{ constant('FIREFOX_BETA') }}</dd>
+        <dt class="list-group-item bg-dark text-white">Release</dt>
+        <dd class="list-group-item">{{ constant('FIREFOX_RELEASE') }}</dd>
+      </dl>
+  </header>
+{% endblock %}
+
+
+{% block main %}
+
+
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+{% endblock %}
+
