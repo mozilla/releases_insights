@@ -3,31 +3,29 @@ use Cache\Cache;
 use ReleaseInsights\Utils as Utils;
 use ReleaseInsights\Bugzilla as Bz;
 
-// Future release date
-$release_date = $upcoming_releases[(int) $requested_version];
+// Utility function to decrement a version number provided as a string
+$decrementVersion = function(string $version, int $decrement) {
+    return (string) number_format((int) $version - $decrement, 1);
+};
 
-// Historical data from Product Details
-$shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
+// Historical data from Product Details, cache a week
+$shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 604800);
 
-// Previous release
-$pd_key = 'firefox-' . number_format(($requested_version - 1.0), 1);
-if (array_key_exists($pd_key, $shipped_releases)) {
-    $previous_release_date = $shipped_releases[$pd_key]['date'];
-} else {
-    $previous_release_date = $upcoming_releases[$requested_version - 1];
-}
+// Merge with future dates stored locally
+$all_releases = array_merge($shipped_releases, $upcoming_releases);
+
+
+$release_date = $all_releases[(string) $requested_version];
+
+// Future release date object
+$release = new DateTime($release_date);
+
+// Previous release object
+$previous_release = new DateTime($all_releases[$decrementVersion($requested_version, 1)]);
 
 // Release n-2 Needed for nightly cycle length calculation
-$pd_key = 'firefox-' . number_format(($requested_version - 2.0), 1);
-if (array_key_exists($pd_key, $shipped_releases)) {
-    $nightly_start_date = $shipped_releases[$pd_key]['date'];
-} else {
-    $nightly_start_date = $upcoming_releases[$requested_version - 2];
-}
+$nightly_start = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
 
 // Calculate the number of weeks between the 2 releases
-$date1 = new DateTime($release_date);
-$date2 = new DateTime($previous_release_date);
-$date3 = new DateTime($nightly_start_date);
-$beta_cycle_length = $date1->diff($date2)->days / 7;
-$nightly_cycle_length = $date2->diff($date3)->days / 7;
+$beta_cycle_length    = $release->diff($previous_release)->days / 7;
+$nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;

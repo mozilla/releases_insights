@@ -6,7 +6,6 @@
 if (!isset($_GET['version'])) {
     $_GET['version'] = FIREFOX_RELEASE;
 }
-
 // Normalize version number to XX.y
 $requested_version = abs((int) $_GET['version']);
 $requested_version = number_format($requested_version, 1);
@@ -42,10 +41,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'fallback_content'      => ''
     ];
 } elseif ($requested_version > FIREFOX_RELEASE
-    && array_key_exists(
-        (int) $requested_version,
-        $upcoming_releases)
-){
+    && array_key_exists($requested_version, $upcoming_releases)) {
     require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = [
