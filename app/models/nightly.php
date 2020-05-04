@@ -13,7 +13,7 @@ $next_date      = date('Ymd', strtotime($requested_date . ' +1 day'));
 $nightlies = include MODELS . 'api_nightly.php';
 
 // Strore a value for the View title
-$display_date = date('Y M d', strtotime($requested_date));
+$display_date = strtotime($requested_date);
 
 // We now fetch the previous day nightlies because we need them for changelogs
 $_GET['date'] = $previous_date;

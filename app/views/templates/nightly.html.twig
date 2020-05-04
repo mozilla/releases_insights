@@ -4,7 +4,7 @@
   <header class="mx-auto">
     <h1>
       <a href="?date={{ previous_date }}">«</a>
-      &nbsp;{{ display_date  }}&nbsp;
+      &nbsp;{{ display_date|format_datetime('full', 'none', locale='en') }}&nbsp;
       {% if requested_date != today %}<a href="?date={{ next_date }}">»</a><br><a href="?date={{ today }}" class="btn btn-primary">Today</a>{% endif %}
     </h1>
   </header>
