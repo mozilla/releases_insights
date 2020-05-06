@@ -62,7 +62,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'css_page_id'  => $controller,
         'page_title'   => $page_title,
         'release'      => (int) $requested_version,
-        'fallback_content' => 'The release date for this version is not yet available in this tool.'
+        'fallback_content' => '<p class="alert alert-warning text-center w-25 mx-auto">The release date for this version is not yet available.</p>'
     ];
 
 }
