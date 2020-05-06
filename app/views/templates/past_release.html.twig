@@ -6,10 +6,13 @@
       <a href="?version={{ release -1 }}">«</a>
       &nbsp;Firefox&nbsp;{{ release }}&nbsp;
       <a href="?version={{ release +1 }}">»</a>
-      <br>
-      <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}"
-      class="btn btn-primary {{ (release != constant('FIREFOX_RELEASE')) ? ' visible' : ' invisible' }}">Latest Release</a>
     </h1>
+      {% if release != constant('FIREFOX_RELEASE') %}
+        <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}"
+      class="btn btn-primary">Go to current release</a>
+      {% else %}
+        <div class="w-25 alert alert-primary mx-auto" role="alert">This is the version currently shipping to end-users</div>
+      {% endif %}
   </header>
 {% endblock %}
 
