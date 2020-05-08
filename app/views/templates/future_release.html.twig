@@ -12,11 +12,25 @@
 
 {% block main %}
 
+
 {% if not fallback_content %}
+
+  {% if  release == constant('FIREFOX_RELEASE') + 1  %}
+    {% set alert = 'Version currently available on the Beta channel.' %}
+    {% set channel = 'beta' %}
+
+  {% elseif  release == constant('FIREFOX_RELEASE') + 2 %}
+    {% set alert = 'Version currently available on the Nightly channel.' %}
+    {% set channel = 'nightly' %}
+  {% else %}
+    {% set alert = 'Version not released yet.' %}
+    {% set channel = 'future' %}
+  {% endif %}
+
+  <div class="w-25 alert alert-primary mx-auto text-center" role="alert">{{ alert }}</div>
   <table class="table table-striped table-bordered table-sm w-50 justify-content-center">
-    <caption class="alert alert-primary text-center" style="caption-side: top;">This version is not released yet, this release date is a forecast.</caption>
     <tr>
-      <th class="w-25">Release Date</th><td>{{ release_date|format_datetime('long', 'none', locale='en') }} (<i>{{ release_date }}</i>)</td>
+      <th class="w-25">Release Date</th><td>{{ release_date|format_datetime('long', 'none', locale='en') }} {% if channel == 'future' %}(forecast){% endif %}</td>
     </tr>
     <tr>
       <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
@@ -24,6 +38,13 @@
     <tr>
       <th>Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
     </tr>
+
+    {% if channel == 'beta' %}
+    <tr>
+      <th>Current Beta</th><td>{{ constant('FIREFOX_BETA') }} (9 planned betas)</td>
+    </tr>
+    {% endif %}
+
   </table>
 {% endif %}
   {{ fallback_content|raw }}
