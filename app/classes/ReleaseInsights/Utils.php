@@ -96,7 +96,7 @@ class Utils
 
     public static function getJson(string $url, int $ttl = 0) : array
     {
-        if (!$data = Cache::getKey($url, $ttl = 0)) {
+        if (!$data = Cache::getKey($url, $ttl)) {
             $data = file_get_contents($url);
 
            // No data returned, bug or incorrect date, don't cache.
