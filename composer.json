@@ -7,17 +7,11 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/mozilla-l10n/phpclass-cache",
-            "no-api": true
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/mozilla-l10n/phpclass-json",
             "no-api": true
         }
     ],
    "require": {
-        "mozillal10n/cache": "~0.1",
         "mozillal10n/json": "~0.1",
         "twig/twig": "^3.0",
         "twbs/bootstrap": "4.3.1",
@@ -32,7 +26,10 @@
     },
 
     "autoload": {
-        "psr-0": {"ReleaseInsight": "app/classes/"},
+        "psr-4": {
+            "ReleaseInsights\\": "app/classes/ReleaseInsights",
+            "Cache\\": "app/classes/Cache"
+        },
         "files": ["app/helpers/debug.php"]
     },
     "scripts": {
