@@ -28,8 +28,8 @@ require_once INSTALL_ROOT . 'vendor/autoload.php';
 // Caching defaults
 const CACHE_TIME = 3600*72;
 
-// Cache Product Details versions, we use Firefox version numbers in most views
-$firefox_versions = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_versions.json');
+// Cache Product Details versions, we use Firefox version numbers in most views, 12h cache
+$firefox_versions = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_versions.json', 43200);
 
 define('ESR', $firefox_versions["FIREFOX_ESR"]);
 define('ESR_NEXT', $firefox_versions["FIREFOX_ESR_NEXT"]);
