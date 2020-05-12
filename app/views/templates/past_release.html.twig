@@ -58,6 +58,14 @@
     <tr>
       <th>Dot releases</th><td>{{ dot_release_count }}</td>
     </tr>
+    <tr>
+      <th>Release notes</th><td>
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item"><a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}/releasenotes/">Consumer notes</a></li>
+        <li class="list-inline-item"><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a></li>
+      </ul>
+    </td>
+    </tr>
     </table>
 
   <p>{{ fallback_content | raw}}</p>
