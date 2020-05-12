@@ -7,7 +7,7 @@
       &nbsp;Firefox&nbsp;{{ release }}&nbsp;
       <a href="?version={{ release +1 }}">»</a>
     </h1>
-      {% if release != constant('FIREFOX_RELEASE') %}
+      {% if release != constant('FIREFOX_RELEASE')|number_format %}
         <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}"
       class="btn btn-primary">Go to current release</a>
       {% else %}
