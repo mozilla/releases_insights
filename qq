@@ -1,0 +1,103 @@
+[1mdiff --git a/app/controllers/release.php b/app/controllers/release.php[m
+[1mindex 4d2f801..cf0ede0 100644[m
+[1m--- a/app/controllers/release.php[m
+[1m+++ b/app/controllers/release.php[m
+[36m@@ -52,6 +52,7 @@[m [mif ($requested_version <= FIREFOX_RELEASE) {[m
+         'release_date'          => $release_date,[m
+         'beta_cycle_length'     => $beta_cycle_length,[m
+         'nightly_cycle_length'  => $nightly_cycle_length,[m
+[32m+[m[32m        'cycle_dates'           => $cycle_dates,[m
+         'fallback_content'      => ''[m
+     ];[m
+ [m
+[1mdiff --git a/app/models/future_release.php b/app/models/future_release.php[m
+[1mindex 7cc78a3..e20767e 100644[m
+[1m--- a/app/models/future_release.php[m
+[1m+++ b/app/models/future_release.php[m
+[36m@@ -29,3 +29,6 @@[m [m$nightly_start = new DateTime($all_releases[$decrementVersion($requested_version[m
+ // Calculate the number of weeks between the 2 releases[m
+ $beta_cycle_length    = $release->diff($previous_release)->days / 7;[m
+ $nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;[m
+[32m+[m
+[32m+[m[32m// Get the schedule for the release requested[m
+[32m+[m[32m$cycle_dates = include MODELS . 'api_releaseschedule.php';[m
+[1mdiff --git a/app/views/templates/future_release.html.twig b/app/views/templates/future_release.html.twig[m
+[1mindex 8602838..c54b92a 100644[m
+[1m--- a/app/views/templates/future_release.html.twig[m
+[1m+++ b/app/views/templates/future_release.html.twig[m
+[36m@@ -46,6 +46,75 @@[m
+     {% endif %}[m
+ [m
+   </table>[m
+[32m+[m
+[32m+[m[32m  <table class="table table-striped table-bordered table-sm w-50 justify-content-center mt-4">[m
+[32m+[m[32m  <caption class="alert-success mx-auto text-center" style="caption-side:top">Planned Milestones</caption>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th class="w-25 {{ date(cycle_dates.nightly_start) < date() ? ' text-muted font-weight-light' }}">Nightly start</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.nightly_start }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.soft_code_freeze) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.soft_code_freeze) < date() ? ' class="text-muted font-weight-light"' }}>Soft Code Freeze starts</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.soft_code_freeze }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.string_freeze) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.string_freeze) < date() ? ' class="text-muted font-weight-light"' }}>String Freeze starts</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.string_freeze }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.merge_day) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.merge_day) < date() ? ' class="text-muted font-weight-light"' }}>Merge day.</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.merge_day }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_1) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_1) < date() ? ' class="text-muted font-weight-light"' }}>Beta 1</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_1 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_2) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_2) < date() ? ' class="text-muted font-weight-light"' }}>Beta 2</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_2 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_3) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_3) < date() ? ' class="text-muted font-weight-light"' }}>Beta 3</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_3 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_4) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_4) < date() ? ' class="text-muted font-weight-light"' }}>Beta 4</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_4 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_5) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_5) < date() ? ' class="text-muted font-weight-light"' }}>Beta 5</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_5 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_6) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_6) < date() ? ' class="text-muted font-weight-light"' }}>Beta 6</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_6 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_7) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_7) < date() ? ' class="text-muted font-weight-light"' }}>Beta 7</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_7 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_8) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_8) < date() ? ' class="text-muted font-weight-light"' }}>Beta 8</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_8 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>Beta 9 - last beta uplifts</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.beta_9 }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>Build Release Candidate</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.rc_gtb }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.rc) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.rc) < date() ? ' class="text-muted font-weight-light"' }}>RC</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.rc }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m    <tr {{ date(cycle_dates.release) < date() ? ' class="text-muted font-weight-light"' }}>[m
+[32m+[m[32m      <th {{ date(cycle_dates.release) < date() ? ' class="text-muted font-weight-light"' }}>Release day!</th>[m
+[32m+[m[32m      <td>{{ cycle_dates.release }}</td>[m
+[32m+[m[32m    </tr>[m
+[32m+[m[32m  </table>[m
+[32m+[m
+ {% endif %}[m
+   {{ fallback_content|raw }}[m
+ [m

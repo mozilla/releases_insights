@@ -29,3 +29,6 @@ $nightly_start = new DateTime($all_releases[$decrementVersion($requested_version
 // Calculate the number of weeks between the 2 releases
 $beta_cycle_length    = $release->diff($previous_release)->days / 7;
 $nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;
+
+// Get the schedule for the release requested
+$cycle_dates = include MODELS . 'api_releaseschedule.php';
