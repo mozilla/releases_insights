@@ -31,6 +31,9 @@ switch ($url['path']) {
     case 'api/nightly':
         $controller = 'api_nightly';
         break;
+    case 'api/release/schedule':
+        $controller = 'api_releaseschedule';
+        break;
     case 'api/nightly/crashes':
         $controller = 'api_nightly_crashes';
         break;
