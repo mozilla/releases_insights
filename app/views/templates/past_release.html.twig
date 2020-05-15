@@ -18,7 +18,7 @@
 {% block main %}
   <table class="table table-striped table-bordered table-sm w-25 justify-content-center">
     <tr>
-      <th class="w-50">Release Date</th><td>{{ release_date|format_datetime('long', 'none', locale='en') }}</td>
+      <th class="w-50">Release Date</th><td>{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
     <tr>
       <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
