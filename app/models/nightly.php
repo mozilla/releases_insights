@@ -1,6 +1,6 @@
 <?php
 use ReleaseInsights\Bugzilla as Bz;
-use ReleaseInsights\Utils as Utils;
+use ReleaseInsights\Utils;
 
 // We need previous and next days for navigation and changelog
 // The requester date is already in the $date variable
@@ -29,7 +29,8 @@ foreach ($nightlies as $buildid => $changeset) {
         $nightly_pairs[] = [
             'buildid'        => $buildid,
             'changeset'      => $changeset,
-            'prev_changeset' => end($nightlies_day_before), ];
+            'prev_changeset' => end($nightlies_day_before),
+        ];
         $i = false;
         $previous_changeset = $changeset;
         continue;

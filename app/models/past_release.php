@@ -1,17 +1,17 @@
 <?php
 use Cache\Cache;
-use ReleaseInsights\Utils as Utils;
 use ReleaseInsights\Bugzilla as Bz;
+use ReleaseInsights\Utils;
 
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
 $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
 
 // Needed for beta cycle length calculation
-$previous_release_date = $firefox_releases['firefox-' . number_format(($requested_version - 1.0), 1)]['date'];
+$previous_release_date = $firefox_releases['firefox-' . number_format($requested_version - 1.0, 1)]['date'];
 
 // Needed for nightly cycle length calculation
-$nightly_start_date = $firefox_releases['firefox-' . number_format(($requested_version - 2.0), 1)]['date'];
+$nightly_start_date = $firefox_releases['firefox-' . number_format($requested_version - 2.0, 1)]['date'];
 
 // Calculate the number of weeks between the 2 releases
 $date1 = new DateTime($last_release_date);
@@ -23,8 +23,7 @@ $nightly_cycle_length = $date2->diff($date3)->days / 7;
 // Get Beta uplifts
 
 // Before 4 week schedule, uplifts started with beta 3
-$uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' :'_0b3_RELEASE';
-
+$uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' : '_0b3_RELEASE';
 
 $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '?fromchange=FIREFOX_' . (int) $requested_version . $uplift_start
@@ -56,8 +55,8 @@ $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
 // $beta_count= count($firefox_releases['firefox-' . FIREFOX_RELEASE] . 'b');
 $beta_count = count(array_filter(
     $firefox_releases,
-    function($k) use ($requested_version) {
-        return Utils::startsWith($k, 'firefox-' . $requested_version . 'b');
+    function($key) use ($requested_version) {
+        return Utils::startsWith($key, 'firefox-' . $requested_version . 'b');
     },
     ARRAY_FILTER_USE_KEY
 ));
@@ -68,8 +67,8 @@ $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
 // Number of dot releases
 $dot_release_count = count(array_filter(
     $firefox_releases,
-    function($k) use ($requested_version) {
-        return Utils::startsWith($k, 'firefox-' . $requested_version . '.');
+    function($key) use ($requested_version) {
+        return Utils::startsWith($key, 'firefox-' . $requested_version . '.');
     },
     ARRAY_FILTER_USE_KEY
 ));
@@ -77,7 +76,7 @@ $dot_release_count = count(array_filter(
 // Number of bugs fixed in nightly
 $nightly_fixes = Bz::getBugsFromHgWeb(
     'https://hg.mozilla.org/mozilla-central/json-pushes'
-    . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version -1) . '_END'
+    . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
     . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
     . '&full&version=2'
     , true

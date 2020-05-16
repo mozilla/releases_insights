@@ -1,6 +1,6 @@
 <?php
 
-$yesterday = date('Ymd',strtotime("yesterday"));
+$yesterday = date('Ymd',strtotime('yesterday'));
 // No data to prepare yet
 $content = <<<"EOD"
 
@@ -44,6 +44,5 @@ $content = <<<"EOD"
         <td>Provides historical data for past releases and basic release date information for future releases.</td>
     </tr>
 </table>
-
 
 EOD;

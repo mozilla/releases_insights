@@ -1,5 +1,4 @@
 <?php
-
 /* Analyse version requested */
 
 // If there is no version requested show the latest release

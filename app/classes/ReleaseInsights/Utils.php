@@ -85,13 +85,11 @@ class Utils
         // We want to convert line breaks into spaces
         $string = str_replace("\n", ' ', $string);
         // Escape HTML tags and remove ASCII characters below 32
-        $string = filter_var(
+        return filter_var(
             $string,
             FILTER_SANITIZE_SPECIAL_CHARS,
             FILTER_FLAG_STRIP_LOW
         );
-
-        return $string;
     }
 
     public static function getJson(string $url, int $ttl = 0) : array
@@ -113,9 +111,8 @@ class Utils
     {
         $string = explode(' ', $string);
         $string = array_filter($string);
-        $string = implode(' ', $string);
 
-        return $string;
+        return implode(' ', $string);
     }
 
     /**
@@ -127,7 +124,7 @@ class Utils
      *
      * @return bool True if the $haystack string starts with a string in $needles
      */
-    public static function startsWith($haystack, $needles) : bool
+    public static function startsWith(string $haystack, $needles) : bool
     {
         foreach ((array) $needles as $prefix) {
             if (!strncmp($haystack, $prefix, mb_strlen($prefix))) {
@@ -148,7 +145,7 @@ class Utils
      *
      * @return bool True if the $haystack string contains any/all $needles
      */
-    public static function inString($haystack, $needles, $match_all = false)
+    public static function inString(string $haystack, $needles, bool $match_all = false) : bool
     {
         $matches = 0;
         foreach ((array) $needles as $needle) {
@@ -172,7 +169,7 @@ class Utils
      * Utility function to get symfony dump() function output to the CLI
      * http://symfony.com/doc/current/components/var_dumper/
      */
-    function cli_dump() : void
+    public static function cli_dump() : void
     {
         $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
         $dumper = new \Symfony\Component\VarDumper\Dumper\CliDumper();

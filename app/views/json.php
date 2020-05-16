@@ -7,5 +7,5 @@ $json_data = new Json();
 
 echo $json_data->outputContent(
     $json,
-    isset($_GET['callback']) ? $_GET['callback'] : false
+    $_GET['callback'] ?? false
 );

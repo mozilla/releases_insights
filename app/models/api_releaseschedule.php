@@ -1,9 +1,9 @@
 <?php
 
-use ReleaseInsights\Utils as Utils;
+use ReleaseInsights\Utils;
 
 if ($requested_version < 75) {
-    return ['error' => "API only works with 4 week cycle releases."];
+    return ['error' => 'API only works with 4 week cycle releases.'];
 }
 
 // Utility function to decrement a version number provided as a string
@@ -18,7 +18,7 @@ $shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/fire
 $all_releases = array_merge($shipped_releases, $upcoming_releases);
 
 if (! array_key_exists($requested_version, $all_releases)) {
-    return ['error' => "Not enough data for this version number."];
+    return ['error' => 'Not enough data for this version number.'];
 }
 
 // Future release date object

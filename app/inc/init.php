@@ -31,17 +31,17 @@ const CACHE_TIME = 3600*72;
 // Cache Product Details versions, we use Firefox version numbers in most views, 12h cache
 $firefox_versions = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_versions.json', 43200);
 
-define('ESR', $firefox_versions["FIREFOX_ESR"]);
-define('ESR_NEXT', $firefox_versions["FIREFOX_ESR_NEXT"]);
-define('FIREFOX_NIGHTLY', $firefox_versions["FIREFOX_NIGHTLY"]);
-define('DEV_EDITION', $firefox_versions["FIREFOX_DEVEDITION"]);
-define('FIREFOX_BETA', $firefox_versions["LATEST_FIREFOX_RELEASED_DEVEL_VERSION"]);
-define('FIREFOX_RELEASE', $firefox_versions["LATEST_FIREFOX_VERSION"]);
+define('ESR', $firefox_versions['FIREFOX_ESR']);
+define('ESR_NEXT', $firefox_versions['FIREFOX_ESR_NEXT']);
+define('FIREFOX_NIGHTLY', $firefox_versions['FIREFOX_NIGHTLY']);
+define('DEV_EDITION', $firefox_versions['FIREFOX_DEVEDITION']);
+define('FIREFOX_BETA', $firefox_versions['LATEST_FIREFOX_RELEASED_DEVEL_VERSION']);
+define('FIREFOX_RELEASE', $firefox_versions['LATEST_FIREFOX_VERSION']);
 
 $main_nightly = (int) FIREFOX_NIGHTLY;
 $main_beta    = (int) FIREFOX_BETA;
 $main_release = (int) FIREFOX_RELEASE;
-$main_esr     = (int) (ESR_NEXT != "" ? ESR_NEXT : ESR);
+$main_esr     = (int) (ESR_NEXT != '' ? ESR_NEXT : ESR);
 $last_beta    = (int) str_replace($main_beta .'.0b', '', FIREFOX_BETA);
 
 // Initialize our Templating system

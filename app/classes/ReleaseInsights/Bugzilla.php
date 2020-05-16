@@ -3,6 +3,11 @@ namespace ReleaseInsights;
 
 class Bugzilla
 {
+    /**
+     * Create a bugzilla link for multiple bugs
+     * @param array $bug_numbers List of bug numbers
+     * @return string Link
+     */
     public static function getBugListLink(array $bug_numbers) : string
     {
         return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);

@@ -2,8 +2,6 @@
 
 require_once MODELS . 'overview.php';
 
-
-
 echo $twig->render(
     'overview.html.twig',
     [

@@ -15,12 +15,12 @@ namespace Cache;
 class Cache
 {
     /**
-     * @var boolean CACHE_ENABLED  Fallback for activation of Cache
+     * @var bool CACHE_ENABLED  Fallback for activation of Cache
      */
     const CACHE_ENABLED = true;
 
     /**
-     * @var integer CACHE_TIME  Cache expiration time (seconds)
+     * @var int CACHE_TIME  Cache expiration time (seconds)
      */
     const CACHE_TIME = 3600;
 
@@ -34,8 +34,8 @@ class Cache
      * @param string $id   UID of the cache
      * @param object $data Data to store
      *
-     * @return boolean True if cache file is created
-     *                 False if there was an error
+     * @return bool True if cache file is created
+     *              False if there was an error
      */
     public static function setKey($id, $data)
     {
@@ -49,8 +49,8 @@ class Cache
     /**
      * Get the cached serialized data via its UID
      *
-     * @param string  $id  UID of the cache
-     * @param integer $ttl Number of seconds for time to live. Default to 0
+     * @param string $id  UID of the cache
+     * @param int    $ttl Number of seconds for time to live. Default to 0
      *
      * @return mixed Unserialized cached data, or false
      */
@@ -72,8 +72,8 @@ class Cache
     /**
      * Flush the current cache
      *
-     * @return boolean True if files in cache are deleted
-     *                 False if some files were not deleted
+     * @return bool True if files in cache are deleted
+     *              False if some files were not deleted
      */
     public static function flush()
     {
@@ -86,8 +86,8 @@ class Cache
      * Is the caching system activated?
      * We look if the CACHE constant is available and if it's set to True
      *
-     * @return boolean True if activated
-     *                 False if deactivated
+     * @return bool True if activated
+     *              False if deactivated
      */
     public static function isActivated()
     {
@@ -98,10 +98,10 @@ class Cache
      * Check if cached data for a key is usable
      *
      * @param string  $id  UID for the data
-     * @param integer $ttl Number of seconds for time to live
+     * @param int     $ttl Number of seconds for time to live
      *
-     * @return boolean True if valid data
-     *                 False if cached data is not usable
+     * @return bool True if valid data
+     *              False if cached data is not usable
      */
     private static function isValidKey($id, $ttl)
     {
@@ -126,8 +126,8 @@ class Cache
      *
      * @param string $id UID of the cached data
      *
-     * @return boolean True if data was deleted
-     *                 False if it doesn't exist
+     * @return bool True if data was deleted
+     *              False if it doesn't exist
      */
     private static function deleteKey($id)
     {
@@ -173,11 +173,11 @@ class Cache
     /**
      * Check if the data has not expired
      *
-     * @param string  $id  UID of the cached file
-     * @param integer $ttl Number of seconds for time to live
+     * @param string $id  UID of the cached file
+     * @param int    $ttl Number of seconds for time to live
      *
-     * @return boolean True if file is obsolete
-     *                 False if it is still usable
+     * @return bool True if file is obsolete
+     *              False if it is still usable
      */
     private static function isObsoleteKey($id, $ttl)
     {

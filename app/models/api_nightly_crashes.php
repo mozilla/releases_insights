@@ -1,6 +1,6 @@
 <?php
 use Cache\Cache;
-Use ReleaseInsights\Utils as Utils;
+Use ReleaseInsights\Utils;
 
 $buildid = Utils::getBuildID($_GET['buildid'] ?? '');
 

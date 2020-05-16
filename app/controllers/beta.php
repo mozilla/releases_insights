@@ -11,4 +11,3 @@ echo $twig->render(
         'patches_beta'   => $patches_beta
     ]
 );
-
