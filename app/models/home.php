@@ -1,6 +1,6 @@
 <?php
 
-$yesterday = date('Ymd',strtotime('yesterday'));
+$yesterday = date('Ymd', strtotime('yesterday'));
 // No data to prepare yet
 $content = <<<"EOD"
 

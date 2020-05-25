@@ -1,10 +1,9 @@
 <?php
-use Cache\Cache;
-use ReleaseInsights\Bugzilla as Bz;
+
 use ReleaseInsights\Utils;
 
 // Utility function to decrement a version number provided as a string
-$decrementVersion = function(string $version, int $decrement) {
+$decrementVersion = function (string $version, int $decrement) {
     return (string) number_format((int) $version - $decrement, 1);
 };
 

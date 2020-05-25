@@ -1,4 +1,5 @@
 <?php
+
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Cache;
 
 /**
@@ -14,13 +15,13 @@ namespace Cache;
  */
 class Cache
 {
-    /**
-     * @var bool CACHE_ENABLED  Fallback for activation of Cache
+    /*
+        Fallback for activation of Cache
      */
     const CACHE_ENABLED = true;
 
-    /**
-     * @var int CACHE_TIME  Cache expiration time (seconds)
+    /*
+        Cache expiration time (seconds)
      */
     const CACHE_TIME = 3600;
 
@@ -37,7 +38,7 @@ class Cache
      * @return bool True if cache file is created
      *              False if there was an error
      */
-    public static function setKey($id, $data)
+    public static function setKey(string $id, $data): bool
     {
         if (! self::isActivated()) {
             return false;
@@ -54,7 +55,7 @@ class Cache
      *
      * @return mixed Unserialized cached data, or false
      */
-    public static function getKey($id, $ttl = 0)
+    public static function getKey(string $id, int $ttl = 0)
     {
         if (! self::isActivated()) {
             return false;
@@ -75,7 +76,7 @@ class Cache
      * @return bool True if files in cache are deleted
      *              False if some files were not deleted
      */
-    public static function flush()
+    public static function flush(): bool
     {
         $files = glob(self::getCachePath() . '*.cache');
 
@@ -89,7 +90,7 @@ class Cache
      * @return bool True if activated
      *              False if deactivated
      */
-    public static function isActivated()
+    public static function isActivated(): bool
     {
         return defined('CACHE_ENABLED') ? CACHE_ENABLED : self::CACHE_ENABLED;
     }
@@ -103,7 +104,7 @@ class Cache
      * @return bool True if valid data
      *              False if cached data is not usable
      */
-    private static function isValidKey($id, $ttl)
+    private static function isValidKey(string $id, int $ttl): bool
     {
         // No cache file
         if (! file_exists(self::getKeyPath($id))) {
@@ -129,7 +130,7 @@ class Cache
      * @return bool True if data was deleted
      *              False if it doesn't exist
      */
-    private static function deleteKey($id)
+    private static function deleteKey(string $id): bool
     {
         $file = self::getKeyPath($id);
 
@@ -152,7 +153,7 @@ class Cache
      *
      * @return string Path to the file
      */
-    private static function getKeyPath($id)
+    private static function getKeyPath(string $id): string
     {
         return self::getCachePath() . sha1($id) . '.cache';
     }
@@ -165,7 +166,7 @@ class Cache
      *
      * @return string Path to cache folder
      */
-    private static function getCachePath()
+    private static function getCachePath(): string
     {
         return defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . '/';
     }
@@ -179,7 +180,7 @@ class Cache
      * @return bool True if file is obsolete
      *              False if it is still usable
      */
-    private static function isObsoleteKey($id, $ttl)
+    private static function isObsoleteKey(string $id, int $ttl): bool
     {
         return filemtime(self::getKeyPath($id)) < (time() - $ttl);
     }

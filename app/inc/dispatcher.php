@@ -1,7 +1,5 @@
 <?php
 
-Use ReleaseInsights\Utils as Utils;
-
 // List of css files we include, by default only base.css
 $css_files = ['base.css'];
 

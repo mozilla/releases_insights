@@ -1,6 +1,6 @@
 <?php
 
-$link = function($url, $text, $title = true) {
+$link = function ($url, $text, $title = true) {
     $title = $title ? '&title=' . rawurlencode($text) : '';
     return '<a href="' . $url . $title . '" target="_blank" rel="noopener">' . $text . '</a>';
 };
@@ -13,8 +13,8 @@ for ($i = 2; $i <= $last_beta + 1; $i++) {
     $beta_previous = ($i - 1) < 3 ? 'DEVEDITION_' : 'FIREFOX_';
     $beta_current_type = $i < 3 ? 'DEVEDITION_' : 'FIREFOX_';
 
-    $beta_previous .= $main_beta . '_0b' . ($i-1) . '_RELEASE';
-    $beta_current = ($i-1 === $last_beta)
+    $beta_previous .= $main_beta . '_0b' . ($i - 1) . '_RELEASE';
+    $beta_current = ($i - 1 === $last_beta)
         ? 'tip'
         : $main_beta . '_0b' . $i . '_RELEASE';
 
@@ -27,7 +27,7 @@ for ($i = 2; $i <= $last_beta + 1; $i++) {
         . $beta_previous
         . '&amp;tochange='
         . $beta_current;
-    print '            <li>' . $link($hg_link, 'Beta' . $i, $title = false ) . "</li>\n";
+    print '            <li>' . $link($hg_link, 'Beta' . $i, $title = false) . "</li>\n";
 }
 print '</ul>';
 $patches_beta = ob_get_contents();

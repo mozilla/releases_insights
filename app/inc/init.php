@@ -1,6 +1,6 @@
 <?php
-use Cache\Cache;
-use ReleaseInsights\Utils as Utils;
+
+use ReleaseInsights\Utils;
 use Twig\Extra\Intl\IntlExtension;
 
 // We always work with UTF8 encoding
@@ -11,7 +11,7 @@ date_default_timezone_set('America/Los_Angeles');
 
 // Load all constants for the application, hardcoded.
 // TODO:create a config.ini-dist file
-if (php_sapi_name() == 'cli-server' || php_sapi_name() == 'cli') {
+if (PHP_SAPI == 'cli-server' || PHP_SAPI == 'cli') {
     $install = '/home/pascalc/repos/github/releases_insights';
 } elseif (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'])) {
     $install = '/home/pascalc/repos/github/releases_insights';
@@ -50,6 +50,6 @@ $twig = new \Twig\Environment($twig_loader, ['cache' => false]);
 $twig->addExtension(new IntlExtension());
 
 // Dispatch urls, we do that only in a Web server context (dev or prod)
-if (php_sapi_name() != 'cli') {
+if (PHP_SAPI != 'cli') {
     require_once INC . 'dispatcher.php';
 }

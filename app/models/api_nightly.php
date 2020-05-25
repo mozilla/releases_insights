@@ -1,7 +1,7 @@
 <?php
 
 use Cache\Cache;
-Use ReleaseInsights\Utils;
+use ReleaseInsights\Utils;
 
 $date = Utils::getDate();
 

@@ -46,7 +46,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'rc_count'              => $rc_count,
         'beta_count'            => $beta_count,
         'dot_release_count'     => $dot_release_count,
-        'fallback_content'      => ''
+        'fallback_content'      => '',
     ];
 } elseif ($requested_version > FIREFOX_RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
@@ -61,9 +61,8 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'beta_cycle_length'     => $beta_cycle_length,
         'nightly_cycle_length'  => $nightly_cycle_length,
         'cycle_dates'           => $cycle_dates,
-        'fallback_content'      => ''
+        'fallback_content'      => '',
     ];
-
 } else {
     $template_file = 'future_release.html.twig';
     $template_data = [
@@ -71,9 +70,8 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'css_page_id'  => $controller,
         'page_title'   => $page_title,
         'release'      => (int) $requested_version,
-        'fallback_content' => '<p class="alert alert-warning text-center w-25 mx-auto">The release date for this version is not yet available.</p>'
+        'fallback_content' => '<p class="alert alert-warning text-center w-25 mx-auto">The release date for this version is not yet available.</p>',
     ];
-
 }
 
 echo $twig->render($template_file, $template_data);

@@ -2,7 +2,7 @@
 // Analyse version requested
 
 // If there is no version requested show the latest beta
-if (!isset($_GET['version'])) {
+if (! isset($_GET['version'])) {
     $_GET['version'] = FIREFOX_BETA;
 }
 // Normalize version number to XX.y

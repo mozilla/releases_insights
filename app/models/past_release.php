@@ -1,5 +1,5 @@
 <?php
-use Cache\Cache;
+
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
 
@@ -30,13 +30,13 @@ $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2';
 
-if ($requested_version != 53 && $requested_version > 46 ) {
-    $beta_uplifts = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
-    $beta_changelog = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
+if ($requested_version != 53 && $requested_version > 46) {
+    $beta_uplifts      = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
+    $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
     $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
 } else {
-        $beta_uplifts = $beta_changelog = $beta_uplifts_url = $beta_backouts_url = false;
+    $beta_uplifts = $beta_changelog = $beta_uplifts_url = $beta_backouts_url = false;
 }
 
 // Get RC uplifts
@@ -55,7 +55,7 @@ $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
 // $beta_count= count($firefox_releases['firefox-' . FIREFOX_RELEASE] . 'b');
 $beta_count = count(array_filter(
     $firefox_releases,
-    function($key) use ($requested_version) {
+    function ($key) use ($requested_version) {
         return Utils::startsWith($key, 'firefox-' . $requested_version . 'b');
     },
     ARRAY_FILTER_USE_KEY
@@ -67,7 +67,7 @@ $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
 // Number of dot releases
 $dot_release_count = count(array_filter(
     $firefox_releases,
-    function($key) use ($requested_version) {
+    function ($key) use ($requested_version) {
         return Utils::startsWith($key, 'firefox-' . $requested_version . '.');
     },
     ARRAY_FILTER_USE_KEY
@@ -78,7 +78,5 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
     'https://hg.mozilla.org/mozilla-central/json-pushes'
     . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
     . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
-    . '&full&version=2'
-    , true
-    , 3600 * 24 * 365
+    . '&full&version=2', true, 3600 * 24 * 365
 );

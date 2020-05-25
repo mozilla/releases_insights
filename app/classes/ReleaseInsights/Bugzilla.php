@@ -1,19 +1,22 @@
 <?php
+
 namespace ReleaseInsights;
 
 class Bugzilla
 {
     /**
      * Create a bugzilla link for multiple bugs
+     *
      * @param array $bug_numbers List of bug numbers
+     *
      * @return string Link
      */
-    public static function getBugListLink(array $bug_numbers) : string
+    public static function getBugListLink(array $bug_numbers): string
     {
         return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 
-    public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0) : array
+    public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0): array
     {
         $results    = Utils::getJson($query, $cache_ttl)['pushes'];
         $changesets = array_column($results, 'changesets');
@@ -21,15 +24,16 @@ class Bugzilla
         $backouts   = [];
 
         // Extract bug number from commit message
-        $get_bugs = function (string $str) : array {
+        $get_bugs = function (string $str): array {
             if (preg_match_all("/bug \d+/", $str, $matches)) {
-
                 $matches[0] = array_map(
-                    function (string $str) { return str_replace('bug', '', $str); },
+                    function (string $str) {
+                        return str_replace('bug', '', $str);
+                    },
                     $matches[0]
                 );
 
-                $matches[0] = array_map('trim',$matches[0]);
+                $matches[0] = array_map('trim', $matches[0]);
 
                 return $matches[0];
             }
@@ -53,7 +57,7 @@ class Bugzilla
                     '[mozharness]', 'r=aki', 'r=tomprince', 'r=mtabara', 'a=jorgk',
                     'beetmover', '[taskgraph]', 'a=testonly', 'a=bustage',
                     'a=expectation-update-for-worker-image',
-                    'a=repo-update'
+                    'a=repo-update',
                 ];
 
                 if (Utils::inString($subitem, $ignore_list)) {

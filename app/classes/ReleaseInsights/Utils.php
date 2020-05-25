@@ -1,4 +1,5 @@
 <?php
+
 namespace ReleaseInsights;
 
 use Cache\Cache;
@@ -6,17 +7,24 @@ use DateTime;
 
 class Utils
 {
-    public static function getCrashesForBuildID(int $buildid) : array
+    /**
+     * Get the list of crashes for a Build ID from Socorro
+     *
+     * @param int $buildid Firefox build IT
+     *
+     * @return array a list of crashes
+     */
+    public static function getCrashesForBuildID(int $buildid): array
     {
         // The date in the string varies so we create a unique file name in cache
         $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
         // If we can't retrieve cached data, we create and cache it.
         // We cache because we want to avoid http request latency
-        if (!$data = Cache::getKey($cache_id, 30)) {
+        if (! $data = Cache::getKey($cache_id, 30)) {
             $data = file_get_contents($cache_id);
 
-           // No data returned, bug or incorrect date, don't cache.
+            // No data returned, bug or incorrect date, don't cache.
             if (empty($data)) {
                 return [];
             }
@@ -26,10 +34,15 @@ class Utils
         return json_decode($data, true);
     }
 
-    public static function getDate() : string
+    /**
+     * Get a date provided by the user in the query string fallback to today's date
+     *
+     * @return string Date as a Ymd string
+     */
+    public static function getDate(): string
     {
         // No date provided by the http call, return Today
-        if (!isset($_GET['date'])) {
+        if (! isset($_GET['date'])) {
             return date('Ymd');
         }
 
@@ -39,17 +52,24 @@ class Utils
         return self::secureText((string) $date);
     }
 
-    public static function getBuildID(string $buildid) : string
+    /**
+     * Get a Firefox BuildID and sanitize it
+     *
+     * @param string $buildid Firefox Build ID in format 20191014213051
+     *
+     * @return string sanitized buildID
+     */
+    public static function getBuildID(string $buildid): string
     {
         // Check that the string provided is correct
-        if (!self::isBuildID($buildid)) {
+        if (! self::isBuildID($buildid)) {
             return '20191014213051'; // hardcoded fallback value
         }
 
         return self::secureText($buildid);
     }
 
-    public static function isBuildID(string $buildid) : bool
+    public static function isBuildID(string $buildid): bool
     {
         //  BuildIDs should be 14 digits
         if (strlen($buildid) !== 14) {
@@ -57,7 +77,7 @@ class Utils
         }
 
         //  BuildIDs should be valid dates, if we can't create a date return false
-        if (!$date = date_create($buildid)) {
+        if (! $date = date_create($buildid)) {
             return false;
         }
 
@@ -78,7 +98,7 @@ class Utils
      *
      * @return string Sanitized string for security
      */
-    public static function secureText(string $string) : string
+    public static function secureText(string $string): string
     {
         // CRLF XSS
         $string = str_replace(['%0D', '%0A'], '', $string);
@@ -92,12 +112,12 @@ class Utils
         );
     }
 
-    public static function getJson(string $url, int $ttl = 0) : array
+    public static function getJson(string $url, int $ttl = 0): array
     {
-        if (!$data = Cache::getKey($url, $ttl)) {
+        if (! $data = Cache::getKey($url, $ttl)) {
             $data = file_get_contents($url);
 
-           // No data returned, bug or incorrect date, don't cache.
+            // No data returned, bug or incorrect date, don't cache.
             if (empty($data)) {
                 return [];
             }
@@ -107,7 +127,7 @@ class Utils
         return json_decode($data, true);
     }
 
-    public static function mtrim(string $string) : string
+    public static function mtrim(string $string): string
     {
         $string = explode(' ', $string);
         $string = array_filter($string);
@@ -124,10 +144,10 @@ class Utils
      *
      * @return bool True if the $haystack string starts with a string in $needles
      */
-    public static function startsWith(string $haystack, $needles) : bool
+    public static function startsWith(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $prefix) {
-            if (!strncmp($haystack, $prefix, mb_strlen($prefix))) {
+            if (! strncmp($haystack, $prefix, mb_strlen($prefix))) {
                 return true;
             }
         }
@@ -145,20 +165,20 @@ class Utils
      *
      * @return bool True if the $haystack string contains any/all $needles
      */
-    public static function inString(string $haystack, $needles, bool $match_all = false) : bool
+    public static function inString(string $haystack, $needles, bool $match_all = false): bool
     {
         $matches = 0;
         foreach ((array) $needles as $needle) {
             if (mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false) {
                 // If I need to match any needle, I can stop at the first match
-                if (!$match_all) {
+                if (! $match_all) {
                     return true;
                 }
                 $matches++;
             }
         }
 
-        if (!$match_all) {
+        if (! $match_all) {
             return false;
         }
 
@@ -169,7 +189,7 @@ class Utils
      * Utility function to get symfony dump() function output to the CLI
      * http://symfony.com/doc/current/components/var_dumper/
      */
-    public static function cli_dump() : void
+    public static function clidump(): void
     {
         $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
         $dumper = new \Symfony\Component\VarDumper\Dumper\CliDumper();
