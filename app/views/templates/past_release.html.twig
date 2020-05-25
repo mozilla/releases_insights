@@ -7,7 +7,7 @@
       <a href="?version={{ release +1 }}" title="Next release"  alt="Go to next release">»</a>
       {% if release != constant('FIREFOX_RELEASE')|number_format %}
         <br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}"
-      class="btn btn-primary">Go to current release</a>
+      class="btn btn-primary">Go to last shipped release</a>
       {% else %}
         <div class="w-25 alert alert-primary mx-auto h6 font-weight-normal" role="alert">This is the version currently shipping to end-users</div>
       {% endif %}

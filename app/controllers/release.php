@@ -2,11 +2,11 @@
 /* Analyse version requested */
 
 // If there is no version requested show the latest release
-if (! isset($_GET['version']) || $_GET['version'] == 'release') {
+if ($_GET['version'] == 'release') {
     $_GET['version'] = FIREFOX_RELEASE;
 }
 
-if ($_GET['version'] == 'beta') {
+if (! isset($_GET['version']) || $_GET['version'] == 'beta') {
     $_GET['version'] = FIREFOX_BETA;
 }
 
