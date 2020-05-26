@@ -1,13 +1,13 @@
 <?php
 
-require_once MODELS . 'overview.php';
+require_once MODELS . 'home.php';
 
 echo $twig->render(
-    'overview.html.twig',
+    'regular.html.twig',
     [
         'page_title'   => $page_title,
         'css_files'    => $css_files,
         'css_page_id'  => $controller,
-        'page_content' => '',
+        'page_content' => $content,
     ]
 );

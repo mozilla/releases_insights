@@ -1,22 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-  <header class="mx-auto">
-      <dl class="list-group list-group-horizontal justify-content-center">
-        <dt class="list-group-item bg-dark text-white">Nightly</dt>
-        <dd class="list-group-item">{{ constant('FIREFOX_NIGHTLY') }}</dd>
-        <dt class="list-group-item bg-dark text-white">Beta</dt>
-        <dd class="list-group-item">{{ constant('FIREFOX_BETA') }}</dd>
-        <dt class="list-group-item bg-dark text-white">Release</dt>
-        <dd class="list-group-item">{{ constant('FIREFOX_RELEASE') }}</dd>
-      </dl>
-  </header>
+  <h1 class="text-center">Currently shipping</h1>
 {% endblock %}
 
-
 {% block main %}
-
-
+<div class="container  h-100">
+  <div class="row text-center align-items-center">
+    <div class="col-sm">
+      <div><img src="/assets/img/firefox-logo.svg"></div>
+      <h2>{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
+      <h3><a href="/release/?version=release">Release</a></h3>
+    </div>
+    <div class="col-sm">
+      <div><img src="/assets/img/firefox-logo-beta.svg"></div>
+      <h2>{{ constant('FIREFOX_BETA')|number_format }}</h2>
+      <h3><a href="/release/?version=beta">Beta</a></h3>
+    </div>
+    <div class="col-sm">
+      <div><img src="/assets/img/firefox-logo-nightly.svg"></div>
+      <h2>{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
+      <h3><a href="/release/?version=nightly">Nightly</a></h3>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block footer %}

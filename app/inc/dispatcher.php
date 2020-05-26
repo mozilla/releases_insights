@@ -7,11 +7,11 @@ $css_files = ['base.css'];
 switch ($url['path']) {
     case '/':
         $controller = 'homepage';
-        $page_title = 'Firefox Desktop Release Insights tools';
-        break;
-    case 'overview':
-        $controller = 'overview';
         $page_title = 'Where are we in the current release cycle?';
+        break;
+    case 'about':
+        $controller = 'about';
+        $page_title = 'Firefox Desktop Release insights';
         break;
     case 'nightly':
         $controller = 'nightly';
@@ -33,7 +33,6 @@ switch ($url['path']) {
         break;
     case 'api/nightly/crashes':
         $controller = 'api_nightly_crashes';
-        break;
     default:
         $controller = '404';
         $page_title = '404: Page Not Found';
