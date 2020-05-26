@@ -49,6 +49,6 @@ return [
     'beta_8'           => $nightly->modify('next Wednesday')->format($time_format),
     'beta_9'           => $nightly->modify('next Friday')->format($time_format),
     'rc_gtb'           => $nightly->modify('next Monday 05:00')->format($time_format),
-    'rc'               => $nightly->modify('next Tuesday 03:00')->format($time_format),
+    'rc'               => $nightly->modify('next Tuesday')->format($time_format),
     'release'          => $release->format($time_format),
 ];
