@@ -3,7 +3,8 @@
 
 /* General structure */
 body {
-    width: 80%;
+    background-color: #20123a;
+    color: white;
 }
 
 header {
@@ -33,21 +34,50 @@ nav svg {
 .table {
     margin: 0 auto;
     width: 90%;
+    background-color: white;
+}
+
+.table td,
+.table th {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.table th {
+    font-weight: 500;
+}
+
+
+/* home page */
+h1,
+h2,
+h3 {
+    font-weight: 300;
 }
 
 #homepage h1 {
-    margin-top: 1em;
+    font-size: 3.5rem;
     margin-bottom: 2em;
+    font-weight: 200;
 }
 
-#homepage h2 {
-    margin-top: 1em;
-}
-
+#homepage h1,
+#homepage h2,
 #homepage h3 {
     margin-top: 1em;
 }
 
+#homepage a {
+    color: white;
+    text-decoration: underline;
+}
+
 #homepage img {
     width: 70%;
+}
+
+
+@media only screen and (max-width: 460px) {
+    .w-25 {
+        width: 100% !important;
+    }
 }
