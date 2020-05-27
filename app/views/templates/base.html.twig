@@ -5,6 +5,7 @@
     <title>{{ page_title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" media="screen">
 {% for css_file in css_files %}
     <link rel="stylesheet" href="/style/{{ css_file }}" type="text/css" media="all" />
@@ -17,8 +18,8 @@
     {% endif %}
     {% block header %}{% endblock %}
     {% block main   %}{% endblock %}
-    {% block footer %}{% endblock %}
     <script src="/assets/jquery/jquery.slim.min.js"></script>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    {% block footer %}{% endblock %}
   </body>
 </html>

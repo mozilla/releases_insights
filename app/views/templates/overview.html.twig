@@ -10,17 +10,17 @@
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo.svg"></div>
       <h2>{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
-      <h3><a href="/release/?version=release">Release</a></h3>
+      <h3><a href="/release/?version=release" data-toggle="tooltip" data-placement="top" data-html="true" title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel.">Release</a></h3>
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-beta.svg"></div>
       <h2>{{ constant('FIREFOX_BETA')|number_format }}</h2>
-      <h3><a href="/release/?version=beta">Beta</a></h3>
+      <h3><a href="/release/?version=beta" data-toggle="tooltip" data-placement="top" data-html="true" title="Click this link to get detailed data about the <b>Beta</b> cycle.">Beta</a></h3>
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-nightly.svg"></div>
       <h2>{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
-      <h3><a href="/release/?version=nightly">Nightly</a></h3>
+      <h3><a href="/release/?version=nightly" data-toggle="tooltip" data-placement="top" data-html="true" title="Click this link to get information about the <b>Nightly</b> cycle.">Nightly</a></h3>
     </div>
   </div>
 </div>
@@ -42,5 +42,10 @@
 
 {% block footer %}
   <footer></footer>
+  <script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+  </script>
 {% endblock %}
 
