@@ -2,7 +2,7 @@
 
 require_once MODELS . 'beta.php';
 
-echo $twig->render(
+print $twig->render(
     'beta.html.twig',
     [
         'current_beta'   => FIREFOX_BETA,

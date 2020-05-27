@@ -15,6 +15,9 @@ $decrementVersion = function (string $version, int $decrement) {
     return (string) number_format((int) $version - $decrement, 1);
 };
 
+// Planned releases
+$upcoming_releases = include DATA .'upcoming_releases.php';
+
 // Historical data from Product Details, cache a week
 $shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 604800);
 

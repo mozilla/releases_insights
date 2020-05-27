@@ -35,6 +35,19 @@ nav svg {
     width: 90%;
 }
 
+#homepage h1 {
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+#homepage h2 {
+    margin-top: 1em;
+}
+
+#homepage h3 {
+    margin-top: 1em;
+}
+
 #homepage img {
     width: 70%;
 }

@@ -1,8 +1,8 @@
 <?php
 
-require_once MODELS . 'home.php';
+require_once MODELS . 'about.php';
 
-echo $twig->render(
+print $twig->render(
     'regular.html.twig',
     [
         'page_title'   => $page_title,

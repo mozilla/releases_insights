@@ -205,21 +205,25 @@ class Utils
      *
      * beta, release and nightly are aliases
      *
-     * The values rely on the FIREFOX_RELEASE, FIREFOX_BETA, FIREFOX_NIGHTLY
+     * For detection, the values rely on the FIREFOX_RELEASE, FIREFOX_BETA, FIREFOX_NIGHTLY
      * global constants.
+     *
+     * @param string $version  Force a Firefox version
      *
      * @return string A Firefox version number such as 82.0
      */
-    public static function requestedVersion(): string
+    public static function requestedVersion(string $version = null): string
     {
-        if (! isset($_GET['version']) || $_GET['version'] === 'beta') {
-            $version = FIREFOX_BETA;
-        } elseif ($_GET['version'] === 'release') {
-            $version = FIREFOX_RELEASE;
-        } elseif ($_GET['version'] === 'nightly') {
-            $version = FIREFOX_NIGHTLY;
-        } else {
-            $version = $_GET['version'];
+        if (! $version) {
+            if (! isset($_GET['version']) || $_GET['version'] === 'beta') {
+                $version = FIREFOX_BETA;
+            } elseif ($_GET['version'] === 'release') {
+                $version = FIREFOX_RELEASE;
+            } elseif ($_GET['version'] === 'nightly') {
+                $version = FIREFOX_NIGHTLY;
+            } else {
+                $version = $_GET['version'];
+            }
         }
 
         // Normalize version number to XX.y

@@ -4,7 +4,7 @@ require_once MODELS . '404.php';
 
 http_response_code(404);
 
-echo $twig->render(
+print $twig->render(
     'regular.html.twig',
     [
         'page_title'   => $page_title,

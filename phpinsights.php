@@ -72,6 +72,7 @@ return [
         \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineGlobalConstants::class,
         \PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer::class,
+        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenGlobals::class,
     ],
 
     'config' => [

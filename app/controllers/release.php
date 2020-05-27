@@ -60,4 +60,4 @@ if ($requested_version <= FIREFOX_RELEASE) {
     ];
 }
 
-echo $twig->render($template_file, $template_data);
+print $twig->render($template_file, $template_data);
