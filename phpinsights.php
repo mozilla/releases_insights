@@ -70,11 +70,8 @@ return [
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff::class,
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Strings\UnnecessaryStringConcatSniff::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
-        \
-
-        iNunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineGlobalConstants::class,
-
-
+        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineGlobalConstants::class,
+        \PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer::class,
     ],
 
     'config' => [

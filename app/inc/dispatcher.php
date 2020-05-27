@@ -33,6 +33,7 @@ switch ($url['path']) {
         break;
     case 'api/nightly/crashes':
         $controller = 'api_nightly_crashes';
+        break;
     default:
         $controller = '404';
         $page_title = '404: Page Not Found';

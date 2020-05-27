@@ -61,7 +61,7 @@ class Cache
             return false;
         }
 
-        if ($ttl == 0) {
+        if ($ttl === 0) {
             $ttl = defined('CACHE_TIME') ? CACHE_TIME : self::CACHE_TIME;
         }
 

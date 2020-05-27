@@ -67,7 +67,7 @@ class Bugzilla
                 if (Utils::inString($subitem, ['backed out', 'back out']) && $detect_backouts === true) {
                     $counter = count($bug_fixes);
                     $bug_fixes = array_diff($bug_fixes, $get_bugs($subitem));
-                    if ($counter == count($bug_fixes)) {
+                    if ($counter === count($bug_fixes)) {
                         $backouts[] = $subitem;
                     }
                     continue;

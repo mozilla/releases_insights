@@ -6,6 +6,10 @@ if ($requested_version < 75) {
     return ['error' => 'API only works with 4 week cycle releases.'];
 }
 
+if ($requested_version < FIREFOX_RELEASE) {
+    return ['error' => 'API only works with future release.'];
+}
+
 // Utility function to decrement a version number provided as a string
 $decrementVersion = function (string $version, int $decrement) {
     return (string) number_format((int) $version - $decrement, 1);

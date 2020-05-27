@@ -1,22 +1,8 @@
 <?php
-/* Analyse version requested */
 
-// If there is no version requested show the latest release
-if ($_GET['version'] == 'release') {
-    $_GET['version'] = FIREFOX_RELEASE;
-}
+use ReleaseInsights\Utils;
 
-if (! isset($_GET['version']) || $_GET['version'] == 'beta') {
-    $_GET['version'] = FIREFOX_BETA;
-}
-
-if ($_GET['version'] == 'nightly') {
-    $_GET['version'] = FIREFOX_NIGHTLY;
-}
-
-// Normalize version number to XX.y
-$requested_version = abs((int) $_GET['version']);
-$requested_version = number_format($requested_version, 1);
+$requested_version = Utils::requestedVersion();
 
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';

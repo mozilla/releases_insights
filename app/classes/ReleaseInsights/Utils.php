@@ -182,7 +182,7 @@ class Utils
             return false;
         }
 
-        return $matches == count($needles);
+        return $matches === count($needles);
     }
 
     /**
@@ -196,5 +196,33 @@ class Utils
         foreach (func_get_args() as $arg) {
             $dumper->dump($cloner->cloneVar($arg));
         }
+    }
+
+    /**
+     * Get the version number provided by the user in the query string
+     * via the $_GET['version'] global and return a sanitized for a major
+     * version number.
+     *
+     * beta, release and nightly are aliases
+     *
+     * The values rely on the FIREFOX_RELEASE, FIREFOX_BETA, FIREFOX_NIGHTLY
+     * global constants.
+     *
+     * @return string A Firefox version number such as 82.0
+     */
+    public static function requestedVersion(): string
+    {
+        if (! isset($_GET['version']) || $_GET['version'] === 'beta') {
+            $version = FIREFOX_BETA;
+        } elseif ($_GET['version'] === 'release') {
+            $version = FIREFOX_RELEASE;
+        } elseif ($_GET['version'] === 'nightly') {
+            $version = FIREFOX_NIGHTLY;
+        } else {
+            $version = $_GET['version'];
+        }
+
+        // Normalize version number to XX.y
+        return (string) number_format(abs((int) $version), 1);
     }
 }
