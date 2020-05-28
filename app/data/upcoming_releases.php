@@ -9,7 +9,7 @@
     This is manually updated.
 */
 
-return $firefox_release_dates = [
+return [
     '76.0' => '2020-05-05',
     '77.0' => '2020-06-02',
     '78.0' => '2020-06-30',

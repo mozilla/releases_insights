@@ -31,6 +31,9 @@
       <th class="w-50">Release Date</th><td>{{ release_date|format_date('long', locale='en') }} {% if channel == 'future' %}(forecast){% endif %}</td>
     </tr>
     <tr>
+      <th class="w-50">Release Owner</th><td>{{ release_owner }}</td>
+    </tr>
+    <tr>
       <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
     </tr>
     <tr>

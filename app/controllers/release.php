@@ -6,6 +6,8 @@ $requested_version = Utils::requestedVersion();
 
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';
+$release_owners    = include DATA .'release_owners.php';
+$release_owner     = $release_owners[$requested_version];
 
 // If this is a release we already shipped, display stats for the release
 if ($requested_version <= FIREFOX_RELEASE) {
@@ -32,6 +34,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'rc_count'              => $rc_count,
         'beta_count'            => $beta_count,
         'dot_release_count'     => $dot_release_count,
+        'release_owner'         => $release_owner,
         'fallback_content'      => '',
     ];
 } elseif ($requested_version > FIREFOX_RELEASE
@@ -47,6 +50,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'beta_cycle_length'     => $beta_cycle_length,
         'nightly_cycle_length'  => $nightly_cycle_length,
         'cycle_dates'           => $cycle_dates,
+        'release_owner'         => $release_owner,
         'fallback_content'      => '',
     ];
 } else {
