@@ -20,7 +20,8 @@
         "twig/intl-extra": "^3.0",
         "fortawesome/font-awesome": "^5.13",
         "php": "^7.4.0",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "~2.6",
