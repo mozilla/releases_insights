@@ -36,7 +36,7 @@ $content = <<<"EOD"
     </tr>
     <tr>
         <td><a href="/about">about</a></td>
-        <td>Homepage with a simple overview of the releases in flight</td>
+        <td>Get the list of views and APIs available in this application.</td>
     </tr>
     <tr>
         <td>
