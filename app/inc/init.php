@@ -19,7 +19,8 @@ if (PHP_SAPI === 'cli-server' || PHP_SAPI === 'cli') {
     $install = '/home/pascalc/releases_insights';
 }
 
-error_log($install),
+error_log($install);
+
 // Common constants
 require_once __DIR__ . '/constants.php';
 
