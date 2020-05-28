@@ -29,6 +29,7 @@ header {
 
 nav svg {
     fill: whitesmoke;
+    margin-top: 0.5em;
 }
 
 .table {
