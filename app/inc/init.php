@@ -12,15 +12,21 @@ date_default_timezone_set('America/Los_Angeles');
 // Load all constants for the application, hardcoded.
 // TODO:create a config.ini-dist file
 if (PHP_SAPI === 'cli-server' || PHP_SAPI === 'cli') {
-    $install = __DIR__ . '/../../';
+    $install = '/home/pascalc/repos/github/releases_insights';
 } elseif (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'])) {
     $install = '/home/pascalc/repos/github/releases_insights';
 } else {
     $install = __DIR__ . '/../../';
 }
 
+$install = __DIR__ . '/../../';
+error_log($install);
+error_log(realpath(__DIR__ . '/../../'));
+
 // Common constants
 require_once __DIR__ . '/constants.php';
+error_log(INSTALL_ROOT);
+error_log(CACHE_PATH);
 
 // Autoloading of classes (both /vendor and /classes)
 require_once INSTALL_ROOT . 'vendor/autoload.php';
