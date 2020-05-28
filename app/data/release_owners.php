@@ -19,7 +19,7 @@ $relman = [
 
 return [
     '27.0' => $relman['bhavana'],
-    '28.0' => $relman['lblakk'],
+    '28.0' => $relman['lsblakk'],
     '29.0' => $relman['sylvestre'],
     '30.0' => $relman['lsblakk'],
     '31.0' => $relman['sylvestre'],
