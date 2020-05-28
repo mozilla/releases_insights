@@ -2,7 +2,6 @@
 .php_cs.cache
 app/config/config.ini
 cache
-composer.lock
 composer.phar
 logs/*.log
 logs/github_log.txt
