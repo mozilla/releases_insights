@@ -8,10 +8,13 @@
 
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="/assets/font-awesome/css/all.css" media="screen">
+
 {% for css_file in css_files %}
     <link rel="stylesheet" href="/style/{{ css_file }}?version=2" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/svg+xml" href="/assets/img/dragon.svg" />
 {% endfor %}
+
+    {% block head_additions %}{% endblock %}
   </head>
   <body id="{{ css_page_id }}" class="container-fluid px-lg-5">
     {% if css_page_id != 'homepage' %}
