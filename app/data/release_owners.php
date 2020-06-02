@@ -6,7 +6,7 @@
 */
 $relman = [
     'pascalc'   => 'Pascal Chevrel',
-    'ryanvm'    => 'Ryan Van Der Mulen',
+    'ryanvm'    => 'Ryan VanderMeulen',
     'jcristau'  => 'Julien Cristau',
     'lizzard'   => 'Liz Henry',
     'ritu'      => 'Ritu Khotari',
