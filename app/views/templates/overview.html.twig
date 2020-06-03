@@ -45,15 +45,13 @@
   {% else %}
     <h3 class="text-center">Next merge day: {{ cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h3>
     <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ cycle_dates.beta_1|format_date(pattern='MMMM d', locale='en') }}
-    (in
     {% set difference = date(cycle_dates.beta_1).diff(date()) %}
     {% set leftDays = difference.days %}
     {% if leftDays == 1 %}
-      1 day
+      (in 1 day)
     {% else %}
-      {{ leftDays }} days
+      (in {{ leftDays }} days)
     {% endif %}
-    {{ date(cycle_dates.release).diff(date()).days }})
     </h3>
   {% endif %}
 
