@@ -33,7 +33,7 @@ class Cache
      * instantiated objects.
      *
      * @param string $id   UID of the cache
-     * @param object $data Data to store
+     * @param mixed $data Data to store
      *
      * @return bool True if cache file is created
      *              False if there was an error
