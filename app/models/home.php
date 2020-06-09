@@ -18,7 +18,8 @@ $today_is_release_day = false;
 
 $today = date('Y-m-d');
 
+$shipping_release = (int) array_search($today, $all_releases);
+
 if (in_array($today, $all_releases)) {
     $today_is_release_day = true;
-    $shipping_release = (int) array_search($today, $all_releases);
 }
