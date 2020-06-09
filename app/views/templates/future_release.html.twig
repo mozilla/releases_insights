@@ -5,7 +5,7 @@
     <h1>
       <a href="?version={{ release -1 }}" title="Previous release" alt="Go to previous release">«</a>
       &nbsp;Firefox&nbsp;{{ release }}&nbsp;
-      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}" title="Next release"  alt="Go to next release">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to last shipped release</a>{% endif %}
+      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}" title="Next release"  alt="Go to next release">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to Release channel</a>{% endif %}
     </h1>
   </header>
 {% endblock %}
@@ -13,7 +13,7 @@
 {% block main %}
 {% if not fallback_content %}
   {% if  release == constant('FIREFOX_RELEASE')|number_format + 1  %}
-    {% set alert = 'Version currently available on the <b class="text-danger">Beta</b> channel.' %}
+    {% set alert = 'Version currently on the <b class="text-danger">Beta</b> channel.' %}
     {% set channel = 'beta' %}
 
   {% elseif  release == constant('FIREFOX_RELEASE')|number_format + 2 %}
@@ -48,7 +48,7 @@
   </table>
 
   <table class="table table-striped table-bordered table-sm w-25 justify-content-center mt-4">
-  <caption class="alert-success mx-auto text-center" style="caption-side:top">Planned Milestones</caption>
+  <caption class="alert-success mx-auto text-center" style="caption-side:top">Milestones</caption>
     <tr {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>
       <th {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>Nightly start</th>
       <td class="text-right">{{ cycle_dates.nightly_start|format_date(pattern='MMMM d', locale='en') }}</td>
