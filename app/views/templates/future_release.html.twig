@@ -98,11 +98,11 @@
       <td class="text-right">{{ cycle_dates.beta_8|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>Beta 9 - last beta uplifts</th>
+      <th {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>Beta 9 <small class="font-weight-light">last beta uplifts</small></th>
       <td class="text-right">{{ cycle_dates.beta_9|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>Build Release Candidate</th>
+      <th {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>Go to Build Release Candidate</th>
       <td class="text-right">{{ cycle_dates.rc_gtb|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr {{ date(cycle_dates.rc) < date() ? ' class="text-muted font-weight-light"' }}>
