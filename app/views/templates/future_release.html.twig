@@ -28,7 +28,7 @@
 
   <table class="table table-striped table-bordered table-sm w-25 justify-content-center">
     <tr>
-      <th class="w-50">Release Date</th><td>{{ release_date|format_date('long', locale='en') }} {% if channel == 'future' %}(forecast){% endif %}</td>
+      <th class="w-50">Release Date</th><td>{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
     <tr>
       <th class="w-50">Release Owner</th><td>{{ release_owner }}</td>
