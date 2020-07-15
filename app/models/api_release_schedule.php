@@ -40,7 +40,7 @@ $nightly->modify('-1 day');
 
 $time_format = 'Y-m-d H:i';
 
-return [
+$timetable = [
     'version'          => $requested_version,
     'nightly_start'    => $nightly->format($time_format),
     'soft_code_freeze' => $nightly->modify('+3 weeks')->modify('next Thursday')->format($time_format),
@@ -59,3 +59,12 @@ return [
     'rc'               => $nightly->modify('next Tuesday')->format($time_format),
     'release'          => $release->format($time_format),
 ];
+
+// Sometimes there are problems in a release and we need to adjust the schedule manually
+if ($requested_version === '79.0') {
+    // We had infra problems that prevented shipping beta 8 on Wednesday
+    $fix = new DateTime($timetable['beta_8']);
+    $timetable['beta_8'] = $fix->modify('+1 day')->format($time_format);
+}
+
+return $timetable;
