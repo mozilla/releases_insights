@@ -2,11 +2,13 @@
 
 use ReleaseInsights\Utils;
 
-// Get the schedule for the current beta
+// Get the schedule for the current nightly
 $requested_version = Utils::requestedVersion(FIREFOX_NIGHTLY);
-$cycle_dates = include MODELS . 'api_release_schedule.php';
+$nightly_cycle_dates = include MODELS . 'api_release_schedule.php';
 
-
+// Get the schedule for the current beta
+$requested_version = Utils::requestedVersion(FIREFOX_BETA);
+$beta_cycle_dates = include MODELS . 'api_release_schedule.php';
 
 // Historical data from Product Details, cache an hour
 $shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 3600);
