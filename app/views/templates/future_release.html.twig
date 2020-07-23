@@ -50,7 +50,7 @@
   <table class="table table-striped table-bordered table-sm w-25 justify-content-center mt-4">
   <caption class="alert-success mx-auto text-center" style="caption-side:top">Milestones</caption>
     <tr {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>Nightly start</th>
+      <th {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>Nightly starts</th>
       <td class="text-right">{{ cycle_dates.nightly_start|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr {{ date(cycle_dates.soft_code_freeze) < date() ? ' class="text-muted font-weight-light"' }}>
