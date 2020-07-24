@@ -81,4 +81,24 @@ h3 {
     .w-25 {
         width: 100% !important;
     }
+
+    #homepage h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5em;
+    }
+
+    #homepage h1,
+    #homepage h2,
+    #homepage h3 {
+        margin-top: 0.5em;
+    }
+
+    #homepage div.col-sm {
+        margin-bottom: 4em;
+    }
+
+    #homepage h3.text-center {
+        margin-bottom: 1em;
+        margin-top: 0;
+    }
 }
