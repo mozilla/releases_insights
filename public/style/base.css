@@ -101,4 +101,8 @@ h3 {
         margin-bottom: 1em;
         margin-top: 0;
     }
+
+    #homepage .alert-primary {
+        padding: 0.5rem 0.25rem;
+    }
 }
