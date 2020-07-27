@@ -18,10 +18,6 @@
 
 {% block main %}
 
-{% if date(beta_cycle_dates.rc_gtb|date('Y-m-d')) < date() %}
-    {% set rc_week = true %}
-{% endif %}
-
 <div class="container  h-100">
   <div class="row text-center align-items-center">
     <div class="col-sm">
@@ -42,9 +38,18 @@
   </div>
 </div>
 
+  {% if nightly_cycle_dates.merge_day|date('Y-m-d') == now|date('Y-m-d') %}
+      {% set merge_day = true %}
+  {% endif %}
 
   {% if rc_week %}
     <h3 class="text-center"><b class="alert alert-primary">We are in RC&nbsp;week</b></h3>
+  {% endif %}
+
+  {% if merge_day %}
+    <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
+  {% else %}
+    <h3 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h3>
   {% endif %}
 
   {% if release_day %}
@@ -52,7 +57,6 @@
     <b class="alert alert-info text-dark" role="alert">Firefox {{ shipping_release }} is shipping today!</b>
   </h3>
   {% else %}
-    <h3 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h3>
     <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ nightly_cycle_dates.beta_1|format_date(pattern='MMMM d', locale='en') }}
     {% set difference = date(nightly_cycle_dates.beta_1).diff(date('today')) %}
     {% set leftDays = difference.days %}

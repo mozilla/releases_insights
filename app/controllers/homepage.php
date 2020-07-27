@@ -12,5 +12,6 @@ print $twig->render(
         'nightly_cycle_dates' => $nightly_cycle_dates,
         'release_day'         => $today_is_release_day,
         'shipping_release'    => $shipping_release,
+        'rc_week'             => $is_rc_week,
     ]
 );

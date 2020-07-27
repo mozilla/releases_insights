@@ -25,3 +25,13 @@ $shipping_release = (int) array_search($today, $all_releases);
 if (in_array($today, $all_releases)) {
     $today_is_release_day = true;
 }
+
+// Calculation of rc_week interval
+$is_rc_week = false;
+$today = new DateTime();
+$rc_week_start = new DateTime($beta_cycle_dates['rc_gtb']);
+$rc_week_end = new DateTime($nightly_cycle_dates['merge_day']);
+
+if ($today->getTimestamp() > $rc_week_start->getTimestamp() && $today->getTimestamp() < $rc_week_end->getTimestamp()) {
+    $is_rc_week = true;
+}
