@@ -47,72 +47,44 @@
     {% endif %}
   </table>
 
+  {% set cycle_labels = {
+    nightly_start: 'Nightly starts',
+    soft_code_freeze: 'Soft Code Freeze starts',
+    string_freeze: 'String Freeze starts',
+    merge_day: 'Merge day',
+    beta_1: 'Beta 1',
+    beta_2: 'Beta 2',
+    beta_3: 'Beta 3',
+    beta_4: 'Beta 4',
+    beta_5: 'Beta 5',
+    beta_6: 'Beta 6',
+    beta_7: 'Beta 7',
+    beta_8: 'Beta 8',
+    beta_9: 'Beta 9',
+    rc_gtb: 'Go to Build Release Candidate',
+    rc: 'RC',
+    release: 'Release day!'
+    }
+  %}
   <table class="table table-striped table-bordered table-sm w-25 justify-content-center mt-4">
   <caption class="alert-success mx-auto text-center" style="caption-side:top">Milestones</caption>
-    <tr {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.nightly_start) < date() ? ' class="text-muted font-weight-light"' }}>Nightly starts</th>
-      <td class="text-right">{{ cycle_dates.nightly_start|format_date(pattern='MMMM d', locale='en') }}</td>
+  {% for key,value in cycle_dates %}
+    {% if key != 'version' %}
+      {% set extra = '' %}
+      {% if key == 'beta_6' %}
+        {% set extra = ' <small class="font-weight-light">early betas end</small>' %}
+      {% endif %}
+      {% if loop.revindex == 4 %}
+        {% set extra = ' <small class="font-weight-light">last beta uplifts</small>' %}
+      {% endif %}
+
+    <tr {{ date(value) < date() ? ' class="text-muted font-weight-light"' }}>
+      <th {{ date(value) < date() ? ' class="text-muted font-weight-light"' }}>{{ cycle_labels[key] }}{{ extra|raw }}</th>
+      <td class="text-right">{{ value|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
-    <tr {{ date(cycle_dates.soft_code_freeze) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.soft_code_freeze) < date() ? ' class="text-muted font-weight-light"' }}>Soft Code Freeze starts</th>
-      <td class="text-right">{{ cycle_dates.soft_code_freeze|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.string_freeze) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.string_freeze) < date() ? ' class="text-muted font-weight-light"' }}>String Freeze starts</th>
-      <td class="text-right">{{ cycle_dates.string_freeze|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.merge_day) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.merge_day) < date() ? ' class="text-muted font-weight-light"' }}>Merge day</th>
-      <td class="text-right">{{ cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_1) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_1) < date() ? ' class="text-muted font-weight-light"' }}>Beta 1</th>
-      <td class="text-right">{{ cycle_dates.beta_1|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_2) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_2) < date() ? ' class="text-muted font-weight-light"' }}>Beta 2</th>
-      <td class="text-right">{{ cycle_dates.beta_2|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_3) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_3) < date() ? ' class="text-muted font-weight-light"' }}>Beta 3</th>
-      <td class="text-right">{{ cycle_dates.beta_3|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_4) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_4) < date() ? ' class="text-muted font-weight-light"' }}>Beta 4</th>
-      <td class="text-right">{{ cycle_dates.beta_4|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_5) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_5) < date() ? ' class="text-muted font-weight-light"' }}>Beta 5</th>
-      <td class="text-right">{{ cycle_dates.beta_5|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_6) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_6) < date() ? ' class="text-muted font-weight-light"' }}>Beta 6 <small class="font-weight-light">early betas end</small></th>
-      <td class="text-right">{{ cycle_dates.beta_6|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_7) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_7) < date() ? ' class="text-muted font-weight-light"' }}>Beta 7</th>
-      <td class="text-right">{{ cycle_dates.beta_7|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_8) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_8) < date() ? ' class="text-muted font-weight-light"' }}>Beta 8</th>
-      <td class="text-right">{{ cycle_dates.beta_8|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.beta_9) < date() ? ' class="text-muted font-weight-light"' }}>Beta 9 <small class="font-weight-light">last beta uplifts</small></th>
-      <td class="text-right">{{ cycle_dates.beta_9|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.rc_gtb) < date() ? ' class="text-muted font-weight-light"' }}>Go to Build Release Candidate</th>
-      <td class="text-right">{{ cycle_dates.rc_gtb|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.rc) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.rc) < date() ? ' class="text-muted font-weight-light"' }}>RC</th>
-      <td class="text-right">{{ cycle_dates.rc|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
-    <tr {{ date(cycle_dates.release) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(cycle_dates.release) < date() ? ' class="text-muted font-weight-light"' }}>Release day!</th>
-      <td class="text-right"  >{{ cycle_dates.release|format_date(pattern='MMMM d', locale='en') }}</td>
-    </tr>
+    {% endif %}
+  {% endfor %}
+
   </table>
 
 {% endif %}

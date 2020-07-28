@@ -60,11 +60,19 @@ $timetable = [
     'release'          => $release->format($time_format),
 ];
 
-// Sometimes there are problems in a release and we need to adjust the schedule manually
-if ($requested_version === '79.0') {
-    // We had infra problems that prevented shipping beta 8 on Wednesday
-    $fix = new DateTime($timetable['beta_8']);
-    $timetable['beta_8'] = $fix->modify('+1 day')->format($time_format);
+// Sometimes there are problems in a release and we need to adjust the beta schedule manually
+if ($requested_version === '80.0') {
+    // We had infra problems that prevented shipping beta 1, beta 2 became beta 1
+    $fix = new DateTime($timetable['beta_1']);
+    $timetable['beta_1'] = $fix->modify('+1 day')->format($time_format);
+    $timetable['beta_2'] = $fix->modify('next Friday')->format($time_format);
+    $timetable['beta_3'] = $fix->modify('next Monday')->format($time_format);
+    $timetable['beta_4'] = $fix->modify('next Wednesday')->format($time_format);
+    $timetable['beta_5'] = $fix->modify('next Friday')->format($time_format);
+    $timetable['beta_6'] = $fix->modify('next Monday')->format($time_format);
+    $timetable['beta_7'] = $fix->modify('next Wednesday')->format($time_format);
+    $timetable['beta_8'] = $fix->modify('next Friday')->format($time_format);
+    unset($timetable['beta_9']);
 }
 
 return $timetable;
