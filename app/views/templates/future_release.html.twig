@@ -71,7 +71,7 @@
   {% for key,value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
-      {% if key == 'beta_6' %}
+      {% if loop.revindex == 7 %}
         {% set extra = ' <small class="font-weight-light">early betas end</small>' %}
       {% endif %}
       {% if loop.revindex == 4 %}
