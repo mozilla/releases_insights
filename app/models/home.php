@@ -32,10 +32,8 @@ $today = new DateTime();
 $rc_week_start = new DateTime($beta_cycle_dates['rc_gtb']);
 $rc_week_end = new DateTime($nightly_cycle_dates['merge_day']);
 
-
-// sometimes we have a delay with Beta 1
-if ((int)FIREFOX_BETA ==! (int) FIREFOX_RELEASE) {
-    if ($today->getTimestamp() > $rc_week_start->getTimestamp() && $today->getTimestamp() < $rc_week_end->getTimestamp()) {
+if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
+    if (Utils::isDateBetweenDates($today, $rc_week_start, $rc_week_end)) {
         $is_rc_week = true;
     }
 }
