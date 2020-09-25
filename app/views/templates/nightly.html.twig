@@ -16,33 +16,39 @@
             <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}" class="text-light">{{ dataset.buildid }}</a>
         </li>
         <li class="list-group-item text-light bg-secondary">
-            <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{  dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
+            <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{ dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
         </li>
         <li class="list-group-item text-light bg-success">
             <a href="{{ bug_list[dataset.buildid].url }}" class="text-light">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
         </li>
         <li class="list-group-item text-light bg-primary">
-              <a class="text-light" data-toggle="collapse" href="#collapseExample{{  dataset.buildid }}">Show list of bugs</a>
+              <a class="text-light" data-toggle="collapse" href="#collapse{{ dataset.buildid }}">Show list of bugs</a>
         </li>
         <li class="list-group-item text-light bg-danger">
-            <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{  dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
+            <a href="https://crash-stats.mozilla.com/api/SuperSearch/?build_id={{ dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
         </li>
     </ul>
     <p>
 
 </p>
-<div class="collapse" id="collapseExample{{  dataset.buildid }}">
-  <div class="card card-body">
-    <ul>
-    {%for details in bug_list[dataset.buildid].bugs %}
-    <li>
-        <a href="https://bugzilla.mozilla.org/{{ details.id }}">{{ details.id }}</a> {{ details.summary }}
-    </li>
-    {% endfor %}
+<div class="collapse" id="collapse{{  dataset.buildid }}">
+    <table class="table table-dark">
+      <tbody>
+        <tr>
+            <th>Bug</th>
+            <th>Summary</th>
+        </tr>
 
-    </ul>
-  </div>
+        {%for details in bug_list[dataset.buildid].bugs %}
+        <tr>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}">{{ details.id }}</a></td>
+            <td>{{ details.summary }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 </div>
+
     <ol>
     {%for sig in top_sigs[dataset.buildid] %}
     {% if sig.term in known_top_crashes %}
