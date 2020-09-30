@@ -22,7 +22,8 @@
         "symfony/var-dumper": "~2.6",
         "friendsofphp/php-cs-fixer": "~2.1",
         "vimeo/psalm": "^3.11",
-        "nunomaduro/phpinsights": "^1.14"
+        "nunomaduro/phpinsights": "^1.14",
+        "phpstan/phpstan": "^0.12.47"
     },
 
     "autoload": {
