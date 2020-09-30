@@ -236,11 +236,7 @@ class Utils
      * @param DateTime $endDate Date should be before this date to return true
      * return bool
      */
-    public function isDateBetweenDates(
-        DateTime $date,
-        DateTime $startDate,
-        DateTime $endDate
-    ): bool
+    public static function isDateBetweenDates(DateTime $date, DateTime $startDate, DateTime $endDate): bool
     {
         return $date > $startDate && $date < $endDate;
     }
