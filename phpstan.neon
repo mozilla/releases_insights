@@ -1,0 +1,4 @@
+parameters:
+    bootstrapFiles:
+        - app/inc/init.php
+
