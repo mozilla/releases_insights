@@ -5,6 +5,7 @@
     This is manually updated.
 */
 $relman = [
+    'TBD'       => 'To be determined',
     'pascalc'   => 'Pascal Chevrel',
     'ryanvm'    => 'Ryan VanderMeulen',
     'jcristau'  => 'Julien Cristau',
@@ -76,4 +77,5 @@ return [
     '82.0' => $relman['jcristau'],
     '83.0' => $relman['pascalc'],
     '84.0' => $relman['ryanvm'],
+    '85.0' => $relman['TBD'],
 ];
