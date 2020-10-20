@@ -18,7 +18,7 @@
 {% block main %}
   <table class="table table-light table-striped table-bordered table-sm w-25 justify-content-center">
     <tr>
-      <th class="w-50">Release Date</th><td>{{ release_date|format_date('long', locale='en') }}</td>
+      <th class="w-50">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
     <tr>
       <th class="w-50">Release Owner</th><td>{{ release_owner }}</td>
