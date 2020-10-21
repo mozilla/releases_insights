@@ -11,7 +11,7 @@ if ($requested_version < FIREFOX_RELEASE) {
 }
 
 // Utility function to decrement a version number provided as a string
-$decrementVersion = function (string $version, int $decrement) {
+$decrementVersion = function (string $version, int $decrement): string {
     return (string) number_format((int) $version - $decrement, 1);
 };
 
@@ -38,26 +38,26 @@ $previous_release = new DateTime($all_releases[$decrementVersion($requested_vers
 $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
 $nightly->modify('-1 day');
 
-$time_format = 'Y-m-d H:i';
+$date_format = 'Y-m-d H:i';
 
-$timetable = [
+$schedule = [
     'version'          => $requested_version,
-    'nightly_start'    => $nightly->format($time_format),
-    'soft_code_freeze' => $nightly->modify('+3 weeks')->modify('next Thursday')->format($time_format),
-    'string_freeze'    => $nightly->modify('next Friday')->format($time_format),
-    'merge_day'        => $nightly->modify('next Monday')->format($time_format),
-    'beta_1'           => $nightly->modify('next Tuesday')->format($time_format),
-    'beta_2'           => $nightly->modify('next Wednesday')->format($time_format),
-    'beta_3'           => $nightly->modify('next Friday')->format($time_format),
-    'beta_4'           => $nightly->modify('next Monday')->format($time_format),
-    'beta_5'           => $nightly->modify('next Wednesday')->format($time_format),
-    'beta_6'           => $nightly->modify('next Friday')->format($time_format),
-    'beta_7'           => $nightly->modify('next Monday')->format($time_format),
-    'beta_8'           => $nightly->modify('next Wednesday')->format($time_format),
-    'beta_9'           => $nightly->modify('next Friday')->format($time_format),
-    'rc_gtb'           => $nightly->modify('next Monday')->format($time_format),
-    'rc'               => $nightly->modify('next Tuesday')->format($time_format),
-    'release'          => $release->format($time_format),
+    'nightly_start'    => $nightly->format($date_format),
+    'soft_code_freeze' => $nightly->modify('+3 weeks')->modify('next Thursday')->format($date_format),
+    'string_freeze'    => $nightly->modify('next Friday')->format($date_format),
+    'merge_day'        => $nightly->modify('next Monday')->format($date_format),
+    'beta_1'           => $nightly->modify('next Tuesday')->format($date_format),
+    'beta_2'           => $nightly->modify('next Wednesday')->format($date_format),
+    'beta_3'           => $nightly->modify('next Friday')->format($date_format),
+    'beta_4'           => $nightly->modify('next Monday')->format($date_format),
+    'beta_5'           => $nightly->modify('next Wednesday')->format($date_format),
+    'beta_6'           => $nightly->modify('next Friday')->format($date_format),
+    'beta_7'           => $nightly->modify('next Monday')->format($date_format),
+    'beta_8'           => $nightly->modify('next Wednesday')->format($date_format),
+    'beta_9'           => $nightly->modify('next Friday')->format($date_format),
+    'rc_gtb'           => $nightly->modify('next Monday')->format($date_format),
+    'rc'               => $nightly->modify('next Tuesday')->format($date_format),
+    'release'          => $release->format($date_format),
 ];
 
-return $timetable;
+return $schedule;
