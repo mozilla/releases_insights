@@ -60,6 +60,18 @@ $schedule = [
     'release'          => $release->format($date_format),
 ];
 
+if ($requested_version === '84.0') {
+    // We will skip a beta for 84 on Thanksgiving week
+    $fix = new DateTime($schedule['beta_4']);
+    $schedule['beta_5'] = $fix->modify('next Friday')->format($date_format);
+    $schedule['beta_6'] = $fix->modify('next Monday')->format($date_format);
+    $schedule['beta_7'] = $fix->modify('next Wednesday')->format($date_format);
+    $schedule['beta_8'] = $fix->modify('next Friday')->format($date_format);
+    $schedule['rc_gtb'] = $fix->modify('next Monday')->format($date_format);
+    $schedule['rc']     = $fix->modify('next Tuesday')->format($date_format);
+    unset($schedule['beta_9']);
+}
+
 if ($requested_version === '85.0') {
     // We will ship 85 on a longer 6 weeks cycle because of EOY holidays
     $fix = new DateTime($schedule['beta_4']);
