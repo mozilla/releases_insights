@@ -60,6 +60,16 @@ $schedule = [
     'release'          => $release->format($date_format),
 ];
 
+if ($requested_version === '83.0') {
+    // We added a beta for 83 in a chemspill
+    unset($schedule['rc_gtb'], $schedule['rc'], $schedule['release']);
+    $fix = new DateTime($schedule['beta_9']);
+    $schedule['beta_10'] = $fix->modify('next Monday')->format($date_format);
+    $schedule['rc_gtb']  = $fix->modify('next Tuesday')->format($date_format);
+    $schedule['rc']      = $fix->modify('next Wednesday')->format($date_format);
+    $schedule['release'] = $release->format($date_format);
+}
+
 if ($requested_version === '84.0') {
     // We will skip a beta for 84 on Thanksgiving week
     $fix = new DateTime($schedule['beta_4']);
