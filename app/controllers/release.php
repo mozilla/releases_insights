@@ -7,7 +7,7 @@ $requested_version = Utils::requestedVersion();
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';
 $release_owners    = include DATA .'release_owners.php';
-$release_owner     = $release_owners[$requested_version];
+$release_owner     = $release_owners[$requested_version] ?? 'TBD';
 
 // If this is a release we already shipped, display stats for the release
 if ($requested_version <= FIREFOX_RELEASE) {
