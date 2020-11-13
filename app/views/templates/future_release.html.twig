@@ -42,7 +42,14 @@
 
     {% if channel == 'beta' %}
     <tr>
-      <th>Current Beta</th><td>{{ constant('FIREFOX_BETA') }}</td>
+      <th>Current Beta</th>
+      <td>
+      {% if date() > date(cycle_dates.rc_gtb) %}
+        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release candidate</small>
+      {% else %}
+        {{ constant('FIREFOX_BETA') }}
+      {% endif %}
+      </td>
     </tr>
     {% endif %}
   </table>
