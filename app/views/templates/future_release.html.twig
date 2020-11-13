@@ -45,7 +45,7 @@
       <th>Current Beta</th>
       <td>
       {% if date() > date(cycle_dates.rc_gtb) %}
-        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release candidate</small>
+        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
       {% else %}
         {{ constant('FIREFOX_BETA') }}
       {% endif %}
