@@ -46,6 +46,11 @@ class Utils
             return date('Ymd');
         }
 
+        // Magical 'today' value
+        if ($_GET['date'] == 'today') {
+            return date('Ymd');
+        }
+
         // Cast user provided date to an int for security
         $date = (int) $_GET['date'];
 
