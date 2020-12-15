@@ -49,6 +49,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'release_date'          => $release_date,
         'beta_cycle_length'     => $beta_cycle_length,
         'nightly_cycle_length'  => $nightly_cycle_length,
+        'nightly_fixes'         => $nightly_fixes,
         'cycle_dates'           => $cycle_dates,
         'release_owner'         => $release_owner,
         'fallback_content'      => '',

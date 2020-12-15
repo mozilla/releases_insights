@@ -42,6 +42,10 @@
 
     {% if channel == 'beta' %}
     <tr>
+      <th>Bugs fixed in Nightly</th>
+      <td>{{ nightly_fixes.bug_fixes|length }}</td>
+    </tr>
+    <tr>
       <th>Current Beta</th>
       <td>
       {% if date() > date(cycle_dates.rc_gtb) %}
