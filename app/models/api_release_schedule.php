@@ -89,6 +89,24 @@ if ($requested_version === '85.0') {
     $schedule['rc']     = $fix->modify('next Tuesday')->format($date_format);
 }
 
+if ($requested_version === '86.0') {
+    $fix = new DateTime($schedule['nightly_start']);
+    $schedule['soft_code_freeze'] = $fix->modify('+5 weeks')->modify('next Thursday')->format($date_format);
+    $schedule['string_freeze']    = $fix->modify('next Friday')->format($date_format);
+    $schedule['merge_day']        = $fix->modify('next Monday')->format($date_format);
+    $schedule['beta_1']           = $fix->modify('next Tuesday')->format($date_format);
+    $schedule['beta_2']           = $fix->modify('next Wednesday')->format($date_format);
+    $schedule['beta_3']           = $fix->modify('next Friday')->format($date_format);
+    $schedule['beta_4']           = $fix->modify('next Monday')->format($date_format);
+    $schedule['beta_5']           = $fix->modify('next Wednesday')->format($date_format);
+    $schedule['beta_6']           = $fix->modify('next Friday')->format($date_format);
+    $schedule['beta_7']           = $fix->modify('next Monday')->format($date_format);
+    $schedule['beta_8']           = $fix->modify('next Wednesday')->format($date_format);
+    $schedule['beta_9']           = $fix->modify('next Friday')->format($date_format);
+    $schedule['rc_gtb']           = $fix->modify('next Monday')->format($date_format);
+    $schedule['rc']               = $fix->modify('next Tuesday')->format($date_format);
+}
+
 // Sort the schedule by date, needed for schedules with a fixup
 asort($schedule);
 
