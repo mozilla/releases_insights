@@ -42,20 +42,20 @@ $date_format = 'Y-m-d H:i';
 
 $schedule = [
     'nightly_start'    => $nightly->format($date_format),
-    'soft_code_freeze' => $nightly->modify('+3 weeks')->modify('next Thursday')->format($date_format),
-    'string_freeze'    => $nightly->modify('next Friday')->format($date_format),
-    'merge_day'        => $nightly->modify('next Monday')->format($date_format),
-    'beta_1'           => $nightly->modify('next Tuesday')->format($date_format),
-    'beta_2'           => $nightly->modify('next Wednesday')->format($date_format),
-    'beta_3'           => $nightly->modify('next Friday')->format($date_format),
-    'beta_4'           => $nightly->modify('next Monday')->format($date_format),
-    'beta_5'           => $nightly->modify('next Wednesday')->format($date_format),
-    'beta_6'           => $nightly->modify('next Friday')->format($date_format),
-    'beta_7'           => $nightly->modify('next Monday')->format($date_format),
-    'beta_8'           => $nightly->modify('next Wednesday')->format($date_format),
-    'beta_9'           => $nightly->modify('next Friday')->format($date_format),
-    'rc_gtb'           => $nightly->modify('next Monday')->format($date_format),
-    'rc'               => $nightly->modify('next Tuesday')->format($date_format),
+    'soft_code_freeze' => $nightly->modify('+3 weeks')->modify('Thursday')->format($date_format),
+    'string_freeze'    => $nightly->modify('Friday')->format($date_format),
+    'merge_day'        => $nightly->modify('Monday')->format($date_format),
+    'beta_1'           => $nightly->modify('Monday')->format($date_format),
+    'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
+    'beta_3'           => $nightly->modify('Thursday')->format($date_format),
+    'beta_4'           => $nightly->modify('Sunday')->format($date_format),
+    'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
+    'beta_6'           => $nightly->modify('Thursday')->format($date_format),
+    'beta_7'           => $nightly->modify('Sunday')->format($date_format),
+    'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
+    'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+    'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+    'rc'               => $nightly->modify('Tuesday')->format($date_format),
     'release'          => $release->format($date_format),
 ];
 
@@ -66,27 +66,27 @@ if ($requested_version === '85.0') {
     $schedule['beta_6'] = $fix->modify('next Friday')->format($date_format);
     $schedule['beta_7'] = $fix->modify('next Monday')->format($date_format);
     $schedule['beta_8'] = $fix->modify('next Wednesday')->format($date_format);
-    $schedule['beta_9'] = $fix->modify('next Friday')->format($date_format);
+    $schedule['beta_9'] = $fix->modify('next Thursday')->format($date_format);
     $schedule['rc_gtb'] = $fix->modify('next Monday')->format($date_format);
     $schedule['rc']     = $fix->modify('next Tuesday')->format($date_format);
 }
 
 if ($requested_version === '86.0') {
     $fix = new DateTime($schedule['nightly_start']);
-    $schedule['soft_code_freeze'] = $fix->modify('+5 weeks')->modify('next Thursday')->format($date_format);
-    $schedule['string_freeze']    = $fix->modify('next Friday')->format($date_format);
-    $schedule['merge_day']        = $fix->modify('next Monday')->format($date_format);
-    $schedule['beta_1']           = $fix->modify('next Tuesday')->format($date_format);
-    $schedule['beta_2']           = $fix->modify('next Wednesday')->format($date_format);
-    $schedule['beta_3']           = $fix->modify('next Friday')->format($date_format);
-    $schedule['beta_4']           = $fix->modify('next Monday')->format($date_format);
-    $schedule['beta_5']           = $fix->modify('next Wednesday')->format($date_format);
-    $schedule['beta_6']           = $fix->modify('next Friday')->format($date_format);
-    $schedule['beta_7']           = $fix->modify('next Monday')->format($date_format);
-    $schedule['beta_8']           = $fix->modify('next Wednesday')->format($date_format);
-    $schedule['beta_9']           = $fix->modify('next Friday')->format($date_format);
-    $schedule['rc_gtb']           = $fix->modify('next Monday')->format($date_format);
-    $schedule['rc']               = $fix->modify('next Tuesday')->format($date_format);
+    $schedule['soft_code_freeze'] = $fix->modify('+5 weeks')->modify('Thursday')->format($date_format);
+    $schedule['string_freeze']    = $fix->modify('Friday')->format($date_format);
+    $schedule['merge_day']        = $fix->modify('Monday')->format($date_format);
+    $schedule['beta_1']           = $fix->modify('Monday')->format($date_format);
+    $schedule['beta_2']           = $fix->modify('Tuesday')->format($date_format);
+    $schedule['beta_3']           = $fix->modify('Thursday')->format($date_format);
+    $schedule['beta_4']           = $fix->modify('Sunday')->format($date_format);
+    $schedule['beta_5']           = $fix->modify('Tuesday')->format($date_format);
+    $schedule['beta_6']           = $fix->modify('Thursday')->format($date_format);
+    $schedule['beta_7']           = $fix->modify('Sunday')->format($date_format);
+    $schedule['beta_8']           = $fix->modify('Tuesday')->format($date_format);
+    $schedule['beta_9']           = $fix->modify('Thursday')->format($date_format);
+    $schedule['rc_gtb']           = $fix->modify('Monday')->format($date_format);
+    $schedule['rc']               = $fix->modify('Tuesday')->format($date_format);
 }
 
 // Sort the schedule by date, needed for schedules with a fixup
