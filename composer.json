@@ -16,7 +16,9 @@
         "fortawesome/font-awesome": "^5.13",
         "php": "^7.4.0",
         "ext-intl": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "eluceo/ical": "^0.16.1",
+        "spatie/ray": "^1.11"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.2",
