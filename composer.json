@@ -19,7 +19,7 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "symfony/var-dumper": "~2.6",
+        "symfony/var-dumper": "^5.2",
         "friendsofphp/php-cs-fixer": "~2.1",
         "vimeo/psalm": "^3.11",
         "nunomaduro/phpinsights": "^1.14",
