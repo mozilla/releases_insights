@@ -35,12 +35,27 @@ foreach ($releases as $label => $date) {
     }
 
     $event = new Event();
-    $event
-        ->setDtStart(new \DateTime($date))
-        ->setDtEnd(new \DateTime($date))
-        ->setNoTime(true)
-        ->setSummary($release_schedule_labels[$label])
-    ;
+
+
+    if ($label == 'soft_code_freeze') {
+
+        $start = new DateTime($date);
+        $end   = new DateTime($date);
+
+        $event
+            ->setDtStart($start)
+            ->setDtEnd($end->modify('Sunday'))
+            ->setNoTime(true)
+            ->setSummary($release_schedule_labels[$label])
+        ;
+    } else {
+        $event
+            ->setDtStart(new DateTime($date))
+            ->setDtEnd(new DateTime($date))
+            ->setNoTime(true)
+            ->setSummary($release_schedule_labels[$label])
+        ;
+    }
 
     $calendar->addComponent($event);
 }
