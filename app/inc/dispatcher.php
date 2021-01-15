@@ -34,6 +34,9 @@ switch ($url['path']) {
     case 'api/nightly/crashes':
         $controller = 'api_nightly_crashes';
         break;
+    case 'calendar/release/schedule':
+        $controller = 'ics_release_schedule';
+        break;
     default:
         $controller = '404';
         $page_title = '404: Page Not Found';
