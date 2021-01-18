@@ -55,6 +55,10 @@ $content = <<<"EOD"
         <td><a href="/release/">release</a></td>
         <td>Provides historical data for past releases and basic release date information for future releases.</td>
     </tr>
+    <tr>
+        <td><a href="/calendar/release/schedule/?version={$main_beta}">/calendar/release/schedule/?version={$main_beta}</a></td>
+        <td>Download an icalendar (.ics) file of future milestones for a future release. Can be imported into your calendar application.</td>
+    </tr>
 </table>
 
 EOD;
