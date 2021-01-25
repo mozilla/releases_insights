@@ -8,6 +8,7 @@ $requested_version = Utils::requestedVersion();
 $upcoming_releases = include DATA .'upcoming_releases.php';
 $release_owners    = include DATA .'release_owners.php';
 $release_owner     = $release_owners[$requested_version] ?? 'TBD';
+$page_title        = 'Milestones and key data for Firefox ' . (int) $requested_version;
 
 // If this is a release we already shipped, display stats for the release
 if ($requested_version <= FIREFOX_RELEASE) {
@@ -59,7 +60,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
     $template_data = [
         'css_files'    => $css_files,
         'css_page_id'  => $controller,
-        'page_title'   => $page_title,
+        'page_title'   => 'No information yet for this release',
         'release'      => (int) $requested_version,
         'fallback_content' => '<p class="alert alert-warning text-center w-25 mx-auto">The release date for this version is not yet available.</p>',
     ];
