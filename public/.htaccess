@@ -1,12 +1,29 @@
 # Rewrite all requests to the front controller
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    #https://stackoverflow.com/questions/1329647/force-ssl-https-with-mod-rewrite/34065445#34065445
+    # If we receive a forwarded http request from a proxy...
+    RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+
+    # ...or just a plain old http request directly from the client
+    RewriteCond %{HTTP:X-Forwarded-Proto} =""
+    RewriteCond %{HTTPS} !=on
+
+    # Redirect to https version
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Put the rest of your rewrite rules here
     RewriteBase /
 
     # Existing files and folders are not redirected
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule (.*) /index.php [L,QSA]
+
+    RewriteEngine On
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.example.com/$1 [R,L]
 </IfModule>
 
 # Leverage browser cache
