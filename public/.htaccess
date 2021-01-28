@@ -68,6 +68,6 @@
 
     # Block site from being framed with X-Frame-Options and CSP
     # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
-    Header set Content-Security-Policy: frame-ancestors 'none'
+    Header set Content-Security-Policy: "frame-ancestors 'none'"
     Header set X-Frame-Options: DENY
 </IfModule>
