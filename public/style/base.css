@@ -75,6 +75,16 @@ h3 {
     width: 70%;
 }
 
+/* About tooltip */
+#homepage a >i {
+    font-size: 2rem;
+    margin-top: 0.5em;
+}
+
+/* Milestones caption on top of list */
+#release caption {
+    caption-side: top;
+}
 
 @media only screen and (max-width: 460px) {
     .w-25 {
