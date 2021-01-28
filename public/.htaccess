@@ -61,16 +61,9 @@
 
 # Security headers
 <IfModule mod_headers.c>
-    Header set Content-Security-Policy: "default-src https:; object-src 'none'; base-uri 'self'; script-src 'nonce-4AEemGb0xJptoIGFP3Nd'"
+    Header set Content-Security-Policy: "default-src https:; object-src 'none'; base-uri 'self'; script-src 'nonce-4AEemGb0xJptoIGFP3Nd'; frame-ancestors 'none'"
     Header set Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
     Header set X-Content-Type-Options: nosniff
     Header set X-XSS-Protection: "1; mode=block"
-
-    # Block site from being framed with X-Frame-Options and CSP
-    # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
-    Header set Content-Security-Policy: "frame-ancestors 'none'"
     Header set X-Frame-Options: DENY
-
-
-
 </IfModule>
