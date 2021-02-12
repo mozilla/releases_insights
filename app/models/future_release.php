@@ -30,7 +30,7 @@ $beta_cycle_length = $release->diff($previous_release)->days / 7;
 $nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;
 
 // Get the schedule for the release requested
-$cycle_dates = include MODELS . 'api_release_schedule.php';
+$cycle_dates = include MODELS . 'api/release_schedule.php';
 
 $nightly_fixes = 0;
 /* Only for the current Beta view */

@@ -26,16 +26,16 @@ switch ($url['path']) {
         $page_title = 'General statistics for releases';
         break;
     case 'api/nightly':
-        $controller = 'api_nightly';
+        $controller = 'api/nightly';
         break;
     case 'api/release/schedule':
-        $controller = 'api_release_schedule';
+        $controller = 'api/release_schedule';
         break;
     case 'api/release/owners':
         $controller = 'api/release_owners';
         break;
     case 'api/nightly/crashes':
-        $controller = 'api_nightly_crashes';
+        $controller = 'api/nightly_crashes';
         break;
     case 'calendar/release/schedule':
         $controller = 'ics_release_schedule';
