@@ -23,6 +23,10 @@ $content = <<<"EOD"
         <td><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a></td>
         <td>Gives the forecast release 4 week scheduled milestones for an upcoming major version. Can be a version number or one of the <code>beta</code> or <code>nightly</code> keywords.</td>
     </tr>
+    <tr>
+        <td><a href="/api/release/owners/">api/release/owners/</a></td>
+        <td>Historical list of all release managers for Firefox major release. We don’t have the names before Firefox 27</td>
+    </tr>
 </table>
 
 <h3>Views</h3>
