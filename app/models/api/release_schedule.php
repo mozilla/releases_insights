@@ -59,6 +59,41 @@ $schedule = [
     'release'          => $release->format($date_format),
 ];
 
+if ($requested_version === '88.0') {
+    // We will ship 88 on a longer 5 weeks cycle
+    $fix = new DateTime($schedule['beta_9']);
+    $schedule['beta_10'] = $fix->modify('next Sunday')->format($date_format);
+    $schedule['beta_11'] = $fix->modify('next Tuesday')->format($date_format);
+    $schedule['beta_12'] = $fix->modify('next Thursday')->format($date_format);
+    $schedule['rc_gtb'] = $fix->modify('next Monday')->format($date_format);
+    $schedule['rc']     = $fix->modify('next Tuesday')->format($date_format);
+}
+
+if ($requested_version === '89.0') {
+    // recalcultate the whole cycle as an impact of the 1 extra week in  88
+    $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+    $nightly->modify('-1 day');
+
+    $schedule = [
+        'nightly_start'    => $nightly->format($date_format),
+        'soft_code_freeze' => $nightly->modify('+3 weeks')->modify('Thursday')->format($date_format),
+        'string_freeze'    => $nightly->modify('Friday next week')->format($date_format),
+        'merge_day'        => $nightly->modify('Monday')->format($date_format),
+        'beta_1'           => $nightly->modify('Monday')->format($date_format),
+        'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_3'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_4'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_6'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_7'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+        'rc'               => $nightly->modify('Tuesday')->format($date_format),
+        'release'          => $release->format($date_format),
+    ];
+}
+
 // Sort the schedule by date, needed for schedules with a fixup
 asort($schedule);
 
