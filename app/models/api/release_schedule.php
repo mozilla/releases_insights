@@ -59,36 +59,6 @@ $schedule = [
     'release'          => $release->format($date_format),
 ];
 
-if ($requested_version === '85.0') {
-    // We will ship 85 on a longer 6 weeks cycle because of EOY holidays
-    $fix = new DateTime($schedule['beta_4']);
-    $schedule['beta_5'] = $fix->modify('+ 2 weeks')->modify('next Wednesday')->format($date_format);
-    $schedule['beta_6'] = $fix->modify('next Friday')->format($date_format);
-    $schedule['beta_7'] = $fix->modify('next Monday')->format($date_format);
-    $schedule['beta_8'] = $fix->modify('next Wednesday')->format($date_format);
-    $schedule['beta_9'] = $fix->modify('next Thursday')->format($date_format);
-    $schedule['rc_gtb'] = $fix->modify('next Monday')->format($date_format);
-    $schedule['rc']     = $fix->modify('next Tuesday')->format($date_format);
-}
-
-if ($requested_version === '86.0') {
-    $fix = new DateTime($schedule['nightly_start']);
-    $schedule['soft_code_freeze'] = $fix->modify('+5 weeks')->modify('Thursday')->format($date_format);
-    $schedule['string_freeze']    = $fix->modify('Friday')->format($date_format);
-    $schedule['merge_day']        = $fix->modify('Monday')->format($date_format);
-    $schedule['beta_1']           = $fix->modify('Monday')->format($date_format);
-    $schedule['beta_2']           = $fix->modify('Tuesday')->format($date_format);
-    $schedule['beta_3']           = $fix->modify('Thursday')->format($date_format);
-    $schedule['beta_4']           = $fix->modify('Sunday')->format($date_format);
-    $schedule['beta_5']           = $fix->modify('Tuesday')->format($date_format);
-    $schedule['beta_6']           = $fix->modify('Thursday')->format($date_format);
-    $schedule['beta_7']           = $fix->modify('Sunday')->format($date_format);
-    $schedule['beta_8']           = $fix->modify('Tuesday')->format($date_format);
-    $schedule['beta_9']           = $fix->modify('Thursday')->format($date_format);
-    $schedule['rc_gtb']           = $fix->modify('Monday')->format($date_format);
-    $schedule['rc']               = $fix->modify('Tuesday')->format($date_format);
-}
-
 // Sort the schedule by date, needed for schedules with a fixup
 asort($schedule);
 
