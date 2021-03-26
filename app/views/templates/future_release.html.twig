@@ -74,6 +74,11 @@
     beta_8: 'Beta 8' ~ btb,
     beta_9: 'Beta 9' ~ btb,
     beta_10: 'Beta 10' ~ btb,
+    beta_11: 'Beta 11' ~ btb,
+    beta_12: 'Beta 12' ~ btb,
+    beta_13: 'Beta 13' ~ btb,
+    beta_14: 'Beta 14' ~ btb,
+    beta_15: 'Beta 15' ~ btb,
     rc_gtb: 'Release Candidate' ~ btb,
     rc: 'Release Candidate',
     release: 'Release day!'
@@ -84,9 +89,16 @@
   {% for key,value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
-      {% if loop.revindex == 7 %}
-        {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
+      {% if cycle_dates.version == '88.0' %}
+        {% if  loop.revindex == 13 %}
+          {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
+        {% endif %}
+      {% else %}
+        {% if loop.revindex == 7 %}
+          {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
+        {% endif %}
       {% endif %}
+
       {% if loop.revindex == 4 %}
         {% set extra = ' <small class="badge badge-warning">Last beta uplifts</small>' %}
       {% endif %}
