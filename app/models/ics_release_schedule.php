@@ -21,6 +21,11 @@ $release_schedule_labels = [
     'beta_8'            => 'Firefox ' . $releases['version'] . 'b8 (GTB: 21:00 UTC)',
     'beta_9'            => 'Firefox ' . $releases['version'] . 'b9 (GTB: 21:00 UTC)',
     'beta_10'           => 'Firefox ' . $releases['version'] . 'b10 (GTB: 21:00 UTC)',
+    'beta_11'           => 'Firefox ' . $releases['version'] . 'b11 (GTB: 21:00 UTC)',
+    'beta_12'           => 'Firefox ' . $releases['version'] . 'b12 (GTB: 21:00 UTC)',
+    'beta_13'           => 'Firefox ' . $releases['version'] . 'b13 (GTB: 21:00 UTC)',
+    'beta_14'           => 'Firefox ' . $releases['version'] . 'b14 (GTB: 21:00 UTC)',
+    'beta_15'           => 'Firefox ' . $releases['version'] . 'b15 (GTB: 21:00 UTC)',
     'rc_gtb'            => 'Firefox ' . $short_version . ' go to Build',
     'rc'                => 'RC',
     'release'           => 'Firefox ' . $short_version . ' go-live @ 6am PT'
@@ -28,6 +33,9 @@ $release_schedule_labels = [
 
 // Add end of early betas to the schedule
 $early_beta_end = new DateTime($releases['beta_6']);
+if ($short_version == '89') {
+    $early_beta_end = new DateTime($releases['beta_12']);
+}
 $releases['early_beta_end'] = $early_beta_end->modify('+1 day')->format('Y-m-d H:i');
 $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER';
 
