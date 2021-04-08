@@ -6,7 +6,7 @@ $requested_version = Utils::requestedVersion();
 
 
 if ((int) $requested_version < $main_beta) {
-	die("We don't provide schedule calendars for past releases");
+	die("We don't provide schedule calendars for past releases.");
 }
 
 $releases = include MODELS . 'api/release_schedule.php';
