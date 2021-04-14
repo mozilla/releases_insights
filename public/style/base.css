@@ -75,11 +75,7 @@ h3 {
     width: 70%;
 }
 
-/* About tooltip */
-#homepage a >i {
-    font-size: 2rem;
-    margin-top: 0.5em;
-}
+
 
 /* Milestones caption on top of list */
 #release caption {
@@ -115,3 +111,27 @@ h3 {
         padding: 0.5rem 0.25rem;
     }
 }
+
+/* About tooltip */
+ #homepage .information {
+    display:inline-block;
+    height: 32px;
+    width: 32px;
+    line-height: 25px;
+    margin-top: 0.5em;
+
+    color: white;
+    background-color: #20123a;
+    border-radius: 50%;
+    border: 3px solid white;
+
+    font-size: 29px;
+    font-family: Serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+ #homepage .information:hover {
+    color: #20123a;
+    background-color: white;
+ }

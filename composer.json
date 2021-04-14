@@ -13,7 +13,6 @@
         "psy/psysh": "^0.10",
         "components/jquery": "^3.4",
         "twig/intl-extra": "^3.0",
-        "fortawesome/font-awesome": "^5.13",
         "php": "^7.4.0",
         "ext-intl": "*",
         "ext-mbstring": "*",
@@ -42,11 +41,7 @@
             "rm -rf public/assets/jquery",
             "cp -R vendor/components/jquery/ public/assets/jquery",
             "rm public/assets/jquery/README.md",
-            "rm -rf public/assets/font-awesome",
-            "cp -R vendor/fortawesome/font-awesome/ public/assets/font-awesome",
-            "rm public/assets/font-awesome/*.md",
-            "rm public/assets/font-awesome/*.json",
-            "rm public/assets/font-awesome/*.txt"
+            "rm -rf public/assets/font-awesome"
         ]
     }
 }
