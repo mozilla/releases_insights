@@ -40,8 +40,7 @@
             "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap",
             "rm -rf public/assets/jquery",
             "cp -R vendor/components/jquery/ public/assets/jquery",
-            "rm public/assets/jquery/README.md",
-            "rm -rf public/assets/font-awesome"
+            "rm public/assets/jquery/README.md"
         ]
     }
 }
