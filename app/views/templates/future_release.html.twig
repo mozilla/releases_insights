@@ -56,6 +56,13 @@
       </td>
     </tr>
     {% endif %}
+
+    {% if release == '91' %}
+    <tr  class="table-warning text-center font-weight-bold">
+      <td colspan="2">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
+    </tr>
+    {% endif %}
+
   </table>
 
   {% set btb = ' <small class="text-secondary font-weight-light">Go to build</small>' %}
