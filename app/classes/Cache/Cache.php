@@ -18,12 +18,12 @@ class Cache
     /*
         Fallback for activation of Cache
      */
-    const CACHE_ENABLED = true;
+    public const CACHE_ENABLED = true;
 
     /*
         Cache expiration time (seconds)
      */
-    const CACHE_TIME = 3600;
+    public const CACHE_TIME = 3600;
 
     /**
      * Create a cache file with serialized data

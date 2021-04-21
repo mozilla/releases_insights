@@ -1,7 +1,7 @@
 <?php
 
-use ReleaseInsights\Utils;
 use ReleaseInsights\Bugzilla as Bz;
+use ReleaseInsights\Utils;
 
 // Utility function to decrement a version number provided as a string
 $decrementVersion = function (string $version, int $decrement) {
@@ -35,11 +35,11 @@ $cycle_dates = include MODELS . 'api/release_schedule.php';
 $nightly_fixes = 0;
 /* Only for the current Beta view */
 if ((int) $requested_version === $main_beta) {
-	// Number of bugs fixed in nightly
-	$nightly_fixes = Bz::getBugsFromHgWeb(
-	    'https://hg.mozilla.org/mozilla-central/json-pushes'
-	    . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
-	    . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
-	    . '&full&version=2', true, 3600 * 24 * 365
-	);
+    // Number of bugs fixed in nightly
+    $nightly_fixes = Bz::getBugsFromHgWeb(
+        'https://hg.mozilla.org/mozilla-central/json-pushes'
+        . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
+        . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
+        . '&full&version=2', true, 3600 * 24 * 365
+    );
 }

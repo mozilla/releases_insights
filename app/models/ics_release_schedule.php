@@ -1,8 +1,7 @@
 <?php
 
-use Eluceo\iCal\Component\{Calendar, Event};
-use ReleaseInsights\Utils;
-
+use Eluceo\iCal\Component\Calendar;
+use Eluceo\iCal\Component\Event;
 
 $short_version = (string) (int) $releases['version'];
 
@@ -28,12 +27,12 @@ $release_schedule_labels = [
     'beta_15'           => 'Firefox ' . $releases['version'] . 'b15 (GTB: 21:00 UTC)',
     'rc_gtb'            => 'Firefox ' . $short_version . ' go to Build',
     'rc'                => 'RC',
-    'release'           => 'Firefox ' . $short_version . ' go-live @ 6am PT'
+    'release'           => 'Firefox ' . $short_version . ' go-live @ 6am PT',
 ];
 
 // Add end of early betas to the schedule
 $early_beta_end = new DateTime($releases['beta_6']);
-if ($short_version == '89') {
+if ($short_version === '89') {
     $early_beta_end = new DateTime($releases['beta_12']);
 }
 $releases['early_beta_end'] = $early_beta_end->modify('+1 day')->format('Y-m-d H:i');
@@ -43,14 +42,13 @@ $calendar = new Calendar('Firefox ' . $short_version);
 
 foreach ($releases as $label => $date) {
 
-    if ($label == 'version' || $label == 'rc') {
+    if ($label === 'version' || $label === 'rc') {
         continue;
     }
 
     $event = new Event();
 
-
-    if ($label == 'soft_code_freeze') {
+    if ($label === 'soft_code_freeze') {
 
         $start = new DateTime($date);
         $end   = new DateTime($date);
@@ -72,7 +70,6 @@ foreach ($releases as $label => $date) {
 
     $calendar->addComponent($event);
 }
-
 
 $ics_calendar = $calendar->render();
 $filename = 'Firefox_' . $short_version . '_schedule.ics';
