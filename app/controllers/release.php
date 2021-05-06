@@ -11,7 +11,7 @@ $release_owner     = $release_owners[$requested_version] ?? 'TBD';
 $page_title        = 'Milestones and key data for Firefox ' . (int) $requested_version;
 
 // If this is a release we already shipped, display stats for the release
-if ($requested_version <= FIREFOX_RELEASE) {
+if ( (int) $requested_version <= (int) FIREFOX_RELEASE) {
     require_once MODELS . 'past_release.php';
     $template_file = 'past_release.html.twig';
     $template_data = [
@@ -38,7 +38,7 @@ if ($requested_version <= FIREFOX_RELEASE) {
         'release_owner'         => $release_owner,
         'fallback_content'      => '',
     ];
-} elseif ($requested_version > FIREFOX_RELEASE
+} elseif ((int) $requested_version > (int) FIREFOX_RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
     require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
