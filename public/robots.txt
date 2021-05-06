@@ -1,0 +1,3 @@
+# Forbid indexing of the app by robots, they are consuming too much
+User-agent: *
+Disallow: /
