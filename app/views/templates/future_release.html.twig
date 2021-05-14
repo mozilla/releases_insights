@@ -24,14 +24,14 @@
     {% set channel = 'future' %}
   {% endif %}
 
-  <div class="w-25 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
+  <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
 
-  <table class="table table-light table-striped table-bordered table-sm w-25 justify-content-center">
+  <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center">
     <tr>
-      <th class="w-50">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
+      <th class="w-auto">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
     <tr>
-      <th class="w-50">Release Owner</th><td>{{ release_owner }}</td>
+      <th class="w-auto">Release Owner</th><td>{{ release_owner }}</td>
     </tr>
     <tr>
       <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
@@ -91,14 +91,25 @@
     release: 'Release day!'
     }
   %}
-  <table class="table table-light table-striped table-bordered table-sm w-25 justify-content-center mt-4">
+
+  {% set beta_6weeks = ['90'] %}
+
+  <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
   <caption class="alert-success mx-auto text-center">Milestones</caption>
   {% for key,value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
 
-      {% if loop.revindex == 7 %}
+      {% if release in beta_6weeks %}
+        {% if loop.revindex == 10 %}
           {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
+        {% endif %}
+      {% endif %}
+
+      {% if release not in beta_6weeks %}
+        {% if loop.revindex == 7 %}
+            {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
+        {% endif %}
       {% endif %}
 
       {% if loop.revindex == 4 %}

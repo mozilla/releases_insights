@@ -131,7 +131,7 @@ h3 {
 }
 
 @media only screen and (max-width: 460px) {
-    .w-25 {
+    .w-50 {
         width: 100% !important;
     }
 

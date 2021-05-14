@@ -36,13 +36,22 @@ $previous_release = new DateTime($all_releases[$decrementVersion($requested_vers
 
 // Calculate 1st day of the nightly cycle
 $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+
 $nightly->modify('-1 day');
 
 $date_format = 'Y-m-d H:i';
 
-// This is a consequence of the 2 extra weeks of beta for 89 proton.
-// Todo: remove after 90 is shipped
+// The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 89 proton.
+// TODO: remove after 90 is shipped
 $x = $requested_version === '90.0' ? 5 : 3;
+
+// The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 90 because of the wellness week
+// TODO: remove after 91 is shipped
+$x = $requested_version === '91.0' ? 5 : 3;
+
+// The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 90 because of the wellness week
+// TODO: remove after 91 is shipped
+$x = $requested_version === '96.0' ? 4 : 3;
 
 $schedule = [
     'nightly_start'    => $nightly->format($date_format),
@@ -95,6 +104,90 @@ if ($requested_version === '89.0') {
     ];
 }
 
+if ($requested_version === '90.0') {
+    // Recalculate the whole cycle as an impact of the 2 extra weeks in nightly & beta 90
+    // TODO: remove this block after 90 is shipped
+    // We alsoshipped 88 one day earlier, that impact 90 nightly start
+    $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+
+    $schedule = [
+        'nightly_start'    => $nightly->format($date_format),
+        'soft_code_freeze' => $nightly->modify('+5 weeks')->modify('Thursday')->format($date_format),
+        'string_freeze'    => $nightly->modify('Friday')->format($date_format),
+        'merge_day'        => $nightly->modify('Monday')->format($date_format),
+        'beta_1'           => $nightly->modify('Monday')->format($date_format),
+        'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_3'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_4'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_6'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_7'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_10'          => $nightly->modify('Sunday')->format($date_format),
+        'beta_11'          => $nightly->modify('Tuesday')->format($date_format),
+        'beta_12'          => $nightly->modify('Thursday')->format($date_format),
+        'beta_13'          => $nightly->modify('Sunday')->format($date_format),
+        'beta_14'          => $nightly->modify('Tuesday')->format($date_format),
+        'beta_15'          => $nightly->modify('Thursday')->format($date_format),
+        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+        'rc'               => $nightly->modify('Tuesday')->format($date_format),
+        'release'          => $release->format($date_format),
+    ];
+}
+
+if ($requested_version === '95.0') {
+    // We have a 5 weeks beta cycle for 95 and 96, that means 3 additional betas
+    $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+    $nightly->modify('-1 day');
+
+    $schedule = [
+        'nightly_start'    => $nightly->format($date_format),
+        'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday')->format($date_format),
+        'string_freeze'    => $nightly->modify('Friday')->format($date_format),
+        'merge_day'        => $nightly->modify('Monday')->format($date_format),
+        'beta_1'           => $nightly->modify('Monday')->format($date_format),
+        'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_3'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_4'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_6'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_7'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_10'          => $nightly->modify('Sunday')->format($date_format),
+        'beta_11'          => $nightly->modify('Tuesday')->format($date_format),
+        'beta_12'          => $nightly->modify('Thursday')->format($date_format),
+        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+        'rc'               => $nightly->modify('Tuesday')->format($date_format),
+        'release'          => $release->format($date_format),
+    ];
+}
+
+if ($requested_version === '96.0') {
+    $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+    $nightly->modify('-1 day');
+
+    $schedule = [
+        'nightly_start'    => $nightly->format($date_format),
+        'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday')->format($date_format),
+        'string_freeze'    => $nightly->modify('Friday')->format($date_format),
+        'merge_day'        => $nightly->modify('Monday')->format($date_format),
+        'beta_1'           => $nightly->modify('Monday')->format($date_format),
+        'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_3'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_4'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_6'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_7'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+        // We have a 5 weeks beta cycle for 96,but no additional betas
+        'rc_gtb'           => $nightly->modify('Monday +1 week')->format($date_format),
+        'rc'               => $nightly->modify('Tuesday')->format($date_format),
+        'release'          => $release->format($date_format),
+    ];
+}
 // Sort the schedule by date, needed for schedules with a fixup
 asort($schedule);
 
