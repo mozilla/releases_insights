@@ -50,7 +50,7 @@ $x = $requested_version === '90.0' ? 5 : 3;
 $x = $requested_version === '91.0' ? 5 : 3;
 
 // The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 90 because of the wellness week
-// TODO: remove after 91 is shipped
+// TODO: remove after 96 is shipped
 $x = $requested_version === '96.0' ? 4 : 3;
 
 $schedule = [
@@ -107,7 +107,7 @@ if ($requested_version === '89.0') {
 if ($requested_version === '90.0') {
     // Recalculate the whole cycle as an impact of the 2 extra weeks in nightly & beta 90
     // TODO: remove this block after 90 is shipped
-    // We alsoshipped 88 one day earlier, that impact 90 nightly start
+    // We also shipped 88 one day earlier, that impact 90 nightly start
     $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
 
     $schedule = [
@@ -127,10 +127,7 @@ if ($requested_version === '90.0') {
         'beta_10'          => $nightly->modify('Sunday')->format($date_format),
         'beta_11'          => $nightly->modify('Tuesday')->format($date_format),
         'beta_12'          => $nightly->modify('Thursday')->format($date_format),
-        'beta_13'          => $nightly->modify('Sunday')->format($date_format),
-        'beta_14'          => $nightly->modify('Tuesday')->format($date_format),
-        'beta_15'          => $nightly->modify('Thursday')->format($date_format),
-        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+        'rc_gtb'           => $nightly->modify('Monday +1 week')->format($date_format),
         'rc'               => $nightly->modify('Tuesday')->format($date_format),
         'release'          => $release->format($date_format),
     ];
