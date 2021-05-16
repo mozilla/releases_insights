@@ -42,16 +42,19 @@ $nightly->modify('-1 day');
 $date_format = 'Y-m-d H:i';
 
 // The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 89 proton.
-// TODO: remove after 90 is shipped
-$x = $requested_version === '90.0' ? 5 : 3;
-
 // The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 90 because of the wellness week
-// TODO: remove after 91 is shipped
-$x = $requested_version === '91.0' ? 5 : 3;
-
-// The change of Soft code Freeze date is a consequence of the 2 extra weeks of beta for 90 because of the wellness week
-// TODO: remove after 96 is shipped
-$x = $requested_version === '96.0' ? 4 : 3;
+switch ($requested_version) {
+    case '90.0':
+    case '91.0':
+        $x = 5;
+        break;
+    case '96.0':
+        $x = 4;
+        break;
+    default:
+        $x = 3;
+        break;
+}
 
 $schedule = [
     'nightly_start'    => $nightly->format($date_format),
