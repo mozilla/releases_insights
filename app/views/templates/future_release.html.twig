@@ -92,25 +92,15 @@
     }
   %}
 
-  {% set beta_6weeks = ['90'] %}
-
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
   <caption class="alert-success mx-auto text-center">Milestones</caption>
   {% for key,value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
 
-      {% if release in beta_6weeks %}
-        {% if loop.revindex == 10 %}
+        {% if loop.revindex == 7%}
           {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
         {% endif %}
-      {% endif %}
-
-      {% if release not in beta_6weeks %}
-        {% if loop.revindex == 7 %}
-            {% set extra = ' <small class="badge badge-warning">Early betas end</small>' %}
-        {% endif %}
-      {% endif %}
 
       {% if loop.revindex == 4 %}
         {% set extra = ' <small class="badge badge-warning">Last beta uplifts</small>' %}
