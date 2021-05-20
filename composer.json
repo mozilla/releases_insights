@@ -7,19 +7,19 @@
         }
     ],
    "require": {
+        "php": "^7.4.0",
         "mozillal10n/json": "~0.1",
         "twig/twig": "^3.0",
         "twbs/bootstrap": "^4.5",
-        "psy/psysh": "^0.10",
         "components/jquery": "^3.4",
         "twig/intl-extra": "^3.0",
-        "php": "^7.4.0",
         "ext-intl": "*",
         "ext-mbstring": "*",
-        "eluceo/ical": "^0.16.1",
-        "spatie/ray": "^1.11"
+        "eluceo/ical": "^0.16.1"
     },
     "require-dev": {
+        "spatie/ray": "^1.11",
+        "psy/psysh": "^0.10",
         "symfony/var-dumper": "^5.2",
         "friendsofphp/php-cs-fixer": "~2.1",
         "vimeo/psalm": "^3.11",
