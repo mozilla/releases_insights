@@ -32,9 +32,6 @@ $release_schedule_labels = [
 
 // Add end of early betas to the schedule
 $early_beta_end = new DateTime($releases['beta_6']);
-if ($short_version === '89') {
-    $early_beta_end = new DateTime($releases['beta_12']);
-}
 $releases['early_beta_end'] = $early_beta_end->modify('+1 day')->format('Y-m-d H:i');
 $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER';
 

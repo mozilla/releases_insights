@@ -123,11 +123,17 @@ h3 {
     width: 70%;
 }
 
-
-
 /* Milestones caption on top of list */
 #release caption {
     caption-side: top;
+}
+
+#release .table th {
+    min-width: 50%;
+}
+
+#release .table td {
+    text-align: right;
 }
 
 @media only screen and (max-width: 460px) {
