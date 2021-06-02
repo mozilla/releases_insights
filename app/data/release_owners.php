@@ -84,4 +84,5 @@ return [
     '89.0' => $relman['pascalc'],
     '90.0' => $relman['jcristau'],
     '91.0' => $relman['pascalc'],
+    '92.0' => $relman['ryanvm'],
 ];
