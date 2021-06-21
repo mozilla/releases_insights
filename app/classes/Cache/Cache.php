@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cache;
 
 /**
@@ -38,7 +40,7 @@ class Cache
      * @return bool True if cache file is created
      *              False if there was an error
      */
-    public static function setKey(string $id, $data): bool
+    public static function setKey(string $id, mixed $data): bool
     {
         if (! self::isActivated()) {
             return false;
@@ -55,7 +57,7 @@ class Cache
      *
      * @return mixed Unserialized cached data, or false
      */
-    public static function getKey(string $id, int $ttl = 0)
+    public static function getKey(string $id, int $ttl = 0): mixed
     {
         if (! self::isActivated()) {
             return false;
@@ -182,6 +184,6 @@ class Cache
      */
     private static function isObsoleteKey(string $id, int $ttl): bool
     {
-        return filemtime(self::getKeyPath($id)) < (time() - $ttl);
+        return filemtime(self::getKeyPath($id)) < time() - $ttl;
     }
 }

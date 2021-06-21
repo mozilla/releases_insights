@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Json\Json;
 
 // This view outputs a JSON or JSONP representation of search results

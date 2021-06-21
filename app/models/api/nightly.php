@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Cache\Cache;
 use ReleaseInsights\Utils;
 
@@ -61,7 +63,7 @@ if (! $data = Cache::getKey($cache_id, 3600*4)) {
     $data = $filtered;
 
     // We don't cache today because we may miss the second nightly build
-    if ($date != date('Ymd')) {
+    if ($date !== date('Ymd')) {
         Cache::setKey($cache_id, $data);
     }
 }

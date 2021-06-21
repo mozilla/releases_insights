@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // List of css files we include, by default only base.css
 $css_files = ['base.css'];
 

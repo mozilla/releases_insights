@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
 
@@ -30,7 +32,7 @@ $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2';
 
-if ($requested_version != 53 && $requested_version > 46) {
+if ($requested_version !== 53 && $requested_version > 46) {
     $beta_uplifts      = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
@@ -78,5 +80,7 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
     'https://hg.mozilla.org/mozilla-central/json-pushes'
     . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
     . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
-    . '&full&version=2', true, 3600 * 24 * 365
+    . '&full&version=2',
+    true,
+    3600 * 24 * 365
 );

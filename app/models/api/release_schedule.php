@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Utils;
 
 if ($requested_version < 75) {
@@ -74,7 +76,6 @@ $schedule = [
     'rc'               => $nightly->modify('Tuesday')->format($date_format),
     'release'          => $release->format($date_format),
 ];
-
 
 if ($requested_version === '90.0') {
     // Recalculate the whole cycle as an impact of the 2 extra weeks in nightly & beta 90

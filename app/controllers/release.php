@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Utils;
 
 $requested_version = Utils::requestedVersion();
@@ -11,7 +13,7 @@ $release_owner     = $release_owners[$requested_version] ?? 'TBD';
 $page_title        = 'Milestones and key data for Firefox ' . (int) $requested_version;
 
 // If this is a release we already shipped, display stats for the release
-if ( (int) $requested_version <= (int) FIREFOX_RELEASE) {
+if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
     require_once MODELS . 'past_release.php';
     $template_file = 'past_release.html.twig';
     $template_data = [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Utils;
 
 // Get the schedule for the current nightly

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Cache\Cache;
 use ReleaseInsights\Utils;
 
@@ -30,7 +32,7 @@ if (! $data = Cache::getKey($cache_id, 1)) {
     ];
 
     // We don't cache today because we may miss the second nightly build
-    if (date('Ymd', $buildid) != date('Ymd')) {
+    if (date('Ymd', $buildid) !== date('Ymd')) {
         Cache::setKey($cache_id, $data);
     }
 }

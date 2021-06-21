@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
 
@@ -53,15 +55,17 @@ foreach ($nightly_pairs as $dataset) {
 $top_sigs = [];
 foreach ($nightly_pairs as $dataset) {
     $top_sigs[$dataset['buildid']] = array_splice(
-        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'], 0, 20
+        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'],
+        0,
+        20
     );
 }
 
 $bug_list = [];
 foreach ($nightly_pairs as $dataset) {
     $bugs = Bz::getBugsFromHgWeb(
-            'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=' . $dataset['prev_changeset'] . '&tochange=' . $dataset['changeset'] . '&full&version=2'
-        )['total'];
+        'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=' . $dataset['prev_changeset'] . '&tochange=' . $dataset['changeset'] . '&full&version=2'
+    )['total'];
     $url = Bz::getBugListLink($bugs);
 
     $bug_list_details= Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary&bug_id=' . implode('%2C', $bugs))['bugs'];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once MODELS . 'about.php';
 
 print $twig->render(

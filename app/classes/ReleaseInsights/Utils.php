@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ReleaseInsights;
 
 use Cache\Cache;
@@ -47,7 +49,7 @@ class Utils
         }
 
         // Magical 'today' value
-        if ($_GET['date'] == 'today') {
+        if ($_GET['date'] === 'today') {
             return date('Ymd');
         }
 
@@ -145,11 +147,11 @@ class Utils
      * $needles can be a string or an array of strings.
      *
      * @param string $haystack String to analyse
-     * @param array  $needles  The string to look for
+     * @param string|array  $needles  The string to look for
      *
      * @return bool True if the $haystack string starts with a string in $needles
      */
-    public static function startsWith(string $haystack, $needles): bool
+    public static function startsWith(string $haystack, string|array $needles): bool
     {
         foreach ((array) $needles as $prefix) {
             if (! strncmp($haystack, $prefix, mb_strlen($prefix))) {
@@ -170,7 +172,7 @@ class Utils
      *
      * @return bool True if the $haystack string contains any/all $needles
      */
-    public static function inString(string $haystack, $needles, bool $match_all = false): bool
+    public static function inString(string $haystack, mixed $needles, bool $match_all = false): bool
     {
         $matches = 0;
         foreach ((array) $needles as $needle) {
@@ -217,7 +219,7 @@ class Utils
      *
      * @return string A Firefox version number such as 82.0
      */
-    public static function requestedVersion(string $version = null): string
+    public static function requestedVersion(?string $version = null): string
     {
         if (! $version) {
             if (! isset($_GET['version']) || $_GET['version'] === 'beta') {

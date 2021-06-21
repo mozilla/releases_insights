@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
 
@@ -40,6 +42,8 @@ if ((int) $requested_version === $main_beta) {
         'https://hg.mozilla.org/mozilla-central/json-pushes'
         . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
         . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
-        . '&full&version=2', true, 3600 * 24 * 365
+        . '&full&version=2',
+        true,
+        3600 * 24 * 365
     );
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $yesterday = date('Ymd', strtotime('yesterday'));
 // No data to prepare yet
 $content = <<<"EOD"

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once MODELS . '404.php';
 
 http_response_code(404);

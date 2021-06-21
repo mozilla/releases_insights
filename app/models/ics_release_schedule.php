@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Eluceo\iCal\Component\Calendar;
 use Eluceo\iCal\Component\Event;
 
@@ -38,7 +40,6 @@ $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER';
 $calendar = new Calendar('Firefox ' . $short_version);
 
 foreach ($releases as $label => $date) {
-
     if ($label === 'version' || $label === 'rc') {
         continue;
     }
@@ -46,7 +47,6 @@ foreach ($releases as $label => $date) {
     $event = new Event();
 
     if ($label === 'soft_code_freeze') {
-
         $start = new DateTime($date);
         $end   = new DateTime($date);
 

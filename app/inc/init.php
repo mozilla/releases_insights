@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Utils;
 use Twig\Extra\Intl\IntlExtension;
 
@@ -34,7 +36,7 @@ define('FIREFOX_RELEASE', $firefox_versions['LATEST_FIREFOX_VERSION']);
 $main_nightly = (int) FIREFOX_NIGHTLY;
 $main_beta    = (int) FIREFOX_BETA;
 $main_release = (int) FIREFOX_RELEASE;
-$main_esr     = (int) (ESR_NEXT != '' ? ESR_NEXT : ESR);
+$main_esr     = (int) (ESR_NEXT !== '' ? ESR_NEXT : ESR);
 $last_beta    = (int) str_replace($main_beta .'.0b', '', FIREFOX_BETA);
 
 // Initialize our Templating system
@@ -43,6 +45,6 @@ $twig = new \Twig\Environment($twig_loader, ['cache' => false]);
 $twig->addExtension(new IntlExtension());
 
 // Dispatch urls, we do that only in a Web server context (dev or prod)
-if (PHP_SAPI != 'cli') {
+if (PHP_SAPI !== 'cli') {
     require_once INC . 'dispatcher.php';
 }

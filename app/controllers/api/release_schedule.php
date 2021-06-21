@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ReleaseInsights\Utils;
 
 $requested_version = Utils::requestedVersion();

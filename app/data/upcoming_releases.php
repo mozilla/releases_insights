@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
     Dates of future releases.
     We don't provide them in the product-details library.

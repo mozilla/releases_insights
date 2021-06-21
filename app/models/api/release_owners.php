@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $data = include DATA .'release_owners.php';
 
 // Reconstruct the array to have integers as version numbers in keys
