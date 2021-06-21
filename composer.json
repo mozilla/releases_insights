@@ -10,7 +10,7 @@
         "php": "^7.4 || ^8.0",
         "mozillal10n/json": "~0.1",
         "twig/twig": "^3.0",
-        "twbs/bootstrap": "^4.5",
+        "twbs/bootstrap": "^5.0",
         "components/jquery": "^3.4",
         "twig/intl-extra": "^3.0",
         "ext-intl": "*",
@@ -23,7 +23,8 @@
         "symfony/var-dumper": "^5.2",
         "friendsofphp/php-cs-fixer": "~2.1",
         "vimeo/psalm": "^3.11",
-        "phpstan/phpstan": "^0.12.47"
+        "phpstan/phpstan": "^0.12.47",
+        "nunomaduro/patrol": "^1.0"
     },
 
     "autoload": {
