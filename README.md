@@ -8,7 +8,7 @@ There are different views and I also added a public JSON API, these endpoints ar
 
 https://release-dashboard.local/about/
 
-### ### Requirements:
+### Requirements:
 
 The requirements are very simple, no Database, no heavy framework.
 
