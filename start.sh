@@ -76,5 +76,5 @@ case "$1" in
         ;;
 esac
 
-echo -e $(tput setaf 2; tput bold)"Launching PHP development server (php -S ${SERVER} -t web/ app/inc/router.php)"$(tput sgr0)
+echo -e $(tput setaf 2; tput bold)"Launching PHP development server (php -S ${SERVER} -t public/ app/inc/router.php)"$(tput sgr0)
 php -S ${SERVER} -t public/ app/inc/router.php
