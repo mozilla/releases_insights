@@ -6,7 +6,7 @@ This application gives the status of Firefox Destop Releases: when do we ship th
 
 There are different views and I also added a public JSON API, these endpoints are documented here:
 
-https://release-dashboard.local/about/
+https://fx-trains.herokuapp.com/about/
 
 ### Requirements:
 
