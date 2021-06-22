@@ -14,20 +14,17 @@ The requirements are very simple, no Database, no heavy framework.
 
 - Linux (should work fine on macOS and Windows too, but I didn't test it)
 
-- php 8 with the ext-mbstring and ext-intl extensions
+- PHP 8 with the `ext-mbstring` and `ext-intl` extensions
 
-- [Composer](https://getcomposer.org/) to install the dependencies
+- [Composer](https://getcomposer.org/) to install dependencies
 
-
-The application is set up to be deployed on Heroku with Apache but there is no need to install Apache for development work, PHP built in server is fine for that.
+The application is set up to be deployed on Heroku with Apache but there is no need to install Apache for development work, the PHP built-in development server is fine for that purpose.
 
 ### Installation
 
 1. Clone this repository
-
 2. install dependencies: `composer install`
-
-3. start PHP development server in a terminal either by launching the `starts.sh` script or with this command:
+3. start PHP development server in a terminal either by launching the `starts.sh` script or with this command:<br>
   `php -S localhost:8082 -t public/ app/inc/router.php`
 
 
