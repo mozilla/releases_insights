@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block header %}
-  <a href="/about" data-toggle="tooltip" data-placement="bottom" title="Get the list of views and APIs available in this application."><span class="information">i</span></a>
+  <a href="/about" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Get the list of views and APIs available in this application."><span class="information">i</span></a>
 
   <h1 class="text-center">Current Firefox trains</h1>
 {% endblock %}
@@ -25,17 +25,17 @@
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo.svg" width="70%"></div>
       <h2>{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
-      <h3><a href="/release/?version=release" data-toggle="tooltip" data-placement="top" data-html="true" title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel.">Release</a></h3>
+      <h3><a href="/release/?version=release" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel.">Release</a></h3>
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-beta.svg" width="70%"></div>
       <h2>{{ constant('FIREFOX_BETA')|number_format }}</h2>
-      <h3><a href="/release/?version=beta" data-toggle="tooltip" data-placement="top" data-html="true" title="Click this link to get detailed data about the <b>Beta</b> cycle.">Beta</a></h3>
+      <h3><a href="/release/?version=beta" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="Click this link to get detailed data about the <b>Beta</b> cycle.">Beta</a></h3>
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-nightly.svg" width="70%"></div>
       <h2>{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
-      <h3><a href="/release/?version=nightly" data-toggle="tooltip" data-placement="top" data-html="true" title="Click this link to get information about the <b>Nightly</b> cycle.">Nightly</a></h3>
+      <h3><a href="/release/?version=nightly" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="Click this link to get information about the <b>Nightly</b> cycle.">Nightly</a></h3>
     </div>
   </div>
 </div>
@@ -82,7 +82,7 @@
   <footer></footer>
   <script nonce="4AEemGb0xJptoIGFP3Nd">
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-bs-toggle="tooltip"]').tooltip()
 })
   </script>
 {% endblock %}
