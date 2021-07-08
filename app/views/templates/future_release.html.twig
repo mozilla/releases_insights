@@ -3,9 +3,9 @@
 {% block header %}
   <header class="mx-auto">
     <h1>
-      <a href="?version={{ release -1 }}" title="Previous release" alt="Go to previous release">«</a>
+      <a href="?version={{ release -1 }}" title="Previous release" alt="Go to previous release" class="text-decoration-none">«</a>
       &nbsp;Firefox&nbsp;{{ release }}&nbsp;
-      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}" title="Next release"  alt="Go to next release">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to Release channel</a>{% endif %}
+      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}" title="Next release" class="text-decoration-none" alt="Go to next release">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to Release channel</a>{% endif %}
     </h1>
   </header>
 {% endblock %}
@@ -59,13 +59,13 @@
 
     {% if release == '91' %}
     <tr class="table-warning">
-      <td colspan="2" class="text-center font-weight-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
+      <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
     </tr>
     {% endif %}
 
   </table>
 
-  {% set btb = ' <small class="text-secondary font-weight-light">Go to build</small>' %}
+  {% set btb = ' <small class="text-secondary fw-light">Go to build</small>' %}
   {% set cycle_labels = {
     nightly_start: 'Nightly starts',
     soft_code_freeze: 'Soft Code Freeze starts',
@@ -99,16 +99,16 @@
       {% set extra = '' %}
 
         {% if loop.revindex == 7%}
-          {% set extra = ' <small class="badge bg-warning">Early betas end</small>' %}
+          {% set extra = ' <small class="badge bg-warning text-dark">Early betas end</small>' %}
         {% endif %}
 
       {% if loop.revindex == 4 %}
-        {% set extra = ' <small class="badge bg-warning">Last beta uplifts</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts</small>' %}
       {% endif %}
 
-    <tr {{ date(value) < date() ? ' class="text-muted font-weight-light"' }}>
-      <th {{ date(value) < date() ? ' class="text-muted font-weight-light"' }}>{{ cycle_labels[key]|raw }}{{ extra|raw }}</th>
-      <td class="text-right" title="{{ value|format_date('full', locale='en') }}">{{ value|format_date(pattern='MMMM d', locale='en') }}</td>
+    <tr {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+      <th {{ date(value) < date() ? ' class="text-muted fw-light"' }}>{{ cycle_labels[key]|raw }}{{ extra|raw }}</th>
+      <td title="{{ value|format_date('full', locale='en') }}">{{ value|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     {% endif %}
   {% endfor %}

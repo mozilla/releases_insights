@@ -10,7 +10,7 @@ $content = <<<"EOD"
 <p>All APIs are under the <code>api/</code> endpoint.
 <h3>APIs</h3>
 <table class="table table-light table-striped table-bordered table-sm">
-    <tr class="thead-dark">
+    <tr class="table-dark">
         <th>url</th><th>Description</th>
     </tr>
     <tr>
@@ -33,7 +33,7 @@ $content = <<<"EOD"
 
 <h3>Views</h3>
 <table class="table table-light table-striped table-bordered table-sm">
-    <tr class="thead-dark">
+    <tr class="table-dark">
         <th>url</th><th>Description</th>
     </tr>
     <tr>

@@ -59,7 +59,9 @@ header {
     text-align: center;
 }
 
-
+a {
+    text-decoration: none;
+}
 /* crashes on Nightly page */
 
 #todayinnightly .btn-sm {
@@ -90,11 +92,6 @@ nav svg {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
-
-.table th {
-    font-weight: 500;
-}
-
 
 /* home page */
 h1,
