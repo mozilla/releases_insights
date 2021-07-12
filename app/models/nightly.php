@@ -68,7 +68,8 @@ foreach ($nightly_pairs as $dataset) {
     )['total'];
     $url = Bz::getBugListLink($bugs);
 
-    $bug_list_details= Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary&bug_id=' . implode('%2C', $bugs))['bugs'];
+    // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
+    $bug_list_details= Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,product,component&bug_id=' . implode('%2C', $bugs))['bugs'];
 
     $bug_list[$dataset['buildid']] = [
         'bugs'  => $bug_list_details,

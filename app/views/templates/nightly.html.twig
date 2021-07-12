@@ -32,17 +32,19 @@
 
 </p>
 <div class="collapse" id="collapse{{  dataset.buildid }}">
-    <table class="table table-dark">
+    <table class="table table-light table-striped table-bordered table-sm mb-3">
       <tbody>
-        <tr>
+        <tr class="table-dark"  >
             <th>Bug</th>
+            <th>Component</th>
             <th>Summary</th>
         </tr>
 
         {%for details in bug_list[dataset.buildid].bugs %}
-        <tr>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}">{{ details.id }}</a></td>
-            <td>{{ details.summary }}</td>
+        <tr class="small">
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%; text-align:center">{{ details.id }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%;" class="link-dark">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%;" class="link-dark">{{ details.summary }}</a></td>
         </tr>
         {% endfor %}
       </tbody>
