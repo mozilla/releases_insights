@@ -43,7 +43,7 @@
         {%for details in bug_list[dataset.buildid].bugs %}
         <tr class="small">
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%; text-align:center">{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%;" class="link-dark">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%; white-space: nowrap;" class="link-dark">{{ details.component }}</td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%;" class="link-dark">{{ details.summary }}</a></td>
         </tr>
         {% endfor %}
