@@ -40,7 +40,7 @@
   </div>
 </div>
 
-  {% if nightly_cycle_dates.merge_day|date('Y-m-d') == now|date('Y-m-d') %}
+  {% if nightly_cycle_dates.merge_day|date == now|date %}
       {% set merge_day = true %}
   {% endif %}
 
@@ -50,7 +50,7 @@
 
   {% if merge_day %}
     <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
-  {% else %}
+  {% elseif nightly_cycle_dates.merge_day|date > now|date %}
     <h3 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h3>
   {% endif %}
 
