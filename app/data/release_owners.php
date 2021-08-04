@@ -19,6 +19,7 @@ $relman = [
     'bhavana'   => 'Bhavana Bajaj',
     'lsblakk'   => 'Lukas Blakk',
     'lmandel'   => 'Lawrence Mandel',
+    'dianna'    => 'Dianna Smith',
 ];
 
 return [
@@ -88,4 +89,5 @@ return [
     '90.0' => $relman['jcristau'],
     '91.0' => $relman['pascalc'],
     '92.0' => $relman['ryanvm'],
+    '93.0' => $relman['jcristau'],
 ];
