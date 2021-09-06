@@ -63,8 +63,8 @@
       <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ beta_cycle_dates.release|format_date(pattern='MMMM d', locale='en') }}
       {% set difference = date(beta_cycle_dates.release).diff(date('today')) %}
       {% set leftDays = difference.days %}
-      {% if leftDays == 0 %}
-        (in 1 day)
+      {% if leftDays == 1 %}
+        <small>(in 1 day)</small>
       {% else %}
         <small>(in {{ leftDays }} days)</small>
       {% endif %}
