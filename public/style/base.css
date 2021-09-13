@@ -62,19 +62,11 @@ header {
 a {
     text-decoration: none;
 }
+
 /* crashes on Nightly page */
 
-#todayinnightly .btn-sm {
-    line-height: 1em;
-}
-
-#todayinnightly ol {
-    line-height: 1.5em;
-    margin-top: 1em;
-}
-
-#todayinnightly ol li {
-    margin-top: 0.4em;
+#nightly .buildid {
+    margin-left: -2em;
 }
 
 nav svg {
