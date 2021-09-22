@@ -25,7 +25,8 @@
         "vimeo/psalm": "^4.0",
         "phpstan/phpstan": "^0.12.47",
         "nunomaduro/patrol": "^1.0",
-        "nunomaduro/phpinsights": "^2.0"
+        "nunomaduro/phpinsights": "^2.0",
+        "pestphp/pest": "^1.19"
     },
 
     "autoload": {
