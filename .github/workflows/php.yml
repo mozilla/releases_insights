@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: php-actions/composer@v5
+    - uses: NWBY/pest-action@v1.2.0
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -31,9 +33,6 @@ jobs:
 
 
     - name: Run test suite
-      uses: actions/checkout@v2.3.4
-      uses: php-actions/composer@v5
-      uses: NWBY/pest-action@v1.2.0
       run: vendor/bin/pest
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
