@@ -30,11 +30,13 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
 
+    steps:
+    - uses: actions/checkout@v2.3.4
+    - uses: php-actions/composer@v5
+    - uses: NWBY/pest-action@v1.2.0
+
     - name: Run test suite
-      steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: php-actions/composer@v5
-      - uses: NWBY/pest-action@v1.2.0
+      run: vendor/bin/pest
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
