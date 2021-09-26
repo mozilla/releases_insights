@@ -39,6 +39,10 @@
         }
     },
     "scripts": {
+        "test:unit": "php bin/pest --colors=always --exclude-group=integration",
+        "test": [
+            "@test:unit"
+        ],
         "post-install-cmd": [
             "mkdir -p cache",
             "rm -rf public/assets/bootstrap",
