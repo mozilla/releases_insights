@@ -38,11 +38,8 @@
             "Cache\\": "app/classes/Cache"
         }
     },
-    "bin": [
-        "vendor/bin/pest"
-    ],
     "scripts": {
-        "test:unit": "php bin/pest --colors=always --exclude-group=integration",
+        "test:unit": "php vendor/bin/pest --colors=always --exclude-group=integration",
         "test": [
             "@test:unit"
         ],
