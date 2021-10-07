@@ -41,22 +41,30 @@ class Utils
      *
      * @return string Date as a Ymd string
      */
-    public static function getDate(): string
+    public static function getDate(string $format = 'Ymd'): string
     {
         // No date provided by the http call, return Today
         if (! isset($_GET['date'])) {
-            return date('Ymd');
+            return date($format);
         }
 
         // Magical 'today' value
         if ($_GET['date'] === 'today') {
-            return date('Ymd');
+            return date($format);
         }
 
         // Cast user provided date to an int for security
-        $date = (int) $_GET['date'];
+        $date = Utils::secureText($_GET['date']);
 
-        return self::secureText((string) $date);
+
+        $d = DateTime::createFromFormat($format, $date);
+
+        // Date is invalid, return Today
+        if (! $d) {
+            return date($format);
+        }
+
+        return $d->format($format);
     }
 
     /**

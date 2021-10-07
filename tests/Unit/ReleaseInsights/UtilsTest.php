@@ -23,3 +23,24 @@ test('isBuildID' , function () {
     $this->assertFalse(U::isBuildID('20501229120000'));
     $this->assertTrue(U::isBuildID('20201229120000'));
 });
+
+test('getDate' , function () {
+
+    // No get parameter, Today
+    $this->assertEquals(date('Ymd'), U::getDate());
+
+    $_GET['date'] = 'today';
+    $this->assertEquals(date('Ymd'), U::getDate());
+
+    // Not a date format
+    $_GET['date'] = '5a ';
+    $this->assertEquals(date('Ymd'), U::getDate());
+
+    // Invalid, there is a space
+    $_GET['date'] = '20191231 ';
+    $this->assertEquals(date('Ymd'), U::getDate());
+
+    // Valid date
+    $_GET['date'] = '20210912';
+    $this->assertEquals('20210912', U::getDate());
+});
