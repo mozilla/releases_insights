@@ -31,3 +31,9 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 The website will be available at http://localhost:8082
 
 If you want to set the site up with an Apache virtual host, make it point to the `public` folder and make sure that the `cache` folder is writable by Apache.
+
+## Testing and CI
+
+We use [Pest](https://pestphp.com/Pest) for unit testing and we have CI via Github Actions to ensure all tests are passing.
+
+If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.
