@@ -7,7 +7,7 @@ CONST FIREFOX_RELEASE = '93';
 CONST FIREFOX_BETA = '94';
 CONST FIREFOX_NIGHTLY = '95';
 
-test('requestedVersion' , function () {
+test('Utils::requestedVersion' , function () {
     $this->assertEquals('94.0', U::requestedVersion());
     $this->assertEquals('95.0', U::requestedVersion(FIREFOX_NIGHTLY));
     $this->assertEquals('94.0', U::requestedVersion(FIREFOX_BETA));
@@ -15,7 +15,7 @@ test('requestedVersion' , function () {
     $this->assertEquals('100.0', U::requestedVersion('100'));
 });
 
-test('isBuildID' , function () {
+test('Utils::isBuildID' , function () {
     $this->assertFalse(U::isBuildID('01234587392871'));
     $this->assertFalse(U::isBuildID('oajoaoojoaooao'));
     $this->assertFalse(U::isBuildID('0123458739287122'));
@@ -24,7 +24,22 @@ test('isBuildID' , function () {
     $this->assertTrue(U::isBuildID('20201229120000'));
 });
 
-test('getDate' , function () {
+test('Utils::getBuildID' , function () {
+    // Test fallback value
+    $this->assertEquals('20191014213051', U::getBuildID('20501229120000'));
+
+    // Test good value
+    $this->assertEquals('20201229120000', U::getBuildID('20201229120000'));
+});
+
+test('Utils::secureText', function ($input, $output) {
+    expect($output)->toEqual(U::secureText($input));
+})->with([
+    ["achat des couteaux\nsuisses", 'achat des couteaux suisses'],
+    ['<b>foo</b>', '&#60;b&#62;foo&#60;/b&#62;'],
+]);
+
+test('Utils::getDate' , function () {
 
     // No get parameter, Today
     $this->assertEquals(date('Ymd'), U::getDate());
