@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+use Cache\Cache;
 use ReleaseInsights\Utils as U;
 
-CONST FIREFOX_RELEASE = '93';
-CONST FIREFOX_BETA = '94';
-CONST FIREFOX_NIGHTLY = '95';
+const CACHE_ENABLED = false;
+const FIREFOX_RELEASE = '93';
+const FIREFOX_BETA = '94';
+const FIREFOX_NIGHTLY = '95';
 
-test('Utils::requestedVersion' , function () {
+test('Utils::requestedVersion', function () {
     $this->assertEquals('94.0', U::requestedVersion());
     $this->assertEquals('95.0', U::requestedVersion(FIREFOX_NIGHTLY));
     $this->assertEquals('94.0', U::requestedVersion(FIREFOX_BETA));
@@ -15,7 +17,7 @@ test('Utils::requestedVersion' , function () {
     $this->assertEquals('100.0', U::requestedVersion('100'));
 });
 
-test('Utils::isBuildID' , function () {
+test('Utils::isBuildID', function () {
     $this->assertFalse(U::isBuildID('01234587392871'));
     $this->assertFalse(U::isBuildID('oajoaoojoaooao'));
     $this->assertFalse(U::isBuildID('0123458739287122'));
@@ -39,9 +41,9 @@ test('Utils::secureText', function ($input, $output) {
     ['<b>foo</b>', '&#60;b&#62;foo&#60;/b&#62;'],
 ]);
 
-test('Utils::getDate' , function () {
+test('Utils::getDate', function () {
 
-    // No get parameter, Today
+    // No GET parameter, Today
     $this->assertEquals(date('Ymd'), U::getDate());
 
     $_GET['date'] = 'today';
@@ -59,3 +61,29 @@ test('Utils::getDate' , function () {
     $_GET['date'] = '20210912';
     $this->assertEquals('20210912', U::getDate());
 });
+
+test('Utils::getJson', function () {
+    // $this->assertEquals(['20210912'], U::getJson(__DIR__ . '/../../Files/firefox_versions.json'));
+    expect(U::getJson(__DIR__ . '/../../Files/firefox_versions.json'))->toBeIterable();
+});
+
+test('Utils::mtrim', function ($input, $output) {
+    expect($output)->toEqual(U::mtrim($input));
+})->with([
+    ['Le cheval  blanc ', 'Le cheval blanc'],
+    ['  Le cheval  blanc', 'Le cheval blanc'],
+    ['  Le cheval  blanc  ', 'Le cheval blanc'],
+    ['Le cheval  blanc', 'Le cheval blanc'],
+]);
+
+
+
+test('Utils::startsWith', function ($input, $matches, $result) {
+    expect($result)->toEqual(U::startsWith($input, $matches));
+})->with([
+    ['it is raining', 'it', true],
+    [' foobar starts with a nasty space', 'foobar', false],
+    ['multiple matches test', ['horse', 'multiple'], true],
+    ['multiple matches test', ['not', 'there'], false],
+]);
+
