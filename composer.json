@@ -25,7 +25,6 @@
         "psy/psysh": "^0.10",
         "symfony/var-dumper": "^5.2",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "vimeo/psalm": "^4.0",
         "phpstan/phpstan": "^0.12.47",
         "nunomaduro/patrol": "^1.0",
         "nunomaduro/phpinsights": "^2.0",
