@@ -60,10 +60,10 @@ test('Utils::getDate', function () {
     // Valid date
     $_GET['date'] = '20210912';
     $this->assertEquals('20210912', U::getDate());
+    unset($_GET['date']);
 });
 
 test('Utils::getJson', function () {
-    // $this->assertEquals(['20210912'], U::getJson(__DIR__ . '/../../Files/firefox_versions.json'));
     expect(U::getJson(__DIR__ . '/../../Files/firefox_versions.json'))->toBeIterable();
 });
 
