@@ -22,6 +22,7 @@ $owners = [
     'lsblakk'   => 'Lukas Blakk',
     'lmandel'   => 'Lawrence Mandel',
     'dianna'    => 'Dianna Smith',
+    'dmeehan'   => 'Donal Meehan',
 ];
 
 return [
