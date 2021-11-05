@@ -44,7 +44,7 @@ $release_schedule_labels['draft_relnotes'] = 'Draft beta release notes ready';
 // Add final release notes to the schedule
 $final_relnotes = new DateTime($releases['rc']);
 $releases['final_relnotes'] = $final_relnotes->format('Y-m-d H:i');
-$release_schedule_labels['final_relnotes'] = 'Release notes are final';
+$release_schedule_labels['final_relnotes'] = 'Firefox ' . $short_version . ': Release Notes Deadline';
 
 $ics_calendar = ReleaseCalendar::getICS(
     $releases,

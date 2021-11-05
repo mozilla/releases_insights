@@ -99,7 +99,7 @@
       {% set extra = '' %}
 
       {% if key == 'soft_code_freeze' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Draft beta release notes ready</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Draft beta release notes</small>' %}
       {% endif %}
 
       {% if loop.revindex == 7%}
@@ -111,7 +111,7 @@
       {% endif %}
 
       {% if key == 'rc' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Release notes are final</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Release notes finalized</small>' %}
       {% endif %}
 
     <tr {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
