@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use Eluceo\iCal\Component\Calendar;
-use Eluceo\iCal\Component\Event;
+use ReleaseInsights\ReleaseCalendar;
 
 $short_version = (string) (int) $releases['version'];
 
@@ -37,36 +36,10 @@ $early_beta_end = new DateTime($releases['beta_6']);
 $releases['early_beta_end'] = $early_beta_end->modify('+1 day')->format('Y-m-d H:i');
 $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER';
 
-$calendar = new Calendar('Firefox ' . $short_version);
+$ics_calendar = ReleaseCalendar::getICS(
+    $releases,
+    $release_schedule_labels,
+    'Firefox ' . $short_version
+);
 
-foreach ($releases as $label => $date) {
-    if ($label === 'version' || $label === 'rc') {
-        continue;
-    }
-
-    $event = new Event();
-
-    if ($label === 'soft_code_freeze') {
-        $start = new DateTime($date);
-        $end   = new DateTime($date);
-
-        $event
-            ->setDtStart($start)
-            ->setDtEnd($end->modify('Sunday'))
-            ->setNoTime(true)
-            ->setSummary($release_schedule_labels[$label])
-        ;
-    } else {
-        $event
-            ->setDtStart(new DateTime($date))
-            ->setDtEnd(new DateTime($date))
-            ->setNoTime(true)
-            ->setSummary($release_schedule_labels[$label])
-        ;
-    }
-
-    $calendar->addComponent($event);
-}
-
-$ics_calendar = $calendar->render();
 $filename = 'Firefox_' . $short_version . '_schedule.ics';
