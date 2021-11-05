@@ -36,6 +36,16 @@ $early_beta_end = new DateTime($releases['beta_6']);
 $releases['early_beta_end'] = $early_beta_end->modify('+1 day')->format('Y-m-d H:i');
 $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER';
 
+// Add draft release notes to the schedule
+$draft_relnotes = new DateTime($releases['soft_code_freeze']);
+$releases['draft_relnotes'] = $draft_relnotes->modify('-1 day')->format('Y-m-d H:i');
+$release_schedule_labels['draft_relnotes'] = 'Draft beta release notes ready';
+
+// Add final release notes to the schedule
+$final_relnotes = new DateTime($releases['rc']);
+$releases['final_relnotes'] = $final_relnotes->format('Y-m-d H:i');
+$release_schedule_labels['final_relnotes'] = 'Release notes are final';
+
 $ics_calendar = ReleaseCalendar::getICS(
     $releases,
     $release_schedule_labels,
