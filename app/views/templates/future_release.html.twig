@@ -98,12 +98,20 @@
     {% if key != 'version' %}
       {% set extra = '' %}
 
-        {% if loop.revindex == 7%}
-          {% set extra = ' <small class="badge bg-warning text-dark">Early betas end</small>' %}
-        {% endif %}
+      {% if key == 'soft_code_freeze' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Draft beta release notes ready</small>' %}
+      {% endif %}
+
+      {% if loop.revindex == 7%}
+        {% set extra = ' <small class="badge bg-warning text-dark">Early betas end</small>' %}
+      {% endif %}
 
       {% if loop.revindex == 4 %}
         {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts</small>' %}
+      {% endif %}
+
+      {% if key == 'rc' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Release notes are final</small>' %}
       {% endif %}
 
     <tr {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
