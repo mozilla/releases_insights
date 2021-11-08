@@ -19,23 +19,18 @@ class ReleaseCalendar
 		    }
 
 		    $event = new Event();
+			$start = new DateTime($date);
+			$end   = new DateTime($date);
 
-		    if ($label === 'soft_code_freeze') {
-		        $start = new DateTime($date);
-		        $end   = new DateTime($date);
+			if ($label === 'soft_code_freeze') {
+			    $end->modify('Sunday');
+			}
 
-		        $event
-		            ->setDtStart($start)
-		            ->setDtEnd($end->modify('Sunday'))
-		            ->setNoTime(true)
-		            ->setSummary($release_schedule_labels[$label]);
-		    } else {
-		        $event
-		            ->setDtStart(new DateTime($date))
-		            ->setDtEnd(new DateTime($date))
-		            ->setNoTime(true)
-		            ->setSummary($release_schedule_labels[$label]);
-		    }
+			$event
+			    ->setDtStart($start)
+			    ->setDtEnd($end)
+			    ->setNoTime(true)
+			    ->setSummary($release_schedule_labels[$label]);
 
 		    $calendar->addComponent($event);
 		}
@@ -43,3 +38,4 @@ class ReleaseCalendar
 		return $calendar->render();
     }
 }
+
