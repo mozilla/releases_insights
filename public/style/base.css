@@ -4,48 +4,42 @@
  font-family:Inter;
  font-style:normal;
  font-weight:400;
- src:url("https://www.mozilla.org/media/fonts/Inter-Regular.d55e957612a3.woff2") format("woff2"),
- url("https://www.mozilla.org/media/fonts/Inter-Regular.1a7f90ff1f1e.woff") format("woff")
+ src:url("/assets/fonts/Inter/Inter-Regular.d55e957612a3.woff2") format("woff2");
 }
 @font-face {
  font-display:swap;
  font-family:Inter;
  font-style:normal;
  font-weight:700;
- src:url("https://www.mozilla.org/media/fonts/Inter-Bold.0564381b22b2.woff2") format("woff2"),
- url("https://www.mozilla.org/media/fonts/Inter-Bold.2767206dcd8d.woff") format("woff")
+ src:url("/assets/fonts/Inter/Inter-Bold.0564381b22b2.woff2") format("woff2");
 }
 @font-face {
  font-display:swap;
  font-family:Inter;
  font-style:italic;
  font-weight:400;
- src:url("https://www.mozilla.org/media/fonts/Inter-Italic.d6a4e2b82a0b.woff2") format("woff2"),
- url("https://www.mozilla.org/media/fonts/Inter-Italic.fb463a63312e.woff") format("woff")
+ src:url("/assets/fonts/Inter/Inter-Italic.d6a4e2b82a0b.woff2") format("woff2");
 }
 @font-face {
  font-display:swap;
  font-family:Inter;
  font-style:italic;
  font-weight:700;
- src:url("https://www.mozilla.org/media/fonts/Inter-BoldItalic.9d1b867e3416.woff2") format("woff2"),
- url("https://www.mozilla.org/media/fonts/Inter-BoldItalic.d4f1ac27c3c1.woff") format("woff")
+ src:url("/assets/fonts/Inter/Inter-BoldItalic.9d1b867e3416.woff2") format("woff2");
 }
 @font-face {
  font-display:swap;
  font-family:'Zilla Slab';
  font-style:normal;
  font-weight:400;
- src:url("https://www.mozilla.org/media/fonts/ZillaSlab-Regular.f9de6143fdfa.woff2") format("woff2"),
- url("https://www.mozilla.org/media/fonts/ZillaSlab-Regular.f7120c75de27.woff") format("woff")
+ src:url("/assets/fonts/Inter/ZillaSlab-Regular.f9de6143fdfa.woff2") format("woff2");
 }
 @font-face {
  font-display:swap;
  font-family:'Zilla Slab';
  font-style:normal;
  font-weight:700;
- src:url("https://www.mozilla.org/media/fonts/ZillaSlab-Bold.8d7f01331d2b.woff2") format("woff2"),
- url("https://www.mozilla.org/media/fonts/ZillaSlab-Bold.be1d6507cb98.woff") format("woff")
+ src:url("/assets/fonts/Inter/ZillaSlab-Bold.8d7f01331d2b.woff2") format("woff2");
 }
 
 /* General structure */
