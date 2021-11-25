@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use ReleaseInsights\Utils;
+use ReleaseInsights\ESR;
 
 $requested_version = Utils::requestedVersion();
 
@@ -39,6 +40,7 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'dot_release_count'     => $dot_release_count,
         'release_owner'         => $release_owner,
         'fallback_content'      => '',
+        'ESR'                   => ESR::getVersion((int) $requested_version),
     ];
 } elseif ((int) $requested_version > (int) FIREFOX_RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
@@ -56,6 +58,7 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'cycle_dates'           => $cycle_dates,
         'release_owner'         => $release_owner,
         'fallback_content'      => '',
+        'ESR'                   => ESR::getVersion((int) $requested_version),
     ];
 } else {
     $template_file = 'future_release.html.twig';
