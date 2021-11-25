@@ -96,4 +96,5 @@ return [
     '94.0' => $owners['ryanvm'],
     '95.0' => $owners['pascalc'],
     '96.0' => $owners['dianna'],
+    '97.0' => $owners['ryanvm'],
 ];
