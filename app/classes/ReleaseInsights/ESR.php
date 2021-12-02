@@ -26,21 +26,18 @@ class ESR
                 $match = $esr;
             }
         }
-        // self::getOlderOverlappingVersion($version);
 
         return (string) $match . '.' . ($version - $match ) . '.0';
     }
 
     /**
      * Get the previous ESR release that corresponds to the Rapid release version
-     * and that is still supported.
+     * and that is still supported. Return null if there is none.
      */
     public static function getOlderSupportedVersion(int $version): ?string
     {
         $current_ESR = self::getVersion($version);
         $current_ESR = Utils::getMajorVersion($current_ESR);
-
-        // We want the previous ESR
         $previous_ESR = self::$esr_releases[
             array_search($current_ESR,
             self::$esr_releases)-1
@@ -50,7 +47,7 @@ class ESR
         // Before that, we had 2 cycles only with 2 ESR branches
         // because cycles lasted longer
         if (($version - $current_ESR) > ($version < 78 ? 1 : 2)) {
-            return '';
+            return null;
         }
 
         return (string) $previous_ESR . '.' . ($version - $previous_ESR) . '.0';
