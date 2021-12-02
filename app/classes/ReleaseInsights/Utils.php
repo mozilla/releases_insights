@@ -249,10 +249,18 @@ class Utils
      * @param DateTime $date Date that is to be checked if it falls between $startDate and $endDate
      * @param DateTime $startDate Date should be after this date to return true
      * @param DateTime $endDate Date should be before this date to return true
-     * return bool
+     * @return bool
      */
     public static function isDateBetweenDates(DateTime $date, DateTime $startDate, DateTime $endDate): bool
     {
         return $date > $startDate && $date < $endDate;
+    }
+
+    /**
+     * Get the major version number (91) from a string such as 91.0.1
+     */
+    public static function getMajorVersion(string $version): int
+    {
+        return (int) explode('.', $version)[0];
     }
 }

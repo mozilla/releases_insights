@@ -69,10 +69,20 @@
       </ul>
     </td>
     </tr>
+
+    {% if PREVIOUS_ESR %}
+    <tr>
+      <th>Corresponding ESR releases</th>
+      <td>{{ ESR }} &middot; {{ PREVIOUS_ESR }} </td>
+    </tr>
+
+    {% else %}
     <tr>
       <th>Corresponding ESR release</th>
       <td>{{ ESR }}</td>
     </tr>
+    {% endif %}
+
     </table>
 
   <p>{{ fallback_content | raw}}</p>

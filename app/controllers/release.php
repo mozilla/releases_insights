@@ -41,7 +41,9 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'release_owner'         => $release_owner,
         'fallback_content'      => '',
         'ESR'                   => ESR::getVersion((int) $requested_version),
+        'PREVIOUS_ESR'          => ESR::getOlderSupportedVersion((int) $requested_version),
     ];
+    Utils::clidump($template_data['PREVIOUS_ESR']);
 } elseif ((int) $requested_version > (int) FIREFOX_RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
     require_once MODELS . 'future_release.php';
@@ -59,7 +61,9 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'release_owner'         => $release_owner,
         'fallback_content'      => '',
         'ESR'                   => ESR::getVersion((int) $requested_version),
+        'PREVIOUS_ESR'          => ESR::getOlderSupportedVersion((int) $requested_version),
     ];
+    Utils::clidump($template_data['PREVIOUS_ESR']);
 } else {
     $template_file = 'future_release.html.twig';
     $template_data = [
