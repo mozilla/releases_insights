@@ -38,4 +38,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
     if (Utils::isDateBetweenDates($today, $rc_week_start, $rc_week_end)) {
         $is_rc_week = true;
     }
+    if ($today_is_release_day) {
+        $is_rc_week = false;
+    }
 }
