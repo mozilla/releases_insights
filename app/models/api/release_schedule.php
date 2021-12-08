@@ -72,34 +72,6 @@ $schedule = [
     'release'          => $release->format($date_format),
 ];
 
-if ($requested_version === '95.0') {
-    // We have a 5 weeks beta cycle for 95 and 96, that means 3 additional betas
-    $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
-    $nightly->modify('-1 day');
-
-    $schedule = [
-        'nightly_start'    => $nightly->format($date_format),
-        'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday')->format($date_format),
-        'string_freeze'    => $nightly->modify('Friday')->format($date_format),
-        'merge_day'        => $nightly->modify('Monday')->format($date_format),
-        'beta_1'           => $nightly->modify('Monday')->format($date_format),
-        'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
-        'beta_3'           => $nightly->modify('Thursday')->format($date_format),
-        'beta_4'           => $nightly->modify('Sunday')->format($date_format),
-        'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
-        'beta_6'           => $nightly->modify('Thursday')->format($date_format),
-        'beta_7'           => $nightly->modify('Sunday')->format($date_format),
-        'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
-        'beta_9'           => $nightly->modify('Thursday')->format($date_format),
-        'beta_10'          => $nightly->modify('Sunday')->format($date_format),
-        'beta_11'          => $nightly->modify('Tuesday')->format($date_format),
-        'beta_12'          => $nightly->modify('Thursday')->format($date_format),
-        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
-        'rc'               => $nightly->modify('Tuesday')->format($date_format),
-        'release'          => $release->format($date_format),
-    ];
-}
-
 if ($requested_version === '96.0') {
     $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
     $nightly->modify('-1 day');
