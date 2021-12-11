@@ -1,4 +1,4 @@
-# Release Insights / Firefox Trains Dashboard
+  # Release Insights / Firefox Trains Dashboard
 
 This is the code behind https://fx-trains.herokuapp.com/
 
@@ -14,7 +14,7 @@ The requirements are very simple, no Database, no heavy framework.
 
 - Linux (should work fine on macOS and Windows too, but I didn't test it)
 
-- PHP 8 with the `ext-mbstring` and `ext-intl` extensions
+- PHP 8 with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
 
 - [Composer](https://getcomposer.org/) to install dependencies
 
