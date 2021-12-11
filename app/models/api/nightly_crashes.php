@@ -32,7 +32,7 @@ if (! $data = Cache::getKey($cache_id, 1)) {
     ];
 
     // We don't cache today because we may miss the second nightly build
-    if (date('Ymd', $buildid) !== date('Ymd')) {
+    if (date('Ymd', (int) $buildid) !== date('Ymd')) {
         Cache::setKey($cache_id, $data);
     }
 }
