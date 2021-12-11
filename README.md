@@ -1,4 +1,4 @@
-  # Release Insights / Firefox Trains Dashboard
+# Release Insights / Firefox Trains Dashboard
 
 This is the code behind https://fx-trains.herokuapp.com/
 
