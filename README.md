@@ -14,7 +14,7 @@ The requirements are very simple, no Database, no heavy framework.
 
 - Linux (should work fine on macOS and Windows too, but I didn't test it)
 
-- PHP 8 with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
+- PHP 8.1 with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
 
 - [Composer](https://getcomposer.org/) to install dependencies
 
@@ -24,9 +24,8 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 
 1. Clone this repository
 2. install dependencies: `composer install`
-3. start PHP development server in a terminal either by launching the `starts.sh` script or with this command:<br>
+3. start PHP development server in a terminal either by launching the `start.sh` script or with this command:<br>
   `php -S localhost:8082 -t public/ app/inc/router.php`
-
 
 The website will be available at http://localhost:8082
 
