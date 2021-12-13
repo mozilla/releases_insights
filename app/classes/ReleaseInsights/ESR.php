@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-use ReleaseInsights\Utils;
-
 class ESR
 {
     public static $esr_releases = [10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102];
