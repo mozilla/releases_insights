@@ -23,14 +23,14 @@
         "eluceo/ical": "^0.16.1"
     },
     "require-dev": {
-        "spatie/ray": "^1.11",
-        "psy/psysh": "^0.10",
-        "symfony/var-dumper": "^5.2",
+        "psy/psysh": "^0.11",
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpstan/phpstan": "^0.12.47",
         "nunomaduro/patrol": "^1.0",
         "nunomaduro/phpinsights": "^2.0",
-        "pestphp/pest": "^1.19"
+        "pestphp/pest": "^1.19",
+        "spatie/ray": "^1.32",
+        "symfony/var-dumper": "^5"
     },
 
     "autoload": {
