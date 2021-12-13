@@ -54,10 +54,6 @@ $content = <<<"EOD"
         <td>Provides the list of nightly buildIDs for a day, their crashes, changelog, bugs fixed.</td>
     </tr>
     <tr>
-        <td><a href="/beta/">beta</a></td>
-        <td><b>WIP:</b> Will provides the list of beta builds for the current release and uplifts per beta.</td>
-    </tr>
-    <tr>
         <td><a href="/release/">release</a></td>
         <td>Provides historical data for past releases and basic release date information for future releases.</td>
     </tr>

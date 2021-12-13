@@ -19,10 +19,6 @@ switch ($url['path']) {
         $controller = 'nightly';
         $page_title = 'Nightly crashes for a day';
         break;
-    case 'beta':
-        $controller = 'beta';
-        $page_title = 'General statistics for betas';
-        break;
     case 'release':
         $controller = 'release';
         $page_title = 'General statistics for releases';
