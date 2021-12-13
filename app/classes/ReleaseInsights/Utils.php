@@ -204,8 +204,12 @@ class Utils
      * Utility function to get symfony dump() function output to the CLI
      * http://symfony.com/doc/current/components/var_dumper/
      */
-    public static function clidump(): void
+    public static function dump(): void
     {
+        if (! class_exists('\Symfony\Component\VarDumper\Dumper\CliDumper')) {
+            return;
+        }
+
         $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
         $dumper = new \Symfony\Component\VarDumper\Dumper\CliDumper();
         foreach (func_get_args() as $arg) {
