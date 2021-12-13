@@ -8,7 +8,7 @@ if ($requested_version < 75) {
     return ['error' => 'API only works with 4 week cycle releases.'];
 }
 
-if ((int) $requested_version < $main_release) {
+if ((int) $requested_version < $main_beta) {
     return ['error' => 'API only works with future release.'];
 }
 
