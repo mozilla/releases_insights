@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Utils;
-
 if ($requested_version < 75) {
     return ['error' => 'API only works with 4 week cycle releases.'];
 }
@@ -21,7 +19,10 @@ $decrementVersion = function (string $version, int $decrement): string {
 $upcoming_releases = include DATA .'upcoming_releases.php';
 
 // Historical data from Product Details, cache a week
-$shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 604800);
+$shipped_releases = ReleaseInsights\Utils::getJson(
+    'https://product-details.mozilla.org/1.0/firefox_history_major_releases.json',
+    604800
+);
 
 // Merge with future dates stored locally
 $all_releases = array_merge($shipped_releases, $upcoming_releases);

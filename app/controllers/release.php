@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Utils;
-use ReleaseInsights\ESR;
-
-$requested_version = Utils::requestedVersion();
+$requested_version = ReleaseInsights\Utils::requestedVersion();
 
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';
@@ -16,8 +13,8 @@ $template_data = [
         'css_page_id'           => $controller,
         'page_title'            => 'Milestones and key data for Firefox ' . (int) $requested_version,
         'release'               => (int) $requested_version,
-        'ESR'                   => ESR::getVersion((int) $requested_version),
-        'PREVIOUS_ESR'          => ESR::getOlderSupportedVersion((int) $requested_version),
+        'ESR'                   => ReleaseInsights\ESR::getVersion((int) $requested_version),
+        'PREVIOUS_ESR'          => ReleaseInsights\ESR::getOlderSupportedVersion((int) $requested_version),
         'release_owner'         => $release_owners[$requested_version] ?? 'TBD',
         'fallback_content'      => '',
 ];

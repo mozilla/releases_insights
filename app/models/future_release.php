@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Bugzilla as Bz;
-use ReleaseInsights\Utils;
-
 // Utility function to decrement a version number provided as a string
 $decrementVersion = function (string $version, int $decrement) {
     return (string) number_format((int) $version - $decrement, 1);
 };
 
 // Historical data from Product Details, cache a week
-$shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 604800);
+$shipped_releases = ReleaseInsights\Utils::getJson(
+    'https://product-details.mozilla.org/1.0/firefox_history_major_releases.json',
+    604800
+);
 
 // Merge with future dates stored locally
 $all_releases = array_merge($shipped_releases, $upcoming_releases);
@@ -38,7 +38,7 @@ $nightly_fixes = 0;
 /* Only for the current Beta view */
 if ((int) $requested_version === $main_beta) {
     // Number of bugs fixed in nightly
-    $nightly_fixes = Bz::getBugsFromHgWeb(
+    $nightly_fixes = ReleaseInsights\Bugzilla::getBugsFromHgWeb(
         'https://hg.mozilla.org/mozilla-central/json-pushes'
         . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
         . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'

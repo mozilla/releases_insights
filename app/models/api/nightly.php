@@ -3,9 +3,8 @@
 declare(strict_types=1);
 
 use Cache\Cache;
-use ReleaseInsights\Utils;
 
-$date = Utils::getDate();
+$date = ReleaseInsights\Utils::getDate();
 
 $options = [
     'http' => [
