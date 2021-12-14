@@ -161,8 +161,8 @@ class Utils
      */
     public static function startsWith(string $haystack, string|array $needles): bool
     {
-        foreach ((array) $needles as $prefix) {
-            if (! strncmp($haystack, $prefix, mb_strlen($prefix))) {
+        foreach ((array) $needles as $needle) {
+            if (str_starts_with($haystack, $needle)) {
                 return true;
             }
         }
@@ -184,7 +184,7 @@ class Utils
     {
         $matches = 0;
         foreach ((array) $needles as $needle) {
-            if (mb_strpos($haystack, $needle, $offset = 0, 'UTF-8') !== false) {
+            if (str_contains($haystack, $needle)) {
                 // If I need to match any needle, I can stop at the first match
                 if (! $match_all) {
                     return true;
