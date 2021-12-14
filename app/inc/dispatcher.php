@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-// List of css files we include, by default only base.css
-$css_files = ['base.css'];
-
 // Here we decide what page we are asking for, falls back to a 404
 switch ($url['path']) {
     case '/':

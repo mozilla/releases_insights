@@ -8,7 +8,7 @@ print $twig->render(
     'regular.html.twig',
     [
         'page_title'   => $page_title,
-        'css_files'    => $css_files,
+        'css_files'    => ['base.css'],
         'css_page_id'  => $controller,
         'page_content' => $content,
     ]

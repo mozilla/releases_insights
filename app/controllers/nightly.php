@@ -7,7 +7,7 @@ require_once MODELS . 'nightly.php';
 print $twig->render(
     'nightly.html.twig',
     [
-        'css_files'         => $css_files,
+        'css_files'         => ['base.css'],
         'css_page_id'       => $controller,
         'page_title'        => $page_title,
         'display_date'      => $display_date,

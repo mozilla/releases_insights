@@ -9,7 +9,7 @@ $upcoming_releases = include DATA .'upcoming_releases.php';
 $release_owners    = include DATA .'release_owners.php';
 
 $template_data = [
-        'css_files'             => $css_files,
+        'css_files'             => ['base.css'],
         'css_page_id'           => $controller,
         'page_title'            => 'Milestones and key data for Firefox ' . (int) $requested_version,
         'release'               => (int) $requested_version,

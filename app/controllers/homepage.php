@@ -8,7 +8,7 @@ print $twig->render(
     'overview.html.twig',
     [
         'page_title'          => $page_title,
-        'css_files'           => $css_files,
+        'css_files'           => ['base.css'],
         'css_page_id'         => $controller,
         'beta_cycle_dates'    => $beta_cycle_dates,
         'nightly_cycle_dates' => $nightly_cycle_dates,
