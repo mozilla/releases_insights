@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Cache\Cache;
@@ -26,7 +27,7 @@ test('Utils::isBuildID', function () {
     $this->assertTrue(U::isBuildID('20201229120000'));
 });
 
-test('Utils::getBuildID' , function () {
+test('Utils::getBuildID', function () {
     // Test fallback value
     $this->assertEquals('20191014213051', U::getBuildID('20501229120000'));
 

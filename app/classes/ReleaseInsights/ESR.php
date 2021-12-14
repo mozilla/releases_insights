@@ -15,7 +15,7 @@ class ESR
     {
         $match = self::$esr_releases[0];
 
-        foreach(self::$esr_releases as $esr) {
+        foreach (self::$esr_releases as $esr) {
             if ($esr > $version) {
                 break;
             }
@@ -25,7 +25,7 @@ class ESR
             }
         }
 
-        return (string) $match . '.' . ($version - $match ) . '.0';
+        return (string) $match . '.' . ($version - $match) . '.0';
     }
 
     /**
@@ -37,8 +37,10 @@ class ESR
         $current_ESR = self::getVersion($version);
         $current_ESR = Utils::getMajorVersion($current_ESR);
         $previous_ESR = self::$esr_releases[
-            array_search($current_ESR,
-            self::$esr_releases)-1
+            array_search(
+                $current_ESR,
+                self::$esr_releases
+            )-1
         ];
 
         // We support 2 ESR branches for 3 releases only since Version 68.
