@@ -35,4 +35,6 @@ If you want to set the site up with an Apache virtual host, make it point to the
 
 We use [Pest](https://pestphp.com/Pest) for unit testing and we have CI via Github Actions to ensure all tests are passing.
 
+You can also run tests with the `start.sh -tests` command, this will run pest and a dry-run of `php-cs-fixer` (coding styles rules).
+
 If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.

@@ -2,17 +2,11 @@
 
 standard_color=$(tput sgr0)
 green=$(tput setab 2)
-red=$(tput setab 1)
-
-function echored() {
-    echo -e "$red$*$standard_color"
-}
 
 function echogreen() {
     echo -e "$green$*$standard_color"
 }
 
-# Use 'start.sh -remote' if you want to access the server from another machine (or a VM)
 SERVER="localhost:8082"
 
 SUPPORTED_COMMANDS=(
