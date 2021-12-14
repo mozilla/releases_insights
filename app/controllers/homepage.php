@@ -7,7 +7,7 @@ require_once MODELS . 'home.php';
 print $twig->render(
     'overview.html.twig',
     [
-        'page_title'          => $page_title,
+        'page_title'          => 'Where are we in the current release cycle?',
         'css_files'           => ['base.css'],
         'css_page_id'         => $controller,
         'beta_cycle_dates'    => $beta_cycle_dates,

@@ -7,9 +7,9 @@ require_once MODELS . 'nightly.php';
 print $twig->render(
     'nightly.html.twig',
     [
+        'page_title'        => 'Nightly crashes for a day',
         'css_files'         => ['base.css'],
         'css_page_id'       => $controller,
-        'page_title'        => $page_title,
         'display_date'      => $display_date,
         'nightly_pairs'     => $nightly_pairs,
         'build_crashes'     => $build_crashes,
