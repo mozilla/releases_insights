@@ -13,7 +13,7 @@ $controller = match ($url['path']) {
     'api/release/owners'        => 'api/release_owners',
     'api/nightly/crashes'       => 'api/nightly_crashes',
     'calendar/release/schedule' => 'ics_release_schedule',
-    default => '404',
+    default                     => '404',
 };
 
 include CONTROLLERS . $controller . '.php';
