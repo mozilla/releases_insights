@@ -10,9 +10,6 @@ mb_internal_encoding('UTF-8');
 // Make sure we have a timezone set
 date_default_timezone_set('America/Los_Angeles');
 
-// Load all constants for the application, hardcoded.
-$install = __DIR__ . '/../../';
-
 // Common constants
 require_once __DIR__ . '/constants.php';
 
