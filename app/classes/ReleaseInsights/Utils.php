@@ -12,7 +12,7 @@ class Utils
     /**
      * Get the list of crashes for a Build ID from Socorro
      *
-     * @param int $buildid Firefox build IT
+     * @param int $buildid Firefox build ID
      *
      * @return array a list of crashes
      */
