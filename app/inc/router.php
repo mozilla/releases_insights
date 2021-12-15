@@ -16,12 +16,6 @@ if (isset($url['query'])) {
     $url['query'] = str_replace('%3A', ':', $url['query']);
 }
 
-// Log any other case of URL not parsable that we don't know of yet.
-if ($url === false) {
-    error_log('app/inc/router.php: ' . $_SERVER['REQUEST_URI'] . ' is not parsable.');
-    $url['path'] = '404';
-}
-
 $file = pathinfo($url['path']);
 
 // Real files and folders don't get pre-processed
