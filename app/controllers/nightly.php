@@ -9,7 +9,7 @@ print $twig->render(
     [
         'page_title'        => 'Nightly crashes for a day',
         'css_files'         => ['base.css'],
-        'css_page_id'       => $controller,
+        'css_page_id'       => 'nightly',
         'display_date'      => $display_date,
         'nightly_pairs'     => $nightly_pairs,
         'build_crashes'     => $build_crashes,

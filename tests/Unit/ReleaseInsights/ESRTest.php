@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use ReleaseInsights\ESR ;
 
-// use ReleaseInsights\Utils;
-
 test('ESR::getVersion', function ($input, $output) {
     expect($output)->toEqual(ESR::getVersion($input));
 })->with([

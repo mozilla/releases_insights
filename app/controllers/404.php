@@ -11,7 +11,7 @@ print $twig->render(
     [
         'page_title'   => '404: Page Not Found',
         'css_files'    => ['base.css'],
-        'css_page_id'  => $controller,
+        'css_page_id'  => 'notfound',
         'page_content' => $content,
     ]
 );

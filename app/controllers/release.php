@@ -10,7 +10,7 @@ $release_owners    = include DATA .'release_owners.php';
 
 $template_data = [
         'css_files'             => ['base.css'],
-        'css_page_id'           => $controller,
+        'css_page_id'           => 'release',
         'page_title'            => 'Milestones and key data for Firefox ' . (int) $requested_version,
         'release'               => (int) $requested_version,
         'ESR'                   => ReleaseInsights\ESR::getVersion((int) $requested_version),

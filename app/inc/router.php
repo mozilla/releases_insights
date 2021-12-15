@@ -52,4 +52,5 @@ if (substr($temp_url['path'], -1) !== '/') {
 }
 
 // We can now initialize the application, load all dependencies and dispatch urls
+define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
 require_once __DIR__ . '/init.php';

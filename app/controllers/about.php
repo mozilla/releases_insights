@@ -9,7 +9,7 @@ print $twig->render(
     [
         'page_title'   => 'Firefox Desktop Release insights',
         'css_files'    => ['base.css'],
-        'css_page_id'  => $controller,
+        'css_page_id'  => 'about',
         'page_content' => $content,
     ]
 );
