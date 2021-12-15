@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Request;
+
+// We import the Request class manually as we haev'nt autoloaded classes yet
+define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
+include INSTALL_ROOT . 'app/classes/ReleaseInsights/Request.php';
+
 /*
     We can have queries with a colon and a number that lead
     to URLs that parse_url() can't parse probably because it thinks that it is a
@@ -30,21 +36,16 @@ if (isset($file['extension']) && $file['extension'] !== 'php') {
 }
 
 if ($url['path'] !== '/') {
-    // Normalize path before comparing the string to list of valid paths
-    $url['path'] = explode('/', $url['path']);
-    $url['path'] = array_filter($url['path']); // Remove empty items
-    $url['path'] = array_values($url['path']); // Reorder keys
-    $url['path'] = implode('/', $url['path']);
+    $url['path'] = Request::cleanPath($url['path']);
 }
 
 // Always redirect to an url ending with slashes
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
-if (substr($temp_url['path'], -1) !== '/') {
+if (! str_ends_with($temp_url['path'], '/')) {
     unset($temp_url);
     header('Location:/' . $url['path'] . '/');
     exit;
 }
 
 // We can now initialize the application, load all dependencies and dispatch urls
-define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
 require_once __DIR__ . '/init.php';

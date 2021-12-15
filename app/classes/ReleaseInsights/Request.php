@@ -19,7 +19,6 @@ class Request
      */
     public function getController(): string
     {
-        Utils::dump($this->path);
         return match ($this->path) {
             '/'                         => 'homepage',
             'about'                     => 'about',
@@ -32,5 +31,17 @@ class Request
             'calendar/release/schedule' => 'ics_release_schedule',
             default                     => '404',
         };
+    }
+
+    /**
+     * Normalize path before comparing the string to a list of valid paths
+     */
+    public static function cleanPath(string $path): string
+    {
+        $path = explode('/', $path);
+        $path = array_filter($path); // Remove empty items
+        $path = array_values($path); // Reorder keys
+
+        return implode('/', $path);
     }
 }
