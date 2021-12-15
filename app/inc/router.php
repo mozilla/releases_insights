@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use ReleaseInsights\Request;
 
-// We import the Request class manually as we haev'nt autoloaded classes yet
+// We import the Request class manually as we haven't autoloaded classes yet
 define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
 include INSTALL_ROOT . 'app/classes/ReleaseInsights/Request.php';
 
