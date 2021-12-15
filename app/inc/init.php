@@ -34,7 +34,6 @@ define('CACHE_TIME', 3600 * 72);
 
 // Application globals paths
 const DATA        = INSTALL_ROOT . 'app/data/';
-const INC         = INSTALL_ROOT . 'app/inc/';
 const VIEWS       = INSTALL_ROOT . 'app/views/';
 const MODELS      = INSTALL_ROOT . 'app/models/';
 const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';
