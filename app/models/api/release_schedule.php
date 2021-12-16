@@ -47,6 +47,7 @@ $date_format = 'Y-m-d H:i';
 switch ($requested_version) {
     // EOY adjustment
     case '96.0':
+    case '97.0':
         $x = 4;
         break;
     default:
