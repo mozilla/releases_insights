@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 $requested_version = ReleaseInsights\Utils::requestedVersion();
 
+if ($requested_version == '0.0') {
+    header('Location: /404/');
+    exit;
+}
+
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';
 $release_owners    = include DATA .'release_owners.php';

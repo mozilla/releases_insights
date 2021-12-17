@@ -224,10 +224,10 @@ class Utils
      *
      * beta, release and nightly are aliases
      *
-     * For detection, the values rely on the FIREFOX_RELEASE, FIREFOX_BETA, FIREFOX_NIGHTLY
-     * global constants.
+     * For detection, the values rely on the FIREFOX_RELEASE, FIREFOX_BETA,
+     * FIREFOX_NIGHTLY, ESR global constants.
      *
-     * @param string $version  Force a Firefox version
+     * @param string $version Force a Firefox version
      *
      * @return string A Firefox version number such as 82.0
      */
@@ -240,6 +240,8 @@ class Utils
                 $version = FIREFOX_RELEASE;
             } elseif ($_GET['version'] === 'nightly') {
                 $version = FIREFOX_NIGHTLY;
+            } elseif ($_GET['version'] === 'esr') {
+                $version = ESR;
             } else {
                 $version = $_GET['version'];
             }
