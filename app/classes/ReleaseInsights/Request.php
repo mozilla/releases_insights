@@ -54,6 +54,7 @@ class Request
             '/release/'                   => 'release',
             '/api/nightly/'               => 'api/nightly',
             '/api/release/schedule/'      => 'api/release_schedule',
+            '/api/esr/releases/'          => 'api/esr_releases',
             '/api/release/owners/'        => 'api/release_owners',
             '/api/nightly/crashes/'       => 'api/nightly_crashes',
             '/calendar/release/schedule/' => 'ics_release_schedule',

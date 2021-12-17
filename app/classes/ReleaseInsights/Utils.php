@@ -57,7 +57,6 @@ class Utils
         // Cast user provided date to an int for security
         $date = Utils::secureText($_GET['date']);
 
-
         $d = DateTime::createFromFormat($format, $date);
 
         // Date is invalid, return Today

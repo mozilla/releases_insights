@@ -66,4 +66,16 @@ class ESR
         }
         return (string) $previous_ESR . '.' . ($version - $previous_ESR) . '.0';
     }
+
+    /**
+     * Get a XX.YY.ZZ version number from a full ESR number like 91.4.1esr
+     */
+    public static function getMainDotVersion(string $version): string
+    {
+        $version = str_replace('esr', '', $version);
+        $version = explode('.', $version);
+        array_pop($version);
+
+        return implode('.', $version);
+    }
 }
