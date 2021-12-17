@@ -1,13 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-  <header class="mx-auto">
-    <h1>
-      <a href="?version={{ release -1 }}" title="Previous release" alt="Go to previous release" class="text-decoration-none">«</a>
-      &nbsp;Firefox&nbsp;{{ release }}&nbsp;
-      {% if release != constant('FIREFOX_RELEASE') %}<a href="?version={{ release +1 }}" title="Next release" class="text-decoration-none" alt="Go to next release">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to Release channel</a>{% endif %}
-    </h1>
-  </header>
+     {%  include 'release_nav.html.twig' %}
 {% endblock %}
 
 {% block main %}

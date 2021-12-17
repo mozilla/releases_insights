@@ -13,11 +13,23 @@ $template_data = [
         'css_page_id'           => 'release',
         'page_title'            => 'Milestones and key data for Firefox ' . (int) $requested_version,
         'release'               => (int) $requested_version,
-        'ESR'                   => ReleaseInsights\ESR::getVersion((int) $requested_version),
-        'PREVIOUS_ESR'          => ReleaseInsights\ESR::getOlderSupportedVersion((int) $requested_version),
         'release_owner'         => $release_owners[$requested_version] ?? 'TBD',
         'fallback_content'      => '',
 ];
+
+// Releases before version 4 were handled completely differently
+if ((int) $requested_version < 4) {
+    require_once MODELS . 'pre4_release.php';
+    $template_file = 'pre4_release.html.twig';
+    $template_data += ['dot_release_count' => $dot_release_count];
+    print $twig->render($template_file, $template_data);
+    return;
+}
+
+$template_data = array_merge($template_data, [
+        'ESR'          => ReleaseInsights\ESR::getVersion((int) $requested_version),
+        'PREVIOUS_ESR' => ReleaseInsights\ESR::getOlderSupportedVersion((int) $requested_version),
+]);
 
 // If this is a release we already shipped, display stats for the release
 if ((int) $requested_version <= (int) FIREFOX_RELEASE) {

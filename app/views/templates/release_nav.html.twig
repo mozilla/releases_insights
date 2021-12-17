@@ -1,0 +1,13 @@
+
+  <header class="mx-auto">
+    <h1>
+
+	{% if release > 1 %}
+	<a href="?version={{ release -1 }}" title="Previous release" alt="Go to previous release" class="text-decoration-none">«</a>
+	{% endif %}
+    &nbsp;Firefox&nbsp;{{ release }}&nbsp;
+    {% if release != constant('FIREFOX_RELEASE') %}
+    	<a href="?version={{ release +1 }}" title="Next release" class="text-decoration-none" alt="Go to next release">»</a><br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to Release channel</a>
+    {% endif %}
+    </h1>
+  </header>

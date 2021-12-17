@@ -93,4 +93,5 @@ test('Utils::getMajorVersion', function ($input, $output) {
     ['100', 100],
     ['100.5', 100],
     ['78.0.3', 78],
+    ['', null],
 ]);

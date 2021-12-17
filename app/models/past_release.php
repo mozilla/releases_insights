@@ -7,13 +7,27 @@ use ReleaseInsights\Utils;
 
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
-$last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
 
+if ($requested_version == 14) {
+    // We never had a 14.0 release, so this is hardcoded
+    $last_release_date = '2012-07-19';
+} else {
+    $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
+}
 // Needed for beta cycle length calculation
-$previous_release_date = $firefox_releases['firefox-' . number_format($requested_version - 1.0, 1)]['date'];
-
+if ($requested_version == 15) {
+    // We never had a 14.0 release, so this is hardcoded
+    $previous_release_date = '2012-07-19';
+} else {
+    $previous_release_date = $firefox_releases['firefox-' . number_format($requested_version - 1.0, 1)]['date'];
+}
 // Needed for nightly cycle length calculation
-$nightly_start_date = $firefox_releases['firefox-' . number_format($requested_version - 2.0, 1)]['date'];
+if ($requested_version == 16) {
+    // We never had a 14.0 release, so this is hardcoded
+    $nightly_start_date = '2012-06-04';
+} else {
+    $nightly_start_date = $firefox_releases['firefox-' . number_format($requested_version - 2.0, 1)]['date'];
+}
 
 // Calculate the number of weeks between the 2 releases
 $date1 = new DateTime($last_release_date);
@@ -37,6 +51,9 @@ if ($requested_version !== 53 && $requested_version > 46) {
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
     $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
+    if ($beta_uplifts['no_data']) {
+        $beta_uplifts = false;
+    }
 } else {
     $beta_uplifts = $beta_changelog = $beta_uplifts_url = $beta_backouts_url = false;
 }

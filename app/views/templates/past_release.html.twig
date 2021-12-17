@@ -1,18 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block header %}
-  <header class="mx-auto">
-    <h1>
-      <a href="?version={{ release -1 }}" title="Previous release" alt="Go to previous release" class="text-decoration-none">«</a>
-      &nbsp;Firefox&nbsp;{{ release }}&nbsp;
-      <a href="?version={{ release +1 }}" title="Next release"  alt="Go to next release" class="text-decoration-none">»</a>
-      {% if release != constant('FIREFOX_RELEASE')|number_format %}
-        <br><a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}"
-      class="btn btn-primary">Go to last shipped release</a>
-      {% else %}
-        <div class="w-50 alert alert-primary mx-auto h6 fw-normal" role="alert">Version shipping to end users</div>
-      {% endif %}
-    </h1>
-  </header>
+     {%  include 'release_nav.html.twig' %}
 {% endblock %}
 
 {% block main %}
@@ -41,13 +29,19 @@
     </tr>
     {% else %}
     <tr>
-      <th>Uplifts in Beta</th><td>Data cannot be extracted from mercurial (missing HG tag for beta)</td>
+      <th>Uplifts in Beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
     </tr>
     {% endif %}
 
+    {% if rc_uplifts %}
     <tr>
       <th>Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backout{{ rc_uplifts.backouts|length != 1 ? 's' }})</td>
     </tr>
+    {% else %}
+    <tr>
+      <th>Uplifts in RC</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
+    </tr>
+    {% endif %}
     <tr>
       <th>Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length}}</td>
     </tr>

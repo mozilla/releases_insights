@@ -9,10 +9,16 @@ class ESR
     public static $esr_releases = [10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102];
 
     /**
-     * Get the ESR release that corresponds to the Rapid release version
+     * Get the ESR release that corresponds to the Rapid release version.
+     * Return null if there is none.
      */
-    public static function getVersion(int $version): string
+    public static function getVersion(int $version): ?string
     {
+        // We don't have an older ESR than the first ESR
+        if ($version < 10) {
+            return null;
+        }
+
         $match = self::$esr_releases[0];
 
         foreach (self::$esr_releases as $esr) {
@@ -35,7 +41,13 @@ class ESR
     public static function getOlderSupportedVersion(int $version): ?string
     {
         $current_ESR = self::getVersion($version);
-        $current_ESR = Utils::getMajorVersion($current_ESR);
+        $current_ESR = Utils::getMajorVersion((string) $current_ESR);
+
+        // We don't have an older ESR than the first ESR
+        if (self::$esr_releases[0] == $current_ESR) {
+            return null;
+        }
+
         $previous_ESR = self::$esr_releases[
             array_search(
                 $current_ESR,
@@ -49,7 +61,6 @@ class ESR
         if (($version - $current_ESR) > ($version < 78 ? 1 : 2)) {
             return null;
         }
-
         return (string) $previous_ESR . '.' . ($version - $previous_ESR) . '.0';
     }
 }

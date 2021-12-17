@@ -14,6 +14,8 @@ test('ESR::getVersion', function ($input, $output) {
     [77, '68.9.0'],
     [60, '60.0.0'],
     [59, '52.7.0'],
+    [11, '10.1.0'],
+    [9, null],
 ]);
 
 test('ESR::getOlderSupportedVersion', function ($input, $output) {
@@ -25,5 +27,6 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [91, '78.13.0'],
     [93, '78.15.0'],
     [94, null],
+    [10, null],
     [102, '91.11.0'],
 ]);
