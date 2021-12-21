@@ -74,7 +74,7 @@ foreach ($nightly_pairs as $dataset) {
     $bug_list[$dataset['buildid']] = [
         'bugs'  => $bug_list_details,
         'url'   => $url,
-        'count' => count($bugs),
+        'count' => is_countable($bugs) ? count($bugs) : 0,
     ];
 }
 

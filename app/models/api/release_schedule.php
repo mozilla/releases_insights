@@ -11,9 +11,7 @@ if ((int) $requested_version < $main_beta) {
 }
 
 // Utility function to decrement a version number provided as a string
-$decrementVersion = function (string $version, int $decrement): string {
-    return (string) number_format((int) $version - $decrement, 1);
-};
+$decrementVersion = fn(string $version, int $decrement): string => (string) number_format((int) $version - $decrement, 1);
 
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';
@@ -44,16 +42,10 @@ $nightly->modify('-1 day');
 
 $date_format = 'Y-m-d H:i';
 
-switch ($requested_version) {
-    // EOY adjustment
-    case '96.0':
-    case '97.0':
-        $x = 4;
-        break;
-    default:
-        $x = 3;
-        break;
-}
+$x = match ($requested_version) {
+    '96.0', '97.0' => 4,
+    default => 3,
+};
 
 $schedule = [
     'nightly_start'    => $nightly->format($date_format),

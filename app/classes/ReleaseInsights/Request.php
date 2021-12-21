@@ -6,11 +6,8 @@ namespace ReleaseInsights;
 
 class Request
 {
-    public $path;
-
-    public function __construct($path)
+    public function __construct(public $path)
     {
-        $this->path = $path;
     }
 
     /**

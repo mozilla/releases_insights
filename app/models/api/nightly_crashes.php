@@ -14,7 +14,7 @@ if (! $data = Cache::getKey($cache_id, 1)) {
     $data = file_get_contents($cache_id);
 
     // Extract into an array the values we want from the data source
-    $data = json_decode($data, true);
+    $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
 
     // No data returned, don't cache.
     if (empty($data)) {

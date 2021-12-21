@@ -6,7 +6,7 @@ namespace ReleaseInsights;
 
 class ESR
 {
-    public static $esr_releases = [10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102];
+    public static array $esr_releases = [10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102];
 
     /**
      * Get the ESR release that corresponds to the Rapid release version.

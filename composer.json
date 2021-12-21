@@ -30,7 +30,8 @@
         "nunomaduro/phpinsights": "^2.0",
         "pestphp/pest": "^1.19",
         "spatie/ray": "^1.32",
-        "symfony/var-dumper": "^5"
+        "symfony/var-dumper": "^5",
+        "rector/rector": "^0.12.8"
     },
 
     "autoload": {

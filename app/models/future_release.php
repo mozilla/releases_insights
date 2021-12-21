@@ -3,9 +3,7 @@
 declare(strict_types=1);
 
 // Utility function to decrement a version number provided as a string
-$decrementVersion = function (string $version, int $decrement) {
-    return (string) number_format((int) $version - $decrement, 1);
-};
+$decrementVersion = fn(string $version, int $decrement) => (string) number_format((int) $version - $decrement, 1);
 
 // Historical data from Product Details, cache a week
 $shipped_releases = ReleaseInsights\Utils::getJson(

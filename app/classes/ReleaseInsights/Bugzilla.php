@@ -40,9 +40,7 @@ class Bugzilla
         $get_bugs = function (string $str): array {
             if (preg_match_all("/bug \d+/", $str, $matches)) {
                 $matches[0] = array_map(
-                    function (string $str) {
-                        return str_replace('bug', '', $str);
-                    },
+                    fn(string $str) => str_replace('bug', '', $str),
                     $matches[0]
                 );
 

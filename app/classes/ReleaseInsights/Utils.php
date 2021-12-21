@@ -33,7 +33,7 @@ class Utils
             Cache::setKey($cache_id, $data);
         }
 
-        return json_decode($data, true);
+        return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -139,7 +139,7 @@ class Utils
             Cache::setKey($url, $data);
         }
 
-        return json_decode($data, true);
+        return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
     }
 
     public static function mtrim(string $string): string
@@ -197,7 +197,7 @@ class Utils
             return false;
         }
 
-        return $matches === count($needles);
+        return $matches === (is_countable($needles) ? count($needles) : 0);
     }
 
     /**
@@ -206,7 +206,7 @@ class Utils
      */
     public static function dump(): void
     {
-        if (! class_exists('\Symfony\Component\VarDumper\Dumper\CliDumper')) {
+        if (! class_exists(\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
             return;
         }
 
@@ -255,7 +255,6 @@ class Utils
      * @param DateTime $date Date that is to be checked if it falls between $startDate and $endDate
      * @param DateTime $startDate Date should be after this date to return true
      * @param DateTime $endDate Date should be before this date to return true
-     * @return bool
      */
     public static function isDateBetweenDates(DateTime $date, DateTime $startDate, DateTime $endDate): bool
     {
