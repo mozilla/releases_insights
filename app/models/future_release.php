@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-// Utility function to decrement a version number provided as a string
-$decrementVersion = fn(string $version, int $decrement) => (string) number_format((int) $version - $decrement, 1);
+use ReleaseInsights\Version;
 
 // Historical data from Product Details, cache a week
 $shipped_releases = ReleaseInsights\Utils::getJson(
@@ -20,10 +19,10 @@ $release_date = $all_releases[(string) $requested_version];
 $release = new DateTime($release_date);
 
 // Previous release object
-$previous_release = new DateTime($all_releases[$decrementVersion($requested_version, 1)]);
+$previous_release = new DateTime($all_releases[Version::decrement($requested_version, 1)]);
 
 // Release n-2 Needed for nightly cycle length calculation
-$nightly_start = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+$nightly_start = new DateTime($all_releases[Version::decrement($requested_version, 2)]);
 
 // Calculate the number of weeks between the 2 releases
 $beta_cycle_length = $release->diff($previous_release)->days / 7;

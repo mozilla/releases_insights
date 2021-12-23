@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$requested_version = ReleaseInsights\Utils::requestedVersion();
+$requested_version = Version::get()
 
 if ((int) $requested_version < $main_beta) {
     die("We don't provide schedule calendars for past releases.");

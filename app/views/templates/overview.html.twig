@@ -56,7 +56,7 @@
 
   {% if release_day %}
   <h3 class="text-center">
-    <b class="alert alert-info text-dark" role="alert">Firefox {{ shipping_release }} is shipping today!</b>
+    <b class="alert alert-info text-dark" role="alert">Firefox {{ constant('FIREFOX_BETA')|number_format }} is shipping today!</b>
   </h3>
   {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}

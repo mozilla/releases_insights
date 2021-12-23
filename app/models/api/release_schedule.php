@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Version;
+
 if ($requested_version < 75) {
     return ['error' => 'API only works with 4 week cycle releases.'];
 }
@@ -9,9 +11,6 @@ if ($requested_version < 75) {
 if ((int) $requested_version < $main_beta) {
     return ['error' => 'API only works with future release.'];
 }
-
-// Utility function to decrement a version number provided as a string
-$decrementVersion = fn(string $version, int $decrement): string => (string) number_format((int) $version - $decrement, 1);
 
 // Planned releases
 $upcoming_releases = include DATA .'upcoming_releases.php';
@@ -33,10 +32,10 @@ if (! array_key_exists($requested_version, $all_releases)) {
 $release = new DateTime($all_releases[(string) $requested_version]);
 
 // Previous release object
-$previous_release = new DateTime($all_releases[$decrementVersion($requested_version, 1)]);
+$previous_release = new DateTime($all_releases[Version::decrement($requested_version, 1)]);
 
 // Calculate 1st day of the nightly cycle
-$nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+$nightly = new DateTime($all_releases[Version::decrement($requested_version, 2)]);
 
 $nightly->modify('-1 day');
 
@@ -67,7 +66,7 @@ $schedule = [
 ];
 
 if ($requested_version === '96.0') {
-    $nightly = new DateTime($all_releases[$decrementVersion($requested_version, 2)]);
+    $nightly = new DateTime($all_releases[Version::decrement($requested_version, 2)]);
     $nightly->modify('-1 day');
 
     $schedule = [

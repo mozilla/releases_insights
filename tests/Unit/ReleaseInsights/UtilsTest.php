@@ -5,19 +5,6 @@ declare(strict_types=1);
 use Cache\Cache;
 use ReleaseInsights\Utils as U;
 
-const CACHE_ENABLED = false;
-const FIREFOX_RELEASE = '93';
-const FIREFOX_BETA = '94';
-const FIREFOX_NIGHTLY = '95';
-
-test('Utils::requestedVersion', function () {
-    $this->assertEquals('94.0', U::requestedVersion());
-    $this->assertEquals('95.0', U::requestedVersion(FIREFOX_NIGHTLY));
-    $this->assertEquals('94.0', U::requestedVersion(FIREFOX_BETA));
-    $this->assertEquals('93.0', U::requestedVersion(FIREFOX_RELEASE));
-    $this->assertEquals('100.0', U::requestedVersion('100'));
-});
-
 test('Utils::isBuildID', function () {
     $this->assertFalse(U::isBuildID('01234587392871'));
     $this->assertFalse(U::isBuildID('oajoaoojoaooao'));

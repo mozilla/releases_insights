@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use ReleaseInsights\Utils;
+use ReleaseInsights\Version;
 
 // Get the schedule for the current nightly
-$requested_version = Utils::requestedVersion(FIREFOX_NIGHTLY);
+$requested_version = Version::get(FIREFOX_NIGHTLY);
 $nightly_cycle_dates = include MODELS . 'api/release_schedule.php';
 
 // Get the schedule for the current beta
-$requested_version = Utils::requestedVersion(FIREFOX_BETA);
+$requested_version = Version::get(FIREFOX_BETA);
 $beta_cycle_dates = include MODELS . 'api/release_schedule.php';
 
 // Historical data from Product Details, cache an hour
@@ -21,8 +22,6 @@ $all_releases = array_merge($shipped_releases, $upcoming_releases);
 $today_is_release_day = false;
 
 $today = date('Y-m-d');
-
-$shipping_release = (int) array_search($today, $all_releases);
 
 if (in_array($today, $all_releases)) {
     $today_is_release_day = true;

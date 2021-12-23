@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-$requested_version = ReleaseInsights\Utils::requestedVersion();
+use ReleaseInsights\ESR;
+use ReleaseInsights\Version;
+
+$requested_version = Version::get();
 
 if ($requested_version == '0.0') {
     header('Location: /404/');

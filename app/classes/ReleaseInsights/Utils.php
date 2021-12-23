@@ -218,40 +218,6 @@ class Utils
     }
 
     /**
-     * Get the version number provided by the user in the query string
-     * via the $_GET['version'] global and return a sanitized for a major
-     * version number.
-     *
-     * beta, release and nightly are aliases
-     *
-     * For detection, the values rely on the FIREFOX_RELEASE, FIREFOX_BETA,
-     * FIREFOX_NIGHTLY, ESR global constants.
-     *
-     * @param string $version Force a Firefox version
-     *
-     * @return string A Firefox version number such as 82.0
-     */
-    public static function requestedVersion(?string $version = null): string
-    {
-        if (! $version) {
-            if (! isset($_GET['version']) || $_GET['version'] === 'beta') {
-                $version = FIREFOX_BETA;
-            } elseif ($_GET['version'] === 'release') {
-                $version = FIREFOX_RELEASE;
-            } elseif ($_GET['version'] === 'nightly') {
-                $version = FIREFOX_NIGHTLY;
-            } elseif ($_GET['version'] === 'esr') {
-                $version = ESR;
-            } else {
-                $version = $_GET['version'];
-            }
-        }
-
-        // Normalize version number to XX.y
-        return (string) number_format(abs((int) $version), 1);
-    }
-
-    /**
      * @param DateTime $date Date that is to be checked if it falls between $startDate and $endDate
      * @param DateTime $startDate Date should be after this date to return true
      * @param DateTime $endDate Date should be before this date to return true
@@ -269,6 +235,7 @@ class Utils
         if ($version === null) {
             return null;
         }
+
         return (int) explode('.', $version)[0];
     }
 }

@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-$requested_version = ReleaseInsights\Utils::requestedVersion();
+use ReleaseInsights\Version;
+
+$requested_version = Version::get();
 
 $json = include MODELS . 'api/release_schedule.php';
 
