@@ -40,6 +40,7 @@ jobs:
     - name: Run linter
       uses: overtrue/phplint@8.0
       with:
+        php-version: '8.1'
         path: .
         options: --exclude=vendor/
 
