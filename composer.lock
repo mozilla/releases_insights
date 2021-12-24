@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdc8ac0fa006980abda8c93543570ef6",
+    "content-hash": "38dac5f79ff85265543a1442b519edc2",
     "packages": [
         {
             "name": "components/jquery",
@@ -2645,6 +2645,34 @@
                 }
             ],
             "time": "2021-11-29T14:55:19+00:00"
+        },
+        {
+            "name": "pchevrel/verif",
+            "version": "v0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pascalchevrel/Verif/",
+                "reference": "17a069cd6839f63e656c5d4a6b821bfa6a11623f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pascalchevrel/Verif/zipball/17a069cd6839f63e656c5d4a6b821bfa6a11623f",
+                "reference": "17a069cd6839f63e656c5d4a6b821bfa6a11623f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "atoum/atoum": "~1.1",
+                "fabpot/php-cs-fixer": "~1.4",
+                "symfony/var-dumper": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "pchevrel": "src"
+                }
+            },
+            "description": "Functional testing library for JSON content",
+            "time": "2016-01-03T11:26:46+00:00"
         },
         {
             "name": "pestphp/pest",

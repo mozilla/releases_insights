@@ -6,8 +6,24 @@ namespace ReleaseInsights;
 
 class Request
 {
-    public function __construct(public $path)
+    public string  $request;
+    public string  $path;
+    public ?string $query;
+
+    public function __construct(string $path)
     {
+        $request = parse_url($path);
+        if ($request === false ) {
+            $this->request = '/';
+            $this->path = '/';
+            $this->query = null;
+        } else {
+            $this->request = $path;
+            $this->path  = $this->cleanPath($request['path']);
+            if (isset($request['query'])) {
+                $this->query = $request['query'];
+            }
+        }
     }
 
     /**
@@ -17,16 +33,16 @@ class Request
     public function getController(): string
     {
         return match ($this->path) {
-            '/'                         => 'homepage',
-            'about'                     => 'about',
-            'nightly'                   => 'nightly',
-            'release'                   => 'release',
-            'api/nightly'               => 'api/nightly',
-            'api/release/schedule'      => 'api/release_schedule',
-            'api/release/owners'        => 'api/release_owners',
-            'api/nightly/crashes'       => 'api/nightly_crashes',
-            'calendar/release/schedule' => 'ics_release_schedule',
-            default                     => '404',
+            '/'                          => 'homepage',
+            '/about'                     => 'about',
+            '/nightly'                   => 'nightly',
+            '/release'                   => 'release',
+            '/api/nightly'               => 'api/nightly',
+            '/api/release/schedule'      => 'api/release_schedule',
+            '/api/release/owners'        => 'api/release_owners',
+            '/api/nightly/crashes'       => 'api/nightly_crashes',
+            '/calendar/release/schedule' => 'ics_release_schedule',
+            default                         => '404',
         };
     }
 
@@ -39,6 +55,6 @@ class Request
         $path = array_filter($path); // Remove empty items
         $path = array_values($path); // Reorder keys
 
-        return implode('/', $path);
+        return '/' . implode('/', $path);
     }
 }

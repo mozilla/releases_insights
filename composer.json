@@ -7,6 +7,11 @@
             "type": "vcs",
             "url": "https://github.com/mozilla-l10n/phpclass-json",
             "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/pascalchevrel/Verif/",
+            "no-api": true
         }
     ],
    "require": {
@@ -31,7 +36,8 @@
         "pestphp/pest": "^1.19",
         "spatie/ray": "^1.32",
         "symfony/var-dumper": "^5",
-        "overtrue/phplint": "^4.0"
+        "overtrue/phplint": "^4.0",
+        "pchevrel/verif": "^0.4.0"
     },
 
     "autoload": {
@@ -42,8 +48,10 @@
     },
     "scripts": {
         "test:unit": "php vendor/bin/pest --colors=always --exclude-group=integration",
+        "test:content": "php tests/Functional/pages.php",
         "test": [
             "@test:unit"
+            "@test:content"
         ],
         "post-install-cmd": [
             "mkdir -p cache",

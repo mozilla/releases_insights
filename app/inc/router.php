@@ -5,33 +5,23 @@ declare(strict_types=1);
 use ReleaseInsights\Request;
 
 // We import the Request class manually as we haven't autoloaded classes yet
-define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
-include INSTALL_ROOT . 'app/classes/ReleaseInsights/Request.php';
+include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Request.php';
 
-/*
-    We can have queries with a colon and a number that lead
-    to URLs that parse_url() can't parse probably because it thinks that it is a
-    port definition.
+$url = new Request($_SERVER['REQUEST_URI']);
 
-    That's why we escape the colon to %3A before parsing it and then revert
-    that change in the query variable created.
-*/
-$url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
-
-if (isset($url['query'])) {
-    $url['query'] = str_replace('%3A', ':', $url['query']);
+if (isset($url->query)) {
+    $url->query = str_replace('%3A', ':', $url->query);
 }
 
 // Non parsable path is a 404
-if ($url === false || ! isset($url['path'])) {
-    $url = ['path' => '404'];
+if ($url->path === null || ! isset($url->path)) {
+    $url->path = '404';
 }
 
-$file = pathinfo($url['path']);
+$file = pathinfo($url->path);
 
 // Real files and folders don't get pre-processed
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url['path'])
-    && $url['path'] !== '/') {
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url->path) && $url->path !== '/') {
     return false;
 }
 
@@ -40,15 +30,11 @@ if (isset($file['extension']) && $file['extension'] !== 'php') {
     return false;
 }
 
-if ($url['path'] !== '/') {
-    $url['path'] = Request::cleanPath($url['path']);
-}
-
 // Always redirect to an url ending with slashes
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
 if ($temp_url === false || ! str_ends_with($temp_url['path'], '/')) {
-    unset($temp_url);
-    header('Location:/' . $url['path'] . '/');
+    $location = 'Location:' . $url->path . '/';
+    header($location);
     exit;
 }
 

@@ -15,6 +15,7 @@ mb_internal_encoding('UTF-8');
 date_default_timezone_set('America/Los_Angeles');
 
 // Autoloading of classes (both /vendor/ and /app/classes)
+define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
 require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // Cache Product Details versions, 12H cache
@@ -50,4 +51,4 @@ $twig = new Environment($twig_loader, ['cache' => false]);
 $twig->addExtension(new IntlExtension());
 
 // Dispatch urls
-include CONTROLLERS . (new Request($url['path']))->getController() . '.php';
+include CONTROLLERS . $url->getController() . '.php';
