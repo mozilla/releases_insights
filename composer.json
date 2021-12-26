@@ -50,8 +50,7 @@
         "test:unit": "php vendor/bin/pest --colors=always --exclude-group=integration",
         "test:content": "php tests/Functional/pages.php",
         "test": [
-            "@test:unit",
-            "@test:content"
+            "@test:unit"
         ],
         "post-install-cmd": [
             "mkdir -p cache",
