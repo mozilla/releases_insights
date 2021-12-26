@@ -26,6 +26,6 @@ test('Request::cleanPath', function ($input, $output) {
 })->with([
     ['/',       '/'],
     ['//',      '/'],
-    ['/about',  '/about'],
-    ['nightly', '/nightly'],
+    ['/about',  '/about/'],
+    ['nightly', '/nightly/'],
 ]);
