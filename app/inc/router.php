@@ -22,6 +22,11 @@ if (isset($url['query'])) {
     $url['query'] = str_replace('%3A', ':', $url['query']);
 }
 
+// Non parsable path is a 404
+if ($url === false || ! isset($url['path'])) {
+    $url = ['path' => '404'];
+}
+
 $file = pathinfo($url['path']);
 
 // Real files and folders don't get pre-processed
@@ -41,7 +46,7 @@ if ($url['path'] !== '/') {
 
 // Always redirect to an url ending with slashes
 $temp_url = parse_url(str_replace(':', '%3A', $_SERVER['REQUEST_URI']));
-if (! str_ends_with($temp_url['path'], '/')) {
+if ($temp_url === false || ! str_ends_with($temp_url['path'], '/')) {
     unset($temp_url);
     header('Location:/' . $url['path'] . '/');
     exit;
