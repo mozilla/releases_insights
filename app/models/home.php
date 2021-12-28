@@ -41,3 +41,11 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
         $is_rc_week = false;
     }
 }
+
+// Get the latest nightly build ID, used as a tooltip on the nightly version number
+$latest_nightly = Utils::getJson(
+    'https://aus-api.mozilla.org/api/v1/releases/Firefox-mozilla-central-nightly-latest',
+    3600
+);
+
+$latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'];

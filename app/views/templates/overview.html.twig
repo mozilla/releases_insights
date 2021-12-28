@@ -12,6 +12,8 @@
     <meta property="twitter:image" content="https://fx-trains.herokuapp.com/assets/img/site-sharing-header.png">
 {% endblock %}
 
+{% set tooltip_defaults = ' data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" ' %}
+
 {% block header %}
   <a href="/about" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Get the list of views and APIs available in this application."><span class="information">i</span></a>
 
@@ -19,23 +21,22 @@
 {% endblock %}
 
 {% block main %}
-
 <div class="container  h-100">
   <div class="row text-center align-items-center">
-    <div class="col-sm">
+    <div class="col-sm" {{ tooltip_defaults|raw }} title="Latest version: <b>{{ constant('FIREFOX_RELEASE') }}</b>">
       <div><img src="/assets/img/firefox-logo.svg" width="70%"></div>
       <h2>{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
-      <h3><a href="/release/?version=release" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel.">Release</a></h3>
+      <h3><a href="/release/?version=release" {{ tooltip_defaults|raw }} title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel.">Release</a></h3>
     </div>
-    <div class="col-sm">
+    <div class="col-sm" {{ tooltip_defaults|raw }} title="Latest version: <b>{{ constant('FIREFOX_BETA') }}</b>">
       <div><img src="/assets/img/firefox-logo-beta.svg" width="70%"></div>
       <h2>{{ constant('FIREFOX_BETA')|number_format }}</h2>
-      <h3><a href="/release/?version=beta" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="Click this link to get detailed data about the <b>Beta</b> cycle.">Beta</a></h3>
+      <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle.">Beta</a></h3>
     </div>
-    <div class="col-sm">
+    <div class="col-sm" {{ tooltip_defaults|raw }} title="Latest buildID: <b>{{ latest_nightly }}</b>">
       <div><img src="/assets/img/firefox-logo-nightly.svg" width="70%"></div>
       <h2>{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
-      <h3><a href="/release/?version=nightly" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="Click this link to get information about the <b>Nightly</b> cycle.">Nightly</a></h3>
+      <h3><a href="/release/?version=nightly" {{ tooltip_defaults|raw }} title="Click this link to get information about the <b>Nightly</b> cycle.">Nightly</a></h3>
     </div>
   </div>
 </div>
