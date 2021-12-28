@@ -25,7 +25,7 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 1. Clone this repository
 2. install dependencies: `composer install`
 3. start PHP development server in a terminal either by launching the `start.sh` script or with this command:<br>
-  `php -S localhost:8082 -t public/ app/inc/router.php`
+  `php -S localhost:8082 -t public/`
 
 The website will be available at http://localhost:8082
 
