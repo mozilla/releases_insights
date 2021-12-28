@@ -83,8 +83,9 @@ if ($requested_version === '96.0') {
         'beta_7'           => $nightly->modify('Sunday')->format($date_format),
         'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
         'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_10'          => $nightly->modify('Tuesday')->format($date_format),
         // We have a 5 weeks beta cycle for 96,but no additional betas
-        'rc_gtb'           => $nightly->modify('Monday +1 week')->format($date_format),
+        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
         'rc'               => $nightly->modify('Tuesday')->format($date_format),
         'release'          => $release->format($date_format),
     ];
