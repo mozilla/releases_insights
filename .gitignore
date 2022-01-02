@@ -1,3 +1,4 @@
+.env
 .idea
 .php-cs-fixer.cache
 .phplint-cache
