@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 use ReleaseInsights\Version;
 
-if ($requested_version < 75) {
-    return ['error' => 'API only works with 4 week cycle releases.'];
-}
-
-if ((int) $requested_version < $main_beta) {
+if ((int) $requested_version < (int) $main_beta) {
     return ['error' => 'API only works with future release.'];
 }
 

@@ -37,7 +37,7 @@ class Version
         }
 
         // Normalize version number to XX.y
-        return (string) number_format(abs((int) $version), 1);
+        return (string) number_format(abs((int) $version), 1, '.', '');
     }
  
     /**

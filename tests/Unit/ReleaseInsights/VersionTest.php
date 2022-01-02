@@ -10,6 +10,7 @@ test('Version::get', function () {
     $this->assertEquals('94.0', Version::get(FIREFOX_BETA));
     $this->assertEquals('93.0', Version::get(FIREFOX_RELEASE));
     $this->assertEquals('100.0', Version::get('100'));
+    $this->assertEquals('1200.0', Version::get('1200'));
 });
 
 test('Version::getMajor', function ($input, $output) {
