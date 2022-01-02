@@ -10,7 +10,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 // Load the .env file to get local vs CI CONTEXT environment value
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
+$dotenv->safeLoad();
 
 // Launch PHP dev server in the background
 chdir(realpath(__DIR__ . '/../../'));
