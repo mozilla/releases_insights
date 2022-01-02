@@ -44,3 +44,4 @@ jobs:
     - name: Functional tests (API, pages)
       run: |
         php tests/Functional/pages.php
+        php tests/Functional/api.php
