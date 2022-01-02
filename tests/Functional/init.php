@@ -21,4 +21,4 @@ exec('php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo $!', $output);
 $pid = $output[0];
 
 // Pause to let time for the dev server to launch in the background in CI, locally it's instant
-sleep($_ENV['CONTEXT'] == 'local' ? 0 : 3);
+sleep(isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local' ? 0 : 3);
