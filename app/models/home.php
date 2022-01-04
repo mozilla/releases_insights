@@ -32,10 +32,18 @@ $is_rc_week = false;
 $today = new DateTime();
 $rc_week_start = new DateTime($beta_cycle_dates['rc_gtb']);
 $rc_week_end = new DateTime($nightly_cycle_dates['merge_day']);
+$rc_build = FIREFOX_BETA;
 
 if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
     if (Utils::isDateBetweenDates($today, $rc_week_start, $rc_week_end)) {
         $is_rc_week = true;
+        // Check if we have already shipped a Release Candidate build to the beta channel
+        $rc_build = Utils::getJson(
+            'https://aus-api.mozilla.org/api/v1/rules/firefox-beta',
+            3600
+        )['mapping'];
+        $rc_build = explode('-', $rc_build)[1];
+        $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : $main_beta . ' RC';
     }
     if ($today_is_release_day) {
         $is_rc_week = false;

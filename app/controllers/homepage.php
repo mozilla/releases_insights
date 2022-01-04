@@ -14,6 +14,7 @@ print $twig->render(
         'nightly_cycle_dates' => $nightly_cycle_dates,
         'release_day'         => $today_is_release_day,
         'rc_week'             => $is_rc_week,
+        'rc_build'            => $rc_build,
         'latest_nightly'      => $latest_nightly,
     ]
 );
