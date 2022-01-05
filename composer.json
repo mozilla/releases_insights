@@ -60,11 +60,5 @@
             "cp -R vendor/components/jquery/ public/assets/jquery",
             "rm public/assets/jquery/README.md"
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
     }
 }
