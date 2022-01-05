@@ -36,7 +36,8 @@
         "pestphp/pest": "^1.19",
         "symfony/var-dumper": "^5",
         "pchevrel/verif": "^0.4.0",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "overtrue/phplint": "^4.1"
     },
 
     "autoload": {
