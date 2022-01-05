@@ -70,6 +70,7 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'beta_cycle_length'     => $beta_cycle_length,
         'nightly_cycle_length'  => $nightly_cycle_length,
         'nightly_fixes'         => $nightly_fixes,
+        'nightly_updates'       => $nightly_updates,
         'cycle_dates'           => $cycle_dates,
     ]);
 } else {

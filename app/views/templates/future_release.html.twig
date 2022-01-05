@@ -20,6 +20,10 @@
 
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
 
+  {% if channel == 'nightly' and not nightly_updates %}
+  <div class="w-50 alert alert-warning mx-auto text-center" role="alert">Nightly Updates are currently <b class="text-danger">disabled</b>.</div>
+  {% endif %}
+
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center">
     <tr>
       <th class="w-auto">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>

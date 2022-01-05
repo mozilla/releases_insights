@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Bugzilla;
+use ReleaseInsights\Nightly;
+use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
 
 // Historical data from Product Details, cache a week
-$shipped_releases = ReleaseInsights\Utils::getJson(
+$shipped_releases = Utils::getJson(
     'https://product-details.mozilla.org/1.0/firefox_history_major_releases.json',
     604800
 );
@@ -35,7 +38,7 @@ $nightly_fixes = 0;
 /* Only for the current Beta view */
 if ((int) $requested_version === $main_beta) {
     // Number of bugs fixed in nightly
-    $nightly_fixes = ReleaseInsights\Bugzilla::getBugsFromHgWeb(
+    $nightly_fixes = Bugzilla::getBugsFromHgWeb(
         'https://hg.mozilla.org/mozilla-central/json-pushes'
         . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
         . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
@@ -44,3 +47,6 @@ if ((int) $requested_version === $main_beta) {
         3600 * 24 * 365
     );
 }
+
+// Are nightly updates activated?
+$nightly_updates = (new Nightly())->auto_updates;
