@@ -48,5 +48,10 @@ if ((int) $requested_version === $main_beta) {
     );
 }
 
-// Are nightly updates activated?
-$nightly_updates = (new Nightly())->auto_updates;
+$nightly_updates = true;
+/* Only for the current Nightly view */
+if ((int) $requested_version == Version::getMajor(FIREFOX_NIGHTLY)) {
+    Utils::dump(Version::getMajor(FIREFOX_NIGHTLY));
+    // Are nightly updates activated?
+    $nightly_updates = (new Nightly())->auto_updates;
+}
