@@ -50,7 +50,6 @@ case "$1" in
         ;;
     -tests)
         php ./vendor/bin/pest
-        vendor/bin/php-cs-fixer --diff --dry-run -v fix .
         exit 1
         ;;
     -tests-server)
