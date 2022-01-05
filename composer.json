@@ -25,7 +25,8 @@
         "ext-mbstring": "*",
         "ext-curl": "*",
         "ext-dom": "*",
-        "eluceo/ical": "^0.16.1"
+        "eluceo/ical": "^0.16.1",
+        "symfony/polyfill": "^1.23"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
