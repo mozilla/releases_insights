@@ -16,6 +16,5 @@ print $twig->render(
         'rc_week'             => $is_rc_week,
         'rc_build'            => $rc_build,
         'latest_nightly'      => $latest_nightly,
-        'background_rate'     => $nightly_updates,
     ]
 );

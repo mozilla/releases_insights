@@ -56,5 +56,3 @@ $latest_nightly = Utils::getJson(
 );
 
 $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'];
-
-$nightly_updates = Utils::getJson($aus_url . 'rules/firefox-nightly', 3600)['backgroundRate'];
