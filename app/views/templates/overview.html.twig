@@ -23,20 +23,20 @@
 {% block main %}
 <div class="container  h-100">
   <div class="row text-center align-items-center">
-    <div class="col-sm" {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('FIREFOX_RELEASE') }}</b>">
+    <div class="col-sm">
       <div><img src="/assets/img/firefox-logo.svg" width="70%"></div>
-      <h2>{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
-      <h3><a href="/release/?version=release" {{ tooltip_defaults|raw }} title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel.">Release</a></h3>
+      <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('FIREFOX_RELEASE') }}</b>">{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
+      <h3><a href="/release/?version=release" {{ tooltip_defaults|raw }} title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel." class="link-info">Release</a></h3>
     </div>
-    <div class="col-sm" {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ rc_build }}</b>">
+    <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-beta.svg" width="70%"></div>
-      <h2>{{ constant('FIREFOX_BETA')|number_format }}</h2>
-      <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle.">Beta</a></h3>
+      <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ rc_build }}</b>">{{ constant('FIREFOX_BETA')|number_format }}</h2>
+      <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
     </div>
-    <div class="col-sm" {{ tooltip_defaults|raw }} title="Latest buildID:<br><b>{{ latest_nightly }}</b>">
+    <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-nightly.svg" width="70%"></div>
-      <h2>{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
-      <h3><a href="/release/?version=nightly" {{ tooltip_defaults|raw }} title="Click this link to get information about the <b>Nightly</b> cycle.">Nightly</a></h3>
+      <h2 {{ tooltip_defaults|raw }} title="Latest buildID:<br><b>{{ latest_nightly }}</b>">{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
+      <h3><a href="/release/?version=nightly" {{ tooltip_defaults|raw }} title="Click this link to get information about the <b>Nightly</b> cycle." class="link-info">Nightly</a></h3>
     </div>
   </div>
 </div>

@@ -57,6 +57,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 /* crashes on Nightly page */
 
 #nightly .buildid {
@@ -95,11 +99,6 @@ h3 {
 #homepage h2,
 #homepage h3 {
     margin-top: 1em;
-}
-
-#homepage a {
-    color: white;
-    text-decoration: underline;
 }
 
 #homepage img {
