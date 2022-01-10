@@ -30,7 +30,16 @@
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-beta.svg" width="70%"></div>
-      <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ rc_build }}</b>">{{ constant('FIREFOX_BETA')|number_format }}</h2>
+
+
+      <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>
+      {% if rc_build %}
+        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
+      {% else %}
+        {{ constant('FIREFOX_BETA') }}
+      {% endif %}
+      </b>">{{ constant('FIREFOX_BETA')|number_format }}</h2>
+
       <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
     </div>
     <div class="col-sm">
