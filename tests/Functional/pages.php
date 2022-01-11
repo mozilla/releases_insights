@@ -9,7 +9,7 @@ $paths = [
     ['about/', 200, 'All APIs are under the', 'id="about"'],
     ['nightly/', 200, '', 'id="nightly"'],
     ['release/', 200, 'Release Owner', 'id="release"'],
-    ['calendar/release/schedule/?version=96', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
+    ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
 ];
 
 $obj = new \pchevrel\Verif('Check public pages HTTP responses and content');
