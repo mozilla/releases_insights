@@ -43,7 +43,7 @@ $x = match ($requested_version) {
 };
 
 $schedule = [
-    'nightly_start'    => $nightly->format($date_format),
+    'nightly_start'    => $requested_version === '100.0' ? $nightly->modify('+1 day')->format($date_format) : $nightly->format($date_format),
     'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday')->format($date_format),
     'string_freeze'    => $nightly->modify('Friday')->format($date_format),
     'merge_day'        => $nightly->modify('Monday')->format($date_format),
