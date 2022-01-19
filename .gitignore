@@ -3,11 +3,8 @@
 .php-cs-fixer.cache
 .phplint-cache
 .phpunit.result.cache
-app/config/config.ini
 cache
 composer.phar
-logs/*.log
-logs/github_log.txt
 public/assets/bootstrap/
 public/assets/font-awesome/
 public/assets/jquery/
