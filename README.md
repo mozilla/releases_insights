@@ -31,6 +31,33 @@ The website will be available at http://localhost:8082
 
 If you want to set the site up with an Apache virtual host, make it point to the `public` folder and make sure that the `cache` folder is writable by Apache.
 
+### Running with Docker
+
+It's possible to use Docker to run in a containerised environment.
+
+Build or update the image using:
+```
+docker build -t fx-trains .
+```
+and run it with
+```
+docker run --rm -p 8000:8000 fx-trains
+```
+
+The image is configured to listen on port 8000.
+
+#### Dockerflow
+
+[Dockerflow](https://github.com/mozilla-services/Dockerflow) is supported; with `version.json` optionally generated from build-time variables:
+
+```
+docker build . -t fx-trains \
+  --build-arg source=https://github.com/pascalchevrel/releases_insights \
+  --build-arg version= \
+  --build-arg commit=$( git rev-parse HEAD ) \
+  --build-arg build=
+```
+
 ## Testing and CI
 
 We use [Pest](https://pestphp.com/Pest) for unit testing and we have CI via Github Actions to ensure all tests are passing.
