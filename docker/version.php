@@ -12,4 +12,3 @@ $json['commit'] = $argv[3];
 $json['build'] = $argv[4];
 
 echo json_encode($json);
-?>
