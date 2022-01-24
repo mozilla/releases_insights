@@ -4,7 +4,8 @@ RUN apk update && \
     apk upgrade
 
 # use install-php-extensions to install required php extensions and composer
-RUN curl https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/11f97c8b6c422762c5a8ca7829ab9bcc7b7ba3ab/install-php-extensions -o /usr/local/bin/install-php-extensions && \
+RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/1.4.12/install-php-extensions \
+    --location --output /usr/local/bin/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions
 RUN /usr/local/bin/install-php-extensions mbstring intl curl dom @composer
 

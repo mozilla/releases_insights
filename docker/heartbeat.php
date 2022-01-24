@@ -1,3 +1,2 @@
 <?php
-  echo "OK\n"
-?>
+  echo "OK\n";
