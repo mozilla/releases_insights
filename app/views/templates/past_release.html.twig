@@ -87,8 +87,38 @@
     {% endif %}
 
     </table>
+  <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
+  <caption class="alert-success mx-auto text-center">Key Milestones</caption>
+    <tr>
+      <th>Nightly start</th>
+      <td title="{{ nightly_start_date|format_date('full', locale='en') }}">{{ nightly_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
+    </tr>
+    <tr>
+      <th>Beta start</th>
+      <td title="{{ beta_start_date|format_date('full', locale='en') }}">{{ beta_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
+    </tr>
+    <tr>
+      <th>{{ release }}.0</th>
+      {% if release == 14 %}
+      <td>Version never shipped</td>
+      {% else %}
+      <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date(pattern='MMMM d', locale='en') }}</td>
+      {% endif %}
+    </tr>
 
-  <p>{{ fallback_content | raw}}</p>
+    {% if dot_release_count > 0 %}
+
+      {% for dot_release in 1..dot_release_count %}
+        {%  set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
+        <tr>
+          <th>{{ release }}.0.{{ dot_release }}</th>
+          <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>
+        </tr>
+       {% endfor %}
+
+     {% endif %}
+
+  </table>
 
 {% endblock %}
 

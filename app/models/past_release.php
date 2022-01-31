@@ -10,14 +10,14 @@ $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/fire
 
 if ($requested_version == 14) {
     // We never had a 14.0 release, so this is hardcoded
-    $last_release_date = '2012-07-19';
+    $last_release_date = '2012-07-17';
 } else {
     $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
 }
 // Needed for beta cycle length calculation
 if ($requested_version == 15) {
     // We never had a 14.0 release, so this is hardcoded
-    $previous_release_date = '2012-07-19';
+    $previous_release_date = '2012-07-17';
 } else {
     $previous_release_date = $firefox_releases['firefox-' . number_format($requested_version - 1.0, 1)]['date'];
 }
@@ -87,6 +87,8 @@ $dot_release_count = count((array) array_filter(
     fn($key) => str_starts_with($key, 'firefox-' . $requested_version . '.'),
     ARRAY_FILTER_USE_KEY
 ));
+
+$beta_start_date = $firefox_releases['firefox-' . $requested_version . 'b1']['date'];
 
 // Number of bugs fixed in nightly
 $nightly_fixes = Bz::getBugsFromHgWeb(

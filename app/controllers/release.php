@@ -60,6 +60,9 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'rc_count'              => $rc_count,
         'beta_count'            => $beta_count,
         'dot_release_count'     => $dot_release_count,
+        'nightly_start_date'    => $nightly_start_date,
+        'beta_start_date'       => $beta_start_date,
+        'firefox_releases'      => $firefox_releases,
         ]);
 } elseif ((int) $requested_version > (int) FIREFOX_RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
