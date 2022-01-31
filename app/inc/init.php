@@ -5,6 +5,7 @@ declare(strict_types=1);
 use ReleaseInsights\Request;
 use ReleaseInsights\Utils;
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
@@ -51,6 +52,8 @@ $main_esr     = (int) (ESR_NEXT !== '' ? ESR_NEXT : ESR);
 $twig_loader = new FilesystemLoader(INSTALL_ROOT . 'app/views/templates');
 $twig = new Environment($twig_loader, ['cache' => false]);
 $twig->addExtension(new IntlExtension());
+$twig->addExtension(new DebugExtension());
+$twig->enableDebug();
 
 // Dispatch urls
 include CONTROLLERS . $url->getController() . '.php';
