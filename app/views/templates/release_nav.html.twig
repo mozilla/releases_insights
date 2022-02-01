@@ -7,7 +7,7 @@
   {% endif %}
     &nbsp;Firefox&nbsp;{{ release }}&nbsp;
     <a href="?version={{ release +1 }}" title="Next release" class="text-decoration-none" alt="Go to next release">»</a><br>
-  {% if release != constant('FIREFOX_RELEASE') %}
+  {% if release != constant('FIREFOX_RELEASE')|number_format %}
     <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to <b>Release</b> channel</a>
   {% endif %}
     </h1>
