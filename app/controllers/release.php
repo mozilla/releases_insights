@@ -27,11 +27,10 @@ $template_data = [
 
 // Releases before version 4 were handled completely differently
 if ((int) $requested_version < 4) {
-    require_once MODELS . 'pre4_release.php';
-    $template_file = 'pre4_release.html.twig';
+    require MODELS . 'pre4_release.php';
     $template_data += ['dot_release_count' => $dot_release_count];
-    print $twig->render($template_file, $template_data);
-    return;
+    print $twig->render('pre4_release.html.twig', $template_data);
+    exit;
 }
 
 $template_data = array_merge($template_data, [
