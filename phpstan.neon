@@ -1,4 +1,5 @@
 parameters:
     bootstrapFiles:
-        - app/inc/init.php
+        - app/inc/router.php
 
+    level: 0
