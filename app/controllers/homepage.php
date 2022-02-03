@@ -2,9 +2,16 @@
 
 declare(strict_types=1);
 
-require_once MODELS . 'home.php';
+[
+    $beta_cycle_dates,
+    $nightly_cycle_dates,
+    $today_is_release_day,
+    $is_rc_week,
+    $rc_build,
+    $latest_nightly
+] = require_once MODELS . 'home.php';
 
-print $twig->render(
+(new ReleaseInsights\Template(
     'overview.html.twig',
     [
         'page_title'          => 'Where are we in the current release cycle?',
@@ -17,4 +24,4 @@ print $twig->render(
         'rc_build'            => $rc_build,
         'latest_nightly'      => $latest_nightly,
     ]
-);
+))->render();

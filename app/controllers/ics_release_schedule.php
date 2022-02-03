@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 use ReleaseInsights\Version;
 
-$requested_version = Version::get();
-
-if ((int) $requested_version < $main_beta) {
+if ((int) Version::get() < BETA) {
     die("We don't provide schedule calendars for past releases.");
 }
 
-$releases = include MODELS . 'api/release_schedule.php';
+[$filename, $ics_calendar] = require_once MODELS . 'ics_release_schedule.php';
 
-include MODELS . 'ics_release_schedule.php';
+header('Content-Type: text/calendar; charset=utf-8');
+// header('Content-Type: text/plain; charset=utf-8');
+header('Content-Disposition: attachment; filename="' . $filename . '"');
 
-require_once VIEWS . 'ics.php';
+print $ics_calendar;

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use ReleaseInsights\Version;
 
-if ((int) $requested_version < (int) $main_beta) {
+$requested_version = Version::get();
+
+if ((int) $requested_version < BETA) {
     return ['error' => 'API only works with future release.'];
 }
 

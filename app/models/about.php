@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 $yesterday = date('Ymd', strtotime('yesterday'));
 // No data to prepare yet
-$content = <<<"EOD"
+$main_beta = BETA;
+
+return $content = <<<"EOD"
 
 <h3>Public Json API</h3>
 <p>All APIs are under the <code>api/</code> endpoint.

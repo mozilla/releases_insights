@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
+use ReleaseInsights\Version;
 
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
+$requested_version = Version::get();
 
 if ($requested_version == 14) {
     // We never had a 14.0 release, so this is hardcoded
@@ -99,3 +101,25 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
     true,
     3600 * 24 * 365
 );
+
+return [
+    $last_release_date,
+    $previous_release_date,
+    $beta_cycle_length,
+    $nightly_cycle_length,
+    $nightly_fixes,
+    $beta_changelog,
+    $beta_uplifts,
+    $rc_uplifts,
+    $rc_changelog,
+    $rc_uplifts_url,
+    $rc_backouts_url,
+    $beta_uplifts_url,
+    $beta_backouts_url,
+    $rc_count,
+    $beta_count,
+    $dot_release_count,
+    $nightly_start_date,
+    $beta_start_date,
+    $firefox_releases,
+];

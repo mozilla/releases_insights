@@ -42,7 +42,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
         // Check if we have already shipped a Release Candidate build to the beta channel
         $rc_build = Utils::getJson($aus_url . 'rules/firefox-beta', 3600)['mapping'];
         $rc_build = explode('-', $rc_build)[1];
-        $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : $main_beta . ' RC';
+        $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : BETA . ' RC';
     }
     if ($today_is_release_day) {
         $is_rc_week = false;
@@ -56,3 +56,5 @@ $latest_nightly = Utils::getJson(
 );
 
 $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'];
+
+return [$beta_cycle_dates, $nightly_cycle_dates, $today_is_release_day, $is_rc_week, $rc_build, $latest_nightly];

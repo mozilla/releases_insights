@@ -26,6 +26,7 @@ $nightlies_day_before = include MODELS . 'api/nightly.php';
 $nightly_pairs = [];
 
 $i = true;
+$previous_changeset = null;
 foreach ($nightlies as $buildid => $changeset) {
     // The first build of the day is to associate with yesterday's last build
     if ($i === true) {
@@ -84,4 +85,18 @@ $known_top_crashes = [
     'IPCError-browser | ShutDownKill | EMPTY: no crashing thread identified; ERROR_NO_MINIDUMP_HEADER',
     'IPCError-browser | ShutDownKill',
     'OOM | small',
+];
+
+
+return [
+    $display_date,
+    $nightly_pairs,
+    $build_crashes,
+    $top_sigs,
+    $bug_list,
+    $previous_date,
+    $requested_date,
+    $next_date,
+    $today,
+    $known_top_crashes
 ];

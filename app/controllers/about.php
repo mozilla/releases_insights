@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once MODELS . 'about.php';
+$content= require_once MODELS . 'about.php';
 
-print $twig->render(
+(new ReleaseInsights\Template(
     'regular.html.twig',
     [
         'page_title'   => 'Firefox Desktop Release insights',
@@ -12,4 +12,4 @@ print $twig->render(
         'css_page_id'  => 'about',
         'page_content' => $content,
     ]
-);
+))->render();
