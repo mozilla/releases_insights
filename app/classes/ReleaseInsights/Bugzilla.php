@@ -9,7 +9,7 @@ class Bugzilla
     /**
      * Create a bugzilla link for multiple bugs
      *
-     * @param array $bug_numbers List of bug numbers
+     * @param array<mixed> $bug_numbers List of bug numbers
      *
      * @return string Link
      */
@@ -18,6 +18,10 @@ class Bugzilla
         return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 
+    /**
+     *
+     * @return array<mixed>
+     */
     public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0): array
     {
         $results    = Utils::getJson($query, $cache_ttl)['pushes'];

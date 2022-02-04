@@ -9,9 +9,15 @@ use Twig\Loader\FilesystemLoader;
 
 class Template
 {
+    /**
+     *  @var array<mixed> $data
+     */
     public array $data;
     public string $template;
 
+    /**
+     *  @param array<mixed> $template_data
+     */
     public function __construct(string $template_file, array $template_data)
     {
         $this->data = $template_data;

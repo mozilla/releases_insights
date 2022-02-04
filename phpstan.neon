@@ -1,6 +1,7 @@
 parameters:
     bootstrapFiles:
-        - app/inc/router.php
-        - app/inc/init.php
-
-    level: 1
+        - app/inc/config.php
+    paths:
+        - app
+        - public
+    level: 6

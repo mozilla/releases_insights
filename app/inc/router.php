@@ -2,17 +2,10 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Request;
-
 // We import the Request class manually as we haven't autoloaded classes yet
 include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Request.php';
 
-// Forcing the existence of this value is only for PhpStan use
-if (! isset($_SERVER['REQUEST_URI'])) {
-    $_SERVER['REQUEST_URI'] = '/';
-}
-
-$url = new Request($_SERVER['REQUEST_URI']);
+$url = new ReleaseInsights\Request($_SERVER['REQUEST_URI']);
 $file = pathinfo($url->path);
 
 // Real files and folders don't get pre-processed
@@ -35,4 +28,5 @@ if ($url->invalid_slashes) {
 unset($url, $file);
 
 // We can now initialize the application, load all dependencies and dispatch urls
+require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/init.php';
