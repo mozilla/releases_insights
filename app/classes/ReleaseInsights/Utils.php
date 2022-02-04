@@ -15,7 +15,7 @@ class Utils
      *
      * @param int $buildid Firefox build ID
      *
-     * @return array a list of crashes
+     * @return array<mixed> a list of crashes
      */
     public static function getCrashesForBuildID(int $buildid): array
     {
@@ -128,6 +128,9 @@ class Utils
         );
     }
 
+    /**
+     *  @return array<mixed> $template_data
+     */
     public static function getJson(string $url, int $ttl = 0): array
     {
         if (! $data = Cache::getKey($url, $ttl)) {
@@ -156,7 +159,7 @@ class Utils
      * $needles can be a string or an array of strings.
      *
      * @param string $haystack String to analyse
-     * @param string|array  $needles  The string to look for
+     * @param string|array<string>  $needles  The string to look for
      *
      * @return bool True if the $haystack string starts with a string in $needles
      */
@@ -233,7 +236,7 @@ class Utils
      */
     public static function getMajorVersion(string $version): ?int
     {
-        if ($version === null) {
+        if ($version == null) {
             return null;
         }
 
@@ -243,6 +246,7 @@ class Utils
 
     /**
      * Utility function to output Json data
+     * @param array<mixed> $data
      */
     public static function renderJson(array $data): void
     {
@@ -250,13 +254,10 @@ class Utils
         $json = new Json();
 
         if (array_key_exists('error', $data)) {
-            echo $json->outputError($data['error']);
+            print_r($json->outputError($data['error']));
             die;
         }
 
-        echo $json->outputContent(
-            $data,
-            $_GET['callback'] ?? false
-        );
+        print_r($json->outputContent($data, $_GET['callback'] ?? false));
     }
 }

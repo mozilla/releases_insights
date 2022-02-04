@@ -48,6 +48,7 @@
     },
     "scripts": {
         "test:unit": "php vendor/bin/pest --colors=always --exclude-group=integration",
+        "test:static": "php vendor/bin/phpstan",
         "test:content": "php tests/Functional/pages.php",
         "test:api": "php tests/Functional/api.php",
         "test": [

@@ -10,6 +10,10 @@ use Eluceo\iCal\Component\Event;
 
 class ReleaseCalendar
 {
+    /**
+     *  @param array<string, string> $milestones
+     *  @param array<string, string> $release_schedule_labels
+     */
     public static function getICS(array $milestones, array $release_schedule_labels, string $calendar_name): string
     {
         $calendar = new Calendar($calendar_name);

@@ -45,3 +45,6 @@ jobs:
       run: |
         php tests/Functional/pages.php
         php tests/Functional/api.php
+
+    - name: Static Analysis (PHPStan)
+      run: composer run-script test:static
