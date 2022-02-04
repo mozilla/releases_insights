@@ -27,20 +27,44 @@ $template_data = [
 
 // Releases before version 4 were handled completely differently
 if ((int) $requested_version < 4) {
-    require MODELS . 'pre4_release.php';
+    [ $dot_release_count ] = require MODELS . 'pre4_release.php';
     $template_data += ['dot_release_count' => $dot_release_count];
-    print $twig->render('pre4_release.html.twig', $template_data);
+    (new ReleaseInsights\Template('pre4_release.html.twig', $template_data))->render();
     exit;
 }
 
-$template_data = array_merge($template_data, [
-        'ESR'          => ReleaseInsights\ESR::getVersion((int) $requested_version),
-        'PREVIOUS_ESR' => ReleaseInsights\ESR::getOlderSupportedVersion((int) $requested_version),
-]);
+$template_data = array_merge(
+    $template_data,
+    [
+        'ESR'          => ESR::getVersion((int) $requested_version),
+        'PREVIOUS_ESR' => ESR::getOlderSupportedVersion((int) $requested_version),
+    ]
+);
 
 // If this is a release we already shipped, display stats for the release
 if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
-    require_once MODELS . 'past_release.php';
+    [
+        $last_release_date,
+        $previous_release_date,
+        $beta_cycle_length,
+        $nightly_cycle_length,
+        $nightly_fixes,
+        $beta_changelog,
+        $beta_uplifts,
+        $rc_uplifts,
+        $rc_changelog,
+        $rc_uplifts_url,
+        $rc_backouts_url,
+        $beta_uplifts_url,
+        $beta_backouts_url,
+        $rc_count,
+        $beta_count,
+        $dot_release_count,
+        $nightly_start_date,
+        $beta_start_date,
+        $firefox_releases,
+    ] = require_once MODELS . 'past_release.php';
+
     $template_file = 'past_release.html.twig';
     $template_data = array_merge($template_data, [
         'release_date'          => $last_release_date,
@@ -65,7 +89,14 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         ]);
 } elseif ((int) $requested_version > (int) FIREFOX_RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
-    require_once MODELS . 'future_release.php';
+    [
+        $release_date,
+        $beta_cycle_length,
+        $nightly_cycle_length,
+        $nightly_fixes,
+        $nightly_updates,
+        $cycle_dates,
+    ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
         'release_date'          => $release_date,
@@ -83,4 +114,4 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
     ]);
 }
 
-print $twig->render($template_file, $template_data);
+(new ReleaseInsights\Template($template_file, $template_data))->render();

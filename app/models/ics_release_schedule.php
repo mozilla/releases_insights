@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+$releases = include MODELS . 'api/release_schedule.php';
+
 $short_version = (string) (int) $releases['version'];
 
 $release_schedule_labels = [
@@ -51,3 +53,5 @@ $ics_calendar = ReleaseInsights\ReleaseCalendar::getICS(
 );
 
 $filename = 'Firefox_' . $short_version . '_schedule.ics';
+
+return [$filename, $ics_calendar];

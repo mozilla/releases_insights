@@ -2,9 +2,20 @@
 
 declare(strict_types=1);
 
-require_once MODELS . 'nightly.php';
+[
+    $display_date,
+    $nightly_pairs,
+    $build_crashes,
+    $top_sigs,
+    $bug_list,
+    $previous_date,
+    $requested_date,
+    $next_date,
+    $today,
+    $known_top_crashes
+] = require_once MODELS . 'nightly.php';
 
-print $twig->render(
+(new ReleaseInsights\Template(
     'nightly.html.twig',
     [
         'page_title'        => 'Nightly crashes for a day',
@@ -21,4 +32,5 @@ print $twig->render(
         'today'             => $today,
         'known_top_crashes' => $known_top_crashes,
     ]
-);
+))->render();
+

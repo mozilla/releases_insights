@@ -14,3 +14,5 @@ $dot_release_count = count((array) array_filter(
     fn($key) => str_starts_with($key, 'firefox-' . Version::get() . '.'),
     ARRAY_FILTER_USE_KEY
 ));
+
+return [$dot_release_count];

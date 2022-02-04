@@ -6,6 +6,7 @@ namespace ReleaseInsights;
 
 use Cache\Cache;
 use DateTime;
+use Json\Json;
 
 class Utils
 {
@@ -237,5 +238,25 @@ class Utils
         }
 
         return (int) explode('.', $version)[0];
+    }
+
+
+    /**
+     * Utility function to output Json data
+     */
+    public static function renderJson(array $data): void
+    {
+        // Output a JSON or JSONP representation of search results
+        $json = new Json();
+
+        if (array_key_exists('error', $data)) {
+            echo $json->outputError($data['error']);
+            die;
+        }
+
+        echo $json->outputContent(
+            $data,
+            $_GET['callback'] ?? false
+        );
     }
 }
