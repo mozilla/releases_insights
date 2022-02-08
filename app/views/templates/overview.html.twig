@@ -64,9 +64,9 @@
     <h3 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h3>
   {% endif %}
 
-  {% if release_day and constant('FIREFOX_BETA')|number_format == constant('FIREFOX_RELEASE')|number_format %}
+  {% if release_day %}
   <h3 class="text-center">
-    <b class="alert alert-info text-dark" role="alert">Firefox {{ constant('FIREFOX_BETA')|number_format }} is shipping today!</b>
+    <b class="alert alert-info text-dark" role="alert">Firefox {{ version_on_release_day }} is shipping today!</b>
   </h3>
   {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}

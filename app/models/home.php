@@ -20,11 +20,13 @@ $upcoming_releases = include DATA .'upcoming_releases.php';
 $all_releases = array_merge($shipped_releases, $upcoming_releases);
 
 $today_is_release_day = false;
+$firefox_version_on_release_day = FIREFOX_BETA;
 
 $today = date('Y-m-d');
 
 if (in_array($today, $all_releases)) {
     $today_is_release_day = true;
+    $firefox_version_on_release_day = array_search($today, $all_releases);
 }
 
 $aus_url = 'https://aus-api.mozilla.org/api/v1/';
@@ -57,4 +59,11 @@ $latest_nightly = Utils::getJson(
 
 $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'];
 
-return [$beta_cycle_dates, $nightly_cycle_dates, $today_is_release_day, $is_rc_week, $rc_build, $latest_nightly];
+return [
+    $beta_cycle_dates,
+    $nightly_cycle_dates,
+    $today_is_release_day,
+    $is_rc_week, $rc_build,
+    $latest_nightly,
+    $firefox_version_on_release_day
+];
