@@ -67,8 +67,18 @@ foreach ($nightly_pairs as $dataset) {
     $bugs = Bz::getBugsFromHgWeb(
         'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=' . $dataset['prev_changeset'] . '&tochange=' . $dataset['changeset'] . '&full&version=2'
     )['total'];
-    $url = Bz::getBugListLink($bugs);
 
+    // There were no bugs in the build, it is the same as the previous one
+    if (empty($bugs)) {
+        $bug_list[$dataset['buildid']] = [
+            'bugs'  => null,
+            'url'   => '',
+            'count' => 0,
+        ];
+        continue;
+    }
+
+    $url = Bz::getBugListLink($bugs);
     // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
     $bug_list_details= Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,product,component&bug_id=' . implode('%2C', $bugs))['bugs'];
 
