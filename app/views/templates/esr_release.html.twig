@@ -35,13 +35,13 @@
       {%  if values.old_esr and counter == 0 %}
         {% set counter = counter + 1  %}
         <small class="badge bg-warning text-dark">New ESR branch!</small>
-      {%  elseif values.old_esr and counter < 3 %}
+      {%  elseif values.old_esr and counter < 4 %}
         {% set counter = counter + 1  %}
       {% endif %}
 
-      {%  if values.old_esr and counter == 3 %}
+      {% if not values.old_esr and counter == 3 %}
+        {% set counter = counter + 1  %}
         <small class="badge bg-warning text-dark">Previous ESR branch is EOL</small>
-
       {% endif %}
 
       {{ values.date|format_date(pattern='MMMM d', locale='en') }}
