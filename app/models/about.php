@@ -31,6 +31,10 @@ return $content = <<<"EOD"
         <td><a href="/api/release/owners/">api/release/owners/</a></td>
         <td>Historical list of all release managers for Firefox major release. We don’t have the names before Firefox 27</td>
     </tr>
+    <tr>
+        <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
+        <td>Release dates for all ESR releases (including dot releases)</td>
+    </tr>
 </table>
 
 <h3>Views</h3>

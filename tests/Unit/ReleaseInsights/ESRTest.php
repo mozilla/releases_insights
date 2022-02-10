@@ -30,3 +30,11 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [10, null],
     [102, '91.11.0'],
 ]);
+
+test('ESR::getMainDotVersion', function ($input, $output) {
+    expect($output)->toEqual(ESR::getMainDotVersion($input));
+})->with([
+    ['78.12.0esr', '78.12'],
+    ['91.4.1esr', '91.4'],
+    ['68.0.0esr', '68.0'],
+]);

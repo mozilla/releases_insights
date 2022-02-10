@@ -17,17 +17,17 @@ $upcoming_releases = include DATA .'upcoming_releases.php';
 $release_owners    = include DATA .'release_owners.php';
 
 $template_data = [
-        'css_files'             => ['base.css'],
-        'css_page_id'           => 'release',
-        'page_title'            => 'Milestones and key data for Firefox ' . (int) $requested_version,
-        'release'               => (int) $requested_version,
-        'release_owner'         => $release_owners[$requested_version] ?? 'TBD',
-        'fallback_content'      => '',
+    'css_files'        => ['base.css'],
+    'css_page_id'      => 'release',
+    'page_title'       => 'Milestones and key data for Firefox ' . (int) $requested_version,
+    'release'          => (int) $requested_version,
+    'release_owner'    => $release_owners[$requested_version] ?? 'TBD',
+    'fallback_content' => '',
 ];
 
 // Releases before version 4 were handled completely differently
 if ((int) $requested_version < 4) {
-    [ $dot_release_count ] = require MODELS . 'pre4_release.php';
+    [$dot_release_count] = require MODELS . 'pre4_release.php';
     $template_data += ['dot_release_count' => $dot_release_count];
     (new ReleaseInsights\Template('pre4_release.html.twig', $template_data))->render();
     exit;
@@ -36,10 +36,30 @@ if ((int) $requested_version < 4) {
 $template_data = array_merge(
     $template_data,
     [
-        'ESR'          => ESR::getVersion((int) $requested_version),
-        'PREVIOUS_ESR' => ESR::getOlderSupportedVersion((int) $requested_version),
+        'ESR'       => ESR::getVersion((int) $requested_version),
+        'OLDER_ESR' => ESR::getOlderSupportedVersion((int) $requested_version),
     ]
 );
+
+if ($_GET['version'] === 'esr') {
+    [
+        $latest_ESR,
+        $release_date,
+        $esr_calendar
+    ] = require_once MODELS . 'esr_release.php';
+
+    $template_data = array_merge($template_data, [
+        'css_page_id'  => 'release_esr',
+        'latest_ESR'   => $latest_ESR,
+        'release_date' => $release_date,
+        'esr_calendar' => $esr_calendar,
+    ]);
+
+    (new ReleaseInsights\Template('esr_release.html.twig', $template_data))->render();
+
+    die;
+}
+
 
 // If this is a release we already shipped, display stats for the release
 if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
