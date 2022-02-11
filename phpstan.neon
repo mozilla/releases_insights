@@ -4,4 +4,6 @@ parameters:
     paths:
         - app
         - public
+    ignoreErrors:
+        - '#.+?function array_multisort is passed by reference, so it expects variables only#'
     level: 6

@@ -9,6 +9,7 @@ $paths = [
     ['about/', 200, 'All APIs are under the', 'id="about"'],
     ['nightly/', 200, '', 'id="nightly"'],
     ['release/', 200, 'Release Owner', 'id="release"'],
+    ['release/owners/', 200, 'Major releases per owner since Version 27', 'id="release_owners"'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
 ];
 

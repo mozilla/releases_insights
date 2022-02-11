@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+<h2 class="mx-auto w-50 text-center">{{ page_title }}</h2>
+
+<table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
+    <tr>
+      <th>Release Owner</th>
+      <th>Number of releases</th>
+      <th>Releases</th>
+    </tr>
+
+  {% set counter = 0 %}
+  {% for key, values in owners %}
+    <tr>
+      <td>{{ values.owner }}</td>
+      <td class='text-center'>{{ values.total }}</td>
+      <td>
+      {% for release in values.releases %}
+      <a href="/release/?version={{release}}">{{ release}}</a>
+       {% if not loop.last %} · {% endif %}
+      {% endfor %}
+      </td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+{% endblock %}
