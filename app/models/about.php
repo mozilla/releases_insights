@@ -60,13 +60,28 @@ return $content = <<<"EOD"
         <td>Provides the list of nightly buildIDs for a day, their crashes, changelog, bugs fixed.</td>
     </tr>
     <tr>
-        <td><a href="/release/">release</a></td>
-        <td>Provides historical data for past releases and basic release date information for future releases.</td>
+        <td>
+            <ul class="list-unstyled mb-0">
+                <li><a href="/release/?version=nightly">release/?version=nightly</a></li>
+                <li><a href="/release/?version=beta">release/?version=beta</a></li>
+                <li><a href="/release/?version=release">release/?version=release</a></li>
+                <li><a href="/release/?version=esr">release/?version=esr</a></li>
+                <li><a href="/release/?version=90">release/?version=90</a></li>
+        </td>
+        <td>
+        Provides historical data for past releases and basic release date information for future releases.<br>
+        The <code>nightly</code>, <code>beta</code>, <code>release</code> and <code>esr</code> values are aliases to the current real version numbers.<br>
+        The <code>esr</code> view is mostly a schedule of incoming releases and indicates when a new ESR branch happens in the year.
+        </td>
+    </tr>
+    <tr>
+        <td><a href="/release/owners/">/release/owners/</a></td>
+        <td>List all past releases per release owner.</td>
+    </tr>
     </tr>
     <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">/calendar/release/schedule/?version={$main_beta}</a></td>
         <td>Download an icalendar (.ics) file of future milestones for a future release. Can be imported into your calendar application.</td>
-    </tr>
 </table>
 
 EOD;
