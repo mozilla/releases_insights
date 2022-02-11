@@ -49,6 +49,7 @@ if ($_GET['version'] === 'esr') {
     ] = require_once MODELS . 'esr_release.php';
 
     $template_data = array_merge($template_data, [
+        'page_title'   => 'Firefox ESR schedule',
         'css_page_id'  => 'release_esr',
         'latest_ESR'   => $latest_ESR,
         'release_date' => $release_date,
