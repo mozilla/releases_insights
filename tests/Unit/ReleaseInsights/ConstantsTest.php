@@ -8,3 +8,4 @@ const CACHE_ENABLED   = false;
 const FIREFOX_RELEASE = '93';
 const FIREFOX_BETA    = '94';
 const FIREFOX_NIGHTLY = '95';
+const ESR 			  = '78';

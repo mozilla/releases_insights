@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use ReleaseInsights\Version;
+use ReleaseInsights\ESR;
 
 
 test('Version::get', function () {
@@ -11,6 +12,19 @@ test('Version::get', function () {
     $this->assertEquals('93.0', Version::get(FIREFOX_RELEASE));
     $this->assertEquals('100.0', Version::get('100'));
     $this->assertEquals('1200.0', Version::get('1200'));
+
+    // With GET
+    $_GET['version'] = 'release';
+    $this->assertEquals('93.0', Version::get());
+    $_GET['version'] = 'beta';
+    $this->assertEquals('94.0', Version::get());
+    $_GET['version'] = 'nightly';
+    $this->assertEquals('95.0', Version::get());
+    $_GET['version'] = 'esr';
+    $this->assertEquals('78.0', Version::get());
+    $_GET['version'] = '90';
+    $this->assertEquals('90.0', Version::get());
+
 });
 
 test('Version::getMajor', function ($input, $output) {

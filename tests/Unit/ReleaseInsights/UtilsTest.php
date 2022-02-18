@@ -52,7 +52,10 @@ test('Utils::getDate', function () {
 });
 
 test('Utils::getJson', function () {
-    expect(U::getJson(__DIR__ . '/../../Files/firefox_versions.json'))->toBeIterable();
+    expect(U::getJson(__DIR__ . '/../../Files/firefox_versions.json'))->toBeArray();
+    expect(U::getJson(__DIR__ . '/../../Files/empty.json'))
+        ->toBeEmpty()
+        ->toBeArray();
 });
 
 test('Utils::mtrim', function ($input, $output) {
