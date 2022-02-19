@@ -12,6 +12,7 @@ $paths = [
     "error": "Not enough data for this version number."
 }'],
     ['esr/releases/', 200, 'Verif:skip'],
+    ['nightly/crashes/', 200, 'Verif:skip'],
 ];
 
 $obj = new \pchevrel\Verif('Check API HTTP responses');
