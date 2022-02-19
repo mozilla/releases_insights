@@ -9,16 +9,19 @@ class Request
     public string  $request;
     public string  $path;
     public ?string $query;
-    public bool    $invalid_slashes;
 
 
-    public function __construct(string $path)
+    public function __construct(string $path = null)
     {
         $this->request = '/';
         $this->path = '/';
         $this->query = null;
-        $this->invalid_slashes = true;
 
+        if ($path === null) {
+            $path = $_SERVER['REQUEST_URI'];
+        }
+
+        $path = filter_var($path, FILTER_SANITIZE_URL);
         $request = parse_url($path);
 
         if ($request !== false) {
@@ -31,12 +34,12 @@ class Request
 
             if (str_ends_with($request['path'], '//')) {
                 // Multiple slashes at the end of the path
-                $this->invalid_slashes = true;
-            } elseif (! str_ends_with($request['path'], '/')) {
+                $this->fixURL();
+            }
+
+            if (! str_ends_with($request['path'], '/')) {
                 // Missing slash at the end of the path
-                $this->invalid_slashes = true;
-            } else {
-                $this->invalid_slashes = false;
+                $this->fixURL();
             }
          }
     }
@@ -77,5 +80,12 @@ class Request
         $path = array_values($path); // Reorder keys
 
         return '/' . implode('/', $path) . '/';
+    }
+
+    public function fixURL(): void
+    {
+        // Always redirect to an url ending with a single slash
+        header('Location:' . $this->path);
+        exit;
     }
 }
