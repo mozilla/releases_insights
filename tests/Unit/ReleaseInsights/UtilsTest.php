@@ -6,20 +6,19 @@ use Cache\Cache;
 use ReleaseInsights\Utils as U;
 
 test('Utils::isBuildID', function () {
-    $this->assertFalse(U::isBuildID('01234587392871'));
-    $this->assertFalse(U::isBuildID('oajoaoojoaooao'));
-    $this->assertFalse(U::isBuildID('0123458739287122'));
-    $this->assertFalse(U::isBuildID('012345873928712'));
-    $this->assertFalse(U::isBuildID('20501229120000'));
-    $this->assertTrue(U::isBuildID('20201229120000'));
+    $this->assertFalse(U::isBuildID(1234587392871));
+    $this->assertFalse(U::isBuildID(123458739287122));
+    $this->assertFalse(U::isBuildID(12345873928712));
+    $this->assertFalse(U::isBuildID(20501229120000));
+    $this->assertTrue(U::isBuildID(20201229120000));
 });
 
 test('Utils::getBuildID', function () {
     // Test fallback value
-    $this->assertEquals('20191014213051', U::getBuildID('20501229120000'));
+    $this->assertEquals(20191014213051, U::getBuildID(20501229120000));
 
     // Test good value
-    $this->assertEquals('20201229120000', U::getBuildID('20201229120000'));
+    $this->assertEquals(20201229120000, U::getBuildID(20201229120000));
 });
 
 test('Utils::secureText', function ($input, $output) {

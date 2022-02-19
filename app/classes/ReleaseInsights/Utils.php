@@ -70,34 +70,34 @@ class Utils
     /**
      * Get a Firefox BuildID and sanitize it
      *
-     * @param string $buildid Firefox Build ID in format 20191014213051
+     * @param int $buildid Firefox Build ID in format 20191014213051
      *
-     * @return string sanitized buildID
+     * @return int sanitized buildID
      */
-    public static function getBuildID(string $buildid): string
+    public static function getBuildID(int $buildid): int
     {
         // Check that the string provided is correct
         if (! self::isBuildID($buildid)) {
-            return '20191014213051'; // hardcoded fallback value
+            return 20191014213051; // hardcoded fallback value
         }
 
-        return self::secureText($buildid);
+        return $buildid;
     }
 
-    public static function isBuildID(string $buildid): bool
+    public static function isBuildID(int $buildid): bool
     {
         //  BuildIDs should be 14 digits
-        if (strlen($buildid) !== 14) {
+        if (strlen( (string) $buildid) !== 14) {
             return false;
         }
 
         //  BuildIDs should be valid dates, if we can't create a date return false
-        if (! $date = date_create($buildid)) {
+        if (! $date = date_create( (string) $buildid)) {
             return false;
         }
 
         // The date shouldn't be in the future
-        $date  = new DateTime($buildid);
+        $date  = new DateTime( (string) $buildid);
         $today = new DateTime();
 
         if ($date > $today) {

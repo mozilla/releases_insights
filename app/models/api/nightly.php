@@ -16,7 +16,7 @@ $options = [
         "bool": {
           "must": [
             { "match": { "source.product": "firefox" }},
-            { "match": { "target.platform": "win32" }},
+            { "match": { "target.platform": "win64" }},
             { "match": { "target.locale": "en-US" }},
             { "match": { "target.channel": "nightly" }},
             { "regexp": { "build.id": "' . $date . '.*" }}
