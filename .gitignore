@@ -9,3 +9,7 @@ public/assets/bootstrap/
 public/assets/font-awesome/
 public/assets/jquery/
 vendor
+infection.log
+infection.html
+infection.json
+summary.log
