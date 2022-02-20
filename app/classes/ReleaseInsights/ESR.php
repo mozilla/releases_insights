@@ -22,6 +22,11 @@ class ESR
             return null;
         }
 
+        // For very future versions, safeguard to ESR + 13 versions
+        if ($version > self::$esr_releases[count(self::$esr_releases)-1] + 13) {
+            return null;
+        }
+
         $match = self::$esr_releases[0];
 
         foreach (self::$esr_releases as $esr) {
@@ -44,7 +49,7 @@ class ESR
     public static function getOlderSupportedVersion(int $version): ?string
     {
         $current_ESR = self::getVersion($version);
-        $current_ESR = Utils::getMajorVersion((string) $current_ESR);
+        $current_ESR = Utils::getMajorVersion($current_ESR);
 
         // We don't have an older ESR than the first ESR
         if (self::$esr_releases[0] == $current_ESR) {
@@ -68,11 +73,11 @@ class ESR
     }
 
     /**
-     * Get a XX.YY.ZZ version number from a full ESR number like 91.4.1esr
+     * Get a XX.YY version number from a full ESR number like 91.4.1esr
+     * We drop the dot release part
      */
     public static function getMainDotVersion(string $version): string
     {
-        $version = str_replace('esr', '', $version);
         $version = explode('.', $version);
         array_pop($version);
 
