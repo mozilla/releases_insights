@@ -33,6 +33,8 @@ test('Utils::secureText', function ($input, $output) {
 })->with([
     ["achat des couteaux\nsuisses", 'achat des couteaux suisses'],
     ['<b>foo</b>', '&#60;b&#62;foo&#60;/b&#62;'],
+    ['<b>foo%0D</b>', '&#60;b&#62;foo&#60;/b&#62;'],
+    ['<b>foo%0A</b>', '&#60;b&#62;foo&#60;/b&#62;'],
 ]);
 
 test('Utils::getDate', function () {
