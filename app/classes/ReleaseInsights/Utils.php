@@ -103,7 +103,6 @@ class Utils
         if ($date > $today) {
             return false;
         }
-            Utils::dump("message");
 
         return true;
     }
