@@ -11,6 +11,13 @@ test('Utils::isBuildID', function () {
     $this->assertFalse(U::isBuildID(12345873928712));
     $this->assertFalse(U::isBuildID(20501229120000));
     $this->assertTrue(U::isBuildID(20201229120000));
+    $this->assertFalse(U::isBuildID(20501229120000));
+    $this->assertTrue(U::isBuildID(20201229120000));
+    $this->asserttrue(U::isBuildID(20220220120000));
+    // Today is a valid date
+    $this->assertTrue(U::isBuildID(
+      (int) (new DateTime())->format('Ymdhhs')
+    ));
 });
 
 test('Utils::getBuildID', function () {

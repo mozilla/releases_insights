@@ -97,12 +97,13 @@ class Utils
         }
 
         // The date shouldn't be in the future
-        $date  = new DateTime( (string) $buildid);
-        $today = new DateTime();
+        $date  = (new DateTime( (string) $buildid))->format('Ymd');
+        $today = (new DateTime())->format('Ymd');
 
         if ($date > $today) {
             return false;
         }
+            Utils::dump("message");
 
         return true;
     }
