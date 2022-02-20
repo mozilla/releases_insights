@@ -86,6 +86,5 @@ class Request
     {
         // Always redirect to an url ending with a single slash
         header('Location:' . $this->path);
-        exit;
     }
 }
