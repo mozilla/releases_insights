@@ -65,12 +65,12 @@ We use [Pest](https://pestphp.com/Pest) for unit testing, [PHPStan](https://phps
 All tests can be launched via Composer action scripts:
 
 ```bash
-composer test:all       # Run all tests except mutation tests (they are useful but long and have many false positives by nature)
+composer test:all       # Run all tests except mutation tests
 composer test:api       # Run functional tests of external JSON API points
 composer test:content   # Run functional tests of pages + external JSON API points
-composer test:coverage  # Run unit tests + code coverage but only displays the coverage section (requires Xdebug)
+composer test:coverage  # Run unit tests, only display coverage (requires Xdebug)
 composer test:lint      # Run linter to ensure all PHP files are valid
-composer test:mutation  # Run mutation tests (requires Xdebug)
+composer test:mutation  # Run Infection mutation tests (requires Xdebug)
 composer test:pages     # Run functional tests of all pages
 composer test:static    # Run PHPStan static analysis
 composer test:unit      # Run unit tests
@@ -78,7 +78,7 @@ composer test:unitcov   # Run unit tests + code coverage (requires Xdebug)
 
 ```
 
-You can also run all hte tests we run in CI  with the `run -tests` command.
+You can also run locally all the tests we run in CI with the `run -tests` command.
 
 If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.
 
