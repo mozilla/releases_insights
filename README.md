@@ -62,17 +62,19 @@ docker build . -t fx-trains \
 
 We use [Pest](https://pestphp.com/Pest) for unit testing, [PHPStan](https://phpstan.org/) for static analysis and custom scripts for basic functional scripts. We have CI via Github Actions to ensure all tests are passing.
 
-All tests can be launched via Composer script actions:
+All tests can be launched via Composer action scripts:
+
 ```bash
-composer test:unit      # Run unit tests
-composer test:unitcov   # Run unit tests + code coverage (requires Xdebug)
-composer test:coverage  # Run unit tests + code coverage but only displays the coverage section (requires Xdebug)
-composer test:static    # Run PHPStan static analysis
-composer test:pages     # Run functional tests of all pages
+composer test:all       # Run all tests except mutation tests (they are useful but long and have many false positives by nature)
 composer test:api       # Run functional tests of external JSON API points
 composer test:content   # Run functional tests of pages + external JSON API points
+composer test:coverage  # Run unit tests + code coverage but only displays the coverage section (requires Xdebug)
+composer test:lint      # Run linter to ensure all PHP files are valid
 composer test:mutation  # Run mutation tests (requires Xdebug)
-composer test:all       # Run all tests except mutation tests (they are useful but long and have many false positives by nature)
+composer test:pages     # Run functional tests of all pages
+composer test:static    # Run PHPStan static analysis
+composer test:unit      # Run unit tests
+composer test:unitcov   # Run unit tests + code coverage (requires Xdebug)
 
 ```
 

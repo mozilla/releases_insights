@@ -35,16 +35,16 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Run test suite
-      run: composer run-script test
+    - name: Run Unit Tests (Pest)
+      run: composer run-script test:unit
 
-    - name: Run linter
-      run: parallel-lint . --exclude vendor
+    - name: Run linter (parallel-lint)
+      run: composer run-script test:lint
 
-    - name: Functional tests (API, pages)
+    - name: Run functional tests (API, pages)
       run: |
         php tests/Functional/pages.php
         php tests/Functional/api.php
 
-    - name: Static Analysis (PHPStan)
+    - name: Run static analysis (PHPStan)
       run: composer run-script test:static

@@ -56,7 +56,9 @@
         "test:api": "php tests/Functional/api.php",
         "test:content": "php tests/Functional/pages.php;php tests/Functional/api.php",
         "test:mutation": "XDEBUG_MODE=coverage ./vendor/bin/infection --test-framework=pest",
+        "test:lint": "vendor/bin/parallel-lint . --exclude vendor",
         "test:all": [
+            "@test:lint",
             "@test:unitcov",
             "@test:static",
             "@test:pages",
