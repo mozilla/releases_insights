@@ -10,11 +10,11 @@ https://fx-trains.herokuapp.com/about/
 
 ### Requirements:
 
-The requirements are very simple, no Database, no heavy framework.
+The requirements are very simple, no database, no framework.
 
 - Linux (should work fine on macOS and Windows too, but I didn't test it)
 
-- PHP 8.1 with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
+- PHP >=8.1 with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
 
 - [Composer](https://getcomposer.org/) to install dependencies
 
@@ -23,8 +23,8 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 ### Installation
 
 1. Clone this repository
-2. install dependencies: `composer install`
-3. start PHP development server in a terminal either by launching the `start.sh` script or with this command:<br>
+2. Install dependencies: `composer install`
+3. Start the PHP development server in a terminal either by launching the `run` bash script or with this command:<br>
   `php -S localhost:8082 -t public/`
 
 The website will be available at http://localhost:8082
@@ -50,7 +50,7 @@ The image is configured to listen on port 8000.
 
 [Dockerflow](https://github.com/mozilla-services/Dockerflow) is supported; with `version.json` optionally generated from build-time variables:
 
-```
+```bash
 docker build . -t fx-trains \
   --build-arg source=https://github.com/pascalchevrel/releases_insights \
   --build-arg version= \
@@ -60,9 +60,23 @@ docker build . -t fx-trains \
 
 ## Testing and CI
 
-We use [Pest](https://pestphp.com/Pest) for unit testing and we have CI via Github Actions to ensure all tests are passing.
+We use [Pest](https://pestphp.com/Pest) for unit testing, [PHPStan](https://phpstan.org/) for static analysis and custom scripts for basic functional scripts. We have CI via Github Actions to ensure all tests are passing.
 
-You can also run tests with the `start.sh -tests` command, this will run `pest`.
+All tests can be launched via Composer script actions:
+```bash
+composer test:unit      # Run unit tests
+composer test:unitcov   # Run unit tests + code coverage (requires Xdebug)
+composer test:coverage  # Run unit tests + code coverage but only displays the coverage section (requires Xdebug)
+composer test:static    # Run PHPStan static analysis
+composer test:pages     # Run functional tests of all pages
+composer test:api       # Run functional tests of external JSON API points
+composer test:content   # Run functional tests of pages + external JSON API points
+composer test:mutation  # Run mutation tests (requires Xdebug)
+composer test:all       # Run all tests except mutation tests (they are useful but long and have many false positives by nature)
+
+```
+
+You can also run all hte tests we run in CI  with the `run -tests` command.
 
 If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.
 

@@ -48,10 +48,20 @@
         }
     },
     "scripts": {
-        "test:unit": "php vendor/bin/pest --colors=always --exclude-group=integration",
-        "test:static": "php vendor/bin/phpstan",
-        "test:content": "php tests/Functional/pages.php",
+        "test:unit": "vendor/bin/pest",
+        "test:unitcov": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
+        "test:coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage | tail -12",
+        "test:static": "vendor/bin/phpstan",
+        "test:pages": "php tests/Functional/pages.php",
         "test:api": "php tests/Functional/api.php",
+        "test:content": "php tests/Functional/pages.php;php tests/Functional/api.php",
+        "test:mutation": "XDEBUG_MODE=coverage ./vendor/bin/infection --test-framework=pest",
+        "test:all": [
+            "@test:unitcov",
+            "@test:static",
+            "@test:pages",
+            "@test:api"
+            ],
         "test": [
             "@test:unit"
         ],
