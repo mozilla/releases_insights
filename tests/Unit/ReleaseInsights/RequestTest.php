@@ -11,11 +11,16 @@ test('Request->getController()', function ($input, $output) {
     ['/about',                      'about'],
     ['/nightly',                    'nightly'],
     ['/release',                    'release'],
+    ['/release//',                  'release'],
+    ['/release/?version=100',       'release'],
     ['/api/nightly',                'api/nightly'],
     ['/api/release/schedule',       'api/release_schedule'],
     ['/api/release/owners',         'api/release_owners'],
     ['/api/nightly/crashes',        'api/nightly_crashes'],
+    ['/api/esr/releases',           'api/esr_releases'],
     ['/calendar/release/schedule',  'ics_release_schedule'],
+    ['/release/owners',             'release_owners'],
+
     ['not a good path',             '404'],
     ['not/a/goodpath',              '404'],
 ]);
