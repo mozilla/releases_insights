@@ -14,6 +14,7 @@ namespace Cache;
  * and the class constants CACHE_ENABLED and CACHE_TIME are used.
  *
  * @package Cache
+ * @codeCoverageIgnore No need to test as this is already covered in Transvision. Todo: port Atoum tests to Pest
  */
 class Cache
 {
