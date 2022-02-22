@@ -42,3 +42,4 @@ const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';
 const DATA        = INSTALL_ROOT . 'app/data/';
 const MODELS      = INSTALL_ROOT . 'app/models/';
 const VIEWS       = INSTALL_ROOT . 'app/views/';
+const TEST_FILES  = INSTALL_ROOT . 'tests/Files/';

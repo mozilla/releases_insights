@@ -24,7 +24,7 @@ class Bugzilla
      */
     public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0): array
     {
-        $results    = Utils::getJson($query, $cache_ttl)['pushes'];
+        $results = Utils::getJson($query, $cache_ttl)['pushes'];
 
         // Handle the lack of data from HG
         if (empty($results)) {
@@ -50,10 +50,8 @@ class Bugzilla
 
                 $matches[0] = array_map('trim', $matches[0]);
 
-                return $matches[0];
             }
-
-            return [];
+            return $matches[0];
         };
 
         foreach ($changesets as $items) {
