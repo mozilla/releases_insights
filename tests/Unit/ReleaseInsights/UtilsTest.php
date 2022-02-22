@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Cache\Cache;
+use \DateTime\Datime;
 use ReleaseInsights\Utils as U;
 
 test('Utils::isBuildID', function () {
@@ -13,7 +14,10 @@ test('Utils::isBuildID', function () {
     $this->assertTrue(U::isBuildID(20201229120000));
     $this->assertFalse(U::isBuildID(20501229120000));
     $this->assertTrue(U::isBuildID(20201229120000));
-    $this->asserttrue(U::isBuildID(20220220120000));
+    $this->assertTrue(U::isBuildID(20220220120000));
+    // Invalid date
+    $this->assertFalse(U::isBuildID(99999999999999));
+
     // Today is a valid date
     $this->assertTrue(U::isBuildID(
       (int) (new DateTime())->format('Ymdhhs')
@@ -93,3 +97,52 @@ test('Utils::getMajorVersion', function ($input, $output) {
     ['78.0.3', 78],
     ['', null],
 ]);
+test('Utils::isDateBetweenDates', function ($date, $startDate, $endDate, $result) {
+    expect(U::isDateBetweenDates(
+        new DateTime($date),
+        new DateTime($startDate),
+        new DateTime($endDate)
+    ))->toEqual($result);
+})->with([
+    ['2022-01-10', '2022-01-05', '2022-01-15', true],
+    ['2022-01-01', '2022-01-05', '2022-01-15', false],
+    ['2022-01-10', '2022-01-05', '2022-01-09', false],
+]);
+
+// Templating function, we capture the output
+test('Utils::renderJson', function () {
+    ob_start();
+    U::renderJson(['aa']);
+    $content = ob_get_contents();
+    ob_end_clean();
+    expect($content)
+        ->toBeString()
+        ->toEqual('["aa"]');
+
+    ob_start();
+    U::renderJson(['error' => 'an error']);
+    $content = ob_get_contents();
+    ob_end_clean();
+    expect($content)
+        ->toBeString()
+        ->toEqual(  '{
+    "error": "an error"
+}');
+});
+
+test('Utils::inString', function ($a, $b, $c, $d) {
+    expect(U::inString($a, $b, $c))->toEqual($d);
+})->with([
+    ['La maison est blanche', 'blanche', false, true],
+    ['La maison est blanche', 'blanche', true, true],
+    ['La maison est blanche', ['blanche', 'maison'], true, true],
+    ['La maison est blanche', ['blanche', 'maison'], false, true],
+    ['La maison est blanche', ['blanche', 'noire'], true, false],
+    ['La maison est blanche', ['blanche', 'noire'], false, true],
+    ['Le ciel est bleu', 'noir', false, false],
+    ['Le ciel est bleu', 'Le', false, true],
+]);
+
+test('Utils::getCrashesForBuildID', function () {
+    expect(U::getCrashesForBuildID(20190927094817))->toBeArray();
+});

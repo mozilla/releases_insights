@@ -24,6 +24,10 @@ class Template
         $this->template = $template_file;
     }
 
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function render(): void
     {
         // Initialize our Templating system

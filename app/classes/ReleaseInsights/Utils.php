@@ -22,6 +22,11 @@ class Utils
         // The date in the string varies so we create a unique file name in cache
         $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
+        // We don't want to make external requests in Unit Tests
+        if (defined('UNIT_TESTING')) {
+            $cache_id = TEST_FILES .'/crash-stats.mozilla.org.json';
+        }
+
         // If we can't retrieve cached data, we create and cache it.
         // We cache because we want to avoid http request latency
         if (! $data = Cache::getKey($cache_id, 30)) {
@@ -84,7 +89,7 @@ class Utils
         return $buildid;
     }
 
-    public static function isBuildID(int $buildid): bool
+    public static function isBuildID(int $buildid): bool|string
     {
         //  BuildIDs should be 14 digits
         if (strlen( (string) $buildid) !== 14) {
@@ -185,8 +190,14 @@ class Utils
      */
     public static function inString(string $haystack, mixed $needles, bool $match_all = false): bool
     {
+        $needles = (array) $needles;
         $matches = 0;
         foreach ((array) $needles as $needle) {
+            // Missing needle
+            if (! str_contains($haystack, $needle) && $match_all) {
+                return false;
+            }
+
             if (str_contains($haystack, $needle)) {
                 // If I need to match any needle, I can stop at the first match
                 if (! $match_all) {
@@ -200,16 +211,18 @@ class Utils
             return false;
         }
 
-        return $matches === (is_countable($needles) ? count($needles) : 0);
+        return $matches == count($needles) > 0;
     }
 
     /**
      * Utility function to get symfony dump() function output to the CLI
      * http://symfony.com/doc/current/components/var_dumper/
+     *
+     * @codeCoverageIgnore
      */
     public static function dump(): void
     {
-        if (! class_exists(\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
+        if (! class_exists(\Symfony\Component\VarDumper\Dumper\CliDumper::class) || defined('UNIT_TESTING')) {
             return;
         }
 
@@ -254,9 +267,8 @@ class Utils
 
         if (array_key_exists('error', $data)) {
             print_r($json->outputError($data['error']));
-            die;
+        } else {
+            print_r($json->outputContent($data, $_GET['callback'] ?? false));
         }
-
-        print_r($json->outputContent($data, $_GET['callback'] ?? false));
     }
 }

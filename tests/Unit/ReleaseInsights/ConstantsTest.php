@@ -9,3 +9,4 @@ const FIREFOX_RELEASE = '93';
 const FIREFOX_BETA    = '94';
 const FIREFOX_NIGHTLY = '95';
 const ESR 			  = '78';
+const TEST_FILES      = __DIR__ . '/../../Files/';

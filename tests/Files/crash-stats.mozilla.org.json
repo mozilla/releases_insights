@@ -1,0 +1,910 @@
+{
+"hits": [
+{
+"uuid": "7210605e-ff77-4310-a63d-19fda0220222",
+"date": "2022-02-22T03:13:48.124684+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "3f28756d-c7e0-4119-a288-4a6a90220222",
+"date": "2022-02-22T03:15:44.211118+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "5d314f98-ba4c-44fe-b66c-014b20220222",
+"date": "2022-02-22T03:19:07.887556+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "0e6a3e8c-7c75-4099-86b5-49df00220222",
+"date": "2022-02-22T04:25:05.395310+00:00",
+"signature": "OOM | large | mozalloc_abort | alloc::raw_vec::impl$1::reserve::do_reserve_and_handle<T>",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "210c310d-bfaf-4a90-ace3-c12390220222",
+"date": "2022-02-22T04:45:18.435284+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ae7e0060-0ffe-4bcd-a476-f6fd90220222",
+"date": "2022-02-22T04:57:33.971588+00:00",
+"signature": "__GI___nss_lookup",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "6b6ca973-860f-4c90-a2d0-14a180220222",
+"date": "2022-02-22T05:08:59.579962+00:00",
+"signature": "OOM | large | mozalloc_abort | webrender::renderer::Renderer::update_texture_cache",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "60f09615-d390-4770-87fb-92af10220222",
+"date": "2022-02-22T03:31:59.035551+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "2bc82936-5e42-4af5-b67f-f8c8b0220222",
+"date": "2022-02-22T03:34:42.126811+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "cd7d6e17-81f4-4c6d-9fec-144a30220222",
+"date": "2022-02-22T03:39:29.036524+00:00",
+"signature": "core::option::expect_failed | webrender::clip::ClipChainBuilder::add_new_clips_to_chain",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "9a2c58dd-1e11-475e-8472-1203e0220222",
+"date": "2022-02-22T04:01:58.831828+00:00",
+"signature": "webrender::prepare::prepare_interned_prim_for_render",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "1aad9eb2-4cae-4e45-b13e-5c7ed0220222",
+"date": "2022-02-22T04:23:59.918550+00:00",
+"signature": "OOM | unknown | mozilla::dom::JSActorManager::ReceiveRawMessage",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "df9db51e-62d0-421a-9393-cfee20220222",
+"date": "2022-02-22T05:31:33.066926+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ce4c2c3b-9432-427f-88a6-5dd270220222",
+"date": "2022-02-22T08:20:41.878568+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "204c5b96-da2d-483c-9c32-d79cc0220222",
+"date": "2022-02-22T08:20:53.600055+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ced9847b-76cf-4e0c-93ee-819050220222",
+"date": "2022-02-22T08:20:51.442650+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "17133a2e-8c89-4c41-adb5-024970220222",
+"date": "2022-02-22T08:22:14.226648+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "86a55c83-6aac-49e8-842f-04f940220222",
+"date": "2022-02-22T08:23:03.926952+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "d8f43634-0222-4669-8e26-78cad0220222",
+"date": "2022-02-22T08:31:41.290305+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ce6910de-608b-4f78-85b2-e9f790220222",
+"date": "2022-02-22T08:34:46.161193+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "be122637-deee-4936-becf-0a17c0220222",
+"date": "2022-02-22T08:36:12.379129+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "a8a90a99-8a3a-410f-a3f6-efc410220222",
+"date": "2022-02-22T08:42:47.719752+00:00",
+"signature": "arena_t::RallocHuge | je_realloc | mozilla::Vector<T>::growStorageBy",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "016cf2a6-9f5e-4c09-aa4f-e7e8b0220222",
+"date": "2022-02-22T09:16:47.763298+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "a3e1b8b8-3a9b-4320-bebb-357c80220222",
+"date": "2022-02-22T05:34:53.232944+00:00",
+"signature": "js::ContextChecks::check",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "c3e904a9-1bbf-4a78-9c04-253220220222",
+"date": "2022-02-22T05:49:32.335636+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "7002e596-07cc-40a4-967e-f30ab0220222",
+"date": "2022-02-22T06:13:14.731380+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ddd8b5e7-c48c-437c-87a0-3055f0220222",
+"date": "2022-02-22T06:12:52.150857+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "636b0743-d18e-4ffa-9dee-b13260220222",
+"date": "2022-02-22T06:42:49.187262+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "37755122-bba7-4443-8984-db16b0220222",
+"date": "2022-02-22T07:25:18.758076+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "009541b0-b0f5-4b9f-9e15-631ee0220222",
+"date": "2022-02-22T07:56:42.424475+00:00",
+"signature": "js::ContextChecks::check",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "6e0247f1-3244-476b-87f2-2cfa90220222",
+"date": "2022-02-22T02:00:56.734004+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "542f20ec-4932-4246-8c68-bc4a50220222",
+"date": "2022-02-22T02:14:30.482624+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "425f98a1-68ad-4eeb-8141-9e4f20220222",
+"date": "2022-02-22T02:14:57.487236+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "e4396b39-5e07-432a-b837-7cf5d0220222",
+"date": "2022-02-22T02:45:42.710429+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "8c74956c-aac8-4341-be54-ac71a0220222",
+"date": "2022-02-22T09:34:03.950904+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "7baf47c5-33be-4d47-8a15-31a190220222",
+"date": "2022-02-22T10:11:47.231305+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "e3592763-fb66-4243-9619-7278c0220222",
+"date": "2022-02-22T10:23:12.865100+00:00",
+"signature": "xul.dll | wmain",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "3bceb0c5-6a69-4172-8de7-102990220222",
+"date": "2022-02-22T03:14:54.468298+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "4c33be62-6630-4d27-ac25-460a00220222",
+"date": "2022-02-22T03:34:08.250505+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "1ec174b9-8196-49d8-bc1a-f05c00220222",
+"date": "2022-02-22T03:45:33.723982+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "2012686c-0266-4c14-a55b-eac2b0220222",
+"date": "2022-02-22T04:44:01.607865+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "fb0cc050-d69b-4dbc-980a-a2fec0220222",
+"date": "2022-02-22T04:44:36.585628+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "73ecf4c7-1180-48a1-bbf7-d525a0220222",
+"date": "2022-02-22T03:16:11.507320+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "561fd0b5-b3bc-41e6-94ed-cbb530220222",
+"date": "2022-02-22T08:04:20.077822+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "fd91c5e2-4513-49c7-9598-0c7a10220222",
+"date": "2022-02-22T08:19:03.055987+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "f602e147-926a-4d03-8415-4ca640220222",
+"date": "2022-02-22T08:20:33.706725+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "890bb399-bf2d-4615-8e6d-e55640220222",
+"date": "2022-02-22T08:30:46.713352+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "b4941433-315f-4502-bb04-374040220222",
+"date": "2022-02-22T08:42:48.455443+00:00",
+"signature": "_SEH_prolog4",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "b850f2f6-9c4d-490c-9d9d-1d08d0220222",
+"date": "2022-02-22T08:45:35.302398+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "7ff7f100-7dc7-41e3-9fa1-de6b70220222",
+"date": "2022-02-22T08:59:02.006819+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "7f7cc47f-3b3f-4002-ae2d-48f320220222",
+"date": "2022-02-22T08:59:20.692190+00:00",
+"signature": "OOM | large | mozalloc_abort | webrender::renderer::Renderer::update_texture_cache",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "64d05a2b-ae57-437b-9fc3-218200220222",
+"date": "2022-02-22T02:28:55.697268+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "4f4a8a3c-ad2b-4495-b070-dcff10220222",
+"date": "2022-02-22T02:35:27.650612+00:00",
+"signature": "js::GCMarker::markUntilBudgetExhausted",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "58034bdc-9ad3-49c6-bd79-2fd390220222",
+"date": "2022-02-22T02:43:44.279021+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "75156e67-089f-4e97-a734-ef1f50220222",
+"date": "2022-02-22T02:01:02.100612+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "9a19b01c-7320-450d-9ffc-ef0530220222",
+"date": "2022-02-22T02:45:56.285862+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "9e049599-97ee-4aef-8d82-98fd10220222",
+"date": "2022-02-22T05:48:25.676483+00:00",
+"signature": "JSRope::flatten",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "56ceeb72-59cc-4814-93e4-760c70220222",
+"date": "2022-02-22T06:08:06.833361+00:00",
+"signature": "AsyncShutdownTimeout | Places Clients shutdown | sanitize.js: Sanitize on shutdown",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "480358c0-df16-4535-ad0a-509520220222",
+"date": "2022-02-22T06:19:36.842139+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ef9d43cb-1fc1-4e54-b0d9-832da0220222",
+"date": "2022-02-22T06:28:32.224537+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "c07f1bea-5a22-46a6-984c-1b5350220222",
+"date": "2022-02-22T07:02:58.264484+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "f65ba1e7-251c-415e-a3a9-6782d0220222",
+"date": "2022-02-22T09:22:45.703333+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "c7a52137-663e-4a18-a083-bf3200220222",
+"date": "2022-02-22T09:28:09.320897+00:00",
+"signature": "<unknown in igc64.dll> | <unknown in igd10iumd64.dll> | CVertexShader::CLS::FinalConstruct",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "452ed7f2-8ed4-43ae-8b9f-f03e40220222",
+"date": "2022-02-22T10:37:48.259040+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "b9b02701-ff39-4caa-89e5-628260220222",
+"date": "2022-02-22T03:15:19.784820+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "9ce3ce1e-71a0-4d3d-aa2e-d0f2d0220222",
+"date": "2022-02-22T03:34:23.175334+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "e5502ceb-0ffb-40e5-aee4-f74ff0220222",
+"date": "2022-02-22T03:33:27.635326+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "88a1a836-f8b1-44ff-97d5-7df280220222",
+"date": "2022-02-22T02:28:10.734110+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "d2155a3a-652f-4c0c-89a3-d27d20220222",
+"date": "2022-02-22T02:43:42.848981+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "88d54443-4f96-470d-b87c-6955f0220222",
+"date": "2022-02-22T01:43:25.588623+00:00",
+"signature": "__GI___nss_lookup",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "173427d9-89fa-47ae-9d32-c4a7d0220222",
+"date": "2022-02-22T03:28:12.446223+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "debd7ae9-6ad9-439d-8f39-3766f0220222",
+"date": "2022-02-22T03:27:12.527335+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "be8ca1ca-4752-443e-91e3-cf3810220222",
+"date": "2022-02-22T03:31:24.853229+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "8fa86dfd-a001-4185-b928-560b60220222",
+"date": "2022-02-22T06:10:59.804376+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "8697c689-807e-4483-baa9-f4f960220222",
+"date": "2022-02-22T07:01:11.843558+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "5f3ce499-eeff-4f5b-81c9-95e2f0220222",
+"date": "2022-02-22T07:01:49.703218+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "2129fab7-9918-46c2-a584-0f2fc0220222",
+"date": "2022-02-22T07:26:25.666816+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "a32fb4d3-2c71-4a15-ad04-d80900220222",
+"date": "2022-02-22T07:31:07.464370+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "6207bef8-5b2b-416b-b22e-dd35d0220222",
+"date": "2022-02-22T07:43:23.076174+00:00",
+"signature": "js::jit::MaybeEnterJit",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "66748a4b-0fc3-4275-9920-52b680220222",
+"date": "2022-02-22T07:53:10.871686+00:00",
+"signature": "OOM | unknown | mozilla::psm::TransportSecurityInfo::ReadCertificatesFromStream",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "9c43508d-6a7b-4f36-839b-8dc6c0220222",
+"date": "2022-02-22T03:46:37.756752+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "5001f43a-bee5-4cbd-a64c-125560220222",
+"date": "2022-02-22T03:48:47.971226+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "a1662c56-4db0-4077-b9a4-f0b230220222",
+"date": "2022-02-22T04:02:34.088358+00:00",
+"signature": "Gecko_AttrHasPrefix",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ba966ac9-28a0-4b35-b259-8ff470220222",
+"date": "2022-02-22T05:33:56.130875+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "42a08d17-98e0-410a-a707-0f0da0220222",
+"date": "2022-02-22T05:33:40.551887+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "cac3ee9a-59e7-42c8-8c8f-d829f0220222",
+"date": "2022-02-22T05:49:44.472953+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "855ae653-d0d5-4f63-8bae-44b830220222",
+"date": "2022-02-22T05:50:07.997658+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "1524b529-76f2-4639-b0e8-efa760220222",
+"date": "2022-02-22T05:32:35.377934+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "ae60996c-19f5-4087-af97-6f4c00220222",
+"date": "2022-02-22T05:49:25.137134+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "bbdb988e-b386-46f2-a6e0-fc9620220222",
+"date": "2022-02-22T05:51:08.006990+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "f0032c40-86d4-45c0-a081-2bab80220222",
+"date": "2022-02-22T06:05:23.331638+00:00",
+"signature": "__GI___nss_lookup",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "74deecbb-85b0-4cc3-b8c3-167540220222",
+"date": "2022-02-22T08:27:25.098360+00:00",
+"signature": "@0x3efe998c",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "d95bfef8-807d-47cd-975c-536700220222",
+"date": "2022-02-22T09:01:16.513230+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "0d23e824-d7a7-42c8-acaf-341ce0220222",
+"date": "2022-02-22T09:05:14.396096+00:00",
+"signature": "OOM | small",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "14b0a469-e80b-4325-9009-c60020220222",
+"date": "2022-02-22T10:10:56.079106+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "d2bf5d9c-d88b-45c3-ad37-151a00220222",
+"date": "2022-02-22T10:37:51.530308+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "fd538c6c-51f5-4e04-b32e-9db600220222",
+"date": "2022-02-22T09:57:27.438699+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "71f8d531-520d-4fe6-bff0-20f990220222",
+"date": "2022-02-22T10:19:45.035051+00:00",
+"signature": "libfreetype.so.6@0x10de0 | webrender::platform::unix::font::FontContext::load_glyph",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "964abc55-9a46-4c22-a6bd-32edf0220222",
+"date": "2022-02-22T10:37:43.306807+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+},
+{
+"uuid": "3c10a194-4399-478b-befb-a6e9d0220222",
+"date": "2022-02-22T02:15:14.515753+00:00",
+"signature": "IPCError-browser | ShutDownKill",
+"product": "Firefox",
+"version": "99.0a1"
+}
+],
+"total": 372,
+"facets": {
+"signature": [
+{
+"term": "IPCError-browser | ShutDownKill",
+"count": 268
+},
+{
+"term": "OOM | small",
+"count": 25
+},
+{
+"term": "js::ContextChecks::check",
+"count": 10
+},
+{
+"term": "__GI___nss_lookup",
+"count": 8
+},
+{
+"term": "-[GeckoNSApplication reportException:]",
+"count": 3
+},
+{
+"term": "<unknown in igc64.dll> | <unknown in igd10iumd64.dll> | CVertexShader::CLS::FinalConstruct",
+"count": 3
+},
+{
+"term": "OOM | large | js::AutoEnterOOMUnsafeRegion::crash | js::AutoEnterOOMUnsafeRegion::crash | js::TenuringTracer::collectToObjectFixedPoint",
+"count": 3
+},
+{
+"term": "arena_t::RallocHuge | je_realloc | mozilla::Vector<T>::growStorageBy",
+"count": 3
+},
+{
+"term": "OOM | large | mozalloc_abort | webrender::renderer::Renderer::update_texture_cache",
+"count": 2
+},
+{
+"term": "VirtualAlloc",
+"count": 2
+},
+{
+"term": "je_realloc | mozilla::Vector<T>::growStorageBy",
+"count": 2
+},
+{
+"term": "libc.so.6@0x351f7 | libc.so.6@0x368e7 | libc.so.6@0x12478 | libc.so.6@0x17ee93 | libc.so.6@0x17e066 | libc.so.6@0x180288 | libc.so.6@0x18028c | libc.so.6@0x74f46 | libc.so.6@0x1802e9 | libc.so.6@0x1802a8 | libc.so.6@0x1802ef | libc.so.6@0x1802f7 | libc...",
+"count": 2
+},
+{
+"term": "mozilla::webgpu::WebGPUChild::DeviceCreateCommandEncoder",
+"count": 2
+},
+{
+"term": "<unknown in igd10iumd64.dll> | NDXGI::CDevice::PresentImpl",
+"count": 1
+},
+{
+"term": "@0x246b898c",
+"count": 1
+},
+{
+"term": "@0x2678efea158",
+"count": 1
+},
+{
+"term": "@0x3efe998c",
+"count": 1
+},
+{
+"term": "AsyncShutdownTimeout | Places Clients shutdown | sanitize.js: Sanitize on shutdown",
+"count": 1
+},
+{
+"term": "EMPTY: no crashing thread identified; EmptyMinidump",
+"count": 1
+},
+{
+"term": "ExpandedPrincipal::GetHashValue",
+"count": 1
+},
+{
+"term": "Gecko_AttrHasPrefix",
+"count": 1
+},
+{
+"term": "Gecko_ReleaseAtom",
+"count": 1
+},
+{
+"term": "JSRope::flatten",
+"count": 1
+},
+{
+"term": "OOM | large | NS_ABORT_OOM | nsTSubstring<T>::Append | nsParser::ResumeParse",
+"count": 1
+},
+{
+"term": "OOM | large | NS_ABORT_OOM | txXPathNodeUtils::appendNodeValue",
+"count": 1
+},
+{
+"term": "OOM | large | js::AutoEnterOOMUnsafeRegion::crash | js::AutoEnterOOMUnsafeRegion::crash | js::TenuringTracer::traceObject",
+"count": 1
+},
+{
+"term": "OOM | large | mozalloc_abort | alloc::raw_vec::impl$1::reserve::do_reserve_and_handle<T>",
+"count": 1
+},
+{
+"term": "OOM | unknown | NS_ABORT_OOM | XPCJSContext::NewXPCJSContext",
+"count": 1
+},
+{
+"term": "OOM | unknown | mozilla::MozPromise<T>::Private::Reject<T>",
+"count": 1
+},
+{
+"term": "OOM | unknown | mozilla::dom::JSActorManager::ReceiveRawMessage",
+"count": 1
+},
+{
+"term": "OOM | unknown | mozilla::psm::TransportSecurityInfo::ReadCertificatesFromStream",
+"count": 1
+},
+{
+"term": "_CreateWindowEx",
+"count": 1
+},
+{
+"term": "_SEH_prolog4",
+"count": 1
+},
+{
+"term": "core::option::expect_failed | webrender::clip::ClipChainBuilder::add_new_clips_to_chain",
+"count": 1
+},
+{
+"term": "getCellInfo",
+"count": 1
+},
+{
+"term": "js::GCMarker::markUntilBudgetExhausted",
+"count": 1
+},
+{
+"term": "js::gc::TraceEdgeInternal<T>",
+"count": 1
+},
+{
+"term": "js::jit::MaybeEnterJit",
+"count": 1
+},
+{
+"term": "js::jit::SetPropIRGenerator::tryAttachStub",
+"count": 1
+},
+{
+"term": "js::str_includes",
+"count": 1
+},
+{
+"term": "libfreetype.so.6@0x10de0 | webrender::platform::unix::font::FontContext::load_glyph",
+"count": 1
+},
+{
+"term": "libnvidia-eglcore.so.470.86@0xf6ff80",
+"count": 1
+},
+{
+"term": "mozilla::DOMEventTargetHelper::Release",
+"count": 1
+},
+{
+"term": "mozilla::dom::CallbackObject::cycleCollection::Trace",
+"count": 1
+},
+{
+"term": "mozilla::dom::MediaSource::Detach",
+"count": 1
+},
+{
+"term": "mozilla::gfx::CriticalLogger::CrashAction",
+"count": 1
+},
+{
+"term": "mozilla::nsDisplayListBuilder::BuildCompositorHitTestInfoIfNeeded",
+"count": 1
+},
+{
+"term": "mozilla::wr::RenderDXGIYCbCrTextureHost::EnsureLockable",
+"count": 1
+},
+{
+"term": "nsIFrame::BuildDisplayListForChild",
+"count": 1
+},
+{
+"term": "style::custom_properties::substitute_all::traverse",
+"count": 1
+}
+]
+},
+"errors": []
+}

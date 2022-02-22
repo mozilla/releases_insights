@@ -7,5 +7,4 @@ const INSTALL_ROOT  = __DIR__ . '/../../../';
 
 test('Template Class', function () {
     expect((new Template('file', ['data']))->data)->toEqual(['data']);
-    expect((new Template('base.html.twig', ['data']))->render())->toBeNull();
 });
