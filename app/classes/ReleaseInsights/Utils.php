@@ -24,7 +24,11 @@ class Utils
 
         // We don't want to make external requests in Unit Tests
         if (defined('UNIT_TESTING')) {
-            $cache_id = TEST_FILES .'/crash-stats.mozilla.org.json';
+            if ($buildid == '20190927094817') {
+                $cache_id = TEST_FILES .'/empty.json';
+            } else {
+                $cache_id = TEST_FILES .'/crash-stats.mozilla.org.json';
+            }
         }
 
         // If we can't retrieve cached data, we create and cache it.
@@ -222,7 +226,7 @@ class Utils
      */
     public static function dump(): void
     {
-        if (! class_exists(\Symfony\Component\VarDumper\Dumper\CliDumper::class) || defined('UNIT_TESTING')) {
+        if (! class_exists(\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
             return;
         }
 
