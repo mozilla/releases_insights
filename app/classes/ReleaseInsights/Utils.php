@@ -250,7 +250,7 @@ class Utils
     /**
      * Get the major version number (91) from a string such as 91.0.1
      */
-    public static function getMajorVersion(string $version): ?int
+    public static function getMajorVersion(?string $version): ?int
     {
         if ($version == null) {
             return null;
