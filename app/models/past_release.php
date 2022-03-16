@@ -21,14 +21,14 @@ if ($requested_version == 15) {
     // We never had a 14.0 release, so this is hardcoded
     $previous_release_date = '2012-07-17';
 } else {
-    $previous_release_date = $firefox_releases['firefox-' . number_format($requested_version - 1.0, 1)]['date'];
+    $previous_release_date = $firefox_releases['firefox-' . number_format((int) $requested_version - 1.0, 1)]['date'];
 }
 // Needed for nightly cycle length calculation
 if ($requested_version == 16) {
     // We never had a 14.0 release, so this is hardcoded
     $nightly_start_date = '2012-06-04';
 } else {
-    $nightly_start_date = $firefox_releases['firefox-' . number_format($requested_version - 2.0, 1)]['date'];
+    $nightly_start_date = $firefox_releases['firefox-' . number_format((int) $requested_version - 2.0, 1)]['date'];
 }
 
 // Calculate the number of weeks between the 2 releases
