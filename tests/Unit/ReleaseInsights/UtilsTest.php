@@ -96,6 +96,7 @@ test('Utils::getMajorVersion', function ($input, $output) {
     ['100.5', 100],
     ['78.0.3', 78],
     ['', null],
+    [null, null],
 ]);
 test('Utils::isDateBetweenDates', function ($date, $startDate, $endDate, $result) {
     expect(U::isDateBetweenDates(
