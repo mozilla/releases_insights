@@ -14,7 +14,7 @@ if ($requested_version == 14) {
     // We never had a 14.0 release, so this is hardcoded
     $last_release_date = '2012-07-17';
 } else {
-    $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'];
+    $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'] ?? '';
 }
 // Needed for beta cycle length calculation
 if ($requested_version == 15) {
