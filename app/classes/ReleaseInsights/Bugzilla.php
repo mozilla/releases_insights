@@ -109,7 +109,7 @@ class Bugzilla
             'bug_fixes' => array_values($clean_bug_fixes),
             'backouts'  => array_values($clean_backed_out_bugs),
             'total'     => array_values(array_merge($clean_bug_fixes, $clean_backed_out_bugs)),
-            'no_data'    => false
+            'no_data'   => false
         ];
     }
 }
