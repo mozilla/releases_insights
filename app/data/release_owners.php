@@ -101,4 +101,8 @@ return [
     '99.0' => $owners['dmeehan'],
     '100.0' => $owners['dianna'],
     '101.0' => $owners['ryanvm'],
+    '102.0' => $owners['pascalc'],
+    '103.0' => $owners['dmeehan'],
+    '104.0' => $owners['dianna'],
+    '105.0' => $owners['ryanvm'],
 ];
