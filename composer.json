@@ -35,7 +35,7 @@
         "nunomaduro/phpinsights": "^2.0",
         "pestphp/pest": "^1.19",
         "symfony/var-dumper": "^5",
-        "pchevrel/verif": "^0.5.0",
+        "pchevrel/verif": "^0.5.1",
         "vlucas/phpdotenv": "^5.4",
         "overtrue/phplint": "^4.0",
         "infection/infection": "^0.26.5"
