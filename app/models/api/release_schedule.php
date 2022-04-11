@@ -40,28 +40,30 @@ $nightly = new DateTime($all_releases[Version::decrement($requested_version, 2)]
 
 $nightly->modify('-1 day');
 
+$date_format = 'Y-m-d H:i';
+
 $x = match ($requested_version) {
     '97.0' => 4,
     default => 3,
 };
 
 $schedule = [
-    'nightly_start'    => $requested_version === '100.0' ? $nightly->modify('+1 day') : $nightly,
-    'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday'),
-    'string_freeze'    => $nightly->modify('Friday'),
-    'merge_day'        => $nightly->modify('Monday'),
-    'beta_1'           => $nightly->modify('Monday'),
-    'beta_2'           => $nightly->modify('Tuesday'),
-    'beta_3'           => $nightly->modify('Thursday'),
-    'beta_4'           => $nightly->modify('Sunday'),
-    'beta_5'           => $nightly->modify('Tuesday'),
-    'beta_6'           => $nightly->modify('Thursday'),
-    'beta_7'           => $nightly->modify('Sunday'),
-    'beta_8'           => $nightly->modify('Tuesday'),
-    'beta_9'           => $nightly->modify('Thursday'),
-    'rc_gtb'           => $nightly->modify('Monday'),
-    'rc'               => $nightly->modify('Tuesday'),
-    'release'          => $release,
+    'nightly_start'    => $requested_version === '100.0' ? $nightly->modify('+1 day')->format($date_format) : $nightly->format($date_format),
+    'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday')->format($date_format),
+    'string_freeze'    => $nightly->modify('Friday')->format($date_format),
+    'merge_day'        => $nightly->modify('Monday')->format($date_format),
+    'beta_1'           => $nightly->modify('Monday')->format($date_format),
+    'beta_2'           => $nightly->modify('Tuesday')->format($date_format),
+    'beta_3'           => $nightly->modify('Thursday')->format($date_format),
+    'beta_4'           => $nightly->modify('Sunday')->format($date_format),
+    'beta_5'           => $nightly->modify('Tuesday')->format($date_format),
+    'beta_6'           => $nightly->modify('Thursday')->format($date_format),
+    'beta_7'           => $nightly->modify('Sunday')->format($date_format),
+    'beta_8'           => $nightly->modify('Tuesday')->format($date_format),
+    'beta_9'           => $nightly->modify('Thursday')->format($date_format),
+    'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+    'rc'               => $nightly->modify('Tuesday')->format($date_format),
+    'release'          => $release->format($date_format),
 ];
 
 if ($requested_version === '99.0') {
@@ -69,27 +71,22 @@ if ($requested_version === '99.0') {
     $nightly->modify('-1 day');
 
     $schedule = [
-        'nightly_start'    => $nightly,
-        'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday'),
-        'string_freeze'    => $nightly->modify('Friday'),
-        'merge_day'        => $nightly->modify('Tuesday'),
-        'beta_1'           => $nightly->modify('Tuesday'),
-        'beta_2'           => $nightly->modify('Thursday'),
-        'beta_3'           => $nightly->modify('Sunday'),
-        'beta_4'           => $nightly->modify('Tuesday'),
-        'beta_5'           => $nightly->modify('Thursday'),
-        'beta_6'           => $nightly->modify('Sunday'),
-        'beta_7'           => $nightly->modify('Tuesday'),
-        'beta_8'           => $nightly->modify('Thursday'),
-        'rc_gtb'           => $nightly->modify('Monday'),
-        'rc'               => $nightly->modify('Tuesday'),
-        'release'          => $release,
+        'nightly_start'    => $nightly->format($date_format),
+        'soft_code_freeze' => $nightly->modify('+' . $x .' weeks')->modify('Thursday')->format($date_format),
+        'string_freeze'    => $nightly->modify('Friday')->format($date_format),
+        'merge_day'        => $nightly->modify('Tuesday')->format($date_format),
+        'beta_1'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_2'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_3'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_4'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_5'           => $nightly->modify('Thursday')->format($date_format),
+        'beta_6'           => $nightly->modify('Sunday')->format($date_format),
+        'beta_7'           => $nightly->modify('Tuesday')->format($date_format),
+        'beta_8'           => $nightly->modify('Thursday')->format($date_format),
+        'rc_gtb'           => $nightly->modify('Monday')->format($date_format),
+        'rc'               => $nightly->modify('Tuesday')->format($date_format),
+        'release'          => $release->format($date_format),
     ];
-}
-
-// Transform all the DateTime objects in the $schedule array into formated date strings
-foreach ($schedule as $k => $v) {
-    $schedule[$k] = $v->format('Y-m-d H:i');
 }
 
 // Sort the schedule by date, needed for schedules with a fixup
