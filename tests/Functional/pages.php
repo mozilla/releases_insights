@@ -35,5 +35,7 @@ $check($obj, $paths);
 $obj->report();
 
 // Kill PHP dev server by killing all children processes of the bash process we opened in the background
-exec('pkill -P ' . $pid);
+killTestServer($processID);
+
+// Report the status of the execution, needed for CI
 die($obj->returnStatus());
