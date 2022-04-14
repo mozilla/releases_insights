@@ -86,7 +86,7 @@ $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
 // Number of dot releases
 $dot_release_count = count((array) array_filter(
     $firefox_releases,
-    fn($key) => str_starts_with($key, 'firefox-' . $requested_version . '.'),
+    fn($key) => str_starts_with($key, 'firefox-' . $requested_version . '.') && ! str_ends_with($key, 'esr'),
     ARRAY_FILTER_USE_KEY
 ));
 
