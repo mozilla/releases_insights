@@ -10,6 +10,7 @@ declare(strict_types=1);
     This is manually updated.
 */
 $owners = [
+    'unknown'   => 'Not documented',
     'TBD'       => 'To be determined',
     'pascalc'   => 'Pascal Chevrel',
     'ryanvm'    => 'Ryan VanderMeulen',
@@ -26,6 +27,32 @@ $owners = [
 ];
 
 return [
+    '1.0'  => $owners['unknown'],
+    '2.0'  => $owners['unknown'],
+    '3.0'  => $owners['unknown'],
+    '4.0'  => $owners['unknown'],
+    '5.0'  => $owners['unknown'],
+    '6.0'  => $owners['unknown'],
+    '7.0'  => $owners['unknown'],
+    '8.0'  => $owners['unknown'],
+    '9.0'  => $owners['unknown'],
+    '10.0' => $owners['unknown'],
+    '11.0' => $owners['unknown'],
+    '12.0' => $owners['unknown'],
+    '13.0' => $owners['unknown'],
+    '14.0' => $owners['unknown'],
+    '15.0' => $owners['unknown'],
+    '16.0' => $owners['unknown'],
+    '17.0' => $owners['unknown'],
+    '18.0' => $owners['unknown'],
+    '19.0' => $owners['unknown'],
+    '20.0' => $owners['unknown'],
+    '21.0' => $owners['unknown'],
+    '22.0' => $owners['unknown'],
+    '23.0' => $owners['unknown'],
+    '24.0' => $owners['unknown'],
+    '25.0' => $owners['unknown'],
+    '26.0' => $owners['unknown'],
     '27.0' => $owners['bhavana'],
     '28.0' => $owners['lsblakk'],
     '29.0' => $owners['sylvestre'],
