@@ -13,6 +13,7 @@
 
   {% set counter = 0 %}
   {% for key, values in owners %}
+    {%  if values.owner != 'Not documented' %}
     <tr>
       <td>{{ values.owner }}</td>
       <td class='text-center'>{{ values.total }}</td>
@@ -23,6 +24,8 @@
       {% endfor %}
       </td>
     </tr>
+  {% endif %}
+
   {% endfor %}
 
 </table>
