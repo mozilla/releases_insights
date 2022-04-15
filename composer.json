@@ -26,7 +26,8 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "eluceo/ical": "^0.16.1",
-        "symfony/polyfill": "^1.23"
+        "symfony/polyfill": "^1.23",
+        "vlucas/phpdotenv": "^5.4"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
@@ -36,7 +37,6 @@
         "pestphp/pest": "^1.19",
         "symfony/var-dumper": "^5",
         "pchevrel/verif": "^0.5.1",
-        "vlucas/phpdotenv": "^5.4",
         "overtrue/phplint": "^4.0",
         "infection/infection": "^0.26.5"
     },
