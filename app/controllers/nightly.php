@@ -19,7 +19,6 @@ declare(strict_types=1);
     'nightly.html.twig',
     [
         'page_title'        => 'Nightly crashes for a day',
-        'css_files'         => ['base.css'],
         'css_page_id'       => 'nightly',
         'display_date'      => $display_date,
         'nightly_pairs'     => $nightly_pairs,
