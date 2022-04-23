@@ -8,7 +8,6 @@ $content= require_once MODELS . 'about.php';
     'regular.html.twig',
     [
         'page_title'   => 'Firefox Desktop Release insights',
-        'css_files'    => ['base.css'],
         'css_page_id'  => 'about',
         'page_content' => $content,
     ]

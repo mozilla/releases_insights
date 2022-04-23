@@ -5,14 +5,9 @@
     <title>{{ page_title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" media="screen">
-
-{% for css_file in css_files %}
-    <link rel="stylesheet" href="/style/{{ css_file }}?version=8" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/base.css?version=8" type="text/css" media="all" />
     <link rel="shortcut icon" type="image/svg+xml" href="/assets/img/dragon.svg" />
-{% endfor %}
-
     {% block head_additions %}{% endblock %}
   </head>
   <body id="{{ css_page_id }}" class="container-fluid px-lg-5">
@@ -21,7 +16,6 @@
     {% endif %}
     {% block header %}{% endblock %}
     {% block main   %}{% endblock %}
-
     {% block footer %}{% endblock %}
   </body>
 </html>
