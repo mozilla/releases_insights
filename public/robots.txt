@@ -4,7 +4,7 @@ Disallow: /
 
 # Certain social media sites are whitelisted to allow crawlers to access page markup when links to /images are shared.
 User-agent: Twitterbot
-Allow: /images
+Allow: /assets/img/
 
 User-agent: facebookexternalhit
-Allow: /images
+Allow: /assets/img/
