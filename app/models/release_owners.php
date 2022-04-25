@@ -18,9 +18,9 @@ $owners = array_values(array_unique($releases));
 $output = [];
 foreach ($owners as $owner) {
     $output[] = [
-        'owner' => $owner,
+        'owner'    => $owner,
         'releases' => array_keys($releases, $owner),
-        'total' => count(array_keys($releases, $owner))
+        'total'    => count(array_keys($releases, $owner))
     ];
 }
 

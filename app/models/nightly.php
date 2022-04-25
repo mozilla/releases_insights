@@ -15,7 +15,7 @@ $next_date      = date('Ymd', strtotime($requested_date . ' +1 day'));
 // Get nightlies for the GET Request (or today's nightly)
 $nightlies = include MODELS . 'api/nightly.php';
 
-// Strore a value for the View title
+// Store a value for the View title
 $display_date = strtotime($requested_date);
 
 // We now fetch the previous day nightlies because we need them for changelogs
