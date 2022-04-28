@@ -38,7 +38,9 @@ $date3 = new DateTime($nightly_start_date);
 $beta_cycle_length = $date1->diff($date2)->days / 7;
 $nightly_cycle_length = $date2->diff($date3)->days / 7;
 
-// Get Beta uplifts
+/*
+    Get Beta uplifts
+*/
 
 // Before 4 week schedule, uplifts started with beta 3
 $uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' : '_0b3_RELEASE';
@@ -73,7 +75,6 @@ $rc_uplifts_url  = Bz::getBugListLink($rc_uplifts['total']);
 $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
 
 // Number of Beta builds
-// $beta_count= count($firefox_releases['firefox-' . FIREFOX_RELEASE] . 'b');
 $beta_count = count((array) array_filter(
     $firefox_releases,
     fn($key) => str_starts_with($key, 'firefox-' . $requested_version . 'b'),

@@ -126,7 +126,20 @@
       {% endif %}
 
     <tr>
-      <th {{ date(value) < date() ? ' class="text-muted fw-light"' }}>{{ cycle_labels[key]|raw }}{{ extra|raw }}</th>
+      {% if date(value) < date() %}
+
+        {% if key starts with 'beta' and key == 'beta_1' %}
+            <th class="text-muted fw-light"><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></th>
+        {%  elseif key starts with 'beta' and key != 'beta_1' %}
+          <th class="text-muted fw-light"><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></th>
+        {% else %}
+          <th class="text-muted fw-light">{{ cycle_labels[key]|raw }}{{ extra|raw }}</th>
+        {% endif %}
+
+      {% else %}
+        <th>{{ cycle_labels[key]|raw }}{{ extra|raw }}</th>
+      {% endif %}
+
       <td title="{{ value|format_date('full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>{{ value|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     {% endif %}
