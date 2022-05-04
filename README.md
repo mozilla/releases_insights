@@ -86,3 +86,4 @@ If you want to contribute a patch to an existing class, please make sure that un
 If you find a bug, please open an issue.
 
 If the application is malfunctionning, the solution is to either flush the cache folder or to restart it as the restart flushes the cache. The most likely cause is that one of the remote source of data was down and the data fetch is missing.
+
