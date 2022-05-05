@@ -8,6 +8,7 @@ use ReleaseInsights\Version;
 
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
+$devedition_releases = Utils::getJson('https://product-details.mozilla.org/1.0/devedition.json')['releases'];
 $requested_version = Version::get();
 
 if ($requested_version == 14) {
@@ -91,7 +92,8 @@ $dot_release_count = count((array) array_filter(
     ARRAY_FILTER_USE_KEY
 ));
 
-$beta_start_date = $firefox_releases['firefox-' . $requested_version . 'b1']['date'];
+$beta_start_date = $firefox_releases['firefox-' . $requested_version . 'b1']['date']
+    ?? $devedition_releases['devedition-' . $requested_version . 'b1']['date'] ;
 
 // Number of bugs fixed in nightly
 $nightly_fixes = Bz::getBugsFromHgWeb(
