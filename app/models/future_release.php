@@ -47,7 +47,7 @@ if ((int) $requested_version === BETA) {
         . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
         . '&full&version=2',
         true,
-        3600 * 24 * 365
+        -1 // Immutable external data, store forever
     );
 }
 

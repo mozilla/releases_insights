@@ -40,8 +40,7 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # prepare for running as the app user
-RUN mkdir -p /app/cache && \
-    chown -R app:app /app /run /var/lib/nginx /var/log/nginx
+RUN chown -R app:app /app /run /var/lib/nginx /var/log/nginx
 
 # copy source from local, and composer-built assets from builder
 COPY --chown=app:app . /app

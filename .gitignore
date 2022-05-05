@@ -3,7 +3,7 @@
 .php-cs-fixer.cache
 .phplint-cache
 .phpunit.result.cache
-cache
+cache/*.cache
 composer.phar
 public/assets/bootstrap/
 public/assets/font-awesome/

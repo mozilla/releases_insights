@@ -148,7 +148,7 @@ class Utils
             if (empty($data)) {
                 return [];
             }
-            Cache::setKey($url, $data);
+            Cache::setKey($url, $data, $ttl);
         }
 
         return json_decode($data, true, 512, JSON_THROW_ON_ERROR);

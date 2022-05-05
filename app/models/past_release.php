@@ -51,7 +51,7 @@ $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '&full&version=2';
 
 if ($requested_version !== 53 && $requested_version > 46) {
-    $beta_uplifts      = Bz::getBugsFromHgWeb($beta_changelog, true, 3600 * 24 * 365);
+    $beta_uplifts      = Bz::getBugsFromHgWeb($beta_changelog, true, -1);
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
     $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
@@ -68,7 +68,7 @@ $rc_changelog = 'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
     . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
     . '&full&version=2';
 
-$rc_uplifts = Bz::getBugsFromHgWeb($rc_changelog, true, 3600 * 24 * 365);
+$rc_uplifts = Bz::getBugsFromHgWeb($rc_changelog, true, -1);
 $rc_changelog = str_replace('json-pushes', 'pushloghtml', $rc_changelog);
 
 $rc_uplifts_url  = Bz::getBugListLink($rc_uplifts['total']);
@@ -100,7 +100,7 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
     . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
     . '&full&version=2',
     true,
-    3600 * 24 * 365
+    -1
 );
 
 return [

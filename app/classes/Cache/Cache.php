@@ -41,13 +41,15 @@ class Cache
      * @return bool True if cache file is created
      *              False if there was an error
      */
-    public static function setKey(string $id, mixed $data): bool
+    public static function setKey(string $id, mixed $data, int $ttl = 0): bool
     {
         if (! self::isActivated()) {
             return false;
         }
 
-        return file_put_contents(self::getKeyPath($id), serialize($data)) ? true : false;
+        $immutable = ($ttl === -1) ? true : false;
+
+        return file_put_contents(self::getKeyPath($id, $immutable), serialize($data)) ? true : false;
     }
 
     /**
@@ -60,6 +62,9 @@ class Cache
      */
     public static function getKey(string $id, int $ttl = 0): mixed
     {
+        // By default, we cache data that is mutable over time and has an expiry date
+        $immutable = false;
+
         if (! self::isActivated()) {
             return false;
         }
@@ -68,8 +73,13 @@ class Cache
             $ttl = defined('CACHE_TIME') ? CACHE_TIME : self::CACHE_TIME;
         }
 
+        // External immutable data, we keep this data almost forever (30 years here)
+        if ($ttl === -1) {
+            $immutable = true;
+        }
+
         return self::isValidKey($id, $ttl)
-               ? unserialize(file_get_contents(self::getKeyPath($id)))
+               ? unserialize(file_get_contents(self::getKeyPath($id, $immutable)))
                : false;
     }
 
@@ -109,8 +119,10 @@ class Cache
      */
     private static function isValidKey(string $id, int $ttl): bool
     {
+         $immutable = ($ttl === -1) ? true : false;
+
         // No cache file
-        if (! file_exists(self::getKeyPath($id))) {
+        if (! file_exists(self::getKeyPath($id, $immutable))) {
             return false;
         }
 
@@ -151,14 +163,15 @@ class Cache
      * Get the path to the cached file
      *
      * Filename is in the form a840d513be5240045ccc979208f739a168946332.cache
+     * Immutable cached files are in the form a840d513be5240045ccc979208f739a168946332.immutable
      *
      * @param string $id UID of the cached file
      *
      * @return string Path to the file
      */
-    private static function getKeyPath(string $id): string
+    private static function getKeyPath(string $id, bool $immutable = false): string
     {
-        return self::getCachePath() . sha1($id) . '.cache';
+        return self::getCachePath() . sha1($id) . ($immutable ? '.immutable' : '.cache');
     }
 
     /**
@@ -185,6 +198,11 @@ class Cache
      */
     private static function isObsoleteKey(string $id, int $ttl): bool
     {
+        // Immutable data is never obsolete
+        if ($ttl === -1) {
+            return false;
+        }
+
         return filemtime(self::getKeyPath($id)) < time() - $ttl;
     }
 }
