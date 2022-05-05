@@ -1,0 +1,4 @@
+s:646:"{
+"lastpushid": 2842,
+"pushes": {"2707": {"changesets": [{"author": "ffxbld \u003cffxbld@mozilla.com\u003e", "branch": "default", "desc": "No Bug, mozilla-release repo-update remote-settings - a=repo-update r=RyanVM\n\nDifferential Revision: https://phabricator.services.mozilla.com/D132334", "files": ["services/settings/dumps/blocklists/addons-bloomfilters.json", "services/settings/dumps/security-state/intermediates.json"], "node": "5a1a2f3b06c23a27532ba48f9999c59c643f3f36", "parents": ["7875ebc223d18cb7ad1b4d601420c3c2927f3510"], "tags": ["FIREFOX_95_0_BUILD1", "FIREFOX_95_0_RELEASE"]}], "date": 1638198390, "user": "ryanvm@gmail.com"}}
+}";
