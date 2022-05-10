@@ -11,22 +11,21 @@ namespace Cache;
  *
  * 3 global constants are used: CACHE_ENABLED, CACHE_PATH and CACHE_TIME
  * If those app constants are not available, the system temp folder
- * and the class constants CACHE_ENABLED and CACHE_TIME are used.
+ * and the class variables $CACHE_ENABLED and $CACHE_TIME are used.
  *
  * @package Cache
- * @codeCoverageIgnore No need to test as this is already covered in Transvision. Todo: port Atoum tests to Pest
  */
 class Cache
 {
     /*
         Fallback for activation of Cache
      */
-    public final const CACHE_ENABLED = true;
+    public static bool $CACHE_ENABLED = false;
 
     /*
         Cache expiration time (seconds)
      */
-    public final const CACHE_TIME = 3600;
+    public static int $CACHE_TIME = 3600;
 
     /**
      * Create a cache file with serialized data
@@ -36,7 +35,8 @@ class Cache
      * instantiated objects.
      *
      * @param string $id   UID of the cache
-     * @param mixed $data Data to store
+     * @param mixed  $data Data to store
+     * @param int    $ttl  Time to live (seconds) for the cached data, defaults to 0
      *
      * @return bool True if cache file is created
      *              False if there was an error
@@ -56,7 +56,8 @@ class Cache
      * Get the cached serialized data via its UID
      *
      * @param string $id  UID of the cache
-     * @param int    $ttl Number of seconds for time to live. Default to 0
+     * @param int    $ttl Number of seconds for time to live.
+     *                    Defaults to 0 which calls the default duration. -1 means forever.
      *
      * @return mixed Unserialized cached data, or false
      */
@@ -70,7 +71,7 @@ class Cache
         }
 
         if ($ttl === 0) {
-            $ttl = defined('CACHE_TIME') ? CACHE_TIME : self::CACHE_TIME;
+            $ttl = defined('CACHE_TIME') ? CACHE_TIME : self::$CACHE_TIME;
         }
 
         // External immutable data, we keep this data almost forever (30 years here)
@@ -105,7 +106,14 @@ class Cache
      */
     public static function isActivated(): bool
     {
-        return defined('CACHE_ENABLED') ? CACHE_ENABLED : self::CACHE_ENABLED;
+        // We don't want a global switch for the cache in Unit Tests
+        // because we want to test functions with and without caching.
+        if (defined('UNIT_TESTING')) {
+            return self::$CACHE_ENABLED;
+        }
+
+        return defined('CACHE_ENABLED') ? CACHE_ENABLED : self::$CACHE_ENABLED; // @codeCoverageIgnore
+
     }
 
     /**
@@ -140,14 +148,15 @@ class Cache
     /**
      * Delete a cache file based to its UID
      *
-     * @param string $id UID of the cached data
+     * @param string $id        UID of the cached data
+     * @param bool   $immutable Is that immutable data? Default to false
      *
      * @return bool True if data was deleted
      *              False if it doesn't exist
      */
-    private static function deleteKey(string $id): bool
+    public static function deleteKey(string $id, bool $immutable = false): bool
     {
-        $file = self::getKeyPath($id);
+        $file = self::getKeyPath($id, $immutable);
 
         if (! file_exists($file)) {
             return false;
@@ -166,6 +175,7 @@ class Cache
      * Immutable cached files are in the form a840d513be5240045ccc979208f739a168946332.immutable
      *
      * @param string $id UID of the cached file
+     * @param bool   $immutable is that immutable data? Default to false
      *
      * @return string Path to the file
      */
@@ -182,7 +192,7 @@ class Cache
      *
      * @return string Path to cache folder
      */
-    private static function getCachePath(): string
+    public static function getCachePath(): string
     {
         return defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . '/';
     }

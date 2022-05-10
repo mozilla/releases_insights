@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Request ;
+use ReleaseInsights\Request;
 
 test('Request->getController()', function ($input, $output) {
     expect($output)->toEqual((new Request($input))->getController());
