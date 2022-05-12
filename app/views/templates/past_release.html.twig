@@ -110,8 +110,15 @@
 
       {% for dot_release in 1..dot_release_count %}
         {%  set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
+
+        {% if dot_release == 1 %}
+              {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+        {%  else %}
+              {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_' ~ (dot_release -1) ~ '_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+        {%  endif %}
+
         <tr>
-          <th>{{ release }}.0.{{ dot_release }}</th>
+          <th><a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a></th>
           <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>
         </tr>
        {% endfor %}
