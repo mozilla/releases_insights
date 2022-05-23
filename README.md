@@ -83,6 +83,7 @@ You can also run locally all the tests we run in CI with the `run -tests` comman
 If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.
 
 ## Bugs
+> **Warning**
 If you find a bug, please open an issue.
 
 If the application is malfunctionning, the solution is to either flush the cache folder or to restart it as the restart flushes the cache. The most likely cause is that one of the remote source of data was down and the data fetch is missing.
