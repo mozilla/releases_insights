@@ -21,7 +21,7 @@ exec('php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo $!', $output);
 $processID = $output[0];
 
 // Pause to let time for the dev server to launch in the background in CI, locally it's almost instant
-usleep(isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local' ? 20_000 : 3_000_000);
+usleep(isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local' ? 30_000 : 3_000_000);
 
 // This is the function to call to stop the test server in sub-scripts
 function killTestServer(string $processID): void {
