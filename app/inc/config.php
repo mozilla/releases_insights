@@ -35,7 +35,6 @@ define('FIREFOX_RELEASE', $firefox_versions['LATEST_FIREFOX_VERSION']);
 define('NIGHTLY', (int) FIREFOX_NIGHTLY);
 define('BETA', (int) FIREFOX_BETA);
 define('RELEASE', (int) FIREFOX_RELEASE);
-// @phpstan-ignore-next-line phpstan is confused here
 define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
 
 // Application globals paths
