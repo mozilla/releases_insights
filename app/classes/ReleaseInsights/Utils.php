@@ -86,27 +86,27 @@ class Utils
     public static function getBuildID(int $buildid): int
     {
         // Check that the string provided is correct
-        if (! self::isBuildID($buildid)) {
+        if (! self::isBuildID( (string) $buildid)) {
             return 20191014213051; // hardcoded fallback value
         }
 
         return $buildid;
     }
 
-    public static function isBuildID(int $buildid): bool|string
+    public static function isBuildID(string $buildid): bool
     {
         //  BuildIDs should be 14 digits
-        if (strlen( (string) $buildid) !== 14) {
+        if (strlen($buildid) !== 14) {
             return false;
         }
 
         //  BuildIDs should be valid dates, if we can't create a date return false
-        if (! $date = date_create( (string) $buildid)) {
+        if (! $date = date_create($buildid)) {
             return false;
         }
 
         // The date shouldn't be in the future
-        $date  = (new DateTime( (string) $buildid))->format('Ymd');
+        $date  = (new DateTime($buildid))->format('Ymd');
         $today = (new DateTime())->format('Ymd');
 
         if ($date > $today) {

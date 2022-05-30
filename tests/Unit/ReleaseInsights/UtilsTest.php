@@ -7,20 +7,20 @@ use \DateTime\Datime;
 use ReleaseInsights\Utils as U;
 
 test('Utils::isBuildID', function () {
-    $this->assertFalse(U::isBuildID(1234587392871));
-    $this->assertFalse(U::isBuildID(123458739287122));
-    $this->assertFalse(U::isBuildID(12345873928712));
-    $this->assertFalse(U::isBuildID(20501229120000));
-    $this->assertTrue(U::isBuildID(20201229120000));
-    $this->assertFalse(U::isBuildID(20501229120000));
-    $this->assertTrue(U::isBuildID(20201229120000));
-    $this->assertTrue(U::isBuildID(20220220120000));
+    $this->assertFalse(U::isBuildID('1234587392871'));
+    $this->assertFalse(U::isBuildID('123458739287122'));
+    $this->assertFalse(U::isBuildID('12345873928712'));
+    $this->assertFalse(U::isBuildID('20501229120000'));
+    $this->assertTrue(U::isBuildID('20201229120000'));
+    $this->assertFalse(U::isBuildID('20501229120000'));
+    $this->assertTrue(U::isBuildID('20201229120000'));
+    $this->assertTrue(U::isBuildID('20220220120000'));
     // Invalid date
-    $this->assertFalse(U::isBuildID(99999999999999));
+    $this->assertFalse(U::isBuildID('99999999999999'));
 
     // Today is a valid date
     $this->assertTrue(U::isBuildID(
-      (int) (new DateTime())->format('Ymdhhs')
+        (new DateTime())->format('Ymdhhs')
     ));
 });
 
