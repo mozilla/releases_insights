@@ -45,6 +45,9 @@
       </b>">{{ constant('FIREFOX_BETA')|number_format }}</h2>
 
       <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
+      {% if beta_is_the_next_ESR %}
+        <span class="badge bg-light text-dark">{{ constant('FIREFOX_BETA')|number_format }} is the next ESR!</span >
+      {% endif %}
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-nightly.svg" width="70%"></div>
@@ -83,6 +86,7 @@
         <small>(in {{ leftDays }} days)</small>
       {% endif %}
       </h3>
+
     {% endif %}
   {% endif %}
 

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\ESR;
 use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
 
@@ -59,6 +60,8 @@ $latest_nightly = Utils::getJson(
 
 $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'];
 
+$beta_is_the_next_ESR = Version::getMajor(FIREFOX_BETA) == (int) ESR::getVersion(Version::getMajor(FIREFOX_BETA));
+
 return [
     $beta_cycle_dates,
     $nightly_cycle_dates,
@@ -67,4 +70,5 @@ return [
     $rc_build,
     $latest_nightly,
     $firefox_version_on_release_day,
+    $beta_is_the_next_ESR,
 ];
