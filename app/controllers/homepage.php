@@ -25,7 +25,6 @@ declare(strict_types=1);
         'rc_build'               => $rc_build,
         'latest_nightly'         => $latest_nightly,
         'version_on_release_day' => $firefox_version_on_release_day,
-        'short_ESR'              => ReleaseInsights\ESR::getMainDotVersion(ESR),
         'beta_is_the_next_ESR'   => $beta_is_the_next_ESR,
     ]
 ))->render();
