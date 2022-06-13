@@ -73,7 +73,7 @@
             "rm -rf public/assets/jquery",
             "cp -R vendor/components/jquery/ public/assets/jquery",
             "rm public/assets/jquery/README.md",
-            "git rev-parse HEAD > public/deployed-version.txt"
+            "echo $SOURCE_VERSION > public/deployed-version.txt"
         ]
     },
     "config": {
