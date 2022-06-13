@@ -72,7 +72,8 @@
             "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap",
             "rm -rf public/assets/jquery",
             "cp -R vendor/components/jquery/ public/assets/jquery",
-            "rm public/assets/jquery/README.md"
+            "rm public/assets/jquery/README.md",
+            "git rev-parse HEAD > public/deployed-version.txt"
         ]
     },
     "config": {
