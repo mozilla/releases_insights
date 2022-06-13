@@ -13,4 +13,5 @@ vendor
 infection.log
 infection.html
 infection.json
+showcache
 summary.log
