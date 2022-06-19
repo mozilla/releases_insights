@@ -9,6 +9,7 @@ composer.phar
 public/assets/bootstrap/
 public/assets/font-awesome/
 public/assets/jquery/
+public/deployed-version.txt
 vendor
 infection.log
 infection.html
