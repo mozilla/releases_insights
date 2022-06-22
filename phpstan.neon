@@ -5,5 +5,9 @@ parameters:
         - app
         - public
     ignoreErrors:
+        -
+            message: "#^Comparison operation \"\\>\" between int\\<[0-9]+, max\\> and [0-9]+ is always true\\.$#"
+            count: 1
+            path: app/controllers/release.php
         - '#.+?function array_multisort is passed by reference, so it expects variables only#'
     level: 6
