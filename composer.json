@@ -27,7 +27,8 @@
         "ext-dom": "*",
         "eluceo/ical": "^0.16.1",
         "symfony/polyfill": "^1.23",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "twbs/bootstrap-icons": "^1.8"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
@@ -69,9 +70,11 @@
         ],
         "post-install-cmd": [
             "rm -rf public/assets/bootstrap",
-            "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap",
+            "cp -r vendor/twbs/bootstrap/dist public/assets/bootstrap",
+            "cp vendor/twbs/bootstrap-icons/font/bootstrap-icons.css public/assets/bootstrap/css/",
+            "cp -r vendor/twbs/bootstrap-icons/font/fonts/ public/assets/bootstrap/css/",
             "rm -rf public/assets/jquery",
-            "cp -R vendor/components/jquery/ public/assets/jquery",
+            "cp -r vendor/components/jquery/ public/assets/jquery",
             "rm public/assets/jquery/README.md",
             "echo $SOURCE_VERSION > public/deployed-version.txt"
         ]

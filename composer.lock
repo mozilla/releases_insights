@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c47234d9ca3020b837e2f57d3e9913b",
+    "content-hash": "20cc616d5222212f1da3bc0172962e38",
     "packages": [
         {
             "name": "components/jquery",
@@ -515,6 +515,45 @@
                 "source": "https://github.com/twbs/bootstrap/tree/v5.1.3"
             },
             "time": "2021-10-09T06:43:19+00:00"
+        },
+        {
+            "name": "twbs/bootstrap-icons",
+            "version": "v1.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/icons.git",
+                "reference": "9bcba3efe7fae552f6425f6f4aaf70590d835482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/9bcba3efe7fae552f6425f6f4aaf70590d835482",
+                "reference": "9bcba3efe7fae552f6425f6f4aaf70590d835482",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "Official open source SVG icon library for Bootstrap",
+            "homepage": "https://icons.getbootstrap.com/",
+            "keywords": [
+                "bootstrap",
+                "icon font",
+                "icons",
+                "svg"
+            ],
+            "support": {
+                "issues": "https://github.com/twbs/icons/issues",
+                "source": "https://github.com/twbs/icons/tree/v1.8.3"
+            },
+            "time": "2022-05-25T17:57:16+00:00"
         },
         {
             "name": "twig/intl-extra",
