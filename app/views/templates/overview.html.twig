@@ -16,9 +16,9 @@
 {% set tooltip_defaults = ' data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" ' %}
 
 {% block header %}
-  <a href="/about" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Get the list of views and APIs available in this application."><span class="information">i</span></a>
+  <a href="/about" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Get the list of views and APIs available in this application."><span class="information bi bi-info-square-fill fs-2"></span></a>
 
-  <h1 class="text-center">Current Firefox trains</h1>
+  <h1 class="text-center fw-bold">Firefox Trains</h1>
 {% endblock %}
 
 {% block main %}
@@ -61,14 +61,9 @@
       {% set merge_day = true %}
   {% endif %}
 
-  {% if rc_week %}
-    <h3 class="text-center"><b class="alert alert-secondary">We are in <abbr title="Release Candidate" class="initialism">RC</abbr>&nbsp;week</b></h3>
-  {% endif %}
 
-  {% if merge_day %}
-    <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
-  {% elseif nightly_cycle_dates.merge_day|date > now|date %}
-    <h3 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h3>
+  {% if rc_week %}
+    <h3 class="text-center mt-5" role="alert"><span class="alert alert-primary" role="alert"><i class="bi bi-info-circle-fill"></i> We are in <abbr title="Release Candidate" class="initialism">RC</abbr>&nbsp;week</span></h3>
   {% endif %}
 
   {% if release_day %}
@@ -90,7 +85,11 @@
     {% endif %}
   {% endif %}
 
-
+  {% if merge_day %}
+    <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
+  {% elseif nightly_cycle_dates.merge_day|date > now|date %}
+    <h5 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h5>
+  {% endif %}
 
     <script src="/assets/jquery/jquery.slim.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>

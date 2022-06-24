@@ -16,7 +16,7 @@ declare(strict_types=1);
 (new ReleaseInsights\Template(
     'overview.html.twig',
     [
-        'page_title'             => 'Where are we in the current release cycle?',
+        'page_title'             => 'What Firefox trains are we in?',
         'css_page_id'            => 'homepage',
         'beta_cycle_dates'       => $beta_cycle_dates,
         'nightly_cycle_dates'    => $nightly_cycle_dates,
