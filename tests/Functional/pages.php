@@ -5,7 +5,7 @@ include 'init.php';
 $paths = [
     ['404/', 404, '404: Page Not Found', 'id="notfound"'],
     ['yolo', 302, '', ''], // Test that we redirect yolo to yolo/
-    ['', 200, 'Current Firefox trains', 'id="homepage"'],
+    ['', 200, 'Firefox Trains', 'id="homepage"'],
     ['about/', 200, 'All APIs are under the', 'id="about"'],
     ['nightly/', 200, '', 'id="nightly"'],
     ['release/', 200, 'Release Owner', 'id="release"'],
