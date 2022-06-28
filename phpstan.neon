@@ -9,5 +9,12 @@ parameters:
             message: "#^Comparison operation \"\\>\" between int\\<[0-9]+, max\\> and [0-9]+ is always true\\.$#"
             count: 1
             path: app/controllers/release.php
+        -
+            message: "#^Strict comparison using !== between [0-9]+ and [0-9]+ will always evaluate to false\\.$#"
+            count: 1
+            path: app/models/home.php
         - '#.+?function array_multisort is passed by reference, so it expects variables only#'
     level: 6
+
+
+
