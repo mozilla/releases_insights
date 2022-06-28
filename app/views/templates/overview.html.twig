@@ -79,7 +79,15 @@
 
   {% if release_day %}
   <h3 class="text-center">
-    <b class="alert alert-info text-dark" role="alert">Firefox {{ version_on_release_day|number_format }} is shipping today!</b>
+    <b class="alert alert-info text-dark" role="alert">
+      Firefox {{ version_on_release_day|number_format }}
+      {% if version_on_release_day is constant('FIREFOX_RELEASE') %}
+      shipped today!
+      {% else %}
+      is shipping today!
+      {% endif%}
+
+    </b>
   </h3>
   {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}
