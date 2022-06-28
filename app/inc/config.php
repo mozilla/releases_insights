@@ -17,10 +17,10 @@ define('CACHE_PATH', INSTALL_ROOT . 'cache/');
 define('CACHE_ENABLED', ! isset($_GET['nocache']));
 define('CACHE_TIME', 3600 * 72);
 
-// Cache Product Details versions, 3H cache
+// Cache Product Details versions, 15mn cache
 $firefox_versions = ReleaseInsights\Utils::getJson(
     'https://product-details.mozilla.org/1.0/firefox_versions.json',
-    10800
+    900
 );
 
 // Exact version numbers (strings) from product-details
