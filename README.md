@@ -1,3 +1,4 @@
+[![PHP Composer & CI](https://github.com/pascalchevrel/releases_insights/actions/workflows/php.yml/badge.svg)](https://github.com/pascalchevrel/releases_insights/actions/workflows/php.yml)
 # Release Insights / Firefox Trains Dashboard
 
 This is the code behind https://fx-trains.herokuapp.com/
