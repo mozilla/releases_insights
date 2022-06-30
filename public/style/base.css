@@ -111,10 +111,6 @@ h3 {
     caption-side: top;
 }
 
-#release .table th {
-    min-width: 50%;
-}
-
 #release_esr .table  th {
     text-align: center;
 }
