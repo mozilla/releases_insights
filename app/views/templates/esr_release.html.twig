@@ -2,14 +2,31 @@
 
 {% block main %}
 
-  <h2 class="mx-auto w-50 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h2>
+  {%  if constant('ESR_NEXT') %}
+  <h2 class="mx-auto w-50 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h2>
+  {%  else %}
+  <h2 class="mx-auto w-50 text-center">Firefox {{ next_ESR|number_format }} <abbr title="Extended Support Release ">ESR</abbr></h2>
+  {%  endif %}
+
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center">
+    {%  if constant('ESR_NEXT') %}
     <tr>
-      <th class="w-auto">Latest version</th>
-      <td> {{ latest_ESR }}</td>
+      <th class="w-auto">Latest version (old branch)</th>
+      <td> {{ current_ESR }}</td>
     </tr>
     <tr>
+      <th class="w-auto">Latest version (new branch)</th>
+      <td> {{ next_ESR }}</td>
+    </tr>
+    <tr>
+    {%  else %}
+    <tr>
+      <th class="w-auto">Latest version</th>
+      <td> {{ next_ESR }}</td>
+    </tr>
+    <tr>
+    {%  endif %}
       <th class="w-auto">Release Date</th>
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>

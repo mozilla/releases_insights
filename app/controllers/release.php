@@ -42,7 +42,8 @@ $template_data = array_merge(
 
 if ($_GET['version'] === 'esr') {
     [
-        $latest_ESR,
+        $next_ESR,
+        $current_ESR,
         $release_date,
         $esr_calendar
     ] = require_once MODELS . 'esr_release.php';
@@ -50,7 +51,8 @@ if ($_GET['version'] === 'esr') {
     $template_data = array_merge($template_data, [
         'page_title'   => 'Firefox ESR schedule',
         'css_page_id'  => 'release_esr',
-        'latest_ESR'   => $latest_ESR,
+        'next_ESR'     => $next_ESR,
+        'current_ESR'  => $current_ESR,
         'release_date' => $release_date,
         'esr_calendar' => $esr_calendar,
     ]);
