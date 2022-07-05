@@ -59,9 +59,7 @@ esac
 
 echo -e $(tput setaf 2; tput bold)"Launching PHP development server (php -S ${SERVER} -t public/ app/inc/router.php)"$(tput sgr0)
 
-if command -v browser-sync &> /dev/null
-    then
-    echo "browser-sync could not be found"
+if command -v browser-sync &> /dev/null; then
     browser-sync start --proxy "localhost:8082" --files "**/*" &
 fi
 
