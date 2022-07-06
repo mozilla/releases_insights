@@ -43,7 +43,6 @@ if [ $# -gt 0 ] && [ $1 = '-help' ]
 then
     echo -e "${ORANGE}${BOLD}Usage:${NORMAL}${NOCOLOR}"
     echo -e " ${BOLD}run${NORMAL}               Starts the PHP web server and listen to localhost:8082"
-    echo -e " ${BOLD}run -remote${NORMAL}       Starts the PHP web server and listen to 0.0.0.0:8082 accessible from the outside"
     echo -e " ${BOLD}run -tests${NORMAL}        Runs application test suite"
     echo -e " ${BOLD}run -no-reload${NORMAL}    Don't run browser-sync even if installed"
     echo ""
