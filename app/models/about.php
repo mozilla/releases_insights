@@ -9,11 +9,15 @@ $main_beta = BETA;
 return $content = <<<"EOD"
 
 <h3>Public Json API</h3>
-<p>All APIs are under the <code>api/</code> endpoint.
+<p>All APIs are under the <code>api/</code> endpoint.</p>
 <h3>APIs</h3>
 <table class="table table-light table-striped table-bordered table-sm">
+    <colgroup>
+      <col style="width:35%">
+      <col style="width:65%">
+    </colgroup>
     <tr class="table-dark">
-        <th>url</th><th>Description</th>
+        <th>URL</th><th>Description</th>
     </tr>
     <tr>
         <td><a href="/api/nightly/?date={$yesterday}">api/nightly/?date={$yesterday}</a></td>
@@ -39,8 +43,13 @@ return $content = <<<"EOD"
 
 <h3>Views</h3>
 <table class="table table-light table-striped table-bordered table-sm">
+    <colgroup>
+      <col style="width:35%">
+      <col style="width:65%">
+    </colgroup>
+
     <tr class="table-dark">
-        <th>url</th><th>Description</th>
+        <th>URL</th><th>Description</th>
     </tr>
     <tr>
         <td><a href="/">/</a></td>
@@ -53,7 +62,7 @@ return $content = <<<"EOD"
     <tr>
         <td>
             <ul class="list-unstyled mb-0">
-                <li><a href="/nightly/">nightly/</a> (today)</li>
+                <li><a href="/nightly/">nightly</a> (today)</li>
                 <li><a href="/nightly/?date={$yesterday}">nightly/?date={$yesterday}</a></li>
             </ul>
         </td>
@@ -75,12 +84,12 @@ return $content = <<<"EOD"
         </td>
     </tr>
     <tr>
-        <td><a href="/release/owners/">/release/owners/</a></td>
+        <td><a href="/release/owners/">release/owners/</a></td>
         <td>List all past releases per release owner.</td>
     </tr>
     </tr>
     <tr>
-        <td><a href="/calendar/release/schedule/?version={$main_beta}">/calendar/release/schedule/?version={$main_beta}</a></td>
+        <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
         <td>Download an icalendar (.ics) file of future milestones for a future release. Can be imported into your calendar application.</td>
 </table>
 

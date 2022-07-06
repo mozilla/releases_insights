@@ -74,7 +74,7 @@ nav svg {
 
 .table {
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
 }
 
 .table td,
@@ -163,3 +163,8 @@ h3 {
  #homepage .information:hover {
     color: #ffe343;
  }
+
+/* About page */
+#about h3 {
+    margin-top: 1em;
+}
