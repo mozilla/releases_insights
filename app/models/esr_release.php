@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Data;
 use ReleaseInsights\Utils;
 use ReleaseInsights\ESR;
 
 $esr_releases = include MODELS . 'api/esr_releases.php';
 
-$upcoming_releases = include DATA .'upcoming_releases.php';
+$upcoming_releases = (new Data())->getFutureReleases();
 
 $esr_calendar = [];
 

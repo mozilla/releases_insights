@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Data;
 use ReleaseInsights\ESR;
 use ReleaseInsights\Version;
 
@@ -13,14 +14,15 @@ if ($requested_version == '0.0') {
 }
 
 // Planned releases
-$upcoming_releases = include DATA .'upcoming_releases.php';
-$release_owners    = include DATA .'release_owners.php';
+$upcoming_releases = (new Data())->getFutureReleases();
+$owners = (new Data())->getOwners();
+
 
 $template_data = [
     'css_page_id'      => 'release',
     'page_title'       => 'Milestones and key data for Firefox ' . (int) $requested_version,
     'release'          => (int) $requested_version,
-    'release_owner'    => $release_owners[$requested_version] ?? 'TBD',
+    'release_owner'    => $owners[$requested_version] ?? 'TBD',
     'fallback_content' => '',
 ];
 

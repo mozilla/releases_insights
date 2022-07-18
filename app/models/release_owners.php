@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Utils;
+use ReleaseInsights\Data;
 
-$release_owners = include MODELS . 'api/release_owners.php';
+$release_owners = (new Data())->getOwners();
 
 // We need to remove the releases still in planning
 $releases = array_filter(

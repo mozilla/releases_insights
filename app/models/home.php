@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Data;
 use ReleaseInsights\ESR;
 use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
@@ -16,7 +17,7 @@ $beta_cycle_dates = include MODELS . 'api/release_schedule.php';
 
 // Historical data from Product Details, cache an hour
 $shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 3600);
-$upcoming_releases = include DATA .'upcoming_releases.php';
+$upcoming_releases = (new Data())->getFutureReleases();
 
 $all_releases = array_merge($shipped_releases, $upcoming_releases);
 

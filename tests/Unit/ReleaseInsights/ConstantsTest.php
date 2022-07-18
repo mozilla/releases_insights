@@ -10,6 +10,7 @@ const FIREFOX_NIGHTLY = '95';
 const ESR             = '78';
 const UNIT_TESTING    = true;
 const INSTALL_ROOT    = __DIR__ . '/../../../';
+const DATA            = INSTALL_ROOT . 'app/data/';
 const CACHE_PATH      = INSTALL_ROOT . 'cache/';
 const TEST_FILES      = INSTALL_ROOT . 'tests/Files/';
 const CACHE_ENABLED   = false;

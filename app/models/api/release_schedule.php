@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Data;
 use ReleaseInsights\Version;
 use ReleaseInsights\Utils;
 
@@ -15,7 +16,7 @@ if ((int) $requested_version < BETA) {
 }
 
 // Planned releases
-$upcoming_releases = include DATA .'upcoming_releases.php';
+$upcoming_releases = (new Data())->getFutureReleases();
 
 // Historical data from Product Details, cache a week
 $shipped_releases = ReleaseInsights\Utils::getJson(

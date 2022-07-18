@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-$data = include DATA .'release_owners.php';
+use ReleaseInsights\Data;
+
+$owners = (new Data())->getOwners();
 
 // Reconstruct the array to have integers as version numbers in keys
 return array_combine(
-    array_map('intval', array_keys($data)),
-    array_values($data)
+    array_map('intval', array_keys($owners)),
+    array_values($owners)
 );

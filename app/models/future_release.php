@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use ReleaseInsights\Bugzilla;
+use ReleaseInsights\Data;
 use ReleaseInsights\Nightly;
 use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
@@ -16,7 +17,7 @@ $shipped_releases = Utils::getJson(
 );
 
 // Merge with future dates stored locally
-$upcoming_releases = include DATA .'upcoming_releases.php';
+$upcoming_releases = (new Data())->getFutureReleases();
 $all_releases = array_merge($shipped_releases, $upcoming_releases);
 
 $release_date = $all_releases[(string) $requested_version];
