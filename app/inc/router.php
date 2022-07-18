@@ -5,7 +5,7 @@ declare(strict_types=1);
 // We import the Request class manually as we haven't autoloaded classes yet
 include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Request.php';
 
-$url = new ReleaseInsights\Request($_SERVER['REQUEST_URI']);
+$url  = new ReleaseInsights\Request($_SERVER['REQUEST_URI']);
 $file = pathinfo($url->path);
 
 // Real files and folders don't get pre-processed

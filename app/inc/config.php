@@ -43,3 +43,6 @@ const DATA        = INSTALL_ROOT . 'app/data/';
 const MODELS      = INSTALL_ROOT . 'app/models/';
 const VIEWS       = INSTALL_ROOT . 'app/views/';
 const TEST_FILES  = INSTALL_ROOT . 'tests/Files/';
+
+// Clean up temp variables from global space
+unset($firefox_versions);

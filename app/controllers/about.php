@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$content= require_once MODELS . 'about.php';
+$content = require_once MODELS . 'about.php';
 
 (new ReleaseInsights\Template(
     'regular.html.twig',
