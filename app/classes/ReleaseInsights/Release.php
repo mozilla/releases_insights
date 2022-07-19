@@ -19,6 +19,8 @@ enum Status
 class Release
 {
     private string $version;
+
+    /** @var array<string> $no_planned_dot_releases */
     public array $no_planned_dot_releases = ['108.0'];
 
     /* @phpstan-ignore-next-line */
@@ -89,7 +91,7 @@ class Release
             'release'             => $date($release),
         ];
 
-        if (! in_array($this->version, $this->no_planned_dot_release)) {
+        if (! in_array($this->version, $this->no_planned_dot_releases)) {
             $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks'))];
         }
 
