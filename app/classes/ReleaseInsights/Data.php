@@ -57,7 +57,11 @@ class Data
         return $esr_releases;
     }
 
-    /** @return array<string, string> */
+    /**
+     * Get all past Releases on the release channel, including dot releases
+     *
+     * @return array<string, string>
+     */
     public function getPastReleases(): array
     {
         // Historical data from Product Details, cache a week
@@ -91,6 +95,30 @@ class Data
 
         return array_filter($all_releases, $exclude_esr, ARRAY_FILTER_USE_KEY);
     }
+
+    /**
+     * Get all past Releases on the release channel, but not dot releases
+     *
+     * @return array<string, string>
+     */
+    public function getMajorPastReleases(): array
+    {
+        return Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', 604800);
+    }
+
+    /**
+     * Get all past and planned Releases on the release channel, but not dot releases
+     *
+     * @return array<string, string>
+     */
+    public function getMajorReleases(): array
+    {
+        return array_merge(
+            $this->getMajorPastReleases(),
+            $this->future_releases
+        );
+    }
+
 
     /** @return array<string, string> */
     public function getFirefoxVersions(): array

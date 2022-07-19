@@ -15,3 +15,7 @@ const CACHE_PATH      = INSTALL_ROOT . 'cache/';
 const TEST_FILES      = INSTALL_ROOT . 'tests/Files/';
 const CACHE_ENABLED   = false;
 
+// Major version numbers (integers), used across the app
+define('NIGHTLY',  (int) FIREFOX_NIGHTLY);
+define('BETA',     (int) FIREFOX_BETA);
+define('RELEASE',  (int) FIREFOX_RELEASE);

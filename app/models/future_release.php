@@ -5,6 +5,7 @@ declare(strict_types=1);
 use ReleaseInsights\Bugzilla;
 use ReleaseInsights\Data;
 use ReleaseInsights\Nightly;
+use ReleaseInsights\Release;
 use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
 
@@ -36,7 +37,7 @@ $beta_cycle_length = $release->diff($previous_release)->days / 7;
 $nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;
 
 // Get the schedule for the release requested
-$cycle_dates = include MODELS . 'api/release_schedule.php';
+$cycle_dates = (new Release($requested_version))->getSchedule();
 
 $nightly_fixes = 0;
 /* Only for the current Beta view */
@@ -53,8 +54,8 @@ if ((int) $requested_version === BETA) {
 }
 
 $nightly_updates = true;
-/* Only for the current Nightly view */
-if ((int) $requested_version == Version::getMajor(FIREFOX_NIGHTLY)) {
+/* Only for the current Nightly view, this makes an HTTP request */
+if ((int) $requested_version == NIGHTLY) {
     // Are nightly updates activated?
     $nightly_updates = (new Nightly())->auto_updates;
 }

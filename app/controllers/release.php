@@ -66,7 +66,7 @@ if ($_GET['version'] === 'esr') {
 
 
 // If this is a release we already shipped, display stats for the release
-if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
+if ((int) $requested_version <= RELEASE) {
     [
         $last_release_date,
         $previous_release_date,
@@ -111,7 +111,7 @@ if ((int) $requested_version <= (int) FIREFOX_RELEASE) {
         'beta_start_date'       => $beta_start_date,
         'firefox_releases'      => $firefox_releases,
         ]);
-} elseif ((int) $requested_version > (int) FIREFOX_RELEASE
+} elseif ((int) $requested_version > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
     [
         $release_date,
