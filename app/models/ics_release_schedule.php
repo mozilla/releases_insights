@@ -2,33 +2,42 @@
 
 declare(strict_types=1);
 
-$releases = include MODELS . 'api/release_schedule.php';
+use ReleaseInsights\Release;
+use ReleaseInsights\Version;
+
+if (! isset($requested_version)) {
+    $requested_version = Version::get();
+}
+
+// Get the schedule for the release requested
+$releases = (new Release($requested_version))->getSchedule();
 
 $short_version = (string) (int) $releases['version'];
 
 $release_schedule_labels = [
-    'nightly_start'     => 'Nightly ' . $short_version . ' starts',
-    'soft_code_freeze'  => 'Firefox ' . $short_version . ' soft Code Freeze',
-    'string_freeze'     => 'String Freeze starts',
-    'merge_day'         => 'Merge day',
-    'beta_1'            => 'Firefox ' . $releases['version'] . 'b1',
-    'beta_2'            => 'Firefox ' . $releases['version'] . 'b2 (GTB: 21:00 UTC)',
-    'beta_3'            => 'Firefox ' . $releases['version'] . 'b3 (GTB: 21:00 UTC)',
-    'beta_4'            => 'Firefox ' . $releases['version'] . 'b4 (GTB: 21:00 UTC)',
-    'beta_5'            => 'Firefox ' . $releases['version'] . 'b5 (GTB: 21:00 UTC)',
-    'beta_6'            => 'Firefox ' . $releases['version'] . 'b6 (GTB: 21:00 UTC)',
-    'beta_7'            => 'Firefox ' . $releases['version'] . 'b7 (GTB: 21:00 UTC)',
-    'beta_8'            => 'Firefox ' . $releases['version'] . 'b8 (GTB: 21:00 UTC)',
-    'beta_9'            => 'Firefox ' . $releases['version'] . 'b9 (GTB: 21:00 UTC)',
-    'beta_10'           => 'Firefox ' . $releases['version'] . 'b10 (GTB: 21:00 UTC)',
-    'beta_11'           => 'Firefox ' . $releases['version'] . 'b11 (GTB: 21:00 UTC)',
-    'beta_12'           => 'Firefox ' . $releases['version'] . 'b12 (GTB: 21:00 UTC)',
-    'beta_13'           => 'Firefox ' . $releases['version'] . 'b13 (GTB: 21:00 UTC)',
-    'beta_14'           => 'Firefox ' . $releases['version'] . 'b14 (GTB: 21:00 UTC)',
-    'beta_15'           => 'Firefox ' . $releases['version'] . 'b15 (GTB: 21:00 UTC)',
-    'rc_gtb'            => 'Firefox ' . $short_version . ' go to Build',
-    'rc'                => 'RC',
-    'release'           => 'Firefox ' . $short_version . ' go-live @ 6am PT',
+    'nightly_start'       => 'Nightly ' . $short_version . ' starts',
+    'soft_code_freeze'    => 'Firefox ' . $short_version . ' soft Code Freeze',
+    'string_freeze'       => 'String Freeze starts',
+    'merge_day'           => 'Merge day',
+    'beta_1'              => 'Firefox ' . $releases['version'] . 'b1',
+    'beta_2'              => 'Firefox ' . $releases['version'] . 'b2 (GTB: 21:00 UTC)',
+    'beta_3'              => 'Firefox ' . $releases['version'] . 'b3 (GTB: 21:00 UTC)',
+    'beta_4'              => 'Firefox ' . $releases['version'] . 'b4 (GTB: 21:00 UTC)',
+    'beta_5'              => 'Firefox ' . $releases['version'] . 'b5 (GTB: 21:00 UTC)',
+    'beta_6'              => 'Firefox ' . $releases['version'] . 'b6 (GTB: 21:00 UTC)',
+    'beta_7'              => 'Firefox ' . $releases['version'] . 'b7 (GTB: 21:00 UTC)',
+    'beta_8'              => 'Firefox ' . $releases['version'] . 'b8 (GTB: 21:00 UTC)',
+    'beta_9'              => 'Firefox ' . $releases['version'] . 'b9 (GTB: 21:00 UTC)',
+    'beta_10'             => 'Firefox ' . $releases['version'] . 'b10 (GTB: 21:00 UTC)',
+    'beta_11'             => 'Firefox ' . $releases['version'] . 'b11 (GTB: 21:00 UTC)',
+    'beta_12'             => 'Firefox ' . $releases['version'] . 'b12 (GTB: 21:00 UTC)',
+    'beta_13'             => 'Firefox ' . $releases['version'] . 'b13 (GTB: 21:00 UTC)',
+    'beta_14'             => 'Firefox ' . $releases['version'] . 'b14 (GTB: 21:00 UTC)',
+    'beta_15'             => 'Firefox ' . $releases['version'] . 'b15 (GTB: 21:00 UTC)',
+    'rc_gtb'              => 'Firefox ' . $short_version . ' go to Build',
+    'rc'                  => 'RC',
+    'release'             => 'Firefox ' . $short_version . ' go-live @ 6am PT',
+    'planned_dot_release' => 'Firefox ' . $releases['version'] . '.x planned dot release',
 ];
 
 // Add end of early betas to the schedule
