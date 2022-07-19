@@ -19,6 +19,7 @@ enum Status
 class Release
 {
     private string $version;
+    public array $no_planned_dot_releases = ['108.0'];
 
     /* @phpstan-ignore-next-line */
     private Status $release_status;
@@ -86,8 +87,11 @@ class Release
             'rc_gtb'              => $date('Monday'),
             'rc'                  => $date('Tuesday'),
             'release'             => $date($release),
-            'planned_dot_release' => $date($release->modify('+2 weeks')),
         ];
+
+        if (! in_array($this->version, $this->no_planned_dot_release)) {
+            $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks'))];
+        }
 
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);

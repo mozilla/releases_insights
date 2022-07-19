@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
+use ReleaseInsights\Release;
 use ReleaseInsights\Version;
 
 // Historical data from Product Details
@@ -105,6 +106,8 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
     -1
 );
 
+$no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_releases;
+
 return [
     $last_release_date,
     $previous_release_date,
@@ -125,4 +128,5 @@ return [
     $nightly_start_date,
     $beta_start_date,
     $firefox_releases,
+    $no_planned_dot_releases
 ];
