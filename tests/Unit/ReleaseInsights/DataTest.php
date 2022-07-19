@@ -38,3 +38,21 @@ test('Data->getFirefoxVersions()', function () {
     expect($obj->getFirefoxVersions())
         ->toBeArray();
 });
+
+test('Data->getESRReleases()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getESRReleases())
+        ->toBeArray();
+    expect($obj->getESRReleases()['102.0.1'])
+        ->toBe('2022-07-13');
+});
+
+test('Data->getPastReleases()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getPastReleases())
+        ->toBeArray();
+    expect($obj->getPastReleases()['3.6'])
+        ->toBe('2010-01-21');
+    expect($obj->getPastReleases()['102.0.1'])
+        ->toBe('2022-07-13');
+});

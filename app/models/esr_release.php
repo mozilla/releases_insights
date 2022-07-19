@@ -6,7 +6,7 @@ use ReleaseInsights\Data;
 use ReleaseInsights\Utils;
 use ReleaseInsights\ESR;
 
-$esr_releases = include MODELS . 'api/esr_releases.php';
+$esr_releases = (new Data())->getESRReleases();
 
 $upcoming_releases = (new Data())->getFutureReleases();
 

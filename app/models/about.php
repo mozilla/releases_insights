@@ -39,6 +39,10 @@ return $content = <<<"EOD"
         <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
         <td>Release dates for all ESR releases (including dot releases)</td>
     </tr>
+    <tr>
+        <td><a href="/api/firefox/releases/">api/firefox/releases/</a></td>
+        <td>Release dates for all Firefox releases (including dot releases)</td>
+    </tr>
 </table>
 
 <h3>Views</h3>
