@@ -58,6 +58,7 @@ class Request
             '/api/firefox/releases/'      => 'api/firefox_releases',
             '/api/release/owners/'        => 'api/release_owners',
             '/api/nightly/crashes/'       => 'api/nightly_crashes',
+            '/calendar/'                  => 'calendar',
             '/calendar/release/schedule/' => 'ics_release_schedule',
             '/release/owners/'            => 'release_owners',
             default                       => '404',

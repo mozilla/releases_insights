@@ -32,7 +32,14 @@ class Data
     /** @return array<string, string> */
     public function getFutureReleases(): array
     {
-        return $this->future_releases;
+        // Reduce to only ESR releases
+        $future_releases = array_filter(
+            $this->future_releases,
+            function ($key) { return (int) $key >= RELEASE; },
+            ARRAY_FILTER_USE_KEY
+        );
+
+        return $future_releases;
     }
 
     /** @return array<string, string> */

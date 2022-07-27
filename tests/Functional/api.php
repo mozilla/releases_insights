@@ -12,6 +12,7 @@ $paths = [
     "error": "Not enough data for this version number."
 }'],
     ['esr/releases/', 200, 'Verif:skip'],
+    ['firefox/releases/', 200, 'Verif:skip'],
     ['nightly/crashes/', 200, 'Verif:skip'],
     ['release/schedule/?version=beta', 200, 'Verif:skip'],
     ['release/schedule/?version=nightly', 200, 'Verif:skip'],

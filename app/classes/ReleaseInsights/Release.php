@@ -102,4 +102,37 @@ class Release
         return ['version' => $this->version] + $schedule;
     }
 
+    public static function getNiceLabel(string $version, string $label, bool $short=true): string
+    {
+        $short_version = (string) (int) $version;
+
+        $labels = [
+            'nightly_start'       => 'Nightly ' . $short_version . ' starts',
+            'soft_code_freeze'    => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze',
+            'string_freeze'       => 'String Freeze' . ($short ? '' : ' starts'),
+            'merge_day'           => 'Merge day',
+            'beta_1'              => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB',
+            'beta_2'              => ($short ? '' : 'Firefox ') . $short_version . ' b2' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_3'              => ($short ? '' : 'Firefox ') . $short_version . ' b3' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_4'              => ($short ? '' : 'Firefox ') . $short_version . ' b4' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_5'              => ($short ? '' : 'Firefox ') . $short_version . ' b5' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_6'              => ($short ? '' : 'Firefox ') . $short_version . ' b6' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_7'              => ($short ? '' : 'Firefox ') . $short_version . ' b7' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_8'              => ($short ? '' : 'Firefox ') . $short_version . ' b8'  . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_9'              => ($short ? '' : 'Firefox ') . $short_version . ' b9' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_10'             => ($short ? '' : 'Firefox ') . $short_version . ' b10' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_11'             => ($short ? '' : 'Firefox ') . $short_version . ' b11' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_12'             => ($short ? '' : 'Firefox ') . $short_version . ' b12' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_13'             => ($short ? '' : 'Firefox ') . $short_version . ' b13' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_14'             => ($short ? '' : 'Firefox ') . $short_version . ' b14' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_15'             => ($short ? '' : 'Firefox ') . $short_version . ' b15' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'rc_gtb'              => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
+            'rc'                  => ($short ? '' : 'Firefox ') . 'RC',
+            'release'             => ($short ? '' : 'Firefox ') . $short_version . ($short ? ' Release' : ' go-live @ 6am PT'),
+            'planned_dot_release' => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
+        ];
+
+        return $labels[$label];
+    }
+
 }

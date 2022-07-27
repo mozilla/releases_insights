@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+<link rel="stylesheet" type="text/css" href="/style/calendar.css">
+{% endblock %}
+
+{% block header %}
+  <header class="mx-auto">
+    <h1>General Calendar of upcoming releases</h1>
+  </header>
+{% endblock %}
+
+
+{% block main %}
+
+<div class="row fix justify-content-center">
+    {% for key, values in upcoming_releases %}
+    <div class="col-sm-12 col-sm-2 col-md-8">
+        {{ calendar.draw(values, 'indigo')|raw }}
+    <br>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+{% endblock %}

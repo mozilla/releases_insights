@@ -64,6 +64,10 @@ return $content = <<<"EOD"
         <td>Get the list of views and APIs available in this application.</td>
     </tr>
     <tr>
+        <td><a href="/calendar">calendar</a></td>
+        <td>General calendar view of milestones for upcoming releases.</td>
+    </tr>
+    <tr>
         <td>
             <ul class="list-unstyled mb-0">
                 <li><a href="/nightly/">nightly</a> (today)</li>
