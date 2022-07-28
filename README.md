@@ -93,3 +93,36 @@ If you find a bug, please open an issue.
 
 If the application is malfunctionning, the solution is to either flush the cache folder or to restart it as the restart flushes the cache. The most likely cause is that one of the remote source of data was down and the data fetch is missing.
 
+## Production playbook
+
+This application relies on external data from mozilla architecture.
+
+If these external sources are unavailable or sending malformed data, they might cause application bugs or even 500 errors.
+
+List of external sources that the app is pulling data from:
+- https://product-details.mozilla.org/1.0/
+- https://hg.mozilla.org/mozilla-central/json-pushes
+- https://hg.mozilla.org/releases/mozilla-release/json-pushes
+- https://hg.mozilla.org/releases/mozilla-beta/json-pushes
+- https://buildhub.moz.tools/api/search
+- https://crash-stats.mozilla.com/api/SuperSearch/
+- https://bugzilla.mozilla.org/rest/
+- https://aus-api.mozilla.org/api/v1/
+
+Emptying the mutable data in the cache folder (either via the `composer cache:reset` command or by doing `rm cache/*.cache`) should fix any issue caused by external data sources listed above being unavailable and/or providing bogus data.
+
+Restarting the app should solve most problems on production.
+
+If the app is slow, this is most likely because the app can't write to the `cache` folder and makes http requests to external servers for every page load. Make sure that the `cache` folder is writable by the web server.
+
+
+If there is a dependabot PR for a security vulnerability on a single dependency, it's preferable to update all dependencies and redeploy than to merge this single PR:
+
+```bash
+composer update
+git add composer.lock
+git commit -m "Dependencies update"
+git push
+````
+
+The dependabot PR will autoclose.
