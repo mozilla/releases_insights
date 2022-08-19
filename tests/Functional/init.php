@@ -20,8 +20,18 @@ exec('php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo $!', $output);
 // We will need the pid to kill it, beware, this is the pid of the bash process started with start.sh
 $processID = $output[0];
 
+
 // Pause to let time for the dev server to launch in the background in CI, locally it's almost instant
-usleep(isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local' ? 30_000 : 3_000_000);
+for ($i = 0; $i < 300; $i++) {
+    $socket = @fsockopen('localhost', 8083);
+
+    if ($socket !== false) {
+        break;
+    }
+
+    // 10ms per try
+    usleep(10_000);
+}
 
 // This is the function to call to stop the test server in sub-scripts
 function killTestServer(string $processID): void {
