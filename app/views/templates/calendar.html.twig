@@ -16,7 +16,13 @@
 <div class="row fix justify-content-center">
     {% for key, values in upcoming_releases %}
     <div class="col-sm-12 col-sm-2 col-md-8">
-        {{ calendar.draw(values, 'indigo')|raw }}
+        {% set color = 'indigo' %}
+
+        {%  if 'now'|date('Y') <  values|date('Y') %}
+          {% set color = 'green' %}
+        {%  endif %}
+
+        {{ calendar.draw(values, color)|raw }}
     <br>
     </div>
     {% endfor %}
