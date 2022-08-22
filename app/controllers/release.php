@@ -5,6 +5,7 @@ declare(strict_types=1);
 use ReleaseInsights\Data;
 use ReleaseInsights\ESR;
 use ReleaseInsights\Version;
+use ReleaseInsights\Utils;
 
 $requested_version = Version::get();
 
@@ -57,6 +58,7 @@ if ($_GET['version'] === 'esr') {
         'current_ESR'  => $current_ESR,
         'release_date' => $release_date,
         'esr_calendar' => $esr_calendar,
+        'esr_majors'   => ESR::$esr_releases,
     ]);
 
     (new ReleaseInsights\Template('esr_release.html.twig', $template_data))->render();
