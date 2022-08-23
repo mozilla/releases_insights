@@ -107,7 +107,7 @@
   {% if merge_day %}
     <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
   {% elseif nightly_cycle_dates.merge_day|date > now|date %}
-    <h5 class="text-center">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h5>
+    <h5 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h5>
   {% endif %}
 
     <script src="/assets/jquery/jquery.slim.min.js"></script>
