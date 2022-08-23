@@ -11,11 +11,11 @@ SERVER="localhost:8082"
 SUPPORTED_COMMANDS=(
     '-help'
     '-tests'
-    '-no-reload'
+    '-browser-sync'
 )
 
 function ctrl_c() {
-    if [ $# -gt 0 ] && [ ! $1 = '-no-reload' ];
+    if [ $# -gt 0 ];
     then
         pkill browser-sync
     fi
@@ -44,7 +44,7 @@ then
     echo -e "${ORANGE}${BOLD}Usage:${NORMAL}${NOCOLOR}"
     echo -e " ${BOLD}run${NORMAL}               Starts the PHP web server and listen to localhost:8082"
     echo -e " ${BOLD}run -tests${NORMAL}        Runs application test suite"
-    echo -e " ${BOLD}run -no-reload${NORMAL}    Don't run browser-sync even if installed"
+    echo -e " ${BOLD}run -browser-sync${NORMAL}    Run with browser-sync"
     echo ""
     echo "Additional parameters will be ignored."
     exit 1
@@ -59,12 +59,12 @@ fi
 echo -e "${GREEN}${BOLD}Launching PHP development server on http://${SERVER}${NORMAL}${NOCOLOR}"
 
 if command -v browser-sync &> /dev/null; then
-    if [ $# -gt 0 ] && [ $1 = '-no-reload' ]
+    if [ $# -gt 0 ] && [ $1 = '-browser-sync' ]
     then
-        echo -e "${ORANGE}browser-sync is installed on the system but won't be launched${NOCOLOR}"
-    else
         echo -e "${GREEN}browser-sync is installed on the system, launching it in the background${NOCOLOR}"
         browser-sync start --proxy "localhost:8082" --files "**/*" &
+    else
+        echo -e "${ORANGE}browser-sync is installed on the system but won't be launched${NOCOLOR}"
     fi
 fi
 

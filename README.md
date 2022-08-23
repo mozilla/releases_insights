@@ -30,9 +30,7 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 
 The website will be available at http://localhost:8082
 
-If you have intalled the npm package [browser-sync](https://browsersync.io/) (`sudo npm install -g browser-sync`), the `run` script will detect it and launch automatically the website at http://localhost:3000 and any change to a file in the repository will automatically refresh the page in the browser.
-
-If you have browser-sync installed but don't want to launch it, you can use the `run -no-reload` command.
+If you have intalled the npm package [browser-sync](https://browsersync.io/) (`sudo npm install -g browser-sync`) and want to use it, start with the `run -browser-sync` command, it will launch the website at http://localhost:3000 and any change to a file in the repository will automatically refresh the page in the browser. Note that this workflow will break if you make backend changes that break the site.
 
 If you want to set the site up with an Apache virtual host, make it point to the `public` folder and make sure that the `cache` folder is writable by Apache.
 
