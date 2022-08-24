@@ -21,7 +21,12 @@
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
 
   {% if channel == 'nightly' and not nightly_updates %}
-  <div class="w-50 alert alert-warning mx-auto text-center" role="alert">Automatic Updates are currently <b class="text-danger">disabled</b>.</div>
+  <div class="w-50 alert alert-warning mx-auto text-center" role="alert">
+    Automatic Updates are currently <b class="text-danger">disabled</b>.
+    {% if nightly_emergency %}
+    <br><b>Reason :</b> {{ nightly_emergency }}
+    {% endif %}
+  </div>
   {% endif %}
 
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center">

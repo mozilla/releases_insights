@@ -123,6 +123,7 @@ if ((int) $requested_version <= RELEASE) {
         $nightly_cycle_length,
         $nightly_fixes,
         $nightly_updates,
+        $nightly_emergency,
         $cycle_dates,
     ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
@@ -132,6 +133,7 @@ if ((int) $requested_version <= RELEASE) {
         'nightly_cycle_length'  => $nightly_cycle_length,
         'nightly_fixes'         => $nightly_fixes,
         'nightly_updates'       => $nightly_updates,
+        'nightly_emergency'     => $nightly_emergency,
         'cycle_dates'           => $cycle_dates,
     ]);
 } else {

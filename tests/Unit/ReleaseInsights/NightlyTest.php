@@ -5,5 +5,8 @@ declare(strict_types=1);
 use ReleaseInsights\Nightly;
 
 test('Nightly Class', function () {
-    expect((new Nightly(__DIR__ .'/../../Files/'))->version)->toEqual('95.0a1');
+    $obj = new Nightly(TEST_FILES, TEST_FILES, 'nightly_updates_off.json');
+    expect($obj->version)->toEqual('95.0a1');
+    expect($obj->auto_updates)->toBeFalse();
+    expect($obj->emergency_message)->toEqual('Nightly updates are disabled');
 });

@@ -54,10 +54,13 @@ if ((int) $requested_version === BETA) {
 }
 
 $nightly_updates = true;
+$nightly_emergency = '';
 /* Only for the current Nightly view, this makes an HTTP request */
 if ((int) $requested_version == NIGHTLY) {
     // Are nightly updates activated?
-    $nightly_updates = (new Nightly())->auto_updates;
+    $nightly_state     = new Nightly();
+    $nightly_updates   = $nightly_state->auto_updates;
+    $nightly_emergency = $nightly_state->emergency_message;
 }
 
 return [
@@ -66,5 +69,6 @@ return [
     $nightly_cycle_length,
     $nightly_fixes,
     $nightly_updates,
+    $nightly_emergency,
     $cycle_dates,
 ];
