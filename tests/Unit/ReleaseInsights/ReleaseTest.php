@@ -8,11 +8,16 @@ test('Release->getSchedule()', function () {
     $obj = new Release('102.0');
     expect($obj->getSchedule())
         ->toBeArray();
+    $obj = new Release('110.0');
+    expect($obj->getSchedule())
+        ->toBeArray();
+    $obj = new Release('97.0');
+    expect($obj->getSchedule())
+        ->toBeArray();
     $obj = new Release('error');
     expect($obj->getSchedule())
         ->toBeArray();
 });
-
 
 test('Release->getNiceLabel()', function () {
     expect(Release::getNiceLabel('103', 'soft_code_freeze'))

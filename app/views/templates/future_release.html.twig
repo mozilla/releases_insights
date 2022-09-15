@@ -18,6 +18,10 @@
     {% set channel = 'future' %}
   {% endif %}
 
+{% if release == 109 %}
+  {% set alert = alert ~ ' <p class="m-0 text-danger"><span class="information bi bi-info-square-fill fs-6 align-baseline"></span> No automated betas the last week of December.</p>'%}
+{%  endif %}
+
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
 
   {% if channel == 'nightly' and not nightly_updates %}
@@ -110,8 +114,10 @@
   %}
 
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
-  <caption class="alert-success mx-auto text-center">Milestones</caption>
-  {% for key,value in cycle_dates %}
+  <tr>
+    <th colspan="2" class="text-center table-warning">Milestones</th>
+  </tr>
+  {% for key, value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
 
@@ -119,11 +125,11 @@
         {% set extra = ' <small class="badge bg-warning text-dark">Draft beta release notes</small>' %}
       {% endif %}
 
-      {% if loop.revindex == 7%}
+      {% if key == 'beta_6' %}
         {% set extra = ' <small class="badge bg-warning text-dark">Early betas end</small>' %}
       {% endif %}
 
-      {% if loop.revindex == 4 %}
+      {% if key == 'beta_9' %}
         {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts</small>' %}
       {% endif %}
 
