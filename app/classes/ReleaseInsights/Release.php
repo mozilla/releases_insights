@@ -63,7 +63,8 @@ class Release
         $nightly->modify('-1 day');
 
         $x = match ($this->version) {
-            '97.0' => 4,
+            '97.0'  => 4,
+            '110.0' => 4,
             default => 3,
         };
 
@@ -83,7 +84,7 @@ class Release
             'beta_4'              => $date('Sunday'),
             'beta_5'              => $date('Tuesday'),
             'beta_6'              => $date('Thursday'),
-            'beta_7'              => $date('Sunday'),
+            'beta_7'              => $this->version === '109.0' ? $date('Sunday +1 week') : $date('Sunday'),
             'beta_8'              => $date('Tuesday'),
             'beta_9'              => $date('Thursday'),
             'rc_gtb'              => $date('Monday'),

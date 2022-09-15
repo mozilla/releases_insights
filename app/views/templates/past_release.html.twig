@@ -88,7 +88,9 @@
 
     </table>
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
-  <caption class="alert-success mx-auto text-center">Key Milestones</caption>
+    <tr>
+      <th colspan="2" class="text-center table-warning">Key Milestones</th>
+    </tr>
     <tr>
       <th>Nightly start</th>
       <td title="{{ nightly_start_date|format_date('full', locale='en') }}">{{ nightly_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
