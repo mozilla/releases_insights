@@ -22,8 +22,8 @@ foreach($upcoming_releases as $k => $v) {
 }
 
 return [
-    $next_ESR     = str_replace('esr', '', ESR_NEXT),
+    $next_ESR     = ESR_NEXT !==  '' ? str_replace('esr', '', ESR_NEXT) : null,
     $current_ESR  = str_replace('esr', '', ESR),
-    $release_date = $esr_releases[$next_ESR],
+    $release_date = ESR_NEXT !==  ''  ? $esr_releases[$next_ESR] : $esr_releases[$current_ESR],
     $esr_calendar
 ];
