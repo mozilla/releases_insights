@@ -18,7 +18,7 @@ class Data
 
     public function __construct(string $pd_url = 'https://product-details.mozilla.org/1.0/')
     {
-        $this->release_owners = include DATA . 'release_owners.php';
+        $this->release_owners  = include DATA . 'release_owners.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
         $this->pd_url = $pd_url;
     }
@@ -132,9 +132,3 @@ class Data
     }
 
 }
-/*
-
-$firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
-$devedition_releases = Utils::getJson('https://product-details.mozilla.org/1.0/devedition.json')['releases'];
-
-*/
