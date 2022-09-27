@@ -46,8 +46,9 @@ class Nightly
         }
 
         if ($this->auto_updates === false) {
+
             $this->emergency_message = Utils::secureText(
-                Utils::getJson($this->AUS . $this->update_status, 1)['comment']
+                (string) Utils::getJson($this->AUS . $this->update_status, 1)['comment']
             );
         }
     }
