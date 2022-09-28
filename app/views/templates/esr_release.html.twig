@@ -33,33 +33,35 @@
     </table>
 
 <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
-  <caption class="alert-success mx-auto text-center">Releases calendar</caption>
-    <tr>
-      <th>Firefox</th>
-      <th>ESR</th>
-      <th>Old ESR</th>
-      <th>Date</th>
-    </tr>
+  <tr>
+    <th colspan="4" class="text-center table-warning">Releases calendar</th>
+  </tr>
+  <tr>
+    <th>Firefox</th>
+    <th>ESR</th>
+    <th>Old ESR</th>
+    <th>Date</th>
+  </tr>
 
-  {% for key, values in esr_calendar %}
-    <tr>
-      <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }} class="fst-italic fw-light">{{ values.release }}</td>
-      <td  class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
-      <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>{{ values.old_esr }}</td>
-      <td title="{{ values.date|format_date('full', locale='en') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
+{% for key, values in esr_calendar %}
+  <tr>
+    <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }} class="fst-italic fw-light">{{ values.release }}</td>
+    <td  class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
+    <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>{{ values.old_esr }}</td>
+    <td title="{{ values.date|format_date('full', locale='en') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
 
-      {%  if values.release|number_format in esr_majors %}
-        <small class="badge bg-warning text-dark">New ESR branch!</small>
-      {% endif %}
+    {%  if values.release|number_format in esr_majors %}
+      <small class="badge bg-warning text-dark">New ESR branch!</small>
+    {% endif %}
 
-      {% if values.release|number_format > values.esr|number_format and  values.release|number_format - values.esr|number_format == 3 %}
-        <small class="badge bg-warning text-dark">Previous ESR branch is EOL</small>
-      {% endif %}
+    {% if values.release|number_format > values.esr|number_format and  values.release|number_format - values.esr|number_format == 3 %}
+      <small class="badge bg-warning text-dark">Previous ESR branch is EOL</small>
+    {% endif %}
 
-      {{ values.date|format_date(pattern='MMMM d', locale='en') }}
-      </td>
-    </tr>
-  {% endfor %}
+    {{ values.date|format_date(pattern='MMMM d', locale='en') }}
+    </td>
+  </tr>
+{% endfor %}
 
 </table>
 
