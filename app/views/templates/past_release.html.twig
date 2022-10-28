@@ -7,9 +7,7 @@
     {% set alert = 'Version shipping to end-users on the <b class="text-danger">release</b> channel.' %}
     {% set channel = 'release' %}
   {% endif %}
-  {% if release == 106 %}
-    {% set alert = alert ~ ' <p class="m-0 text-danger"><span class="information bi bi-info-square-fill fs-6 align-baseline"></span> Planned dot release initially set to November 1 is advanced to October 26.</p>'%}
-  {%  endif %}
+
 {% block main %}
 
   {% if channel == 'release' %}
@@ -130,19 +128,11 @@
      {% endif %}
 
      {% if release ~ '.0' not in no_planned_dot_releases %}
-       {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
-        {% if release == 106 %}
-          <tr>
-            <th>Planned {{ release }}.0.x</th>
-            <td title="">{{ release_date|date_modify("+1 week next Wednesday")|format_date(pattern='MMMM d', locale='en') }}</td>
-          </tr>
-        {%  else  %}
+       {% if "now"|date('Y-m-d') < release_date|date_modify("+" ~ ( release == 106 ? '1' : '2' ) ~  " weeks")|date('Y-m-d') %}
           <tr>
             <th>Planned {{ release }}.0.x</th>
             <td title="">{{ release_date|date_modify("+2 weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
           </tr>
-        {% endif %}
-
        {% endif %}
      {% endif %}
 
