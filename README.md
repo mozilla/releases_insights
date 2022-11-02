@@ -1,7 +1,7 @@
 [![PHP Composer & CI](https://github.com/pascalchevrel/releases_insights/actions/workflows/php.yml/badge.svg)](https://github.com/pascalchevrel/releases_insights/actions/workflows/php.yml)
 # Release Insights / Firefox Trains Dashboard
 
-This is the code behind https://fx-trains.herokuapp.com/
+This is the code behind https://fx-trains.herokuapp.com also available under the https://whattrainisitnow.com domain.
 
 This application gives the status of Firefox Destop Releases: when do we ship the next release, what are the upcoming milestones for our future Firefox releases, what are the main data points for our past releases.
 
