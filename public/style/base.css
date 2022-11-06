@@ -123,8 +123,20 @@ h3 {
 #release .table td,
 #release_esr .table td {
     text-align: right;
+    white-space: nowrap;
 }
 
+#release .table th details p {
+    padding: 0.5rem;
+    margin: 0.5em;
+    border-left: 3px solid lightgray;
+    font-size: small;
+    font-weight: normal;
+}
+#release .table th summary::marker {
+    color: lightgray;
+    font-size:  small;
+}
 @media only screen and (max-width: 460px) {
     .w-50 {
         width: 100% !important;
