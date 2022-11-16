@@ -52,10 +52,10 @@ class Release
         }
 
         // Future release date object
-        $release = new DateTime($all_releases[$this->version]);
+        $release = new DateTime($all_releases[$this->version] . ' 06:00 PST');
 
         // Previous release object
-        $previous_release = new DateTime($all_releases[Version::decrement($this->version, 1)]);
+        $previous_release = new DateTime($all_releases[Version::decrement($this->version, 1)] . ' 06:00 PST');
 
         // Calculate 1st day of the nightly cycle
         $nightly = new DateTime($all_releases[Version::decrement($this->version, 2)]);
@@ -70,7 +70,7 @@ class Release
 
         // Transform all the DateTime objects in the $schedule array into formated date strings
         $date = function(string|object $day) use ($nightly): string {
-            return is_object($day) ? $day->format('Y-m-d H:i') : $nightly->modify($day)->format('Y-m-d H:i');
+            return is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
         };
 
         $schedule = [
@@ -89,11 +89,11 @@ class Release
             'beta_9'              => $date('Thursday'),
             'rc_gtb'              => $date('Monday'),
             'rc'                  => $date('Tuesday'),
-            'release'             => $date($release),
+            'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
         if (! in_array($this->version, $this->no_planned_dot_releases)) {
-            $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks'))];
+            $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
         }
 
         // Sort the schedule by date, needed for schedules with a fixup

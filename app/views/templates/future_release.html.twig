@@ -133,8 +133,8 @@
     beta_14: 'Extra beta usually due to a longer beta cycle.<br>Stabilization work via uplifts.',
     beta_15: 'Extra beta usually due to a longer beta cycle.<br>Stabilization work via uplifts.',
     rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build a second Release Candidate to fix a major quality or business critical issue.',
-    rc: 'Our Release Candidate is shipped to all of our beta population',
-    release: 'We ship Firefox ' ~ release ~ ' at 6AM PST at 25% rollout',
+    rc: 'Our Release Candidate is shipped to all of our beta population.',
+    release: 'We ship Firefox ' ~ release ~ ' at ' ~ date(cycle_dates.release)|format_date(pattern='HH:mm', locale='en') ~ ' UTC (6AM PST) at 25% rollout.',
     planned_dot_release: 'Two weeks after the release, we ship a dot release to address identified quality issues if needed. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.'
     }
   %}
@@ -214,5 +214,5 @@
 {% endblock %}
 
 {% block footer %}
-  <footer></footer>
+     {%  include 'footer_UTC_warning.html.twig' %}
 {% endblock %}

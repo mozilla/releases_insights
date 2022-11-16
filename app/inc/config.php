@@ -6,7 +6,7 @@ declare(strict_types=1);
 mb_internal_encoding('UTF-8');
 
 // Make sure we have a timezone set
-date_default_timezone_set('America/Los_Angeles');
+date_default_timezone_set('UTC');
 
 // Autoloading of classes (both /vendor/ and /app/classes)
 define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
