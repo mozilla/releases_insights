@@ -40,6 +40,7 @@ define('NIGHTLY',  (int) FIREFOX_NIGHTLY);
 define('BETA',     (int) FIREFOX_BETA);
 define('RELEASE',  (int) FIREFOX_RELEASE);
 define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
+define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 
 // Clean up temp variables from global space
 unset($firefox_versions);
