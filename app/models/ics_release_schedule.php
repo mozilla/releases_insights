@@ -16,7 +16,7 @@ $short_version = (string) (int) $releases['version'];
 
 $release_schedule_labels = [
     'nightly_start'       => 'Nightly ' . $short_version . ' starts',
-    'soft_code_freeze'    => 'Firefox ' . $short_version . ' soft Code Freeze',
+    'soft_code_freeze'    => 'Firefox ' . $short_version . ' soft Code Freeze starts at 08:00 AM UTC',
     'string_freeze'       => 'String Freeze starts',
     'merge_day'           => 'Merge day',
     'beta_1'              => 'Firefox ' . $releases['version'] . 'b1',

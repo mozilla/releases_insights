@@ -75,7 +75,7 @@ class Release
 
         $schedule = [
             'nightly_start'       => $this->version === '100.0' ? $date('+1 day') : $date($nightly),
-            'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday')),
+            'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
             'string_freeze'       => $date('Friday'),
             'merge_day'           => $date('Monday'),
             'beta_1'              => $date('Monday'),
@@ -109,7 +109,7 @@ class Release
 
         $labels = [
             'nightly_start'       => 'Nightly ' . $short_version . ' starts',
-            'soft_code_freeze'    => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze',
+            'soft_code_freeze'    => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC',
             'string_freeze'       => 'String Freeze' . ($short ? '' : ' starts'),
             'merge_day'           => 'Merge day',
             'beta_1'              => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB',
@@ -119,7 +119,7 @@ class Release
             'beta_5'              => ($short ? '' : 'Firefox ') . $short_version . ' b5' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_6'              => ($short ? '' : 'Firefox ') . $short_version . ' b6' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_7'              => ($short ? '' : 'Firefox ') . $short_version . ' b7' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
-            'beta_8'              => ($short ? '' : 'Firefox ') . $short_version . ' b8'  . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'beta_8'              => ($short ? '' : 'Firefox ') . $short_version . ' b8' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_9'              => ($short ? '' : 'Firefox ') . $short_version . ' b9' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_10'             => ($short ? '' : 'Firefox ') . $short_version . ' b10' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_11'             => ($short ? '' : 'Firefox ') . $short_version . ' b11' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
@@ -129,7 +129,7 @@ class Release
             'beta_15'             => ($short ? '' : 'Firefox ') . $short_version . ' b15' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'rc_gtb'              => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
             'rc'                  => ($short ? '' : 'Firefox ') . 'RC',
-            'release'             => ($short ? '' : 'Firefox ') . $short_version . ($short ? ' Release' : ' go-live @ 6am PT'),
+            'release'             => ($short ? '' : 'Firefox ') . $short_version . ($short ? ' Release' : ' go-live @ 6AM PT'),
             'planned_dot_release' => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
         ];
 

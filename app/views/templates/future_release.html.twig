@@ -114,7 +114,7 @@
   %}
  {% set cycle_descriptions = {
     nightly_start: 'The first day of the cycle is <i>Merge Day</i>. After merging mozilla-central to mozilla-beta, we bump the Nightly version number on mozilla-central and a new development cycle starts for Firefox. A new Firefox Nightly is shipped every 12 hours.',
-    soft_code_freeze: 'We are nearing the end of the Nightly cycle. Don\'t land new untested features. Risky changes should be avoided until after <i>Merge Day</i>.',
+    soft_code_freeze: 'We are nearing the end of the Nightly cycle. Don\'t land new untested features. Risky changes should be avoided after 8:00 AM UTC until after the nightly version bump on <i>Merge Day</i>.',
     string_freeze: 'In order to ensure that our localizers have adequate time to translate strings, please make sure that all string changes have landed by end of day.',
     merge_day: 'This is the day in the release cycle when we merge mozilla-central into mozilla-beta. This is the end of the development cycle for Firefox ' ~ release ~ ' and the beginning of our Beta stabilization cycle.',
     beta_1: 'Built manually just after the merge. It is rolled out to 25% of our beta population. Some experimental features are still activated to watch their behavior on a wider population. These experimental features will be deactivated mid-cycle. Uplift requests are open.',
