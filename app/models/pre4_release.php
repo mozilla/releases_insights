@@ -15,4 +15,6 @@ $dot_release_count = count((array) array_filter(
     ARRAY_FILTER_USE_KEY
 ));
 
-return [$dot_release_count];
+$release_date = $firefox_releases['firefox-' . Version::get()]['date'];
+
+return [$dot_release_count, $release_date];

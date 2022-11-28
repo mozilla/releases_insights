@@ -29,8 +29,9 @@ $template_data = [
 
 // Releases before version 4 were handled completely differently
 if ((int) $requested_version < 4) {
-    [$dot_release_count] = require MODELS . 'pre4_release.php';
+    [$dot_release_count, $release_date] = require MODELS . 'pre4_release.php';
     $template_data += ['dot_release_count' => $dot_release_count];
+    $template_data += ['release_date' => $release_date];
     (new ReleaseInsights\Template('pre4_release.html.twig', $template_data))->render();
     exit;
 }
