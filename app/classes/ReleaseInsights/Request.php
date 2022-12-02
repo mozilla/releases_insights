@@ -6,19 +6,14 @@ namespace ReleaseInsights;
 
 class Request
 {
-    public string  $request;
-    public string  $path;
-    public ?string $query;
-    public bool    $invalid_slashes;
+    public string  $request = '/';
+    public string  $path = '/';
+    public ?string $query = null;
+    public bool    $invalid_slashes = true;
 
 
     public function __construct(string $path)
     {
-        $this->request = '/';
-        $this->path = '/';
-        $this->query = null;
-        $this->invalid_slashes = true;
-
         $request = parse_url($path);
 
         if ($request !== false) {
