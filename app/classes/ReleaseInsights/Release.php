@@ -84,7 +84,7 @@ class Release
             'beta_4'              => $date('Sunday 21:00'),
             'beta_5'              => $date('Tuesday 21:00'),
             'beta_6'              => $date('Thursday 21:00'),
-            'beta_7'              => $this->version === '109.0' ? $date('Sunday +1 week 21:00') : $date('Sunday 21:00'),
+            'beta_7'              => $this->version === '109.0' ? $date('Wednesday 21:00') : $date('Sunday 21:00'),
             'beta_8'              => $date('Tuesday 21:00'),
             'beta_9'              => $date('Thursday 21:00'),
             'rc_gtb'              => $date('Monday 21:00'),
