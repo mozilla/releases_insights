@@ -2,7 +2,7 @@
 
 {% block main %}
 
-<h2 class="mx-auto w-50 text-center">{{ page_title }}</h2>
+<h2 class="mx-auto w-75 text-center">{{ page_title }}</h2>
 
 <table class="table table-light table-striped table-bordered table-sm w-75 justify-content-center mt-4">
     <tr>
@@ -19,7 +19,7 @@
       <td class='text-center'>{{ values.total }}</td>
       <td>
       {% for release in values.releases %}
-      <a href="/release/?version={{release}}">{{ release}}</a>
+      <a href="/release/?version={{release|number_format}}">{{ release|number_format }}</a>
        {% if not loop.last %} · {% endif %}
       {% endfor %}
       </td>
