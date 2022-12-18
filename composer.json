@@ -40,7 +40,8 @@
         "symfony/var-dumper": "^5",
         "pchevrel/verif": "^0.5.1",
         "overtrue/phplint": "^4.0",
-        "infection/infection": "^0.26.5"
+        "infection/infection": "^0.26.5",
+        "spatie/laravel-ignition": "^1.6"
     },
 
     "autoload": {
