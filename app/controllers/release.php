@@ -44,7 +44,7 @@ $template_data = array_merge(
     ]
 );
 
-if ($_GET['version'] === 'esr') {
+if (isset($_GET['version']) && $_GET['version'] === 'esr') {
     [
         $next_ESR,
         $current_ESR,
