@@ -8,10 +8,6 @@ date_default_timezone_set('America/Los_Angeles');
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-// Load the .env file to get local vs CI CONTEXT environment value
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->safeLoad();
-
 // Launch PHP dev server in the background
 chdir(realpath(__DIR__ . '/../../'));
 echo getcwd();
