@@ -33,7 +33,7 @@
     },
     "require-dev": {
         "psy/psysh": "^0.11",
-        "phpstan/phpstan": "^1.2",
+        "phpstan/phpstan": "^1.9",
         "nunomaduro/patrol": "^1.0",
         "nunomaduro/phpinsights": "^2.0",
         "pestphp/pest": "^1.19",
