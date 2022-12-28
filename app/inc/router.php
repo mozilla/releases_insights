@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-// Let's redirect all our traffic to whattrainisitnow.com
-if ($_SERVER['SERVER_NAME'] === 'fx-trains.herokuapp.com') {
-    header("Location: https://whattrainisitnow.com" . $_SERVER['REQUEST_URI'], true, 301);
-    exit();
-}
-
 // We import the Request class manually as we haven't autoloaded classes yet
 include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Request.php';
 
