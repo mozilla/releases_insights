@@ -11,7 +11,7 @@ $options = [
         'method'  => 'POST',
         'header'  => 'Content-Type: application/json',
         'content' => '{
-      "_source": ["build.id", "source.revision", "target.version"],
+      "_source": ["build.id", "source.revision"],
       "query": {
         "bool": {
           "must": [
@@ -48,14 +48,10 @@ if (! $data = Cache::getKey($cache_id, 3600*4)) {
         return [];
     }
 
-    // Build a [buildid => [revision, version]] array
+    // Build a [buildid => revision] array
     $filtered = [];
     foreach ($data as $value) {
-        if(isset($api_call) && $api_call === true) {
-            $filtered[$value['build']['id']] = $value['source']['revision'];
-        } else {
-            $filtered[$value['build']['id']] = ['revision' => $value['source']['revision'], 'version' => $value['target']['version']];
-        }
+        $filtered[$value['build']['id']] = $value['source']['revision'];
     }
 
     // We sort the array by key because we want the builds to be in chronological order
@@ -69,4 +65,5 @@ if (! $data = Cache::getKey($cache_id, 3600*4)) {
     }
 }
 
-return $data;
+// Just in case we have duplicates
+return array_unique($data);
