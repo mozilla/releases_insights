@@ -32,20 +32,22 @@ foreach ($nightlies as $buildid => $changeset) {
     if ($i === true) {
         $nightly_pairs[] = [
             'buildid'        => $buildid,
-            'changeset'      => $changeset,
-            'prev_changeset' => end($nightlies_day_before),
+            'changeset'      => $changeset['revision'],
+            'version'        => $changeset['version'],
+            'prev_changeset' => end($nightlies_day_before)['revision'],
         ];
         $i = false;
-        $previous_changeset = $changeset;
+        $previous_changeset = $changeset['revision'];
         continue;
     }
 
     $nightly_pairs[] = [
         'buildid'        => $buildid,
-        'changeset'      => $changeset,
+        'changeset'      => $changeset['revision'],
+        'version'        => $changeset['version'],
         'prev_changeset' => $previous_changeset,
     ];
-    $previous_changeset = $changeset;
+    $previous_changeset = $changeset['revision'];
 }
 
 $build_crashes = [];
