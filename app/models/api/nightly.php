@@ -51,11 +51,7 @@ if (! $data = Cache::getKey($cache_id, 3600*4)) {
     // Build a [buildid => [revision, version]] array
     $filtered = [];
     foreach ($data as $value) {
-        if(isset($api_call) && $api_call === true) {
-            $filtered[$value['build']['id']] = $value['source']['revision'];
-        } else {
-            $filtered[$value['build']['id']] = ['revision' => $value['source']['revision'], 'version' => $value['target']['version']];
-        }
+        $filtered[$value['build']['id']] = ['revision' => $value['source']['revision'], 'version' => $value['target']['version']];
     }
 
     // We sort the array by key because we want the builds to be in chronological order
