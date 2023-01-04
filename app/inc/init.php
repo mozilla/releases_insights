@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-include 'vendor/autoload.php';
-
 // Load the .env file to get local vs CI CONTEXT environment value
 $dotenv = Dotenv\Dotenv::createImmutable(INSTALL_ROOT);
 $dotenv->safeLoad();
