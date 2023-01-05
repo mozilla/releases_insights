@@ -49,6 +49,12 @@ class ESR
     public static function getOlderSupportedVersion(int $version): ?string
     {
         $current_ESR = self::getVersion($version);
+
+        // We can't find a matching ESR, return now to avoid PHP warnings
+        if (is_null($current_ESR)) {
+            return null;
+        }
+
         $current_ESR = Utils::getMajorVersion($current_ESR);
 
         // We don't have an older ESR than the first ESR

@@ -30,6 +30,7 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [94, null],
     [10, null],
     [102, '91.11.0'],
+    [1000, null],
 ]);
 
 test('ESR::getMainDotVersion', function ($input, $output) {
