@@ -4,6 +4,7 @@ include 'init.php';
 
 $paths = [
     ['404/', 404, '404: Page Not Found', 'id="notfound"'],
+    ['somerandomfile.png', 404, '', ''], // missing files, not pages, don't get a 404 page, just a 404 http response code
     ['yolo', 302, '', ''], // Test that we redirect yolo to yolo/
     ['', 200, 'Firefox Trains', 'id="homepage"'],
     ['about/', 200, 'All APIs are under the', 'id="about"'],
