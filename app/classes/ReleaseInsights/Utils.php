@@ -275,4 +275,30 @@ class Utils
             print_r($json->outputContent($data, $_GET['callback'] ?? false));
         }
     }
+
+    /**
+     * Utility function to get a visitor IP
+     *
+     */
+    public static function getIP(): ?string
+    {
+        // Determining visitor IP
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $client_ip = $_SERVER['HTTP_CLIENT_IP'];
+        } else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $client_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if(isset($_SERVER['HTTP_X_FORWARDED'])) {
+            $client_ip = $_SERVER['HTTP_X_FORWARDED'];
+        } else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+            $client_ip = $_SERVER['HTTP_FORWARDED_FOR'];
+        } else if(isset($_SERVER['HTTP_FORWARDED'])) {
+            $client_ip = $_SERVER['HTTP_FORWARDED'];
+        } else if(isset($_SERVER['REMOTE_ADDR'])) {
+            $client_ip = $_SERVER['REMOTE_ADDR'];
+        } else {
+            return null;
+        }
+
+        return $client_ip;
+    }
 }

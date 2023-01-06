@@ -148,3 +148,33 @@ test('Utils::getCrashesForBuildID', function () {
     expect(U::getCrashesForBuildID(20190927094817))->toBeArray()->toBeEmpty();
     expect(U::getCrashesForBuildID(20200927094817))->toBeArray()->not->toBeEmpty();
 });
+
+test('Utils::getIP', function () {
+    expect(U::getIP())->toBeNull();
+
+    $_SERVER['HTTP_CLIENT_IP'] = '1.1.1.1';
+    expect(U::getIP())->toBeString();
+    unset($_SERVER['HTTP_CLIENT_IP']);
+
+    $_SERVER['HTTP_X_FORWARDED_FOR'] = '1.1.1.1';
+    expect(U::getIP())->toBeString();
+    unset($_SERVER['HTTP_X_FORWARDED_FOR']);
+
+    $_SERVER['HTTP_X_FORWARDED'] = '1.1.1.1';
+    expect(U::getIP())->toBeString();
+    unset($_SERVER['HTTP_X_FORWARDED']);
+
+    $_SERVER['HTTP_FORWARDED_FOR'] = '1.1.1.1';
+    expect(U::getIP())->toBeString();
+    unset($_SERVER['HTTP_FORWARDED_FOR']);
+
+    $_SERVER['HTTP_FORWARDED'] = '1.1.1.1';
+    expect(U::getIP())->toBeString();
+    unset($_SERVER['HTTP_FORWARDED']);
+
+    $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
+    expect(U::getIP())->toBeString();
+    unset($_SERVER['REMOTE_ADDR']);
+});
+
+
