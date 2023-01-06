@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Request;
 use ReleaseInsights\Utils;
 
 // Is that a known suspicious IP?
@@ -13,7 +14,8 @@ if (file_exists($target)) {
 
 $client_ip = Utils::getIP();
 
-// Log suspicious IPs, $url object is defined in init.php
+// Log suspicious IPs
+$url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 if (Utils::inString($url->path, ['wp-admin', 'wp-content'])) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
@@ -27,3 +29,6 @@ if (Utils::inString($url->path, ['wp-admin', 'wp-content'])) {
     http_response_code(403);
     die('IP blocked.');
 }
+
+// Clean up temp variables from global space
+unset ($client_ip, $ips, $target, $url);
