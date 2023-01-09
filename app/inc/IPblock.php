@@ -23,7 +23,7 @@ if (Utils::inString(
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
         file_put_contents($target, json_encode($ips));
-        Utils::dump("Suspicious $client_ip added to blockedIPs.json.cache");
+        error_log("Suspicious $client_ip added to $target");
     }
 }
 
