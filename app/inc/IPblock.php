@@ -16,7 +16,10 @@ $client_ip = Utils::getIP();
 
 // Log suspicious IPs
 $url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
-if (Utils::inString($url->path, ['wp-admin', 'wp-content'])) {
+if (Utils::inString(
+    $url->path,
+    ['wp-', 'adminer.php', 'hbk_ios.php', 'go.php', 'wordpress']
+    )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
         file_put_contents($target, json_encode($ips));
