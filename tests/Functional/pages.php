@@ -6,6 +6,8 @@ $paths = [
     ['404/', 404, '404: Page Not Found', 'id="notfound"'],
     ['somerandomfile.png', 404, '', ''], // missing files, not pages, don't get a 404 page, just a 404 http response code
     ['yolo', 302, '', ''], // Test that we redirect yolo to yolo/
+    ['//', 302, '', ''], // Test that we redirect pages starting with multiple slases to the homepage
+    ['//yolo', 302, '', ''], // Test that we redirect pages starting with multiple slashes to the homepage
     ['', 200, 'Firefox Trains', 'id="homepage"'],
     ['about/', 200, 'All APIs are under the', 'id="about"'],
     ['nightly/', 200, '', 'id="nightly"'],

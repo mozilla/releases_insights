@@ -8,6 +8,8 @@ test('Request->getController()', function ($input, $output) {
     expect($output)->toEqual((new Request($input))->getController());
 })->with([
     ['/',                           'homepage'],
+    ['//',                          'homepage'],
+    ['//yolo',                      'homepage'],
     ['/about',                      'about'],
     ['/nightly',                    'nightly'],
     ['/release',                    'release'],
