@@ -36,7 +36,7 @@
     <table class="table table-light table-striped table-bordered table-sm mb-3">
       <tbody>
         <tr class="table-dark"  >
-            <th style="max-width: 12em">Bug</th>
+            <th>Bug</th>
             <th>Component</th>
             <th>Summary</th>
         </tr>
@@ -48,9 +48,9 @@
                 {%- set alert_title =' title="Bug marked as Enhancement"' -%}
         {%- endif -%}
         <tr class="small">
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%; white-space: nowrap; text-align:right" class="link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id|number_format(0, '', '&thinsp;')|raw  }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%; white-space: nowrap;" class="link-dark {{ alert_link }}">{{ details.component }}</td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" style="display:inline-block; width:100%; height:100%;" class="link-dark {{ alert_link }}">{{ details.summary }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id|number_format(0, '', '&thinsp;')|raw  }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
         </tr>
         {% endfor %}
       </tbody>

@@ -61,7 +61,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* crashes on Nightly page */
+/* Nightly page */
 
 #nightly .buildid {
     margin-left: -2em;
@@ -81,6 +81,13 @@ nav svg {
 .table th {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+}
+
+.bug-link {
+    display:inline-block;
+    width:100%;
+    height:100%;
+    white-space: nowrap;
 }
 
 /* home page */
