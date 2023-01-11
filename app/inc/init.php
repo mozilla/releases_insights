@@ -15,9 +15,6 @@ if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local') {
     }
 }
 
-// Block suspucious accesses
-require_once __DIR__ . '/IPblock.php';
-
 // Dispatch urls
 $url = new ReleaseInsights\Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 

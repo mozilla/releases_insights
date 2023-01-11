@@ -16,6 +16,9 @@ include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Request.p
 $url  = new Request($_SERVER['REQUEST_URI']);
 $file = pathinfo($url->path);
 
+// Block suspicious accesses
+require_once __DIR__ . '/IPblock.php';
+
 // Real files and folders don't get pre-processed
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url->path) && $url->path !== '/') {
     return false;

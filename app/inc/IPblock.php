@@ -5,9 +5,13 @@ declare(strict_types=1);
 use ReleaseInsights\Request;
 use ReleaseInsights\Utils;
 
+// We import the Utils class manually as we haven't autoloaded classes yet
+include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Utils.php';
+
 // Is that a known suspicious IP?
 $ips = [];
-$target = CACHE_PATH . 'blockedIPs.json.cache';
+$target = realpath(__DIR__ . '/../../cache/')  . '/blockedIPs.json.cache';
+
 if (file_exists($target)) {
     $ips = json_decode(file_get_contents($target));
 }
@@ -15,9 +19,9 @@ if (file_exists($target)) {
 $client_ip = Utils::getIP();
 
 // Log suspicious IPs
-$url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
+$url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 if (Utils::inString(
-    $url->path,
+    $url_inspected->path,
     ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin', 'xmlrpc', 'civicrm', 'backup', '_health-check']
     )) {
     if (! in_array($client_ip, $ips) ) {
@@ -34,4 +38,4 @@ if (Utils::inString(
 }
 
 // Clean up temp variables from global space
-unset ($client_ip, $ips, $target, $url);
+unset ($client_ip, $ips, $target, $url_inspected);
