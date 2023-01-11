@@ -13,8 +13,8 @@ return $content = <<<"EOD"
 <h3>APIs</h3>
 <table class="table table-light table-striped table-bordered table-sm">
     <colgroup>
-      <col style="width:35%">
-      <col style="width:65%">
+      <col>
+      <col>
     </colgroup>
     <tr class="table-dark">
         <th>URL</th><th>Description</th>
@@ -48,8 +48,8 @@ return $content = <<<"EOD"
 <h3>Views</h3>
 <table class="table table-light table-striped table-bordered table-sm">
     <colgroup>
-      <col style="width:35%">
-      <col style="width:65%">
+      <col>
+      <col>
     </colgroup>
 
     <tr class="table-dark">
