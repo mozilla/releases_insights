@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /nightly/ # content there is temporary
+
