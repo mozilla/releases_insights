@@ -18,7 +18,7 @@ $client_ip = Utils::getIP();
 $url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 if (Utils::inString(
     $url->path,
-    ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin']
+    ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin', 'xmlrpc', 'civicrm', 'backup', '_health-check']
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
