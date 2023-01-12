@@ -1,4 +1,4 @@
-[![PHP Composer & CI](https://github.com/pascalchevrel/releases_insights/actions/workflows/php.yml/badge.svg)](https://github.com/pascalchevrel/releases_insights/actions/workflows/php.yml)
+[![PHP Composer & CI](https://github.com/mozilla/releases_insights/actions/workflows/php.yml/badge.svg)](https://github.com/mozilla/releases_insights/actions/workflows/php.yml)
 # Release Insights / Firefox Trains Dashboard
 
 This is the code behind https://fx-trains.herokuapp.com also available under the https://whattrainisitnow.com domain.
@@ -56,7 +56,7 @@ The image is configured to listen on port 8000.
 
 ```bash
 docker build . -t fx-trains \
-  --build-arg source=https://github.com/pascalchevrel/releases_insights \
+  --build-arg source=https://github.com/mozilla/releases_insights \
   --build-arg version= \
   --build-arg commit=$( git rev-parse HEAD ) \
   --build-arg build=
