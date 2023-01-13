@@ -27,6 +27,7 @@ jobs:
 
   dependencies:
     runs-on: ubuntu-latest
+    needs: [build]
 
     steps:
       - name: Validate composer.json and composer.lock
