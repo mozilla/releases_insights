@@ -50,6 +50,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    needs: [build]
 
     steps:
       - name: Run linter (parallel-lint)
