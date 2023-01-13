@@ -142,13 +142,17 @@ class Utils
     public static function getJson(string $url, int $ttl = 0): array
     {
         if (! $data = Cache::getKey($url, $ttl)) {
-            $data = file_get_contents($url);
+            $context = stream_context_create(['http' => ['ignore_errors' => true]]);
+            $data = file_get_contents($url, false, $context);
 
-            // No data returned, bug or incorrect date, don't cache.
-            if (empty($data)) {
-                return [];
+            // We don't want to cache error messages for 404s
+            if (! str_contains($http_response_header[0], '404 Not Found')) {
+                // No data returned, bug or incorrect date, don't cache.
+                if (empty($data)) {
+                    return [];
+                }
+                Cache::setKey($url, $data, $ttl);
             }
-            Cache::setKey($url, $data, $ttl);
         }
 
         return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
