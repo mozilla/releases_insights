@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -53,6 +55,9 @@ jobs:
     needs: [build]
 
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
       - name: Run linter (parallel-lint)
         run: composer run-script test:lint
 
