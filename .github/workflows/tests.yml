@@ -50,7 +50,6 @@ jobs:
         php tests/Functional/pages.php
         php tests/Functional/api.php
 
-jobs:
   static_analysis:
     runs-on: ubuntu-latest
 
