@@ -56,6 +56,7 @@
         "test:unitcov": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
         "test:coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage | tail -12",
         "test:static": "vendor/bin/phpstan --xdebug",
+        "test:static_ci": "vendor/bin/phpstan",
         "test:pages": "php tests/Functional/pages.php",
         "test:api": "php tests/Functional/api.php",
         "test:content": "php tests/Functional/pages.php;php tests/Functional/api.php",
