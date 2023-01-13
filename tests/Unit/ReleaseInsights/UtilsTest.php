@@ -68,6 +68,9 @@ test('Utils::getJson', function () {
     expect(U::getJson(__DIR__ . '/../../Files/empty.json'))
         ->toBeEmpty()
         ->toBeArray();
+    expect(U::getJson(__DIR__ . '/../../Files/iDontExist.json'))
+        ->toBeEmpty()
+        ->toBeArray();
 });
 
 test('Utils::mtrim', function ($input, $output) {
