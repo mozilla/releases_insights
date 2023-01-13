@@ -1,4 +1,4 @@
-name: PHP Composer & CI
+name: Tests
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
     paths-ignore:
       - '**/*.md'
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,31 +25,46 @@ jobs:
         php-version: '8.1'
         tools: parallel-lint
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+  dependencies:
+    runs-on: ubuntu-latest
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      steps:
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Run Unit Tests (Pest)
-      run: composer run-script test:unit
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+  lint:
+    runs-on: ubuntu-latest
 
     - name: Run linter (parallel-lint)
       run: composer run-script test:lint
 
-    - name: Run functional tests (API, pages)
-      run: |
-        php tests/Functional/pages.php
-        php tests/Functional/api.php
+  unit:
+    runs-on: ubuntu-latest
 
-    - name: Run static analysis (PHPStan)
-      run: composer run-script test:static
+    - name: Run Unit Tests (Pest)
+      run: composer run-script test:unit
+
+  content:
+    runs-on: ubuntu-latest
+      - name: Run functional tests (API, pages)
+        run: |
+          php tests/Functional/pages.php
+          php tests/Functional/api.php
+
+  static:
+    runs-on: ubuntu-latest
+
+      - name: Run static analysis (PHPStan)
+        run: composer run-script test:static
