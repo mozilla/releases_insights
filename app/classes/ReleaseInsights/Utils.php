@@ -153,7 +153,7 @@ class Utils
         }
 
         // Remote file is not available
-        if (Utils::inString(get_headers($url)[0], ['403', '404', '500']) ) {
+        if (Utils::inString(get_headers($url)[0], ['404', '500']) ) {
             return '';// @codeCoverageIgnore
         }
 
