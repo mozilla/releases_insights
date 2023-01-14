@@ -23,8 +23,8 @@ $url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE
 if (Utils::inString(
     $url_inspected->request,
     ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
-     'xmlrpc', 'civicrm', 'backup', '_health-check', 'wallet', 'php.php', '.env',
-     'vendor', 'phpunit', 'includes',]
+     'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
+     'vendor', 'phpunit', 'includes', 'relatedlink' ]
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
