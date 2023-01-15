@@ -24,7 +24,8 @@ if (Utils::inString(
     $url_inspected->request,
     ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
      'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
-     'vendor', 'phpunit', 'includes', 'relatedlink' ]
+     'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
+     'administrator', '0z.php', ]
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
