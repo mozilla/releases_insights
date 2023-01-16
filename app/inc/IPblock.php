@@ -25,12 +25,12 @@ if (Utils::inString(
     ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
      'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
      'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
-     'administrator', '0z.php', 'sftp-config.json', 'info.php', 'old', 'test',]
+     'administrator', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test',]
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
         file_put_contents($target, json_encode($ips));
-        error_log("Suspicious $client_ip added to $target");
+        error_log("Suspicious $client_ip added to $target: access to  $url_inspected->request");
     }
 }
 
