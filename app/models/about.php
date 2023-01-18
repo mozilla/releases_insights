@@ -95,10 +95,21 @@ return $content = <<<"EOD"
         <td><a href="/release/owners/">release/owners/</a></td>
         <td>List all past releases per release owner.</td>
     </tr>
-    </tr>
     <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
         <td>Download an icalendar (.ics) file of future milestones for a future release. Can be imported into your calendar application.</td>
+    </tr>
 </table>
 
+<h3>Credits</h3>
+<table class="table table-light table-striped table-bordered table-sm">
+    <tr class="table-dark">
+        <th>What</th>
+        <th>Who</th>
+    </tr>
+    <tr>
+        <td>Train favicon</td>
+        <td><a href="https://www.iconfinder.com/iconsets/circle-icons-1" target="_blank">Circle Icons</a> by Nick Roach</td>
+    </tr>
+</table>
 EOD;
