@@ -66,6 +66,7 @@ class Request
             '/calendar/'                  => 'calendar',
             '/calendar/release/schedule/' => 'ics_release_schedule',
             '/release/owners/'            => 'release_owners',
+            '/sitemap/'                   => 'sitemap',
             default                       => '404',
         };
     }

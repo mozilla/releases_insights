@@ -15,6 +15,8 @@ $paths = [
     ['release/', 200, 'Release Owner', 'id="release"'],
     ['release/owners/', 200, 'Major releases per owner since version 27', 'id="release_owners"'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
+    ['sitemap/', 301, '', ''],
+    ['sitemap.txt', 200, '', ''],
 ];
 
 $obj = new \pchevrel\Verif('Check public pages HTTP responses and content');

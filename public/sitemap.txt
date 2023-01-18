@@ -1,0 +1,10 @@
+https://whattrainisitnow.com/
+https://whattrainisitnow.com/release/?version=release
+https://whattrainisitnow.com/release/?version=beta
+https://whattrainisitnow.com/release/?version=nightly
+https://whattrainisitnow.com/release/?version=esr
+https://whattrainisitnow.com/about/
+https://whattrainisitnow.com/calendar/
+https://whattrainisitnow.com/release/owners/
+
+
