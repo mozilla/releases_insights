@@ -25,7 +25,8 @@ if (Utils::inString(
     ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
      'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
      'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
-     'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php']
+     'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
+     'profiler', 'license.txt']
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
