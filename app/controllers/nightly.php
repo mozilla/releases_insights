@@ -12,7 +12,8 @@ declare(strict_types=1);
     $requested_date,
     $next_date,
     $today,
-    $known_top_crashes
+    $known_top_crashes,
+    $fallback_nightly,
 ] = require_once MODELS . 'nightly.php';
 
 (new ReleaseInsights\Template(
@@ -30,6 +31,7 @@ declare(strict_types=1);
         'next_date'         => $next_date,
         'today'             => $today,
         'known_top_crashes' => $known_top_crashes,
+        'fallback_nightly'  => $fallback_nightly,
     ]
 ))->render();
 

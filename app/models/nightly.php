@@ -17,6 +17,28 @@ $nightlies = include MODELS . 'api/nightly.php';
 
 // Store a value for the View title
 $display_date = strtotime($requested_date);
+$fallback_nightly = false;
+
+// This is a fallback mechanism for Buildhub which sometimes takes hours to have the latest nightly
+if (empty($nightlies)) {
+    // Get the latest nightly build ID, used as a tooltip on the nightly version number
+    $latest_nightly = Utils::getJson(
+        'https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/firefox-' . FIREFOX_NIGHTLY . '.en-US.win64.json',
+        3600
+    );
+    if (isset($latest_nightly['buildid'])) {
+        $nightlies = [
+            $latest_nightly['buildid'] => [
+                'revision' => $latest_nightly['moz_source_stamp'],
+                'version'  => FIREFOX_NIGHTLY
+            ]
+
+        ];
+
+        $fallback_nightly = true;
+    }
+    unset($latest_nightly);
+}
 
 // We now fetch the previous day nightlies because we need them for changelogs
 $_GET['date'] = $previous_date;
@@ -110,5 +132,6 @@ return [
     $requested_date,
     $next_date,
     $today,
-    $known_top_crashes
+    $known_top_crashes,
+    $fallback_nightly
 ];

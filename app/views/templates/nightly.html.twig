@@ -13,9 +13,11 @@
 {% for dataset in nightly_pairs %}
     <a href="#buildid_{{ dataset.buildid }}" name="buildid_{{ dataset.buildid }}" class="buildid list-group-item float-start bg-transparent">#</a>
     <ul class="list-group list-group-horizontal">
+        {% if fallback_nightly %}
+        <li class="list-group-item bg-warning"></li>
+        {% endif %}
         <li class="list-group-item bg-info">
             <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}" class="text-light" title="Nightly {{ dataset.version }}">{{ dataset.buildid }}</a>
-        </li>
         <li class="list-group-item text-light bg-secondary">
             <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{ dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
         </li>
