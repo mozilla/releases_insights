@@ -26,7 +26,7 @@ if (Utils::inString(
      'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
      'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
      'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
-     'profiler', 'license.txt']
+     'profiler', 'license.txt', 'ofc_upload_image']
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
