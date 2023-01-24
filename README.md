@@ -107,6 +107,7 @@ List of external sources that the app is pulling data from:
 - https://crash-stats.mozilla.com/api/SuperSearch/
 - https://bugzilla.mozilla.org/rest/
 - https://aus-api.mozilla.org/api/v1/
+- https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/
 
 Emptying the mutable data in the cache folder (either via the `composer cache:reset` command or by doing `rm cache/*.cache`) should fix any issue caused by external data sources listed above being unavailable and/or providing bogus data.
 
