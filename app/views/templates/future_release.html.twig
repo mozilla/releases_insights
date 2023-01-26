@@ -161,7 +161,7 @@
 
 {% if release == 111 %}
   {%
-    set v111_text = "<br><br><span class=\"fw-bold\">Please note:</span><span> pwn2own 2023 takes place on March 22-24. If there are any Firefox exploits announced, then we may need to chemspill prior to the planned dot release. The timing of the chemspill may impact the planned fot release. We will send further communication closer to the planned dot release date.</span>"
+    set v111_text = "<br><br><span class=\"fw-bold\">Please note:</span><span> pwn2own 2023 takes place on March 22-24. If there are any Firefox exploits announced, then we may need to chemspill prior to the planned dot release. The timing of the chemspill may impact the planned dot release. We will send further communication closer to the planned dot release date.</span>"
   %}
   {%
     set cycle_descriptions = cycle_descriptions|merge({'planned_dot_release': cycle_descriptions.planned_dot_release ~ v111_text })
