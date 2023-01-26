@@ -73,26 +73,49 @@ class Release
             return is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
         };
 
-        $schedule = [
-            'nightly_start'       => $this->version === '100.0' ? $date('+1 day') : $date($nightly),
-            'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
-            'string_freeze'       => $date('Friday'),
-            'merge_day'           => $date('Monday'),
-            'beta_1'              => $date('Monday'),
-            'beta_2'              => $date('Tuesday 21:00'),
-            'beta_3'              => $date('Thursday 21:00'),
-            'sumo_1'              => $date('Friday 21:00'),
-            'beta_4'              => $date('Sunday 21:00'),
-            'beta_5'              => $date('Tuesday 21:00'),
-            'beta_6'              => $date('Thursday 21:00'),
-            'beta_7'              => $this->version === '109.0' ? $date('Wednesday 21:00') : $date('Sunday 21:00'),
-            'sumo_2'              => $date('Monday 21:00'),
-            'beta_8'              => $date('Tuesday 21:00'),
-            'beta_9'              => $date('Thursday 21:00'),
-            'rc_gtb'              => $date('Monday 21:00'),
-            'rc'                  => $date('Tuesday'),
-            'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
-        ];
+
+        if ($this->version === '116.0') {
+            $schedule = [
+                'nightly_start'       => $date($nightly),
+                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
+                'string_freeze'       => $date('Friday'),
+                'merge_day'           => $date('Tuesday'),
+                'beta_1'              => $date('Tuesday'),
+                'beta_2'              => $date('Thursday 21:00'),
+                'sumo_1'              => $date('Friday 21:00'),
+                'beta_3'              => $date('Sunday 21:00'),
+                'beta_4'              => $date('Tuesday 21:00'),
+                'beta_5'              => $date('Thursday 21:00'),
+                'beta_6'              => $date('Sunday 21:00'),
+                'sumo_2'              => $date('Monday 21:00'),
+                'beta_7'              => $date('Tuesday 21:00'),
+                'beta_8'              => $date('Thursday 21:00'),
+                'rc_gtb'              => $date('Monday 21:00'),
+                'rc'                  => $date('Tuesday'),
+                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
+            ];
+        } else {
+            $schedule = [
+                'nightly_start'       => $this->version === '117.0' ? $date('+1 day') : $date($nightly),
+                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
+                'string_freeze'       => $date('Friday'),
+                'merge_day'           => $date('Monday'),
+                'beta_1'              => $date('Monday'),
+                'beta_2'              => $date('Tuesday 21:00'),
+                'beta_3'              => $date('Thursday 21:00'),
+                'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
+                'beta_4'              => $date('Sunday 21:00'),
+                'beta_5'              => $date('Tuesday 21:00'),
+                'beta_6'              => $date('Thursday 21:00'),
+                'beta_7'              => $date('Sunday 21:00'),
+                'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
+                'beta_8'              => $date('Tuesday 21:00'),
+                'beta_9'              => $date('Thursday 21:00'),
+                'rc_gtb'              => $date('Monday 21:00'),
+                'rc'                  => $date('Tuesday'),
+                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
+            ];
+        }
 
         if (! in_array($this->version, $this->no_planned_dot_releases)) {
             $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];

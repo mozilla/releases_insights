@@ -20,6 +20,9 @@ test('Release->getSchedule()', function () {
     $obj = new Release('110.0');
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
+    $obj = new Release('116.0'); // merge day is Tuesday and we have one beta left
+    expect($obj->getSchedule())
+        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
 });
 
 test('Release->getNiceLabel()', function () {
