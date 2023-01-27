@@ -18,7 +18,7 @@ if (file_exists($target)) {
 
 $client_ip = Utils::getIP();
 
-// Log suspicious IPs
+// Log suspicious IPs that access paths that are known vulnerabilities in frameworks
 $url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 if (Utils::inString(
     $url_inspected->request,
@@ -27,7 +27,7 @@ if (Utils::inString(
      'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
      'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
      'profiler', 'license.txt', 'ofc_upload_image', 'dup-installer', 'style.php',
-     '/wp/', '/bk/', ]
+     '/wp/', '/bk/', 'wso', 'bala.php', ]
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
@@ -37,7 +37,7 @@ if (Utils::inString(
 }
 
 // Block suspicious IPs
- if (in_array($client_ip, $ips)) {
+if (in_array($client_ip, $ips)) {
     http_response_code(403);
     die('IP blocked.');
 }
