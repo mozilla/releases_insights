@@ -46,10 +46,10 @@ class Nightly
         }
 
         if ($this->auto_updates === false) {
-
-            $this->emergency_message = Utils::secureText(
-                (string) Utils::getJson($this->AUS . $this->update_status, 1)['comment']
-            );
+            $tmp = Utils::getJson($this->AUS . $this->update_status, 1);
+            $tmp = $tmp['comment'] ?? '';
+            $this->emergency_message = Utils::secureText($tmp);
+            unset($tmp);
         }
     }
 }

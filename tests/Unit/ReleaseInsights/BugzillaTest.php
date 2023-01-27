@@ -11,6 +11,13 @@ test('Bugzilla::getBugListLink', function () {
     );
 });
 
+test('Bugzilla::linkify', function () {
+    $this->assertEquals(
+        'Le <a href="https://bugzilla.mozilla.org/125468">bug 125468</a> est fermé, le <a href="https://bugzilla.mozilla.org/7454654">Bug 7454654</a> est ouvert un essai de <a href="https://bugzilla.mozilla.org/458">bug  458</a> et de <a href="https://bugzilla.mozilla.org/1">bug 1</a>aa4.',
+        bz::linkify('Le bug 125468 est fermé, le Bug 7454654 est ouvert un essai de bug  458 et de bug 1aa4.')
+    );
+});
+
 test('Bugzilla::getBugsFromHgWeb', function () {
     expect(bz::getBugsFromHgWeb(TEST_FILES . 'beta97_json-pushes.json'))
         ->toBeArray()
