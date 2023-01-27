@@ -60,7 +60,7 @@ if ((int) $requested_version == NIGHTLY) {
     // Are nightly updates activated?
     $nightly_state     = new Nightly();
     $nightly_updates   = $nightly_state->auto_updates;
-    $nightly_emergency = $nightly_state->emergency_message;
+    $nightly_emergency = Bugzilla::linkify($nightly_state->emergency_message);
 }
 
 return [
