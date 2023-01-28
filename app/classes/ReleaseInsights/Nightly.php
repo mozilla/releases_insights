@@ -34,6 +34,8 @@ class Nightly
         // @codeCoverageIgnoreStart
         // Check that the URL is valid (We are not in an HTTP (useful for unit tests that test a local file)
         if (filter_var($this->AUS . $this->update_status, FILTER_VALIDATE_URL)) {
+            // The JSON file only exists when updates are stopped.
+            // If there is no file at the URL, it means that automatic updates are enabled.
             $this->auto_updates = str_contains(
                 get_headers($this->AUS . $this->update_status)[0],
                 '404'
