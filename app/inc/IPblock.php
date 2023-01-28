@@ -22,12 +22,14 @@ $client_ip = Utils::getIP();
 $url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 if (Utils::inString(
     $url_inspected->request,
-    ['wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
-     'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
-     'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
-     'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
-     'profiler', 'license.txt', 'ofc_upload_image', 'dup-installer', 'style.php',
-     '/wp/', '/bk/', 'wso', 'bala.php', ]
+    [
+        'wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
+        'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
+        'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
+        'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
+        'profiler', 'license.txt', 'ofc_upload_image', 'dup-installer', 'style.php',
+        '/wp/', '/bk/', 'wso', 'bala.php', 'dialog.php', 'filemanager', '/xt/index.php',
+    ]
     )) {
     if (! in_array($client_ip, $ips) ) {
         $ips[] = $client_ip;
