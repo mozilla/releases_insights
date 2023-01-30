@@ -74,19 +74,23 @@ foreach ($nightlies as $buildid => $changeset) {
 }
 
 $build_crashes = [];
-foreach ($nightly_pairs as $dataset) {
-    $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
-}
-
 $top_sigs = [];
-foreach ($nightly_pairs as $dataset) {
-    $top_sigs[$dataset['buildid']] = array_splice(
-        Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'],
-        0,
-        20
-    );
-}
 
+
+// we fetch crashes from Socorro for the last 10 days only
+if (($today - $requested_date) < 10) {
+    foreach ($nightly_pairs as $dataset) {
+        $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
+    }
+
+    foreach ($nightly_pairs as $dataset) {
+        $top_sigs[$dataset['buildid']] = array_splice(
+            Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'],
+            0,
+            20
+        );
+    }
+}
 $bug_list = [];
 foreach ($nightly_pairs as $dataset) {
     $bugs = Bz::getBugsFromHgWeb(
