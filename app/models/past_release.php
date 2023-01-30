@@ -93,8 +93,13 @@ $dot_release_count = count((array) array_filter(
     ARRAY_FILTER_USE_KEY
 ));
 
+// In early days, we occasionnally skipped beta 1 for quality reasons, let's assume b3 is a safe bet
 $beta_start_date = $firefox_releases['firefox-' . $requested_version . 'b1']['date']
-    ?? $devedition_releases['devedition-' . $requested_version . 'b1']['date'] ;
+    ?? $devedition_releases['devedition-' . $requested_version . 'b1']['date']
+    ?? $firefox_releases['firefox-' . $requested_version . 'b2']['date']
+    ?? $devedition_releases['devedition-' . $requested_version . 'b2']['date']
+    ?? $firefox_releases['firefox-' . $requested_version . 'b3']['date']
+    ?? $devedition_releases['devedition-' . $requested_version . 'b3']['date'];
 
 // Number of bugs fixed in nightly
 $nightly_fixes = Bz::getBugsFromHgWeb(
