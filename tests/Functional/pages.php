@@ -13,7 +13,7 @@ $paths = [
     ['nightly/', 200, '', 'id="nightly"'],
     ['calendar/', 200, '', 'id="calendar"'],
     ['release/', 200, 'Release Owner', 'id="release"'],
-    ['release/owners/', 200, 'Major releases per owner since version 27', 'id="release_owners"'],
+    ['release/owners/', 200, 'Major releases per release owner', 'id="release_owners"'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
     ['sitemap/', 301, '', ''],
     ['sitemap.txt', 200, '', ''],

@@ -10,7 +10,10 @@ test('Data->getOwners()', function () {
         ->toBeArray()
         ->toHaveKeys(['1.0', '108.0'])
         ->toContain(
-            'Not documented',
+            'Basil Hashem',
+            'Mike Beltzner',
+            'Alex Keybl',
+            'Christian Legnitto',
             'Pascal Chevrel',
             'Ryan VanderMeulen',
             'Julien Cristau',
