@@ -76,8 +76,9 @@ foreach ($nightlies as $buildid => $changeset) {
 $build_crashes = [];
 $top_sigs = [];
 
-// we fetch crashes from Socorro for the last 10 days only
-if (( (int) $today - (int) $requested_date) < 10) {
+// We fetch crashes from Socorro for the last 10 days only
+$days_elapsed = date_diff(date_create(date($today)), date_create($requested_date))->days;
+if ($days_elapsed < 10) {
     foreach ($nightly_pairs as $dataset) {
         $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
     }
