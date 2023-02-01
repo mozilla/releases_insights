@@ -42,7 +42,7 @@ if (Utils::inString(
 // Block suspicious IPs
 if (in_array($client_ip, $ips)) {
     http_response_code(403);
-    die('IP blocked.');
+    exit('IP blocked.');
 }
 
 // Clean up temp variables from global space

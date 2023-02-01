@@ -5,7 +5,7 @@ declare(strict_types=1);
 use ReleaseInsights\Version;
 
 if ((int) Version::get() < BETA) {
-    die("We don't provide schedule calendars for past releases.");
+    exit("We don't provide schedule calendars for past releases.");
 }
 
 [$filename, $ics_calendar] = require_once MODELS . 'ics_release_schedule.php';

@@ -64,7 +64,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
 
     (new ReleaseInsights\Template('esr_release.html.twig', $template_data))->render();
 
-    die;
+    exit;
 }
 
 
