@@ -26,10 +26,10 @@ test('Utils::isBuildID', function () {
 
 test('Utils::getBuildID', function () {
     // Test fallback value
-    $this->assertEquals(20191014213051, U::getBuildID(20501229120000));
+    $this->assertEquals(20191014213051, U::getBuildID('20501229120000'));
 
     // Test good value
-    $this->assertEquals(20201229120000, U::getBuildID(20201229120000));
+    $this->assertEquals(20201229120000, U::getBuildID('20201229120000'));
 });
 
 test('Utils::secureText', function ($input, $output) {

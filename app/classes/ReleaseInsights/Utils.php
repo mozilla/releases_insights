@@ -79,18 +79,18 @@ class Utils
     /**
      * Get a Firefox BuildID and sanitize it
      *
-     * @param int $buildid Firefox Build ID in format 20191014213051
+     * @param string $buildid Firefox Build ID in format 20191014213051
      *
      * @return int sanitized buildID
      */
-    public static function getBuildID(int $buildid): int
+    public static function getBuildID(string $buildid): int
     {
         // Check that the string provided is correct
-        if (! self::isBuildID( (string) $buildid)) {
+        if (! self::isBuildID($buildid)) {
             return 20191014213051; // hardcoded fallback value
         }
 
-        return $buildid;
+        return (int) $buildid;
     }
 
     public static function isBuildID(string $buildid): bool

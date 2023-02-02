@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Cache\Cache;
 
-$buildid = ReleaseInsights\Utils::getBuildID((int) ($_GET['buildid'] ?? 1));
+$buildid = ReleaseInsights\Utils::getBuildID($_GET['buildid'] ?? '1');
 
 $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . (string) $buildid . '&_facets=signature&product=Firefox';
 
