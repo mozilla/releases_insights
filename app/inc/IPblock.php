@@ -29,7 +29,7 @@ if (Utils::inString(
         'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
         'profiler', 'license.txt', 'ofc_upload_image', 'dup-installer', 'style.php',
         '/wp/', '/bk/', 'wso', 'bala.php', 'dialog.php', 'filemanager', '/xt/index.php',
-        'upload', '.sql'
+        'upload', '.sql', 'xleet-shell', '.git', '.well-known',
     ]
     )) {
     if (! in_array($client_ip, $ips) ) {
