@@ -1,4 +1,4 @@
-[![PHP Composer & CI](https://github.com/mozilla/releases_insights/actions/workflows/php.yml/badge.svg)](https://github.com/mozilla/releases_insights/actions/workflows/php.yml)
+[![Tests](https://github.com/mozilla/releases_insights/actions/workflows/php.yml/badge.svg)](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml)
 # Release Insights / Firefox Trains Dashboard
 
 This is the code behind the https://whattrainisitnow.com domain.
