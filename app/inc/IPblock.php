@@ -30,6 +30,7 @@ if (Utils::inString(
         'profiler', 'license.txt', 'ofc_upload_image', 'dup-installer', 'style.php',
         '/wp/', '/bk/', 'wso', 'bala.php', 'dialog.php', 'filemanager', '/xt/index.php',
         'upload', '.sql', 'xleet-shell', '.git', '.well-known', 'perl.alfa', 'Fox=d3wL7',
+        'emergency.php', 'facileforms', 'env.js', 'phpinfo', 'frontend_dev.php'
     ]
     )) {
     if (! in_array($client_ip, $ips) ) {
