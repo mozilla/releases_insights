@@ -54,8 +54,6 @@ if ($url_inspected->getController() == '404') {
     if (! file_exists(realpath(__DIR__ . '/../../cache/')  . '/devmachine.cache')) {
         $not_found_IPs[$client_IP]++;
         file_put_contents($not_found_query_IP_file, json_encode($not_found_IPs));
-        error_log("Suspicious $client_IP added to $not_found_query_IP_file: too many 404s, XSS Suspicious.");
-        error_log("Suspicious endpoint: " . $url_inspected->path);
     }
 }
 
@@ -67,7 +65,8 @@ if (in_array($client_IP, $IPs)) {
 }
 
 // Block suspicious IPs by 404
-if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] > 3) {
+if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] > 8) {
+    error_log("Suspicious $client_IP added to $not_found_query_IP_file: (XSS scanner?). Last endpoint: " . $url_inspected->path);
     http_response_code(403);
     exit('Access denied.');
 }
