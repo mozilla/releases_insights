@@ -9,14 +9,14 @@ use ReleaseInsights\Utils;
 include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Utils.php';
 
 // Is that a known suspicious IP?
-$ips = [];
-$target = realpath(__DIR__ . '/../../cache/')  . '/blockedIPs.json.cache';
+$IPs = [];
+$blocked_IP_file = realpath(__DIR__ . '/../../cache/')  . '/blockedIPs.json.cache';
 
-if (file_exists($target)) {
-    $ips = json_decode(file_get_contents($target));
+if (file_exists($blocked_IP_file)) {
+    $IPs = json_decode(file_get_contents($blocked_IP_file), true);
 }
 
-$client_ip = Utils::getIP();
+$client_IP = Utils::getIP();
 
 // Log suspicious IPs that access paths that are known vulnerabilities in frameworks
 $url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
@@ -33,18 +33,44 @@ if (Utils::inString(
         'emergency.php', 'facileforms', 'env.js', 'phpinfo', 'frontend_dev.php'
     ]
     )) {
-    if (! in_array($client_ip, $ips) ) {
-        $ips[] = $client_ip;
-        file_put_contents($target, json_encode($ips));
-        error_log("Suspicious $client_ip added to $target: access to  $url_inspected->request");
+    if (! in_array($client_IP, $IPs) ) {
+        $IPs[] = $client_IP;
+        file_put_contents($blocked_IP_file, json_encode($IPs));
+        error_log("Suspicious $client_IP added to $blocked_IP_file: access to  $url_inspected->request");
     }
 }
 
-// Block suspicious IPs
-if (in_array($client_ip, $ips)) {
+// Block XSS scanners that are hammering the server creating dozens of 404s per minute
+$not_found_IPs = [];
+$not_found_query_IP_file = realpath(__DIR__ . '/../../cache/')  . '/404_IPs.json.cache';
+
+if (file_exists($not_found_query_IP_file)) {
+    $not_found_IPs = json_decode(file_get_contents($not_found_query_IP_file), true);
+}
+
+if ($url_inspected->getController() == '404') {
+    /* @phpstan-ignore-next-line */
+    if (defined('TESTING') && TESTING === true) {
+        // die(var_dump(TESTING));
+        $not_found_IPs[$client_IP]++;
+        file_put_contents($not_found_query_IP_file, json_encode($not_found_IPs));
+        error_log("Suspicious $client_IP added to $not_found_query_IP_file: too many 404s, XSS Suspicious.");
+        error_log("Suspicious endpoint: " . $url_inspected->path);
+    } else {}
+}
+
+
+// Block suspicious IPs by url
+if (in_array($client_IP, $IPs)) {
     http_response_code(403);
-    exit('IP blocked.');
+    exit('Access denied.');
+}
+
+// Block suspicious IPs by 404
+if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] > 3) {
+    http_response_code(403);
+    exit('Access denied.');
 }
 
 // Clean up temp variables from global space
-unset ($client_ip, $ips, $target, $url_inspected);
+unset ($client_IP, $IPs, $blocked_IP_file, $not_found_query_IP_file, $url_inspected);

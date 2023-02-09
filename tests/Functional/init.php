@@ -4,7 +4,9 @@
 mb_internal_encoding('UTF-8');
 
 // Make sure we have a timezone set
-date_default_timezone_set('America/Los_Angeles');
+date_default_timezone_set('UTC');
+
+const TESTING = true;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
