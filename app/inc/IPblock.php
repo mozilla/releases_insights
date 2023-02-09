@@ -49,14 +49,14 @@ if (file_exists($not_found_query_IP_file)) {
 }
 
 if ($url_inspected->getController() == '404') {
-    /* @phpstan-ignore-next-line */
-    if (defined('TESTING') && TESTING === true) {
-        // die(var_dump(TESTING));
+
+    // We don't want to block 404 IPs in page content testing via the Verif libraries as we test 404 behaviour
+    if (! file_exists(realpath(__DIR__ . '/../../cache/')  . '/devmachine.cache')) {
         $not_found_IPs[$client_IP]++;
         file_put_contents($not_found_query_IP_file, json_encode($not_found_IPs));
         error_log("Suspicious $client_IP added to $not_found_query_IP_file: too many 404s, XSS Suspicious.");
         error_log("Suspicious endpoint: " . $url_inspected->path);
-    } else {}
+    }
 }
 
 
