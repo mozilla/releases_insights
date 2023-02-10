@@ -68,4 +68,12 @@ if (in_array($client_IP, $IPs)) {
 }
 
 // Clean up temp variables from global space
-unset ($client_IP, $IPs, $blocked_IP_file, $not_found_query_IP_file, $url_inspected);
+unset (
+    $bad_paths,
+    $blocked_IP_file,
+    $client_IP,
+    $IPs,
+    $not_found_IPs,
+    $not_found_query_IP_file,
+    $url_inspected
+);
