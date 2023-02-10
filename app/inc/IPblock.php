@@ -8,6 +8,9 @@ use ReleaseInsights\Utils;
 // We import the Utils class manually as we haven't autoloaded classes yet
 include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Utils.php';
 
+// We store Blocked query paths in this file
+$bad_paths = include realpath(__DIR__ . '/../../')  . '/app/data/suspicious_paths.php';
+
 // Is that a known suspicious IP?
 $IPs = [];
 $blocked_IP_file = realpath(__DIR__ . '/../../cache/')  . '/blockedIPs.json.cache';
@@ -20,19 +23,7 @@ $client_IP = Utils::getIP();
 
 // Log suspicious IPs that access paths that are known vulnerabilities in frameworks
 $url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
-if (Utils::inString(
-    $url_inspected->request,
-    [
-        'wp-', 'adminer', 'hbk_ios', 'go.php', 'wordpress', 'phpmyadmin',
-        'xmlrpc', 'civicrm', 'backup', 'health-check', 'wallet', 'php.php', '.env',
-        'vendor', 'phpunit', 'includes', 'relatedlink', 'administrator', 'lock360',
-        'admin', '0z.php', 'sftp-config.json', 'info.php', '/old', '/test', 'site.php',
-        'profiler', 'license.txt', 'ofc_upload_image', 'dup-installer', 'style.php',
-        '/wp/', '/bk/', 'wso', 'bala.php', 'dialog.php', 'filemanager', '/xt/index.php',
-        'upload', '.sql', 'xleet-shell', '.git', '.well-known', 'perl.alfa', 'Fox=d3wL7',
-        'emergency.php', 'facileforms', 'env.js', 'phpinfo', 'frontend_dev.php'
-    ]
-    )) {
+if (Utils::inString($url_inspected->request, $bad_paths)) {
     if (! in_array($client_IP, $IPs) ) {
         $IPs[] = $client_IP;
         file_put_contents($blocked_IP_file, json_encode($IPs));
@@ -49,24 +40,29 @@ if (file_exists($not_found_query_IP_file)) {
 }
 
 if ($url_inspected->getController() == '404') {
-
     // We don't want to block 404 IPs in page content testing via the Verif libraries as we test 404 behaviour
     if (! file_exists(realpath(__DIR__ . '/../../cache/')  . '/devmachine.cache')) {
-        $not_found_IPs[$client_IP]++;
+        if (array_key_exists($client_IP, $not_found_IPs)) {
+            $not_found_IPs[$client_IP]++;
+        } else {
+            $not_found_IPs[$client_IP] =1;
+        }
+
         file_put_contents($not_found_query_IP_file, json_encode($not_found_IPs));
     }
 }
 
+// Block suspicious IPs by 404
+if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] > 6) {
+    if (! in_array($client_IP, $IPs) ) {
+        $IPs[] = $client_IP;
+        file_put_contents($blocked_IP_file, json_encode($IPs));
+        error_log("Suspicious $client_IP added to $not_found_query_IP_file: (XSS scanner?). Last endpoint: $url_inspected->path");
+    }
+}
 
 // Block suspicious IPs by url
 if (in_array($client_IP, $IPs)) {
-    http_response_code(403);
-    exit('Access denied.');
-}
-
-// Block suspicious IPs by 404
-if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] > 8) {
-    error_log("Suspicious $client_IP added to $not_found_query_IP_file: (XSS scanner?). Last endpoint: " . $url_inspected->path);
     http_response_code(403);
     exit('Access denied.');
 }
