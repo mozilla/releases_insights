@@ -22,7 +22,6 @@ class Utils
         // The date in the string varies so we create a unique file name in cache
         $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
-        // We don't want to make external requests in Unit Tests
         if (defined('UNIT_TESTING')) {
             if ($buildid == '20190927094817') {
                 $cache_id = TEST_FILES .'/empty.json';
@@ -152,12 +151,18 @@ class Utils
             return file_get_contents($url);
         }
 
+
+        // We don't want to make external requests in Unit Tests
+        // @codeCoverageIgnoreStart
         // Remote file is not available
-        if (Utils::inString(get_headers($url)[0], ['404', '500']) ) {
-            return '';// @codeCoverageIgnore
+        if (! defined('UNIT_TESTING')) {
+            if (Utils::inString(get_headers($url)[0], ['404', '500']) ) {
+                return '';
+            }
         }
 
         return file_get_contents($url);
+        // @codeCoverageIgnoreEnd
     }
 
     /**

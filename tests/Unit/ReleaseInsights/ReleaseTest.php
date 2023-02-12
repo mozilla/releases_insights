@@ -6,22 +6,28 @@ use ReleaseInsights\Release;
 
 test('Release->getSchedule()', function () {
     $obj = new Release('102.0');
-    expect($obj->getSchedule())
+    expect($obj->getSchedule(TEST_FILES))
         ->toBeArray();
     $obj = new Release('110.0');
-    expect($obj->getSchedule())
+    expect($obj->getSchedule(TEST_FILES))
         ->toBeArray();
     $obj = new Release('97.0');
-    expect($obj->getSchedule())
+    expect($obj->getSchedule(TEST_FILES))
         ->toBeArray();
     $obj = new Release('error');
-    expect($obj->getSchedule())
+    expect($obj->getSchedule(TEST_FILES))
         ->toBeArray();
     $obj = new Release('110.0');
-    expect($obj->getSchedule())
+    expect($obj->getSchedule(TEST_FILES))
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
+    $obj = new Release('111.0');
+    expect($obj->getSchedule(TEST_FILES))
+        ->not->toHaveKeys(['beta_9']);
+    $obj = new Release('112.0');
+    expect($obj->getSchedule(TEST_FILES)['nightly_start'])
+        ->toBe('2023-02-13 00:00:00+01:00');
     $obj = new Release('116.0'); // merge day is Tuesday and we have one beta left
-    expect($obj->getSchedule())
+    expect($obj->getSchedule(TEST_FILES))
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
 });
 
