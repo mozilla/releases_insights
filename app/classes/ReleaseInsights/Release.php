@@ -93,28 +93,6 @@ class Release
                 'rc'                  => $date('Tuesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
             ];
-        // TODO: remove when 111 ships
-        } elseif ($this->version === '110.0') {
-            $schedule = [
-                'nightly_start'       => $date($nightly),
-                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
-                'string_freeze'       => $date('Friday'),
-                'merge_day'           => $date('Monday'),
-                'beta_1'              => $date('Monday'),
-                'beta_2'              => $date('Tuesday 21:00'),
-                'beta_3'              => $date('Thursday 21:00'),
-                'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
-                'beta_4'              => $date('Sunday 21:00'),
-                'beta_5'              => $date('Tuesday 21:00'),
-                'beta_6'              => $date('Thursday 21:00'),
-                'beta_7'              => $date('Sunday 21:00'),
-                'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
-                'beta_8'              => $date('Tuesday 21:00'),
-                'beta_9'              => $date('Thursday 21:00'),
-                'rc_gtb'              => $date('Tuesday 21:00'),
-                'rc'                  => $date('Wednesday'),
-                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
-            ];
         } elseif ($this->version === '111.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly),
@@ -181,10 +159,6 @@ class Release
 
         if (! in_array($this->version, $this->no_planned_dot_releases)) {
             $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
-            // TODO: remove when 111 ships
-            if ($this->version === '110.0') {
-                $schedule['planned_dot_release'] = $date($release->modify('-2 days 00:00'));
-            }
         }
 
         // Sort the schedule by date, needed for schedules with a fixup
