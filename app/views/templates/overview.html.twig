@@ -84,11 +84,13 @@
       {% if version_on_release_day is constant('FIREFOX_RELEASE') %}
       shipped today!
       {% else %}
-      is shipping today!
+      should ship ship today.
       {% endif%}
 
     </b>
+
   </h3>
+  <h4 class="bg-warning text-center mt-5 text-dark">Firefox 110 planned release date may slip a couple of days due to current infra issues.</h4>
   {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}
       <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ beta_cycle_dates.release|format_date(pattern='MMMM d', locale='en') }}
@@ -100,7 +102,6 @@
         <small>(in {{ leftDays }} days)</small>
       {% endif %}
       </h3>
-
     {% endif %}
   {% endif %}
 

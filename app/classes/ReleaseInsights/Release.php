@@ -137,7 +137,7 @@ class Release
             ];
         } elseif ($this->version === '112.0') {
             $schedule = [
-                'nightly_start'       => $date('-2 day'), // merge hardcoded to Monday for 112
+                'nightly_start'       => $date($nightly), // merge hardcoded to Monday for 112
                 'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
