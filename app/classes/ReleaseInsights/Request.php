@@ -23,9 +23,11 @@ class Request
 
         // Real files are not processes as paths to route
         if ($request !== false) {
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $path)) {
+            // We sometimes use a fake query on a static asset to force the browser to refresh the cache,
+            // we take the query out when checking if the file path exists
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . explode('?', $path)[0])) {
                 $this->invalid_slashes = false;
-                $this->path = $path;
+                $this->path = explode('?', $path)[0];
             } else {
             /**
              *  We have a real path to route and clean up before usage
