@@ -21,6 +21,9 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url->path) && $url->path !== '/') {
     return false;
 }
 
+// Block suspicious accesses
+require_once __DIR__ . '/IPblock.php';
+
 // Don't process non-PHP files, even if they don't exist on the server
 if (isset($file['extension'])) {
     http_response_code(404);
@@ -32,9 +35,6 @@ if ($url->invalid_slashes) {
     header('Location:' . $url->path);
     exit;
 }
-
-// Block suspicious accesses
-require_once __DIR__ . '/IPblock.php';
 
 // Clean up temp variables from global space
 unset($url, $file);

@@ -16,33 +16,42 @@ class Request
     {
         $request = parse_url($path);
 
-        // Paths that start with multiple slashes don't have a 'path' field via parse_url()
+        // Paths that start with multiple slashes don't have a correct (or any) 'path' field via parse_url()
         if (str_starts_with($path, '//')) {
             $this->invalid_slashes = true;
         }
 
+        // Real files are not processes as paths to route
         if ($request !== false) {
-            $this->request = $path;
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $path)) {
+                $this->invalid_slashes = false;
+                $this->path = $path;
+            } else {
+            /**
+             *  We have a real path to route and clean up before usage
+             */
+                $this->request = $path;
 
-            if (isset($request['path'])) {
-                $this->path = $this->cleanPath($request['path']);
-            }
-
-            if (isset($request['query'])) {
-                $this->query = $request['query'];
-            }
-
-            if (isset($request['path'])) {
-                if (str_ends_with($request['path'], '//')) {
-                    // Multiple slashes at the end of the path
-                    $this->invalid_slashes = true;
-                } elseif (! str_ends_with($request['path'], '/')) {
-                    // Missing slash at the end of the path
-                    $this->invalid_slashes = true;
-                } else {
-                    $this->invalid_slashes = false;
+                if (isset($request['path'])) {
+                    $this->path = $this->cleanPath($request['path']);
                 }
-            }
+
+                if (isset($request['query'])) {
+                    $this->query = $request['query'];
+                }
+
+                if (isset($request['path'])) {
+                    if (str_ends_with($request['path'], '//')) {
+                        // Multiple slashes at the end of the path
+                        $this->invalid_slashes = true;
+                    } elseif (! str_ends_with($request['path'], '/')) {
+                        // Missing slash at the end of the path
+                        $this->invalid_slashes = true;
+                    } else {
+                        $this->invalid_slashes = false;
+                    }
+                }
+             }
          }
     }
 
