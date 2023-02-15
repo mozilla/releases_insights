@@ -75,6 +75,7 @@ class Request
             '/api/release/owners/'        => 'api/release_owners',
             '/api/nightly/crashes/'       => 'api/nightly_crashes',
             '/calendar/'                  => 'calendar',
+            '/calendar/overview/'         => 'calendar_overview',
             '/calendar/release/schedule/' => 'ics_release_schedule',
             '/release/owners/'            => 'release_owners',
             '/sitemap/'                   => 'sitemap',
