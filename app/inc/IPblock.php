@@ -45,9 +45,8 @@ if ($url_inspected->getController() == '404') {
         if (array_key_exists($client_IP, $not_found_IPs)) {
             $not_found_IPs[$client_IP]++;
         } else {
-            $not_found_IPs[$client_IP] =1;
+            $not_found_IPs[$client_IP] = 1;
         }
-
         file_put_contents($not_found_query_IP_file, json_encode($not_found_IPs));
     }
 }
@@ -64,6 +63,7 @@ if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] >
 // Block suspicious IPs by url
 if (in_array($client_IP, $IPs)) {
     http_response_code(403);
+    error_log("IP $client_IP blocked.");
     exit('Access denied.');
 }
 
