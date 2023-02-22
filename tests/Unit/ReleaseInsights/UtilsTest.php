@@ -156,28 +156,30 @@ test('Utils::getIP', function () {
     expect(U::getIP())->toBeNull();
 
     $_SERVER['HTTP_CLIENT_IP'] = '1.1.1.1';
-    expect(U::getIP())->toBeString();
+    expect(U::getIP())->toBeString()->toEqual('1.1.1.1');
     unset($_SERVER['HTTP_CLIENT_IP']);
 
-    $_SERVER['HTTP_X_FORWARDED_FOR'] = '1.1.1.1';
-    expect(U::getIP())->toBeString();
+    $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.1.1';
+    expect(U::getIP())->toBeString()->toEqual('2.1.1.1');
     unset($_SERVER['HTTP_X_FORWARDED_FOR']);
 
-    $_SERVER['HTTP_X_FORWARDED'] = '1.1.1.1';
-    expect(U::getIP())->toBeString();
+    $_SERVER['HTTP_X_FORWARDED'] = '3.1.1.1';
+    expect(U::getIP())->toBeString()->toEqual('3.1.1.1');
     unset($_SERVER['HTTP_X_FORWARDED']);
 
-    $_SERVER['HTTP_FORWARDED_FOR'] = '1.1.1.1';
-    expect(U::getIP())->toBeString();
+    $_SERVER['HTTP_FORWARDED_FOR'] = '4.1.1.1';
+    expect(U::getIP())->toBeString()->toEqual('4.1.1.1');
     unset($_SERVER['HTTP_FORWARDED_FOR']);
 
-    $_SERVER['HTTP_FORWARDED'] = '1.1.1.1';
-    expect(U::getIP())->toBeString();
+    $_SERVER['HTTP_FORWARDED'] = '5.1.1.1';
+    expect(U::getIP())->toBeString()->toEqual('5.1.1.1');
     unset($_SERVER['HTTP_FORWARDED']);
 
-    $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
-    expect(U::getIP())->toBeString();
+    $_SERVER['REMOTE_ADDR'] = '6.1.1.1';
+    expect(U::getIP())->toBeString()->toEqual('6.1.1.1');
     unset($_SERVER['REMOTE_ADDR']);
+
+    expect(U::getIP())->toBeNull();
 });
 
 

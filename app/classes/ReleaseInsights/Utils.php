@@ -312,22 +312,15 @@ class Utils
     public static function getIP(): ?string
     {
         // Determining visitor IP
-        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
-            $client_ip = $_SERVER['HTTP_CLIENT_IP'];
-        } else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $client_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else if(isset($_SERVER['HTTP_X_FORWARDED'])) {
-            $client_ip = $_SERVER['HTTP_X_FORWARDED'];
-        } else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
-            $client_ip = $_SERVER['HTTP_FORWARDED_FOR'];
-        } else if(isset($_SERVER['HTTP_FORWARDED'])) {
-            $client_ip = $_SERVER['HTTP_FORWARDED'];
-        } else if(isset($_SERVER['REMOTE_ADDR'])) {
-            $client_ip = $_SERVER['REMOTE_ADDR'];
-        } else {
-            return null;
+        $fields =['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED',
+                  'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+
+        foreach ($fields as $value) {
+            if (isset($_SERVER[$value])) {
+                return $_SERVER[$value];
+            }
         }
 
-        return $client_ip;
+        return null;
     }
 }
