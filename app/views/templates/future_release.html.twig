@@ -202,7 +202,11 @@
         {% set extra = ' <small class="badge bg-warning text-dark">Draft beta release notes</small>' %}
       {% endif %}
 
-      {% if key == 'beta_6' %}
+      {% if release == 111 and key == 'beta_5' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Last early beta</small>' %}
+      {% endif %}
+
+      {% if key == 'beta_6' and release != 111 %}
         {% set extra = ' <small class="badge bg-warning text-dark">Last early beta</small>' %}
       {% endif %}
 
