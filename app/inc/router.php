@@ -11,7 +11,7 @@ if ($_SERVER['SERVER_NAME'] === 'fx-trains.herokuapp.com') {
 }
 
 // We import the Request class manually as we haven't autoloaded classes yet
-include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Request.php';
+include dirname(__DIR__, 2) . '/app/classes/ReleaseInsights/Request.php';
 
 $url  = new Request($_SERVER['REQUEST_URI']);
 $file = pathinfo($url->path);

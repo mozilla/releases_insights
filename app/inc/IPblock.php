@@ -6,14 +6,14 @@ use ReleaseInsights\Request;
 use ReleaseInsights\Utils;
 
 // We import the Utils class manually as we haven't autoloaded classes yet
-include realpath(__DIR__ . '/../../')  . '/app/classes/ReleaseInsights/Utils.php';
+include dirname(__DIR__, 2)  . '/app/classes/ReleaseInsights/Utils.php';
 
 // We store Blocked query paths in this file
-$bad_paths = include realpath(__DIR__ . '/../../')  . '/app/data/suspicious_paths.php';
+$bad_paths = include dirname(__DIR__, 2)  . '/app/data/suspicious_paths.php';
 
 // Is that a known suspicious IP?
 $IPs = [];
-$blocked_IP_file = realpath(__DIR__ . '/../../cache/')  . '/blockedIPs.json.cache';
+$blocked_IP_file = dirname(__DIR__, 2) . '/cache/blockedIPs.json.cache';
 
 if (file_exists($blocked_IP_file)) {
     $IPs = json_decode(file_get_contents($blocked_IP_file), true);
@@ -33,7 +33,7 @@ if (Utils::inString($url_inspected->request, $bad_paths)) {
 
 // Block XSS scanners that are hammering the server creating dozens of 404s per minute
 $not_found_IPs = [];
-$not_found_query_IP_file = realpath(__DIR__ . '/../../cache/')  . '/404_IPs.json.cache';
+$not_found_query_IP_file = dirname(__DIR__, 2) . '/cache/404_IPs.json.cache';
 
 if (file_exists($not_found_query_IP_file)) {
     $not_found_IPs = json_decode(file_get_contents($not_found_query_IP_file), true);
@@ -41,7 +41,7 @@ if (file_exists($not_found_query_IP_file)) {
 
 if ($url_inspected->getController() == '404') {
     // We don't want to block 404 IPs in page content testing via the Verif libraries as we test 404 behaviour
-    if (! file_exists(realpath(__DIR__ . '/../../cache/')  . '/devmachine.cache')) {
+    if (! file_exists(dirname(__DIR__, 2) . '/cache/devmachine.cache')) {
         if (array_key_exists($client_IP, $not_found_IPs)) {
             $not_found_IPs[$client_IP]++;
         } else {

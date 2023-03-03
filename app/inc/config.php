@@ -9,7 +9,8 @@ mb_internal_encoding('UTF-8');
 date_default_timezone_set('UTC');
 
 // Autoloading of classes (both /vendor/ and /app/classes)
-define('INSTALL_ROOT', realpath(__DIR__ . '/../../') . '/');
+define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
+
 require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // Application globals paths
