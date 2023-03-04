@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+use BzKarma\Scoring;
 use ReleaseInsights\Bugzilla as Bz;
 use ReleaseInsights\Utils;
 
-// We need previous and next days for navigation and changelog
-// The requester date is already in the $date variable
+/*
+    We need previous and next days for navigation and changelog
+    The requester date is already in the $date variable
+*/
 $today          = date('Ymd');
 $requested_date = Utils::getDate();
 $previous_date  = date('Ymd', strtotime($requested_date . ' -1 day'));
@@ -93,10 +96,15 @@ if ($days_elapsed < 10) {
 }
 
 $bug_list = [];
+$bug_list_karma = [];
+$bug_list_karma_details = [];
+
 foreach ($nightly_pairs as $dataset) {
     $bugs = Bz::getBugsFromHgWeb(
         'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=' . $dataset['prev_changeset'] . '&tochange=' . $dataset['changeset'] . '&full&version=2'
     )['total'];
+
+    $bug_list_karma = array_unique(array_merge($bugs, $bug_list_karma));
 
     // There were no bugs in the build, it is the same as the previous one
     if (empty($bugs)) {
@@ -109,14 +117,34 @@ foreach ($nightly_pairs as $dataset) {
     }
 
     $url = Bz::getBugListLink($bugs);
+
     // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
-    $bug_list_details= Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,product,component,type&bug_id=' . implode('%2C', $bugs))['bugs'];
+    $bug_list_details = Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc&bug_id=' . implode('%2C', $bugs))['bugs'];
 
     $bug_list[$dataset['buildid']] = [
         'bugs'  => $bug_list_details,
         'url'   => $url,
         'count' => is_countable($bugs) ? count($bugs) : 0,
     ];
+
+    $bug_list_karma_details = array_merge($bug_list_details, $bug_list_karma_details);
+}
+
+
+// Create the real bug list Karma
+sort($bug_list_karma);
+$bug_list_karma = array_map('intval',$bug_list_karma);
+$bug_list_karma = array_values($bug_list_karma);
+$bug_list_karma = array_flip($bug_list_karma);
+
+// Prepare the list for use by the Scoring object
+$bug_list_karma_details = array_combine(array_column($bug_list_karma_details, 'id'), $bug_list_karma_details);
+
+$scores = new Scoring($bug_list_karma_details, RELEASE);
+
+//  The $bug_list_karma array has bug numbers as keys and score (ints) as values
+foreach ($bug_list_karma as $key => $value) {
+    $bug_list_karma[$key] = $scores->getBugScore($key);
 }
 
 $known_top_crashes = [
@@ -127,13 +155,13 @@ $known_top_crashes = [
     'OOM | small',
 ];
 
-
 return [
     $display_date,
     $nightly_pairs,
     $build_crashes,
     $top_sigs,
     $bug_list,
+    $bug_list_karma,
     $previous_date,
     $requested_date,
     $next_date,
