@@ -12,6 +12,11 @@
             "type": "vcs",
             "url": "https://github.com/pascalchevrel/Verif/",
             "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/pascalchevrel/bzkarma/",
+            "no-api": true
         }
     ],
     "require": {
@@ -29,7 +34,8 @@
         "symfony/polyfill": "^1.23",
         "vlucas/phpdotenv": "^5.4",
         "twbs/bootstrap-icons": "^1.8",
-        "benhall14/php-calendar": "^1.2"
+        "benhall14/php-calendar": "^1.2",
+        "pchevrel/bzkarma": "0.4"
     },
     "require-dev": {
         "psy/psysh": "^0.11",

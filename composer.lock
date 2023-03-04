@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffb4c0433e4b78671bc9a84500f5d30f",
+    "content-hash": "85744c5cb2d966a35c1c6b46ff80537b",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -247,6 +247,45 @@
             },
             "description": "Functions used to manage JSON I/O",
             "time": "2016-01-20T06:10:23+00:00"
+        },
+        {
+            "name": "pchevrel/bzkarma",
+            "version": "v0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pascalchevrel/bzkarma/",
+                "reference": "05e84f410a07ee832008c83c47afbd7763791bd4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pascalchevrel/bzkarma/zipball/05e84f410a07ee832008c83c47afbd7763791bd4",
+                "reference": "05e84f410a07ee832008c83c47afbd7763791bd4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BzKarma\\": "src/pchevrel/BzKarma"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Chevrel",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Uplift scoring library for bugzilla.mozilla.org",
+            "keywords": [
+                "bugzilla",
+                "firefox"
+            ],
+            "time": "2023-03-06T14:19:22+00:00"
         },
         {
             "name": "phpoption/phpoption",
