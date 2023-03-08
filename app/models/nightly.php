@@ -144,7 +144,10 @@ $scores = new Scoring($bug_list_karma_details, RELEASE);
 
 //  The $bug_list_karma array has bug numbers as keys and score (ints) as values
 foreach ($bug_list_karma as $key => $value) {
-    $bug_list_karma[$key] = $scores->getBugScore($key);
+    $bug_list_karma[$key] = [
+        'score'   => $scores->getBugScore($key),
+        'details' => $scores->getBugScoreDetails($key),
+    ];
 }
 
 $known_top_crashes = [
