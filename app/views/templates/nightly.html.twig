@@ -98,7 +98,7 @@
         {% set button, alert = '', '' %}
     {% endif %}
     <li>
-        <a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a> <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span>
+        <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a>  <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span>
     </li>
     {% endfor %}
     </ol>

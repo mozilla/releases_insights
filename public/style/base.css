@@ -67,6 +67,19 @@ a:hover {
     margin-left: -2em;
 }
 
+#nightly ol li::marker {
+  color: rgb(110, 110,110);
+}
+
+#nightly ol li img {
+    filter: grayscale(80%);
+}
+
+#nightly ol li img:hover {
+    filter: none;
+}
+
+
 nav svg {
     fill: whitesmoke;
     margin-top: 0.5em;
