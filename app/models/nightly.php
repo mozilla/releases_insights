@@ -48,8 +48,6 @@ if (empty($nightlies)) {
 $_GET['date'] = $previous_date;
 $nightlies_day_before = include MODELS . 'api/nightly.php';
 
-Utils::dump($nightlies_day_before);
-
 /*
     If we didn't ship any nightly the day before, check 2 days ago.
  */
@@ -57,8 +55,6 @@ if (empty($nightlies_day_before)) {
     $_GET['date'] = date('Ymd', strtotime($requested_date . ' -2 days'));;
     $nightlies_day_before = include MODELS . 'api/nightly.php';
 }
-
-Utils::dump($nightlies_day_before);
 
 // Associate nightly with nightly-1
 $nightly_pairs = [];

@@ -35,7 +35,7 @@
         "vlucas/phpdotenv": "^5.4",
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.2",
-        "pchevrel/bzkarma": "0.4"
+        "pchevrel/bzkarma": "0.4.1"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
