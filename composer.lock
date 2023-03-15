@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "905bfe98ae8cb98ab78745d03c951b16",
+    "content-hash": "48b4f23f90ab03ab63f854a4c28ae4e8",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -250,16 +250,16 @@
         },
         {
             "name": "pchevrel/bzkarma",
-            "version": "v0.4.1",
+            "version": "v0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pascalchevrel/bzkarma/",
-                "reference": "ccc2e44affe8f5526eada76e82ed83eedd281c86"
+                "reference": "cc2c3500a02e4115efc3f750b92448cd858efa7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pascalchevrel/bzkarma/zipball/ccc2e44affe8f5526eada76e82ed83eedd281c86",
-                "reference": "ccc2e44affe8f5526eada76e82ed83eedd281c86",
+                "url": "https://api.github.com/repos/pascalchevrel/bzkarma/zipball/cc2c3500a02e4115efc3f750b92448cd858efa7d",
+                "reference": "cc2c3500a02e4115efc3f750b92448cd858efa7d",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 "bugzilla",
                 "firefox"
             ],
-            "time": "2023-03-14T16:57:54+00:00"
+            "time": "2023-03-15T17:20:24+00:00"
         },
         {
             "name": "phpoption/phpoption",

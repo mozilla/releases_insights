@@ -52,10 +52,10 @@
                 {%- set alert_link =' text-success fw-bold' -%}
                 {%- set alert_title =' title="Bug marked as Enhancement"' -%}
             {%- endif -%}
-            {%- if bug_list_karma[details.id].score > 5 -%}
+            {%- if bug_list_karma[details.id].score > 8 -%}
                 {%- set pill_level ='text-bg-warning' -%}
             {%- endif -%}
-            {%- if bug_list_karma[details.id].score > 10 -%}
+            {%- if bug_list_karma[details.id].score > 15 -%}
                 {%- set alert_row ='fw-bold' -%}
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
