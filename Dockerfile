@@ -11,6 +11,7 @@ RUN /usr/local/bin/install-php-extensions mbstring intl curl dom @composer
 
 # run composer to download and build dependencies/assets
 RUN mkdir -p /app/public/assets
+RUN mkdir -p /app/public/style
 COPY composer* /app/
 RUN cd /app && \
     composer install --no-dev --no-interaction
