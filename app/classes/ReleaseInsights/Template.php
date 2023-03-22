@@ -29,6 +29,15 @@ class Template
         $dotenv = Dotenv::createImmutable(INSTALL_ROOT);
         $dotenv->safeLoad();
         $this->template_caching = isset($_ENV['TWIG_CACHING']) && $_ENV['TWIG_CACHING'] == 'no' ? false : CACHE_PATH;
+
+        // @codeCoverageIgnoreStart
+        // Pass extra variables to template in local dev mode
+        if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local' && !defined('UNIT_TESTING')) {
+            $this->data += [
+                'branch' => trim((string) shell_exec('git rev-parse --abbrev-ref HEAD')),
+            ];
+        }
+        // @codeCoverageIgnoreEnd
     }
 
     /**
