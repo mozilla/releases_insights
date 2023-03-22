@@ -53,6 +53,11 @@ class Version
      */
     public static function decrement(string $version, int $decrement): string
     {
-        return (string) ((int) $version - $decrement) . '.0';
+
+        if ((int) $version - $decrement <= 1) {
+            return '1.0';
+        }
+
+        return (string) ((int) $version - $decrement) . '.0';;
     }
 }

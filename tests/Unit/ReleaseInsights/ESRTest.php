@@ -39,4 +39,5 @@ test('ESR::getMainDotVersion', function ($input, $output) {
     ['78.12.0esr', '78.12'],
     ['91.4.1esr', '91.4'],
     ['68.0.0esr', '68.0'],
+    [null, ''],
 ]);

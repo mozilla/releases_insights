@@ -96,6 +96,10 @@ nav svg {
     padding-right: 0.5rem;
 }
 
+.force-default-bg  {
+    box-shadow: unset !important;
+}
+
 .bug-link {
     display:inline-block;
     width:100%;
@@ -217,4 +221,9 @@ h3 {
 footer {
     text-align: center;
     margin-top: 1em;
+}
+
+.text-color-1 {
+    color: purple !important;
+    text-shadow: -1px 0px 0px lightgray;
 }

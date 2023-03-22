@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+<link rel="stylesheet" type="text/css" href="/style/calendar.css">
+{% endblock %}
+
+{% block header %}
+  <header class="mx-auto">
+    <h1>Upcoming Firefox release milestones</h1>
+  </header>
+{% endblock %}
+
+
+{% block main %}
+
+<div class="row fix justify-content-center">
+    {% for key, values in upcoming_releases %}
+    <div class="col-sm-12 col-sm-2 col-md-8">
+        {% set color = 'indigo' %}
+
+        {%  if 'now'|date('Y') <  values|date('Y') %}
+          {% set color = 'green' %}
+        {%  endif %}
+
+        {{ calendar.draw(values, color)|raw }}
+    <br>
+    </div>
+      {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block footer %}
+     {%  include 'footer_UTC_warning.html.twig' %}
+{% endblock %}

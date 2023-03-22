@@ -82,8 +82,13 @@ class ESR
      * Get a XX.YY version number from a full ESR number like 91.4.1esr
      * We drop the dot release part
      */
-    public static function getMainDotVersion(string $version): string
+    public static function getMainDotVersion(?string $version): string
     {
+        // This is a safety net as we may loop on a range with a version we didn't ship
+        if (is_null($version)) {
+            return '';
+        }
+
         $version = explode('.', $version);
         array_pop($version);
 

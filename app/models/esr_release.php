@@ -15,8 +15,10 @@ $esr_calendar = [];
 foreach($upcoming_releases as $k => $v) {
     $esr_calendar [] = [
         'release' => $k,
-        'esr'     => ESR::getVersion((int) $k),
-        'old_esr' => ESR::getOlderSupportedVersion((int) $k),
+        'esr'     => ESR::getMainDotVersion(ESR::getVersion((int) $k)),
+        'old_esr' => is_null(ESR::getOlderSupportedVersion((int) $k))
+            ? ''
+            : ESR::getMainDotVersion(ESR::getOlderSupportedVersion((int) $k)),
         'date'    => $v,
     ];
 }

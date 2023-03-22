@@ -31,8 +31,11 @@ $owners = [
 
 return [
     '1.0'   => $owners['basil'],
+    '1.5'   => $owners['basil'],
     '2.0'   => $owners['basil'],
     '3.0'   => $owners['beltzner'],
+    '3.5'   => $owners['beltzner'],
+    '3.6'   => $owners['beltzner'],
     '4.0'   => $owners['beltzner'],
     '5.0'   => $owners['LegNeato'],
     '6.0'   => $owners['LegNeato'],
@@ -44,6 +47,7 @@ return [
     '12.0'  => $owners['keybl'],
     '13.0'  => $owners['keybl'],
     '14.0'  => $owners['keybl'],
+    '14.0.1'=> $owners['keybl'],
     '15.0'  => $owners['keybl'],
     '16.0'  => $owners['keybl'],
     '17.0'  => $owners['lsblakk'],
@@ -63,6 +67,7 @@ return [
     '31.0'  => $owners['sylvestre'],
     '32.0'  => $owners['lmandel'],
     '33.0'  => $owners['sylvestre'],
+    '33.1'  => $owners['sylvestre'],
     '34.0'  => $owners['lsblakk'],
     '35.0'  => $owners['lsblakk'],
     '36.0'  => $owners['sylvestre'],

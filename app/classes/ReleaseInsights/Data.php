@@ -66,11 +66,11 @@ class Data
      *
      * @return array<string, string>
      */
-    public function getPastReleases(): array
+    public function getPastReleases(bool $dot_releases = true): array
     {
         // Historical data from Product Details, cache a week
         $major_releases = Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', 604800);
-        $minor_releases = Utils::getJson($this->pd_url . 'firefox_history_stability_releases.json', 604800);
+        $minor_releases =  $dot_releases == true ? Utils::getJson($this->pd_url . 'firefox_history_stability_releases.json', 604800) : [];
         $all_releases = array_merge($major_releases, $minor_releases);
 
         // Sort releases by release date

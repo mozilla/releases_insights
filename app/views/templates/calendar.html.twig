@@ -1,33 +1,111 @@
 {% extends 'base.html.twig' %}
 
-{% block head_additions %}
-<link rel="stylesheet" type="text/css" href="/style/calendar.css">
-{% endblock %}
-
-{% block header %}
+  {% block header %}
   <header class="mx-auto">
-    <h1>Upcoming Firefox release milestones</h1>
+    <h1>Firefox Release Calendar</h1>
   </header>
-{% endblock %}
 
+{% endblock %}
 
 {% block main %}
+{%  set year = 'now'|date('Y') %}
 
-<div class="row fix justify-content-center">
-    {% for key, values in upcoming_releases %}
-    <div class="col-sm-12 col-sm-2 col-md-8">
-        {% set color = 'indigo' %}
 
-        {%  if 'now'|date('Y') <  values|date('Y') %}
-          {% set color = 'green' %}
-        {%  endif %}
+<table class="table table-light table-striped caption-top table-hover table-sm w-auto justify-content-center mt-4 text-center">
+  <caption class="h4 text-center text-warning">Upcoming releases</caption>
+  <thead>
+    <tr>
+      <th colspan="8" class="text-center table-warning">{{ year }}</th>
+    </tr>
+    <tr>
+      <th scope="col" class="px-4">Quarter</th>
+      <th scope="col" class="px-4">Version</th>
+      <th scope="col" class="px-4">Matching <abbr title="Extended Support Release">ESR</abbr></th>
+      <th scope="col" class="px-4">Release Owner</th>
+      <th scope="col" class="px-4">Nightly starts</th>
+      <th scope="col" title="The Nightly soft code freeze is typically during the week prior to merge day. During this period high-risk patches should avoid landing until after the Nightly version bump lands on mozilla-central on merge day">Soft code freeze</th>
+      <th scope="col" class="px-4">Beta starts</th>
+      <th scope="col" class="px-4">Release day</th>
+    </tr>
+  </thead>
 
-        {{ calendar.draw(values, color)|raw }}
-    <br>
-    </div>
-    {% endfor %}
-</div>
+<tbody>
+{% set check = 0 %}
+{% set date_pattern = 'MMMM d' %}
+{% for values in upcoming_releases %}
+  {% if values.release_date|format_date(pattern='YYYY' , locale='en') != year %}
+  <tr>
+    <th colspan="8" class="text-center table-warning">{{ values.release_date|format_date(pattern='YYYY' , locale='en') }}</th>
+  </tr>
+    {% set year = values.release_date|format_date(pattern='YYYY' , locale='en') %}
+  {% endif %}
 
+  <tr>
+  {% if check != values.quarter %}
+    {% set rowspan = upcoming_quarters[values.quarter] %}
+    <th rowspan="{{ rowspan}}" class="force-default-bg align-middle border-end">{{ values.quarter }}</th>
+    {% set check = values.quarter %}
+  {% endif %}
+    <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
+    <td class="text-muted">{{ values.esr }}</td>
+    <td>{{ values.owner }}</td>
+    <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
+    <td title="{{ values.soft_freeze|format_date('full', locale='en') }}">{{ values.soft_freeze|format_date(pattern=date_pattern, locale='en')}}</td>
+    <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
+    <td title="{{ values.release_date|format_date('full', locale='en') }}" class="text-color-1">{{ values.release_date|format_date(pattern=date_pattern, locale='en') }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+
+</table>
+
+<p class="text-center bg-secundary w-75 mx-auto opacity-75  mt-2">The above schedule can also be consulted as a <a href="/calendar/monthly/">detailed monthly view.</a></p>
+
+<ul class="nav justify-content-center">
+  <li class="nav-item navbar-text">
+    Add to your calendar:
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" title="Low  noise, only contains Merge and Release dates" href="https://www.google.com/calendar/embed?src=mozilla.com_2d37383433353432352d3939%40resource.calendar.google.com">Release dates only</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" title="Highly detailed - 99.99% up to date" href="https://www.google.com/calendar/embed?src=bW96aWxsYS5jb21fZGJxODRhbnI5aTh0Y25taGFiYXRzdHY1Y29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">Full schedule</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" title="Highly detailed - 99.99% up to date, ICS format" href="https://calendar.google.com/calendar/ical/mozilla.com_dbq84anr9i8tcnmhabatstv5co%40group.calendar.google.com/public/basic.ics">Full schedule (ICS)</a>
+  </li>
+</ul>
+
+{% set date_pattern = 'YYYY-MM-dd' %}
+<details class="justify-content-center mt-4 text-center  ">
+  <summary>Click to expand past releases data</summary>
+<table class="table caption-top table-light table-striped table-hover table-bordered table-sm w-auto justify-content-center mt-4 text-center">
+  <caption class="h4 text-center text-warning">Past releases</caption>
+  <thead>
+  <tr>
+    <th scope="col" class="px-4">Version</th>
+    <th scope="col" class="px-4">Matching ESR</th>
+    <th scope="col" class="px-4">Release owner</th>
+    <th scope="col" class="px-4">Nightly starts</th>
+    <th scope="col" class="px-4">Beta starts</th>
+    <th scope="col" class="px-4">Release day</th>
+  </tr>
+</thead>
+<tbody>
+{% for values in past_releases %}
+  <tr>
+    <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
+    <td class="text-muted">{{ values.esr }}</td>
+    <td>{{ values.owner }}</td>
+    <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
+    <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
+    <td title="{{ values.release_date|format_date('full', locale='en') }}">{{ values.release_date|format_date(pattern=date_pattern , locale='en') }}</td>
+      </tr>
+{% endfor %}
+</tbody>
+
+</table>
+</details>
 {% endblock %}
 
 {% block footer %}

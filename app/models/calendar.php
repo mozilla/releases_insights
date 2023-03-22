@@ -2,33 +2,66 @@
 
 declare(strict_types=1);
 
-use benhall14\phpCalendar\Calendar;
 use ReleaseInsights\Data;
+use ReleaseInsights\ESR;
 use ReleaseInsights\Release;
+use ReleaseInsights\Version;
+use ReleaseInsights\Utils;
 
-$calendar = new Calendar();
-$events = [];
+$future = [];
 
-foreach (array_keys((new Data)->getFutureReleases()) as $version) {
+foreach ((new Data)->getFutureReleases() as $version => $date) {
+    $version_data = (new Release($version))->getSchedule();
 
-    if ((int) $version <= RELEASE) {
-        continue;
-    }
+    $owner = (new Data)->getOwners()[$version] ?? 'TBD';
+    // Display the first name only, we don't need family names for active release managers
+    $owner = explode(' ', $owner)[0];
 
-    foreach ((new Release($version))->getSchedule() as $event => $date )  {
-        if ($event === 'version') {
-            continue;
-        }
+    $ESR = ESR::getOlderSupportedVersion((int) $version) == null
+        ? ESR::getMainDotVersion(ESR::getVersion((int) $version))
+        : ESR::getMainDotVersion(ESR::getOlderSupportedVersion((int) $version))
+             . ' + '
+             . ESR::getMainDotVersion(ESR::getVersion((int) $version));
 
-        $date = (new DateTime($date))->format('Y-m-d');
-
-        $events[] = array(
-            'start'   => $date,
-            'end'     => $date,
-            'summary' => Release::getNiceLabel($version, $event) . "<br>\n",
-            'mask'    => true
-        );
-    }
+    $future += [
+        $version => [
+            'version'       => Version::getMajor($version),
+            'release_date'  => $date,
+            'nightly_start' => $version_data['nightly_start'],
+            'soft_freeze'   => $version_data['soft_code_freeze'],
+            'beta_start'    => $version_data['merge_day'],
+            'esr'           => $ESR,
+            'quarter'       => 'Q' . (string) ceil(date('n', strtotime($date)) / 3),
+            'owner'         => $owner,
+        ]
+    ];
 }
 
-return $calendar->addEvents($events);
+$past = [];
+
+foreach ((new Data)->getPastReleases(dot_releases: false) as $version => $date) {
+    $version_data = (new Release($version))->getSchedule();
+
+    $ESR = ESR::getOlderSupportedVersion((int) $version) == null
+        ? ESR::getMainDotVersion(ESR::getVersion((int) $version))
+        : ESR::getMainDotVersion(ESR::getOlderSupportedVersion((int) $version))
+             . ' + '
+             . ESR::getMainDotVersion(ESR::getVersion((int) $version));
+
+    $past += [
+        $version => [
+            'version'       => $version == '14.0.1' ? '14.0' : $version,
+            'release_date'  => $date,
+            'nightly_start' => array_key_exists('error', $version_data) ? 'a' : $version_data['nightly_start'],
+            'soft_freeze'   => array_key_exists('error', $version_data) ? '' : $version_data['soft_code_freeze'],
+            'beta_start'    => array_key_exists('error', $version_data) ? '' : $version_data['merge_day'],
+            'esr'           => $ESR,
+            'owner'         => (new Data)->getOwners()[$version] ?? 'TBD',
+        ]
+    ];
+
+}
+
+arsort($past);
+
+return ['future' => $future, 'past' => $past];

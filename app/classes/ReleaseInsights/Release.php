@@ -46,7 +46,6 @@ class Release
     public function getSchedule(string $pd_url = 'https://product-details.mozilla.org/1.0/'): array
     {
         $all_releases = (new Data($pd_url))->getMajorReleases();
-
         if (! array_key_exists($this->version, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
         }
@@ -54,12 +53,22 @@ class Release
         // Future release date object
         $release = new DateTime($all_releases[$this->version] . ' 06:00 PST');
 
-        // Previous release object
-        $previous_release = new DateTime($all_releases[Version::decrement($this->version, 1)] . ' 06:00 PST');
+        $beta_target = Version::decrement($this->version, 1);
+        $nightly_target = Version::decrement($this->version, 2);
+
+        if ($beta_target == '14.0') {
+            $beta_target = '14.0.1';
+        }
+
+        if ($nightly_target == '14.0') {
+            $nightly_target = '14.0.1';
+        }
+
+        // Previous release date object
+        $previous_release = new DateTime($all_releases[$beta_target] . ' 06:00 PST');
 
         // Calculate 1st day of the nightly cycle
-        $nightly = new DateTime($all_releases[Version::decrement($this->version, 2)]);
-
+        $nightly = new DateTime($all_releases[$nightly_target]);
         $nightly->modify('-1 day');
 
         $x = match ($this->version) {

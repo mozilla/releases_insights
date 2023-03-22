@@ -65,6 +65,10 @@ return $content = <<<"EOD"
     </tr>
     <tr>
         <td><a href="/calendar">calendar</a></td>
+        <td>Overview of our upcoming releases.</td>
+    </tr>
+    <tr>
+        <td><a href="/calendar/monthly/">calendar/monthly/</a></td>
         <td>General calendar view of milestones for upcoming releases.</td>
     </tr>
     <tr>
