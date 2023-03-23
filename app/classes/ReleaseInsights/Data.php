@@ -34,7 +34,7 @@ class Data
     {
         return array_filter(
             $this->future_releases,
-            function ($key) { return (int) $key >= RELEASE; },
+            function ($key) { return (int) $key > RELEASE; },
             ARRAY_FILTER_USE_KEY
         );
     }
