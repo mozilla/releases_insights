@@ -58,7 +58,7 @@ jobs:
           paths:
             - node_modules
 
-    test-local-environment:
+  test-local-environment:  
     executor: docker/machine
     steps:
       - checkout
@@ -84,7 +84,7 @@ jobs:
       #- run: ./vendor/bin/phpunit
       #- run: ./vendor/bin/codecept build
       #- run: ./vendor/bin/codecept run
-    docker-build-artifact:
+  docker-build-artifact:
     executor: docker/machine
     steps:
       - checkout
