@@ -68,13 +68,13 @@ jobs:
       - run:
           name: Load Docker image artifact from previous job
           command: docker load -i artifacts/releases_insights.tar
-      # - run:
-      #     name: Override docker-compose.yaml with artifact
-      #     command: |
-      #       sed -i "s/  build: ./  image: $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9}/g" docker-compose.yml
-      # - run:
-      #     name: Start up local environment
-      #     command: make up
+      - run:
+          name: Override docker-compose.yaml with artifact
+          command: |
+            sed -i "s/  build: ./  image: $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9}/g" docker-compose.yml
+      - run:
+          name: Start up local environment
+          command: make up
 
       # prepare the database
       #- run: touch storage/testing.sqlite
