@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+    fx-trains:
+        ports:
+            - '8000:8000'
+        image: fx-trains
