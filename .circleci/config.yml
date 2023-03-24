@@ -1,6 +1,6 @@
 # PHP CircleCI 2.0 configuration file
 # See: https://circleci.com/docs/2.0/language-php/
-version: 2
+version: 2.1
 
 orbs:
   docker: circleci/docker@2.2.0
