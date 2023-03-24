@@ -167,11 +167,11 @@ workflows:
     jobs:
       - docker-build-artifact:
           name: 🛠️ Docker build test
-          filters: &ci-filter
+          # filters: &ci-filter
 
       - test-local-environment:
           name: 🧪 Validate local environment
-          filters: *ci-filter
+          # filters: *ci-filter
           requires:
             - 🛠️ Docker build test
 
