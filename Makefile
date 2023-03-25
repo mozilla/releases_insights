@@ -45,7 +45,7 @@ stop:
 
 up:
 	docker-compose up --wait
-	docker-compose exec releases_insights
+	docker-compose exec releases_insights --platform=linux/amd64
 
 gke:
 	bin/start_gke
