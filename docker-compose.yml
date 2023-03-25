@@ -1,6 +1,5 @@
 version: '3.3'
 services:
-    fx-trains:
+    whattrainisitnow:
         ports:
             - '8000:8000'
-        image: fx-trains

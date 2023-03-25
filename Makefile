@@ -28,7 +28,7 @@ build:
 clean: stop
 	docker-compose rm -f
 	rm -rf logs/*
-	if [ -f fx-trains.pid ]; then rm fx-trains.pid; fi
+	if [ -f whattrainisitnow.pid ]; then rm whattrainisitnow.pid; fi
 
 # pip-install-local: pip-compile
 # 	pip install -r requirements.txt
@@ -44,10 +44,8 @@ stop:
 	docker-compose stop
 
 up:
-	# grep -qF 'AIRFLOW_UID=' .env || echo "AIRFLOW_UID=$$(id -u)" >> .env
-	# grep -qF 'FERNET_KEY=' .env || echo "FERNET_KEY=$$(python -c "from cryptography.fernet import Fernet; fernet_key = Fernet.generate_key(); print(fernet_key.decode())")" >> .env
 	docker-compose up --wait
-	docker-compose exec fx-trains
+	docker-compose exec whattrainisitnow
 
 gke:
 	bin/start_gke
