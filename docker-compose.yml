@@ -1,6 +1,6 @@
 version: '3.3'
 services:
     releases_insights:
-        image: releases_insights
+        image: mozilla/releases_insights:latest
         ports:
             - '8000:8000'
