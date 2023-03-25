@@ -28,13 +28,13 @@ build:
 clean: stop
 	docker-compose rm -f
 	rm -rf logs/*
-	if [ -f whattrainisitnow.pid ]; then rm whattrainisitnow.pid; fi
+	if [ -f releases_insights.pid ]; then rm releases_insights.pid; fi
 
 # pip-install-local: pip-compile
 # 	pip install -r requirements.txt
 
 shell:
-	docker-compose run fx-trains bash
+	docker-compose run releases_insights bash
 
 # redis-cli:
 # 	docker-compose run redis redis-cli -h redis
@@ -45,7 +45,7 @@ stop:
 
 up:
 	docker-compose up --wait
-	docker-compose exec whattrainisitnow
+	docker-compose exec releases_insights
 
 gke:
 	bin/start_gke

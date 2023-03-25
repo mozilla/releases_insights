@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-    whattrainisitnow:
-        image: whattrainisitnow
+    releases_insights:
+        image: releases_insights
         ports:
             - '8000:8000'
