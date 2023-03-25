@@ -1,6 +1,7 @@
 version: '3.3'
 services:
     releases_insights:
+        platform: linux/x86_64
         image: mozilla/releases_insights:latest
         ports:
             - '8000:8000'
