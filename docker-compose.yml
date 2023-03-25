@@ -1,5 +1,6 @@
 version: '3.3'
 services:
     whattrainisitnow:
+        image: whattrainisitnow
         ports:
             - '8000:8000'
