@@ -1,38 +1,24 @@
-# PHP CircleCI 2.0 configuration file
-# See: https://circleci.com/docs/2.0/language-php/
+# These environment variables must be set in CircleCI UI
+#
+# DOCKERHUB_REPO - docker hub repo, format: <username>/<repo>
+# DOCKER_USER    - login info for docker hub
+# DOCKER_PASS
+# COVERALLS_REPO_TOKEN - used by coveralls-python
+# HEROKU_APP_NAME - Name on Heroku
+# HEROKU_API_KEY - API key from service account
+#
 version: 2.1
-
 orbs:
   docker: circleci/docker@2.2.0
-  #python: circleci/python@2.1.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  build:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      # Specify the version you desire here
-      - image: cimg/php:8.1.17-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      # - image: circleci/mysql:5.7-ram
-      #
-      # - image: redis:2.8.19
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  node: circleci/node@5.1.0
+  heroku: circleci/heroku@1.2.6
+commands:
+  checkout_with_submodules:
+    description: Checkout releases_insights code and submodules
     steps:
       - checkout
-
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip mbstring intl curl dom
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -57,198 +43,144 @@ jobs:
           key: node-v1-{{ checksum "composer.lock" }}
           paths:
             - node_modules
-
-  test-local-environment:  
-    executor: docker/machine
-    steps:
-      - checkout
-      - attach_workspace:
-          at: artifacts
-      - docker/install-docker-compose
-      - run:
-          name: Load Docker image artifact from previous job
-          command: docker load -i artifacts/releases_insights.tar
-      - run:
-          name: Override docker-compose.yaml with artifact
-          command: |
-            sed -i "s/  build: ./  image: $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9}/g" docker-compose.yml
-      - run:
-          name: Start up local environment
-          command: make up
-
-      # prepare the database
-      #- run: touch storage/testing.sqlite
-      #- run: php artisan migrate --env=testing --database=sqlite_testing --force
-
-      # run tests with phpunit or codecept
-      #- run: ./vendor/bin/phpunit
-      #- run: ./vendor/bin/codecept build
-      #- run: ./vendor/bin/codecept run
-  docker-build-artifact:
-    executor: docker/machine
-    steps:
-      - checkout
-      - run:
-          name: Generate build version.json
-          command: >
-            printf 
-            '{"commit":"%s","version":"%s","source":"https://github.com/%s/%s","build":"%s"}\n' 
-            "$CIRCLE_SHA1" "$CIRCLE_TAG" "$CIRCLE_PROJECT_USERNAME" 
-            "$CIRCLE_PROJECT_REPONAME" "$CIRCLE_BUILD_URL" 
-            > version.json
-      - run:
-          name: Output version.json
-          command: cat version.json
-      - docker/build:
-          image: $CIRCLE_PROJECT_REPONAME
-          tag: ${CIRCLE_SHA1:0:9}
-      - run:
-          name: Persist image
-          command: |
-            mkdir -p artifacts
-            docker save -o artifacts/releases_insights.tar $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9}
-      - persist_to_workspace:
-          root: artifacts
-          paths:
-            - releases_insights.tar
-
-  publish-registry:
-    executor: docker/machine
-    parameters:
-      image_tag:
-        type: string
-      registry:
-        type: string
-      registry_authentication:
-        default: []
-        description: Steps required to authenticate on targeted registry
-        type: steps
-    steps:
-      - checkout
-      - when:
-          condition: <<parameters.registry_authentication>>
-          steps: <<parameters.registry_authentication>>
-      - attach_workspace:
-          at: artifacts
-      - run:
-          name: Load Docker image artifact from previous job
-          command: docker load -i artifacts/releases_insights.tar
-      - run:
-          name: Generate image name
-          command: |
-            echo 'export PARAM_REGISTRY="<< parameters.registry >>"' >> "$BASH_ENV"
-            echo 'export PARAM_IMAGE_TAG="<< parameters.image_tag >>"' >> "$BASH_ENV"
-            echo 'export IMAGE_NAME="$CIRCLE_PROJECT_REPONAME"' >> "$BASH_ENV"
-      - run:
-          name: Re-tag artifact
-          command: docker tag $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9} $PARAM_REGISTRY/$IMAGE_NAME:$PARAM_IMAGE_TAG
-      - docker/push:
-          step-name: Push image to registry
-          image: $IMAGE_NAME
-          tag: $PARAM_IMAGE_TAG
-          registry: $PARAM_REGISTRY
-
-  sync_gcs:
+executors:
+  php:
     docker:
-      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:323.0.0
-    working_directory: ~/mozilla/releases_insights
+      - image: cimg/php:8.1.17-browsers
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+
+  build_test_backend:
+    docker:
+      - image: docker:stable-git
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    working_directory: /dockerflow
     steps:
-      - checkout
-      - run: |
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          gsutil rsync -d -r dataproc_bootstrap gs://moz-fx-data-prod-airflow-dataproc-artifacts/bootstrap
-          gsutil rsync -d -r jobs gs://moz-fx-data-prod-airflow-dataproc-artifacts/jobs
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout_with_submodules
+      - setup_remote_docker:
+          # Use a version of Docker that works with Node, see
+          # https://support.circleci.com/hc/en-us/articles/360050934711-Docker-build-fails-with-EPERM-operation-not-permitted-copyfile-when-using-node-14-9-0-or-later-
+          # (apparently version 17.09.0-ce is lower than 1.9.1, but 19.03.13 is not?)
+          # and
+          # https://github.com/nodejs/docker-node#supported-docker-versions
+          # and
+          # https://circleci.com/docs/2.0/building-docker-images/#docker-version
+          version: 20.10.11
+          docker_layer_caching: True
+      - restore_cache:
+          key: v1-frontend-build-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Copy build artefacts from build_frontend into this folder
+          command: mv /home/circleci/project/frontend/out /dockerflow/frontend/
+
+      - run:
+          name: Copy email tracker lists into this folder
+          command: |
+            cp /tmp/workspace/email-trackers/level-one-trackers.json /dockerflow/emails/tracker_lists/
+            cp /tmp/workspace/email-trackers/level-two-trackers.json /dockerflow/emails/tracker_lists/
+
+      - run:
+          name: Create a version.json
+          command: |
+            # create a version.json per https://github.com/mozilla-services/Dockerflow/blob/master/docs/version_object.md
+            printf '{"commit":"%s","version":"%s","source":"https://github.com/%s/%s","build":"%s"}\n' \
+            "$CIRCLE_SHA1" \
+            "$CIRCLE_TAG" \
+            "$CIRCLE_PROJECT_USERNAME" \
+            "$CIRCLE_PROJECT_REPONAME" \
+            "$CIRCLE_BUILD_URL" > version.json
+
+      - run:
+          name: Build Docker image
+          command: |
+            docker build --tag releases_insights \
+            --build-arg CIRCLE_BRANCH="$CIRCLE_BRANCH" \
+            --build-arg CIRCLE_TAG="$CIRCLE_TAG" \
+            --build-arg CIRCLE_SHA1="$CIRCLE_SHA1" \
+            .
+
+      - run:
+          name: Check if deploying
+          command: |
+            if [ "${CIRCLE_BRANCH}" != "main" ] && [ -z "${CIRCLE_TAG}" ]; then
+              echo "Skipping exporting Docker image, not main branch or tag."
+              circleci step halt
+            fi
+            # https://stackoverflow.com/a/18558871/10612
+            if case $CIRCLE_TAG in addon-*) ;; *) false;; esac; then
+              echo "Skipping exporting Docker image, ${CIRCLE_TAG} has addon- prefix."
+              circleci step halt
+            fi
+
+      # save the built docker container into CircleCI's cache. This is
+      # required since Workflows do not have the same remote docker instance.
+      - run:
+          name: docker save releases_insights
+          command: |
+            mkdir --parents /tmp/workspace;
+            docker save --output /tmp/workspace/docker.tar "releases_insights"
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - docker.tar
+
+
+  deploy:
+    docker:
+      - image: docker:18.02.0-ce
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: True
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Restore Docker image cache
+          command: docker load --input /tmp/workspace/docker.tar
+
+      - run:
+          name: Deploy to Dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            # deploy master
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              docker tag releases_insights ${DOCKERHUB_REPO}:latest
+              docker push ${DOCKERHUB_REPO}:latest
+            elif  [ ! -z "${CIRCLE_TAG}" ]; then
+            # deploy a release tag...
+              echo "${DOCKERHUB_REPO}:${CIRCLE_TAG}"
+              docker tag releases_insights "${DOCKERHUB_REPO}:${CIRCLE_TAG}"
+              docker images
+              docker push "${DOCKERHUB_REPO}:${CIRCLE_TAG}"
+            fi
+
 
 
 workflows:
-  ci:
+  version: 2
+  build-test-deploy:
     jobs:
-      - docker-build-artifact:
-          name: 🛠️ Docker build test
-          # filters: &ci-filter
-
-      - test-local-environment:
-          name: 🧪 Validate local environment
-          # filters: *ci-filter
+      - build_test_backend:
           requires:
-            - 🛠️ Docker build test
-
-  publish:
-    jobs:
-      - docker-build-artifact:
-          name: 🛠️ Docker build and persist image
+            - build_email_tracker_list_job
+            - build_frontend
           filters:
             tags:
               only: /.*/
-            branches:
-              only: main
 
-      - publish-registry:
-          name: Publish latest to Dockerhub
-          registry: mozilla
-          image_tag: latest
-          registry_authentication: &mozilla-auth
-            - docker/check:
-                docker-password: DOCKER_PASS
-                docker-username: DOCKER_USER
+      - deploy:
           requires:
-            - 🛠️ Docker build and persist image
+            - build_test_backend
           filters:
             tags:
-              only: /.*/
+              ignore: /addon-.*/
             branches:
-              only: main
+              only: master
 
-      - publish-registry:
-          name: Publish tag to Dockerhub
-          registry: mozilla
-          image_tag: $CIRCLE_TAG
-          registry_authentication: *mozilla-auth
-          requires:
-            - 🛠️ Docker build and persist image
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
-
-      - publish-registry:
-          name: Publish latest to GAR
-          registry: us-docker.pkg.dev/moz-fx-whattrainisitnow-prod/whattrainisitnow-prod
-          image_tag: latest
-          registry_authentication: &gar-auth
-            - run:
-                name: Authenticate GAR
-                command: |
-                  echo $GAR_SERVICE_KEY | base64 -d > creds.json
-                  gcloud auth activate-service-account --key-file creds.json
-                  gcloud auth configure-docker us-docker.pkg.dev
-          requires:
-            - 🛠️ Docker build and persist image
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only: main
-
-      - publish-registry:
-          name: Publish tag to GAR
-          registry: us-docker.pkg.dev/moz-fx-whattrainisitnow-prod/whattrainisitnow-prod
-          image_tag: $CIRCLE_TAG
-          registry_authentication: *gar-auth
-          requires:
-            - 🛠️ Docker build and persist image
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
-
-      - sync_gcs:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only: main
