@@ -17,3 +17,4 @@ infection.html
 infection.json
 showcache
 summary.log
+.circleci/config-fxtrains-backup.yml
