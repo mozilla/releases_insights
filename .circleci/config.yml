@@ -1,220 +1,254 @@
-# This is a sample Stage/Prod Pipeline that is invoked by CircleCI TAG build
-# There is currently a bug within the CircleCI workflow which causes the TAG
-# key to be unset, so we use the revision key in 'github.event.deployment.payload.pipeline.vcs.revision'
-# to determine the tag version and use that value in subsequent build steps.
-# In order to use this workflow, you will need to:
-# 1. Configure a webhook a CircleCI webhook based on https://mana.mozilla.org/wiki/display/SRE/Bootstrapping+a+project#Bootstrappingaproject-Addingawebhook
-# 2. Add a router sample configuration in your deploy-app repo that accepts the events
-# 3. Environments build, stage and prod configuration in Github repo settings
-#
+# PHP CircleCI 2.0 configuration file
+# See: https://circleci.com/docs/2.0/language-php/
+version: 2.1
 
-name: Deploy Stage/Prod
-on:
-  deployment: {}
-  workflow_dispatch:
-    inputs:
-      git_tag:
-        type: string
-        required: true
+orbs:
+  docker: circleci/docker@2.2.0
+  python: circleci/python@2.1.1
 
-env:
-  GAR_LOCATION: us
-  APP: whattrainisitnow
-  GAR_REPOSITORY: whattrainisitnow-prod
-  GCP_PROJECT_ID: moz-fx-whattrainisitnow-prod
-  APPLICATION_REPOSITORY: mozilla/releases_insights
-  IMAGE: whattrainisitnow
-  RUN_ID: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-  REVISION : ${{ github.event.deployment.payload.pipeline.vcs.revision }}
-  SLACK_CHANNEL_ID: C046P9LKTRU # #sre-deploy slack channel
-
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  tag:
-    name: Determine Tag
-    runs-on: ubuntu-latest
-    environment: build
-    permissions:
-      contents: read
-      id-token: write
-    outputs:
-      tag: ${{ steps.git-tag.outputs.tag }}
-    if: ${{ github.event.deployment.payload.pipeline.vcs.branch == '' && github.event.deployment.environment == 'stage' }}
-
-    steps:
-    - id: checkout-application-repo-tag
-      uses: actions/checkout@v3
-      with:
-        path: tmp
-        repository: ${{ env.APPLICATION_REPOSITORY }}
-        fetch-depth: 0
-
-    - id: determine-git-tag
-      shell: bash
-      working-directory: tmp
-      run: |
-        if [[ "${{ env.REVISION }}" != "" ]]; then
-        echo "TAG=$(git tag --points-at ${{ env.REVISION }} --sort version:refname | tail -n1)" >> $GITHUB_ENV
-        elif [[ "${{ github.event.inputs.git_tag }}" != "" ]]; then
-        echo "TAG=${{ github.event.inputs.git_tag }}" >> $GITHUB_ENV
-        else
-        echo "Cannot determine TAG"
-        exit 1
-        fi
-
-    - id: git-tag
-      shell: bash
-      run: |
-        echo "tag=${{ env.TAG }}" >> $GITHUB_OUTPUT
-
   build:
-    name: Build Image - ${{ needs.tag.outputs.tag }}
-    runs-on: ubuntu-latest
-    environment: build
-    env:
-      TAG: ${{ needs.tag.outputs.tag }}
-    needs: tag
-    permissions:
-      contents: read
-      id-token: write
-    outputs:
-      tag: ${{ steps.git-tag.outputs.tag }}
-    if: ${{ github.event.deployment.payload.pipeline.vcs.branch == '' }}
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      # Specify the version you desire here
+      - image: cimg/php:8.1.17-browsers
 
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # Using the RAM variation mitigates I/O contention
+      # for database intensive operations.
+      # - image: circleci/mysql:5.7-ram
+      #
+      # - image: redis:2.8.19
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - id: slack_start
-        name: notify slack
-        uses: mozilla-it/deploy-actions/slack@v3
-        with:
-          app_name: ${{ env.APP }}
-          env_name: 'stage'
-          channel_id: ${{ env.SLACK_CHANNEL_ID }}
-          type: 'custom'
-          message: 'Building Image ${{ env.TAG }}'
-          slack_bot_token: ${{ secrets.SLACK_BOT_TOKEN_BUGID_1796141_20221019 }}
-        if: always()
+      - checkout
 
-      - id: checkout-application-repo
-        uses: actions/checkout@v3
-        with:
-          path: src
-          repository: ${{ env.APPLICATION_REPOSITORY }}
-          ref: ${{ env.TAG }}
+      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-install zip mbstring intl curl dom
 
-      - uses: docker/setup-buildx-action@v2
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - v1-dependencies-{{ checksum "composer.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-      - id: gcp-auth
-        uses: google-github-actions/auth@v0
-        with:
-          token_format: 'access_token'
-          service_account: artifact-writer@${{ env.GCP_PROJECT_ID}}.iam.gserviceaccount.com
-          workload_identity_provider: projects/324168772199/locations/global/workloadIdentityPools/github-actions/providers/github-actions
+      - run: composer install -n --prefer-dist
 
-      - uses: docker/login-action@v2
-        name: Docker login
-        with:
-          registry: ${{ env.GAR_LOCATION }}-docker.pkg.dev
-          username: oauth2accesstoken
-          password: ${{ steps.gcp-auth.outputs.access_token }}
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.lock" }}
+          paths:
+            #- ./vendor
+            - ./
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "composer.lock" }}
+            - node-v1-
+      - run: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "composer.lock" }}
+          paths:
+            - node_modules
 
-      - id: build-and-push
-        uses: docker/build-push-action@v3
-        with:
-          context: src/
-          tags: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY}}/${{ env.IMAGE}}:${{ env.TAG }}
-          push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - id: slack_end
-        name: notify slack
-        uses: mozilla-it/deploy-actions/slack@v3
-        with:
-          app_name: ${{ env.APP }}
-          env_name: 'stage'
-          channel_id: ${{ env.SLACK_CHANNEL_ID }}
-          type: 'custom'
-          message: 'Building Image Completed ${{ env.TAG }}'
-          slack_bot_token: ${{ secrets.SLACK_BOT_TOKEN_BUGID_1796141_20221019 }}
-        if: always()
-
-  deploy_stage:
-    name: Deploy Stage - ${{ needs.tag.outputs.tag }}
-    environment: stage
-    concurrency: stage
-    needs: [tag, build]
-    runs-on: [self-hosted, nonprod, us-west1]
-    env:
-      TAG: ${{ needs.tag.outputs.tag}}
-    permissions:
-      contents: read
-      id-token: write
+  test-local-environment:  
+    executor: docker/machine
     steps:
-      - id: deploy
-        uses: mozilla-it/deploy-actions/deploy@v3
-        with:
-          infra_repo: mozilla-it/webservices-infra
-          infra_repo_ref: main
-          infra_repo_ssh_key: ${{ secrets.SRE_INFRA_DEPLOY_KEY_WEBSERVICES_1788529_20220901 }}
-          app_name: ${{ env.APP }}
-          env_name: stage
-          realm_name: nonprod
-          workload_identity_pool_project_number: '324168772199'
-          k8s_cluster_name: webservices-low-nonprod
-          k8s_cluster_location: us-west1
-          k8s_cluster_project: moz-fx-webservices-low-nonprod
-          helm_chart_path: ${{ env.APP }}/k8s/${{ env.APP }}/
-          image_tag: ${{ env.TAG }}
-          helm_values: "--set ghaRunId=${{ env.RUN_ID }}"
+      - checkout
+      - attach_workspace:
+          at: artifacts
+      - docker/install-docker-compose
+      - run:
+          name: Load Docker image artifact from previous job
+          command: docker load -i artifacts/releases_insights.tar
+      - run:
+          name: Override docker-compose.yaml with artifact
+          command: |
+            sed -i "s/  build: ./  image: $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9}/g" docker-compose.yml
+      - run:
+          name: Start up local environment
+          command: make up
 
-      - id: slack
-        name: notify slack
-        uses: mozilla-it/deploy-actions/slack@v3
-        with:
-          app_name: ${{ env.APP }}
-          env_name: 'stage'
-          ref: ${{ env.TAG }}
-          channel_id: ${{ env.SLACK_CHANNEL_ID }}
-          type: 'end'
-          slack_bot_token: ${{ secrets.SLACK_BOT_TOKEN_BUGID_1796141_20221019 }}
-        if: always()
+      # prepare the database
+      #- run: touch storage/testing.sqlite
+      #- run: php artisan migrate --env=testing --database=sqlite_testing --force
 
-  deploy_prod:
-    name: Deploy Prod - ${{ needs.tag.outputs.tag }}
-    environment: prod
-    concurrency: prod
-    needs: [tag, build, deploy_stage]
-    runs-on: [self-hosted, prod, us-west1]
-    env:
-      TAG: ${{ needs.tag.outputs.tag }}
-    permissions:
-      contents: read
-      id-token: write
+      # run tests with phpunit or codecept
+      #- run: ./vendor/bin/phpunit
+      #- run: ./vendor/bin/codecept build
+      #- run: ./vendor/bin/codecept run
+  docker-build-artifact:
+    executor: docker/machine
     steps:
-      - id: deploy
-        uses: mozilla-it/deploy-actions/deploy@v3
-        with:
-          infra_repo: mozilla-it/webservices-infra
-          infra_repo_ref: main
-          infra_repo_ssh_key: ${{ secrets.SRE_INFRA_DEPLOY_KEY_WEBSERVICES_1788529_20220901 }}
-          app_name: ${{ env.APP }}
-          env_name: prod
-          realm_name: prod
-          workload_identity_pool_project_number: '324168772199'
-          k8s_cluster_name: webservices-low-prod
-          k8s_cluster_location: us-west1
-          k8s_cluster_project: moz-fx-webservices-low-prod
-          helm_chart_path: ${{ env.APP }}/k8s/${{ env.APP }}/
-          image_tag: ${{ env.TAG }}
-          helm_values: "--set ghaRunId=${{ env.RUN_ID }}"
+      - checkout
+      - run:
+          name: Generate build version.json
+          command: >
+            printf 
+            '{"commit":"%s","version":"%s","source":"https://github.com/%s/%s","build":"%s"}\n' 
+            "$CIRCLE_SHA1" "$CIRCLE_TAG" "$CIRCLE_PROJECT_USERNAME" 
+            "$CIRCLE_PROJECT_REPONAME" "$CIRCLE_BUILD_URL" 
+            > version.json
+      - run:
+          name: Output version.json
+          command: cat version.json
+      - docker/build:
+          image: $CIRCLE_PROJECT_REPONAME
+          tag: ${CIRCLE_SHA1:0:9}
+      - run:
+          name: Persist image
+          command: |
+            mkdir -p artifacts
+            docker save -o artifacts/releases_insights.tar $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9}
+      - persist_to_workspace:
+          root: artifacts
+          paths:
+            - releases_insights.tar
 
-      - id: slack
-        name: notify slack
-        uses: mozilla-it/deploy-actions/slack@v3
-        with:
-          app_name: ${{ env.APP }}
-          env_name: 'prod'
-          ref: ${{ env.TAG }}
-          channel_id: ${{ env.SLACK_CHANNEL_ID }}
-          type: 'end'
-          slack_bot_token: ${{ secrets.SLACK_BOT_TOKEN_BUGID_1796141_20221019 }}
-        if: always()
+  publish-registry:
+    executor: docker/machine
+    parameters:
+      image_tag:
+        type: string
+      registry:
+        type: string
+      registry_authentication:
+        default: []
+        description: Steps required to authenticate on targeted registry
+        type: steps
+    steps:
+      - checkout
+      - when:
+          condition: <<parameters.registry_authentication>>
+          steps: <<parameters.registry_authentication>>
+      - attach_workspace:
+          at: artifacts
+      - run:
+          name: Load Docker image artifact from previous job
+          command: docker load -i artifacts/releases_insights.tar
+      - run:
+          name: Generate image name
+          command: |
+            echo 'export PARAM_REGISTRY="<< parameters.registry >>"' >> "$BASH_ENV"
+            echo 'export PARAM_IMAGE_TAG="<< parameters.image_tag >>"' >> "$BASH_ENV"
+            echo 'export IMAGE_NAME="$CIRCLE_PROJECT_REPONAME"' >> "$BASH_ENV"
+      - run:
+          name: Re-tag artifact
+          command: docker tag $CIRCLE_PROJECT_REPONAME:${CIRCLE_SHA1:0:9} $PARAM_REGISTRY/$IMAGE_NAME:$PARAM_IMAGE_TAG
+      - docker/push:
+          step-name: Push image to registry
+          image: $IMAGE_NAME
+          tag: $PARAM_IMAGE_TAG
+          registry: $PARAM_REGISTRY
+
+  sync_gcs:
+    docker:
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:323.0.0
+    working_directory: ~/mozilla/releases_insights
+    steps:
+      - checkout
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+          gsutil rsync -d -r dataproc_bootstrap gs://moz-fx-data-prod-airflow-dataproc-artifacts/bootstrap
+          gsutil rsync -d -r jobs gs://moz-fx-data-prod-airflow-dataproc-artifacts/jobs
+
+
+workflows:
+  ci:
+    jobs:
+      - docker-build-artifact:
+          name: 🛠️ Docker build test
+          # filters: &ci-filter
+
+      - test-local-environment:
+          name: 🧪 Validate local environment
+          # filters: *ci-filter
+          requires:
+            - 🛠️ Docker build test
+
+  publish:
+    jobs:
+      - docker-build-artifact:
+          name: 🛠️ Docker build and persist image
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: main
+
+      - publish-registry:
+          name: Publish latest to Dockerhub
+          registry: mozilla
+          image_tag: latest
+          registry_authentication: &mozilla-auth
+            - docker/check:
+                docker-password: DOCKER_PASS
+                docker-username: DOCKER_USER
+          requires:
+            - 🛠️ Docker build and persist image
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: main
+
+      - publish-registry:
+          name: Publish tag to Dockerhub
+          registry: mozilla
+          image_tag: $CIRCLE_TAG
+          registry_authentication: *mozilla-auth
+          requires:
+            - 🛠️ Docker build and persist image
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+
+      - publish-registry:
+          name: Publish latest to GAR
+          registry: us-docker.pkg.dev/moz-fx-whattrainisitnow-prod/whattrainisitnow-prod
+          image_tag: latest
+          registry_authentication: &gar-auth
+            - run:
+                name: Authenticate GAR
+                command: |
+                  echo $GAR_SERVICE_KEY | base64 -d > creds.json
+                  gcloud auth activate-service-account --key-file creds.json
+                  gcloud auth configure-docker us-docker.pkg.dev
+          requires:
+            - 🛠️ Docker build and persist image
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: main
+
+      - publish-registry:
+          name: Publish tag to GAR
+          registry: us-docker.pkg.dev/moz-fx-whattrainisitnow-prod/whattrainisitnow-prod
+          image_tag: $CIRCLE_TAG
+          registry_authentication: *gar-auth
+          requires:
+            - 🛠️ Docker build and persist image
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+
+      - sync_gcs:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: main
