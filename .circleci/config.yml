@@ -183,7 +183,7 @@ workflows:
             tags:
               only: /.*/
             branches:
-              only: main
+              only: circleci-project-setup
 
       - publish-registry:
           name: Publish latest to Dockerhub
@@ -199,7 +199,7 @@ workflows:
             tags:
               only: /.*/
             branches:
-              only: main
+              only: circleci-project-setup
 
       - publish-registry:
           name: Publish tag to Dockerhub
@@ -231,7 +231,7 @@ workflows:
             tags:
               only: /.*/
             branches:
-              only: main
+              only: circleci-project-setup
 
       - publish-registry:
           name: Publish tag to GAR
@@ -251,4 +251,4 @@ workflows:
             tags:
               only: /.*/
             branches:
-              only: main
+              only: circleci-project-setup
