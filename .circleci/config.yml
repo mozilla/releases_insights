@@ -6,6 +6,7 @@
 # 1. Configure a webhook a CircleCI webhook based on https://mana.mozilla.org/wiki/display/SRE/Bootstrapping+a+project#Bootstrappingaproject-Addingawebhook
 # 2. Add a router sample configuration in your deploy-app repo that accepts the events
 # 3. Environments build, stage and prod configuration in Github repo settings
+#
 
 name: Deploy Stage/Prod
 on:
