@@ -42,10 +42,7 @@ $past = [];
 $obj = new Data();
 
 foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
-
-    $version_data = (new Release($version))->getSchedule();
-
-    $ESR = ESR::getOlderSupportedVersion((int) $version) == null
+    $esr = ESR::getOlderSupportedVersion((int) $version) == null
         ? ESR::getMainDotVersion(ESR::getVersion((int) $version))
         : ESR::getMainDotVersion(ESR::getOlderSupportedVersion((int) $version))
              . ' + '
@@ -53,6 +50,19 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
 
     $betas = $obj->getPastBetas();
 
+    if ($version == '17.0') {
+        $nightly_start = $obj->getPastReleases()['14.0.1'];
+    } elseif ($version == '8.0') {
+        $nightly_start = '2011-07-05';
+    } elseif ($version == '7.0') {
+        $nightly_start = '2011-05-24';
+    } elseif ($version == '6.0') {
+        $nightly_start = '2011-04-12';
+    } elseif ((int) $version < 55 && (int) $version > 8) {
+        $nightly_start = $obj->getPastReleases()[Version::decrement($version, 3)];
+    } else {
+        $nightly_start = $obj->getPastReleases()[Version::decrement($version, 2)];
+    }
     // We never shipped 14.0
     $version = ($version == '14.0.1') ? '14.0' : $version;
 
@@ -71,13 +81,12 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
         $version => [
             'version'       => $version,
             'release_date'  => $date,
-            'nightly_start' => $version_data['nightly_start'] ?? '',
+            'nightly_start' => $nightly_start,
             'beta_start'    => $beta_date,
-            'esr'           => $ESR,
+            'esr'           => $esr,
             'owner'         => (new Data)->getOwners()[$version] ?? 'TBD',
         ]
     ];
-
 }
 
 arsort($past);
