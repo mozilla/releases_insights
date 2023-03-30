@@ -58,6 +58,6 @@ class Version
             return '1.0';
         }
 
-        return (string) ((int) $version - $decrement) . '.0';;
+        return (string) ((int) $version - $decrement) . '.0';
     }
 }

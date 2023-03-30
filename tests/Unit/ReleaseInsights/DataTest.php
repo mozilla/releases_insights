@@ -61,6 +61,14 @@ test('Data->getPastReleases()', function () {
         ->toBe('2022-07-13');
 });
 
+test('Data->getPastBetas()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getPastBetas())
+        ->toBeArray();
+    expect($obj->getPastBetas()['22.0b3'])
+        ->toBe('2013-05-30');
+});
+
 test('Data->getMajorPastReleases()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getMajorPastReleases())

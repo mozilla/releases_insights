@@ -39,7 +39,10 @@ foreach ((new Data)->getFutureReleases() as $version => $date) {
 
 $past = [];
 
-foreach ((new Data)->getPastReleases(dot_releases: false) as $version => $date) {
+$obj = new Data();
+
+foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
+
     $version_data = (new Release($version))->getSchedule();
 
     $ESR = ESR::getOlderSupportedVersion((int) $version) == null
@@ -48,13 +51,28 @@ foreach ((new Data)->getPastReleases(dot_releases: false) as $version => $date) 
              . ' + '
              . ESR::getMainDotVersion(ESR::getVersion((int) $version));
 
+    $betas = $obj->getPastBetas();
+
+    // We never shipped 14.0
+    $version = ($version == '14.0.1') ? '14.0' : $version;
+
+    // We never shipped 33.0 and we used a weird 33.1 dot release sheme instead of 33.0.1
+    $version = ($version == '33.1') ? '33.0' : $version;
+
+    // We didn't always have a regular beta schedule
+    $beta_date = $betas[$version . 'b1']
+        ?? $betas[$version . 'b3'] // We used to start betas with b3 when we had aurora
+        ?? $betas[$version . 'b4'] // We never shipped 58.0b3
+        ?? $betas[$version . 'b6'] // We never shipped previous 14.0bx
+        ?? $betas[$version . 'rc1'] // We had no public betas for 1.0 & 1.5 but had RCs
+        ?? '9999-12-12'; // Fake date in the future as a fallback to avoid a plausible date.
+
     $past += [
         $version => [
-            'version'       => $version == '14.0.1' ? '14.0' : $version,
+            'version'       => $version,
             'release_date'  => $date,
-            'nightly_start' => array_key_exists('error', $version_data) ? 'a' : $version_data['nightly_start'],
-            'soft_freeze'   => array_key_exists('error', $version_data) ? '' : $version_data['soft_code_freeze'],
-            'beta_start'    => array_key_exists('error', $version_data) ? '' : $version_data['merge_day'],
+            'nightly_start' => $version_data['nightly_start'] ?? '',
+            'beta_start'    => $beta_date,
             'esr'           => $ESR,
             'owner'         => (new Data)->getOwners()[$version] ?? 'TBD',
         ]

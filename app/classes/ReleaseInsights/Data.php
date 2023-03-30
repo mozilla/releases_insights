@@ -101,6 +101,16 @@ class Data
     }
 
     /**
+     * Get all past Betas
+     *
+     * @return array<string, string>
+     */
+    public function getPastBetas(): array
+    {
+        return Utils::getJson($this->pd_url . 'firefox_history_development_releases.json', 604800);
+    }
+
+    /**
      * Get all past Releases on the release channel, but not dot releases
      *
      * @return array<string, string>
