@@ -19,9 +19,9 @@ on:
 
 env:
   GAR_LOCATION: us
-  APP: testapp
-  GAR_REPOSITORY: testapp-prod
-  GCP_PROJECT_ID: moz-fx-testapp-prod
+  APP: whattrainisitnow
+  GAR_REPOSITORY: whattrainisitnow-prod
+  GCP_PROJECT_ID: moz-fx-whattrainisitnow-prod
   APPLICATION_REPOSITORY: mozilla/releases_insights
   IMAGE: whattrainisitnow
   RUN_ID: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
