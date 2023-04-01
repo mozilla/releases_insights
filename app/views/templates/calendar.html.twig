@@ -77,8 +77,8 @@
 </ul>
 
 {% set date_pattern = 'YYYY-MM-dd' %}
-<details class="justify-content-center mt-4 text-center">
-  <summary>Click to expand past releases data</summary>
+<details class="justify-content-center mt-4 text-center" id="Past_branch_dates">
+  <summary>Click to toggle past releases table data</summary>
 <table class="table caption-top table-light table-striped table-hover table-bordered table-sm w-auto justify-content-center mt-4 text-center">
   <caption class="h4 text-center text-warning">Past releases</caption>
   <thead>
@@ -113,5 +113,23 @@
 {% endblock %}
 
 {% block footer %}
-     {%  include 'footer_UTC_warning.html.twig' %}
+
+{%  include 'footer_UTC_warning.html.twig' %}
+
+<script nonce="4AEemGb0xJptoIGFP3Nd">
+function openTarget() {
+  var hash = location.hash.substring(1);
+  if (hash) var details = document.getElementById(hash);
+  if (details && details.tagName.toLowerCase() === 'details') {
+    details.open = true;
+    location.hash = hash;
+  }
+}
+
+window.addEventListener('hashchange', openTarget);
+
+openTarget();
+
+</script>
+
 {% endblock %}
