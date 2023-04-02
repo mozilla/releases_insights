@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine as builder
+FROM php:8.1-fpm-alpine3.16 as builder
 
 RUN apk update && \
     apk upgrade
@@ -28,7 +28,7 @@ RUN cd /app && \
 
 ###
 
-FROM php:8.1-fpm-alpine as runner
+FROM php:8.1-fpm-alpine3.16 as runner
 
 RUN apk update && \
     apk upgrade && \
