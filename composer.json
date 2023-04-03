@@ -35,7 +35,8 @@
         "vlucas/phpdotenv": "^5.4",
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.4",
-        "pchevrel/bzkarma": "0.6"
+        "pchevrel/bzkarma": "0.6",
+        "cweagans/composer-patches": "^1.7"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
@@ -47,9 +48,7 @@
         "pchevrel/verif": "^0.5.1",
         "overtrue/phplint": "^4.0",
         "infection/infection": "^0.26.5",
-        "spatie/laravel-ignition": "^1.6",
-        "symplify/vendor-patches": "11.2.0.72"
-    },
+        "spatie/laravel-ignition": "^1.6"    },
     "autoload": {
         "psr-4": {
             "ReleaseInsights\\": "app/classes/ReleaseInsights",
