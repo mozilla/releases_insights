@@ -23,6 +23,7 @@ jobs:
       with:
         php-version: '8.1'
         tools: parallel-lint
+        coverage: xdebug
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -72,7 +73,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --prefer-dist --no-progress --optimize-autoloader
 
     - name: Run static analysis (PHPStan)
       run: composer run-script test:static_ci
