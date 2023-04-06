@@ -85,7 +85,10 @@ class Release
         if ($this->version === '116.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly),
-                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
+                'qa_1'                => $date('Friday'),
+                'qa_2'                => $date('Friday +1 week'),
+                'soft_code_freeze'    => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Thursday 08:00')),
+                'qa_3'                => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Tuesday'),
                 'beta_1'              => $date('Tuesday'),
@@ -98,6 +101,7 @@ class Release
                 'sumo_2'              => $date('Monday 21:00'),
                 'beta_7'              => $date('Tuesday 21:00'),
                 'beta_8'              => $date('Thursday 21:00'),
+                'qa_4'                => $date('Wednesday'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
@@ -105,7 +109,10 @@ class Release
         } elseif ($this->version === '111.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly),
-                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
+                'qa_1'                => $date('Friday'),
+                'qa_2'                => $date('Friday +1 week'),
+                'soft_code_freeze'    => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Thursday 08:00')),
+                'qa_3'                => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Tuesday'), //TBD
@@ -118,6 +125,7 @@ class Release
                 'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
                 'beta_7'              => $date('Tuesday 21:00'),
                 'beta_8'              => $date('Thursday 21:00'),
+                'qa_4'                => $date('Wednesday'),
                 'rc_gtb'              => $date('Tuesday 21:00'),
                 'rc'                  => $date('Wednesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
@@ -125,7 +133,10 @@ class Release
         } elseif ($this->version === '112.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly), // merge hardcoded to Monday for 112
-                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
+                'qa_1'                => $date('Friday'),
+                'qa_2'                => $date('Friday +1 week'),
+                'soft_code_freeze'    => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Thursday 08:00')),
+                'qa_3'                => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Monday'),
@@ -138,6 +149,7 @@ class Release
                 'beta_7'              => $date('Sunday 21:00'),
                 'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
                 'beta_8'              => $date('Tuesday 21:00'),
+                'qa_4'                => $date('Wednesday'),
                 'beta_9'              => $date('Thursday 21:00'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
@@ -146,7 +158,10 @@ class Release
         } else {
             $schedule = [
                 'nightly_start'       => $this->version === '117.0' ? $date('+1 day') : $date($nightly),
-                'soft_code_freeze'    => $date($nightly->modify('+' . $x .' weeks')->modify('Thursday 08:00')),
+                'qa_1'                => $date('Friday'),
+                'qa_2'                => $date('Friday +1 week'),
+                'soft_code_freeze'    => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Thursday 08:00')),
+                'qa_3'                => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Monday'),
@@ -159,6 +174,7 @@ class Release
                 'beta_7'              => $date('Sunday 21:00'),
                 'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
                 'beta_8'              => $date('Tuesday 21:00'),
+                'qa_4'                => $date('Wednesday'),
                 'beta_9'              => $date('Thursday 21:00'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
@@ -183,19 +199,23 @@ class Release
 
         $labels = [
             'nightly_start'       => 'Nightly ' . $short_version . ' starts',
+            'qa_1'                => $short_version . ' QA request deadline',
+            'qa_2'                => $short_version .' build ready for QA',
             'soft_code_freeze'    => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC',
+            'qa_3'                => $short_version . ' regression testing completed',
             'string_freeze'       => 'String Freeze' . ($short ? '' : ' starts'),
             'merge_day'           => 'Merge day',
             'beta_1'              => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB',
             'beta_2'              => ($short ? '' : 'Firefox ') . $short_version . ' b2' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_3'              => ($short ? '' : 'Firefox ') . $short_version . ' b3' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
-            'sumo_1'              => 'User affecting changes provided to SUMO',
+            'sumo_1'              => 'SUMO deadline',
             'beta_4'              => ($short ? '' : 'Firefox ') . $short_version . ' b4' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_5'              => ($short ? '' : 'Firefox ') . $short_version . ' b5' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_6'              => ($short ? '' : 'Firefox ') . $short_version . ' b6' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_7'              => ($short ? '' : 'Firefox ') . $short_version . ' b7' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'sumo_2'              => 'SUMO content localization starts',
             'beta_8'              => ($short ? '' : 'Firefox ') . $short_version . ' b8' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
+            'qa_4'                => $short_version . ' QA sign off',
             'beta_9'              => ($short ? '' : 'Firefox ') . $short_version . ' b9' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_10'             => ($short ? '' : 'Firefox ') . $short_version . ' b10' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),
             'beta_11'             => ($short ? '' : 'Firefox ') . $short_version . ' b11' . ($short ? ' GTB' : ' (GTB: 21:00 UTC)'),

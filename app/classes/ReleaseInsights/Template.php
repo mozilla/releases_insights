@@ -47,7 +47,7 @@ class Template
     {
         // Initialize our Templating system
         $twig_loader = new FilesystemLoader(INSTALL_ROOT . 'app/views/templates');
-        $twig = new Environment($twig_loader, ['cache' => $this->template_caching]);
+        $twig = new Environment($twig_loader);
         $twig->addExtension(new IntlExtension());
 
         print $twig->render($this->template, $this->data);
