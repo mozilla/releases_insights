@@ -99,9 +99,6 @@
     },
     "extra": {
         "patches": {
-            "benhall14/php-calendar": {
-                "Strip HTML tags in tooltips of events": "patches/benhall14-php-calendar-src-phpcalendar-calendar-php.patch"
-            },
             "eluceo/ical": {
                 "PHP 8 compatibility": "patches/eluceo-ical-src-propertybag-php.patch"
             }
