@@ -28,19 +28,23 @@ class Performance
      * Utility function to log to stderr the memory used by a script
      * and the time needed to generate the page.
      */
+    // @codeCoverageIgnoreStart
     public static function logScriptPerformances(): void
     {
         [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getScriptPerformances();
         Utils::dump("Memory peak: {$memory_peak_B} ({$memory_peak_MB}MB)", "Elapsed time (s): {$computation_time}");
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * Utility function to log the memory used by a script
      * and the time needed to generate the page as an HTTP header.
      */
+    // @codeCoverageIgnoreStart
     public static function addPerformancesHTTPHeader(): void
     {
         [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getScriptPerformances();
         header("App-perf: Memory: {$memory_peak_B} ({$memory_peak_MB}MB); Time: {$computation_time}s");
     }
+    // @codeCoverageIgnoreEnd
 }
