@@ -22,6 +22,12 @@ RUN /usr/local/bin/install-php-extensions mbstring intl curl dom @composer
 # run composer to download and build dependencies/assets
 RUN mkdir -p /app/public/assets
 RUN mkdir -p /app/public/style
+
+# Alpine does not have a patch command by default, we need it when we patch composer dependencies
+# See https://github.com/cweagans/composer-patches/issues/27
+RUN apk add --update --no-cache patch
+RUN mkdir -p /app/patches/
+COPY patches/* /app/patches/
 COPY composer* /app/
 RUN cd /app && \
     composer install --no-dev --no-interaction
