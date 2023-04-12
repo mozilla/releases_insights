@@ -85,11 +85,11 @@ class Release
         if ($this->version === '116.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly),
-                'qa_request_deadline' => $date('Friday'),
-                'qa_feature_done_1'   => $date('Friday +1 week'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday')),
+                'qa_request_deadline' => $date('Friday 21:00'),
+                'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
+                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
-                'qa_pre_merge_done'   => $date('Friday'),
+                'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Tuesday'),
                 'beta_1'              => $date('Tuesday'),
@@ -102,7 +102,7 @@ class Release
                 'sumo_2'              => $date('Monday 21:00'),
                 'beta_7'              => $date('Tuesday 21:00'),
                 'beta_8'              => $date('Thursday 21:00'),
-                'qa_pre_rc_signoff'   => $date('Wednesday'),
+                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
@@ -110,11 +110,11 @@ class Release
         } elseif ($this->version === '111.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly),
-                'qa_request_deadline' => $date('Friday'),
-                'qa_feature_done_1'   => $date('Friday +1 week'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday')),
+                'qa_request_deadline' => $date('Friday 21:00'),
+                'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
+                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
-                'qa_pre_merge_done'   => $date('Friday'),
+                'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Tuesday'), //TBD
@@ -127,7 +127,7 @@ class Release
                 'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
                 'beta_7'              => $date('Tuesday 21:00'),
                 'beta_8'              => $date('Thursday 21:00'),
-                'qa_pre_rc_signoff'   => $date('Wednesday'),
+                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
                 'rc_gtb'              => $date('Tuesday 21:00'),
                 'rc'                  => $date('Wednesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
@@ -135,11 +135,11 @@ class Release
         } elseif ($this->version === '112.0') {
             $schedule = [
                 'nightly_start'       => $date($nightly), // merge hardcoded to Monday for 112
-                'qa_request_deadline' => $date('Friday'),
-                'qa_feature_done_1'   => $date('Friday +1 week'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday')),
+                'qa_request_deadline' => $date('Friday 21:00'),
+                'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
+                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
-                'qa_pre_merge_done'   => $date('Friday'),
+                'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Monday'),
@@ -152,7 +152,7 @@ class Release
                 'beta_7'              => $date('Sunday 21:00'),
                 'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
                 'beta_8'              => $date('Tuesday 21:00'),
-                'qa_pre_rc_signoff'   => $date('Wednesday'),
+                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
                 'beta_9'              => $date('Thursday 21:00'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
@@ -162,10 +162,10 @@ class Release
             $schedule = [
                 'nightly_start'       => $this->version === '117.0' ? $date('+1 day') : $date($nightly),
                 'qa_request_deadline' => $date('Friday'),
-                'qa_feature_done_1'   => $date('Friday +1 week'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday')),
+                'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
+                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
-                'qa_pre_merge_done'   => $date('Friday'),
+                'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Monday'),
@@ -178,7 +178,7 @@ class Release
                 'beta_7'              => $date('Sunday 21:00'),
                 'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
                 'beta_8'              => $date('Tuesday 21:00'),
-                'qa_pre_rc_signoff'   => $date('Wednesday'),
+                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
                 'beta_9'              => $date('Thursday 21:00'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
