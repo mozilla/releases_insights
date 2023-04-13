@@ -270,7 +270,7 @@
 
       {% else %}
         <th>
-          <details{{ next_milestone ? ' open'}}>
+          <details{{ next_milestone and channel in ['nightly', 'beta'] ? ' open' }}>
             <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
           <p>{{ cycle_descriptions[key]|raw }}</p>
           </details>
