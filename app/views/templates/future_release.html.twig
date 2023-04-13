@@ -116,6 +116,20 @@
     <tr>
       <th>Corresponding ESR release</th>
       <td>{{ ESR }}</td>
+    {% endif %}
+    </tr>
+
+    {% if channel == 'nightly' %}
+    <tr>
+      <th>Release notes</th>
+      <td><a href="https://www.mozilla.org/firefox/nightly/notes/">Nightly notes</a></td>
+    </tr>
+    {% endif %}
+
+    {% if channel == 'beta' %}
+    <tr>
+      <th>Release notes</th>
+      <td><a href="https://www.mozilla.org/firefox/beta/notes/">Beta notes</a></td>
     </tr>
     {% endif %}
 
