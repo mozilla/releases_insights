@@ -37,6 +37,10 @@ $not_found_query_IP_file = dirname(__DIR__, 2) . '/cache/404_IPs.json.cache';
 
 if (file_exists($not_found_query_IP_file)) {
     $not_found_IPs = json_decode(file_get_contents($not_found_query_IP_file), true);
+    // This is a safety measure in case the file is corrupted or note readable (permissions)
+    if (! is_array($not_found_IPs)) {
+        $not_found_IPs = [];
+    }
 }
 
 if ($url_inspected->getController() == '404') {
