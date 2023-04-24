@@ -19,7 +19,7 @@ $shipped_releases = Utils::getJson(
 
 // Merge with future dates stored locally
 $upcoming_releases = (new Data())->getFutureReleases();
-$all_releases = array_merge($shipped_releases, $upcoming_releases);
+$all_releases = [...$shipped_releases,...$upcoming_releases];
 
 $release_date = $all_releases[(string) $requested_version];
 

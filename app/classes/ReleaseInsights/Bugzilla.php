@@ -121,7 +121,7 @@ class Bugzilla
         $backed_out_bugs = [];
 
         foreach ($backouts as $backout) {
-            $backed_out_bugs = array_merge($backed_out_bugs, $get_bugs($backout));
+            $backed_out_bugs = [...$backed_out_bugs, ...$get_bugs($backout)];
         }
 
         $backed_out_bugs = array_unique($backed_out_bugs);
@@ -133,7 +133,7 @@ class Bugzilla
         return [
             'bug_fixes' => array_values($clean_bug_fixes),
             'backouts'  => array_values($clean_backed_out_bugs),
-            'total'     => array_values(array_merge($clean_bug_fixes, $clean_backed_out_bugs)),
+            'total'     => array_values([...$clean_bug_fixes, ...$clean_backed_out_bugs]),
             'no_data'   => false
         ];
     }

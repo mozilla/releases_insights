@@ -112,7 +112,7 @@ foreach ($nightly_pairs as $dataset) {
         'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=' . $dataset['prev_changeset'] . '&tochange=' . $dataset['changeset'] . '&full&version=2'
     )['total'];
 
-    $bug_list_karma = array_unique(array_merge($bugs, $bug_list_karma));
+    $bug_list_karma = array_unique([...$bugs,...$bug_list_karma]);
 
     // There were no bugs in the build, it is the same as the previous one
     if (empty($bugs)) {
@@ -135,7 +135,7 @@ foreach ($nightly_pairs as $dataset) {
         'count' => is_countable($bugs) ? count($bugs) : 0,
     ];
 
-    $bug_list_karma_details = array_merge($bug_list_details, $bug_list_karma_details);
+    $bug_list_karma_details = [...$bug_list_details, ...$bug_list_karma_details];
 }
 
 
