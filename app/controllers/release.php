@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Data;
-use ReleaseInsights\ESR;
-use ReleaseInsights\Version;
-use ReleaseInsights\Utils;
+use ReleaseInsights\{Data, ESR, Version, Utils};
 
 $requested_version = Version::get();
 

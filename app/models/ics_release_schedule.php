@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Release;
-use ReleaseInsights\Version;
+use ReleaseInsights\{Release, Version};
 
 if (! isset($requested_version)) {
     $requested_version = Version::get();

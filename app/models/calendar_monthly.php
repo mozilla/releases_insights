@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 use benhall14\phpCalendar\Calendar;
-use ReleaseInsights\Data;
-use ReleaseInsights\Release;
+use ReleaseInsights\{Data, Release};
 
 $calendar = new Calendar();
 $events = [];

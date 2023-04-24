@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
-use ReleaseInsights\Data;
-use ReleaseInsights\Utils;
-use ReleaseInsights\Version;
+use ReleaseInsights\{Data, Utils, Version};
 
 enum Status
 {

@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 use BzKarma\Scoring;
-use ReleaseInsights\Bugzilla as Bz;
-use ReleaseInsights\Utils;
+use ReleaseInsights\{Bugzilla as Bz, Utils};
 
 /*
     We need previous and next days for navigation and changelog

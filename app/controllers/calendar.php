@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Template;
-use ReleaseInsights\Data;
+use ReleaseInsights\{Template, Data};
 
 $data = require_once MODELS . 'calendar.php';
 

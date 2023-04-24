@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Data;
-use ReleaseInsights\Utils;
-use ReleaseInsights\ESR;
+use ReleaseInsights\{Data, Utils, ESR};
 
 $esr_releases = (new Data())->getESRReleases();
 

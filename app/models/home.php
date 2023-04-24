@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Data;
-use ReleaseInsights\ESR;
-use ReleaseInsights\Utils;
-use ReleaseInsights\Version;
+use ReleaseInsights\{Data, ESR, Utils, Version};
 
 // Get the schedule for the current nightly
 $requested_version = Version::get(FIREFOX_NIGHTLY);
@@ -19,7 +16,7 @@ $beta_cycle_dates = include MODELS . 'api/release_schedule.php';
 $shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 3600);
 $upcoming_releases = (new Data())->getFutureReleases();
 
-$all_releases = [...$shipped_releases,...$upcoming_releases];
+    $all_releases = [...$shipped_releases,...$upcoming_releases];
 
 $today_is_release_day = false;
 $firefox_version_on_release_day = FIREFOX_BETA;

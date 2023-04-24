@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Utils;
-use ReleaseInsights\Version;
+use ReleaseInsights\{Utils, Version};
 
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];

@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Request;
-use ReleaseInsights\Utils;
+use ReleaseInsights\{Request, Utils};
 
 // We import the Utils class manually as we haven't autoloaded classes yet
 include dirname(__DIR__, 2)  . '/app/classes/ReleaseInsights/Utils.php';

@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
-use Eluceo\iCal\Component\Calendar;
-use Eluceo\iCal\Component\Event;
+use Eluceo\iCal\Component\{Calendar, Event};
 
 class ReleaseCalendar
 {
