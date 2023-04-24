@@ -10,21 +10,13 @@ use Dotenv\Dotenv;
 
 class Template
 {
-    /**
-     *  @var array<mixed> $data
-     */
-    public array $data;
-    public string $template;
     public string|bool $template_caching;
 
     /**
-     *  @param array<mixed> $template_data
+     *  @param array<mixed> $data
      */
-    public function __construct(string $template_file, array $template_data)
+    public function __construct(public string $template, public array $data)
     {
-        $this->data = $template_data;
-        $this->template = $template_file;
-
         // Cache compiled templates on production
         $dotenv = Dotenv::createImmutable(INSTALL_ROOT);
         $dotenv->safeLoad();

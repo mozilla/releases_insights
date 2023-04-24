@@ -14,13 +14,10 @@ class Data
     /** @var array<string, string> $release_owners */
     private array $release_owners;
 
-    private string $pd_url;
-
-    public function __construct(string $pd_url = 'https://product-details.mozilla.org/1.0/')
+    public function __construct(private string $pd_url = 'https://product-details.mozilla.org/1.0/')
     {
         $this->release_owners  = include DATA . 'release_owners.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
-        $this->pd_url = $pd_url;
     }
 
     /** @return array<string, string> */
