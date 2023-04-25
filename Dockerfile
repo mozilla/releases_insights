@@ -3,7 +3,6 @@ FROM php:8.1-fpm-alpine3.16 as builder
 RUN apk update && \
     apk upgrade
 
-
 # Alpine no longer ships with a real ICU library but with a cut-down shim, we need the real stuff for templating dates
 RUN apk add icu-dev icu-libs icu-data-full
 
@@ -11,6 +10,10 @@ RUN apk add icu-dev icu-libs icu-data-full
 ENV TZ=UTC
 RUN apk add --no-cache tzdata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# We need git in the builder so as to be able to create deployed-version.txt
+RUN apk add git
+
 
 # use install-php-extensions to install required php extensions and composer
 RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/1.4.12/install-php-extensions \
