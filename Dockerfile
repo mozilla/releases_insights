@@ -70,6 +70,7 @@ COPY --chown=app:app . /app
 COPY --from=builder --chown=app:app /app/public/assets/bootstrap /app/public/assets/bootstrap
 COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets/jquery
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
+COPY --from=builder --chown=app:app /app/public/deployed-version.txt /app/public/deployed-version.txt
 
 # configure container
 STOPSIGNAL SIGINT
