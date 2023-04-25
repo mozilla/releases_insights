@@ -61,7 +61,7 @@ return $content = <<<"EOD"
     </tr>
     <tr>
         <td><a href="/about">about</a></td>
-        <td>Get the list of views and APIs available in this application.</td>
+        <td>Get the list of views and public JSON API endpoints.</td>
     </tr>
     <tr>
         <td><a href="/calendar">calendar</a></td>
