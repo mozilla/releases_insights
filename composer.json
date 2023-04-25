@@ -86,7 +86,7 @@
             "cp -r vendor/components/jquery/ public/assets/jquery",
             "cp vendor/benhall14/php-calendar/html/css/calendar.css public/style/",
             "rm public/assets/jquery/README.md",
-            "git rev-parse HEAD > public/deployed-version.txt"
+            "echo $SOURCE_VERSION > public/deployed-version.txt"
         ]
     },
     "config": {

@@ -11,10 +11,6 @@ ENV TZ=UTC
 RUN apk add --no-cache tzdata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# We need git in the builder so as to be able to create deployed-version.txt
-RUN apk add git
-
-
 # use install-php-extensions to install required php extensions and composer
 RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/1.4.12/install-php-extensions \
     --location --output /usr/local/bin/install-php-extensions && \
@@ -73,7 +69,6 @@ COPY --chown=app:app . /app
 COPY --from=builder --chown=app:app /app/public/assets/bootstrap /app/public/assets/bootstrap
 COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets/jquery
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
-COPY --from=builder --chown=app:app /app/public/deployed-version.txt /app/public/deployed-version.txt
 
 # configure container
 STOPSIGNAL SIGINT
