@@ -227,3 +227,29 @@ footer {
     color: purple !important;
     text-shadow: -1px 0px 0px lightgray;
 }
+
+/* Nightly Page */
+#nightly table {
+    table-layout: fixed;
+}
+
+#nightly table tr th:nth-child(1) {
+    width:6em;
+}
+
+#nightly table tr th:nth-child(2){
+    width: 15em;
+}
+
+#nightly table tr th:nth-child(3) {
+    width: 3em;
+}
+
+#nightly table tr th:nth-child(4) {
+/*    width: 10em;*/
+}
+
+#nightly table tr td a {
+  overflow: hidden;
+  text-overflow: " ✁";
+}
