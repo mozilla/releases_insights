@@ -115,8 +115,38 @@ Restarting the app should solve most problems on production.
 
 If the app is slow, this is most likely because the app can't write to the `cache` folder and makes http requests to external servers for every page load. Make sure that the `cache` folder is writable by the web server.
 
-
 If there is a dependabot PR for a security vulnerability on a single dependency, it's preferable to update all dependencies and redeploy than to merge this single PR:
+
+This app is on GCP with Nginx. The deployment servers are:
+- https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net -> updated on every push to master
+- https://stage.whattrainisitnow.nonprod.webservices.mozgcp.net -> updated with every push of a tag starting with `stage-`, ex: `stage-2023-05-04_10-57-19`
+- https://whattrainisitnow.com -> updated with every push of a tag starting with `release-`, ex: `release-2023-05-04_10-57-19`
+
+Should you want to create those tags easily, here are bash functions that generate and push them:
+```bash
+# Tag and push to https://stage.whattrainisitnow.nonprod.webservices.mozgcp.net
+function train_stage()
+{
+    DATETIME='date +%Y-%m-%d_%H-%M-%S'
+    git tag -a stage-`$DATETIME` -m "Staged release `$DATETIME`"
+    echo "Staged release `$DATETIME` created."
+    git push origin stage-`$DATETIME`
+}
+
+# Tag and push to https://whattrainisitnow.com
+function train_ship()
+{
+    DATETIME='date +%Y-%m-%d_%H-%M-%S'
+    git tag -a release-`$DATETIME` -m "Release `$DATETIME`"
+    echo "Release `$DATETIME` created."
+    git push origin release-`$DATETIME`
+}
+```
+As you can see above, we use a timestamp variant and not a number for tags as we push daily (multiple times).
+Deployment time is about 5mn.
+
+We also keep a test version of the app on Heroku at https://fx-trains.herokuapp.com used for demos.
+
 
 ```bash
 composer update
