@@ -113,6 +113,7 @@ nav svg {
     margin-left: 3em;
     margin-top: -1em;
     min-width: 8em;
+    max-width: 10em;
     box-shadow: 8px 10px 11px -1px rgba(128,127,127,0.58);
 }
 
