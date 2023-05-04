@@ -115,7 +115,6 @@ Restarting the app should solve most problems on production.
 
 If the app is slow, this is most likely because the app can't write to the `cache` folder and makes http requests to external servers for every page load. Make sure that the `cache` folder is writable by the web server.
 
-If there is a dependabot PR for a security vulnerability on a single dependency, it's preferable to update all dependencies and redeploy than to merge this single PR:
 
 This app is on GCP with Nginx. The deployment servers are:
 - https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net -> updated on every push to master
@@ -147,6 +146,7 @@ Deployment time is about 5mn.
 
 We also keep a test version of the app on Heroku at https://fx-trains.herokuapp.com used for demos.
 
+If there is a dependabot PR for a security vulnerability on a single dependency, it's preferable to update all dependencies and redeploy than to merge this single PR:
 
 ```bash
 composer update
