@@ -146,7 +146,7 @@ class Data
      */
     public function isTodayReleaseDay(): bool
     {
-        return in_array(date('Y-M-d'), $this->getMajorReleases());
+        return in_array(date('Y-m-d'), $this->getMajorReleases());
     }
 
 }

@@ -15,8 +15,7 @@ $beta_cycle_dates = include MODELS . 'api/release_schedule.php';
 $today_is_release_day = (new Data())->isTodayReleaseDay();
 
 if ($today_is_release_day) {
-    $today = date('Y-m-d');
-    $firefox_version_on_release_day = array_search($today, (new Data())->getMajorReleases());
+    $firefox_version_on_release_day = array_search(date('Y-m-d'), (new Data())->getMajorReleases());
 } else {
     $firefox_version_on_release_day = FIREFOX_BETA;
 }
