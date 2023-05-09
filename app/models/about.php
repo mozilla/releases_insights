@@ -6,6 +6,9 @@ $yesterday = date('Ymd', strtotime('yesterday'));
 // No data to prepare yet
 $main_beta = BETA;
 
+$error = $main_beta[0];
+
+
 return $content = <<<"EOD"
 
 <h3>Public Json API</h3>
