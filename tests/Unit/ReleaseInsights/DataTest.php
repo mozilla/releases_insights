@@ -74,8 +74,15 @@ test('Data->getMajorPastReleases()', function () {
     expect($obj->getMajorPastReleases())
         ->toBeArray();
 });
+
 test('Data->getMajorReleases()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getMajorReleases())
         ->toBeArray();
+});
+
+test('Data->isTodayReleaseDay()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->isTodayReleaseDay())
+        ->toBeBool();
 });

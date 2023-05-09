@@ -6,17 +6,17 @@ use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Utils, Version};
 
 $requested_version = Version::get();
 
-// Historical data from Product Details, cache a week
-$shipped_releases = Utils::getJson(
-    'https://product-details.mozilla.org/1.0/firefox_history_major_releases.json',
-    604800
-);
+$data = new Data();
 
-// Merge with future dates stored locally
-$upcoming_releases = (new Data())->getFutureReleases();
-$all_releases = [...$shipped_releases,...$upcoming_releases];
+if ($data->isTodayReleaseDay()) {
+    // On release day we want to force fetching product-details on all page views
+    $data->cache_duration = 1;
+}
 
-$release_date = $all_releases[(string) $requested_version];
+$all_releases = (new Data())->getMajorReleases();
+
+// Avoid a warning when we have a race condition in product-details
+$release_date = $all_releases[(string) $requested_version] ?? '';
 
 // Future release date object
 $release = new DateTime($release_date);

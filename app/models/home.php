@@ -12,20 +12,13 @@ $nightly_cycle_dates = include MODELS . 'api/release_schedule.php';
 $requested_version = Version::get(FIREFOX_BETA);
 $beta_cycle_dates = include MODELS . 'api/release_schedule.php';
 
-// Historical data from Product Details, cache an hour
-$shipped_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox_history_major_releases.json', 3600);
-$upcoming_releases = (new Data())->getFutureReleases();
+$today_is_release_day = (new Data())->isTodayReleaseDay();
 
-    $all_releases = [...$shipped_releases,...$upcoming_releases];
-
-$today_is_release_day = false;
-$firefox_version_on_release_day = FIREFOX_BETA;
-
-$today = date('Y-m-d');
-
-if (in_array($today, $all_releases)) {
-    $today_is_release_day = true;
-    $firefox_version_on_release_day = array_search($today, $all_releases);
+if ($today_is_release_day) {
+    $today = date('Y-m-d');
+    $firefox_version_on_release_day = array_search($today, (new Data())->getMajorReleases());
+} else {
+    $firefox_version_on_release_day = FIREFOX_BETA;
 }
 
 $aus_url = 'https://aus-api.mozilla.org/api/v1/';

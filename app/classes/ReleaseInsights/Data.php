@@ -14,7 +14,10 @@ class Data
     /** @var array<string, string> $release_owners */
     private array $release_owners;
 
-    public function __construct(private string $pd_url = 'https://product-details.mozilla.org/1.0/')
+    public function __construct(
+        private string $pd_url = 'https://product-details.mozilla.org/1.0/',
+        public int $cache_duration = 3600
+    )
     {
         $this->release_owners  = include DATA . 'release_owners.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
@@ -40,7 +43,7 @@ class Data
     public function getESRReleases(): array
     {
         // Historical data from Product Details, cache a week
-        $esr_releases = Utils::getJson($this->pd_url . 'firefox.json', 604800)['releases'];
+        $esr_releases = Utils::getJson($this->pd_url . 'firefox.json', $this->cache_duration)['releases'];
 
         // Reduce to only ESR releases
         $esr_releases = array_filter(
@@ -66,8 +69,8 @@ class Data
     public function getPastReleases(bool $dot_releases = true): array
     {
         // Historical data from Product Details, cache a week
-        $major_releases = Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', 604800);
-        $minor_releases =  $dot_releases == true ? Utils::getJson($this->pd_url . 'firefox_history_stability_releases.json', 604800) : [];
+        $major_releases = Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
+        $minor_releases =  $dot_releases == true ? Utils::getJson($this->pd_url . 'firefox_history_stability_releases.json', $this->cache_duration) : [];
         $all_releases = [...$major_releases, ...$minor_releases];
 
         // Sort releases by release date
@@ -104,7 +107,7 @@ class Data
      */
     public function getPastBetas(): array
     {
-        return Utils::getJson($this->pd_url . 'firefox_history_development_releases.json', 604800);
+        return Utils::getJson($this->pd_url . 'firefox_history_development_releases.json', $this->cache_duration);
     }
 
     /**
@@ -114,7 +117,7 @@ class Data
      */
     public function getMajorPastReleases(): array
     {
-        return Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', 604800);
+        return Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
     }
 
     /**
@@ -135,7 +138,15 @@ class Data
     public function getFirefoxVersions(): array
     {
         // Cache Product Details versions, 15mn cache
-        return Utils::getJson($this->pd_url . 'firefox_versions.json', 900);
+        return Utils::getJson($this->pd_url . 'firefox_versions.json', $this->cache_duration);
+    }
+
+    /**
+     * On Release day we have a lot of special cases.
+     */
+    public function isTodayReleaseDay(): bool
+    {
+        return in_array(date('Y-M-d'), $this->getMajorReleases());
     }
 
 }
