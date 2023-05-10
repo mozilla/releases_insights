@@ -43,5 +43,8 @@ define('RELEASE',  (int) FIREFOX_RELEASE);
 define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
 define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 
-// Clean up temp variables from global space
+// Are we on one of our staging sites
+define('STAGING', $_SERVER['SERVER_NAME'] !== 'whattrainisitnow.com' && $_SERVER['SERVER_NAME'] !== 'localhost');
+
+ // Clean up temp variables from global space
 unset($firefox_versions);

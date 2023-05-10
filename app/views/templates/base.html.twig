@@ -16,6 +16,9 @@
     {% if branch != '' %}
     <div class="position-fixed top-0 end-0 badge text-bg-info font-monospace mt-1 me-1" title="Git branch"><small>{{ branch }}</small></div>
     {% endif %}
+    {% if constant('STAGING')  %}
+    <div class="position-absolute top-0 start-50 translate-middle-x font-monospace fw-bold text-dark bg-warning bg-gradient mt-1 w-75 text-center">This is a staging environment for <a href="https://whattrainisitnow.com"  class="link-primary bg-warning">whattrainisitnow.com</a></div>
+    {% endif %}
 
 
     {% if css_page_id != 'homepage' %}
