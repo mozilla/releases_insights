@@ -234,5 +234,4 @@ class Release
 
         return $labels[$label];
     }
-
 }
