@@ -51,6 +51,9 @@ jobs:
         php tests/Functional/pages.php
         php tests/Functional/api.php
 
+    - name: Check dependencies security releases
+      run: composer audit
+
   static_analysis:
     runs-on: ubuntu-latest
 
