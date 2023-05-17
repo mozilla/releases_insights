@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine3.16 as builder
+FROM php:8.1-fpm-alpine3.17 as builder
 
 RUN apk update && \
     apk upgrade
