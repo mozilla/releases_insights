@@ -33,7 +33,7 @@ RUN cd /app && \
 
 ###
 
-FROM php:8.1-fpm-alpine3.16 as runner
+FROM php:8.1-fpm-alpine3.17 as runner
 
 RUN apk update && \
     apk upgrade && \
