@@ -44,7 +44,7 @@ define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
 define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 
 // Are we on one of our staging sites
-define('STAGING', $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && $_SERVER['HTTP_HOST'] !== 'localhost');
+define('STAGING', isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && $_SERVER['HTTP_HOST'] !== 'localhost');
 
  // Clean up temp variables from global space
 unset($firefox_versions);
