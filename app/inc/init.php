@@ -16,8 +16,13 @@ if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local') {
             ->register();
     }
 }
+
 // Set up Sentry endpoint, don't send errors while in dev mode
-if (! isset($_ENV['CONTEXT']) || $_ENV['CONTEXT'] !== 'local') {
+if (STAGING) {
+    init(['dsn' => 'https://e17dcdc892db4ee08a6937603e407f76@o1069899.ingest.sentry.io/4505243444772864']);
+}
+
+if (PRODUCTION) {
     init(['dsn' => 'https://20bef71984594e16add1d2c69146ad88@o1069899.ingest.sentry.io/4505243430092800']);
 }
 
@@ -27,6 +32,6 @@ $url = new ReleaseInsights\Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SA
 include CONTROLLERS . $url->getController() . '.php';
 
 // Send last error to Sentry
-if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] !== 'local') {
+if (! LOCALHOST) {
     captureLastError();
 }
