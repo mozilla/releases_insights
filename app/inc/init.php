@@ -17,7 +17,7 @@ if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local') {
     }
 }
 // Set up Sentry endpoint, don't send errors while in dev mode
-if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] !== 'local') {
+if (! isset($_ENV['CONTEXT']) || $_ENV['CONTEXT'] !== 'local') {
     init(['dsn' => 'https://20bef71984594e16add1d2c69146ad88@o1069899.ingest.sentry.io/4505243430092800']);
 }
 
