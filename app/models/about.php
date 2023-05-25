@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+echo $force_a_warning;
+
 $yesterday = date('Ymd', strtotime('yesterday'));
 // No data to prepare yet
 $main_beta = BETA;
