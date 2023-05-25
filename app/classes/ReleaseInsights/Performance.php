@@ -15,7 +15,7 @@ class Performance
      *
      * @return array<int> [Memory peak in bytes, Memory peak in MB, Computation time]
      */
-    public static function getScriptPerformances(): array
+    public static function getData(): array
     {
         $memory_peak_B = memory_get_peak_usage(true);
         $memory_peak_MB = round(($memory_peak_B / (1024 * 1024)), 2);
@@ -29,10 +29,14 @@ class Performance
      * and the time needed to generate the page.
      */
     // @codeCoverageIgnoreStart
-    public static function logScriptPerformances(): void
+    public static function log(string $file, int $line=0): void
     {
-        [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getScriptPerformances();
-        Utils::dump("Memory peak: {$memory_peak_B} ({$memory_peak_MB}MB)", "Elapsed time (s): {$computation_time}");
+        [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getData();
+        Utils::dump(
+            "Memory peak: {$memory_peak_B} ({$memory_peak_MB}MB)",
+            "Elapsed time (s): {$computation_time}",
+            $file . ': ' . (string) $line
+        );
     }
     // @codeCoverageIgnoreEnd
 
@@ -41,9 +45,9 @@ class Performance
      * and the time needed to generate the page as an HTTP header.
      */
     // @codeCoverageIgnoreStart
-    public static function addPerformancesHTTPHeader(): void
+    public static function HTTPHeader(): void
     {
-        [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getScriptPerformances();
+        [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getData();
         header("App-perf: Memory: {$memory_peak_B} ({$memory_peak_MB}MB); Time: {$computation_time}s");
     }
     // @codeCoverageIgnoreEnd
