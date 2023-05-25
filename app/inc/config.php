@@ -12,6 +12,7 @@ date_default_timezone_set('UTC');
 define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
 
 require_once INSTALL_ROOT . 'vendor/autoload.php';
+\Sentry\init(['dsn' => 'https://20bef71984594e16add1d2c69146ad88@o1069899.ingest.sentry.io/4505243430092800']);
 
 // Application globals paths
 const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';

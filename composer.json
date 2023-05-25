@@ -36,7 +36,8 @@
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.4",
         "pchevrel/bzkarma": "0.6",
-        "cweagans/composer-patches": "^1.7"
+        "cweagans/composer-patches": "^1.7",
+        "sentry/sdk": "^3.4"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
@@ -94,7 +95,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "infection/extension-installer": true,
             "pestphp/pest-plugin": true,
-            "cweagans/composer-patches": true
+            "cweagans/composer-patches": true,
+            "php-http/discovery": true
         }
     },
     "extra": {
