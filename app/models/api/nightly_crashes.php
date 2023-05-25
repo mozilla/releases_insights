@@ -6,7 +6,7 @@ use Cache\Cache;
 
 $buildid = ReleaseInsights\Utils::getBuildID((int) ($_GET['buildid'] ?? 1));
 
-$cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . (string) $buildid . '&_facets=signature&product=Firefox';
+$cache_id = 'https://crash-stats.mozilla.org/api/SuperSearch/?build_id=' . (string) $buildid . '&_facets=signature&product=Firefox';
 
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency

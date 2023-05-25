@@ -20,7 +20,7 @@ class Utils
     public static function getCrashesForBuildID(int $buildid): array
     {
         // The date in the string varies so we create a unique file name in cache
-        $cache_id = 'https://crash-stats.mozilla.com/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
+        $cache_id = 'https://crash-stats.mozilla.org/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
         if (defined('UNIT_TESTING')) {
             if ($buildid == '20190927094817') {
