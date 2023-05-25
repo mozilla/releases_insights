@@ -6,6 +6,6 @@ use ReleaseInsights\Performance;
 
 test('Performance Class', function () {
     $obj = new Performance();
-    expect($obj->getScriptPerformances())->toBeArray();
-    expect($obj->getScriptPerformances())->toHaveCount(3);
+    expect($obj->getData())->toBeArray();
+    expect($obj->getData())->toHaveCount(3);
 });
