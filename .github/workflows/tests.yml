@@ -11,13 +11,9 @@ on:
       - '**/*.md'
   workflow_dispatch:
 
-env:
-  os: ubuntu-latest
-  php-version: 8.1
-
 jobs:
   build:
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check out repository
@@ -26,7 +22,7 @@ jobs:
     - name: Set up PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ env.php-version }}
+        php-version: '8.1'
         tools: parallel-lint
 
     - name: Validate composer.json and composer.lock
@@ -59,7 +55,7 @@ jobs:
       run: composer audit
 
   static_analysis:
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check out repository
@@ -68,7 +64,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ env.php-version }}
+        php-version: '8.1'
 
     - name: Cache Composer packages
       id: composer-cache
@@ -83,4 +79,4 @@ jobs:
       run: composer install --prefer-dist --no-progress --optimize-autoloader
 
     - name: Run static analysis (PHPStan)
-      run: composer run-script test:static
+      run: composer run-script test:static_ci
