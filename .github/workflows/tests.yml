@@ -10,9 +10,14 @@ on:
     paths-ignore:
       - '**/*.md'
   workflow_dispatch:
+
+env:
+  os: ubuntu-latest
+  php-version: 8.1
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.os }}
 
     steps:
     - name: Check out repository
@@ -21,7 +26,7 @@ jobs:
     - name: Set up PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
+        php-version: ${{ env.php-version }}
         tools: parallel-lint
         coverage: xdebug
 
@@ -55,7 +60,7 @@ jobs:
       run: composer audit
 
   static_analysis:
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.os }}
 
     steps:
     - name: Check out repository
@@ -64,7 +69,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
+        php-version: ${{ env.php-version }}
 
     - name: Cache Composer packages
       id: composer-cache
