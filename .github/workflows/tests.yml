@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
 
 env:
-  OS: ubuntu-latest
-  PHP: 8.1
+  OS: "ubuntu-latest"
+  PHP: "8.1"
 
 jobs:
   build:
