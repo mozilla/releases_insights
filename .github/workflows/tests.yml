@@ -12,12 +12,12 @@ on:
   workflow_dispatch:
 
 env:
-  OS: "ubuntu-latest"
-  PHP: "8.1"
+  os: ubuntu-latest
+  php-version: 8.1
 
 jobs:
   build:
-    runs-on: "$OS"
+    runs-on: ${{ env.os }}
 
     steps:
     - name: Check out repository
@@ -26,8 +26,8 @@ jobs:
     - name: Set up PHP with tools
       uses: shivammathur/setup-php@v2
       with:
+        php-version: ${{ env.php-version }}
         tools: parallel-lint
-        php-version: "$PHP"
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -59,7 +59,7 @@ jobs:
       run: composer audit
 
   static_analysis:
-    runs-on: "$OS"
+    runs-on: ${{ env.os }}
 
     steps:
     - name: Check out repository
@@ -68,7 +68,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: "$PHP"
+        php-version: ${{ env.php-version }}
 
     - name: Cache Composer packages
       id: composer-cache
