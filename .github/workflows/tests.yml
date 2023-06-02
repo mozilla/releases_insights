@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ env.os }}
+    runs-on: $os
 
     steps:
     - name: Check out repository
@@ -26,7 +26,7 @@ jobs:
     - name: Set up PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ env.php-version }}
+        php-version: $php-version
         tools: parallel-lint
         coverage: xdebug
 
@@ -60,7 +60,7 @@ jobs:
       run: composer audit
 
   static_analysis:
-    runs-on: ${{ env.os }}
+    runs-on: $os
 
     steps:
     - name: Check out repository
@@ -69,7 +69,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ env.php-version }}
+        php-version: $php-version
 
     - name: Cache Composer packages
       id: composer-cache
