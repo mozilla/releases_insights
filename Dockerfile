@@ -69,6 +69,7 @@ COPY --chown=app:app . /app
 COPY --from=builder --chown=app:app /app/public/assets/bootstrap /app/public/assets/bootstrap
 COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets/jquery
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
+COPY --from=builder --chown=app:app /app/vendor/benhall14/php-calendar/html/css/calendar.css /app/public/style/
 
 # configure container
 STOPSIGNAL SIGINT
