@@ -1,14 +1,14 @@
-FROM php:8.1-fpm-alpine3.17 as builder
+FROM php:8.1-fpm-alpine3.18 as builder
 
 RUN apk update && \
     apk upgrade
 
 # Alpine no longer ships with a real ICU library but with a cut-down shim, we need the real stuff for templating dates
-RUN apk add icu-dev icu-libs icu-data-full
+RUN apk add --no-cache icu-dev icu-libs icu-data-full
 
 # Alpine also does not install timezone data by default which we need for Date/Time calculation
-ENV TZ=UTC
 RUN apk add --no-cache tzdata
+ENV TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # use install-php-extensions to install required php extensions and composer
@@ -33,16 +33,16 @@ RUN cd /app && \
 
 ###
 
-FROM php:8.1-fpm-alpine3.17 as runner
+FROM php:8.1-fpm-alpine3.18 as runner
 
 RUN apk update && \
     apk upgrade && \
     apk add nginx supervisor
 
-RUN apk add icu-dev icu-libs icu-data-full
-
-ENV TZ=UTC
+RUN apk add --no-cache icu-dev icu-libs icu-data-full
 RUN apk add --no-cache tzdata
+
+ENV TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN addgroup -g 10001 app && \
