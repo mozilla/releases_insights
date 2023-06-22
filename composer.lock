@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "820405c138664cdf09d787a4f6201ebc",
+    "content-hash": "f8a59c9a78e05b96c7f4a917c9ba49c3",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -1486,21 +1486,21 @@
         },
         {
             "name": "sentry/sdk",
-            "version": "3.4.0",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "7f1e04a5380a91e41a1a68c363ec19f88619a870"
+                "reference": "cd91b752f07c4bab9fb3b173f81af68a78a78d6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/7f1e04a5380a91e41a1a68c363ec19f88619a870",
-                "reference": "7f1e04a5380a91e41a1a68c363ec19f88619a870",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/cd91b752f07c4bab9fb3b173f81af68a78a78d6d",
+                "reference": "cd91b752f07c4bab9fb3b173f81af68a78a78d6d",
                 "shasum": ""
             },
             "require": {
                 "http-interop/http-factory-guzzle": "^1.0",
-                "sentry/sentry": "^3.18",
+                "sentry/sentry": "^3.19",
                 "symfony/http-client": "^4.3|^5.0|^6.0"
             },
             "type": "metapackage",
@@ -1527,7 +1527,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php-sdk/issues",
-                "source": "https://github.com/getsentry/sentry-php-sdk/tree/3.4.0"
+                "source": "https://github.com/getsentry/sentry-php-sdk/tree/3.5.0"
             },
             "funding": [
                 {
@@ -1539,7 +1539,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-22T16:02:39+00:00"
+            "time": "2023-06-12T17:50:36+00:00"
         },
         {
             "name": "sentry/sentry",

@@ -9,7 +9,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(INSTALL_ROOT);
 $dotenv->safeLoad();
 
 // Catch errors via Ignition library in dev mode only
-if (isset($_ENV['CONTEXT']) && $_ENV['CONTEXT'] == 'local') {
+if (LOCALHOST) {
     if (class_exists('\Spatie\Ignition\Ignition')) {
         \Spatie\Ignition\Ignition::make()
             ->setEditor('sublime')
@@ -30,3 +30,4 @@ if (PRODUCTION) {
 $url = new ReleaseInsights\Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 
 include CONTROLLERS . $url->getController() . '.php';
+captureLastError();

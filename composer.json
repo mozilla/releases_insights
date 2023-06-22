@@ -37,7 +37,7 @@
         "benhall14/php-calendar": "^1.4",
         "pchevrel/bzkarma": "0.6",
         "cweagans/composer-patches": "^1.7",
-        "sentry/sdk": "3.4"
+        "sentry/sdk": "^3.4"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
