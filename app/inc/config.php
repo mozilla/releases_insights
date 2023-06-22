@@ -46,7 +46,7 @@ define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 
 // Are we on one of our staging sites
 define('LOCALHOST',  isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] === 'localhost');
-define('STAGING',    isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && $_SERVER['SERVER_NAME'] !== 'localhost');
+define('STAGING',    isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && ! LOCALHOST);
 define('PRODUCTION', isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'whattrainisitnow.com');
 
 // Clean up temp variables from global space
