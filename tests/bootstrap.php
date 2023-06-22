@@ -22,4 +22,9 @@ define('NIGHTLY', (int) FIREFOX_NIGHTLY);
 define('BETA',    (int) FIREFOX_BETA);
 define('RELEASE', (int) FIREFOX_RELEASE);
 
+// Are we on one of our staging sites
+define('LOCALHOST',  isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] === 'localhost');
+define('STAGING',    isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && $_SERVER['SERVER_NAME'] !== 'localhost');
+define('PRODUCTION', isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'whattrainisitnow.com');
+
 date_default_timezone_set('UTC');
