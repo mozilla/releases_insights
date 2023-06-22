@@ -6,16 +6,16 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-const FIREFOX_RELEASE = '93';
-const FIREFOX_BETA    = '94';
-const FIREFOX_NIGHTLY = '95';
-const ESR             = '78';
-const UNIT_TESTING    = true;
-const INSTALL_ROOT    = __DIR__ . '/../';
-const DATA            = INSTALL_ROOT . 'app/data/';
-const CACHE_PATH      = INSTALL_ROOT . 'cache/';
-const TEST_FILES      = INSTALL_ROOT . 'tests/Files/';
-const CACHE_ENABLED   = false;
+const FIREFOX_RELEASE  = '93';
+const FIREFOX_BETA     = '94';
+const FIREFOX_NIGHTLY  = '95';
+const ESR              = '78';
+const INSTALL_ROOT     = __DIR__ . '/../';
+const DATA             = INSTALL_ROOT . 'app/data/';
+const CACHE_PATH       = INSTALL_ROOT . 'cache/';
+const TEST_FILES       = INSTALL_ROOT . 'tests/Files/';
+const CACHE_ENABLED    = false;
+const TESTING_CONTEXT  = true;
 
 // Major version numbers (integers), used across the app
 define('NIGHTLY', (int) FIREFOX_NIGHTLY);

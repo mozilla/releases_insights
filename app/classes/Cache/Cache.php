@@ -108,7 +108,7 @@ class Cache
     {
         // We don't want a global switch for the cache in Unit Tests
         // because we want to test functions with and without caching.
-        if (defined('UNIT_TESTING')) {
+        if (defined('TESTING_CONTEXT')) {
             return self::$CACHE_ENABLED;
         }
 

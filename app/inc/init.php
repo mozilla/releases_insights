@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use \ReleaseInsights\Request;
 use function \Sentry\{init, captureLastError};
 
 // Catch errors via Ignition library in dev mode only
@@ -23,7 +24,7 @@ if (PRODUCTION) {
 }
 
 // Dispatch urls
-$url = new ReleaseInsights\Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
+$url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 
 include CONTROLLERS . $url->getController() . '.php';
 

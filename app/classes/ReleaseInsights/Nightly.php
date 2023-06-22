@@ -37,7 +37,7 @@ class Nightly
         }
         // @codeCoverageIgnoreEnd
 
-        if (defined('UNIT_TESTING')) {
+        if (defined('TESTING_CONTEXT')) {
             $this->auto_updates = false;
         }
 

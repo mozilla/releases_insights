@@ -21,7 +21,7 @@ class Template
 
         // @codeCoverageIgnoreStart
         // Pass extra variables to template in local dev mode
-        if (LOCALHOST && !defined('UNIT_TESTING')) {
+        if (LOCALHOST && !defined('TESTING_CONTEXT')) {
             $this->data += [
                 'branch' => trim((string) shell_exec('git rev-parse --abbrev-ref HEAD')),
             ];

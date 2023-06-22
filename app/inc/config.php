@@ -21,6 +21,7 @@ const VIEWS       = INSTALL_ROOT . 'app/views/';
 const TEST_FILES  = INSTALL_ROOT . 'tests/Files/';
 const CACHE_PATH  = INSTALL_ROOT . 'cache/';
 
+
 // Prepare caching
 define('CACHE_ENABLED', ! isset($_GET['nocache']));
 define('CACHE_TIME',    3600 * 72); // 3 days
