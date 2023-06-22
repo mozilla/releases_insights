@@ -6,7 +6,7 @@ use \ReleaseInsights\Request;
 use function \Sentry\{init, captureLastError};
 
 // Catch errors via Ignition library in dev mode only
-if (LOCALHOST) {
+if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
     if (class_exists('\Spatie\Ignition\Ignition')) {
         \Spatie\Ignition\Ignition::make()
             ->setEditor('sublime')

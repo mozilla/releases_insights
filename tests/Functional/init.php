@@ -11,7 +11,8 @@ require __DIR__ . '/../../vendor/autoload.php';
 // Launch PHP dev server in the background
 chdir(realpath(__DIR__ . '/../../'));
 echo getcwd();
-exec('php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo $!', $output);
+// We pass an env variable to the php process because we want to disable Ignition in testing mode
+exec('TESTING_CONTEXT=true php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo $!', $output);
 
 // We will need the pid to kill it, beware, this is the pid of the bash process started with start.sh
 $processID = $output[0];

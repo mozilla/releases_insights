@@ -8,7 +8,7 @@ $main_beta = BETA;
 
 // Sentry test: Force a warning by using a non-existant variable
 /* @phpstan-ignore-next-line */
-// echo $error_test_to_sentry;
+echo $error_test_to_sentry;
 
 return $content = <<<"EOD"
 
