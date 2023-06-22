@@ -8,7 +8,7 @@ $requested_version = Version::get();
 
 if ($requested_version == '0.0') {
     header('Location: /404/');
-    exit;
+    return;
 }
 
 // Planned releases
@@ -30,7 +30,7 @@ if ((int) $requested_version < 4) {
     $template_data += ['dot_release_count' => $dot_release_count];
     $template_data += ['release_date' => $release_date];
     (new ReleaseInsights\Template('pre4_release.html.twig', $template_data))->render();
-    exit;
+    return;
 }
 
 $template_data = array_merge(
@@ -61,7 +61,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
 
     (new ReleaseInsights\Template('esr_release.html.twig', $template_data))->render();
 
-    exit;
+    return;
 }
 
 

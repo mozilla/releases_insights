@@ -26,4 +26,9 @@ if (PRODUCTION) {
 $url = new ReleaseInsights\Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 
 include CONTROLLERS . $url->getController() . '.php';
+
+// Send the last error to Sentry
 captureLastError();
+
+// Web request stops here
+exit;
