@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 use function \Sentry\{init, captureLastError};
 
-// Load the .env file to get local vs CI CONTEXT environment value
-$dotenv = Dotenv\Dotenv::createImmutable(INSTALL_ROOT);
-$dotenv->safeLoad();
-
 // Catch errors via Ignition library in dev mode only
 if (LOCALHOST) {
     if (class_exists('\Spatie\Ignition\Ignition')) {

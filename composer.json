@@ -32,7 +32,6 @@
         "ext-dom": "*",
         "eluceo/ical": "^0.16.1",
         "symfony/polyfill": "^1.23",
-        "vlucas/phpdotenv": "^5.4",
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.4",
         "pchevrel/bzkarma": "0.6",

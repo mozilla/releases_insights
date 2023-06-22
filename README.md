@@ -25,8 +25,7 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 
 1. Clone this repository
 2. Install dependencies: `composer install`
-3. `cp .env-example .env`
-4. Start the PHP development server in a terminal either by launching the `run` bash script or with this command:<br>
+3. Start the PHP development server in a terminal either by launching the `run` bash script or with this command:<br>
   `php -S localhost:8082 -t public/`
 
 The website will be available at http://localhost:8082
