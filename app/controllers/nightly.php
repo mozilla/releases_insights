@@ -20,7 +20,7 @@ declare(strict_types=1);
 (new ReleaseInsights\Template(
     'nightly.html.twig',
     [
-        'page_title'        => 'Nightly crashes for a day',
+        'page_title'        => 'Nightly builds (crashes and bug fixes)',
         'css_page_id'       => 'nightly',
         'display_date'      => $display_date,
         'nightly_pairs'     => $nightly_pairs,
