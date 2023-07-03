@@ -151,17 +151,17 @@ class Utils
             return file_get_contents($url);
         }
 
-
         // We don't want to make external requests in Unit Tests
         // @codeCoverageIgnoreStart
-        // Remote file is not available
-        if (! defined('TESTING_CONTEXT')) {
-            if (Utils::inString(get_headers($url)[0], ['404', '500']) ) {
-                return '';
-            }
+        $data = file_get_contents($url);
+
+        // Request to Product-details failed (no answer from remote)
+        // We prefer to die here because this data is essential to the whole app.
+        if ($data === false && str_contains($url, 'product-details.mozilla.org')) {
+            die("Key external ressource $url currently not available, please try reloading the page.");
         }
 
-        return file_get_contents($url);
+        return $data;
         // @codeCoverageIgnoreEnd
     }
 

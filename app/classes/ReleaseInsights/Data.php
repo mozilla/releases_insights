@@ -133,7 +133,6 @@ class Data
         ];
     }
 
-
     /** @return array<string, string> */
     public function getFirefoxVersions(): array
     {

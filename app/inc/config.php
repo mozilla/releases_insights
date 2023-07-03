@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Data;
+
 // We always work with UTF8 encoding
 mb_internal_encoding('UTF-8');
 
@@ -26,8 +28,8 @@ const CACHE_PATH  = INSTALL_ROOT . 'cache/';
 define('CACHE_ENABLED', ! isset($_GET['nocache']));
 define('CACHE_TIME',    3600 * 72); // 3 days
 
-// Cache Product Details versions, 15mn cache
-$firefox_versions = (new ReleaseInsights\Data())->getFirefoxVersions();
+// Get Firefox Versions from Product Details library, default cache duration
+$firefox_versions = (new Data())->getFirefoxVersions();
 
 // Exact version numbers (strings) from product-details
 define('ESR',             $firefox_versions['FIREFOX_ESR']);
