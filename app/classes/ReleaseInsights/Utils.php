@@ -161,6 +161,11 @@ class Utils
             die("Key external ressource $url currently not available, please try reloading the page.");
         }
 
+        // Request failed, let's return an empty string for now
+        if ($data === false) {
+            return '';
+        }
+
         return $data;
         // @codeCoverageIgnoreEnd
     }
