@@ -153,7 +153,11 @@ class Utils
 
         // We don't want to make external requests in Unit Tests
         // @codeCoverageIgnoreStart
-        $data = file_get_contents($url);
+
+        // We ignore warnings for 404 errors as we don't want to spam Sentry
+        // We know that some queries fail for hg.mozilla.org but we deal with that in templates
+        $context = stream_context_create(['http' => ['ignore_errors' => true]]);
+        $data = file_get_contents(filename: $url, context: $context);
 
         // Request to Product-details failed (no answer from remote)
         // We prefer to die here because this data is essential to the whole app.
