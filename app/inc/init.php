@@ -31,5 +31,8 @@ include CONTROLLERS . $url->getController() . '.php';
 // Send the last error to Sentry
 captureLastError();
 
+// Clean up temp variables from global space
+unset($url);
+
 // Web request stops here
 exit;
