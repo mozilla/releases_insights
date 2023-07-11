@@ -19,7 +19,7 @@ class Release
     private string $version;
 
     /** @var array<string> $no_planned_dot_releases */
-    public array $no_planned_dot_releases = ['108.0', '111.0'];
+    public array $no_planned_dot_releases = ['108.0', '111.0', '115.0'];
 
     /* @phpstan-ignore-next-line */
     private Status $release_status;
