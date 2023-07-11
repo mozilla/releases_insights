@@ -33,7 +33,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
     if (Utils::isDateBetweenDates($today, $rc_week_start, $rc_week_end)) {
         $is_rc_week = true;
         // Check if we have already shipped a Release Candidate build to the beta channel
-        $rc_build = Utils::getJson($aus_url . 'rules/firefox-beta', 3600)['mapping'];
+        $rc_build = Utils::getJson($aus_url . 'rules/firefox-beta', 900)['mapping'];
         $rc_build = explode('-', $rc_build)[1];
         $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : BETA . ' RC';
     }
@@ -45,7 +45,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
 // Get the latest nightly build ID, used as a tooltip on the nightly version number
 $latest_nightly = Utils::getJson(
     $aus_url . 'releases/Firefox-mozilla-central-nightly-latest',
-    3600
+    900
 );
 
 $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'];

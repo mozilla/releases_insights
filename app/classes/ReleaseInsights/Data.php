@@ -16,7 +16,7 @@ class Data
 
     public function __construct(
         private string $pd_url = 'https://product-details.mozilla.org/1.0/',
-        public int $cache_duration = 3600
+        public int $cache_duration = 900 // 15 minutes
     )
     {
         $this->release_owners  = include DATA . 'release_owners.php';

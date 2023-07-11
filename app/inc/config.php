@@ -26,7 +26,7 @@ const CACHE_PATH  = INSTALL_ROOT . 'cache/';
 
 // Prepare caching
 define('CACHE_ENABLED', ! isset($_GET['nocache']));
-define('CACHE_TIME',    3600 * 72); // 3 days
+define('CACHE_TIME',    900); // 15 minutes
 
 // Get Firefox Versions from Product Details library, default cache duration
 $firefox_versions = (new Data())->getFirefoxVersions();
