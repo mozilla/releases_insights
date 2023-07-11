@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Data;
-
-$release_owners = (new Data())->getOwners();
+$release_owners = (new ReleaseInsights\Data())->getOwners();
 
 // We need to remove the releases still in planning
 $releases = array_filter(

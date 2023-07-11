@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Utils, Version};
+use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Version};
 
 $requested_version = Version::get();
 

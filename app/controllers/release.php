@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR, Version, Utils};
+use ReleaseInsights\{Data, ESR, Template, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -29,7 +29,7 @@ if ((int) $requested_version < 4) {
     [$dot_release_count, $release_date] = require MODELS . 'pre4_release.php';
     $template_data += ['dot_release_count' => $dot_release_count];
     $template_data += ['release_date' => $release_date];
-    (new ReleaseInsights\Template('pre4_release.html.twig', $template_data))->render();
+    (new Template('pre4_release.html.twig', $template_data))->render();
     return;
 }
 
@@ -59,7 +59,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         'esr_majors'   => ESR::$esr_releases,
     ]);
 
-    (new ReleaseInsights\Template('esr_release.html.twig', $template_data))->render();
+    (new Template('esr_release.html.twig', $template_data))->render();
 
     return;
 }
@@ -142,4 +142,4 @@ if ((int) $requested_version <= RELEASE) {
     ]);
 }
 
-(new ReleaseInsights\Template($template_file, $template_data))->render();
+(new Template($template_file, $template_data))->render();

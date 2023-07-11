@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Release, Version};
+use ReleaseInsights\{Release, ReleaseCalendar, Version};
 
 if (! isset($requested_version)) {
     $requested_version = Version::get();
@@ -61,7 +61,7 @@ $final_relnotes = new DateTime($releases['rc']);
 $releases['final_relnotes'] = $final_relnotes->format('Y-m-d H:i');
 $release_schedule_labels['final_relnotes'] = 'Firefox ' . $short_version . ': Release Notes Deadline';
 
-$ics_calendar = ReleaseInsights\ReleaseCalendar::getICS(
+$ics_calendar = ReleaseCalendar::getICS(
     $releases,
     $release_schedule_labels,
     'Firefox ' . $short_version

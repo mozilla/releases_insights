@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Version;
-
-if ((int) Version::get() < BETA) {
+if ((int) ReleaseInsights\Version::get() < BETA) {
     exit("We don't provide schedule calendars for past releases.");
 }
 

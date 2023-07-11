@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Template, Data};
-
 $data = require_once MODELS . 'calendar.php';
 
-(new Template(
+(new ReleaseInsights\Template(
     'calendar.html.twig',
     [
         'page_title'        => 'Firefox Release Calendar',

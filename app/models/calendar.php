@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR, Release, Version, Utils};
+use ReleaseInsights\{Data, ESR, Release, Utils, Version};
 
 $future = [];
 
