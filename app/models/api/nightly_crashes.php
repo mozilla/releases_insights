@@ -3,18 +3,16 @@
 declare(strict_types=1);
 
 use Cache\Cache;
+use ReleaseInsights\Utils;
 
-$buildid = ReleaseInsights\Utils::getBuildID((int) ($_GET['buildid'] ?? 1));
+$buildid = Utils::getBuildID((int) ($_GET['buildid'] ?? 1));
 
 $cache_id = 'https://crash-stats.mozilla.org/api/SuperSearch/?build_id=' . (string) $buildid . '&_facets=signature&product=Firefox';
 
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency
 if (! $data = Cache::getKey($cache_id, 1)) {
-    $data = file_get_contents($cache_id);
-
-    // Extract into an array the values we want from the data source
-    $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+    $data = Utils::arrayFromJson(file_get_contents($cache_id));
 
     // No data returned, don't cache.
     if (empty($data)) {

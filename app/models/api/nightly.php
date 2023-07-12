@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 use Cache\Cache;
+use ReleaseInsights\Utils;
 
-$date = ReleaseInsights\Utils::getDate();
+$date = Utils::getDate();
 
 $options = [
     'http' => [
@@ -38,9 +39,7 @@ if (! $data = Cache::getKey($cache_id, 900)) {
         false,
         stream_context_create($options)
     );
-
-    // Extract into an array the values we want from the data source
-    $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+    $data = Utils::arrayFromJson($data);
     $data = array_column($data['hits']['hits'], '_source');
 
     // No data returned, bug or incorrect date, don't cache.

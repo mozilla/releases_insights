@@ -42,7 +42,26 @@ class Utils
             Cache::setKey($cache_id, $data);
         }
 
-        return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+        return self::arrayFromJson($data);
+    }
+
+    /**
+     * Return an Array from a Json string
+     * This is an utility string as we use json_decode in mulitple place,
+     * always with the same options. That will make these calls shorter,
+     * with a more explicit function name and will allow to change default
+     * values at the app level.
+     *
+     * @return array<mixed>  Associative array from a Json string
+     */
+    public static function arrayFromJson(string $data): array
+    {
+        return json_decode(
+            json: $data,
+            associative: true,
+            depth: 512,
+            flags: JSON_THROW_ON_ERROR
+        );
     }
 
     /**
@@ -189,7 +208,7 @@ class Utils
             Cache::setKey($url, $data, $ttl);
         }
 
-        return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+        return self::arrayFromJson($data);
     }
 
     public static function mtrim(string $string): string
