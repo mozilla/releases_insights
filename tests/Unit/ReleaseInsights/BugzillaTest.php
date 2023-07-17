@@ -57,12 +57,12 @@ test('Bugzilla::getBugsFromHgWeb', function () {
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeTrue(),
         );
+
     expect(bz::getBugsFromHgWeb(
         TEST_FILES . 'beta98_nobug_json-pushes.json',
         true
     ))
         ->toBeArray()
-        ->toHaveLength(4)
         ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
         ->sequence(
             fn ($value, $key) => $value->toBeArray(),

@@ -11,6 +11,8 @@ test('Cache::setKey', function () {
     expect(Cache::setKey('Unique ID', 'this string to put in a cached file'))->toBeTrue();
     expect(Cache::setKey('Unique ID 2', 'This is immutable data', -1))->toBeTrue();
     expect(Cache::setKey('Unique ID 3', 'I am data designed to be expired'))->toBeTrue();
+
+    // Change the timestamp to 100 seconds in the past so we can test expiration
     touch(Cache::getCachePath() . sha1('Unique ID 3') . '.cache', time() - 100);
 
     Cache::$CACHE_ENABLED = false;
@@ -18,6 +20,12 @@ test('Cache::setKey', function () {
 
 test('Cache::getKey', function () {
     Cache::$CACHE_ENABLED = true;
+
+    Cache::setKey('Unique ID', 'this string to put in a cached file');
+    Cache::setKey('Unique ID 2', 'This is immutable data', -1);
+    Cache::setKey('Unique ID 3', 'I am data designed to be expired');
+    touch(Cache::getCachePath() . sha1('Unique ID 3') . '.cache', time() - 100);
+
     expect(Cache::getKey('Unique ID'))->toEqual('this string to put in a cached file');
     expect(Cache::getKey('Unique ID 2', -1))->toEqual('This is immutable data');
     expect(Cache::getKey('Unique ID 3', 1))->toBeFalse();
@@ -52,6 +60,3 @@ test('Cache::isActivated', function () {
 test('Cache::flush', function () {
     expect(Cache::flush())->toBeTrue();
 });
-
-
-// Change the timestamp to 100 seconds in the past so we can test expiration
