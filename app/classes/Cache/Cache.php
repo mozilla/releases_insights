@@ -158,14 +158,20 @@ class Cache
     {
         $file = self::getKeyPath($id, $immutable);
 
+        // Make sure this wasn't already deleted and the server file cache is lying
+        clearstatcache(true, $file);
+
         if (! file_exists($file)) {
             return false;
         }
 
-        unlink($file);
-        clearstatcache(true, $file);
+        // if there is a lock on the file, we can't delete it,
+        // Can happen if it's being created by another php process
+        if (! is_writable($file)) {
+            return false;
+        }
 
-        return true;
+        return unlink($file);
     }
 
     /**
@@ -179,7 +185,7 @@ class Cache
      *
      * @return string Path to the file
      */
-    private static function getKeyPath(string $id, bool $immutable = false): string
+    public static function getKeyPath(string $id, bool $immutable = false): string
     {
         return self::getCachePath() . sha1($id) . ($immutable ? '.immutable' : '.cache');
     }

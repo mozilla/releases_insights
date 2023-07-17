@@ -29,6 +29,16 @@ test('Cache::deleteKey', function () {
     Cache::$CACHE_ENABLED = true;
     expect(Cache::deleteKey('Unique ID 2', true))->toBeTrue();
     expect(Cache::deleteKey('I am a file not in cache'))->toBeFalse();
+
+    // Create a file key we will lock to test that we can't delete it
+    Cache::setKey('Unique ID', 'I am data designed to be expired');
+
+    // Lock The file by making it read-only
+    chmod(Cache::getKeyPath('Unique ID'), 0444);
+
+    // We expect it to return false now
+    expect(Cache::deleteKey('Unique ID'))->toBeFalse();
+
     Cache::$CACHE_ENABLED = false;
 });
 
