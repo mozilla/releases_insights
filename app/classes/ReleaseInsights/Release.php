@@ -99,8 +99,8 @@ class Release
                 'beta_6'              => $date('Sunday 21:00'),
                 'sumo_2'              => $date('Monday 21:00'),
                 'beta_7'              => $date('Tuesday 21:00'),
-                'beta_8'              => $date('Thursday 21:00'),
                 'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
+                'beta_8'              => $date('Thursday 21:00'),
                 'rc_gtb'              => $date('Monday 21:00'),
                 'rc'                  => $date('Tuesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
@@ -139,6 +139,17 @@ class Release
 
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
+
+        // Dev mode: assert that qa_pre_rc_signoff happens before the last beta
+        // If not, this causes a 1 week shift in rc_gtb calculation
+        $post_qa_step = array_search('qa_pre_rc_signoff', array_keys($schedule)) + 1;
+
+        assert(
+            str_starts_with(
+                array_keys($schedule)[$post_qa_step],
+                'beta'
+            ) === true
+        );
 
         // The schedule starts with the release version number
         return ['version' => $this->version] + $schedule;
