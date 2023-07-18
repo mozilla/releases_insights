@@ -4,7 +4,7 @@
     We don't run any test here, but we can set up globals for all the tests
 */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 const FIREFOX_RELEASE  = '93';
 const FIREFOX_BETA     = '94';
