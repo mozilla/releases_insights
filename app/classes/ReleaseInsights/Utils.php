@@ -47,7 +47,7 @@ class Utils
 
     /**
      * Return an Array from a Json string
-     * This is an utility string as we use json_decode in mulitple place,
+     * This is an utility function as we use json_decode in multiple places,
      * always with the same options. That will make these calls shorter,
      * with a more explicit function name and will allow to change default
      * values at the app level.
@@ -65,7 +65,8 @@ class Utils
     }
 
     /**
-     * Get a date provided by the user in the query string fallback to today's date
+     * Get a date provided by the user in the query string.
+     *Fallback to today's date.
      *
      * @return string Date as a Ymd string
      */
@@ -133,12 +134,11 @@ class Utils
 
         return true;
     }
+
     /**
      * Sanitize a string for security before template use.
-     *
-     * @param string $string The string we want to sanitize
-     *
-     * @return string Sanitized string for security
+     * This is in addition to twig default sanitizinf for cases
+     * where we may want to disable it.
      */
     public static function secureText(string $string): string
     {
@@ -153,7 +153,6 @@ class Utils
             FILTER_FLAG_STRIP_LOW
         );
     }
-
 
     /**
      * getFile code coverage is done through its consumer getJson
