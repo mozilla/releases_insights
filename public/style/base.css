@@ -61,24 +61,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Nightly page */
-
-#nightly .buildid {
-    margin-left: -2em;
-}
-
-#nightly ol li::marker {
-  color: rgb(110, 110,110);
-}
-
-#nightly ol li img {
-    filter: grayscale(80%);
-}
-
-#nightly ol li img:hover {
-    filter: none;
-}
-
+/
 
 nav svg {
     fill: whitesmoke;
@@ -100,26 +83,6 @@ nav svg {
     box-shadow: unset !important;
 }
 
-.bug-link {
-    display:inline-block;
-    width:100%;
-    height:100%;
-    white-space: nowrap;
-}
-
-.score-card {
-    visibility: hidden;
-    position: absolute;
-    margin-left: 3em;
-    margin-top: -1em;
-    min-width: 8em;
-    max-width: 10em;
-    box-shadow: 8px 10px 11px -1px rgba(128,127,127,0.58);
-}
-
-.score-pill:hover + .score-card {
-    visibility: visible;
-}
 
 /* home page */
 h1,
@@ -243,7 +206,7 @@ footer {
 }
 
 #nightly table tr th:nth-child(3) {
-    width: 4.5em;
+    width: 5em;
 }
 
 #nightly table tr th:nth-child(4) {
@@ -253,4 +216,50 @@ footer {
 #nightly table tr td a {
   overflow: hidden;
   text-overflow: " ✁";
+}* Nightly page */
+
+#nightly .buildid {
+    margin-left: -2em;
+}
+
+#nightly ol li::marker {
+  color: rgb(110, 110,110);
+}
+
+#nightly ol li img {
+    filter: grayscale(80%);
+}
+
+#nightly ol li img:hover {
+    filter: none;
+}
+
+#nightly table thead tr th.sort-asc:after {
+    content: "\00A0\25b4";
+}
+
+#nightly table thead tr th.sort-desc:after {
+    content: "\00A0\25be";
+}
+
+
+#nightly .bug-link {
+    display:inline-block;
+    width:100%;
+    height:100%;
+    white-space: nowrap;
+}
+
+#nightly .score-card {
+    visibility: hidden;
+    position: absolute;
+    margin-left: 3em;
+    margin-top: -1em;
+    min-width: 8em;
+    max-width: 10em;
+    box-shadow: 8px 10px 11px -1px rgba(128,127,127,0.58);
+}
+
+#nightly .score-pill:hover + .score-card {
+    visibility: visible;
 }

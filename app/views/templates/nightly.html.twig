@@ -11,23 +11,23 @@
 {% endblock %}
 {% block main %}
 {% for dataset in nightly_pairs %}
-    <a href="#buildid_{{ dataset.buildid }}" name="buildid_{{ dataset.buildid }}" class="buildid list-group-item float-start bg-transparent">#</a>
+    <a href="#buildid_{{ dataset.buildid }}" name="buildid_{{ dataset.buildid }}" class="buildid pe-2 pt-2 text-light float-start bg-transparent">#</a>
     <ul class="list-group list-group-horizontal">
         {% if fallback_nightly %}
         <li class="list-group-item bg-warning"></li>
         {% endif %}
-        <li class="list-group-item bg-info">
+        <li class="list-group-item bg-info border-0">
             <a href="https://hg.mozilla.org/mozilla-central/changeset/{{ dataset.changeset }}" class="text-light" title="Nightly {{ dataset.version }}">{{ dataset.buildid }}</a>
-        <li class="list-group-item text-light bg-secondary">
+        <li class="list-group-item text-light bg-secondary border-0">
             <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{ dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
         </li>
-        <li class="list-group-item text-light bg-success">
+        <li class="list-group-item text-light bg-success border-0">
             <a href="{{ bug_list[dataset.buildid].url }}" class="text-light">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
         </li>
-        <li class="list-group-item text-light bg-primary">
+        <li class="list-group-item text-light bg-primary border-0">
               <a class="text-light" data-bs-toggle="collapse" href="#collapse{{ dataset.buildid }}">Show list of bugs</a>
         </li>
-        <li class="list-group-item text-light bg-danger">
+        <li class="list-group-item text-light bg-danger border-0">
             <a href="https://crash-stats.mozilla.org/api/SuperSearch/?build_id={{ dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
         </li>
     </ul>
@@ -36,13 +36,15 @@
 </p>
 <div class="collapse" id="collapse{{  dataset.buildid }}">
     <table class="table table-light table-striped table-bordered table-sm mb-3">
-      <tbody>
-        <tr class="table-dark"  >
+       <thead>
+        <tr class="table-dark">
             <th>Bug</th>
             <th>Component</th>
             <th>Impact</th>
             <th>Summary</th>
         </tr>
+      </thead>
+      <tbody>
         {%- for details in bug_list[dataset.buildid].bugs -%}
             {%- set alert_link = '' -%}
             {%- set alert_title = '' -%}
@@ -66,12 +68,12 @@
                 <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
                 <div class="card text-bg-primary mb-3 score-card">
                         <div class="card-body p-2">
-                            <table class="table table-borderless table-sm text-light">
+                            <table class="table table-borderless table-sm">
                             {%- for key, score_detail in bug_list_karma[details.id].details -%}
                                 {%- if score_detail != 0 -%}
-                                <tr class="small">
-                                    <th class="text-start p-0">{{ key }}</th>
-                                    <td class="text-end p-0 fw-normal">{{ score_detail }}</td>
+                                <tr class="small text-light bg-primary">
+                                    <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
+                                    <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
                                 </tr>
                                 {%- endif -%}
 
@@ -111,6 +113,49 @@
 
     <script src="/assets/jquery/jquery.slim.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script nonce="4AEemGb0xJptoIGFP3Nd">
+// jQuery:
+$(document).ready(function() {
+
+    // sort table data:
+    $(document).on("click", "table > thead > tr > th:not(.no-sort)", function() {
+        var table = $(this).parents("table");
+        var rows  = $(this).parents("table").find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
+        var dir   = ($(this).hasClass("sort-asc")) ? "desc" : "asc";
+
+        if (dir == "desc") {
+            rows = rows.reverse();
+        }
+
+        for (var i = 0; i < rows.length; i++) {
+            table.append(rows[i]);
+        }
+
+        table.find("table > thead tr th").removeClass("sort-asc").removeClass("sort-desc");
+        $(this).removeClass("sort-asc").removeClass("sort-desc") .addClass("sort-" + dir);
+    });
+
+});
+
+
+// table data comparison:
+function TableComparer(index) {
+    return function(a, b) {
+        var val_a  = TableCellValue(a, index);
+        var val_b  = TableCellValue(b, index);
+        var result = ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
+
+        return result;
+    }
+}
+
+
+// get table cell value:
+function TableCellValue(row, index) {
+    return $(row).children("td").eq(index).text();
+}
+
+</script>
 {% endblock %}
 
 {% block footer %}
