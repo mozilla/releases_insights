@@ -108,51 +108,38 @@
 <p>No Nightly build released yet today</p>
 {% endfor %}
 
-
-
-
     <script src="/assets/jquery/jquery.slim.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script nonce="4AEemGb0xJptoIGFP3Nd">
-    // jQuery:
     $(document).ready(function() {
-
-        // sort table data:
-        $(document).on("click", "table thead tr  th:not(.no-sort)", function() {
+        $(document).on("click", "table thead tr th", function() {
             var table = $(this).parents("table");
-            var rows  = $(this).parents("table").find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
-            var dir   = ($(this).hasClass("sort-asc")) ? "desc" : "asc";
+            var rows  = table.find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
+            var header_direction = $(this).hasClass("sort-asc") ? "sort-desc" : "sort-asc";
 
-            if (dir == "desc") {
+            if (header_direction == "sort-desc") {
                 rows = rows.reverse();
             }
+            table.append(rows);
+            table.find("th").removeClass("sort-asc sort-desc");
 
-            for (var i = 0; i < rows.length; i++) {
-                table.append(rows[i]);
-            }
-
-            table.find("th").removeClass("sort-asc").removeClass("sort-desc");
-            $(this).removeClass("sort-asc").removeClass("sort-desc").addClass("sort-" + dir);
+            $(this).addClass(header_direction);
         });
 
     });
 
-    // table data comparison:
     function TableComparer(index) {
-        return function(a, b) {
-            var val_a  = TableCellValue(a, index);
-            var val_b  = TableCellValue(b, index);
-            var result = ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
+        var value = function (row, index) {
+            return $(row).children("td").eq(index).children(":first-child").text();
+        };
 
-            return result;
+        return function(a, b) {
+            var val_a  = value(a, index);
+            var val_b  = value(b, index);
+            return ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
         }
     }
 
-
-    // get table cell value:
-    function TableCellValue(row, index) {
-        return $(row).children("td").eq(index).children(":first-child").text();
-    }
 </script>
 
 {% endblock %}
