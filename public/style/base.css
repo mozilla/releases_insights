@@ -235,11 +235,11 @@ footer {
 }
 
 #nightly table thead tr th.sort-asc:after {
-    content: "\00A0\25b4";
+    content: "\00A0\25be";
 }
 
 #nightly table thead tr th.sort-desc:after {
-    content: "\00A0\25be";
+    content: "\00A0\25b4";
 }
 
 
