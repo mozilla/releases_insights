@@ -118,7 +118,7 @@
 $(document).ready(function() {
 
     // sort table data:
-    $(document).on("click", "table > thead > tr > th:not(.no-sort)", function() {
+    $(document).on("click", "table thead tr  th:not(.no-sort)", function() {
         var table = $(this).parents("table");
         var rows  = $(this).parents("table").find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
         var dir   = ($(this).hasClass("sort-asc")) ? "desc" : "asc";
@@ -131,7 +131,7 @@ $(document).ready(function() {
             table.append(rows[i]);
         }
 
-        table.find("table > thead tr th").removeClass("sort-asc").removeClass("sort-desc");
+        table.find("table thead tr th").removeClass("sort-asc").removeClass("sort-desc");
         $(this).removeClass("sort-asc").removeClass("sort-desc") .addClass("sort-" + dir);
     });
 
@@ -152,7 +152,7 @@ function TableComparer(index) {
 
 // get table cell value:
 function TableCellValue(row, index) {
-    return $(row).children("td").eq(index).text();
+    return $(row).children("td").eq(index).children(":first-child").text();
 }
 
 </script>
