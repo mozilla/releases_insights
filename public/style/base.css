@@ -61,8 +61,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/
-
 nav svg {
     fill: whitesmoke;
     margin-top: 0.5em;
@@ -82,7 +80,6 @@ nav svg {
 .force-default-bg  {
     box-shadow: unset !important;
 }
-
 
 /* home page */
 h1,
@@ -134,10 +131,13 @@ h3 {
     font-size: small;
     font-weight: normal;
 }
+
+
 #release .table th summary::marker {
     color: lightgray;
     font-size:  small;
 }
+
 @media only screen and (max-width: 460px) {
     .w-50 {
         width: 100% !important;
@@ -216,7 +216,9 @@ footer {
 #nightly table tr td a {
   overflow: hidden;
   text-overflow: " ✁";
-}* Nightly page */
+}
+
+/* Nightly page */
 
 #nightly .buildid {
     margin-left: -2em;
@@ -241,7 +243,6 @@ footer {
 #nightly table thead tr th.sort-desc:after {
     content: "\00A0\25b4";
 }
-
 
 #nightly .bug-link {
     display:inline-block;
