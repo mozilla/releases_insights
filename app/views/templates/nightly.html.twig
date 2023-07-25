@@ -62,7 +62,7 @@
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
         <tr class="small {{ alert_row }}">
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id|number_format(0, '', '&thinsp;')|raw  }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
             <td class="text-center {{ alert_row }}">
                 <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
