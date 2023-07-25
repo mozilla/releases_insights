@@ -34,7 +34,7 @@ class Data
     {
         return array_filter(
             $this->future_releases,
-            function ($key) { return (int) $key > RELEASE; },
+            function (string $key) { return (int) $key > RELEASE; },
             ARRAY_FILTER_USE_KEY
         );
     }
@@ -48,7 +48,7 @@ class Data
         // Reduce to only ESR releases
         $esr_releases = array_filter(
             $esr_releases,
-            function ($key) { return str_ends_with($key, 'esr'); },
+            function (string $key) { return str_ends_with($key, 'esr'); },
             ARRAY_FILTER_USE_KEY
         );
 
@@ -77,7 +77,7 @@ class Data
         asort($all_releases);
 
         // Remove all minor ESR releases
-        $exclude_esr = function($version_number) {
+        $exclude_esr = function(string $version_number) {
             // Those releases were not ESR releases despite the middle number
             if (in_array($version_number, ['33.1', '33.1.1', '50.1.0'])) {
                 return true;

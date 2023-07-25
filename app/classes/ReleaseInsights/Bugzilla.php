@@ -26,7 +26,7 @@ class Bugzilla
     {
         return preg_replace_callback(
             "/bug +\d+/i",
-            function ($matches) {
+            function (array $matches) {
                 return
                   '<a href="https://bugzilla.mozilla.org/'
                 . trim(str_ireplace('bug', '', $matches[0]))
