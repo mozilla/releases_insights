@@ -56,12 +56,13 @@ class Utils
      */
     public static function arrayFromJson(string $data): array
     {
-        return json_decode(
+        $data = json_decode(
             json: $data,
             associative: true,
             depth: 512,
-            flags: JSON_THROW_ON_ERROR
         );
+
+        return is_null($data) ? [] : $data;
     }
 
     /**
