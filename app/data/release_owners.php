@@ -156,4 +156,5 @@ return [
     '119.0' => $owners['dmeehan'],
     '120.0' => $owners['dianna'],
     '121.0' => $owners['ryanvm'],
+    '122.0' => $owners['pascalc'],
 ];
