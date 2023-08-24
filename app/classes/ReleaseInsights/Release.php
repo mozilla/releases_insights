@@ -140,7 +140,11 @@ class Release
                 'soft_code_freeze'    => $date('Thursday 08:00'),
                 'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'string_freeze'       => $date('Friday'),
-                'merge_day'           => $this->version === '123.0' ? $date('Monday +1 week') : $date('Monday'),
+                'merge_day'           => match($this->version) {
+                                            '123.0' => $date('Monday +1 week'),
+                                            '135.0' => $date('Monday +2 week'),
+                                            default => $date('Monday'),
+                                        },
                 'beta_1'              => $date('Monday'),
                 'beta_2'              => $date('Tuesday 21:00'),
                 'beta_3'              => $date('Thursday 21:00'),
