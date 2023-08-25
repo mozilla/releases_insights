@@ -43,7 +43,7 @@
   <tr>
   {% if check != values.quarter %}
     {% set rowspan = upcoming_quarters[values.quarter] %}
-    <th rowspan="{{ rowspan}}" class="force-default-bg align-middle border-end">{{ values.quarter }}</th>
+    <th rowspan="{{ rowspan}}" class="force-default-bg align-middle border-end">{{ values.quarter | split('-', 2)[1] }}</th>
     {% set check = values.quarter %}
   {% endif %}
     <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>

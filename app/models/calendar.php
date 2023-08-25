@@ -27,7 +27,7 @@ foreach ((new Data)->getFutureReleases() as $version => $date) {
             'soft_freeze'   => $version_data['soft_code_freeze'],
             'beta_start'    => $version_data['merge_day'],
             'esr'           => $ESR,
-            'quarter'       => 'Q' . (string) ceil(date('n', strtotime($date)) / 3),
+            'quarter'       => date('Y',strtotime($date)) . '-Q' . (string) ceil(date('n', strtotime($date)) / 3),
             'owner'         => $owner,
         ]
     ];
