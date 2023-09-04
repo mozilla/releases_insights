@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block head_additions %}
+    {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
+    <meta name="description" content="{{ meta_description }}">
+    <meta property="twitter:description" content="{{ meta_description }}">
+
+    <meta property="og:url" content="https://whattrainisitnow.com/calendar/monthly/">
 <link rel="stylesheet" type="text/css" href="/style/calendar.css">
 {% endblock %}
 

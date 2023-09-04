@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block head_additions %}
+    {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
+    <meta name="description" content="{{ meta_description }}">
+    <meta property="twitter:description" content="{{ meta_description }}">
+
+    <meta property="og:url" content="https://whattrainisitnow.com/release/?version=esr">
+{% endblock %}
+
+
 {% block main %}
 
   {%  if constant('ESR_NEXT')    %}
