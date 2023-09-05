@@ -54,7 +54,7 @@
 
 {% for key, values in esr_calendar %}
   <tr>
-    <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }} class="fst-italic fw-light"><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
+    <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
     <td  class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>{{ values.old_esr }}</td>
     <td title="{{ values.date|format_date('full', locale='en') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">

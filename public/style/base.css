@@ -109,7 +109,7 @@ h3 {
     caption-side: top;
 }
 
-#release_esr .table  th {
+#release_esr table + .table  th {
     text-align: center;
 }
 
