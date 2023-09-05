@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR};
+use ReleaseInsights\{Data, ESR, Version};
 
 $esr_releases = (new Data())->getESRReleases();
 
@@ -12,7 +12,7 @@ $esr_calendar = [];
 
 foreach($upcoming_releases as $k => $v) {
     $esr_calendar [] = [
-        'release' => $k,
+        'release' => Version::getMajor($k),
         'esr'     => ESR::getMainDotVersion(ESR::getVersion((int) $k)),
         'old_esr' => is_null(ESR::getOlderSupportedVersion((int) $k))
             ? ''
