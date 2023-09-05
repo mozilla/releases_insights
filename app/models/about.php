@@ -30,7 +30,7 @@ return $content = <<<"EOD"
     </tr>
     <tr>
         <td><a href="/api/nightly/?date={$yesterday}">api/nightly/?date={$yesterday}</a></td>
-        <td>Provides the list of nightly buildids for a day and the changeset they were built from (data from buildhub).</td>
+        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub).</td>
     </tr>
     <tr>
         <td><a href="/api/nightly/crashes/?buildid=20190927094817">api/nightly/crashes/?buildid=20190927094817</a></td>
