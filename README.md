@@ -125,19 +125,19 @@ Should you want to create those tags easily, here are bash functions that genera
 # Tag and push to https://stage.whattrainisitnow.nonprod.webservices.mozgcp.net
 function train_stage()
 {
-    DATETIME='date +%Y-%m-%d_%H-%M-%S'
-    git tag -a stage-`$DATETIME` -m "Staged release `$DATETIME`"
-    echo "Staged release `$DATETIME` created."
-    git push origin stage-`$DATETIME`
+    DATETIME=`date -u +%Y-%m-%d_%H-%M-%S`
+    git tag -a stage-$DATETIME -m "Staged release $DATETIME"
+    echo "Staged release $DATETIME created."
+    git push origin stage-$DATETIME
 }
 
 # Tag and push to https://whattrainisitnow.com
 function train_ship()
 {
-    DATETIME='date +%Y-%m-%d_%H-%M-%S'
-    git tag -a release-`$DATETIME` -m "Release `$DATETIME`"
-    echo "Release `$DATETIME` created."
-    git push origin release-`$DATETIME`
+    DATETIME=`date -u +%Y-%m-%d_%H-%M-%S`
+    git tag -a release-$DATETIME -m "Release $DATETIME"
+    echo "Release $DATETIME created."
+    git push origin release-$DATETIME
 }
 ```
 As you can see above, we use a timestamp variant and not a number for tags as we push daily (multiple times).
