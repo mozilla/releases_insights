@@ -205,10 +205,23 @@ class Utils
             if (empty($data)) {
                 return [];
             }
+
+            // Invalid Json, don't cache.
+            if (! self::isJson($data)) {
+                return [];
+            }
+
             Cache::setKey($url, $data, $ttl);
         }
 
         return self::arrayFromJson($data);
+    }
+
+    public static function isJson(string $data): bool
+    {
+        return is_string($data)
+            && is_array(json_decode($data, true))
+            && (json_last_error() == JSON_ERROR_NONE);
     }
 
     public static function mtrim(string $string): string

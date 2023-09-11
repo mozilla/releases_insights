@@ -68,6 +68,9 @@ test('Utils::getJson', function () {
     expect(U::getJson(__DIR__ . '/../../Files/empty.json'))
         ->toBeEmpty()
         ->toBeArray();
+    expect(U::getJson(__DIR__ . '/../../Files/bad.json'))
+        ->toBeEmpty()
+        ->toBeArray();
     expect(U::getJson(__DIR__ . '/../../Files/iDontExist.json'))
         ->toBeEmpty()
         ->toBeArray();
@@ -183,3 +186,7 @@ test('Utils::getIP', function () {
 });
 
 
+test('Utils::isJson', function () {
+    $this->assertFalse(U::isJson('1'));
+    $this->assertFalse(U::isJson('[1:]'));
+});
