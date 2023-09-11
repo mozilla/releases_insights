@@ -16,7 +16,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . $url->path) && $url->path !== '/') {
 }
 
 // Block suspicious accesses
-require_once __DIR__ . '/IPblock.php';
+// require_once __DIR__ . '/IPblock.php';
 
 // Don't process non-PHP files, even if they don't exist on the server
 if (isset($file['extension'])) {
