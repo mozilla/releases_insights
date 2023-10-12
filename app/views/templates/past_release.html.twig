@@ -74,19 +74,17 @@
       <th>Dot releases</th><td>{{ dot_release_count }}</td>
     </tr>
     <tr>
-      <th class="">Release notes</th>
-      <td class="w-auto">
-      <ul class="list-inline mb-0">
-        <li class="list-inline-item m-0"><a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}/releasenotes/">Consumer notes</a></li>
-        <li class="list-inline-item m-0"><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a></li>
-      </ul>
-    </td>
+      <th>Release notes</th>
+      <td>
+        <a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}/releasenotes/">Consumer notes</a> <span class="text-black-50">&#8280;</span>
+        <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a>
+      </td>
     </tr>
 
     {% if OLDER_ESR %}
     <tr>
       <th>Corresponding ESR releases</th>
-      <td>{{ ESR }} &middot; {{ OLDER_ESR }} </td>
+      <td>{{ ESR }} <span class="text-black-50">&#8280;</span> {{ OLDER_ESR }} </td>
     </tr>
 
     {% else %}
