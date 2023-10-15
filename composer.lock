@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa6d1e7aa778da720974eaf5821139ec",
+    "content-hash": "e3b16efa32a48163d09ee73e65ae391c",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -3131,16 +3131,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.34.1",
+            "version": "v3.35.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "98bf1b1068b4ceddbbc2a2b70b67a5e380add9e3"
+                "reference": "ec1ccc264994b6764882669973ca435cf05bab08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/98bf1b1068b4ceddbbc2a2b70b67a5e380add9e3",
-                "reference": "98bf1b1068b4ceddbbc2a2b70b67a5e380add9e3",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/ec1ccc264994b6764882669973ca435cf05bab08",
+                "reference": "ec1ccc264994b6764882669973ca435cf05bab08",
                 "shasum": ""
             },
             "require": {
@@ -3173,8 +3173,6 @@
                 "phpspec/prophecy": "^1.16",
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5",
-                "phpunitgoodpractices/polyfill": "^1.6",
-                "phpunitgoodpractices/traits": "^1.9.2",
                 "symfony/phpunit-bridge": "^6.2.3",
                 "symfony/yaml": "^5.4 || ^6.0"
             },
@@ -3214,7 +3212,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.34.1"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.35.1"
             },
             "funding": [
                 {
@@ -3222,7 +3220,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-03T23:51:05+00:00"
+            "time": "2023-10-12T13:47:26+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4584,31 +4582,31 @@
         },
         {
             "name": "nunomaduro/patrol",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/patrol.git",
-                "reference": "a10de934850b2785f82574e9f774aa80d75f3b7b"
+                "reference": "93921ff25bcbe93378c89c33f1b79de3ab8656ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/patrol/zipball/a10de934850b2785f82574e9f774aa80d75f3b7b",
-                "reference": "a10de934850b2785f82574e9f774aa80d75f3b7b",
+                "url": "https://api.github.com/repos/nunomaduro/patrol/zipball/93921ff25bcbe93378c89c33f1b79de3ab8656ec",
+                "reference": "93921ff25bcbe93378c89c33f1b79de3ab8656ec",
                 "shasum": ""
             },
             "require": {
-                "composer/semver": "^3.2.5",
-                "guzzlehttp/guzzle": "^7.2.0",
-                "php": "^8.0",
-                "psr/http-client": "^1.0.1",
-                "symfony/console": "^5.3.0|^6.0",
-                "symfony/process": "^5.3.0|^6.0"
+                "composer/semver": "^3.4.0",
+                "guzzlehttp/guzzle": "^7.8.0",
+                "php": "^8.2",
+                "psr/http-client": "^1.0.3",
+                "symfony/console": "^6.3.4|^7.0.0",
+                "symfony/process": "^6.3.4|^7.0.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.0.0",
-                "pestphp/pest": "^1.5.0",
-                "phpstan/phpstan": "^0.12.85",
-                "symfony/var-dumper": "^5.2.6|^6.0"
+                "laravel/pint": "^1.13.3",
+                "pestphp/pest": "^2.23.2",
+                "phpstan/phpstan": "^1.10.38",
+                "symfony/var-dumper": "^6.3.5|^7.0.0"
             },
             "bin": [
                 "bin/patrol"
@@ -4641,7 +4639,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/patrol/issues",
-                "source": "https://github.com/nunomaduro/patrol/tree/v1.1.0"
+                "source": "https://github.com/nunomaduro/patrol/tree/v1.2.0"
             },
             "funding": [
                 {
@@ -4657,7 +4655,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-01-13T14:46:46+00:00"
+            "time": "2023-10-12T08:19:33+00:00"
         },
         {
             "name": "nunomaduro/phpinsights",
@@ -5207,26 +5205,26 @@
         },
         {
             "name": "pestphp/pest-plugin-arch",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-arch.git",
-                "reference": "b315c03bbb7e620d7b57a670816e9bf5f3dbc7f7"
+                "reference": "59698f0a381c5bc4fa2cd5b6ed331067c4501fdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-arch/zipball/b315c03bbb7e620d7b57a670816e9bf5f3dbc7f7",
-                "reference": "b315c03bbb7e620d7b57a670816e9bf5f3dbc7f7",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-arch/zipball/59698f0a381c5bc4fa2cd5b6ed331067c4501fdb",
+                "reference": "59698f0a381c5bc4fa2cd5b6ed331067c4501fdb",
                 "shasum": ""
             },
             "require": {
-                "nunomaduro/collision": "^7.9.0|^8.0.0",
+                "nunomaduro/collision": "^7.10.0|^8.0.0",
                 "pestphp/pest-plugin": "^2.1.1",
                 "php": "^8.1",
-                "ta-tikoma/phpunit-architecture-test": "^0.7.4"
+                "ta-tikoma/phpunit-architecture-test": "^0.7.5"
             },
             "require-dev": {
-                "pestphp/pest": "^2.22.0",
+                "pestphp/pest": "^2.23.2",
                 "pestphp/pest-dev-tools": "^2.16.0"
             },
             "type": "library",
@@ -5255,7 +5253,7 @@
                 "unit"
             ],
             "support": {
-                "source": "https://github.com/pestphp/pest-plugin-arch/tree/v2.4.0"
+                "source": "https://github.com/pestphp/pest-plugin-arch/tree/v2.4.1"
             },
             "funding": [
                 {
@@ -5267,7 +5265,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-10T14:44:21+00:00"
+            "time": "2023-10-12T15:35:38+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -6336,16 +6334,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.21",
+            "version": "v0.11.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "bcb22101107f3bf770523b65630c9d547f60c540"
+                "reference": "128fa1b608be651999ed9789c95e6e2a31b5802b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/bcb22101107f3bf770523b65630c9d547f60c540",
-                "reference": "bcb22101107f3bf770523b65630c9d547f60c540",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/128fa1b608be651999ed9789c95e6e2a31b5802b",
+                "reference": "128fa1b608be651999ed9789c95e6e2a31b5802b",
                 "shasum": ""
             },
             "require": {
@@ -6374,7 +6372,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.11.x-dev"
+                    "dev-0.11": "0.11.x-dev"
                 },
                 "bamarni-bin": {
                     "bin-links": false,
@@ -6410,9 +6408,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.21"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.22"
             },
-            "time": "2023-09-17T21:15:54+00:00"
+            "time": "2023-10-14T21:56:36+00:00"
         },
         {
             "name": "sanmai/later",
@@ -9204,16 +9202,16 @@
         },
         {
             "name": "ta-tikoma/phpunit-architecture-test",
-            "version": "0.7.4",
+            "version": "0.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ta-tikoma/phpunit-architecture-test.git",
-                "reference": "abe1f8a5f4635e7cbe0a8a37d6b8d20c687af0f2"
+                "reference": "9eb08437e8f0c0c75cc947a373cf49672c335827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ta-tikoma/phpunit-architecture-test/zipball/abe1f8a5f4635e7cbe0a8a37d6b8d20c687af0f2",
-                "reference": "abe1f8a5f4635e7cbe0a8a37d6b8d20c687af0f2",
+                "url": "https://api.github.com/repos/ta-tikoma/phpunit-architecture-test/zipball/9eb08437e8f0c0c75cc947a373cf49672c335827",
+                "reference": "9eb08437e8f0c0c75cc947a373cf49672c335827",
                 "shasum": ""
             },
             "require": {
@@ -9221,7 +9219,7 @@
                 "php": "^8.1.0",
                 "phpdocumentor/reflection-docblock": "^5.3.0",
                 "phpunit/phpunit": "^10.1.1",
-                "symfony/finder": "^6.2.7"
+                "symfony/finder": "^6.2.7 || ^7.0.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.9.0",
@@ -9257,9 +9255,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ta-tikoma/phpunit-architecture-test/issues",
-                "source": "https://github.com/ta-tikoma/phpunit-architecture-test/tree/0.7.4"
+                "source": "https://github.com/ta-tikoma/phpunit-architecture-test/tree/0.7.5"
             },
-            "time": "2023-08-03T06:50:14+00:00"
+            "time": "2023-10-12T15:31:50+00:00"
         },
         {
             "name": "thecodingmachine/safe",
@@ -9589,7 +9587,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.1.0",
+        "php": "~8.2.0",
         "ext-intl": "*",
         "ext-mbstring": "*",
         "ext-curl": "*",
