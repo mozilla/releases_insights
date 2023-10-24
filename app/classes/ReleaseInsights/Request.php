@@ -11,7 +11,6 @@ class Request
     public ?string $query = null;
     public bool    $invalid_slashes = true;
 
-
     public function __construct(string $path)
     {
         $request = parse_url($path);
@@ -29,9 +28,7 @@ class Request
                 $this->invalid_slashes = false;
                 $this->path = explode('?', $path)[0];
             } else {
-            /**
-             *  We have a real path to route and clean up before usage
-             */
+                // We have a real path to route and clean up before usage
                 $this->request = $path;
 
                 if (isset($request['path'])) {
@@ -53,8 +50,8 @@ class Request
                         $this->invalid_slashes = false;
                     }
                 }
-             }
-         }
+            }
+        }
     }
 
     /**

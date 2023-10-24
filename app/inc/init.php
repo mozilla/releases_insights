@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use \ReleaseInsights\Request;
-use function \Sentry\{init, captureLastError};
+use ReleaseInsights\Request;
+
+use function Sentry\{captureLastError, init};
 
 // Catch errors via Ignition library in dev mode only
 if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {

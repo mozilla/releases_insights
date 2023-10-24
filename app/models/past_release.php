@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Utils, Release, Version};
+use ReleaseInsights\{Bugzilla as Bz, Release, Utils, Version};
 
 // Historical data from Product Details
 $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
@@ -76,7 +76,7 @@ $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
 // Number of Beta builds
 $beta_count = count((array) array_filter(
     $firefox_releases,
-    fn($key) => str_starts_with($key, 'firefox-' . $requested_version . 'b'),
+    fn ($key) => str_starts_with($key, 'firefox-' . $requested_version . 'b'),
     ARRAY_FILTER_USE_KEY
 ));
 
@@ -89,7 +89,7 @@ if ($requested_version == '14.0') {
 // Number of dot releases
 $dot_release_count = count((array) array_filter(
     $firefox_releases,
-    fn($key) => str_starts_with($key, 'firefox-' . $requested_version . '.') && ! str_ends_with($key, 'esr'),
+    fn ($key) => str_starts_with($key, 'firefox-' . $requested_version . '.') && ! str_ends_with($key, 'esr'),
     ARRAY_FILTER_USE_KEY
 ));
 
@@ -138,5 +138,5 @@ return [
     $nightly_start_date,
     $beta_start_date,
     $firefox_releases,
-    $no_planned_dot_releases
+    $no_planned_dot_releases,
 ];

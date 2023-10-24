@@ -1,7 +1,9 @@
 <?php
-if (count($argv) < 5)
-{
-    echo "usage: version.php {source} {version} {commit} {build}\n";
+
+declare(strict_types=1);
+
+if (count($argv) < 5) {
+    echo "Usage: version.php {source} {version} {commit} {build}\n";
     exit(1);
 }
 

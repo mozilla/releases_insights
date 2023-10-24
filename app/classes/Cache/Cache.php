@@ -113,36 +113,6 @@ class Cache
         }
 
         return defined('CACHE_ENABLED') ? CACHE_ENABLED : self::$CACHE_ENABLED; // @codeCoverageIgnore
-
-    }
-
-    /**
-     * Check if cached data for a key is usable
-     *
-     * @param string  $id  UID for the data
-     * @param int     $ttl Number of seconds for time to live
-     *
-     * @return bool True if valid data
-     *              False if cached data is not usable
-     */
-    private static function isValidKey(string $id, int $ttl): bool
-    {
-         $immutable = ($ttl === -1) ? true : false;
-
-        // No cache file
-        if (! file_exists(self::getKeyPath($id, $immutable))) {
-            return false;
-        }
-
-        // Cache is obsolete and was deleted
-        if (self::isObsoleteKey($id, $ttl)) {
-            self::deleteKey($id);
-
-            return false;
-        }
-
-        // All good, cache is valid
-        return true;
     }
 
     /**
@@ -201,6 +171,35 @@ class Cache
     public static function getCachePath(): string
     {
         return defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . '/';
+    }
+
+    /**
+     * Check if cached data for a key is usable
+     *
+     * @param string  $id  UID for the data
+     * @param int     $ttl Number of seconds for time to live
+     *
+     * @return bool True if valid data
+     *              False if cached data is not usable
+     */
+    private static function isValidKey(string $id, int $ttl): bool
+    {
+        $immutable = ($ttl === -1) ? true : false;
+
+        // No cache file
+        if (! file_exists(self::getKeyPath($id, $immutable))) {
+            return false;
+        }
+
+        // Cache is obsolete and was deleted
+        if (self::isObsoleteKey($id, $ttl)) {
+            self::deleteKey($id);
+
+            return false;
+        }
+
+        // All good, cache is valid
+        return true;
     }
 
     /**

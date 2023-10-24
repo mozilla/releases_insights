@@ -6,10 +6,10 @@ use ReleaseInsights\{Data, ESR, Release, Utils, Version};
 
 $future = [];
 
-foreach ((new Data)->getFutureReleases() as $version => $date) {
+foreach ((new Data())->getFutureReleases() as $version => $date) {
     $version_data = (new Release($version))->getSchedule();
 
-    $owner = (new Data)->getOwners()[$version] ?? 'TBD';
+    $owner = (new Data())->getOwners()[$version] ?? 'TBD';
     // Display the first name only, we don't need family names for active release managers
     $owner = explode(' ', $owner)[0];
 
@@ -27,7 +27,7 @@ foreach ((new Data)->getFutureReleases() as $version => $date) {
             'soft_freeze'   => $version_data['soft_code_freeze'],
             'beta_start'    => $version_data['merge_day'],
             'esr'           => $ESR,
-            'quarter'       => date('Y',strtotime($date)) . '-Q' . (string) ceil(date('n', strtotime($date)) / 3),
+            'quarter'       => date('Y', strtotime($date)) . '-Q' . (string) ceil(date('n', strtotime($date)) / 3),
             'owner'         => $owner,
         ]
     ];
@@ -80,7 +80,7 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
             'nightly_start' => $nightly_start,
             'beta_start'    => $beta_date,
             'esr'           => $esr,
-            'owner'         => (new Data)->getOwners()[$version] ?? 'TBD',
+            'owner'         => (new Data())->getOwners()[$version] ?? 'TBD',
         ]
     ];
 }

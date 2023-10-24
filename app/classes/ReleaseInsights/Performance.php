@@ -8,7 +8,6 @@ use ReleaseInsights\Utils;
 
 class Performance
 {
-
     /**
      * Utility function to return the memory used by a script
      * and the time needed to compute the data.

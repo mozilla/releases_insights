@@ -8,25 +8,24 @@ use ReleaseInsights\{Data, Release};
 $calendar = new Calendar();
 $events = [];
 
-foreach (array_keys((new Data)->getFutureReleases()) as $version) {
-
+foreach (array_keys((new Data())->getFutureReleases()) as $version) {
     if ((int) $version <= RELEASE) {
         continue;
     }
 
-    foreach ((new Release($version))->getSchedule() as $event => $date )  {
+    foreach ((new Release($version))->getSchedule() as $event => $date) {
         if ($event === 'version') {
             continue;
         }
 
         $date = (new DateTime($date))->format('Y-m-d');
 
-        $events[] = array(
+        $events[] = [
             'start'   => $date,
             'end'     => $date,
             'summary' => Release::getNiceLabel($version, $event) . "<br>\n",
             'mask'    => true
-        );
+        ];
     }
 }
 

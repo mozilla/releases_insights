@@ -18,8 +18,7 @@ class Nightly
         // Testing url below
         // string $AUS = 'https://stage.balrog.nonprod.cloudops.mozgcp.net/api/v1/',
         public string $update_status = 'emergency_shutoff/Firefox/nightly',
-    )
-    {
+    ) {
         $this->version = Utils::getJson(
             $this->pd . 'firefox_versions.json',
             604800

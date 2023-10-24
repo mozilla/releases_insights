@@ -34,8 +34,8 @@ if (empty($nightlies)) {
         $nightlies = [
             $latest_nightly['buildid'] => [
                 'revision' => $latest_nightly['moz_source_stamp'],
-                'version'  => FIREFOX_NIGHTLY
-            ]
+                'version'  => FIREFOX_NIGHTLY,
+            ],
         ];
 
         $fallback_nightly = true;
@@ -51,7 +51,7 @@ $nightlies_day_before = include MODELS . 'api/nightly.php';
     If we didn't ship any nightly the day before, check 2 days ago.
  */
 if (empty($nightlies_day_before)) {
-    $_GET['date'] = date('Ymd', strtotime($requested_date . ' -2 days'));;
+    $_GET['date'] = date('Ymd', strtotime($requested_date . ' -2 days'));
     $nightlies_day_before = include MODELS . 'api/nightly.php';
 }
 
@@ -137,10 +137,9 @@ foreach ($nightly_pairs as $dataset) {
     $bug_list_karma_details = [...$bug_list_details, ...$bug_list_karma_details];
 }
 
-
 // Create the real bug list Karma
 sort($bug_list_karma);
-$bug_list_karma = array_map('intval',$bug_list_karma);
+$bug_list_karma = array_map('intval', $bug_list_karma);
 $bug_list_karma = array_values($bug_list_karma);
 $bug_list_karma = array_flip($bug_list_karma);
 
@@ -177,5 +176,5 @@ return [
     $next_date,
     $today,
     $known_top_crashes,
-    $fallback_nightly
+    $fallback_nightly,
 ];

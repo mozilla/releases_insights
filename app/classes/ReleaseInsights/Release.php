@@ -5,24 +5,17 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
-use ReleaseInsights\{Data, Utils, Version};
-
-enum Status
-{
-    case Past;
-    case Current;
-    case Future;
-}
+use ReleaseInsights\{Data, Utils, Status, Version};
 
 class Release
 {
-    private string $version;
-
     /** @var array<string> $no_planned_dot_releases */
     public array $no_planned_dot_releases = ['108.0', '111.0', '115.0'];
 
     /* @phpstan-ignore-next-line */
     private Status $release_status;
+
+    private string $version;
 
     public function __construct(string $version)
     {
@@ -51,19 +44,11 @@ class Release
         // Future release date object
         $release = new DateTime($all_releases[$this->version] . ' 06:00 PST');
 
-        $beta_target = Version::decrement($this->version, 1);
         $nightly_target = Version::decrement($this->version, 2);
-
-        if ($beta_target == '14.0') {
-            $beta_target = '14.0.1';
-        }
 
         if ($nightly_target == '14.0') {
             $nightly_target = '14.0.1';
         }
-
-        // Previous release date object
-        $previous_release = new DateTime($all_releases[$beta_target] . ' 06:00 PST');
 
         // Calculate 1st day of the nightly cycle
         $nightly = new DateTime($all_releases[$nightly_target]);
@@ -77,7 +62,7 @@ class Release
         };
 
         // Transform all the DateTime objects in the $schedule array into formated date strings
-        $date = function(string|object $day) use ($nightly): string {
+        $date = function (string|object $day) use ($nightly): string {
             return is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
         };
 
@@ -116,11 +101,11 @@ class Release
                 'soft_code_freeze'    => $date('Thursday 08:00'),
                 'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'string_freeze'       => $date('Friday'),
-                'merge_day'           => match($this->version) {
-                                            '123.0' => $date('Monday +1 week'),
-                                            '135.0' => $date('Monday +2 week'),
-                                            default => $date('Monday'),
-                                        },
+                'merge_day'           => match ($this->version) {
+                    '123.0' => $date('Monday +1 week'),
+                    '135.0' => $date('Monday +2 week'),
+                    default => $date('Monday'),
+                },
                 'beta_1'              => $date('Monday'),
                 'beta_2'              => $date('Wednesday 13:00'),
                 'beta_3'              => $date('Friday 13:00'),

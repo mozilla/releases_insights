@@ -106,7 +106,7 @@ class Utils
     public static function getBuildID(int $buildid): int
     {
         // Check that the string provided is correct
-        if (! self::isBuildID( (string) $buildid)) {
+        if (! self::isBuildID((string) $buildid)) {
             return 20191014213051; // hardcoded fallback value
         }
 
@@ -163,7 +163,7 @@ class Utils
         // Local file
         if (! isset(parse_url($url)['scheme'])) {
             // Does it exist ?
-            if (! file_exists($url)){
+            if (! file_exists($url)) {
                 return '';
             }
 
@@ -181,7 +181,7 @@ class Utils
         // Request to Product-details failed (no answer from remote)
         // We prefer to die here because this data is essential to the whole app.
         if ($data === false && str_contains($url, 'product-details.mozilla.org')) {
-            die("Key external ressource $url currently not available, please try reloading the page.");
+            die("Key external ressource {$url} currently not available, please try reloading the page.");
         }
 
         // Request failed, let's return an empty string for now
@@ -329,9 +329,9 @@ class Utils
         return (int) explode('.', $version)[0];
     }
 
-
     /**
      * Utility function to output Json data
+     *
      * @param array<mixed> $data
      */
     public static function renderJson(array $data): void
@@ -348,7 +348,6 @@ class Utils
 
     /**
      * Utility function to get a visitor IP
-     *
      */
     public static function getIP(): ?string
     {

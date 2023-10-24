@@ -1,7 +1,7 @@
 <?php
- 
+
 declare(strict_types=1);
- 
+
 namespace ReleaseInsights;
 
 class Version
@@ -39,7 +39,7 @@ class Version
         // Normalize version number to XX.y
         return (string) number_format(abs((int) $version), 1, '.', '');
     }
- 
+
     /**
      * Get the major version number (91) from a string such as 91.0.1
      */
@@ -53,7 +53,6 @@ class Version
      */
     public static function decrement(string $version, int $decrement): string
     {
-
         if ((int) $version - $decrement <= 1) {
             return '1.0';
         }

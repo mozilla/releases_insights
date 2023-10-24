@@ -23,10 +23,10 @@ $client_IP = Utils::getIP();
 // Log suspicious IPs that access paths that are known vulnerabilities in frameworks
 $url_inspected = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 if (Utils::inString($url_inspected->request, $bad_paths)) {
-    if (! in_array($client_IP, $IPs) ) {
+    if (! in_array($client_IP, $IPs)) {
         $IPs[] = $client_IP;
         file_put_contents($blocked_IP_file, json_encode($IPs));
-        error_log("Suspicious $client_IP added to $blocked_IP_file: access to  $url_inspected->request");
+        error_log("Suspicious {$client_IP} added to {$blocked_IP_file}: access to  {$url_inspected->request}");
     }
 }
 
@@ -56,17 +56,17 @@ if ($url_inspected->getController() == '404') {
 
 // Block suspicious IPs by 404
 if (array_key_exists($client_IP, $not_found_IPs) && $not_found_IPs[$client_IP] > 6) {
-    if (! in_array($client_IP, $IPs) ) {
+    if (! in_array($client_IP, $IPs)) {
         $IPs[] = $client_IP;
         file_put_contents($blocked_IP_file, json_encode($IPs));
-        error_log("Suspicious $client_IP added to $not_found_query_IP_file: (XSS scanner?). Last endpoint: $url_inspected->path");
+        error_log("Suspicious {$client_IP} added to {$not_found_query_IP_file}: (XSS scanner?). Last endpoint: {$url_inspected->path}");
     }
 }
 
 // Block suspicious IPs by url
 if (in_array($client_IP, $IPs)) {
     http_response_code(403);
-    error_log("IP $client_IP blocked.");
+    error_log("IP {$client_IP} blocked.");
     exit('Access denied.');
 }
 

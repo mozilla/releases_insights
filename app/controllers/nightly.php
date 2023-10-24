@@ -36,4 +36,3 @@ declare(strict_types=1);
         'fallback_nightly'  => $fallback_nightly,
     ]
 ))->render();
-

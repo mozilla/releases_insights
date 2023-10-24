@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use \Cache\Cache;
+use Cache\Cache;
 
 $yesterday = date('Ymd', strtotime('yesterday'));
 

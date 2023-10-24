@@ -18,7 +18,6 @@ class Bugzilla
         return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 
-
     /**
      * Turn bug numbers in a string into Bugzilla links
      */
@@ -27,8 +26,7 @@ class Bugzilla
         return preg_replace_callback(
             "/bug +\d+/i",
             function (array $matches) {
-                return
-                  '<a href="https://bugzilla.mozilla.org/'
+                return '<a href="https://bugzilla.mozilla.org/'
                 . trim(str_ireplace('bug', '', $matches[0]))
                 . '">'
                 . $matches[0]
@@ -69,12 +67,11 @@ class Bugzilla
         $get_bugs = function (string $str): array {
             if (preg_match_all("/bug \d+/", $str, $matches)) {
                 $matches[0] = array_map(
-                    fn(string $str) => str_replace('bug', '', $str),
+                    fn (string $str) => str_replace('bug', '', $str),
                     $matches[0]
                 );
 
                 $matches[0] = array_map('trim', $matches[0]);
-
             }
             return $matches[0];
         };

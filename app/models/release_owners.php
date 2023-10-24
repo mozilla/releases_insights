@@ -7,7 +7,7 @@ $release_owners = (new ReleaseInsights\Data())->getOwners();
 // We need to remove the releases still in planning
 $releases = array_filter(
     $release_owners,
-    fn($k) => $k <= RELEASE,
+    fn ($k) => $k <= RELEASE,
     ARRAY_FILTER_USE_KEY
 );
 
@@ -25,5 +25,3 @@ foreach ($owners as $owner) {
 array_multisort(array_column($output, 'total'), SORT_DESC, $output);
 
 return $output;
-
-

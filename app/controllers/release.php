@@ -15,7 +15,6 @@ if ($requested_version == '0.0') {
 $upcoming_releases = (new Data())->getFutureReleases();
 $owners = (new Data())->getOwners();
 
-
 $template_data = [
     'css_page_id'      => 'release',
     'page_title'       => 'Milestones and key data for Firefox ' . (int) $requested_version,
@@ -63,7 +62,6 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
 
     return;
 }
-
 
 // If this is a release we already shipped, display stats for the release
 if ((int) $requested_version <= RELEASE) {
