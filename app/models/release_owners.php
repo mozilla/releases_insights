@@ -18,7 +18,7 @@ foreach ($owners as $owner) {
     $output[] = [
         'owner'    => $owner,
         'releases' => array_keys($releases, $owner),
-        'total'    => count(array_keys($releases, $owner))
+        'total'    => count(array_keys($releases, $owner)),
     ];
 }
 

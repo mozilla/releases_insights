@@ -45,7 +45,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         $next_ESR,
         $current_ESR,
         $release_date,
-        $esr_calendar
+        $esr_calendar,
     ] = require_once MODELS . 'esr_release.php';
 
     $template_data = array_merge($template_data, [
@@ -85,7 +85,7 @@ if ((int) $requested_version <= RELEASE) {
         $nightly_start_date,
         $beta_start_date,
         $firefox_releases,
-        $no_planned_dot_releases
+        $no_planned_dot_releases,
     ] = require_once MODELS . 'past_release.php';
 
     $template_file = 'past_release.html.twig';
@@ -110,7 +110,7 @@ if ((int) $requested_version <= RELEASE) {
         'beta_start_date'         => $beta_start_date,
         'firefox_releases'        => $firefox_releases,
         'no_planned_dot_releases' => $no_planned_dot_releases,
-        ]);
+    ]);
 } elseif ((int) $requested_version > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
     [

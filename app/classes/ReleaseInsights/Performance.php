@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-use ReleaseInsights\Utils;
-
 class Performance
 {
     /**
@@ -17,8 +15,8 @@ class Performance
     public static function getData(): array
     {
         $memory_peak_B = memory_get_peak_usage(true);
-        $memory_peak_MB = round(($memory_peak_B / (1024 * 1024)), 2);
-        $computation_time = round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']), 4);
+        $memory_peak_MB = round($memory_peak_B / (1024 * 1024), 2);
+        $computation_time = round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4);
 
         return [$memory_peak_B, $memory_peak_MB, $computation_time];
     }

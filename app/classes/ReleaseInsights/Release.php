@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
-use ReleaseInsights\{Data, Utils, Status, Version};
 
 class Release
 {
@@ -126,9 +125,9 @@ class Release
 
         if (! in_array($this->version, $this->no_planned_dot_releases)) {
             if ($this->version === '121.0') {
-                $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+3 weeks 00:00'))];
+                $schedule += ['planned_dot_release' => $date($release->modify('+3 weeks 00:00'))];
             } else {
-                $schedule = $schedule + ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
+                $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
             }
         }
 

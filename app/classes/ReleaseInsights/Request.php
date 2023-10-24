@@ -6,10 +6,10 @@ namespace ReleaseInsights;
 
 class Request
 {
-    public string  $request = '/';
-    public string  $path = '/';
+    public string $request = '/';
+    public string $path = '/';
     public ?string $query = null;
-    public bool    $invalid_slashes = true;
+    public bool $invalid_slashes = true;
 
     public function __construct(string $path)
     {

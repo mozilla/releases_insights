@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ReleaseInsights;
@@ -39,6 +40,6 @@ class Template
         $twig = new Environment($twig_loader);
         $twig->addExtension(new IntlExtension());
 
-        print $twig->render($this->template, $this->data);
+        echo $twig->render($this->template, $this->data);
     }
 }

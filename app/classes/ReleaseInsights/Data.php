@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-use ReleaseInsights\Utils;
-
 class Data
 {
     /** @var array<string, string> $future_releases */
@@ -132,7 +130,7 @@ class Data
     {
         return [
             ...$this->getMajorPastReleases(),
-            ...$this->future_releases
+            ...$this->future_releases,
         ];
     }
 

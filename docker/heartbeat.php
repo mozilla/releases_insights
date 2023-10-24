@@ -1,2 +1,5 @@
 <?php
-  echo "OK\n";
+
+declare(strict_types=1);
+
+echo "OK\n";

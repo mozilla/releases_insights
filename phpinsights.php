@@ -13,7 +13,7 @@ return [
     | to make your code reliable, simple, and clean. However, you can always
     | adjust the `Metrics` and `Insights` below in this configuration file.
     |
-    | Supported: "default", "laravel", "symfony", "magento2", "drupal"
+    | Supported: "default", "laravel", "symfony", "magento2", "drupal", "wordpress"
     |
     */
 
@@ -37,7 +37,7 @@ return [
     |
     */
 
-    'ide' => 'sublime',
+    'ide' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -52,6 +52,8 @@ return [
 
     'exclude' => [
         //  'path/to/directory-or-file'
+        'php-cs-fixer.dist.php',
+        'app/inc/config.php',
     ],
 
     'add' => [
@@ -62,23 +64,37 @@ return [
 
     'remove' => [
         //  ExampleInsight::class,
-        \PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterNotSniff::class,
+        \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\Functions\StaticClosureSniff::class,
-        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses::class,
-        \NunoMaduro\PhpInsights\Domain\Insights\Composer\ComposerMustBeValid::class,
-        \PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer::class,
+        \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
+        \PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterNotSniff::class,
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff::class,
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Strings\UnnecessaryStringConcatSniff::class,
-        \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
-        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineGlobalConstants::class,
+        \PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer::class,
         \PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer::class,
+        \PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer::class,
+        \PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer::class,
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenGlobals::class,
+        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses::class,
+        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineGlobalConstants::class,
+        \NunoMaduro\PhpInsights\Domain\Insights\Composer\ComposerMustBeValid::class,
+        \SlevomatCodingStandard\Sniffs\Namespaces\UseFromSameNamespaceSniff::class,
+        \SlevomatCodingStandard\Sniffs\Namespaces\UseSpacingSniff::class,
+        \SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff::class,
+        \SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff::class,
     ],
 
     'config' => [
         //  ExampleInsight::class => [
         //      'key' => 'value',
         //  ],
+        \SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff::class => [
+            'exclude' => [
+                'app/classes/ReleaseInsights/Utils.php',
+                'app/models/api/nightly.php',
+                'app/models/api/nightly_crashes.php',
+            ],
+        ],
     ],
 
     /*
@@ -100,4 +116,29 @@ return [
 //        'disable-security-check' => false,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Threads
+    |--------------------------------------------------------------------------
+    |
+    | Here you may adjust how many threads (core) PHPInsights can use to perform
+    | the analysis. This is optional, don't provide it and the tool will guess
+    | the max core number available. It accepts null value or integer > 0.
+    |
+    */
+
+    'threads' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Timeout
+    |--------------------------------------------------------------------------
+    | Here you may adjust the timeout (in seconds) for PHPInsights to run before
+    | a ProcessTimedOutException is thrown.
+    | This accepts an int > 0. Default is 60 seconds, which is the default value
+    | of Symfony's setTimeout function.
+    |
+    */
+
+    'timeout' => 60,
 ];

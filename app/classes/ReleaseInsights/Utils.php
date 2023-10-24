@@ -352,8 +352,10 @@ class Utils
     public static function getIP(): ?string
     {
         // Determining visitor IP
-        $fields =['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED',
-                  'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+        $fields = [
+            'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED',
+            'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR',
+        ];
 
         foreach ($fields as $value) {
             if (isset($_SERVER[$value])) {

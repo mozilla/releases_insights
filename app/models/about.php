@@ -15,7 +15,7 @@ if ($flush_cache === date('Ymd')) {
 // No data to prepare yet
 $main_beta = BETA;
 
-return $content = <<<"EOD"
+return <<<"EOD"
 
 <h3>Public Json API</h3>
 <p>All APIs are under the <code>api/</code> endpoint.</p>

@@ -29,7 +29,7 @@ foreach ((new Data())->getFutureReleases() as $version => $date) {
             'esr'           => $ESR,
             'quarter'       => date('Y', strtotime($date)) . '-Q' . (string) ceil(date('n', strtotime($date)) / 3),
             'owner'         => $owner,
-        ]
+        ],
     ];
 }
 
@@ -60,10 +60,10 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
         $nightly_start = $obj->getPastReleases()[Version::decrement($version, 2)];
     }
     // We never shipped 14.0
-    $version = ($version == '14.0.1') ? '14.0' : $version;
+    $version = $version == '14.0.1' ? '14.0' : $version;
 
     // We never shipped 33.0 and we used a weird 33.1 dot release sheme instead of 33.0.1
-    $version = ($version == '33.1') ? '33.0' : $version;
+    $version = $version == '33.1' ? '33.0' : $version;
 
     // We didn't always have a regular beta schedule
     $beta_date = $betas[$version . 'b1']
@@ -81,7 +81,7 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
             'beta_start'    => $beta_date,
             'esr'           => $esr,
             'owner'         => (new Data())->getOwners()[$version] ?? 'TBD',
-        ]
+        ],
     ];
 }
 

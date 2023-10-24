@@ -71,7 +71,7 @@ if (in_array($client_IP, $IPs)) {
 }
 
 // Clean up temp variables from global space
-unset (
+unset(
     $bad_paths,
     $blocked_IP_file,
     $client_IP,

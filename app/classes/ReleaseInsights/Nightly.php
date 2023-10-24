@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-use ReleaseInsights\Utils;
-
 class Nightly
 {
     public string $version;
-    public bool   $auto_updates = true;
+    public bool $auto_updates = true;
     public string $emergency_message = '';
 
     public function __construct(

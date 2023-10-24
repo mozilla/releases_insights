@@ -24,7 +24,7 @@ foreach (array_keys((new Data())->getFutureReleases()) as $version) {
             'start'   => $date,
             'end'     => $date,
             'summary' => Release::getNiceLabel($version, $event) . "<br>\n",
-            'mask'    => true
+            'mask'    => true,
         ];
     }
 }
