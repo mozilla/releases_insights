@@ -287,7 +287,8 @@
         {% set next_milestone = false %}
       {% endif %}
 
-      <td title="{{ value|format_date('full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>{{ value|format_date(pattern='MMMM d', locale='en') }}</td>
+      <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+        {{ value|format_date(pattern='MMMM d', locale='en') }}
     </tr>
     {% endif %}
   {% endfor %}
