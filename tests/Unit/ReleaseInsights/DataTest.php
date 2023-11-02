@@ -42,13 +42,18 @@ test('Data->getFirefoxVersions()', function () {
         ->toBeArray();
 });
 
-
 test('Data->getESRReleases()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getESRReleases())
         ->toBeArray();
     expect($obj->getESRReleases()['102.0.1'])
         ->toBe('2022-07-13');
+});
+
+test('Data->getLatestMajorRelease()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getLatestMajorRelease())
+        ->toBe(['102.0' => '2022-06-28']);
 });
 
 test('Data->getPastReleases()', function () {

@@ -63,6 +63,19 @@ class Data
     }
 
     /**
+     * Get the release date of our Latest Major release
+     *
+     * @return array<string, string>
+     */
+    public function getLatestMajorRelease(): array
+    {
+        $past_releases = $this->getMajorPastReleases();
+        $last_release = array_key_last($past_releases);
+
+        return [$last_release => $past_releases[$last_release]];
+    }
+
+    /**
      * Get all past Releases on the release channel, including dot releases
      *
      * @return array<string, string>
