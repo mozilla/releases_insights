@@ -50,7 +50,7 @@ return <<<"EOD"
     </tr>
     <tr>
         <td><a href="/api/firefox/releases/">api/firefox/releases/</a></td>
-        <td>Release dates for all Firefox releases (including dot releases)</td>
+        <td>Release dates for all past Firefox releases (including dot releases)</td>
     </tr>
 </table>
 
