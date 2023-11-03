@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -58,6 +58,46 @@ if ((int) $requested_version == NIGHTLY) {
     $nightly_emergency = Bugzilla::linkify($nightly_state->emergency_message);
 }
 
+
+// This is to display a banner with the remaining working days before release
+$beta    = new DateTime($cycle_dates['merge_day']);
+$release = new DateTime($cycle_dates['rc_gtb']);
+$days_before_beta = (new DateTime('today'))->diff($beta)->days;
+$days_before_release = (new DateTime('today'))->diff($release)->days;
+
+$wording_days_left = [];
+
+
+$deadlines = [];
+foreach ($cycle_dates as $k => $date) {
+    if (in_array($k, Release::getMilestonesNames()['nightly'])) {
+        $time = new Duration($date, $cycle_dates['merge_day']);
+        $deadlines[$k] = $time->report();
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'Beta merge is in ' . $time->report()['weeks'] . ' weeks';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+                1 => '1 working day before Beta',
+                default => $time->report()['workdays'] . ' working days before Beta',
+            };
+        }
+    } elseif (in_array($k, Release::getMilestonesNames()['beta'])) {
+        $time = new Duration($date, $cycle_dates['beta_9']);
+        $deadlines[$k] = $time->report();
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'Last beta uplifts in ' . $time->report()['weeks'] . ' weeks';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+                0 => 'Last uplifts at 10AM UTC',
+                1 => '1 working day before the last beta',
+                default => $time->report()['workdays'] . ' working days before the last beta',
+            };
+        }
+    }
+}
+Utils::dump($deadlines);
+
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -66,4 +106,7 @@ return [
     $nightly_updates,
     $nightly_emergency,
     $cycle_dates,
+    $days_before_beta,
+    $days_before_release,
+    $deadlines,
 ];

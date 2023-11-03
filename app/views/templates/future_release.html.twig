@@ -287,7 +287,9 @@
       {% endif %}
 
       <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
-        {{ value|format_date(pattern='MMMM d', locale='en') }}
+        <span data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" title="{{ deadlines[key]['message'] ?? '' }}">{{ value|format_date(pattern='MMMM d', locale='en') }}</span>
+        <br><small class="text-success text-wrap text-end pt-2 fw-normal">{{ deadlines[key]['message']}}</small>
+
       </td>
     </tr>
     {% endif %}
@@ -296,9 +298,15 @@
 
 {% endif %}
   {{ fallback_content|raw }}
-
+    <script src="/assets/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
 
 {% block footer %}
-     {%  include 'footer_UTC_warning.html.twig' %}
+  {%  include 'footer_UTC_warning.html.twig' %}
+
+  <script nonce="4AEemGb0xJptoIGFP3Nd">
+  $(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+  })
 {% endblock %}
