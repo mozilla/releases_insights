@@ -226,9 +226,19 @@
   <tr>
     <th colspan="2" class="text-center table-warning">Milestones<br><small class="fw-normal">Desktop & Android</small></th>
   </tr>
+
+  {% if channel == 'nightly' %}
   <tr>
-    <th colspan="2" class="text-center table-info">{{ working_days_before_release }} working days before nightly merges to beta.</th>
+    <th colspan="2" class="text-center table-info">{{ working_days_before_beta }} working days before Nightly goes to Beta.</th>
   </tr>
+  {% endif %}
+
+  {% if channel == 'beta' %}
+  <tr>
+    <th colspan="2" class="text-center table-info">{{ working_days_before_release }} working days before we end the beta cycle.</th>
+  </tr>
+  {% endif %}
+
   {% for key, value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
