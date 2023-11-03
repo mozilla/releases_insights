@@ -226,6 +226,9 @@
   <tr>
     <th colspan="2" class="text-center table-warning">Milestones<br><small class="fw-normal">Desktop & Android</small></th>
   </tr>
+  <tr>
+    <th colspan="2" class="text-center table-info">{{ working_days_before_release }} working days before nightly merges to beta.</th>
+  </tr>
   {% for key, value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}

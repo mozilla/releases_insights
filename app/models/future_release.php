@@ -58,6 +58,13 @@ if ((int) $requested_version == NIGHTLY) {
     $nightly_emergency = Bugzilla::linkify($nightly_state->emergency_message);
 }
 
+
+// Future release date object
+$beta = new DateTime($cycle_dates['merge_day']);
+
+$working_days_before_beta = (new DateTime('today'))->diff($beta)->days;
+$working_days_before_release = (new DateTime('today'))->diff($release)->days;
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -66,4 +73,6 @@ return [
     $nightly_updates,
     $nightly_emergency,
     $cycle_dates,
+    $working_days_before_beta,
+    $working_days_before_release,
 ];
