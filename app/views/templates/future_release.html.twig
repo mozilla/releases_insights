@@ -286,8 +286,17 @@
         {% set next_milestone = false %}
       {% endif %}
 
-      <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
-        {{ value|format_date(pattern='MMMM d', locale='en') }}
+      <td {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+        <span
+          class="schedule_date"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          data-bs-html="true"
+          title="{{ value|format_date('relative_full', locale='en')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
+        >
+        {{ value|format_date(pattern='MMMM d', locale='en') }}</span>
+        <br><small class="text-success text-wrap text-end pt-2 fw-normal">{{ deadlines[key]['message']}}</small>
+
       </td>
     </tr>
     {% endif %}
@@ -296,9 +305,23 @@
 
 {% endif %}
   {{ fallback_content|raw }}
-
+    <script src="/assets/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
 
 {% block footer %}
-     {%  include 'footer_UTC_warning.html.twig' %}
+  {%  include 'footer_UTC_warning.html.twig' %}
+  <footer class="d-flex justify-content-center text-white-50 mt-0">Wording days exclude week-ends and the current day</footer>
+
+  <script nonce="4AEemGb0xJptoIGFP3Nd">
+  $(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+  })
+
+  $('span.schedule_date').click(function(){
+      var currentRow = $(this).closest("tr");
+      var details_row=currentRow.find("details");
+      details_row.attr("open", "open");
+  });
+  </script>
 {% endblock %}

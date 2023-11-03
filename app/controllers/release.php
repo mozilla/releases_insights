@@ -5,6 +5,7 @@ declare(strict_types=1);
 use ReleaseInsights\{Data, ESR, Template, Utils, Version};
 
 $requested_version = Version::get();
+$requested_version_int = (int) Version::get();
 
 if ($requested_version == '0.0') {
     header('Location: /404/');
@@ -17,14 +18,14 @@ $owners = (new Data())->getOwners();
 
 $template_data = [
     'css_page_id'      => 'release',
-    'page_title'       => 'Milestones and key data for Firefox ' . (int) $requested_version,
-    'release'          => (int) $requested_version,
+    'page_title'       => 'Milestones and key data for Firefox ' . $requested_version_int,
+    'release'          => $requested_version_int,
     'release_owner'    => $owners[$requested_version] ?? 'TBD',
     'fallback_content' => '',
 ];
 
 // Releases before version 4 were handled completely differently
-if ((int) $requested_version < 4) {
+if ($requested_version_int < 4) {
     [$dot_release_count, $release_date] = require MODELS . 'pre4_release.php';
     $template_data += ['dot_release_count' => $dot_release_count];
     $template_data += ['release_date' => $release_date];
@@ -35,8 +36,8 @@ if ((int) $requested_version < 4) {
 $template_data = array_merge(
     $template_data,
     [
-        'ESR'       => ESR::getVersion((int) $requested_version),
-        'OLDER_ESR' => ESR::getOlderSupportedVersion((int) $requested_version),
+        'ESR'       => ESR::getVersion($requested_version_int),
+        'OLDER_ESR' => ESR::getOlderSupportedVersion($requested_version_int),
     ]
 );
 
@@ -64,7 +65,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
 }
 
 // If this is a release we already shipped, display stats for the release
-if ((int) $requested_version <= RELEASE) {
+if ($requested_version_int <= RELEASE) {
     [
         $last_release_date,
         $previous_release_date,
@@ -111,7 +112,7 @@ if ((int) $requested_version <= RELEASE) {
         'firefox_releases'        => $firefox_releases,
         'no_planned_dot_releases' => $no_planned_dot_releases,
     ]);
-} elseif ((int) $requested_version > RELEASE
+} elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
     [
         $release_date,
@@ -121,16 +122,18 @@ if ((int) $requested_version <= RELEASE) {
         $nightly_updates,
         $nightly_emergency,
         $cycle_dates,
+        $deadlines,
     ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
-        'release_date'          => $release_date,
-        'beta_cycle_length'     => $beta_cycle_length,
-        'nightly_cycle_length'  => $nightly_cycle_length,
-        'nightly_fixes'         => $nightly_fixes,
-        'nightly_updates'       => $nightly_updates,
-        'nightly_emergency'     => $nightly_emergency,
-        'cycle_dates'           => $cycle_dates,
+        'release_date'         => $release_date,
+        'beta_cycle_length'    => $beta_cycle_length,
+        'nightly_cycle_length' => $nightly_cycle_length,
+        'nightly_fixes'        => $nightly_fixes,
+        'nightly_updates'      => $nightly_updates,
+        'nightly_emergency'    => $nightly_emergency,
+        'cycle_dates'          => $cycle_dates,
+        'deadlines'            => $deadlines,
     ]);
 } else {
     $template_file = 'future_release.html.twig';
