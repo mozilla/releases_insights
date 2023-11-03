@@ -122,6 +122,7 @@ h3 {
 #release_esr .table td {
     text-align: right;
     white-space: nowrap;
+    width: 9em;
 }
 
 #release .table th details p {
@@ -131,6 +132,17 @@ h3 {
     font-size: small;
     font-weight: normal;
 }
+
+/* hide working days when <details> tag not popen */
+#release th:has(details) + td small {
+    display:none;
+}
+
+#release th:has(details[open]) + td small {
+    display: inline;
+}
+
+
 
 
 #release .table th summary::marker {
