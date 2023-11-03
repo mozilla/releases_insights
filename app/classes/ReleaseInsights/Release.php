@@ -188,4 +188,55 @@ class Release
 
         return $labels[$label];
     }
+
+    /**
+     * Get The list of existing milestones per suc-cycle
+     *
+     * @return array<string, array<string>>
+     */
+    public static function getMilestonesNames(): array
+    {
+        $nightly_milestones = [
+            'nightly_start',
+            'qa_request_deadline',
+            'qa_feature_done_1',
+            'qa_feature_done_2',
+            'soft_code_freeze',
+            'qa_pre_merge_done',
+            'string_freeze',
+        ];
+        $beta_milestones = [
+            'merge_day',
+            'beta_1',
+            'beta_2',
+            'beta_3',
+            'sumo_1',
+            'beta_4',
+            'beta_5',
+            'beta_6',
+            'beta_7',
+            'sumo_2',
+            'beta_8',
+            'qa_pre_rc_signoff',
+            'beta_9',
+            'beta_10',
+            'beta_11',
+            'beta_12',
+            'beta_13',
+            'beta_14',
+            'beta_15',
+        ];
+        $release_milestones = [
+            'rc_gtb',
+            'rc',
+            'release',
+            'planned_dot_release',
+        ];
+
+        return [
+            'nightly' => $nightly_milestones,
+            'beta'    => $beta_milestones,
+            'release' => $release_milestones,
+        ];
+    }
 }
