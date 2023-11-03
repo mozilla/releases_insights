@@ -42,3 +42,8 @@ test('Release->getNiceLabel()', function () {
     expect(Release::getNiceLabel('104', 'release', false))
         ->toEqual('Firefox 104 go-live @ 6AM PT');
 });
+
+test('Release::getMilestonesNames()', function () {
+    expect(Release::getMilestonesNames())
+        ->toHaveCount(3);
+});

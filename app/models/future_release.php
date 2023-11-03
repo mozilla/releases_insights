@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -58,6 +58,44 @@ if ((int) $requested_version == NIGHTLY) {
     $nightly_emergency = Bugzilla::linkify($nightly_state->emergency_message);
 }
 
+$deadlines = [];
+foreach ($cycle_dates as $k => $date) {
+    // Not a real milestone
+    if ($k === 'version') {
+        continue;
+    }
+
+    // let's ignore hours and only consider full days for simplicity
+    $reference_date = (new DateTime($date))->setTime(0, 0);
+    $time = new Duration(new DateTime(), $reference_date);
+    $deadlines[$k] = $time->report();
+
+    if ($reference_date>= new DateTime()) {
+        // Future
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'In ' . $time->report()['weeks'] . ' weeks';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+                0  => 'No working day before milestone',
+                1  => '1 working day',
+                default => 'In ' . $time->report()['workdays'] . ' working days',
+            };
+        }
+    } else {
+        // Past
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = $time->report()['weeks'] . ' weeks ago';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['days']) {
+                -1 => 'yesterday',
+                 0 => 'Today',
+                 1 => 'Yesterday',
+                default => $time->report()['days'] . ' days ago',
+            };
+        }
+    }
+}
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -66,4 +104,5 @@ return [
     $nightly_updates,
     $nightly_emergency,
     $cycle_dates,
+    $deadlines,
 ];
