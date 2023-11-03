@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -58,6 +58,51 @@ if ((int) $requested_version == NIGHTLY) {
     $nightly_emergency = Bugzilla::linkify($nightly_state->emergency_message);
 }
 
+
+// This is to display a banner with the remaining working days before release
+$beta    = new DateTime($cycle_dates['merge_day']);
+$release = new DateTime($cycle_dates['rc_gtb']);
+$days_before_beta = (new DateTime('today'))->diff($beta)->days;
+$days_before_release = (new DateTime('today'))->diff($release)->days;
+
+$wording_days_left = [];
+
+
+$deadlines = [];
+foreach ($cycle_dates as $k => $date) {
+    // Not a milestone
+    if ($k ==  'version') {
+        continue;
+    }
+
+    $time = new Duration(new DateTime(), new DateTime($date));
+    $deadlines[$k] = $time->report();
+
+    if (new DateTime($date) > new DateTime()) {
+        // Future
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'In ' . $time->report()['weeks'] . ' weeks';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+                1  => '1 working day',
+                default => 'In ' . $time->report()['workdays'] . ' working days',
+            };
+        }
+    } else {
+        // Past
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = $time->report()['weeks'] . ' weeks ago';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['days']) {
+                1  => 'Yesterday',
+                default => $time->report()['days'] . ' days ago',
+            };
+        }
+    }
+}
+
+Utils::dump($deadlines);
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -66,4 +111,7 @@ return [
     $nightly_updates,
     $nightly_emergency,
     $cycle_dates,
+    $days_before_beta,
+    $days_before_release,
+    $deadlines,
 ];
