@@ -265,7 +265,6 @@
 
     <tr>
       {% if date(value) < date() %}
-
         {% if key starts with 'beta' and key == 'beta_1' %}
             <th class="text-muted fw-light">
               <details>
@@ -301,6 +300,8 @@
 
       <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
         {{ value|format_date(pattern='MMMM d', locale='en') }}
+        - {{ deadlines['nightly_start'][weeks]|raw }} days
+        {{  dump(deadline) }}
       </td>
     </tr>
     {% endif %}

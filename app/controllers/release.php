@@ -124,6 +124,7 @@ if ($requested_version_int <= RELEASE) {
         $cycle_dates,
         $days_before_beta,
         $days_before_release,
+        $deadlines,
     ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -136,6 +137,7 @@ if ($requested_version_int <= RELEASE) {
         'cycle_dates'          => $cycle_dates,
         'days_before_beta'     => $days_before_beta,
         'days_before_release'  => $days_before_release,
+        'deadlines'            => $deadlines,
     ]);
 } else {
     $template_file = 'future_release.html.twig';

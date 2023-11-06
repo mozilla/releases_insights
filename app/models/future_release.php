@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Nightly, Release, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -65,6 +65,22 @@ $release = new DateTime($cycle_dates['rc_gtb']);
 $days_before_beta = (new DateTime('today'))->diff($beta)->days;
 $days_before_release = (new DateTime('today'))->diff($release)->days;
 
+$wording_days_left = [];
+
+
+$deadlines = [];
+foreach ($cycle_dates as $k => $date) {
+    if (in_array($k, Release::getMilestonesNames()['nightly'])) {
+        $time = new Duration($date, $cycle_dates['merge_day']);
+        $deadlines[$k] =$time->report();
+    } elseif (in_array($k, Release::getMilestonesNames()['beta'])) {
+        $time = new Duration($date, $cycle_dates['beta_9']);
+        $deadlines[$k] =$time->report();
+    }
+}
+Utils::dump($deadlines);
+
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -75,4 +91,5 @@ return [
     $cycle_dates,
     $days_before_beta,
     $days_before_release,
+    $deadlines,
 ];
