@@ -222,7 +222,7 @@
 
   {% set next_milestone = true %}
 
-  <table class="table table-light table-striped table-sm w-50 justify-content-center mt-4">
+  <table class="table table-bordered table-light table-striped table-sm w-50 justify-content-center mt-4">
   <tr>
     <th colspan="2" class="text-center table-warning">Milestones<br><small class="fw-normal">Desktop & Android</small></th>
   </tr>
@@ -272,6 +272,9 @@
               <p>{{ cycle_descriptions[key]|raw }}</p>
               </details>
             </th>
+            <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+            <span data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"  title="{{ deadlines[key]['message'] }}">{{ value|format_date(pattern='MMMM d', locale='en') }}</span>
+            <br><small class="badge bg-outline-primary text-primary text-wrap w-100 m-0 mt-2 fw-normal">{{ deadlines[key]['message']}}</small>
         {%  elseif key starts with 'beta' and key != 'beta_1' %}
           <th class="text-muted fw-light">
               <details>
@@ -279,6 +282,10 @@
               <p>{{ cycle_descriptions[key]|raw }}</p>
               </details>
           </th>
+          <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+            <span data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"  title="{{ deadlines[key]['message'] }}">{{ value|format_date(pattern='MMMM d', locale='en') }} </span>
+            <br><small class="badge bg-outline-primary text-primary text-wrap w-100 m-0 mt-2 fw-normal">{{ deadlines[key]['message']}}</small>
+          </td>
         {% else %}
           <th class="text-muted fw-light">
             <details>
@@ -286,6 +293,11 @@
               <p>{{ cycle_descriptions[key]|raw }}</p>
             </details>
           </th>
+          <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+            <span data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"  title="{{ deadlines[key]['message'] }}">{{ value|format_date(pattern='MMMM d', locale='en') }} </span>
+            <br><small class="badge bg-outline-primary text-primary text-wrap w-100 m-0 mt-2 fw-normal">{{ deadlines[key]['message']}}</small>
+          </td>
+
         {% endif %}
 
       {% else %}
@@ -295,24 +307,34 @@
           <p>{{ cycle_descriptions[key]|raw }}</p>
           </details>
         </th>
+        <td title="{{ value|format_date('relative_full', locale='en') }}" {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+            <span data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" title="{{ deadlines[key]['message'] }}">{{ value|format_date(pattern='MMMM d', locale='en') }} </span>
+          {% if next_milestone %}
+            <br><small class="badge bg-outline-primary text-primary text-wrap w-100 m-0 mt-2 fw-normal">{{ deadlines[key]['message']}}</small>
+          {% endif %}
         {% set next_milestone = false %}
       {% endif %}
-
-      <td title="{{ value|format_date('relative_full', locale='en') }}"  {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
-        {{ value|format_date(pattern='MMMM d', locale='en') }}
-        - {{ deadlines['nightly_start'][weeks]|raw }} days
-        {{  dump(deadline) }}
       </td>
     </tr>
     {% endif %}
   {% endfor %}
   </table>
-
 {% endif %}
   {{ fallback_content|raw }}
-
+    <script src="/assets/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
 
 {% block footer %}
      {%  include 'footer_UTC_warning.html.twig' %}
+
+<script nonce="4AEemGb0xJptoIGFP3Nd">
+$(function () {
+  $('[data-bs-toggle="tooltip"]').tooltip()
+})
+
+$("details").on("click", function () {
+  $("details[open]").not(this).removeAttr("open");
+});
+</script>
 {% endblock %}

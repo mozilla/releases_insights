@@ -74,9 +74,9 @@ class Duration
     public function report(): array
     {
         return [
-            'days'    => $this->days(),
-            'wordays' => $this->workDays(),
-            'weeks'   => $this->weeks()
+            'days'     => $this->days(),
+            'workdays' => $this->workDays(),
+            'weeks'    => $this->weeks(),
         ];
     }
 }

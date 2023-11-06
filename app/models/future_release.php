@@ -72,10 +72,27 @@ $deadlines = [];
 foreach ($cycle_dates as $k => $date) {
     if (in_array($k, Release::getMilestonesNames()['nightly'])) {
         $time = new Duration($date, $cycle_dates['merge_day']);
-        $deadlines[$k] =$time->report();
+        $deadlines[$k] = $time->report();
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'Beta merge is in ' . $time->report()['weeks'] . ' weeks';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+                1 => '1 working day before Beta',
+                default => $time->report()['workdays'] . ' working days before Beta',
+            };
+        }
     } elseif (in_array($k, Release::getMilestonesNames()['beta'])) {
         $time = new Duration($date, $cycle_dates['beta_9']);
-        $deadlines[$k] =$time->report();
+        $deadlines[$k] = $time->report();
+        if ($time->report()['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'Last beta uplifts in ' . $time->report()['weeks'] . ' weeks';
+        } else {
+            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+                0 => 'Last uplifts at 10AM UTC',
+                1 => '1 working day before the last beta',
+                default => $time->report()['workdays'] . ' working days before the last beta',
+            };
+        }
     }
 }
 Utils::dump($deadlines);

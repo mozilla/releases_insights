@@ -122,6 +122,11 @@ h3 {
 #release_esr .table td {
     text-align: right;
     white-space: nowrap;
+    width: 8em;
+}
+
+#release .table td.close small {
+    display:none;
 }
 
 #release .table th details p {
