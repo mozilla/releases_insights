@@ -122,20 +122,20 @@ if ($requested_version_int <= RELEASE) {
         $nightly_updates,
         $nightly_emergency,
         $cycle_dates,
-        $working_days_before_beta,
-        $working_days_before_release,
+        $days_before_beta,
+        $days_before_release,
     ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
-        'release_date'                => $release_date,
-        'beta_cycle_length'           => $beta_cycle_length,
-        'nightly_cycle_length'        => $nightly_cycle_length,
-        'nightly_fixes'               => $nightly_fixes,
-        'nightly_updates'             => $nightly_updates,
-        'nightly_emergency'           => $nightly_emergency,
-        'cycle_dates'                 => $cycle_dates,
-        'working_days_before_beta'    => $working_days_before_beta,
-        'working_days_before_release' => $working_days_before_release,
+        'release_date'         => $release_date,
+        'beta_cycle_length'    => $beta_cycle_length,
+        'nightly_cycle_length' => $nightly_cycle_length,
+        'nightly_fixes'        => $nightly_fixes,
+        'nightly_updates'      => $nightly_updates,
+        'nightly_emergency'    => $nightly_emergency,
+        'cycle_dates'          => $cycle_dates,
+        'days_before_beta'     => $days_before_beta,
+        'days_before_release'  => $days_before_release,
     ]);
 } else {
     $template_file = 'future_release.html.twig';

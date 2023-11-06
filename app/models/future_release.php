@@ -59,11 +59,11 @@ if ((int) $requested_version == NIGHTLY) {
 }
 
 
-// Future release date object
+// This is to display a banner with the remaining working days before release
 $beta    = new DateTime($cycle_dates['merge_day']);
 $release = new DateTime($cycle_dates['rc_gtb']);
-$working_days_before_beta = (new DateTime('today'))->diff($beta)->days;
-$working_days_before_release = (new DateTime('today'))->diff($release)->days;
+$days_before_beta = (new DateTime('today'))->diff($beta)->days;
+$days_before_release = (new DateTime('today'))->diff($release)->days;
 
 return [
     $release_date,
@@ -73,6 +73,6 @@ return [
     $nightly_updates,
     $nightly_emergency,
     $cycle_dates,
-    $working_days_before_beta,
-    $working_days_before_release,
+    $days_before_beta,
+    $days_before_release,
 ];

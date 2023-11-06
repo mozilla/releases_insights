@@ -229,13 +229,13 @@
 
   {% if channel == 'nightly' %}
   <tr>
-    <th colspan="2" class="text-center table-info">{{ working_days_before_beta }} working days before Nightly goes to Beta.</th>
+    <th colspan="2" class="text-center table-info">{{ days_before_beta }} days before Nightly goes to Beta.</th>
   </tr>
   {% endif %}
 
   {% if channel == 'beta' %}
   <tr>
-    <th colspan="2" class="text-center table-info">{{ working_days_before_release }} working days before we end the beta cycle.</th>
+    <th colspan="2" class="text-center table-info">{{ days_before_release }} days before we end the beta cycle.</th>
   </tr>
   {% endif %}
 
