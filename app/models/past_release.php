@@ -49,6 +49,20 @@ $beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2';
 
+/*
+    The 119 changelog was broken by an unwanted central to beta merge
+    We don't want to include the bad changesets or we get all the 120
+    bugs listed as uplifts. We need to stop before the error.
+    See https://bugzilla.mozilla.org/1859380 for reference
+*/
+if ((int) $requested_version === 119) {
+    $beta_changelog = str_replace(
+        search: 'FIREFOX_BETA_119_END',
+        replace: 'f2a69b23cb0aaf2b36bac4f9f197bf4282f542c4',
+        subject: $beta_changelog
+    );
+}
+
 if ($requested_version !== 53 && $requested_version > 46) {
     $beta_uplifts      = Bz::getBugsFromHgWeb($beta_changelog, true, -1);
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
