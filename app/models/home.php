@@ -37,12 +37,15 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
         $is_rc_week = true;
         // Check if we have already shipped a Release Candidate build to the beta channel
 
-        // Remote balrog API broken 2023-11-14
-        // $rc_build = Utils::getJson($aus_url . 'rules/firefox-beta', 900)['mapping'];
-        // $rc_build = explode('-', $rc_build)[1];
-        // $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : BETA . ' RC';
-        $rc_build =  'N/A';
+        // Remote balrog API can give a 404, we have a fallback to N/A
+        $rc_build = Utils::getJson($aus_url . 'rules/firefox-beta', 900)['mapping'] ?? 'N/A';
+
+        if ($rc_build !== 'N/A') {
+            $rc_build = explode('-', $rc_build)[1];
+            $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : BETA . ' RC';
+        }
     }
+
     if ($today_is_release_day) {
         $is_rc_week = false;
     }
