@@ -20,6 +20,7 @@ $release_schedule_labels = [
     'qa_feature_done_2'   => 'Build is feature complete for QA in Beta',
     'soft_code_freeze'    => 'Firefox ' . $short_version . ' soft Code Freeze starts at 08:00 AM UTC',
     'qa_pre_merge_done'   => 'QA pre-merge regression testing completed',
+    'qa_test_plan_due'    => 'Firefox ' . $short_version . ' QA Test Plan approval due',
     'string_freeze'       => 'String Freeze starts',
     'merge_day'           => 'Merge day',
     'beta_1'              => 'Firefox ' . $releases['version'] . 'b1',

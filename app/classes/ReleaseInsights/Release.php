@@ -73,6 +73,7 @@ class Release
                 'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
                 'qa_pre_merge_done'   => $date('Friday 14:00'),
+                'qa_test_plan_due'    => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => $date('Monday'),
                 'beta_1'              => $date('Monday'),
@@ -99,6 +100,7 @@ class Release
                 'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
                 'qa_pre_merge_done'   => $date('Friday 14:00'),
+                'qa_test_plan_due'    => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => match ($this->version) {
                     '123.0' => $date('Monday +1 week'),
@@ -160,6 +162,7 @@ class Release
             'qa_feature_done_2'   => $short_version .' build ready for beta QA',
             'soft_code_freeze'    => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC',
             'qa_pre_merge_done'   => $short_version . ' regression testing completed',
+            'qa_test_plan_due'    => 'Final deadline for QA’s Feature Test Plan approval',
             'string_freeze'       => 'String Freeze' . ($short ? '' : ' starts'),
             'merge_day'           => 'Merge day',
             'beta_1'              => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB',
@@ -203,6 +206,7 @@ class Release
             'qa_feature_done_2',
             'soft_code_freeze',
             'qa_pre_merge_done',
+            'qa_test_plan_due',
             'string_freeze',
         ];
         $beta_milestones = [

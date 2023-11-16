@@ -32,6 +32,18 @@ test('Release->getSchedule()', function () {
     $obj = new Release('116.0'); // merge day is Tuesday and we have one beta left
     expect($obj->getSchedule(TEST_FILES))
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done_1', 'qa_feature_done_2', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
+
+    $obj = new Release('121.0'); // merge day is Tuesday and we have one beta left
+    expect($obj->getSchedule(TEST_FILES))
+        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done_1', 'qa_feature_done_2', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
+    expect($obj->getSchedule(TEST_FILES)['planned_dot_release'])
+        ->toBe("2024-01-09 00:00:00+00:00");
+
+    $obj = new Release('122.0'); // merge day is Tuesday and we have one beta left
+    expect($obj->getSchedule(TEST_FILES))
+        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done_1', 'qa_feature_done_2', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
+    expect($obj->getSchedule(TEST_FILES)['beta_4'])
+        ->toBe("2023-12-29 13:00:00+00:00");
 });
 
 test('Release->getNiceLabel()', function () {
@@ -45,5 +57,12 @@ test('Release->getNiceLabel()', function () {
 
 test('Release::getMilestonesNames()', function () {
     expect(Release::getMilestonesNames())
-        ->toHaveCount(3);
+        ->toHaveCount(3)
+        ->toHaveKeys(['nightly', 'beta', 'release',]);
+    expect(Release::getMilestonesNames()['nightly'])
+        ->toHaveLength(8);
+    expect(Release::getMilestonesNames()['beta'])
+        ->toHaveLength(19);
+    expect(Release::getMilestonesNames()['release'])
+        ->toHaveLength(4);
 });
