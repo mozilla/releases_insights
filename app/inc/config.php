@@ -50,5 +50,8 @@ define('LOCALHOST',  isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] =
 define('STAGING',    isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && ! LOCALHOST);
 define('PRODUCTION', isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'whattrainisitnow.com');
 
+// Define a Nonce for inline scripts
+define('NONCE', bin2hex(random_bytes(10)));
+
 // Clean up temp variables from global space
 unset($firefox_versions);

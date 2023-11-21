@@ -24,6 +24,18 @@ if (PRODUCTION) {
     init(['dsn' => 'https://20bef71984594e16add1d2c69146ad88@o1069899.ingest.sentry.io/4505243430092800']);
 }
 
+// Send HTTP security headers
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+
+// Allow http ressources when ran locally
+if (LOCALHOST) {
+    header("Content-Security-Policy: default-src http:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE . "'; frame-ancestors 'none'");
+} else {
+    header("Content-Security-Policy: default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE . "'; frame-ancestors 'none'");
+}
+
+
 // Dispatch urls
 $url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
 
