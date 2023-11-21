@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "benhall14/php-calendar",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/benhall14/php-calendar.git",
-                "reference": "a2d217cc36942330ee90a9f7c39950beda383c7d"
+                "reference": "ad64a2618433bdceb8969719b94ca0a645ba49d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/benhall14/php-calendar/zipball/a2d217cc36942330ee90a9f7c39950beda383c7d",
-                "reference": "a2d217cc36942330ee90a9f7c39950beda383c7d",
+                "url": "https://api.github.com/repos/benhall14/php-calendar/zipball/ad64a2618433bdceb8969719b94ca0a645ba49d9",
+                "reference": "ad64a2618433bdceb8969719b94ca0a645ba49d9",
                 "shasum": ""
             },
             "require": {
@@ -51,9 +51,9 @@
             ],
             "support": {
                 "issues": "https://github.com/benhall14/php-calendar/issues",
-                "source": "https://github.com/benhall14/php-calendar/tree/1.4.2"
+                "source": "https://github.com/benhall14/php-calendar/tree/1.4.3"
             },
-            "time": "2023-10-10T22:33:40+00:00"
+            "time": "2023-11-20T21:17:01+00:00"
         },
         {
             "name": "clue/stream-filter",
