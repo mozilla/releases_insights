@@ -110,7 +110,7 @@
 
 {% block footer %}
      {%  include 'footer_UTC_warning.html.twig' %}
-  <script nonce="4AEemGb0xJptoIGFP3Nd">
+  <script nonce="{{constant('NONCE')}}">
 $(function () {
   $('[data-bs-toggle="tooltip"]').tooltip()
 })

@@ -124,7 +124,7 @@
 
 {%  include 'footer_UTC_warning.html.twig' %}
 
-<script nonce="4AEemGb0xJptoIGFP3Nd">
+<script nonce="{{constant('NONCE')}}">
 function openTarget() {
   var hash = location.hash.substring(1);
   if (hash) var details = document.getElementById(hash);
