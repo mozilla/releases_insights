@@ -2133,16 +2133,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.11.1",
+            "version": "v1.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "8d7bc695fb407627378cb184976b348e6a128d59"
+                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/8d7bc695fb407627378cb184976b348e6a128d59",
-                "reference": "8d7bc695fb407627378cb184976b348e6a128d59",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/108565f11f099f177b31929e3eafc2c8d497fcd1",
+                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1",
                 "shasum": ""
             },
             "type": "library",
@@ -2166,31 +2166,31 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.11.1"
+                "source": "https://github.com/twbs/icons/tree/v1.11.2"
             },
-            "time": "2023-09-17T14:09:28+00:00"
+            "time": "2023-11-21T20:06:00+00:00"
         },
         {
             "name": "twig/intl-extra",
-            "version": "v3.7.1",
+            "version": "v3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/intl-extra.git",
-                "reference": "4f4fe572f635534649cc069e1dafe4a8ad63774d"
+                "reference": "7b3db67c700735f473a265a97e1adaeba3e6ca0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/4f4fe572f635534649cc069e1dafe4a8ad63774d",
-                "reference": "4f4fe572f635534649cc069e1dafe4a8ad63774d",
+                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/7b3db67c700735f473a265a97e1adaeba3e6ca0c",
+                "reference": "7b3db67c700735f473a265a97e1adaeba3e6ca0c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.3",
-                "symfony/intl": "^5.4|^6.0",
-                "twig/twig": "^2.7|^3.0"
+                "php": ">=7.2.5",
+                "symfony/intl": "^5.4|^6.0|^7.0",
+                "twig/twig": "^3.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^5.4|^6.3"
+                "symfony/phpunit-bridge": "^6.4|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -2220,7 +2220,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/intl-extra/tree/v3.7.1"
+                "source": "https://github.com/twigphp/intl-extra/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -2232,30 +2232,31 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-29T15:34:56+00:00"
+            "time": "2023-11-21T17:27:48+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v3.7.1",
+            "version": "v3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "a0ce373a0ca3bf6c64b9e3e2124aca502ba39554"
+                "reference": "9d15f0ac07f44dc4217883ec6ae02fd555c6f71d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a0ce373a0ca3bf6c64b9e3e2124aca502ba39554",
-                "reference": "a0ce373a0ca3bf6c64b9e3e2124aca502ba39554",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9d15f0ac07f44dc4217883ec6ae02fd555c6f71d",
+                "reference": "9d15f0ac07f44dc4217883ec6ae02fd555c6f71d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/polyfill-ctype": "^1.8",
-                "symfony/polyfill-mbstring": "^1.3"
+                "symfony/polyfill-mbstring": "^1.3",
+                "symfony/polyfill-php80": "^1.22"
             },
             "require-dev": {
                 "psr/container": "^1.0|^2.0",
-                "symfony/phpunit-bridge": "^5.4.9|^6.3"
+                "symfony/phpunit-bridge": "^5.4.9|^6.3|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -2291,7 +2292,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.7.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -2303,7 +2304,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-28T11:09:02+00:00"
+            "time": "2023-11-21T18:54:41+00:00"
         }
     ],
     "packages-dev": [
@@ -3126,16 +3127,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.38.2",
+            "version": "v3.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "d872cdd543797ade030aaa307c0a4954a712e081"
+                "reference": "04bf7b28fc847185b247d112cab617da941e3cca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/d872cdd543797ade030aaa307c0a4954a712e081",
-                "reference": "d872cdd543797ade030aaa307c0a4954a712e081",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/04bf7b28fc847185b247d112cab617da941e3cca",
+                "reference": "04bf7b28fc847185b247d112cab617da941e3cca",
                 "shasum": ""
             },
             "require": {
@@ -3145,16 +3146,16 @@
                 "ext-tokenizer": "*",
                 "php": "^7.4 || ^8.0",
                 "sebastian/diff": "^4.0 || ^5.0",
-                "symfony/console": "^5.4 || ^6.0",
-                "symfony/event-dispatcher": "^5.4 || ^6.0",
-                "symfony/filesystem": "^5.4 || ^6.0",
-                "symfony/finder": "^5.4 || ^6.0",
-                "symfony/options-resolver": "^5.4 || ^6.0",
+                "symfony/console": "^5.4 || ^6.0 || ^7.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0 || ^7.0",
+                "symfony/filesystem": "^5.4 || ^6.0 || ^7.0",
+                "symfony/finder": "^5.4 || ^6.0 || ^7.0",
+                "symfony/options-resolver": "^5.4 || ^6.0 || ^7.0",
                 "symfony/polyfill-mbstring": "^1.27",
                 "symfony/polyfill-php80": "^1.27",
                 "symfony/polyfill-php81": "^1.27",
-                "symfony/process": "^5.4 || ^6.0",
-                "symfony/stopwatch": "^5.4 || ^6.0"
+                "symfony/process": "^5.4 || ^6.0 || ^7.0",
+                "symfony/stopwatch": "^5.4 || ^6.0 || ^7.0"
             },
             "require-dev": {
                 "facile-it/paraunit": "^1.3 || ^2.0",
@@ -3168,8 +3169,8 @@
                 "phpspec/prophecy": "^1.16",
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5",
-                "symfony/phpunit-bridge": "^6.2.3",
-                "symfony/yaml": "^5.4 || ^6.0"
+                "symfony/phpunit-bridge": "^6.2.3 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.0 || ^7.0"
             },
             "suggest": {
                 "ext-dom": "For handling output formats in XML",
@@ -3207,7 +3208,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.38.2"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.39.0"
             },
             "funding": [
                 {
@@ -3215,7 +3216,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-14T00:19:22+00:00"
+            "time": "2023-11-22T11:20:09+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -5647,16 +5648,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.43",
+            "version": "1.10.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2c4129f6ca8c7cfa870098884b8869b410a5a361"
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2c4129f6ca8c7cfa870098884b8869b410a5a361",
-                "reference": "2c4129f6ca8c7cfa870098884b8869b410a5a361",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bf84367c53a23f759513985c54ffe0d0c249825b",
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b",
                 "shasum": ""
             },
             "require": {
@@ -5705,7 +5706,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-19T19:55:25+00:00"
+            "time": "2023-11-21T16:30:46+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
