@@ -14,6 +14,8 @@ $paths = [
     ['calendar/', 200, '', 'id="calendar_main"'],
     ['calendar/monthly/', 200, '', 'id="calendar_monthly"'],
     ['release/', 200, 'Release Owner', 'id="release"'],
+    ['release/?version=beta', 200, '', '<meta http-equiv="refresh" content="7200">'], // Auto-refresh the Future Release page every 2 hours
+    ['', 200, 'Firefox Trains', '<meta http-equiv="refresh" content="21600">'], // Auto-refresh the Home page every 6 hours
     ['release/owners/', 200, 'Major releases per release owner', 'id="release_owners"'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
     ['sitemap/', 301, '', ''],
