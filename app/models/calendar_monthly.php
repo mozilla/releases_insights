@@ -12,9 +12,9 @@ $events = [];
 // Check if we have a planned dot release coming for the current cycle
 $current_release = key($releases->getLatestMajorRelease());
 $current_release_schedule = (new Release($current_release))->getSchedule();
-$date = (new DateTime($current_release_schedule['planned_dot_release']))->format('Y-m-d');
 
 if (isset($current_release_schedule['planned_dot_release'])) {
+    $date = (new DateTime($current_release_schedule['planned_dot_release']))->format('Y-m-d');
     $events[] = [
         'start'   => $date,
         'end'     => $date,
