@@ -29,12 +29,9 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 
 // Allow http ressources when ran locally
-if (LOCALHOST) {
-    header("Content-Security-Policy: default-src http:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE . "'; frame-ancestors 'none'");
-} else {
+if (! LOCALHOST) {
     header("Content-Security-Policy: default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE . "'; frame-ancestors 'none'");
 }
-
 
 // Dispatch urls
 $url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
