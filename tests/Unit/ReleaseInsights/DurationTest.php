@@ -26,6 +26,8 @@ test('Duration->isWorkDay()', function () {
         ->toBeTrue();
     expect($obj->isWorkDay(new DateTime('2023-11-11')))
         ->toBeFalse();
+    expect($obj->isWorkDay(new DateTime('2024-02-16')))
+        ->toBeFalse();
 });
 
 test('Duration->workDays()', function () {

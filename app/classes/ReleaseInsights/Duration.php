@@ -11,8 +11,14 @@ use DateInterval, DatePeriod, DateTime;
  */
 class Duration
 {
-    public function __construct(public readonly Datetime $start, public readonly Datetime $end)
+   /** @var array<string> $wellness_days */
+    private array $wellness_days;
+
+    public function __construct(
+        public readonly Datetime $start,
+        public readonly Datetime $end)
     {
+        $this->wellness_days = include DATA . 'wellness_days.php';
     }
 
     /**
@@ -44,11 +50,9 @@ class Duration
      */
     public function isWorkDay(DateTime $day): bool
     {
-        /**
-         * We only substract week-ends, we may add more logic to
-         * also remove wellness days in the future.
-         */
-        return ! in_array($day->format('l'), ['Saturday','Sunday']);
+        // We substract week-ends and wellness days.
+        return ! in_array($day->format('l'), ['Saturday','Sunday'])
+            && ! in_array($day->format('Y-m-d'), $this->wellness_days);
     }
 
     /**
