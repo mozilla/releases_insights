@@ -46,6 +46,40 @@ class Utils
     }
 
     /**
+     * Get the list of bugs for a Build ID from Socorro
+     *
+     * @param string $signature Crash signature
+     * @return array<mixed> a list of crashes
+     */
+    public static function getBugsforCrashSignature(string $signature): array
+    {
+        // The signature in the string varies so we create a unique file name in cache
+        $cache_id = 'https://crash-stats.mozilla.org/api/Bugs/?signatures=' . $signature;
+
+        if (defined('TESTING_CONTEXT')) {
+            if ($signature == 'failure') {
+                $cache_id = TEST_FILES .'/empty.json';
+            } else {
+                $cache_id = TEST_FILES .'/crash-stats.mozilla.org_signature.json';
+            }
+        }
+
+        // If we can't retrieve cached data, we create and cache it.
+        // We cache because we want to avoid http request latency
+        if (! $data = Cache::getKey($cache_id, 30)) {
+            $data = file_get_contents($cache_id);
+
+            // No data returned, bug or incorrect date, don't cache.
+            if (empty($data)) {
+                return [];
+            }
+            Cache::setKey($cache_id, $data);
+        }
+
+        return self::arrayFromJson($data);
+    }
+
+    /**
      * Return an Array from a Json string
      * This is an utility function as we use json_decode in multiple places,
      * always with the same options. That will make these calls shorter,

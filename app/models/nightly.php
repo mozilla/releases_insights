@@ -164,11 +164,50 @@ $known_top_crashes = [
     'OOM | small',
 ];
 
+// $top_signatures_only = array_column(array_values($top_sigs), 'term');
+$top_sigs_worth_a_bug = [];
+foreach ($top_sigs as $k => $values) {
+    foreach ($values as $target) {
+        if (in_array($target['term']    , $known_top_crashes)) {
+            continue;
+        }
+        if (isset($top_sigs_worth_a_bug[$target['term']])){
+            $top_sigs_worth_a_bug[$target['term']] += $target['count'];
+        } else {
+            $top_sigs_worth_a_bug[$target['term']] = $target['count'];
+        }
+    }
+}
+// We take 10 crashes for a day as a treshold
+$top_sigs_worth_a_bug = array_filter($top_sigs_worth_a_bug, fn($n) => $n > 10);
+
+// We escape weird crash signature characters for url use
+$top_sigs_worth_a_bug = array_keys($top_sigs_worth_a_bug);
+$top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
+
+// dd($top_sigs_worth_a_bug);
+// Query bugs for signatures
+$crash_bugs = [];
+if (! empty($top_sigs_worth_a_bug)) {
+    foreach ($top_sigs_worth_a_bug as $sig) {
+        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig)['hits'];
+        $tmp = array_column($bugs_for_top_sigs, 'id');
+        if (!empty($tmp)) {
+            $crash_bugs[urldecode($sig)] = max(
+                array_unique(
+                    array_column($bugs_for_top_sigs, 'id')
+                )
+            );
+        }
+    }
+}
+// dd($crash_bugs);
 return [
     $display_date,
     $nightly_pairs,
     $build_crashes,
     $top_sigs,
+    $crash_bugs,
     $bug_list,
     $bug_list_karma,
     $previous_date,

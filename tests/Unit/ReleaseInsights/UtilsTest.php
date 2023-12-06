@@ -155,6 +155,15 @@ test('Utils::getCrashesForBuildID', function () {
     expect(U::getCrashesForBuildID(20200927094817))->toBeArray()->not->toBeEmpty();
 });
 
+test('Utils::getBugsforCrashSignature', function () {
+    expect(U::getBugsforCrashSignature('failure'))
+        ->toBeArray()
+        ->toBeEmpty();
+    expect(U::getBugsforCrashSignature('some signature'))
+        ->toBeArray()
+        ->not->toBeEmpty();
+});
+
 test('Utils::getIP', function () {
     expect(U::getIP())->toBeNull();
 

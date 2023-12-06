@@ -98,8 +98,8 @@
       </tbody>
     </table>
 </div>
-
     <ol>
+
     {%for sig in top_sigs[dataset.buildid] %}
     {% if sig.term in known_top_crashes %}
         {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
@@ -108,8 +108,16 @@
     {% else %}
         {% set button, alert = '', '' %}
     {% endif %}
-    <li>
-        <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a>  <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span>
+
+    {% if sig.term in crash_bugs|keys  %}
+        {% set crash_bug_button, crash_bug_link = 'btn btn-success btn-sm', '<a class="text-light" href="https://bugzilla.mozilla.org/' ~ crash_bugs[sig.term] ~ '">' ~ crash_bugs[sig.term] ~ '</a>' %}
+    {% else %}
+        {% set crash_bug_button, crash_bug_link = '', '' %}
+    {% endif %}
+
+
+    <li class="mb-1">
+        <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a  class="text-info" href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a>  <b title="{{ sig.count }}">({{ ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span> <span class="{{ crash_bug_button }}">{{ crash_bug_link|raw }}</span>
     </li>
     {% endfor %}
     </ol>
