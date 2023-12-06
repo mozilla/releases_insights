@@ -2,6 +2,7 @@
 .idea
 .vscode
 .php-cs-fixer.cache
+.phpactor.json
 .phplint-cache
 .phpunit.result.cache
 cache/*.cache
