@@ -44,7 +44,10 @@
 
 </p>
 <div class="collapse" id="collapse{{  dataset.buildid }}">
-    <table class="table table-light table-striped table-bordered table-sm mb-3">
+
+    <!-- Outstanding bugs -->
+    <table class="table table-light table-striped table-bordered table-sm mb-3 caption-top">
+        <caption class="table-dark text-center fw-bold">Outstanding bugs</caption>
        <thead>
         <tr class="table-dark">
             <th>Bug</th>
@@ -54,7 +57,7 @@
         </tr>
       </thead>
       <tbody>
-        {%- for details in bug_list[dataset.buildid].bugs -%}
+        {%- for details in outstanding_bugs[dataset.buildid].bugs -%}
             {%- set alert_link = '' -%}
             {%- set alert_title = '' -%}
             {%- set alert_row = '' -%}
@@ -94,6 +97,66 @@
             </td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
         </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Less notable bugs -->
+    <table class="table table-light table-striped table-bordered table-sm mb-3">
+        <caption class="table-dark text-center fw-bold">Other bugs</caption>
+        <thead>
+            <tr class="table-dark">
+                <th>Bug</th>
+                <th>Component</th>
+                <th>Impact</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%- for details in bug_list[dataset.buildid].bugs -%}
+            {%- set alert_link = '' -%}
+            {%- set alert_title = '' -%}
+            {%- set alert_row = '' -%}
+            {%- set pill_level = 'text-bg-light border' -%}
+            {%- if details.type == 'enhancement' -%}
+                {%- set alert_link =' text-success fw-bold' -%}
+                {%- set alert_title =' title="Bug marked as Enhancement"' -%}
+            {%- endif -%}
+            {%- if bug_list_karma[details.id].score > 8 -%}
+                {%- set pill_level ='text-bg-warning' -%}
+            {%- endif -%}
+            {%- if bug_list_karma[details.id].score > 15 -%}
+                {%- set alert_row ='fw-bold' -%}
+                {%- set pill_level ='text-bg-danger' -%}
+            {%- endif -%}
+            {% if details in outstanding_bugs[dataset.buildid].bugs %}
+                {# do nothing #}
+            {% else %}
+        <tr class="small {{ alert_row }}">
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
+            <td class="text-center {{ alert_row }}">
+                <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
+                <div class="card text-bg-primary mb-3 score-card">
+                        <div class="card-body p-2">
+                            <table class="table table-borderless table-sm">
+                            {%- for key, score_detail in bug_list_karma[details.id].details -%}
+                                {%- if score_detail != 0 -%}
+                                <tr class="small text-light bg-primary">
+                                    <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
+                                    <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
+                                </tr>
+                                {%- endif -%}
+
+                            {%- endfor -%}
+                            </table>
+                        </div>
+                    </div>
+              </div>
+            </td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
+        </tr>
+        {%- endif -%}
         {% endfor %}
       </tbody>
     </table>

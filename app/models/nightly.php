@@ -201,7 +201,28 @@ if (! empty($top_sigs_worth_a_bug)) {
         }
     }
 }
-// dd($crash_bugs);
+
+// In this section, we extract outstanding bugs
+$outstanding_bugs = [];
+foreach ($bug_list as $key => $values) {
+    foreach ($values['bugs'] as $bug_details) {
+        // Old bugs fixed are often interesting
+        if ($bug_details['id'] < 1_500_000) {
+            $outstanding_bugs[$key]['bugs'][] = $bug_details;
+            continue;
+        }
+        // Enhancements are potentiol release notes additions
+        if ($bug_details['type'] == 'enhancement') {
+            $outstanding_bugs[$key]['bugs'][] = $bug_details;
+            continue;
+        }
+        // High karma
+        if ($bug_list_karma[$bug_details['id']]['score'] > 15) {
+            $outstanding_bugs[$key]['bugs'][] = $bug_details;
+        }
+    }
+}
+
 return [
     $display_date,
     $nightly_pairs,
@@ -210,6 +231,7 @@ return [
     $crash_bugs,
     $bug_list,
     $bug_list_karma,
+    $outstanding_bugs,
     $previous_date,
     $requested_date,
     $next_date,
