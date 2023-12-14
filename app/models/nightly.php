@@ -126,7 +126,7 @@ foreach ($nightly_pairs as $dataset) {
     $url = Bz::getBugListLink($bugs);
 
     // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
-    $bug_list_details = Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];
+    $bug_list_details = Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc,see_also&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];
 
     $bug_list[$dataset['buildid']] = [
         'bugs'  => $bug_list_details,
