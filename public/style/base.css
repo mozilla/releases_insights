@@ -221,8 +221,9 @@ footer {
     width: 5em;
 }
 
-#nightly table tr th:nth-child(4) {
-/*    width: 10em;*/
+/* bzimpact value table, avoid fields wrapping on 2 lines */
+#nightly table tr table th:nth-child(1) {
+   white-space: nowrap;
 }
 
 #nightly table tr td a {
