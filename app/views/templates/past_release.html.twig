@@ -135,10 +135,10 @@
      {% endif %}
 
      {% if release ~ '.0' not in no_planned_dot_releases %}
-       {% if "now"|date('Y-m-d') < release_date|date_modify("+" ~ ( release == 106 ? '1' : '2' ) ~  " weeks")|date('Y-m-d') %}
+       {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
           <tr>
             <th>Planned {{ release }}.0.x</th>
-            <td title="">{{ release_date|date_modify("+2 weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
+            <td title="">{{ release_date|date_modify("+" ~ ( release == 121 ? '3' : '2' ) ~  " weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
           </tr>
        {% endif %}
      {% endif %}
