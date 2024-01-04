@@ -55,8 +55,8 @@ class Release
 
         $x = match ($this->version) {
             // We keep some past releases as code examples
-            '97.0'  => 4,
             '110.0' => 4,
+            '123.0' => 4,
             default => 3,
         };
 
@@ -103,7 +103,6 @@ class Release
                 'qa_test_plan_due'    => $date('Friday'),
                 'string_freeze'       => $date('Friday'),
                 'merge_day'           => match ($this->version) {
-                    '123.0' => $date('Monday +1 week'),
                     '135.0' => $date('Monday +2 week'),
                     default => $date('Monday'),
                 },
