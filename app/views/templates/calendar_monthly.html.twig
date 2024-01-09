@@ -18,19 +18,14 @@
 
 {% block main %}
 
+
 <div class="row fix justify-content-center">
-    {% for key, values in upcoming_releases %}
+    {% for month in upcoming_months %}
     <div class="col-sm-12 col-sm-2 col-md-8">
-        {% set color = 'indigo' %}
-
-        {%  if 'now'|date('Y') <  values|date('Y') %}
-          {% set color = 'green' %}
-        {%  endif %}
-
-        {{ calendar.draw(values, color)|raw }}
+        {{ calendar.draw(month)|raw }}
     <br>
     </div>
-      {% endfor %}
+    {% endfor %}
 </div>
 
 {% endblock %}
