@@ -97,7 +97,7 @@ class Release
                 'nightly_start'       => $date($nightly),
                 'qa_request_deadline' => $date('Friday'),
                 'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
+                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Thursday 08:00')),
                 'soft_code_freeze'    => $date('Thursday 08:00'),
                 'qa_pre_merge_done'   => $date('Friday 14:00'),
                 'qa_test_plan_due'    => $date('Friday'),
