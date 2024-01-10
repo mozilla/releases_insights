@@ -199,7 +199,7 @@
     beta_7: 'Experimental features are no longer activated at compile time. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_8: 'Last week of the beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     qa_pre_rc_signoff: 'A week before the final sign-off, QA shares preliminary test reports for each feature riding the train. This pre-release sign-off can be <abbr title="No quality concerns">Green</abbr>, <abbr title="Moderate quality concerns">Yellow</abbr> or <abbr title="Severe quality concerns">Red</abbr>.',
-    beta_9: 'On a regular 4 weeks beta cycle, this is the last beta and thus the end of beta uplifts. Build starts at 13:00 UTC.',
+    beta_9: 'On a regular 4 weeks beta cycle, this is the last beta and thus the end of beta uplifts, including <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> for this release (<code>sec-approval+</code> on Bugzilla). Build starts at 13:00 UTC.',
     sumo_2: 'New content on support.mozilla.org team is finalized, uploaded to the server and provided to our localization teams internationally.',
     beta_10: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_11: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
@@ -246,7 +246,7 @@
       {% endif %}
 
       {% if key == 'beta_9' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts <span class="fw-light">(security bugs included)</span></small>' %}
       {% endif %}
 
       {% if key == 'rc' %}
