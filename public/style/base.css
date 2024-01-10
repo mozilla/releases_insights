@@ -142,9 +142,6 @@ h3 {
     display: inline;
 }
 
-
-
-
 #release .table th summary::marker {
     color: lightgray;
     font-size:  small;
@@ -178,6 +175,13 @@ h3 {
     #homepage .alert-primary {
         padding: 0.5rem 0.25rem;
     }
+
+    /* Split the Lastr uplift tag on mobile */
+    #release .table th small span::before{
+        content: "\a";
+        white-space: pre;
+    }
+
 }
 
 /* About tooltip */
