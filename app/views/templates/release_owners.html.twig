@@ -4,13 +4,10 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/owners/">
 {% endblock %}
 
-
 {% block main %}
-
 <h2 class="mx-auto w-75 text-center">{{ page_title }}</h2>
 
 <table class="table table-light table-striped table-bordered table-sm w-75 justify-content-center mt-4">
@@ -32,12 +29,8 @@
       {% endfor %}
       </td>
     </tr>
-
   {% endfor %}
-
 </table>
-
-
 {% endblock %}
 
 {% block footer %}

@@ -4,22 +4,19 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/release/?version=esr">
 {% endblock %}
 
-
 {% block main %}
-
-  {%  if constant('ESR_NEXT')    %}
+  {% if constant('ESR_NEXT') %}
   <h2 class="mx-auto w-50 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h2>
-  {%  else %}
+  {% else %}
   <h2 class="mx-auto w-50 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h2>
-  {%  endif %}
+  {% endif %}
 
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>
   <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center">
-    {%  if constant('ESR_NEXT') != "" %}
+    {% if constant('ESR_NEXT') != "" %}
     <tr>
       <th class="w-auto">Latest version (old branch)</th>
       <td> {{ current_ESR }}</td>
@@ -29,17 +26,17 @@
       <td> {{ next_ESR }}</td>
     </tr>
     <tr>
-    {%  else %}
+    {% else %}
     <tr>
       <th class="w-auto">Latest version</th>
       <td> {{ current_ESR }}</td>
     </tr>
     <tr>
-    {%  endif %}
+    {% endif %}
       <th class="w-auto">Release Date</th>
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
-    </table>
+  </table>
 
 <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
   <tr>
@@ -59,7 +56,7 @@
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>{{ values.old_esr }}</td>
     <td title="{{ values.date|format_date('full', locale='en') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
 
-    {%  if values.release|number_format in esr_majors %}
+    {% if values.release|number_format in esr_majors %}
       <small class="badge bg-warning text-dark">New ESR branch!</small>
     {% endif %}
 
@@ -71,11 +68,10 @@
     </td>
   </tr>
 {% endfor %}
-
 </table>
 
 {% endblock %}
 
 {% block footer %}
-     {%  include 'footer_UTC_warning.html.twig' %}
+  {% include 'footer_UTC_warning.html.twig' %}
 {% endblock %}

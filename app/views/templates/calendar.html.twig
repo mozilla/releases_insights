@@ -4,7 +4,6 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/calendar/">
 {% endblock %}
 
@@ -12,13 +11,10 @@
   <header class="mx-auto">
     <h1>Firefox Release Calendar</h1>
   </header>
-
 {% endblock %}
 
 {% block main %}
 {%  set year = 'now'|date('Y') %}
-
-
 <table class="table table-light table-striped caption-top table-hover table-sm w-auto justify-content-center mt-4 text-center">
   <caption class="h4 text-center text-warning">Upcoming releases</caption>
   <thead>
@@ -36,35 +32,33 @@
       <th scope="col" class="px-4">Release day</th>
     </tr>
   </thead>
+  <tbody>
+  {% set check = 0 %}
+  {% set date_pattern = 'MMMM d' %}
+  {% for values in upcoming_releases %}
+    {% if values.release_date|format_date(pattern='YYYY' , locale='en') != year %}
+    <tr>
+      <th colspan="8" class="text-center table-warning">{{ values.release_date|format_date(pattern='YYYY' , locale='en') }}</th>
+    </tr>
+      {% set year = values.release_date|format_date(pattern='YYYY' , locale='en') %}
+    {% endif %}
 
-<tbody>
-{% set check = 0 %}
-{% set date_pattern = 'MMMM d' %}
-{% for values in upcoming_releases %}
-  {% if values.release_date|format_date(pattern='YYYY' , locale='en') != year %}
-  <tr>
-    <th colspan="8" class="text-center table-warning">{{ values.release_date|format_date(pattern='YYYY' , locale='en') }}</th>
-  </tr>
-    {% set year = values.release_date|format_date(pattern='YYYY' , locale='en') %}
-  {% endif %}
-
-  <tr>
-  {% if check != values.quarter %}
-    {% set rowspan = upcoming_quarters[values.quarter] %}
-    <th rowspan="{{ rowspan}}" class="force-default-bg align-middle border-end">{{ values.quarter | split('-', 2)[1] }}</th>
-    {% set check = values.quarter %}
-  {% endif %}
-    <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
-    <td class="text-muted">{{ values.esr }}</td>
-    <td>{{ values.owner }}</td>
-    <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
-    <td title="{{ values.soft_freeze|format_date('full', locale='en') }}">{{ values.soft_freeze|format_date(pattern=date_pattern, locale='en')}}</td>
-    <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
-    <td title="{{ values.release_date|format_date('full', locale='en') }}" class="text-color-1">{{ values.release_date|format_date(pattern=date_pattern, locale='en') }}</td>
-  </tr>
-{% endfor %}
-</tbody>
-
+    <tr>
+    {% if check != values.quarter %}
+      {% set rowspan = upcoming_quarters[values.quarter] %}
+      <th rowspan="{{ rowspan}}" class="force-default-bg align-middle border-end">{{ values.quarter | split('-', 2)[1] }}</th>
+      {% set check = values.quarter %}
+    {% endif %}
+      <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
+      <td class="text-muted">{{ values.esr }}</td>
+      <td>{{ values.owner }}</td>
+      <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
+      <td title="{{ values.soft_freeze|format_date('full', locale='en') }}">{{ values.soft_freeze|format_date(pattern=date_pattern, locale='en')}}</td>
+      <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
+      <td title="{{ values.release_date|format_date('full', locale='en') }}" class="text-color-1">{{ values.release_date|format_date(pattern=date_pattern, locale='en') }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
 </table>
 
 <p class="text-center bg-secundary w-75 mx-auto opacity-75  mt-2">The above schedule can also be consulted as a <a href="/calendar/monthly/">detailed monthly view.</a></p>
@@ -90,54 +84,51 @@
 <table class="table caption-top table-light table-striped table-hover table-bordered table-sm w-auto justify-content-center mt-4 text-center">
   <caption class="h4 text-center text-warning">Past releases</caption>
   <thead>
-  <tr>
-    <th scope="col" class="px-4">Version</th>
-    <th scope="col" class="px-4">Matching ESR</th>
-    <th scope="col" class="px-4">Release owner</th>
-    <th scope="col" class="px-4">Nightly starts</th>
-    <th scope="col" class="px-4">Beta starts</th>
-    <th scope="col" class="px-4">Release day</th>
-  </tr>
-</thead>
-<tbody>
-{% for values in past_releases %}
-  <tr>
-    <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
-    <td class="text-muted">{{ values.esr }}</td>
-    <td>{{ values.owner }}</td>
-    {%  if values.version < 6 %}
-    <td></td>
-    {% else %}
-    <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
-    {%  endif %}
-    <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
-    <td title="{{ values.release_date|format_date('full', locale='en') }}">{{ values.release_date|format_date(pattern=date_pattern , locale='en') }}</td>
-      </tr>
-{% endfor %}
-</tbody>
-
+    <tr>
+      <th scope="col" class="px-4">Version</th>
+      <th scope="col" class="px-4">Matching ESR</th>
+      <th scope="col" class="px-4">Release owner</th>
+      <th scope="col" class="px-4">Nightly starts</th>
+      <th scope="col" class="px-4">Beta starts</th>
+      <th scope="col" class="px-4">Release day</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for values in past_releases %}
+    <tr>
+      <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
+      <td class="text-muted">{{ values.esr }}</td>
+      <td>{{ values.owner }}</td>
+      {%  if values.version < 6 %}
+      <td></td>
+      {% else %}
+      <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
+      {%  endif %}
+      <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
+      <td title="{{ values.release_date|format_date('full', locale='en') }}">{{ values.release_date|format_date(pattern=date_pattern , locale='en') }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
 </table>
 </details>
 {% endblock %}
 
 {% block footer %}
 
-{%  include 'footer_UTC_warning.html.twig' %}
+{% include 'footer_UTC_warning.html.twig' %}
 
 <script nonce="{{constant('NONCE')}}">
-function openTarget() {
-  var hash = location.hash.substring(1);
-  if (hash) var details = document.getElementById(hash);
-  if (details && details.tagName.toLowerCase() === 'details') {
-    details.open = true;
-    location.hash = hash;
+  function openTarget() {
+    var hash = location.hash.substring(1);
+    if (hash) var details = document.getElementById(hash);
+    if (details && details.tagName.toLowerCase() === 'details') {
+      details.open = true;
+      location.hash = hash;
+    }
   }
-}
 
-window.addEventListener('hashchange', openTarget);
-
-openTarget();
-
+  window.addEventListener('hashchange', openTarget);
+  openTarget();
 </script>
 
 {% endblock %}

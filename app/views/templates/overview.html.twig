@@ -20,11 +20,11 @@
   <div class="row text-center">
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-esr.svg" width="70%" alt="Firefox ESR logo"></div>
-      {%  if constant('ESR') and constant('ESR_NEXT') %}
+      {% if constant('ESR') and constant('ESR_NEXT') %}
       <h2 {{ tooltip_defaults|raw }} title="Latest versions:<br><b>{{ constant('ESR') }}</b> and <b>{{ constant('ESR_NEXT') }}</b>">{{ constant('OLD_ESR') }} / {{ constant('MAIN_ESR')|number_format }}</h2>
-      {%  else %}
+      {% else %}
       <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('ESR') }}</b>">{{ constant('MAIN_ESR') }}</h2>
-      {%  endif %}
+      {% endif %}
       <h3><a href="/release/?version=esr" {{ tooltip_defaults|raw }} title="Click this link to get data about the last version shipped to users on the <b>ESR</b> channel." class="link-info">ESR</a></h3>
     </div>
     <div class="col-sm">
@@ -33,9 +33,9 @@
       <h3><a href="/release/?version=release" {{ tooltip_defaults|raw }} title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel." class="link-info">Release</a></h3>
     </div>
 
-      {% if beta_is_the_next_ESR %}
-        {% set margin = ' mb-0' %}
-      {% endif %}
+    {% if beta_is_the_next_ESR %}
+      {% set margin = ' mb-0' %}
+    {% endif %}
 
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-beta.svg" width="70%" alt="Firefox Beta logo"></div>
@@ -48,7 +48,7 @@
       </b>" class="{{ margin }}">{{ constant('FIREFOX_BETA')|number_format }}</h2>
 
       {% if beta_is_the_next_ESR %}
-        <span class="mt-0 mb-0 badge bg-light text-dark">{{ constant('FIREFOX_BETA')|number_format }} is the next ESR!</span >
+      <span class="mt-0 mb-0 badge bg-light text-dark">{{ constant('FIREFOX_BETA')|number_format }} is the next ESR!</span>
       <h3 class="mt-1"><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
       {% else %}
       <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
@@ -63,7 +63,7 @@
 </div>
 
   {% if nightly_cycle_dates.merge_day|date == now|date %}
-      {% set merge_day = true %}
+    {% set merge_day = true %}
   {% endif %}
 
 
@@ -80,9 +80,7 @@
       {% else %}
       is shipping today!
       {% endif%}
-
     </b>
-
   </h3>
   {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}
@@ -109,10 +107,10 @@
 {% endblock %}
 
 {% block footer %}
-     {%  include 'footer_UTC_warning.html.twig' %}
+  {%  include 'footer_UTC_warning.html.twig' %}
   <script nonce="{{constant('NONCE')}}">
-$(function () {
-  $('[data-bs-toggle="tooltip"]').tooltip()
-})
+    $(function () {
+      $('[data-bs-toggle="tooltip"]').tooltip()
+    })
   </script>
 {% endblock %}

@@ -4,21 +4,19 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/release/">
 {% endblock %}
 
 {% block header %}
-     {%  include 'release_nav.html.twig' %}
+  {% include 'release_nav.html.twig' %}
 {% endblock %}
 
-  {% if release == constant('FIREFOX_RELEASE')|number_format %}
-    {% set alert = 'Version shipping to end-users on the <b class="text-danger">release</b> channel.' %}
-    {% set channel = 'release' %}
-  {% endif %}
+{% if release == constant('FIREFOX_RELEASE')|number_format %}
+  {% set alert = 'Version shipping to end-users on the <b class="text-danger">release</b> channel.' %}
+  {% set channel = 'release' %}
+{% endif %}
 
 {% block main %}
-
   {% if channel == 'release' %}
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
   {% endif %}
@@ -94,7 +92,7 @@
     </tr>
     {% endif %}
 
-    </table>
+  </table>
   <table class="table table-light table-striped table-sm w-50 justify-content-center mt-4">
     <tr>
       <th colspan="2" class="text-center table-warning">Key Milestones</th>
@@ -119,13 +117,13 @@
     {% if dot_release_count > 0 %}
 
       {% for dot_release in 1..dot_release_count %}
-        {%  set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
+        {% set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
 
         {% if dot_release == 1 %}
               {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
-        {%  else %}
+        {% else %}
               {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_' ~ (dot_release -1) ~ '_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-        {%  endif %}
+        {% endif %}
 
         <tr>
           <th><a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a></th>
@@ -142,11 +140,10 @@
           </tr>
        {% endif %}
      {% endif %}
-
   </table>
 
 {% endblock %}
 
 {% block footer %}
-       {%  include 'footer_UTC_warning.html.twig' %}
+  {% include 'footer_UTC_warning.html.twig' %}
 {% endblock %}

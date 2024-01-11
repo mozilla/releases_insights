@@ -8,7 +8,6 @@
     <meta http-equiv="refresh" content="7200">
 {% endblock %}
 
-
 {% block header %}
      {%  include 'release_nav.html.twig' %}
 {% endblock %}
@@ -18,7 +17,6 @@
   {% if  release == constant('FIREFOX_RELEASE')|number_format + 1  %}
     {% set alert = 'Version currently on the <b class="text-danger">Beta</b> channel.' %}
     {% set channel = 'beta' %}
-
   {% elseif release == constant('FIREFOX_RELEASE')|number_format + 2 %}
     {% set alert = 'Version currently available on the <b class="text-danger">Nightly</b> channel.' %}
     {% set channel = 'nightly' %}
@@ -29,7 +27,6 @@
 
 {% if release == 'THATWASFOR116' %}
   {% set alert = alert ~ '
-
 
 <div class="alert alert-warning d-flex align-top p-2" role="alert">
   <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
@@ -50,7 +47,6 @@
 {% if release == 111 %}
   {% set alert = alert ~ '
 
-
 <div class="alert alert-warning d-flex align-top p-2" role="alert">
   <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
     <use xlink:href="#exclamation-triangle-fill"/>
@@ -65,7 +61,7 @@
 </div>
 
   '%}
-{%  endif %}
+{% endif %}
 
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
 
@@ -221,7 +217,7 @@
   {%
     set cycle_descriptions = cycle_descriptions|merge({'planned_dot_release': cycle_descriptions.planned_dot_release ~ v111_text })
   %}
-{%  endif %}
+{% endif %}
 
   {% set next_milestone = true %}
 
@@ -246,7 +242,6 @@
       {% endif %}
 
       {% if key == 'beta_9' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts <span class="fw-light">(security bugs included)</span></small>' %}
         {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
       {% endif %}
 
@@ -264,7 +259,7 @@
               <p>{{ cycle_descriptions[key]|raw }}</p>
               </details>
             </th>
-        {%  elseif key starts with 'beta' and key != 'beta_1' %}
+        {% elseif key starts with 'beta' and key != 'beta_1' %}
           <th class="text-muted fw-light">
               <details>
                 <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>

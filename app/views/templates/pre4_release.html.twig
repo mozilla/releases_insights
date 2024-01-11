@@ -4,12 +4,11 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/release/">
 {% endblock %}
 
 {% block header %}
-     {%  include 'release_nav.html.twig' %}
+  {% include 'release_nav.html.twig' %}
 {% endblock %}
 
 {% block main %}
@@ -33,9 +32,8 @@
     </td>
     </tr>
     </table>
-
 {% endblock %}
 
 {% block footer %}
-     {%  include 'footer_UTC_warning.html.twig' %}
+  {% include 'footer_UTC_warning.html.twig' %}
 {% endblock %}
