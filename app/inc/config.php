@@ -46,9 +46,19 @@ define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
 define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 
 // Are we on one of our staging sites
-define('LOCALHOST',  isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] === 'localhost');
-define('STAGING',    isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com' && ! LOCALHOST);
-define('PRODUCTION', isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'whattrainisitnow.com');
+define('LOCALHOST',
+    isset($_SERVER['HTTP_HOST'])
+    && str_starts_with($_SERVER['HTTP_HOST'], 'localhost')
+);
+define('STAGING',
+    isset($_SERVER['HTTP_HOST'])
+    && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com'
+    && ! LOCALHOST
+);
+define('PRODUCTION',
+    isset($_SERVER['HTTP_HOST'])
+    && $_SERVER['HTTP_HOST'] === 'whattrainisitnow.com'
+);
 
 // Define a Nonce for inline scripts
 define('NONCE', bin2hex(random_bytes(10)));
