@@ -30,11 +30,11 @@ return <<<"EOD"
     </tr>
     <tr>
         <td><a href="/api/nightly/?date={$yesterday}">api/nightly/?date={$yesterday}</a></td>
-        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub).</td>
+        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
     </tr>
     <tr>
         <td><a href="/api/nightly/crashes/?buildid=20190927094817">api/nightly/crashes/?buildid=20190927094817</a></td>
-        <td>Gives the crashes for a buildID (data from Socorro).</td>
+        <td>Gives the crashes for a buildID (data from Socorro)</td>
     </tr>
     <tr>
         <td><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a></td>
@@ -42,7 +42,7 @@ return <<<"EOD"
     </tr>
     <tr>
         <td><a href="/api/release/owners/">api/release/owners/</a></td>
-        <td>Historical list of all release managers for Firefox major release. We don’t have the names before Firefox 27</td>
+        <td>Historical list of all release managers for Firefox major releases</td>
     </tr>
     <tr>
         <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
@@ -66,19 +66,19 @@ return <<<"EOD"
     </tr>
     <tr>
         <td><a href="/">/</a></td>
-        <td>Homepage with a simple overview of the releases in flight.</td>
+        <td>Homepage with a simple overview of the releases in flight</td>
     </tr>
     <tr>
         <td><a href="/about">about</a></td>
-        <td>Get the list of views and public JSON API endpoints.</td>
+        <td>Get the list of views and public JSON API endpoints</td>
     </tr>
     <tr>
         <td><a href="/calendar">calendar</a></td>
-        <td>Overview of our upcoming releases.</td>
+        <td>Overview of our upcoming releases</td>
     </tr>
     <tr>
         <td><a href="/calendar/monthly/">calendar/monthly/</a></td>
-        <td>General calendar view of milestones for upcoming releases.</td>
+        <td>General calendar view of milestones for upcoming releases</td>
     </tr>
     <tr>
         <td>
@@ -87,7 +87,7 @@ return <<<"EOD"
                 <li><a href="/nightly/?date={$yesterday}">nightly/?date={$yesterday}</a></li>
             </ul>
         </td>
-        <td>Provides the list of nightly buildIDs for a day, their crashes, changelog, bugs fixed.</td>
+        <td>Provides the list of nightly buildIDs for a day: crashes, changelog, bugs fixed</td>
     </tr>
     <tr>
         <td>
@@ -106,11 +106,11 @@ return <<<"EOD"
     </tr>
     <tr>
         <td><a href="/release/owners/">release/owners/</a></td>
-        <td>List all past releases per release owner.</td>
+        <td>List all past releases per release owner</td>
     </tr>
     <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
-        <td>Download an icalendar (.ics) file of future milestones for a future release. Can be imported into your calendar application.</td>
+        <td>Download an icalendar (.ics) file of future milestones for a future release.</td>
     </tr>
 </table>
 
