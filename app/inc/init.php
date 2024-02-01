@@ -26,7 +26,6 @@ if (PRODUCTION) {
 
 // Send HTTP security headers
 header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
 
 // Allow http ressources when ran locally
 if (! LOCALHOST) {
