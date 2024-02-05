@@ -18,6 +18,11 @@ class CalendarMonthly {
     {
         $start = (new DateTime('now'))->modify('first day of this month');
 
+        /* For unit tests which work on stale data, we fake a past date */
+        if (defined('TESTING_CONTEXT')) {
+            $start = new DateTime('2023-11-01');
+        }
+
         /* The end date is the last planned major release */
         $end = array_key_last((new Data())->getFutureReleases());
         $end = (new Data())->getFutureReleases()[$end];
@@ -32,6 +37,7 @@ class CalendarMonthly {
         foreach ($period as $month) {
             $upcoming_months[] = $month->format("Y-m-d");
         }
+
         return $upcoming_months;
     }
 }
