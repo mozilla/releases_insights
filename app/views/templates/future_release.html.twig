@@ -44,10 +44,10 @@
   '%}
 {% endif %}
 
-{% if release == 111 %}
+{% if release == 124 %}
   {% set alert = alert ~ '
 
-<div class="alert alert-warning d-flex align-top p-2" role="alert">
+<div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
   <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
     <use xlink:href="#exclamation-triangle-fill"/>
     <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@
 </svg>
 </svg>
   <div>
-    <a href="https://www.zerodayinitiative.com/blog/2023/1/11/announcing-pwn2own-vancouver-for-2023#browser">pwn2own</a> (March 22-24) may affect our planned dot release date.
+    <a href="https://www.zerodayinitiative.com/blog/2024/1/16/pwn2own-vancouver-2024-bring-cloud-nativecontainer-security-to-pwn2own">pwn2own</a> (March 20-22) may affect our planned dot release date.
   </div>
 </div>
 
@@ -210,12 +210,12 @@
     }
   %}
 
-{% if release == 111 %}
+{% if release == 124 %}
   {%
-    set v111_text = "<br><br><span class=\"fw-bold\">Please note:</span><span> pwn2own 2023 takes place on March 22-24. If there are any Firefox exploits announced, then we may need to chemspill prior to the planned dot release. The timing of the chemspill may impact the planned dot release. We will send further communication closer to the planned dot release date.</span>"
+    set pwn2own_text = "<br><br><span class=\"fw-bold\">Please note:</span><span> Pwn2Own 2024 takes place on March 20-22. If there are any Firefox exploits announced, then we may need to chemspill prior to the planned dot release. The timing of the chemspill may impact the planned dot release. We will send further communication closer to the planned dot release date.</span>"
   %}
   {%
-    set cycle_descriptions = cycle_descriptions|merge({'planned_dot_release': cycle_descriptions.planned_dot_release ~ v111_text })
+    set cycle_descriptions = cycle_descriptions|merge({'planned_dot_release': cycle_descriptions.planned_dot_release ~ pwn2own_text })
   %}
 {% endif %}
 
