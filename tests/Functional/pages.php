@@ -16,7 +16,7 @@ $paths = [
     ['release/', 200, 'Release Owner', 'id="release"'],
     ['release/?version=beta', 200, '', '<meta http-equiv="refresh" content="7200">'], // Auto-refresh the Future Release page every 2 hours
     ['', 200, 'Firefox Trains', '<meta http-equiv="refresh" content="21600">'], // Auto-refresh the Home page every 6 hours
-    ['release/owners/', 200, 'Major releases per release owner', 'id="release_owners"'],
+    ['release/owners/', 200, 'Major releases per release owner', 'version=3.6'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
     ['sitemap/', 301, '', ''],
     ['sitemap.txt', 200, '', ''],
@@ -29,7 +29,7 @@ $obj
 
 $check = function ($object, $paths) {
     foreach ($paths as $values) {
-        list($path, $http_code, $content, $content2) = $values;
+        [$path, $http_code, $content, $content2] = $values;
         $object
             ->setPath($path)
             ->fetchContent()
