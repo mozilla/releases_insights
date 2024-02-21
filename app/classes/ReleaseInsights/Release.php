@@ -53,76 +53,40 @@ class Release
         $nightly = new DateTime($all_releases[$nightly_target]);
         $nightly->modify('-1 day');
 
-        $x = match ($this->version) {
-            // We keep some past releases as code examples
-            '110.0' => 4,
-            '123.0' => 4,
-            default => 3,
-        };
-
         // Transform all the DateTime objects in the $schedule array into formated date strings
         $date = function (string|object $day) use ($nightly): string {
             return is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
         };
 
-        if ($this->version === '122.0') {
-            $schedule = [
-                'nightly_start'       => $date($nightly),
-                'qa_request_deadline' => $date('Friday'),
-                'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Wednesday 21:00')),
-                'soft_code_freeze'    => $date('Thursday 08:00'),
-                'qa_pre_merge_done'   => $date('Friday 14:00'),
-                'qa_test_plan_due'    => $date('Friday'),
-                'string_freeze'       => $date('Friday'),
-                'merge_day'           => $date('Monday'),
-                'beta_1'              => $date('Monday'),
-                'beta_2'              => $date('Wednesday 13:00'),
-                'beta_3'              => $date('Friday 13:00'),
-                'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
-                'beta_4'              => $date('next Friday 13:00'),
-                'beta_5'              => $date('Wednesday 13:00'),
-                'beta_6'              => $date('Friday 13:00'),
-                'beta_7'              => $date('Monday 13:00'),
-                'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
-                'beta_8'              => $date('Wednesday 13:00'),
-                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
-                'beta_9'              => $date('Friday 13:00'),
-                'rc_gtb'              => $date('Monday 21:00'),
-                'rc'                  => $date('Tuesday'),
-                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
-            ];
-        } else {
-            $schedule = [
-                'nightly_start'       => $date($nightly),
-                'qa_request_deadline' => $date('Friday'),
-                'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
-                'qa_feature_done_2'   => $date($nightly->modify('+' . ($x - 2) . ' weeks')->modify('Thursday 08:00')),
-                'soft_code_freeze'    => $date('Thursday 08:00'),
-                'qa_pre_merge_done'   => $date('Friday 14:00'),
-                'qa_test_plan_due'    => $date('Friday'),
-                'string_freeze'       => $date('Friday'),
-                'merge_day'           => match ($this->version) {
-                    '135.0' => $date('Monday +2 week'),
-                    default => $date('Monday'),
-                },
-                'beta_1'              => $date('Monday'),
-                'beta_2'              => $date('Wednesday 13:00'),
-                'beta_3'              => $date('Friday 13:00'),
-                'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
-                'beta_4'              => $date('Monday 13:00'),
-                'beta_5'              => $date('Wednesday 13:00'),
-                'beta_6'              => $date('Friday 13:00'),
-                'beta_7'              => $date('Monday 13:00'),
-                'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
-                'beta_8'              => $date('Wednesday 13:00'),
-                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
-                'beta_9'              => $date('Friday 13:00'),
-                'rc_gtb'              => $date('Monday 21:00'),
-                'rc'                  => $date('Tuesday'),
-                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
-            ];
-        }
+        $schedule = [
+            'nightly_start'       => $date($nightly),
+            'qa_request_deadline' => $date('Friday'),
+            'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
+            'qa_feature_done_2'   => match ($this->version) {
+                '135.0' => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
+                default => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+            },
+            'soft_code_freeze'    => $date('Thursday 08:00'),
+            'qa_pre_merge_done'   => $date('Friday 14:00'),
+            'qa_test_plan_due'    => $date('Friday'),
+            'string_freeze'       => $date('Friday'),
+            'merge_day'           => $date('Monday'),
+            'beta_1'              => $date('Monday'),
+            'beta_2'              => $date('Wednesday 13:00'),
+            'beta_3'              => $date('Friday 13:00'),
+            'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
+            'beta_4'              => $date('Monday 13:00'),
+            'beta_5'              => $date('Wednesday 13:00'),
+            'beta_6'              => $date('Friday 13:00'),
+            'beta_7'              => $date('Monday 13:00'),
+            'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
+            'beta_8'              => $date('Wednesday 13:00'),
+            'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
+            'beta_9'              => $date('Friday 13:00'),
+            'rc_gtb'              => $date('Monday 21:00'),
+            'rc'                  => $date('Tuesday'),
+            'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
+        ];
 
         if (! in_array($this->version, $this->no_planned_dot_releases)) {
             if ($this->version === '121.0') {
