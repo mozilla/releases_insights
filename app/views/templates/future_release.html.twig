@@ -15,10 +15,10 @@
 {% block main %}
 {% if not fallback_content %}
   {% if  release == constant('FIREFOX_RELEASE')|number_format + 1  %}
-    {% set alert = 'Version currently on the <b class="text-danger">Beta</b> channel.' %}
+    {% set alert = 'Version shipping to users on the <b class="text-danger">Beta</b> channel.' %}
     {% set channel = 'beta' %}
   {% elseif release == constant('FIREFOX_RELEASE')|number_format + 2 %}
-    {% set alert = 'Version currently available on the <b class="text-danger">Nightly</b> channel.' %}
+    {% set alert = 'Version shipping to users on the <b class="text-danger">Nightly</b> channel.' %}
     {% set channel = 'nightly' %}
   {% else %}
     {% set alert = 'Future version, development not started yet.' %}
