@@ -25,7 +25,7 @@
       {% else %}
       <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('ESR') }}</b>">{{ constant('MAIN_ESR') }}</h2>
       {% endif %}
-      <h3><a href="/release/?version=esr" {{ tooltip_defaults|raw }} title="Click this link to get data about the last version shipped to users on the <b>ESR</b> channel." class="link-info">ESR</a></h3>
+      <h3><a href="/release/?version=esr" {{ tooltip_defaults|raw }} title="Click this link to get the schedule of releases on the <b>ESR</b> channel." class="link-info">ESR</a></h3>
     </div>
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo.svg" width="70%" alt="Firefox logo"></div>
@@ -57,7 +57,7 @@
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-nightly.svg" width="70%" alt="Firefox Nightly logo"></div>
       <h2 {{ tooltip_defaults|raw }} title="Latest buildID:<br><b>{{ latest_nightly }}</b>">{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
-      <h3><a href="/release/?version=nightly" {{ tooltip_defaults|raw }} title="Click this link to get information about the <b>Nightly</b> cycle." class="link-info">Nightly</a></h3>
+      <h3><a href="/release/?version=nightly" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Nightly</b> cycle." class="link-info">Nightly</a></h3>
     </div>
   </div>
 </div>
