@@ -302,11 +302,11 @@ class Utils
         $matches = 0;
         foreach ((array) $needles as $needle) {
             // Missing needle
-            if (! str_contains($haystack, $needle) && $match_all) {
+            if (! str_contains($haystack, (string) $needle) && $match_all) {
                 return false;
             }
 
-            if (str_contains($haystack, $needle)) {
+            if (str_contains($haystack, (string) $needle)) {
                 // If I need to match any needle, I can stop at the first match
                 if (! $match_all) {
                     return true;

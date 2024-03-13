@@ -90,7 +90,7 @@ $rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
 // Number of Beta builds
 $beta_count = count((array) array_filter(
     $firefox_releases,
-    fn ($key) => str_starts_with($key, 'firefox-' . $requested_version . 'b'),
+    fn ($key) => str_starts_with((string) $key, 'firefox-' . $requested_version . 'b'),
     ARRAY_FILTER_USE_KEY
 ));
 
@@ -103,7 +103,7 @@ if ($requested_version == '14.0') {
 // Number of dot releases
 $dot_release_count = count((array) array_filter(
     $firefox_releases,
-    fn ($key) => str_starts_with($key, 'firefox-' . $requested_version . '.') && ! str_ends_with($key, 'esr'),
+    fn ($key) => str_starts_with((string) $key, 'firefox-' . $requested_version . '.') && ! str_ends_with((string) $key, 'esr'),
     ARRAY_FILTER_USE_KEY
 ));
 

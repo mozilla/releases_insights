@@ -7,13 +7,13 @@ namespace ReleaseInsights;
 class Data
 {
     /** @var array<string, string> $future_releases */
-    private array $future_releases;
+    private readonly array $future_releases;
 
     /** @var array<string, string> $release_owners */
-    private array $release_owners;
+    private readonly array $release_owners;
 
     public function __construct(
-        private string $pd_url = 'https://product-details.mozilla.org/1.0/',
+        private readonly string $pd_url = 'https://product-details.mozilla.org/1.0/',
         public int $cache_duration = 900 // 15 minutes
     ) {
         $this->release_owners  = include DATA . 'release_owners.php';
@@ -31,9 +31,7 @@ class Data
     {
         return array_filter(
             $this->future_releases,
-            function (string $key) {
-                return (int) $key > RELEASE;
-            },
+            fn(string $key) => (int) $key > RELEASE,
             ARRAY_FILTER_USE_KEY
         );
     }
@@ -47,9 +45,7 @@ class Data
         // Reduce to only ESR releases
         $esr_releases = array_filter(
             $esr_releases,
-            function (string $key) {
-                return str_ends_with($key, 'esr');
-            },
+            fn(string $key) => str_ends_with($key, 'esr'),
             ARRAY_FILTER_USE_KEY
         );
 

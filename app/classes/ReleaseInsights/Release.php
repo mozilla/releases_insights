@@ -12,9 +12,9 @@ class Release
     public array $no_planned_dot_releases = ['108.0', '111.0', '115.0', '120.0'];
 
     /* @phpstan-ignore-next-line */
-    private Status $release_status;
+    private readonly Status $release_status;
 
-    private string $version;
+    private readonly string $version;
 
     public function __construct(string $version)
     {
@@ -54,9 +54,7 @@ class Release
         $nightly->modify('-1 day');
 
         // Transform all the DateTime objects in the $schedule array into formated date strings
-        $date = function (string|object $day) use ($nightly): string {
-            return is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
-        };
+        $date = fn(string|object $day): string => is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
 
         $schedule = [
             'nightly_start'       => $date($nightly),

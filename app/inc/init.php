@@ -8,7 +8,7 @@ use function Sentry\{captureLastError, init};
 
 // Catch errors via Ignition library in dev mode only
 if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
-    if (class_exists('\Spatie\Ignition\Ignition')) {
+    if (class_exists(\Spatie\Ignition\Ignition::class)) {
         \Spatie\Ignition\Ignition::make()
             ->setEditor('sublime')
             ->register();

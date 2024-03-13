@@ -66,18 +66,14 @@ test('ReleaseCalendar::getICS', function () {
     expect($data)->toStartWith('BEGIN:VCALENDAR')->and($data)->toEndWith('END:VCALENDAR');
 
     // Remove random UIDs and test content
-    $func = function ($value) {
-        return ! U::startsWith($value, ['UID', 'DTSTAMP']);
-    };
+    $func = fn($value) => ! U::startsWith($value, ['UID', 'DTSTAMP']);
 
     $clean_array = function ($input) {
         $output = explode("\r\n", $input);
         $output = array_filter($output); // remove empty items
         $output = array_filter(
             $output,
-            function ($value) {
-            return ! U::startsWith($value, ['UID', 'DTSTAMP']);
-        }
+            fn($value) => ! U::startsWith($value, ['UID', 'DTSTAMP'])
         );
 
         return $output;

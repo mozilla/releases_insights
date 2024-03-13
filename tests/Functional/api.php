@@ -25,7 +25,7 @@ $obj
 
 $check = function ($object, $paths) {
     foreach ($paths as $values) {
-        list($path, $http_code, $content) = $values;
+        [$path, $http_code, $content] = $values;
         $object
             ->setPath($path)
             ->fetchContent()

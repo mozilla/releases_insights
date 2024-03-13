@@ -41,7 +41,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
         $rc_build = Utils::getJson($aus_url . 'rules/firefox-beta', 900)['mapping'] ?? 'N/A';
 
         if ($rc_build !== 'N/A') {
-            $rc_build = explode('-', $rc_build)[1];
+            $rc_build = explode('-', (string) $rc_build)[1];
             $rc_build = str_contains($rc_build, 'b') ? FIREFOX_BETA : BETA . ' RC';
         }
     }

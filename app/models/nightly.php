@@ -30,7 +30,7 @@ if (empty($nightlies)) {
     );
 
     // We want to make sure that the latest nightly from archive.mozilla.org is not yesterday's nightly
-    if (isset($latest_nightly['buildid']) && $today === date('Ymd', strtotime($latest_nightly['buildid']))) {
+    if (isset($latest_nightly['buildid']) && $today === date('Ymd', strtotime((string) $latest_nightly['buildid']))) {
         $nightlies = [
             $latest_nightly['buildid'] => [
                 'revision' => $latest_nightly['moz_source_stamp'],

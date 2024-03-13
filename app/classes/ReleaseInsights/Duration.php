@@ -12,7 +12,7 @@ use DateInterval, DatePeriod, DateTime;
 class Duration
 {
    /** @var array<string> $wellness_days */
-    private array $wellness_days;
+    private readonly array $wellness_days;
 
     public function __construct(
         public readonly Datetime $start,

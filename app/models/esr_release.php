@@ -23,8 +23,8 @@ foreach ($upcoming_releases as $k => $v) {
 
 return [
     /* @phpstan-ignore-next-line */
-    $next_ESR     = ESR_NEXT !== '' ? str_replace('esr', '', ESR_NEXT) : null,
-    $current_ESR  = str_replace('esr', '', ESR),
+    $next_ESR     = ESR_NEXT !== '' ? str_replace('esr', '', (string) ESR_NEXT) : null,
+    $current_ESR  = str_replace('esr', '', (string) ESR),
     /* @phpstan-ignore-next-line */
     $release_date = ESR_NEXT !== '' ? $esr_releases[$next_ESR] : $esr_releases[$current_ESR],
     $esr_calendar,

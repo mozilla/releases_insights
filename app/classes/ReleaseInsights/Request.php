@@ -32,7 +32,7 @@ class Request
                 $this->request = $path;
 
                 if (isset($request['path'])) {
-                    $this->path = $this->cleanPath($request['path']);
+                    $this->path = static::cleanPath($request['path']);
                 }
 
                 if (isset($request['query'])) {

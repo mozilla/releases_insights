@@ -25,13 +25,11 @@ class Bugzilla
     {
         return preg_replace_callback(
             "/bug +\d+/i",
-            function (array $matches) {
-                return '<a href="https://bugzilla.mozilla.org/'
-                . trim(str_ireplace('bug', '', $matches[0]))
-                . '">'
-                . $matches[0]
-                . '</a>';
-            },
+            fn(array $matches) => '<a href="https://bugzilla.mozilla.org/'
+            . trim(str_ireplace('bug', '', (string) $matches[0]))
+            . '">'
+            . $matches[0]
+            . '</a>',
             $text
         );
     }
@@ -78,7 +76,7 @@ class Bugzilla
 
         foreach ($changesets as $items) {
             foreach ($items as $subitem) {
-                $subitem = explode("\n", $subitem['desc'])[0];
+                $subitem = explode("\n", (string) $subitem['desc'])[0];
                 $subitem = strtolower(Utils::mtrim($subitem));
 
                 if (Utils::startsWith($subitem, ['no bug', 'automatic version bump'])) {
