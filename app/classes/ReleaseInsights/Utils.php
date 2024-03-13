@@ -6,6 +6,7 @@ namespace ReleaseInsights;
 
 use Cache\Cache;
 use DateTime;
+use GuzzleHttp\Client;
 use Json\Json;
 
 class Utils
@@ -206,24 +207,23 @@ class Utils
 
         // We don't want to make external requests in Unit Tests
         // @codeCoverageIgnoreStart
-
-        // We ignore warnings for 404 errors as we don't want to spam Sentry
+        $client = new Client();
         // We know that some queries fail for hg.mozilla.org but we deal with that in templates
-        $context = stream_context_create(['http' => ['ignore_errors' => true]]);
-        $data = file_get_contents(filename: $url, context: $context);
+        // We ignore warnings for 404 errors as we don't want to spam Sentry
+        $response = $client->request('GET', $url, ['http_errors' => false]);
 
         // Request to Product-details failed (no answer from remote)
         // We prefer to die here because this data is essential to the whole app.
-        if ($data === false && str_contains($url, 'product-details.mozilla.org')) {
+        if ($response->getStatusCode() != 200 && str_contains($url, 'product-details.mozilla.org')) {
             die("Key external ressource {$url} currently not available, please try reloading the page.");
         }
 
         // Request failed, let's return an empty string for now
-        if ($data === false) {
+        if ($response->getStatusCode() != 200) {
             return '';
         }
 
-        return $data;
+        return $response->getBody()->getContents();
         // @codeCoverageIgnoreEnd
     }
 

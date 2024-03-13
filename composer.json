@@ -36,7 +36,8 @@
         "benhall14/php-calendar": "^1.4",
         "pchevrel/bzkarma": "0.7",
         "cweagans/composer-patches": "^1.7",
-        "sentry/sentry": "^4.0"
+        "sentry/sentry": "^4.0",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "require-dev": {
         "psy/psysh": "^0.11",
