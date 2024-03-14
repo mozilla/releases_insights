@@ -125,6 +125,7 @@ if ($requested_version_int <= RELEASE) {
         $nightly_emergency,
         $cycle_dates,
         $deadlines,
+        $rollout,
     ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -136,6 +137,7 @@ if ($requested_version_int <= RELEASE) {
         'nightly_emergency'    => $nightly_emergency,
         'cycle_dates'          => $cycle_dates,
         'deadlines'            => $deadlines,
+        'beta_rollout'         => $rollout,
     ]);
 } else {
     $template_file = 'future_release.html.twig';

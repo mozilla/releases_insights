@@ -96,6 +96,11 @@ foreach ($cycle_dates as $k => $date) {
     }
 }
 
+// Check current rollout for the beta channel
+if ((int) $requested_version === BETA) {
+    $rollout = Utils::getJson('https://aus-api.mozilla.org/api/v1/rules/firefox-beta')['backgroundRate'];
+}
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -105,4 +110,5 @@ return [
     $nightly_emergency,
     $cycle_dates,
     $deadlines,
+    $rollout ?? -1,
 ];

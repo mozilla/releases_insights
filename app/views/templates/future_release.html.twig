@@ -17,6 +17,17 @@
   {% if  release == constant('FIREFOX_RELEASE')|number_format + 1  %}
     {% set alert = 'Version shipping to users on the <b class="text-danger">Beta</b> channel.' %}
     {% set channel = 'beta' %}
+    {% set rollout = '
+      <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-html="true"
+          title="This is the background update rate.<br><b>Not the uptake rate!</b>"
+        >
+        <sup class="fw-normal fst-italic text-secondary border-bottom">(' ~ beta_rollout ~ '% rollout)</sup>
+      </span>
+    '
+    %}
   {% elseif release == constant('FIREFOX_RELEASE')|number_format + 2 %}
     {% set alert = 'Version shipping to users on the <b class="text-danger">Nightly</b> channel.' %}
     {% set channel = 'nightly' %}
@@ -101,6 +112,7 @@
       {% else %}
         {{ constant('FIREFOX_BETA') }}
       {% endif %}
+      {{ rollout|raw }}
       </td>
     </tr>
     {% endif %}

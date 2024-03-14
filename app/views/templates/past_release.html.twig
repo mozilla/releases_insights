@@ -12,7 +12,16 @@
 {% endblock %}
 {% if release == constant('FIREFOX_RELEASE')|number_format %}
   {% set alert = 'Version shipping to users on the <b class="text-danger">Release</b> channel.' %}
-  {% set rollout = '<small class="fw-normal fst-italic text-secondary">shipping at ' ~ release_rollout ~ '% rollout</small>' %}
+  {% set rollout = '
+    <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-html="true"
+        title="This is the background update rate.<br><b>Not the uptake rate!</b>"
+      >
+      <sup class="fw-normal fst-italic text-secondary border-bottom">(' ~ release_rollout ~ '% rollout)</sup>
+    </span>
+  ' %}
   {% set channel = 'release' %}
 {% endif %}
 
@@ -156,4 +165,11 @@
 
 {% block footer %}
   {% include 'footer_UTC_warning.html.twig' %}
+  <script src="/assets/jquery/jquery.slim.min.js"></script>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script nonce="{{constant('NONCE')}}">
+  $(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+  });
+  </script>
 {% endblock %}
