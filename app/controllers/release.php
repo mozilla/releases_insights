@@ -87,6 +87,7 @@ if ($requested_version_int <= RELEASE) {
         $beta_start_date,
         $firefox_releases,
         $no_planned_dot_releases,
+        $release_rollout
     ] = require_once MODELS . 'past_release.php';
 
     $template_file = 'past_release.html.twig';
@@ -111,6 +112,7 @@ if ($requested_version_int <= RELEASE) {
         'beta_start_date'         => $beta_start_date,
         'firefox_releases'        => $firefox_releases,
         'no_planned_dot_releases' => $no_planned_dot_releases,
+        'release_rollout'         => $release_rollout,
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
@@ -123,6 +125,7 @@ if ($requested_version_int <= RELEASE) {
         $nightly_emergency,
         $cycle_dates,
         $deadlines,
+        $rollout,
     ] = require_once MODELS . 'future_release.php';
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -134,6 +137,7 @@ if ($requested_version_int <= RELEASE) {
         'nightly_emergency'    => $nightly_emergency,
         'cycle_dates'          => $cycle_dates,
         'deadlines'            => $deadlines,
+        'beta_rollout'         => $rollout,
     ]);
 } else {
     $template_file = 'future_release.html.twig';
