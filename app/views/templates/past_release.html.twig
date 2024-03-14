@@ -10,9 +10,9 @@
 {% block header %}
   {% include 'release_nav.html.twig' %}
 {% endblock %}
-
 {% if release == constant('FIREFOX_RELEASE')|number_format %}
   {% set alert = 'Version shipping to users on the <b class="text-danger">Release</b> channel.' %}
+  {% set rollout = '<small class="fw-normal fst-italic text-secondary">shipping at ' ~ release_rollout ~ '% rollout</small>' %}
   {% set channel = 'release' %}
 {% endif %}
 
@@ -106,7 +106,12 @@
       <td title="{{ beta_start_date|format_date('full', locale='en') }}">{{ beta_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr>
-      <th>{{ release }}.0</th>
+      <th>
+        {{ release }}.0
+        {% if dot_release_count == 0 %}
+          {{ rollout|raw }}
+        {% endif %}
+      </th>
       {% if release == 14 %}
       <td>Version never shipped</td>
       {% else %}
@@ -126,7 +131,12 @@
         {% endif %}
 
         <tr>
-          <th><a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a></th>
+          <th>
+            <a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
+            {% if loop.last and release_rollout != -1%}
+              {{ rollout|raw }}
+            {% endif %}
+          </th>
           <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>
         </tr>
        {% endfor %}

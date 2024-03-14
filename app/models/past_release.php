@@ -132,6 +132,14 @@ $nightly_fixes = Bz::getBugsFromHgWeb(
 
 $no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_releases;
 
+// We use a hardcoded negative number for past releases
+$release_rollout = -1;
+
+// Let's check what the current rollout is for the release channel
+if ((int) $requested_version === RELEASE) {
+    $release_rollout = Utils::getJson('https://aus-api.mozilla.org/api/v1/rules/firefox-release')['backgroundRate'];
+}
+
 return [
     $last_release_date,
     $previous_release_date,
@@ -153,4 +161,5 @@ return [
     $beta_start_date,
     $firefox_releases,
     $no_planned_dot_releases,
+    $release_rollout,
 ];
