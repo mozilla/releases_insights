@@ -74,7 +74,6 @@
 
 # Security headers
 <IfModule mod_headers.c>
-    Header set Content-Security-Policy: "default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-4AEemGb0xJptoIGFP3Nd'; frame-ancestors 'none'"
     Header set Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
     Header set X-Content-Type-Options: nosniff
     Header set X-XSS-Protection: "1; mode=block"
