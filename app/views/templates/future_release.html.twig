@@ -112,7 +112,9 @@
       {% else %}
         {{ constant('FIREFOX_BETA') }}
       {% endif %}
-      {{ rollout|raw }}
+      {% if beta_rollout != -1 %}
+        {{ rollout|raw }}
+      {% endif %}
       </td>
     </tr>
     {% endif %}
