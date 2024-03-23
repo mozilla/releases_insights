@@ -31,7 +31,6 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "eluceo/ical": "^0.16.1",
-        "symfony/polyfill": "^1.23",
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.4",
         "pchevrel/bzkarma": "0.7",
