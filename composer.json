@@ -49,7 +49,8 @@
         "pchevrel/verif": "^0.5.1",
         "overtrue/phplint": "^4.0",
         "spatie/laravel-ignition": "^1.6",
-        "infection/infection": "^0.27.8"    },
+        "infection/infection": "^0.27.8",
+        "pestphp/pest-plugin-stressless": "^2.2"    },
     "autoload": {
         "psr-4": {
             "ReleaseInsights\\": "app/classes/ReleaseInsights",
