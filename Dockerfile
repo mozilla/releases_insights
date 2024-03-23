@@ -15,8 +15,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/1.4.12/install-php-extensions \
     --location --output /usr/local/bin/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions
-RUN /usr/local/bin/install-php-extensions mbstring intl curl dom @composer
-
+RUN /usr/local/bin/install-php-extensions opcache mbstring intl curl dom @composer
 
 # run composer to download and build dependencies/assets
 RUN mkdir -p /app/public/assets
