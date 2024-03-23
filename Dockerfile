@@ -29,7 +29,7 @@ RUN mkdir -p /app/patches/
 COPY patches/* /app/patches/
 COPY composer* /app/
 RUN cd /app && \
-    composer install --no-dev --no-interaction
+    composer install --no-dev --no-interaction --optimize-autoloader
 
 ###
 
