@@ -17,8 +17,8 @@ class Template
      */
     public function __construct(public string $template, public array $data)
     {
-        // Cache compiled templates on production
-        $this->template_caching = PRODUCTION ? CACHE_PATH : false;
+        // Cache compiled templates on production in a twig folder (10x difference)
+        $this->template_caching = PRODUCTION ? CACHE_PATH . 'twig/' : false;
 
         // @codeCoverageIgnoreStart
         // Pass extra variables to template in local dev mode
@@ -41,10 +41,17 @@ class Template
         // @codeCoverageIgnoreStart
         // Allow Twig debug mode in local dev mode
         if (LOCALHOST && !defined('TESTING_CONTEXT')) {
-            $twig = new Environment($twig_loader, ['debug' => true,]);
+            $twig = new Environment(
+                $twig_loader,
+                [
+                    'cache' => $this->template_caching,
+                    'debug' => true,
+                    'auto_reload' => true,
+                ]
+            );
             $twig->addExtension(new \Twig\Extension\DebugExtension());
         } else {
-            $twig = new Environment($twig_loader);
+            $twig = new Environment($twig_loader, ['cache' => $this->template_caching,]);
         }
         // @codeCoverageIgnoreEnd
 

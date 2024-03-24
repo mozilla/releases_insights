@@ -6,6 +6,7 @@
 .phplint-cache
 .phpunit.result.cache
 cache/*.cache
+cache/twig/
 composer.phar
 public/assets/bootstrap/
 public/assets/font-awesome/
