@@ -57,7 +57,7 @@
         }
     },
     "scripts": {
-        "cache:reset": "rm cache/*.cache",
+        "cache:clear": "rm cache/*.cache ; rm -rf cache/twig/*",
         "test:unit": "vendor/bin/pest",
         "test:unitcov": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
         "test:coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage | tail -15",
