@@ -15,6 +15,8 @@ class Bugzilla
      */
     public static function getBugListLink(array $bug_numbers): string
     {
+        $bug_numbers = array_unique($bug_numbers);
+        $bug_numbers = array_filter($bug_numbers, 'is_numeric');
         return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 

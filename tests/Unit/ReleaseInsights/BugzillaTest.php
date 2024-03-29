@@ -9,6 +9,14 @@ test('Bugzilla::getBugListLink', function () {
         'https://bugzilla.mozilla.org/buglist.cgi?bug_id=101%2C102%2C103',
         bz::getBugListLink([101, 102, 103])
     );
+    $this->assertEquals(
+        'https://bugzilla.mozilla.org/buglist.cgi?bug_id=101%2C103',
+        bz::getBugListLink([101, 101, 103])
+    );
+    $this->assertEquals(
+        'https://bugzilla.mozilla.org/buglist.cgi?bug_id=101%2C103',
+        bz::getBugListLink(['101', '101', '103'])
+    );
 });
 
 test('Bugzilla::linkify', function () {
