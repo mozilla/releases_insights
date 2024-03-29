@@ -16,7 +16,10 @@ class Release
 
     private readonly string $version;
 
-    public function __construct(string $version)
+    public function __construct(
+        string $version,
+        public readonly string $pd_url = 'https://product-details.mozilla.org/1.0/',
+    )
     {
         $this->version = Version::get($version);
         $major_version = Utils::getMajorVersion($version);
@@ -33,9 +36,9 @@ class Release
      *
      * @return array<string, string>
      */
-    public function getSchedule(string $pd_url = 'https://product-details.mozilla.org/1.0/'): array
+    public function getSchedule(): array
     {
-        $all_releases = (new Data($pd_url))->getMajorReleases();
+        $all_releases = (new Data($this->pd_url))->getMajorReleases();
         if (! array_key_exists($this->version, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
         }
