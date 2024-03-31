@@ -26,13 +26,13 @@ class Performance
      * and the time needed to generate the page.
      */
     // @codeCoverageIgnoreStart
-    public static function log(string $file, int $line=0): void
+    public static function log(): void
     {
         [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getData();
         Utils::dump(
             "Memory peak: {$memory_peak_B} ({$memory_peak_MB}MB)",
             "Elapsed time (s): {$computation_time}",
-            $file . ': ' . (string) $line
+            debug_backtrace()[0]['file'] . ': ' . (string) debug_backtrace()[0]['line']
         );
     }
     // @codeCoverageIgnoreEnd
