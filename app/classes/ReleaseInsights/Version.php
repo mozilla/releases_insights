@@ -6,6 +6,21 @@ namespace ReleaseInsights;
 
 class Version
 {
+    public readonly string $short;
+
+    /**
+     * Get the major version number (91) from a string such as 91.0.1
+     */
+    public readonly int $int;
+    public readonly string $normalized;
+
+    public function __construct(public readonly string $version)
+    {
+        $this->short = explode('.', $version)[0];
+        $this->int = (int) $this->short;
+        $this->normalized = $this->get($version);
+    }
+
     /**
      * Get the version number provided by the user in the query string
      * via the $_GET['version'] global and return a sanitized for a major
@@ -40,13 +55,6 @@ class Version
         return (string) number_format(abs((int) $version), 1, '.', '');
     }
 
-    /**
-     * Get the major version number (91) from a string such as 91.0.1
-     */
-    public static function getMajor(string $version): int
-    {
-        return (int) explode('.', $version)[0];
-    }
 
     /**
      * Decrement a version number (91) provided as a string such as 91.0

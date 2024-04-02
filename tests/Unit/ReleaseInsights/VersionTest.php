@@ -27,16 +27,6 @@ test('Version::get', function () {
 
 });
 
-test('Version::getMajor', function ($input, $output) {
-    expect($output)->toEqual(Version::getMajor($input));
-})->with([
-    ['91.1.0', 91],
-    ['100', 100],
-    ['100.5', 100],
-    ['78.0.3', 78],
-]);
-
-
 test('Version::decrement', function ($version, $number, $output) {
     expect($output)->toEqual(Version::decrement($version, $number));
 })->with([

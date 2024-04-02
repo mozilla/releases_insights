@@ -22,7 +22,7 @@ class Release
         public readonly string $product_details = 'https://product-details.mozilla.org/1.0/',
     )
     {
-        $this->version = Version::get($version);
+        $this->version = (new Version($version))->normalized;
     }
 
     /**
@@ -85,7 +85,7 @@ class Release
 
         if (! in_array( (int) $this->version, $this->no_planned_dot_releases)) {
             $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
-        }
+       }
 
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);

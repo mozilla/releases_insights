@@ -59,7 +59,8 @@ $latest_nightly = Utils::getJson(
 
 $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'] ?? 'N/A';
 
-$beta_is_the_next_ESR = Version::getMajor(FIREFOX_BETA) == (int) ESR::getVersion(Version::getMajor(FIREFOX_BETA));
+$beta_version = (new Version(FIREFOX_BETA))->int;
+$beta_is_the_next_ESR = $beta_version == (int) ESR::getVersion($beta_version);
 
 return [
     $beta_cycle_dates,

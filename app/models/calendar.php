@@ -21,7 +21,7 @@ foreach ((new Data())->getFutureReleases() as $version => $date) {
 
     $future += [
         $version => [
-            'version'       => Version::getMajor($version),
+            'version'       => (new Version($version))->int,
             'release_date'  => $date,
             'nightly_start' => $version_data['nightly_start'],
             'soft_freeze'   => $version_data['soft_code_freeze'],
