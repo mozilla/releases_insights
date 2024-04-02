@@ -70,6 +70,12 @@ COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
 COPY --from=builder --chown=app:app /app/vendor/benhall14/php-calendar/html/css/calendar.css /app/public/style/
 
+# get the deployed sha1 from git but don't keep the git repo in the image
+COPY --chown=app:app .git  /app/.git
+RUN apk add --no-cache git
+RUN cd /app  && git config --global --add safe.directory /app && git rev-parse HEAD > /app/public/deployed-version.txt
+RUN cd /app && rm -rf .git
+
 # configure container
 STOPSIGNAL SIGINT
 EXPOSE 8000

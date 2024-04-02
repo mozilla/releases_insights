@@ -46,22 +46,27 @@ define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
 define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 
 // Are we on one of our staging sites
+$http_host = isset($_SERVER['HTTP_HOST']) ? (string) $_SERVER['HTTP_HOST'] : null;
+
 define('LOCALHOST',
-    isset($_SERVER['HTTP_HOST'])
-    && str_starts_with((string) $_SERVER['HTTP_HOST'], 'localhost')
+    ! is_null($http_host) &&
+    (
+           str_starts_with($http_host, 'localhost')
+        || str_starts_with($http_host, '127.0.0.1')
+    )
 );
 define('STAGING',
-    isset($_SERVER['HTTP_HOST'])
-    && $_SERVER['HTTP_HOST'] !== 'whattrainisitnow.com'
+    ! is_null($http_host)
+    && $http_host !== 'whattrainisitnow.com'
     && ! LOCALHOST
 );
 define('PRODUCTION',
-    isset($_SERVER['HTTP_HOST'])
-    && $_SERVER['HTTP_HOST'] === 'whattrainisitnow.com'
+    ! is_null($http_host)
+    && $http_host === 'whattrainisitnow.com'
 );
 
 // Define a Nonce for inline scripts
 define('NONCE', bin2hex(random_bytes(10)));
 
 // Clean up temp variables from global space
-unset($firefox_versions);
+unset($firefox_versions, $http_host);
