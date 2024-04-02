@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-enum Status
+enum ReleaseStatus
 {
     case Past;
     case Current;

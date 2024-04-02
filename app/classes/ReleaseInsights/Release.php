@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
+use ReleaseInsights\ReleaseStatus as Status;
 
 class Release
 {
-    /** @var array<string> $no_planned_dot_releases */
-    public array $no_planned_dot_releases = ['108.0', '111.0', '115.0', '120.0'];
+    /** @var array<int> $no_planned_dot_releases */
+    public array $no_planned_dot_releases = [108, 111, 115, 120];
 
     /* @phpstan-ignore-next-line */
     private readonly Status $release_status;
@@ -18,17 +19,10 @@ class Release
 
     public function __construct(
         string $version,
-        public readonly string $pd_url = 'https://product-details.mozilla.org/1.0/',
+        public readonly string $product_details = 'https://product-details.mozilla.org/1.0/',
     )
     {
         $this->version = Version::get($version);
-        $major_version = Utils::getMajorVersion($version);
-
-        $this->release_status = match (true) {
-            $major_version === RELEASE => Status::Current,
-            $major_version  >  RELEASE => Status::Future,
-            default                    => Status::Past,
-        };
     }
 
     /**
@@ -38,7 +32,7 @@ class Release
      */
     public function getSchedule(): array
     {
-        $all_releases = (new Data($this->pd_url))->getMajorReleases();
+        $all_releases = (new Data($this->product_details))->getMajorReleases();
         if (! array_key_exists($this->version, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
         }
@@ -89,12 +83,8 @@ class Release
             'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
-        if (! in_array($this->version, $this->no_planned_dot_releases)) {
-            if ($this->version === '121.0') {
-                $schedule += ['planned_dot_release' => $date($release->modify('+3 weeks 00:00'))];
-            } else {
-                $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
-            }
+        if (! in_array( (int) $this->version, $this->no_planned_dot_releases)) {
+            $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
         }
 
         // Sort the schedule by date, needed for schedules with a fixup
