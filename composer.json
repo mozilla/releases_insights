@@ -30,7 +30,7 @@
         "ext-mbstring": "*",
         "ext-curl": "*",
         "ext-dom": "*",
-        "eluceo/ical": "^0.16.1",
+        "eluceo/ical": "^0.18.0",
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.4",
         "pchevrel/bzkarma": "0.7",
@@ -100,9 +100,6 @@
     },
     "extra": {
         "patches": {
-            "eluceo/ical": {
-                "PHP 8 compatibility": "patches/eluceo-ical-src-propertybag-php.patch"
-            }
         }
     }
 }
