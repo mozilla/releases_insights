@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use ReleaseInsights\Data;
+use function Sentry\init;
 
 // We always work with UTF8 encoding
 mb_internal_encoding('UTF-8');
@@ -67,6 +68,15 @@ define('PRODUCTION',
 
 // Define a Nonce for inline scripts
 define('NONCE', bin2hex(random_bytes(10)));
+
+// Set up Sentry endpoint, don't send errors while in dev mode
+if (STAGING) {
+    init(['dsn' => 'https://e17dcdc892db4ee08a6937603e407f76@o1069899.ingest.sentry.io/4505243444772864']);
+}
+
+if (PRODUCTION) {
+    init(['dsn' => 'https://20bef71984594e16add1d2c69146ad88@o1069899.ingest.sentry.io/4505243430092800']);
+}
 
 // Clean up temp variables from global space
 unset($firefox_versions, $http_host);
