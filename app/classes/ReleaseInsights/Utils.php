@@ -379,24 +379,4 @@ class Utils
             print_r($json->outputContent($data, $_GET['callback'] ?? false));
         }
     }
-
-    /**
-     * Utility function to get a visitor IP
-     */
-    public static function getIP(): ?string
-    {
-        // Determining visitor IP
-        $fields = [
-            'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED',
-            'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR',
-        ];
-
-        foreach ($fields as $value) {
-            if (isset($_SERVER[$value])) {
-                return $_SERVER[$value];
-            }
-        }
-
-        return null;
-    }
 }
