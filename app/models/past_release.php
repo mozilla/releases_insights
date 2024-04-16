@@ -9,9 +9,11 @@ $firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/fire
 $devedition_releases = Utils::getJson('https://product-details.mozilla.org/1.0/devedition.json')['releases'];
 $requested_version = Version::get();
 
-if ($requested_version == 14) {
+if ($requested_version == '14.0') {
     // We never had a 14.0 release, so this is hardcoded
     $last_release_date = '2012-07-17';
+} elseif ($requested_version == '125.0') {
+    $last_release_date = '2024-04-16';
 } else {
     $last_release_date = $firefox_releases['firefox-' . $requested_version]['date'] ?? '';
 }
@@ -97,6 +99,8 @@ $beta_count = count((array) array_filter(
 // Number of RC builds, we skip Firefox 14.0 because we never shipped it
 if ($requested_version == '14.0') {
     $rc_count = 0;
+} elseif ($requested_version == '125.0') {
+    $rc_count = 1;
 } else {
     $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
 }
