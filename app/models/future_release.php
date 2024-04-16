@@ -36,7 +36,8 @@ $cycle_dates = (new Release($requested_version))->getSchedule();
 
 $nightly_fixes = 0;
 /* Only for the current Beta view */
-if ((int) $requested_version === BETA) {
+$nightly_fixes = 0;
+if ((int) $requested_version === BETA && (int) $requested_version != 126 ) {
     // Number of bugs fixed in nightly
     $nightly_fixes = Bugzilla::getBugsFromHgWeb(
         'https://hg.mozilla.org/mozilla-central/json-pushes'
