@@ -83,6 +83,15 @@ $rc_changelog = 'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
     . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
     . '&full&version=2';
 
+// We didn't ship a 125.0 release, it was replaced by 125.0.1
+if ((int) $requested_version == 125) {
+    $rc_changelog = str_replace(
+        search: 'FIREFOX_125_0_RELEASE',
+        replace: 'FIREFOX_125_0_1_RELEASE',
+        subject: $rc_changelog
+    );
+}
+
 $rc_uplifts = Bz::getBugsFromHgWeb($rc_changelog, true, -1);
 $rc_changelog = str_replace('json-pushes', 'pushloghtml', $rc_changelog);
 
