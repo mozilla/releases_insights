@@ -121,7 +121,7 @@
           {{ rollout|raw }}
         {% endif %}
       </th>
-      {% if release == 14 %}
+      {% if release == 14 or release == 125 %}
       <td>Version never shipped</td>
       {% else %}
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date(pattern='MMMM d', locale='en') }}</td>
