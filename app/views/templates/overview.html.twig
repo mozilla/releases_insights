@@ -75,10 +75,8 @@
   <h3 class="text-center">
     <b class="alert alert-info text-dark" role="alert">
       Firefox {{ version_on_release_day|number_format }}
-      {% if version_on_release_day is constant('FIREFOX_RELEASE') %}
+      {% if version_on_release_day == constant('RELEASE') %}
       shipped today!
-      {% elseif version_on_release_day == 125 %}
-      is delayed and won't ship today
       {% else %}
       is shipping today!
       {% endif%}
