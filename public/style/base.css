@@ -163,6 +163,10 @@ h3 {
         margin-top: 0.5em;
     }
 
+    #homepage h3 {
+        line-height: 2.7em;
+    }
+
     #homepage div.col-sm {
         margin-bottom: 4em;
     }
@@ -176,10 +180,15 @@ h3 {
         padding: 0.5rem 0.25rem;
     }
 
-    /* Split the Lastr uplift tag on mobile */
+    /* Split the Last uplift tag on mobile */
     #release .table th small span::before{
         content: "\a";
         white-space: pre;
+    }
+
+    /* limit horizontal scroll */
+    #release .table td {
+        text-wrap: auto;
     }
 
 }
