@@ -62,6 +62,9 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
     // We never shipped 14.0
     $version = $version == '14.0.1' ? '14.0' : $version;
 
+    // We never shipped 125.0
+    $version = $version == '125.0.1' ? '125.0' : $version;
+
     // We never shipped 33.0 and we used a weird 33.1 dot release sheme instead of 33.0.1
     $version = $version == '33.1' ? '33.0' : $version;
 
