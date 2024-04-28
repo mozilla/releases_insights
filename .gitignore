@@ -6,6 +6,8 @@
 .phplint-cache
 .phpunit.result.cache
 cache/*.cache
+# Temporary ignore the 56MB log file caused by the merge of firefox-android from Github to mozilla-central
+cache/887d6f1613f1e6fcbf70cd2f59187dc4147546ff.immutable
 cache/twig/
 composer.phar
 public/assets/bootstrap/
