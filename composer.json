@@ -33,7 +33,7 @@
         "eluceo/ical": "^0.18.0",
         "twbs/bootstrap-icons": "^1.8",
         "benhall14/php-calendar": "^1.4",
-        "pchevrel/bzkarma": "0.7",
+        "pchevrel/bzkarma": "^0.7",
         "cweagans/composer-patches": "^1.7",
         "sentry/sentry": "^4.0",
         "guzzlehttp/guzzle": "^7.0"
