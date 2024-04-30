@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ac68075cf34cb08c5c90e134afa2927",
+    "content-hash": "f729c347ec8b7e20147a2a5338bc1911",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -9430,6 +9430,49 @@
                 }
             ],
             "time": "2024-01-23T14:51:35+00:00"
+        },
+        {
+            "name": "symplify/vendor-patches",
+            "version": "11.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symplify/vendor-patches.git",
+                "reference": "dec8ec588192a3ee0d886288395b5cd6a768126e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/dec8ec588192a3ee0d886288395b5cd6a768126e",
+                "reference": "dec8ec588192a3ee0d886288395b5cd6a768126e",
+                "shasum": ""
+            },
+            "require": {
+                "cweagans/composer-patches": "^1.7",
+                "php": ">=7.2"
+            },
+            "bin": [
+                "bin/vendor-patches"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate vendor patches for packages with single command",
+            "support": {
+                "issues": "https://github.com/symplify/vendor-patches/issues",
+                "source": "https://github.com/symplify/vendor-patches/tree/11.3.7"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-01-23T17:12:30+00:00"
         },
         {
             "name": "ta-tikoma/phpunit-architecture-test",

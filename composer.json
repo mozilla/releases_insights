@@ -49,7 +49,9 @@
         "overtrue/phplint": "^4.0",
         "spatie/laravel-ignition": "^1.6",
         "infection/infection": "^0.27.8",
-        "pestphp/pest-plugin-stressless": "^2.2"    },
+        "pestphp/pest-plugin-stressless": "^2.2",
+        "symplify/vendor-patches": "*"
+    },
     "autoload": {
         "psr-4": {
             "ReleaseInsights\\": "app/classes/ReleaseInsights",
@@ -100,6 +102,9 @@
     },
     "extra": {
         "patches": {
+            "benhall14/php-calendar": {
+                "Make calendar.css use more neutral styles": "patches/benhall14-php-calendar-html-css-calendar-css.patch"
+            }
         }
     }
 }
