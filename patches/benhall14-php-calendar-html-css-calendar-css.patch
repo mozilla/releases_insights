@@ -1,0 +1,139 @@
+--- /dev/null
++++ ../html/css/calendar.css
+@@ -2,88 +2,57 @@
+     min-width: 850px;
+ }
+ 
+-.calendar {
+-    background: #2CA8C2;
+-    color: #FFF;
+-    width: 100%;
+-    font-family: 'Oxygen';
+-    table-layout: fixed;
++.calendar-title th,
++.calendar-header th {
++    padding: 10px;
++    text-align: center;
+ }
+ 
+-.calendar.purple {
+-    background: #913CCD;
+-}
+-
+-.calendar.pink {
+-    background: #F15F74;
+-}
+-
+-.calendar.orange {
+-    background: #F76D3C;
+-}
+-
+-.calendar.yellow {
+-    background: #F7D842;
+-}
+-
+-.calendar.green {
+-    background: #98CB4A;
+-}
+-
+-.calendar.grey {
+-    background: #839098;
+-}
+-
+-.calendar.blue {
+-    background: #5481E6;
+-}
+-
+ .calendar-title th {
+-    font-size: 22px;
+-    font-weight: bold;
+-    padding: 20px;
+-    text-align: center;
++    font-size: 1.5em;
+     text-transform: uppercase;
+-    background: rgba(0, 0, 0, 0.05);
+ }
+ 
+ .calendar-header th {
+-    padding: 10px;
+-    text-align: center;
+     background: rgba(0, 0, 0, 0.1);
+ }
+ 
+-.calendar tbody tr td {
++.calendar {
++    background: #2CA8C2;
++    color: white;
++    width: 100%;
++    table-layout: fixed;
++}
++
++.calendar tr td {
+     text-align: center;
+     vertical-align: top;
+     width: 14.28%;
+ }
+ 
+-.calendar tbody tr td.pad {
++.calendar tr td.pad {
+     background: rgba(255, 255, 255, 0.1);
+ }
+ 
+-.calendar tbody tr td.day {}
++.calendar tr td.day {}
+ 
+-.calendar tbody tr td.day div:first-child {
++.calendar tr td.day div:first-child {
+     padding: 4px;
+-    line-height: 17px;
++    line-height: 1.5em;
+     height: 25px;
+ }
+ 
+-.calendar tbody tr td.day div:last-child {
+-    font-size: 10px;
++.calendar tr td.day div:last-child {
++    font-size: smaller;
+     padding: 4px;
+     min-height: 25px;
+ }
+ 
+-.calendar tbody tr td.today {
++.calendar tr td.today {
+     background: rgba(0, 0, 0, 0.25);
+ }
+ 
+-.calendar tbody tr td.mask-start,
+-.calendar tbody tr td.mask,
+-.calendar tbody tr td.mask-end {
++.calendar tr td:is(.mask-start, .mask, .mask_end) {
+     background: #C23B22;
+ }
+ 
+@@ -95,15 +64,13 @@
+     padding: 4px 2px 2px 4px;
+ }
+ 
+-.calendar .cal-weekview-time>div {
++.calendar .cal-weekview-time > div {
+     background: rgba(0, 0, 0, 0.03);
+     padding: 10px;
+     min-height: 50px;
+ }
+ 
+-.calendar .cal-weekview-event.mask-start,
+-.calendar .cal-weekview-event.mask,
+-.calendar .cal-weekview-event.mask-end {
++.calendar .cal-weekview-event:is(.mask-start, .mask, .mask_end) {
+     background: #C23B22;
+     margin-bottom: 3px;
+     padding: 5px;
+@@ -113,7 +80,7 @@
+     background: rgba(0, 0, 0, .1);
+ }
+ 
+-.calendar .cal-weekview-time-th>div {
++.calendar .cal-weekview-time-th > div {
+     padding: 10px;
+     min-height: 50px;
+ }
