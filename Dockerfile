@@ -11,6 +11,9 @@ RUN apk add --no-cache tzdata
 ENV TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Composer no longer allows plugins to run as a superuser as of release 2.7 which prevents us from patching upstream libraries
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # use install-php-extensions to install required php extensions and composer
 RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/1.4.12/install-php-extensions \
     --location --output /usr/local/bin/install-php-extensions && \
