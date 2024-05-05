@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+use ReleaseInsights\URL;
+
 class Data
 {
     /** @var array<string, string> $future_releases */
@@ -13,7 +15,7 @@ class Data
     private readonly array $release_owners;
 
     public function __construct(
-        private readonly string $pd_url = 'https://product-details.mozilla.org/1.0/',
+        private readonly string $pd_url = URL::ProductDetails->value,
         public int $cache_duration = 900 // 15 minutes
     ) {
         $this->release_owners  = include DATA . 'release_owners.php';

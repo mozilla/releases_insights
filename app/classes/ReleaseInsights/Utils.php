@@ -8,6 +8,7 @@ use Cache\Cache;
 use DateTime;
 use GuzzleHttp\Client;
 use Json\Json;
+use ReleaseInsights\URL;
 
 class Utils
 {
@@ -21,7 +22,7 @@ class Utils
     public static function getCrashesForBuildID(int $buildid): array
     {
         // The date in the string varies so we create a unique file name in cache
-        $cache_id = 'https://crash-stats.mozilla.org/api/SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
+        $cache_id = URL::Socorro->value . 'SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
         if (defined('TESTING_CONTEXT')) {
             if ($buildid == '20190927094817') {
@@ -55,7 +56,7 @@ class Utils
     public static function getBugsforCrashSignature(string $signature): array
     {
         // The signature in the string varies so we create a unique file name in cache
-        $cache_id = 'https://crash-stats.mozilla.org/api/Bugs/?signatures=' . $signature;
+        $cache_id = URL::Socorro->value . 'Bugs/?signatures=' . $signature;
 
         if (defined('TESTING_CONTEXT')) {
             if ($signature == 'failure') {

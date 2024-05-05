@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Cache\Cache;
-use ReleaseInsights\Utils;
+use ReleaseInsights\{URL, Utils};
 
 $date = Utils::getDate();
 
@@ -34,7 +34,7 @@ $cache_id = $options['http']['content'];
 // We cache because we want to avoid http request latency
 if (! $data = Cache::getKey($cache_id, 900)) {
     $data = file_get_contents(
-        'https://buildhub.moz.tools/api/search',
+        URL::BuildHub->value,
         false,
         stream_context_create($options)
     );

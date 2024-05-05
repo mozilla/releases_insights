@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Release, Utils, Version};
+use ReleaseInsights\{Bugzilla as Bz, Release, URL, Utils, Version};
 
 // Historical data from Product Details
-$firefox_releases = Utils::getJson('https://product-details.mozilla.org/1.0/firefox.json')['releases'];
-$devedition_releases = Utils::getJson('https://product-details.mozilla.org/1.0/devedition.json')['releases'];
+$firefox_releases = Utils::getJson(URL::ProductDetails->value . 'firefox.json')['releases'];
+$devedition_releases = Utils::getJson(URL::ProductDetails->value . 'devedition.json')['releases'];
 $requested_version = Version::get();
 
 if ($requested_version == '14.0') {
@@ -46,7 +46,8 @@ $nightly_cycle_length = $date2->diff($date3)->days / 7;
 // Before 4 week schedule, uplifts started with beta 3
 $uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' : '_0b3_RELEASE';
 
-$beta_changelog = 'https://hg.mozilla.org/releases/mozilla-beta/json-pushes'
+$beta_changelog = URL::Mercurial->value
+    . 'releases/mozilla-beta/json-pushes'
     . '?fromchange=FIREFOX_' . (int) $requested_version . $uplift_start
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
     . '&full&version=2';
@@ -78,7 +79,8 @@ if ($requested_version !== 53 && $requested_version > 46) {
 }
 
 // Get RC uplifts
-$rc_changelog = 'https://hg.mozilla.org/releases/mozilla-release/json-pushes'
+$rc_changelog = URL::Mercurial->value
+    . 'releases/mozilla-release/json-pushes'
     . '?fromchange=FIREFOX_RELEASE_' . ((int) $requested_version) . '_BASE'
     . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
     . '&full&version=2';
@@ -135,7 +137,8 @@ if ($requested_version == '14.0') {
 
 // Number of bugs fixed in nightly
 $nightly_fixes = Bz::getBugsFromHgWeb(
-    'https://hg.mozilla.org/mozilla-central/json-pushes'
+    URL::Mercurial->value
+    .'mozilla-central/json-pushes'
     . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
     . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
     . '&full&version=2',
@@ -147,7 +150,7 @@ $no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_rel
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
-    $rollout = Utils::getJson('https://aus-api.mozilla.org/api/v1/rules/firefox-release')['backgroundRate'];
+    $rollout = Utils::getJson(URL::Balrog->value . 'rules/firefox-release')['backgroundRate'];
 }
 
 return [

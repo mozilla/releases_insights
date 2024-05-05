@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use Cache\Cache;
-use ReleaseInsights\Utils;
+use ReleaseInsights\{URL, Utils};
 
 $buildid = Utils::getBuildID((int) ($_GET['buildid'] ?? 1));
 
-$cache_id = 'https://crash-stats.mozilla.org/api/SuperSearch/?build_id=' . (string) $buildid . '&_facets=signature&product=Firefox';
+$cache_id = URL::Socorro->value . 'SuperSearch/?build_id=' . (string) $buildid . '&_facets=signature&product=Firefox';
 
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency

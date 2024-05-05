@@ -6,6 +6,7 @@ namespace ReleaseInsights;
 
 use DateTime;
 use ReleaseInsights\ReleaseStatus as Status;
+use ReleaseInsights\URL;
 
 class Release
 {
@@ -19,7 +20,7 @@ class Release
 
     public function __construct(
         string $version,
-        public readonly string $product_details = 'https://product-details.mozilla.org/1.0/',
+        public readonly string $product_details = URL::ProductDetails->value,
     )
     {
         $this->version = (new Version($version))->normalized;

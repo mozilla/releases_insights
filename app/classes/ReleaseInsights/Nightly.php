@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+Use ReleaseInsights\URL;
+
 class Nightly
 {
     public string $version;
@@ -11,10 +13,8 @@ class Nightly
     public string $emergency_message = '';
 
     public function __construct(
-        public string $pd  = 'https://product-details.mozilla.org/1.0/',
-        public string $AUS = 'https://aus-api.mozilla.org/api/v1/',
-        // Testing url below
-        // string $AUS = 'https://stage.balrog.nonprod.cloudops.mozgcp.net/api/v1/',
+        public string $pd  = URL::ProductDetails->value,
+        public string $AUS = URL::Balrog->value,
         public string $update_status = 'emergency_shutoff/Firefox/nightly',
     ) {
         $this->version = Utils::getJson(

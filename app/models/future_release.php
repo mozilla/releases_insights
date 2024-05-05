@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, Utils, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, URL, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -40,7 +40,8 @@ $nightly_fixes = 0;
 if ((int) $requested_version === BETA && (int) $requested_version != 126 ) {
     // Number of bugs fixed in nightly
     $nightly_fixes = Bugzilla::getBugsFromHgWeb(
-        'https://hg.mozilla.org/mozilla-central/json-pushes'
+        URL::Mercurial->value
+        . 'mozilla-central/json-pushes'
         . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
         . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
         . '&full&version=2',
@@ -99,7 +100,7 @@ foreach ($cycle_dates as $k => $date) {
 
 // Check current rollout for the beta channel
 if ((int) $requested_version === BETA) {
-    $rollout = Utils::getJson('https://aus-api.mozilla.org/api/v1/rules/firefox-beta')['backgroundRate'];
+    $rollout = Utils::getJson(URL::Balrog->value . 'rules/firefox-beta')['backgroundRate'];
 }
 
 return [

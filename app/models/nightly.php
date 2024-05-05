@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use BzKarma\Scoring;
-use ReleaseInsights\{Bugzilla as Bz, Utils};
+use ReleaseInsights\{Bugzilla as Bz, URL, Utils};
 
 /*
     We need previous and next days for navigation and changelog
@@ -108,7 +108,12 @@ $bug_list_karma_details = [];
 
 foreach ($nightly_pairs as $dataset) {
     $bugs = Bz::getBugsFromHgWeb(
-        'https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=' . $dataset['prev_changeset'] . '&tochange=' . $dataset['changeset'] . '&full&version=2'
+        URL::Mercurial->value
+        . 'mozilla-central/json-pushes?fromchange='
+        . $dataset['prev_changeset']
+        . '&tochange='
+        . $dataset['changeset']
+        . '&full&version=2'
     )['total'];
 
     $bug_list_karma = array_unique([...$bugs,...$bug_list_karma]);
@@ -126,7 +131,7 @@ foreach ($nightly_pairs as $dataset) {
     $url = Bz::getBugListLink($bugs);
 
     // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
-    $bug_list_details = Utils::getJson('https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc,see_also&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];
+    $bug_list_details = Utils::getJson(URL::Bugzilla->value . 'rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc,see_also&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];
 
     $bug_list[$dataset['buildid']] = [
         'bugs'  => $bug_list_details,

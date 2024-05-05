@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+use ReleaseInsights\URL;
+
 class Bugzilla
 {
     /**
@@ -17,7 +19,8 @@ class Bugzilla
     {
         $bug_numbers = array_unique($bug_numbers);
         $bug_numbers = array_filter($bug_numbers, 'is_numeric');
-        return 'https://bugzilla.mozilla.org/buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
+
+        return URL::Bugzilla->value . 'buglist.cgi?bug_id=' . implode('%2C', $bug_numbers);
     }
 
     /**
@@ -27,7 +30,8 @@ class Bugzilla
     {
         return preg_replace_callback(
             "/bug +\d+/i",
-            fn(array $matches) => '<a href="https://bugzilla.mozilla.org/'
+            fn(array $matches) => '<a href="'
+            . URL::Bugzilla->value
             . trim(str_ireplace('bug', '', (string) $matches[0]))
             . '">'
             . $matches[0]
