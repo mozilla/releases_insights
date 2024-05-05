@@ -33,6 +33,10 @@ return <<<"EOD"
         <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
     </tr>
     <tr>
+        <td><a href="/api/external/">api/external/</a></td>
+        <td>Gives the list of external APIs this site depends on to build data.</td>
+    </tr>
+    <tr>
         <td><a href="/api/nightly/crashes/?buildid=20190927094817">api/nightly/crashes/?buildid=20190927094817</a></td>
         <td>Gives the crashes for a buildID (data from Socorro)</td>
     </tr>
