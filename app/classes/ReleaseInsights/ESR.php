@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+use ReleaseInsights\Version;
+
 class ESR
 {
     /**
@@ -55,7 +57,7 @@ class ESR
             return null;
         }
 
-        $current_ESR = Utils::getMajorVersion($current_ESR);
+        $current_ESR = Version::getMajor($current_ESR);
 
         // We don't have an older ESR than the first ESR
         if (self::$esr_releases[0] == $current_ESR) {

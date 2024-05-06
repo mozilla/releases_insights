@@ -94,16 +94,6 @@ test('Utils::startsWith', function ($input, $matches, $result) {
     ['multiple matches test', ['not', 'there'], false],
 ]);
 
-test('Utils::getMajorVersion', function ($input, $output) {
-    expect($output)->toEqual(U::getMajorVersion($input));
-})->with([
-    ['91.1.0', 91],
-    ['100', 100],
-    ['100.5', 100],
-    ['78.0.3', 78],
-    ['', null],
-    [null, null],
-]);
 test('Utils::isDateBetweenDates', function ($date, $startDate, $endDate, $result) {
     expect(U::isDateBetweenDates(
         new DateTime($date),

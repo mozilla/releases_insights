@@ -353,18 +353,6 @@ class Utils
     }
 
     /**
-     * Get the major version number (91) from a string such as 91.0.1
-     */
-    public static function getMajorVersion(?string $version): ?int
-    {
-        if ($version == null) {
-            return null;
-        }
-
-        return (int) explode('.', $version)[0];
-    }
-
-    /**
      * Utility function to output Json data
      *
      * @param array<mixed> $data

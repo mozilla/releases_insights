@@ -36,3 +36,14 @@ test('Version::decrement', function ($version, $number, $output) {
     ['91.0', 2, '89.0'],
     ['100', 3, '97.0'],
 ]);
+
+test('Version::getMajor', function ($input, $output) {
+    expect($output)->toEqual(Version::getMajor($input));
+})->with([
+    ['91.1.0', 91],
+    ['100', 100],
+    ['100.5', 100],
+    ['78.0.3', 78],
+    ['', null],
+    [null, null],
+]);
