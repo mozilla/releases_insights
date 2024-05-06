@@ -11,5 +11,6 @@ enum URL: string {
     case Mercurial      = 'https://hg.mozilla.org/';
     case Balrog         = 'https://aus-api.mozilla.org/api/v1/';
     case Socorro        = 'https://crash-stats.mozilla.org/api/';
+    case Archive        = 'https://archive.mozilla.org/';
     // Balrog staging: https://stage.balrog.nonprod.cloudops.mozgcp.net
 }

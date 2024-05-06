@@ -65,7 +65,7 @@ class Request
             '/about/'                     => 'about',
             '/nightly/'                   => 'nightly',
             '/release/'                   => 'release',
-            '/api/external/'               => 'api/external',
+            '/api/external/'              => 'api/external',
             '/api/nightly/'               => 'api/nightly',
             '/api/release/schedule/'      => 'api/release_schedule',
             '/api/esr/releases/'          => 'api/esr_releases',

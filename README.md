@@ -108,6 +108,9 @@ List of external sources that the app is pulling data from:
 - https://aus-api.mozilla.org/api/v1/
 - https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/
 
+The list of domains used to get data is listed at this API endpoint:
+https://whattrainisitnow.com/api/external/
+
 Emptying the mutable data in the cache folder (either via the `composer cache:clear` command or by doing `rm cache/*.cache ; rm -rf cache/twig/*`) should fix any issue caused by external data sources listed above being unavailable and/or providing bogus data.
 
 Restarting the app should solve most problems on production.

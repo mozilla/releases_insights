@@ -25,7 +25,7 @@ $fallback_nightly = false;
 if (empty($nightlies)) {
     // Get the latest nightly build ID, used as a tooltip on the nightly version number
     $latest_nightly = Utils::getJson(
-        'https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/firefox-' . FIREFOX_NIGHTLY . '.en-US.win64.json',
+        URL::Archive->value .  'pub/firefox/nightly/latest-mozilla-central/firefox-' . FIREFOX_NIGHTLY . '.en-US.win64.json',
         900
     );
 
