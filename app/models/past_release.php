@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Release, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla as Bz, Json, Release, URL, Utils, Version};
 
 // Historical data from Product Details
-$firefox_releases = Utils::getJson(URL::ProductDetails->value . 'firefox.json')['releases'];
-$devedition_releases = Utils::getJson(URL::ProductDetails->value . 'devedition.json')['releases'];
+$firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
+$devedition_releases = Json::load(URL::ProductDetails->value . 'devedition.json')['releases'];
 $requested_version = Version::get();
 
 if ($requested_version == '14.0') {
@@ -150,7 +150,7 @@ $no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_rel
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
-    $rollout = Utils::getJson(URL::Balrog->value . 'rules/firefox-release')['backgroundRate'];
+    $rollout = Json::load(URL::Balrog->value . 'rules/firefox-release')['backgroundRate'];
 }
 
 return [

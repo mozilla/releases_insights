@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-use ReleaseInsights\Version;
-
 class ESR
 {
     /**

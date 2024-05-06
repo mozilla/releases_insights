@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{URL,Utils, Version};
+use ReleaseInsights\{Json, URL, Utils, Version};
 
 // Historical data from Product Details
-$firefox_releases = Utils::getJson(URL::ProductDetails->value . 'firefox.json')['releases'];
+$firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
 
 // Number of dot releases
 $dot_release_count = count((array) array_filter(

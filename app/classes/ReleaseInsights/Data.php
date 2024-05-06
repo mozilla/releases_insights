@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-use ReleaseInsights\URL;
-
 class Data
 {
     /** @var array<string, string> $future_releases */
@@ -42,7 +40,7 @@ class Data
     public function getESRReleases(): array
     {
         // Historical data from Product Details, cache a week
-        $esr_releases = Utils::getJson($this->pd_url . 'firefox.json', $this->cache_duration)['releases'];
+        $esr_releases = Json::load($this->pd_url . 'firefox.json', $this->cache_duration)['releases'];
 
         // Reduce to only ESR releases
         $esr_releases = array_filter(
@@ -81,8 +79,8 @@ class Data
     public function getPastReleases(bool $dot_releases = true): array
     {
         // Historical data from Product Details, cache a week
-        $major_releases = Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
-        $minor_releases =  $dot_releases == true ? Utils::getJson($this->pd_url . 'firefox_history_stability_releases.json', $this->cache_duration) : [];
+        $major_releases = Json::load($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
+        $minor_releases =  $dot_releases == true ? Json::load($this->pd_url . 'firefox_history_stability_releases.json', $this->cache_duration) : [];
         $all_releases = [...$major_releases, ...$minor_releases];
 
         // Sort releases by release date
@@ -119,7 +117,7 @@ class Data
      */
     public function getPastBetas(): array
     {
-        return Utils::getJson($this->pd_url . 'firefox_history_development_releases.json', $this->cache_duration);
+        return Json::load($this->pd_url . 'firefox_history_development_releases.json', $this->cache_duration);
     }
 
     /**
@@ -129,7 +127,7 @@ class Data
      */
     public function getMajorPastReleases(): array
     {
-        return Utils::getJson($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
+        return Json::load($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
     }
 
     /**
@@ -149,7 +147,7 @@ class Data
     public function getFirefoxVersions(): array
     {
         // Cache Product Details versions, 15mn cache
-        return Utils::getJson($this->pd_url . 'firefox_versions.json', $this->cache_duration);
+        return Json::load($this->pd_url . 'firefox_versions.json', $this->cache_duration);
     }
 
     /**

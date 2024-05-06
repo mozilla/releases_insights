@@ -21,7 +21,6 @@
     ],
     "require": {
         "php": "~8.2.0",
-        "mozillal10n/json": "~0.1",
         "twig/twig": "^3.0",
         "twbs/bootstrap": "^5.2",
         "components/jquery": "^3.4",

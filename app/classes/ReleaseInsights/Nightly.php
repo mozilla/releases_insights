@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
-Use ReleaseInsights\URL;
-
 class Nightly
 {
     public string $version;
@@ -17,7 +15,7 @@ class Nightly
         public string $AUS = URL::Balrog->value,
         public string $update_status = 'emergency_shutoff/Firefox/nightly',
     ) {
-        $this->version = Utils::getJson(
+        $this->version = Json::load(
             $this->pd . 'firefox_versions.json',
             604800
         )['FIREFOX_NIGHTLY'];
@@ -39,7 +37,7 @@ class Nightly
         }
 
         if ($this->auto_updates === false) {
-            $tmp = Utils::getJson($this->AUS . $this->update_status, 1);
+            $tmp = Json::load($this->AUS . $this->update_status, 1);
             $tmp = $tmp['comment'] ?? '';
             $this->emergency_message = Utils::secureText($tmp);
             unset($tmp);

@@ -63,19 +63,6 @@ test('Utils::getDate', function () {
     unset($_GET['date']);
 });
 
-test('Utils::getJson', function () {
-    expect(U::getJson(__DIR__ . '/../../Files/firefox_versions.json'))->toBeArray();
-    expect(U::getJson(__DIR__ . '/../../Files/empty.json'))
-        ->toBeEmpty()
-        ->toBeArray();
-    expect(U::getJson(__DIR__ . '/../../Files/bad.json'))
-        ->toBeEmpty()
-        ->toBeArray();
-    expect(U::getJson(__DIR__ . '/../../Files/iDontExist.json'))
-        ->toBeEmpty()
-        ->toBeArray();
-});
-
 test('Utils::mtrim', function ($input, $output) {
     expect($output)->toEqual(U::mtrim($input));
 })->with([
@@ -106,26 +93,6 @@ test('Utils::isDateBetweenDates', function ($date, $startDate, $endDate, $result
     ['2022-01-10', '2022-01-05', '2022-01-09', false],
 ]);
 
-// Templating function, we capture the output
-test('Utils::renderJson', function () {
-    ob_start();
-    U::renderJson(['aa']);
-    $content = ob_get_contents();
-    ob_end_clean();
-    expect($content)
-        ->toBeString()
-        ->toEqual('["aa"]');
-
-    ob_start();
-    U::renderJson(['error' => 'an error']);
-    $content = ob_get_contents();
-    ob_end_clean();
-    expect($content)
-        ->toBeString()
-        ->toEqual(  '{
-    "error": "an error"
-}');
-});
 
 test('Utils::inString', function ($a, $b, $c, $d) {
     expect(U::inString($a, $b, $c))->toEqual($d);
@@ -152,9 +119,4 @@ test('Utils::getBugsforCrashSignature', function () {
     expect(U::getBugsforCrashSignature('some signature'))
         ->toBeArray()
         ->not->toBeEmpty();
-});
-
-test('Utils::isJson', function () {
-    $this->assertFalse(U::isJson('1'));
-    $this->assertFalse(U::isJson('[1:]'));
 });

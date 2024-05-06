@@ -7,8 +7,6 @@ namespace ReleaseInsights;
 use Cache\Cache;
 use DateTime;
 use GuzzleHttp\Client;
-use Json\Json;
-use ReleaseInsights\URL;
 
 class Utils
 {
@@ -44,7 +42,7 @@ class Utils
             Cache::setKey($cache_id, $data);
         }
 
-        return self::arrayFromJson($data);
+        return Json::toArray($data);
     }
 
     /**
@@ -78,27 +76,7 @@ class Utils
             Cache::setKey($cache_id, $data);
         }
 
-        return self::arrayFromJson($data);
-    }
-
-    /**
-     * Return an Array from a Json string
-     * This is an utility function as we use json_decode in multiple places,
-     * always with the same options. That will make these calls shorter,
-     * with a more explicit function name and will allow to change default
-     * values at the app level.
-     *
-     * @return array<mixed>  Associative array from a Json string
-     */
-    public static function arrayFromJson(string $data): array
-    {
-        $data = json_decode(
-            json: $data,
-            associative: true,
-            depth: 512,
-        );
-
-        return is_null($data) ? [] : $data;
+        return Json::toArray($data);
     }
 
     /**
@@ -192,7 +170,7 @@ class Utils
     }
 
     /**
-     * getFile code coverage is done through its consumer getJson
+     * getFile code coverage is done through its main consumer Json::load()
      */
     public static function getFile(string $url): string
     {
@@ -226,37 +204,6 @@ class Utils
 
         return $response->getBody()->getContents();
         // @codeCoverageIgnoreEnd
-    }
-
-    /**
-     *  @return array<mixed> $template_data
-     */
-    public static function getJson(string $url, int $ttl = 0): array
-    {
-        if (! $data = Cache::getKey($url, $ttl)) {
-            $data = Utils::getFile($url);
-
-            // No data returned, bug or incorrect date, don't cache.
-            if (empty($data)) {
-                return [];
-            }
-
-            // Invalid Json, don't cache.
-            if (! self::isJson($data)) {
-                return [];
-            }
-
-            Cache::setKey($url, $data, $ttl);
-        }
-
-        return self::arrayFromJson($data);
-    }
-
-    public static function isJson(string $data): bool
-    {
-        return is_string($data)
-            && is_array(json_decode($data, true))
-            && (json_last_error() == JSON_ERROR_NONE);
     }
 
     public static function mtrim(string $string): string
@@ -350,22 +297,5 @@ class Utils
     public static function isDateBetweenDates(DateTime $date, DateTime $startDate, DateTime $endDate): bool
     {
         return $date > $startDate && $date < $endDate;
-    }
-
-    /**
-     * Utility function to output Json data
-     *
-     * @param array<mixed> $data
-     */
-    public static function renderJson(array $data): void
-    {
-        // Output a JSON or JSONP representation of search results
-        $json = new Json();
-
-        if (array_key_exists('error', $data)) {
-            print_r($json->outputError($data['error']));
-        } else {
-            print_r($json->outputContent($data, $_GET['callback'] ?? false));
-        }
     }
 }

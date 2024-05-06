@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Json;
+
 $json = include MODELS . 'api/firefox_releases.php';
 
-ReleaseInsights\Utils::renderJson($json);
+(new Json($json))->render();

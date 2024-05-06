@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Duration, Nightly, Release, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, Json, Nightly, Release, URL, Utils, Version};
 
 $requested_version = Version::get();
 
@@ -100,7 +100,7 @@ foreach ($cycle_dates as $k => $date) {
 
 // Check current rollout for the beta channel
 if ((int) $requested_version === BETA) {
-    $rollout = Utils::getJson(URL::Balrog->value . 'rules/firefox-beta')['backgroundRate'];
+    $rollout = Json::load(URL::Balrog->value . 'rules/firefox-beta')['backgroundRate'];
 }
 
 return [

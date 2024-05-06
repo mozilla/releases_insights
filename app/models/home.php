@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use ReleaseInsights\Data;
 use ReleaseInsights\ESR;
+use ReleaseInsights\Json;
 use ReleaseInsights\URL;
 use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
@@ -37,7 +38,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
         // Check if we have already shipped a Release Candidate build to the beta channel
 
         // Remote balrog API can give a 404, we have a fallback to N/A
-        $rc_build = Utils::getJson(URL::Balrog->value . 'rules/firefox-beta', 900)['mapping'] ?? 'N/A';
+        $rc_build = Json::load(URL::Balrog->value . 'rules/firefox-beta', 900)['mapping'] ?? 'N/A';
 
         if ($rc_build !== 'N/A') {
             $rc_build = explode('-', (string) $rc_build)[1];
@@ -51,7 +52,7 @@ if ((int) FIREFOX_BETA !== (int) FIREFOX_RELEASE) {
 }
 
 // Get the latest nightly build ID, used as a tooltip on the nightly version number
-$latest_nightly = Utils::getJson(
+$latest_nightly = Json::load(
     URL::Balrog->value . 'releases/Firefox-mozilla-central-nightly-latest',
     900
 );

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
-use ReleaseInsights\ReleaseStatus as Status;
-use ReleaseInsights\URL;
 
 class Release
 {

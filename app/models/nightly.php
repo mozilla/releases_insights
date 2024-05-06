@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use BzKarma\Scoring;
-use ReleaseInsights\{Bugzilla as Bz, URL, Utils};
+use ReleaseInsights\{Bugzilla as Bz, Json, URL, Utils};
 
 /*
     We need previous and next days for navigation and changelog
@@ -24,7 +24,7 @@ $fallback_nightly = false;
 // This is a fallback mechanism for Buildhub which sometimes takes hours to have the latest nightly
 if (empty($nightlies)) {
     // Get the latest nightly build ID, used as a tooltip on the nightly version number
-    $latest_nightly = Utils::getJson(
+    $latest_nightly = Json::load(
         URL::Archive->value .  'pub/firefox/nightly/latest-mozilla-central/firefox-' . FIREFOX_NIGHTLY . '.en-US.win64.json',
         900
     );
@@ -131,7 +131,7 @@ foreach ($nightly_pairs as $dataset) {
     $url = Bz::getBugListLink($bugs);
 
     // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
-    $bug_list_details = Utils::getJson(URL::Bugzilla->value . 'rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc,see_also&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];
+    $bug_list_details = Json::load(URL::Bugzilla->value . 'rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc,see_also&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];
 
     $bug_list[$dataset['buildid']] = [
         'bugs'  => $bug_list_details,

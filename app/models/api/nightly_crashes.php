@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Cache\Cache;
-use ReleaseInsights\{URL, Utils};
+use ReleaseInsights\{Json, URL, Utils};
 
 $buildid = Utils::getBuildID((int) ($_GET['buildid'] ?? 1));
 
@@ -12,7 +12,7 @@ $cache_id = URL::Socorro->value . 'SuperSearch/?build_id=' . (string) $buildid .
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency
 if (! $data = Cache::getKey($cache_id, 1)) {
-    $data = Utils::arrayFromJson(file_get_contents($cache_id));
+    $data = Json::toArray(file_get_contents($cache_id));
 
     // No data returned, don't cache.
     if (empty($data)) {

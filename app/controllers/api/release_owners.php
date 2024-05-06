@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\Json;
+
 $json = include MODELS . 'api/release_owners.php';
 
-ReleaseInsights\Utils::renderJson($json);
+(new Json($json))->render();

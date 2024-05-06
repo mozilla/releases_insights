@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Cache\Cache;
-use ReleaseInsights\{URL, Utils};
+use ReleaseInsights\{Json, URL, Utils};
 
 $date = Utils::getDate();
 
@@ -38,7 +38,7 @@ if (! $data = Cache::getKey($cache_id, 900)) {
         false,
         stream_context_create($options)
     );
-    $data = Utils::arrayFromJson($data);
+    $data = Json::toArray($data);
     $data = array_column($data['hits']['hits'], '_source');
 
     // No data returned, bug or incorrect date, don't cache.
