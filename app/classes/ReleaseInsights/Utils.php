@@ -174,7 +174,7 @@ class Utils
         // We don't want to make external requests in Unit Tests
         // @codeCoverageIgnoreStart
         $client = new Client();
-        Utils::dump($url);
+
         // We know that some queries fail for hg.mozilla.org but we deal with that in templates
         // We ignore warnings for 404 errors as we don't want to spam Sentry
         $response = $client->request('GET', $url, ['http_errors' => false]);
