@@ -210,6 +210,12 @@ if (! empty($top_sigs_worth_a_bug)) {
 // In this section, we extract outstanding bugs
 $outstanding_bugs = [];
 foreach ($bug_list as $key => $values) {
+
+    if (empty($values['bugs'])) {
+        // We may have a build with no patch from Bugzilla
+        continue;
+    }
+
     foreach ($values['bugs'] as $bug_details) {
         // Old bugs fixed are often interesting
         if ($bug_details['id'] < 1_500_000) {
