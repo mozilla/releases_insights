@@ -19,30 +19,17 @@ class Utils
      */
     public static function getCrashesForBuildID(int $buildid): array
     {
-        // The date in the string varies so we create a unique file name in cache
+        // We only fetch Desktop builds crashes, I haven't found out how to get Fenix crashes per buildID yet
         $cache_id = URL::Socorro->value . 'SuperSearch/?build_id=' . $buildid . '&_facets=signature&product=Firefox';
 
         if (defined('TESTING_CONTEXT')) {
+            $cache_id = TEST_FILES .'/crash-stats.mozilla.org.json';
             if ($buildid == '20190927094817') {
                 $cache_id = TEST_FILES .'/empty.json';
-            } else {
-                $cache_id = TEST_FILES .'/crash-stats.mozilla.org.json';
             }
         }
 
-        // If we can't retrieve cached data, we create and cache it.
-        // We cache because we want to avoid http request latency
-        if (! $data = Cache::getKey($cache_id, 30)) {
-            $data = file_get_contents($cache_id);
-
-            // No data returned, bug or incorrect date, don't cache.
-            if (empty($data)) {
-                return [];
-            }
-            Cache::setKey($cache_id, $data);
-        }
-
-        return Json::toArray($data);
+        return Json::load(url: $cache_id, ttl: 30);
     }
 
     /**
@@ -187,6 +174,7 @@ class Utils
         // We don't want to make external requests in Unit Tests
         // @codeCoverageIgnoreStart
         $client = new Client();
+        Utils::dump($url);
         // We know that some queries fail for hg.mozilla.org but we deal with that in templates
         // We ignore warnings for 404 errors as we don't want to spam Sentry
         $response = $client->request('GET', $url, ['http_errors' => false]);
