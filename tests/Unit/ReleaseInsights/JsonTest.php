@@ -33,9 +33,7 @@ test('Json->render()', function () {
         ->toEqual('["aa"]');
 
     $obj = new Json(['aa']);
-    var_dump($obj);
     $_GET['callback'] = "myfunc";
-    var_dump($obj);
     ob_start();
     $obj->render();
     $content = ob_get_contents();
