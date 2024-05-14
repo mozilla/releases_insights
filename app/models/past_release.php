@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Json, Release, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla as Bz, Json, Release, URL, Performance, Utils, Version};
 
 // Historical data from Product Details
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -137,24 +137,31 @@ if ($requested_version == '14.0') {
         ?? $devedition_releases['devedition-' . $requested_version . 'b3']['date'];
 }
 
+Performance::log();
 // Number of bugs fixed in nightly
-$nightly_fixes = Bz::getBugsFromHgWeb(
-    URL::Mercurial->value
-    .'mozilla-central/json-pushes'
-    . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
-    . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
-    . '&full&version=2',
-    true,
-    -1
-);
 
+if ($requested_version == '126.0') {
+    // 126 was the big merge to mercurial for Android, parsing the log exhausts the memory allocated by Nginx
+    $nightly_fixes = 0;
+} else {
+    $nightly_fixes = Bz::getBugsFromHgWeb(
+        URL::Mercurial->value
+        .'mozilla-central/json-pushes'
+        . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
+        . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
+        . '&full&version=2',
+        true,
+        -1
+    );
+}
+Performance::log();
 $no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_releases;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
     $rollout = Json::load(URL::Balrog->value . 'rules/firefox-release')['backgroundRate'];
 }
-
+// Performance::log();
 return [
     $last_release_date,
     $previous_release_date,

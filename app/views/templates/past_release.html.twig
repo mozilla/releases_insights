@@ -45,7 +45,13 @@
     </tr>
     {% if release > 57 %}
     <tr>
-      <th>Bugs fixed in nightly</th><td>{{ nightly_fixes.bug_fixes|length }}</td>
+      <th>Bugs fixed in nightly</th><td>
+        {% if release == 126 %}
+          N/A
+        {% else %}
+          {{ nightly_fixes.bug_fixes|length }}
+        {% endif %}
+    </td>
     </tr>
     {% endif %}
 
