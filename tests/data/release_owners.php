@@ -5,10 +5,9 @@ declare(strict_types=1);
 /*
     Release Owners per release.
 
-    Release owners before Firefox 27 is undocumented.
-
     This is manually updated.
 */
+
 $owners = [
     'TBD'       => 'To be determined',
     'basil'     => 'Basil Hashem',

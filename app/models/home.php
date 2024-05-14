@@ -2,12 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Data;
-use ReleaseInsights\ESR;
-use ReleaseInsights\Json;
-use ReleaseInsights\URL;
-use ReleaseInsights\Utils;
-use ReleaseInsights\Version;
+use ReleaseInsights\{Data, ESR, Json, URL, Utils, Version};
 
 // Get the schedule for the current nightly
 $requested_version = Version::get(FIREFOX_NIGHTLY);

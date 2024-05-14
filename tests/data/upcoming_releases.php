@@ -6,7 +6,7 @@ declare(strict_types=1);
     Dates of future releases.
     We don't provide them in the product-details library.
 
-    These dates are copied from https://wiki.mozilla.org/Release_Management/Calendar
+    These dates were copied from https://wiki.mozilla.org/Release_Management/Calendar
 
     They are needed to provide views on future releases.
     This is manually updated.

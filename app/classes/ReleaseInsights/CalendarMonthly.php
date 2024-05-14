@@ -6,7 +6,8 @@ namespace ReleaseInsights;
 
 use DateInterval, DatePeriod, DateTime;
 
-class CalendarMonthly {
+class CalendarMonthly
+{
 
     /**
      * Utility function to get a list of months between now
