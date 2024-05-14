@@ -49,6 +49,10 @@ return <<<"EOD"
         <td>Historical list of all release managers for Firefox major releases</td>
     </tr>
     <tr>
+        <td><a href="/api/release/duty/">api/release/duty/</a></td>
+        <td>Historical list of all release engineers on release duty for the cycle</td>
+    </tr>
+    <tr>
         <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
         <td>Release dates for all ESR releases (including dot releases)</td>
     </tr>

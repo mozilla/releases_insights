@@ -30,6 +30,13 @@ test('Data->getOwners()', function () {
         ->each->toBeString();
 });
 
+test('Data->getReleaseDuty()', function () {
+    $obj = new Data();
+    expect($obj->getReleaseDuty())
+        ->toBeArray()
+        ->toHaveKeys(['1.0', '108.0'])
+        ->each->toBeArray();
+});
 test('Data->getFutureReleases()', function () {
     $obj = new Data();
     expect($obj->getFutureReleases())

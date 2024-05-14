@@ -71,6 +71,7 @@ class Request
             '/api/esr/releases/'          => 'api/esr_releases',
             '/api/firefox/releases/'      => 'api/firefox_releases',
             '/api/release/owners/'        => 'api/release_owners',
+            '/api/release/duty/'          => 'api/release_duty',
             '/api/nightly/crashes/'       => 'api/nightly_crashes',
             '/calendar/'                  => 'calendar',
             '/calendar/monthly/'          => 'calendar_monthly',

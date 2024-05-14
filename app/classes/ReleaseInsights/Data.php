@@ -12,11 +12,15 @@ class Data
     /** @var array<string, string> $release_owners */
     private readonly array $release_owners;
 
+    /** @var array<string, string> $release_duty */
+    private readonly array $release_duty;
+
     public function __construct(
         private readonly string $pd_url = URL::ProductDetails->value,
         public int $cache_duration = 900 // 15 minutes
     ) {
         $this->release_owners  = include DATA . 'release_owners.php';
+        $this->release_duty    = include DATA . 'release_duty.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
     }
 
@@ -24,6 +28,12 @@ class Data
     public function getOwners(): array
     {
         return $this->release_owners;
+    }
+
+    /** @return array<string, string> */
+    public function getReleaseDuty(): array
+    {
+        return $this->release_duty;
     }
 
     /** @return array<string, string> */
