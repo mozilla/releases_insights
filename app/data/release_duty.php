@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 /*
     Release Engineering on duty per release.
-
-    Release Engineering on duty before Firefox 27 is undocumented.
-
     This is manually updated.
 */
 
@@ -37,9 +34,14 @@ $releng = [
     'jmaher'     => 'Joel Maher',
 ];
 
-function rotation($releng, $data):array {
+/**
+ *  @param array<string, string> $releng
+ *  @param array<string, array<int, string>> $data
+ *  @return array<string, array<int, string>>
+ */
+function rotation(array $releng, array $data):array {
     foreach ($data as $version => $members) {
-        $data[$version] = array_values(array_intersect_key($releng, array_flip($members)));
+        $data[$version] = array_values(array_intersect_key($releng, array_flip((array)$members)));
     }
     return $data;
 }
@@ -99,7 +101,7 @@ return rotation($releng, [
     '47.0'   => ['??'],
     '48.0'   => ['??'],
     '49.0'   => ['??'],
-    '50.0'   => ['?  ?'],
+    '50.0'   => ['??'],
     '51.0'   => ['jlund', 'mtabara'],
     '52.0'   => ['jlorenzo', 'jlund'],
     '53.0'   => ['aki', 'jlorenzo'],
