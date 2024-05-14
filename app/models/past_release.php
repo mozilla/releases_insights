@@ -21,6 +21,8 @@ if ($requested_version == '14.0') {
 if ($requested_version == 15) {
     // We never had a 14.0 release, so this is hardcoded
     $previous_release_date = '2012-07-17';
+} elseif ($requested_version == 126) {
+    $previous_release_date = $firefox_releases['firefox-125.0.1']['date'];
 } else {
     $previous_release_date = $firefox_releases['firefox-' . number_format((int) $requested_version - 1.0, 1)]['date'];
 }
