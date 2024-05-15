@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Json, Release, URL, Performance, Utils, Version};
+use ReleaseInsights\{Bugzilla as Bz, Json, Release, URL, Utils, Version};
 
 // Historical data from Product Details
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -137,9 +137,7 @@ if ($requested_version == '14.0') {
         ?? $devedition_releases['devedition-' . $requested_version . 'b3']['date'];
 }
 
-Performance::log();
 // Number of bugs fixed in nightly
-
 if ($requested_version == '126.0') {
     // 126 was the big merge to mercurial for Android, parsing the log exhausts the memory allocated by Nginx
     $nightly_fixes = 0;
@@ -154,14 +152,14 @@ if ($requested_version == '126.0') {
         -1
     );
 }
-Performance::log();
+
 $no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_releases;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
     $rollout = Json::load(URL::Balrog->value . 'rules/firefox-release')['backgroundRate'];
 }
-// Performance::log();
+
 return [
     $last_release_date,
     $previous_release_date,
