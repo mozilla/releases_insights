@@ -11,6 +11,9 @@ $releases = array_filter(
     ARRAY_FILTER_USE_KEY
 );
 
+// Avoid having 2 125 major releases listed
+unset($releases['125.0.1']);
+
 $owners = array_values(array_unique($releases));
 
 $output = [];
