@@ -17,6 +17,7 @@ $paths = [
     ['nightly/crashes/', 200, 'Verif:skip'],
     ['release/schedule/?version=beta', 200, 'Verif:skip'],
     ['release/schedule/?version=nightly', 200, 'Verif:skip'],
+    ['release/duty/', 200, 'Verif:skip'],
 ];
 
 $obj = new \pchevrel\Verif('Check API HTTP responses');
