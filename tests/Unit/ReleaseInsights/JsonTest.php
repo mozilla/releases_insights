@@ -17,11 +17,6 @@ test('Json::load', function () {
         ->toBeArray();
 });
 
-test('Json::isValid', function () {
-    $this->assertFalse(Json::isValid('1'));
-    $this->assertFalse(Json::isValid('[1:]'));
-});
-
 // Templating function, we capture the output
 test('Json->render()', function () {
     ob_start();

@@ -83,7 +83,7 @@ class Json
             }
 
             // Invalid Json, don't cache.
-            if (! self::isValid($data)) {
+            if (! json_validate($data)) {
                 return [];
             }
 
@@ -91,13 +91,6 @@ class Json
         }
 
         return self::toArray($data);
-    }
-
-    public static function isValid(string $data): bool
-    {
-        return is_string($data)
-            && is_array(json_decode($data, true))
-            && (json_last_error() == JSON_ERROR_NONE);
     }
 
     /**
