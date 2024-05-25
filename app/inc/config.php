@@ -11,12 +11,8 @@ mb_internal_encoding('UTF-8');
 // Make sure we have a timezone set
 date_default_timezone_set('UTC');
 
-// Autoloading of classes (both /vendor/ and /app/classes)
-define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
-
-require_once INSTALL_ROOT . 'vendor/autoload.php';
-
 // Application globals paths
+define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
 const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';
 const DATA        = INSTALL_ROOT . 'app/data/';
 const MODELS      = INSTALL_ROOT . 'app/models/';
@@ -27,6 +23,9 @@ const CACHE_PATH  = INSTALL_ROOT . 'cache/';
 // Prepare caching
 define('CACHE_ENABLED', ! isset($_GET['nocache']));
 define('CACHE_TIME', 900); // 15 minutes
+
+// Autoloading of classes (both /vendor/ and /app/classes)
+require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // Get Firefox Versions from Product Details library, default cache duration
 $firefox_versions = (new Data())->getFirefoxVersions();
@@ -50,17 +49,19 @@ define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
 $http_host = isset($_SERVER['HTTP_HOST']) ? (string) $_SERVER['HTTP_HOST'] : null;
 
 define('LOCALHOST',
-    ! is_null($http_host) &&
-    (
-           str_starts_with($http_host, 'localhost')
+    ! is_null($http_host)
+    && (
+        str_starts_with($http_host, 'localhost')
         || str_starts_with($http_host, '127.0.0.1')
     )
 );
+
 define('STAGING',
     ! is_null($http_host)
     && $http_host !== 'whattrainisitnow.com'
     && ! LOCALHOST
 );
+
 define('PRODUCTION',
     ! is_null($http_host)
     && $http_host === 'whattrainisitnow.com'

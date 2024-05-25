@@ -14,7 +14,7 @@ if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
     }
 }
 
-// Send HTTP security headers
+// Send HTTP security headers (not set by the server)
 header('X-Content-Type-Options: nosniff');
 
 // Allow http ressources when ran locally
@@ -29,9 +29,6 @@ include CONTROLLERS . $url->getController() . '.php';
 
 // Send the last error to Sentry
 captureLastError();
-
-// Clean up temp variables from global space
-unset($url);
 
 // Web request stops here
 exit;
