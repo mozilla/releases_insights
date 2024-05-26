@@ -1,50 +1,45 @@
 FROM php:8.3-fpm-alpine3.19 as builder
 
-RUN apk update && \
-    apk upgrade
-
-# Alpine no longer ships with a real ICU library but with a cut-down shim, we need the real stuff for templating dates
-RUN apk add --no-cache icu-dev icu-libs icu-data-full
-
-# Alpine also does not install timezone data by default which we need for Date/Time calculation
-RUN apk add --no-cache tzdata
 ENV TZ="UTC"
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 # Composer no longer allows plugins to run as a superuser as of release 2.7 which prevents us from patching upstream libraries
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# use install-php-extensions to install required php extensions and composer
-RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/1.4.12/install-php-extensions \
-    --location --output /usr/local/bin/install-php-extensions && \
-    chmod +x /usr/local/bin/install-php-extensions
-RUN /usr/local/bin/install-php-extensions opcache mbstring intl curl dom @composer
-
-# run composer to download and build dependencies/assets
-RUN mkdir -p /app/public/assets
-RUN mkdir -p /app/public/style
-
+# Alpine no longer ships with a real ICU library but with a cut-down shim, we need the real stuff for templating dates
+# Alpine also does not install timezone data by default which we need for Date/Time calculation
 # Alpine does not have a patch command by default, we need it when we patch composer dependencies
 # See https://github.com/cweagans/composer-patches/issues/27
-RUN apk add --update --no-cache patch
-RUN mkdir -p /app/patches/
+RUN apk add --no-cache patch && \
+    apk add --no-cache icu-dev icu-libs icu-data-full && \
+    apk add --no-cache tzdata && \
+    apk add --no-cache git && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# use install-php-extensions to install required php extensions and composer
+RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/2.2.14/install-php-extensions \
+    --location --output /usr/local/bin/install-php-extensions && \
+    chmod +x /usr/local/bin/install-php-extensions && \
+    /usr/local/bin/install-php-extensions opcache mbstring intl curl dom @composer
+
+RUN mkdir -p /app/public/assets && mkdir -p /app/public/style && mkdir -p /app/patches/
 COPY patches/* /app/patches/
 COPY composer* /app/
-RUN cd /app && \
-    composer install --no-dev --no-interaction --optimize-autoloader
+WORKDIR /app
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-cache
+
+# get the deployed sha1 from git but don't keep the git repo in the image
+COPY --chown=app:app .git  /app/.git
+WORKDIR /app
+RUN git config --global --add safe.directory /app && git rev-parse HEAD > /app/public/deployed-version.txt && rm -rf .git
 
 ###
 
 FROM php:8.3-fpm-alpine3.19 as runner
 
-RUN apk update && \
-    apk upgrade && \
-    apk add nginx supervisor
-
-RUN apk add --no-cache icu-dev icu-libs icu-data-full
-RUN apk add --no-cache tzdata
-
 ENV TZ="UTC"
+RUN apk add --no-cache nginx supervisor && \
+    apk add --no-cache icu-dev icu-libs icu-data-full && \
+    apk add --no-cache tzdata
+
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN addgroup -g 10001 app && \
@@ -72,12 +67,8 @@ COPY --from=builder --chown=app:app /app/public/assets/bootstrap /app/public/ass
 COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets/jquery
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
 COPY --from=builder --chown=app:app /app/vendor/benhall14/php-calendar/html/css/calendar.css /app/public/style/
+COPY --from=builder --chown=app:app /app/public/deployed-version.txt /app/public/
 
-# get the deployed sha1 from git but don't keep the git repo in the image
-COPY --chown=app:app .git  /app/.git
-RUN apk add --no-cache git
-RUN cd /app  && git config --global --add safe.directory /app && git rev-parse HEAD > /app/public/deployed-version.txt
-RUN cd /app && rm -rf .git
 
 # configure container
 STOPSIGNAL SIGINT
