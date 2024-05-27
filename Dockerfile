@@ -27,9 +27,14 @@ WORKDIR /app
 RUN composer install --no-dev --no-interaction --optimize-autoloader --no-cache
 
 # get the deployed sha1 from git but don't keep the git repo in the image
-COPY --chown=app:app .git  /app/.git
+COPY .git  /app/.git
 WORKDIR /app
 RUN git config --global --add safe.directory /app && git rev-parse HEAD > /app/public/deployed-version.txt && rm -rf .git
+
+RUN apk del git && \
+    apk del patch && \
+    apk cache clean  && \
+    rm /usr/local/bin/install-php-extensions
 
 ###
 
@@ -69,7 +74,6 @@ COPY --from=builder --chown=app:app /app/vendor /app/vendor
 COPY --from=builder --chown=app:app /app/vendor/benhall14/php-calendar/html/css/calendar.css /app/public/style/
 COPY --from=builder --chown=app:app /app/public/deployed-version.txt /app/public/
 
-
 # configure container
 STOPSIGNAL SIGINT
 EXPOSE 8000
@@ -87,3 +91,5 @@ COPY docker/heartbeat.php /app/public
 
 # run supervisord, which will start nginx and php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+RUN apk cache clean
