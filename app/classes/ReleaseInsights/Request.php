@@ -63,6 +63,7 @@ class Request
         return match ($this->path) {
             '/'                           => 'homepage',
             '/about/'                     => 'about',
+            '/beta/'                      => 'beta',
             '/nightly/'                   => 'nightly',
             '/release/'                   => 'release',
             '/api/external/'              => 'api/external',

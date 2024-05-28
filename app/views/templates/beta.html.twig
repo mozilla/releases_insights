@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+    {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
+    <meta name="description" content="{{ meta_description }}">
+    <meta property="twitter:description" content="{{ meta_description }}">
+
+    <meta property="og:url" content="https://whattrainisitnow.com/beta/">
+{% endblock %}
+
+{% block header %}
+  <header class="mx-auto">
+    <h1>Current beta cycle: <a href="/release/?version=beta" class="link-info">{{ constant('BETA') }}</a></h1>
+  </header>
+{% endblock %}
+
+{% block main %}
+
+ <table class="table table-light table-striped table-sm w-75">
+    <tr>
+      <th class="w-auto align-middle">Uplifts by Product</th>
+      <td>
+        <ul class="list-group list-group-horizontal mx-auto btn-group   ">
+        {% for product, data in stats %}
+            <li class="btn btn-light p-0 m-0">
+                <small><a href="{{ data['bugzilla'] }}">{{ product }} <br><span class="badge text-bg-primary fw-normal">{{ data['bugs']|length }}</span></a></small></li>
+        {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-auto text-center" colspan="2">Total uplifts: <span class="badge text-bg-info">{{ uplift_count }}</span></th>
+    </tr>
+   </table>
+
+<br>
+{% for key, values in betas_data %}
+    <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto">
+        <li class="list-group-item bg-info border-0">{{ key }}</li>
+        <li class="list-group-item text-light bg-secondary border-0">
+            <a href="{{ values['hg_link'] }}" class="text-light">Changelog</a>
+        </li>
+        <li class="list-group-item text-light bg-success border-0 flex-fill w-25">
+           {% if bug_list[key]|length == 1 %}
+            <a href="{{ values['bugzilla'] }}" class="text-light">Patches from 1 bug</a>
+           {% elseif bug_list[key]|length > 1 %}
+            <a href="{{ values['bugzilla'] }}" class="text-light">Patches from {{ bug_list[key]|length }} bugs</a>
+          {% else %}
+            No patches
+          {% endif %}
+        </li>
+        {% if values['bug_fixes']|length > 0 %}
+        <li class="list-group-item text-light bg-primary border-0">
+              <a class="text-light" data-bs-toggle="collapse" href="#collapse{{ key }}">Show list of bugs</a>
+        </li>
+        {% endif %}
+    </ul>
+    <p>
+</p>
+
+<div class="collapse" id="collapse{{ key }}">
+    <table class="table table-light table-striped table-bordered table-sm mb-3 w-75 caption-top">
+        <caption class="table-dark text-center fw-bold">Uplifts and Backouts</caption>
+       <thead>
+        <tr class="table-dark">
+            <th>Bug</th>
+            <th>Component</th>
+            <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for details in bug_list[key] -%}
+            {%- set alert_link = '' -%}
+            {%- set alert_title = '' -%}
+            {%- set alert_row = '' -%}
+            {%- set pill_level = 'text-bg-light border' -%}
+            {%- if details.type == 'enhancement' -%}
+                {%- set alert_link =' text-success fw-bold' -%}
+                {%- set alert_title =' title="Bug marked as Enhancement"' -%}
+            {%- endif -%}
+            {%- if bug_list_karma[details.id].score > 8 -%}
+                {%- set pill_level ='text-bg-warning' -%}
+            {%- endif -%}
+            {%- if bug_list_karma[details.id].score > 15 -%}
+                {%- set alert_row ='fw-bold' -%}
+                {%- set pill_level ='text-bg-danger' -%}
+            {%- endif -%}
+        <tr class="small {{ alert_row }}">
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endfor %}
+
+
+<script src="/assets/jquery/jquery.slim.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script nonce="{{constant('NONCE')}}">
+$(document).ready(function() {
+    $(document).on("click", "table thead tr th", function() {
+        var table = $(this).parents("table");
+        var rows  = table.find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
+        var header_direction = $(this).hasClass("sort-asc") ? "sort-desc" : "sort-asc";
+
+        if (header_direction == "sort-desc") {
+            rows = rows.reverse();
+        }
+        table.append(rows);
+        table.find("th").removeClass("sort-asc sort-desc");
+
+        $(this).addClass(header_direction);
+    });
+
+  });
+
+  function TableComparer(index) {
+      var value = function (row, index) {
+          return $(row).children("td").eq(index).children(":first-child").text();
+      };
+
+      return function(a, b) {
+          var val_a  = value(a, index);
+          var val_b  = value(b, index);
+          return ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
+      }
+  }
+
+</script>
+
+{% endblock %}
+{% block footer %}
+<footer></footer>
+{% endblock %}

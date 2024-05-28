@@ -23,8 +23,8 @@ class Version
 
     /**
      * Get the version number provided by the user in the query string
-     * via the $_GET['version'] global and return a sanitized for a major
-     * version number.
+     * via the $_GET['version'] global and return a sanitized string
+     * for a major version number.
      *
      * beta, release and nightly are aliases
      *

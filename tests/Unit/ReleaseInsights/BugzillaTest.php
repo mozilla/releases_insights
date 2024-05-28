@@ -79,4 +79,18 @@ test('Bugzilla::getBugsFromHgWeb', function () {
             fn ($value, $key) => $value->toBeFalse(),
         );
 
+        $json = '{
+"lastpushid": 16379,
+"pushes": {"16373": {"changesets": [{"author": "Mozilla Releng Treescript \u003crelease+treescript@mozilla.org\u003e", "branch": "default", "desc": "No bug - Tagging 7a209c1754b43543dbe7c45ffbd6fbf4c40d4240 with DEVEDITION_98_0b7_BUILD1 a=release CLOSED TREE DONTBUILD", "files": [".hgtags"], "node": "5c61d1b39323a6f0d5982483caf59b5f1916f625", "parents": ["7a209c1754b43543dbe7c45ffbd6fbf4c40d4240"], "tags": []}], "date": 1645392080, "user": "ffxbld"}}
+}';
+    expect(bz::getBugsFromHgWeb($json, true))
+        ->toBeArray()
+        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
+        ->sequence(
+            fn ($value, $key) => $value->toBeArray(),
+            fn ($value, $key) => $value->toBeArray(),
+            fn ($value, $key) => $value->toBeArray(),
+            fn ($value, $key) => $value->toBeFalse(),
+        );
+
 });

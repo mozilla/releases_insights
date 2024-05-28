@@ -49,7 +49,12 @@ class Bugzilla
      */
     public static function getBugsFromHgWeb(string $query, bool $detect_backouts = false, int $cache_ttl = 0): array
     {
-        $results =  Json::load($query, $cache_ttl)['pushes'] ?? null;
+        if (json_validate($query)) {
+            // We sometimes pass directly the result of a JSON response
+            $results = Json::toArray($query)['pushes'] ?? null;
+        } else {
+            $results = Json::load($query, $cache_ttl)['pushes'] ?? null;
+        }
 
         // Handle the lack of data from HG
         if (empty($results)) {
@@ -101,7 +106,7 @@ class Bugzilla
                     continue;
                 }
 
-                if (Utils::inString($subitem, ['backed out', 'back out']) && $detect_backouts === true) {
+                if (Utils::inString($subitem, ['backed out', 'back out', 'Back out']) && $detect_backouts === true) {
                     $counter = count($bug_fixes);
                     $bug_fixes = array_diff($bug_fixes, $get_bugs($subitem));
                     if ($counter === count($bug_fixes)) {
@@ -128,6 +133,9 @@ class Bugzilla
         // Substract bug_fixes that were backed out later
         $clean_bug_fixes = $bug_fixes;
         $clean_backed_out_bugs = array_diff($backed_out_bugs, $bug_fixes);
+
+        $clean_bug_fixes = array_map('intval', $clean_bug_fixes);
+        $clean_backed_out_bugs = array_map('intval', $clean_backed_out_bugs);
 
         return [
             'bug_fixes' => array_values($clean_bug_fixes),

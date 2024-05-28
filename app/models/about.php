@@ -81,6 +81,10 @@ return <<<"EOD"
         <td>Get the list of views and public JSON API endpoints</td>
     </tr>
     <tr>
+        <td><a href="/beta">beta</a></td>
+        <td>Get the state of what was uplifted in the current beta cycle</td>
+    </tr>
+    <tr>
         <td><a href="/calendar">calendar</a></td>
         <td>Overview of our upcoming releases</td>
     </tr>
