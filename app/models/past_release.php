@@ -30,6 +30,8 @@ if ($requested_version == 15) {
 if ($requested_version == 16) {
     // We never had a 14.0 release, so this is hardcoded
     $nightly_start_date = '2012-06-04';
+} elseif ($requested_version == 127) {
+    $nightly_start_date = $firefox_releases['firefox-125.0.1']['date'];
 } else {
     $nightly_start_date = $firefox_releases['firefox-' . number_format((int) $requested_version - 2.0, 1)]['date'];
 }
