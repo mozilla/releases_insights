@@ -56,6 +56,8 @@ foreach ($obj->getPastReleases(dot_releases: false) as $version => $date) {
         $nightly_start = '2011-04-12';
     } elseif ((int) $version < 55 && (int) $version > 8) {
         $nightly_start = $obj->getPastReleases()[Version::decrement($version, 3)];
+    } elseif ($version =='127.0') {
+        $nightly_start = $obj->getPastReleases()['125.0.1']; // 125.0 replaced by 125.0.1
     } else {
         $nightly_start = $obj->getPastReleases()[Version::decrement($version, 2)];
     }
