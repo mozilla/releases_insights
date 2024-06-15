@@ -11,7 +11,7 @@
   {% include 'release_nav.html.twig' %}
 {% endblock %}
 {% if release == constant('FIREFOX_RELEASE')|number_format %}
-  {% set alert = 'Version shipping to users on the <b class="text-danger">Release</b> channel.' %}
+  {% set alert = 'Version shipping to users on the <b class="text-danger">Release</b> channel' %}
   {% set rollout = '
     <span
         data-bs-toggle="tooltip"

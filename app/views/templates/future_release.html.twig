@@ -15,7 +15,7 @@
 {% block main %}
 {% if not fallback_content %}
   {% if release == constant('BETA') %}
-    {% set alert = 'Version shipping to users on the <b class="text-danger">Beta</b> channel.' %}
+    {% set alert = 'Version shipping to users on the <b class="text-danger">Beta</b> channel' %}
     {% set channel = 'beta' %}
     {% set rollout = '
       <span
@@ -29,13 +29,13 @@
     '
     %}
   {% elseif release == constant('NIGHTLY') %}
-    {% set alert = 'Version shipping to users on the <b class="text-danger">Nightly</b> channel.' %}
+    {% set alert = 'Version shipping to users on the <b class="text-danger">Nightly</b> channel' %}
     {% set channel = 'nightly' %}
   {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') +1 %}
     {% set alert = '<b class="text-danger">Release candidate</b> about to be released.' %}
     {% set channel = 'future' %}
   {% else %}
-    {% set alert = 'Future version, development not started yet.' %}
+    {% set alert = 'Future version, development not started yet' %}
     {% set channel = 'future' %}
   {% endif %}
 
