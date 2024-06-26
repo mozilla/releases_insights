@@ -90,7 +90,10 @@ $top_sigs = [];
 $days_elapsed = date_diff(date_create(date($today)), date_create($requested_date))->days;
 if ($days_elapsed < 10) {
     foreach ($nightly_pairs as $dataset) {
-        $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'];
+        $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'] ?? null;
+        if( is_null($build_crashes[$dataset['buildid']])) {
+            continue;
+        }
     }
 
     foreach ($nightly_pairs as $dataset) {
