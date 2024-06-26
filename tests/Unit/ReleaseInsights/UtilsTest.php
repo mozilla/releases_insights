@@ -108,7 +108,7 @@ test('Utils::inString', function ($a, $b, $c, $d) {
 ]);
 
 test('Utils::getCrashesForBuildID', function () {
-    expect(U::getCrashesForBuildID(20190927094817))->toBeArray()->toBeEmpty();
+    expect(U::getCrashesForBuildID(20190927094817))->toBeArray()->toBe(['error' => 'URL provided no data']);
     expect(U::getCrashesForBuildID(20200927094817))->toBeArray()->not->toBeEmpty();
 });
 

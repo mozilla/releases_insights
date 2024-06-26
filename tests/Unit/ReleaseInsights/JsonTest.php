@@ -6,14 +6,14 @@ use ReleaseInsights\Json;
 
 test('Json::load', function () {
     expect(Json::load(__DIR__ . '/../../Files/firefox_versions.json'))->toBeArray();
+    expect(Json::load('iDontExist.json'))
+        ->toBe(['error' => 'URL provided no data'])
+        ->toBeArray();
     expect(Json::load(__DIR__ . '/../../Files/empty.json'))
-        ->toBeEmpty()
+        ->toBe(['error' => 'URL provided no data'])
         ->toBeArray();
     expect(Json::load(__DIR__ . '/../../Files/bad.json'))
-        ->toBeEmpty()
-        ->toBeArray();
-    expect(Json::load(__DIR__ . '/../../Files/iDontExist.json'))
-        ->toBeEmpty()
+        ->toBe(['error' => 'Invalid JSON source'])
         ->toBeArray();
 });
 

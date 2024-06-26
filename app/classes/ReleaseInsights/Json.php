@@ -77,14 +77,21 @@ class Json
         if (! $data = Cache::getKey($url, $ttl)) {
             $data = Utils::getFile($url);
 
-            // No data returned, bug or incorrect date, don't cache.
+            // Error fetching external data, don't cache. Safety net
+            // @codeCoverageIgnoreStart
+            if ($data === false) {
+                return ['error' => 'URL triggered an error'];
+            }
+            // @codeCoverageIgnoreEnd
+
+            // No data returned, bug or incorrect data, don't cache.
             if (empty($data)) {
-                return [];
+                return ['error' => 'URL provided no data'];
             }
 
             // Invalid Json, don't cache.
             if (! json_validate($data)) {
-                return [];
+                return ['error' => 'Invalid JSON source'];
             }
 
             Cache::setKey($url, $data, $ttl);

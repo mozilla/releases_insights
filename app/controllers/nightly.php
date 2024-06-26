@@ -17,6 +17,7 @@ declare(strict_types=1);
     $today,
     $known_top_crashes,
     $fallback_nightly,
+    $warning,
 ] = require_once MODELS . 'nightly.php';
 
 (new ReleaseInsights\Template(
@@ -38,5 +39,6 @@ declare(strict_types=1);
         'today'             => $today,
         'known_top_crashes' => $known_top_crashes,
         'fallback_nightly'  => $fallback_nightly,
+        'warning_message'   => $warning,
     ]
 ))->render();

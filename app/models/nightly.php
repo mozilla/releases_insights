@@ -14,6 +14,9 @@ $requested_date = Utils::getDate();
 $previous_date  = date('Ymd', strtotime($requested_date . ' -1 day'));
 $next_date      = date('Ymd', strtotime($requested_date . ' +1 day'));
 
+// We may have to display a warning message because an external ressource is down
+$warning = '';
+
 // Get nightlies for the GET Request (or today's nightly)
 $nightlies = include MODELS . 'api/nightly.php';
 
@@ -91,17 +94,19 @@ $days_elapsed = date_diff(date_create(date($today)), date_create($requested_date
 if ($days_elapsed < 10) {
     foreach ($nightly_pairs as $dataset) {
         $build_crashes[$dataset['buildid']] = Utils::getCrashesForBuildID($dataset['buildid'])['total'] ?? null;
-        if( is_null($build_crashes[$dataset['buildid']])) {
+        if (is_null($build_crashes[$dataset['buildid']])) {
+            $warning = "Socorro is not providing data";
             continue;
         }
     }
 
     foreach ($nightly_pairs as $dataset) {
-        $top_sigs[$dataset['buildid']] = array_splice(
-            Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'],
-            0,
-            20
-        );
+        $sig = Utils::getCrashesForBuildID($dataset['buildid'])['facets']['signature'] ?? null;
+        if (is_null($sig)) {
+            $warning = "Socorro is not providing data";
+            continue;
+        }
+        $top_sigs[$dataset['buildid']] = array_splice($sig, 0, 20);
     }
 }
 
@@ -252,4 +257,5 @@ return [
     $today,
     $known_top_crashes,
     $fallback_nightly,
+    $warning,
 ];

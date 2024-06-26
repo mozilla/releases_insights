@@ -44,10 +44,10 @@ class Utils
         $cache_id = URL::Socorro->value . 'Bugs/?signatures=' . $signature;
 
         if (defined('TESTING_CONTEXT')) {
+            $cache_id = TEST_FILES .'/crash-stats.mozilla.org_signature.json';
+
             if ($signature == 'failure') {
                 $cache_id = TEST_FILES .'/empty.json';
-            } else {
-                $cache_id = TEST_FILES .'/crash-stats.mozilla.org_signature.json';
             }
         }
 
@@ -55,6 +55,13 @@ class Utils
         // We cache because we want to avoid http request latency
         if (! $data = Cache::getKey($cache_id, 30)) {
             $data = file_get_contents($cache_id);
+
+            // Error fetching data, don't cache.
+            // @codeCoverageIgnoreStart
+            if ($data === false) {
+                return ['error' => 'URL provided no data'];
+            }
+            // @codeCoverageIgnoreEnd
 
             // No data returned, bug or incorrect date, don't cache.
             if (empty($data)) {
@@ -159,7 +166,7 @@ class Utils
     /**
      * getFile code coverage is done through its main consumer Json::load()
      */
-    public static function getFile(string $url): string
+    public static function getFile(string $url): string|bool
     {
         // Local file
         if (! isset(parse_url($url)['scheme'])) {
