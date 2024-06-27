@@ -180,7 +180,12 @@ class Utils
 
         // We don't want to make external requests in Unit Tests
         // @codeCoverageIgnoreStart
-        $client = new Client();
+        $client = new Client([
+            'headers' => [
+                'User-Agent' => 'WhatTrainIsItNow/1.0',
+                'Referer'    => 'https://whattrainisitnow.com'
+            ]
+        ]);
 
         // We know that some queries fail for hg.mozilla.org but we deal with that in templates
         // We ignore warnings for 404 errors as we don't want to spam Sentry

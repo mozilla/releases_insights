@@ -10,7 +10,9 @@ $date = Utils::getDate();
 $options = [
     'http' => [
         'method'  => 'POST',
-        'header'  => 'Content-Type: application/json',
+        'header'  =>   "Content-Type: application/json\r\n"
+                     . "User-Agent: WhatTrainIsItNow/1.0\r\n"
+                     . "Referer: https://whattrainisitnow.com",
         'content' => '{
       "_source": ["build.id", "source.revision", "target.version"],
       "query": {
