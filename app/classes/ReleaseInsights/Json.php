@@ -33,7 +33,7 @@ class Json
         }
 
         ob_start();
-        header("access-control-allow-origin: *");
+        header("access-control-allow-origin: *"); // * is OK as our Json API is public and readonly
         header("Content-type: {$mime}; charset=UTF-8");
         header("Content-Length: " . strlen($json));
         echo $json;
