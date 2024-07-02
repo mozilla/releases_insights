@@ -38,7 +38,7 @@
   {% for values in upcoming_releases %}
     {% if values.release_date|format_date(pattern='YYYY' , locale='en') != year %}
     <tr>
-      <th colspan="8" class="text-center table-warning">{{ values.release_date|format_date(pattern='YYYY' , locale='en') }}</th>
+      <th colspan="8" class="text-center table-warning force-default-bg">{{ values.release_date|format_date(pattern='YYYY' , locale='en') }}</th>
     </tr>
       {% set year = values.release_date|format_date(pattern='YYYY' , locale='en') %}
     {% endif %}
