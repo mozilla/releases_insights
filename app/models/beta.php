@@ -21,7 +21,8 @@ foreach ($beta->report() as $version => $details) {
         . 'rest/bug?include_fields='
         . implode(',', $bz_fields)
         . '&bug_id='
-        . implode('%2C', $details['total'])
+        . implode('%2C', $details['total']),
+        3600*24
     )['bugs'] ?? [];
 
     /*

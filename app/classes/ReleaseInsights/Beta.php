@@ -127,7 +127,7 @@ readonly class Beta
         $beta_logs = [];
         foreach ($responses as $key => $json_log) {
             $data = $json_log['value']->getBody()->getContents();
-            $beta_logs[$key] = Bugzilla::getBugsFromHgWeb($data, true, -1);
+            $beta_logs[$key] = Bugzilla::getBugsFromHgWeb($data, true, 3600*24);
         }
 
         // Wait for the requests to complete, even if some of them fail
