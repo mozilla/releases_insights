@@ -29,22 +29,32 @@
       </td>
     </tr>
     <tr>
-      <th class="w-auto text-center" colspan="2">Total uplifts: <span class="badge text-bg-info">{{ uplift_count }}</span></th>
+      <th class="w-auto text-start" colspan="2"><span class="badge text-bg-info">{{ uplift_count }}</span> uplifts</th>
     </tr>
    </table>
 
 <br>
 {% for key, values in betas_data %}
+       {% if key == "128.0rc0" %}
+        <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Last beta shipped</small></p>
+       {% endif %}
+       {% if key == "128.0rc1" %}
+        <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Beta to release merge</small></p>
+       {% endif %}
+
+
     <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto">
+
         <li class="list-group-item bg-info border-0">{{ key }}</li>
         <li class="list-group-item text-light bg-secondary border-0">
             <a href="{{ values['hg_link'] }}" class="text-light">Changelog</a>
         </li>
         <li class="list-group-item text-light bg-success border-0 flex-fill w-25">
            {% if bug_list[key]|length == 1 %}
-            <a href="{{ values['bugzilla'] }}" class="text-light">Patches from 1 bug</a>
+              <a href="{{ values['bugzilla'] }}" class="text-light">Patches from 1 bug</a>
            {% elseif bug_list[key]|length > 1 %}
-            <a href="{{ values['bugzilla'] }}" class="text-light">Patches from {{ bug_list[key]|length }} bugs</a>
+              <a href="{{ values['bugzilla'] }}" class="text-light">Patches from {{ bug_list[key]|length }} bugs</a>
+              {% if key == "128.0rc0" %} on the beta branch before the merge, those will ship in rc1{% endif %}
           {% else %}
             No patches
           {% endif %}
