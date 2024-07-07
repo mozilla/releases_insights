@@ -35,7 +35,9 @@
         "pchevrel/bzkarma": "^0.7",
         "cweagans/composer-patches": "^1.7",
         "sentry/sentry": "^4.0",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "symfony/cache": "^6.4",
+        "kevinrob/guzzle-cache-middleware": "^5.1"
     },
     "require-dev": {
         "psy/psysh": "^0.11",

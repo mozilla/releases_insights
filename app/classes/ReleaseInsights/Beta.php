@@ -7,6 +7,12 @@ namespace ReleaseInsights;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils as Promise;
 
+use GuzzleHttp\HandlerStack;
+use Kevinrob\GuzzleCache\CacheMiddleware;
+use Kevinrob\GuzzleCache\Storage\Psr6CacheStorage;
+use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+
 use ReleaseInsights\Bugzilla;
 use ReleaseInsights\Release;
 use ReleaseInsights\Json;
@@ -114,7 +120,31 @@ readonly class Beta
      */
     public function getBugsFromLogs(): array
     {
-        $client = new Client(['base_uri' => URL::Mercurial->value]);
+        // Create a HandlerStack
+        $stack = HandlerStack::create();
+        $TTL = 600;
+
+        $cache_storage = new Psr6CacheStorage(
+            new FilesystemAdapter(
+                'guzzle', // Cache folder name
+                $TTL,
+                CACHE_PATH
+            )
+        );
+
+        // Add Cache Method
+        $stack->push(
+            new CacheMiddleware(
+                new GreedyCacheStrategy(
+                    $cache_storage,
+                    $TTL // the TTL in seconds
+                )
+            ),
+            'greedy-cache'
+        );
+
+        // Initialize the client with the handler option
+        $client = new Client(['handler' => $stack, 'base_uri' => URL::Mercurial->value]);
 
         // Initiate each request but do not block
         $promises = [];
