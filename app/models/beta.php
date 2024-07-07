@@ -16,14 +16,17 @@ foreach ($beta->report() as $version => $details) {
 
     // We Query Bugzilla for bug details
     $bz_fields = ['id', 'summary', 'priority', 'severity', 'product', 'component', 'type'];
-    $bug_list_details[$version] = Json::load(
-        URL::Bugzilla->value
-        . 'rest/bug?include_fields='
-        . implode(',', $bz_fields)
-        . '&bug_id='
-        . implode('%2C', $details['total']),
-        3600*24
-    )['bugs'] ?? [];
+    $bug_list_details[$version] = [];
+    if ($uplifts > 0) {
+        $bug_list_details[$version] = Json::load(
+            URL::Bugzilla->value
+            . 'rest/bug?include_fields='
+            . implode(',', $bz_fields)
+            . '&bug_id='
+            . implode('%2C', $details['total']),
+            3600*24
+        )['bugs'] ?? [];
+    }
 
     /*
         The Bugzilla API does not send all bug results without auth
