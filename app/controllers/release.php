@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR, Template, Utils, Version};
+use ReleaseInsights\{Data, ESR, Model, Template, Utils, Version};
 
 $requested_version = Version::get();
 $requested_version_int = (int) Version::get();
@@ -26,7 +26,7 @@ $template_data = [
 
 // Releases before version 4 were handled completely differently
 if ($requested_version_int < 4) {
-    [$dot_release_count, $release_date] = require MODELS . 'pre4_release.php';
+    [$dot_release_count, $release_date] = (new Model('pre_firefox4_release'))->get();
     $template_data += ['dot_release_count' => $dot_release_count];
     $template_data += ['release_date' => $release_date];
     (new Template('pre4_release.html.twig', $template_data))->render();
@@ -47,7 +47,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         $current_ESR,
         $release_date,
         $esr_calendar,
-    ] = require_once MODELS . 'esr_release.php';
+    ] = (new Model('esr_release'))->get();
 
     $template_data = array_merge($template_data, [
         'page_title'   => 'Firefox ESR schedule',
@@ -88,7 +88,7 @@ if ($requested_version_int <= RELEASE) {
         $firefox_releases,
         $no_planned_dot_releases,
         $release_rollout
-    ] = require_once MODELS . 'past_release.php';
+    ] = (new Model('past_release'))->get();
 
     $template_file = 'past_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -126,7 +126,7 @@ if ($requested_version_int <= RELEASE) {
         $cycle_dates,
         $deadlines,
         $rollout,
-    ] = require_once MODELS . 'future_release.php';
+    ] = (new Model('future_release'))->get();
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
         'release_date'         => $release_date,

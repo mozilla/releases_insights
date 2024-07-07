@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Json;
+use ReleaseInsights\{Json, Model};
 
-$json = include MODELS . 'api/release_duty.php';
+$data = (new Model('api_release_duty'))->get();
 
-(new Json($json))->render();
+(new Json($data))->render();

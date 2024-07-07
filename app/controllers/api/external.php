@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Json;
+use ReleaseInsights\{Json, Model};
 
-$json = include MODELS . 'api/external.php';
+$data = (new Model('api_external'))->get();
 
-(new Json($json))->render();
+(new Json($data))->render();

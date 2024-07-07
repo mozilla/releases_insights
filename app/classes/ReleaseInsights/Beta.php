@@ -34,9 +34,15 @@ readonly class Beta
         $this->number_betas = count($schedule);
 
         // Check if the beta cycle is over
-        $this->beta_cycle_ended = str_contains((string) get_headers(
-            URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
-            '200');
+        if (defined('TESTING_CONTEXT')) {
+            $this->beta_cycle_ended = true;
+        } else {
+            // @codeCoverageIgnoreStart
+            $this->beta_cycle_ended = str_contains((string) get_headers(
+                URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
+                '200');
+            // @codeCoverageIgnoreEnd
+        }
     }
 
     /**
@@ -87,7 +93,7 @@ readonly class Beta
             Remote balrog API can give a 404, we have a fallback to N/A
         */
         if (defined('TESTING_CONTEXT')) {
-            $shipping_build = 'Firefox-94.0b9-build1';
+            $shipping_build = 'Firefox-94.0-build1';
         } else {
             $shipping_build = Json::load(URL::Balrog->value . 'rules/firefox-beta', 900)['mapping'] ?? 'N/A';// @codeCoverageIgnore
         }
@@ -104,8 +110,10 @@ readonly class Beta
                         $rc_start = 'FIREFOX_RELEASE_' . BETA . '_BASE';
                         $rc_end = 'FIREFOX_' . BETA . '_0_BUILD1';
                     } else {
+                        // @codeCoverageIgnoreStart
                         $rc_start = 'FIREFOX_' . BETA . '_0_BUILD' . (string) ($rc_number - 1);
                         $rc_end = 'FIREFOX_' . BETA . '_0_BUILD' . (string) ($rc_number);
+                        // @codeCoverageIgnoreEnd
                     }
 
                     $rc_version = (string) BETA . '.0rc' . (string) $rc_number;

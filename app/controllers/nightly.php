@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\{Model, Template};
+
 [
     $display_date,
     $nightly_pairs,
@@ -18,9 +20,9 @@ declare(strict_types=1);
     $known_top_crashes,
     $fallback_nightly,
     $warning,
-] = require_once MODELS . 'nightly.php';
+] = (new Model('nightly'))->get();
 
-(new ReleaseInsights\Template(
+(new Template(
     'nightly.html.twig',
     [
         'page_title'        => 'Nightly builds (crashes and bug fixes)',

@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Json;
+use ReleaseInsights\{Json, Model};
 
-$json = include MODELS . 'api/nightly.php';
+$data = (new Model('api_nightly'))->get();
 
 // We want to send a simplified Json for our public API
-$json_for_api = [];
-
-foreach ($json as $key => $values) {
-    $json_for_api[$key] = $values['revision'];
+$data_for_api = [];
+foreach ($data as $key => $values) {
+    $data_for_api[$key] = $values['revision'];
 }
 
-(new Json($json_for_api))->render();
+(new Json($data_for_api))->render();

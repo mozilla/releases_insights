@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-if ((int) ReleaseInsights\Version::get() < BETA) {
+use ReleaseInsights\{Model, Version};
+
+if ((int) Version::get() < BETA) {
     exit("We don't provide schedule calendars for past releases.");
 }
 
-[$filename, $ics_calendar] = require_once MODELS . 'ics_release_schedule.php';
+[$filename, $ics_calendar] = (new Model('ics'))->get();
 
 header('Content-Type: text/calendar; charset=utf-8');
 // header('Content-Type: text/plain; charset=utf-8');

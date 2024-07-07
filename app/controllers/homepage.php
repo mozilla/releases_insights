@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use ReleaseInsights\{Model, Template};
+
 [
     $beta_cycle_dates,
     $nightly_cycle_dates,
@@ -11,9 +13,9 @@ declare(strict_types=1);
     $latest_nightly,
     $firefox_version_on_release_day,
     $beta_is_the_next_ESR,
-] = require_once MODELS . 'home.php';
+] = (new Model('home'))->get();
 
-(new ReleaseInsights\Template(
+(new Template(
     'overview.html.twig',
     [
         'page_title'             => 'What Firefox trains are we in?',
