@@ -23,7 +23,7 @@
         <ul class="list-group list-group-horizontal mx-auto btn-group   ">
         {% for product, data in stats %}
             <li class="btn btn-light p-0 m-0">
-                <small><a href="{{ data['bugzilla'] }}">{{ product }} <br><span class="badge text-bg-primary fw-normal">{{ data['bugs']|length }}</span></a></small></li>
+                <small><a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50">{{ product }} </a><span class="badge text-bg-primary fw-normal d-inline-block mt-3">{{ data['bugs']|length }}</span></small></li>
         {% endfor %}
         </ul>
       </td>
