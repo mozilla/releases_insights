@@ -60,7 +60,7 @@
             {% if loop.first %}
                 <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
             {% endif %}
-            {% if key > constant('FIREFOX_BETA') %}<small>(upcoming beta, not shipped yet)</small>{% endif %}
+            {% if key > constant('FIREFOX_BETA') %}<small class="fst-italic">(upcoming beta, not shipped yet)</small>{% endif %}
         </li>
         {% if values['bug_fixes']|length > 0 %}
         <li class="list-group-item text-light bg-primary border-0">
