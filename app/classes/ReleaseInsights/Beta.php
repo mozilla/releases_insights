@@ -16,8 +16,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use ReleaseInsights\Bugzilla;
 use ReleaseInsights\Release;
 use ReleaseInsights\Json;
-use ReleaseInsights\Version;
-use ReleaseInsights\Utils;
+use ReleaseInsights\URL;
 
 readonly class Beta
 {
@@ -49,9 +48,18 @@ readonly class Beta
                 ? 'FIREFOX_BETA_' . BETA . '_BASE'
                 : 'FIREFOX_' . BETA . '_0b' . $beta_number . '_RELEASE';
 
-            $beta_end = ($beta_number == $this->count)
-                ? 'tip'
-                : 'FIREFOX_' . BETA . '_0b' . (string) ($beta_number + 1) . '_RELEASE';
+            $beta_end = 'FIREFOX_' . BETA . '_0b' . (string) ($beta_number + 1) . '_RELEASE';
+
+            if ($beta_number == $this->count) {
+                $beta_end = 'tip';
+                // Just after merge day, we don't want to use tip for beta_end but the newly created tag
+                if (str_contains((string) get_headers(
+                    URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
+                    '200')
+                ) {
+                    $beta_end = 'FIREFOX_BETA_' . BETA . '_END';
+                }
+            }
 
             $beta_version = (string) BETA . '.0b' . (string) ($beta_number + 1);
 
