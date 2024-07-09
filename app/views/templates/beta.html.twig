@@ -50,14 +50,17 @@
             <a href="{{ values['hg_link'] }}" class="text-light">Changelog</a>
         </li>
         <li class="list-group-item text-light bg-success border-0 flex-fill w-25">
-           {% if bug_list[key]|length == 1 %}
-              <a href="{{ values['bugzilla'] }}" class="text-light">Patches from 1 bug</a>
+            {% if bug_list[key]|length == 1 %}
+                <a href="{{ values['bugzilla'] }}" class="text-light">1 bug uplifted</a>
            {% elseif bug_list[key]|length > 1 %}
-              <a href="{{ values['bugzilla'] }}" class="text-light">Patches from {{ bug_list[key]|length }} bugs</a>
-              {% if key == "128.0rc0" %} on the beta branch before the merge, those will ship in rc1{% endif %}
-          {% else %}
-            No patches
-          {% endif %}
+                <a href="{{ values['bugzilla'] }}" class="text-light">{{ bug_list[key]|length }} bugs uplifted</a>
+              {% if key == "128.0rc0" %} <small class="fst-italic"> (on the beta branch before the merge, those will ship in rc1)</small>{% endif %}
+            {% else %}
+                No uplift
+            {% endif %}
+            {% if loop.first %}
+                <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
+            {% endif %}
         </li>
         {% if values['bug_fixes']|length > 0 %}
         <li class="list-group-item text-light bg-primary border-0">
@@ -85,8 +88,10 @@
             {%- set alert_row = '' -%}
             {%- set pill_level = 'text-bg-light border' -%}
             {%- if details.type == 'enhancement' -%}
-                {%- set alert_link =' text-success fw-bold' -%}
+                {%- set alert_link ='bz-enhancement' -%}
                 {%- set alert_title =' title="Bug marked as Enhancement"' -%}
+            {%- else -%}
+                {%- set alert_title =' title="Bug marked as Task or Defect"' -%}
             {%- endif -%}
             {%- if bug_list_karma[details.id].score > 8 -%}
                 {%- set pill_level ='text-bg-warning' -%}
@@ -97,8 +102,8 @@
             {%- endif -%}
         <tr class="small {{ alert_row }}">
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.summary }}</a></td>
         </tr>
         {% endfor %}
       </tbody>

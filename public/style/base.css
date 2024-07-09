@@ -284,3 +284,22 @@ footer {
 #nightly .score-pill:hover + .score-card {
     visibility: visible;
 }
+
+#beta .bz-enhancement::after {
+  content: '\002B';
+  background-color: #2aba27;
+  color: white;
+  padding: 0;
+  padding-bottom: 1 px;
+  display: inline-block;
+  border-radius: 3px;
+  font-size: small;
+  font-weight: bold;
+  width: 14px;
+  height: 15px;
+  text-align: center;
+  line-height: 13px;
+  margin-top: 4px;
+  margin-left:0.5em;
+}
+
