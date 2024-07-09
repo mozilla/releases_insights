@@ -35,12 +35,13 @@
 
 <br>
 {% for key, values in betas_data %}
-       {% if key == "128.0rc0" %}
+       {% if key == constant('BETA') ~ ".0rc0" %}
         <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Last beta shipped</small></p>
        {% endif %}
-       {% if key == "128.0rc1" %}
+       {% if key == constant('BETA') ~ ".0rc1" %}
         <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Beta to release merge</small></p>
        {% endif %}
+
 
 
     <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto">
