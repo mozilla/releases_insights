@@ -22,6 +22,7 @@ readonly class Beta
 {
     public readonly int $count;
     public readonly int $number_betas;
+    public readonly bool $beta_cycle_ended;
 
     public function __construct(public int $release = BETA) {
         $this->count = (int) explode('b', FIREFOX_BETA)[1];
@@ -31,6 +32,11 @@ readonly class Beta
         $schedule = array_keys($schedule);
         $schedule = array_filter($schedule, fn($label) => str_starts_with($label, 'beta_'));
         $this->number_betas = count($schedule);
+
+        // Check if the beta cycle is over
+        $this->beta_cycle_ended = str_contains((string) get_headers(
+            URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
+            '200');
     }
 
     /**
@@ -52,11 +58,9 @@ readonly class Beta
 
             if ($beta_number == $this->count) {
                 $beta_end = 'tip';
+                error_log((string) $beta_number);
                 // Just after merge day, we don't want to use tip for beta_end but the newly created tag
-                if (str_contains((string) get_headers(
-                    URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
-                    '200')
-                ) {
+                if ($this->beta_cycle_ended) {
                     $beta_end = 'FIREFOX_BETA_' . BETA . '_END';
                 }
             }
