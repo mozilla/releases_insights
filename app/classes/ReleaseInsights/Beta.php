@@ -17,7 +17,6 @@ use ReleaseInsights\Bugzilla;
 use ReleaseInsights\Release;
 use ReleaseInsights\Json;
 use ReleaseInsights\URL;
-use ReleaseInsights\Utils;
 
 readonly class Beta
 {
@@ -93,7 +92,6 @@ readonly class Beta
             // We have Release candidates
             [$product, $version, $build_number] = explode('-', (string) $shipping_build);
             $is_rc_build = ! str_contains($version, 'b');
-            Utils::dump($version,$is_rc_build);
             $number_rc_builds = $is_rc_build ? (int) str_replace('build', '', $build_number) : 0;
 
             if ($is_rc_build) {
@@ -167,7 +165,6 @@ readonly class Beta
 
         $beta_logs = [];
         foreach ($responses as $key => $json_log) {
-            Utils::dump($this->getLogEndpoints());
             $data = $json_log['value']->getBody()->getContents();
             $beta_logs[$key] = Bugzilla::getBugsFromHgWeb($data, true, 3600*24);
         }
