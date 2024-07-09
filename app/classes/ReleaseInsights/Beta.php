@@ -17,6 +17,7 @@ use ReleaseInsights\Bugzilla;
 use ReleaseInsights\Release;
 use ReleaseInsights\Json;
 use ReleaseInsights\URL;
+use ReleaseInsights\Utils;
 
 readonly class Beta
 {
@@ -92,28 +93,30 @@ readonly class Beta
             // We have Release candidates
             [$product, $version, $build_number] = explode('-', (string) $shipping_build);
             $is_rc_build = ! str_contains($version, 'b');
+            Utils::dump($version,$is_rc_build);
             $number_rc_builds = $is_rc_build ? (int) str_replace('build', '', $build_number) : 0;
 
-            foreach (range(1, $number_rc_builds) as $rc_number) {
+            if ($is_rc_build) {
+                foreach (range(1, $number_rc_builds) as $rc_number) {
+                    if ($rc_number == 1) {
+                        $rc_start = 'FIREFOX_RELEASE_' . BETA . '_BASE';
+                        $rc_end = 'FIREFOX_' . BETA . '_0_BUILD1';
+                    } else {
+                        $rc_start = 'FIREFOX_' . BETA . '_0_BUILD' . (string) ($rc_number - 1);
+                        $rc_end = 'FIREFOX_' . BETA . '_0_BUILD' . (string) ($rc_number);
+                    }
 
-                if ($rc_number == 1) {
-                    $rc_start = 'FIREFOX_RELEASE_' . BETA . '_BASE';
-                    $rc_end = 'FIREFOX_' . BETA . '_0_BUILD1';
-                } else {
-                    $rc_start = 'FIREFOX_' . BETA . '_0_BUILD' . (string) ($rc_number - 1);
-                    $rc_end = 'FIREFOX_' . BETA . '_0_BUILD' . (string) ($rc_number);
+                    $rc_version = (string) BETA . '.0rc' . (string) $rc_number;
+
+                    // This is what landed on mozilla-beta after the last beta but before the merge and RC1
+
+                    $hg_end_points[$rc_version] =
+                        'releases/mozilla-release/json-pushes?fromchange='
+                        . $rc_start
+                        . '&amp;tochange='
+                        . $rc_end
+                        . '&amp;full&amp;version=2';
                 }
-
-                $rc_version = (string) BETA . '.0rc' . (string) $rc_number;
-
-                // This is what landed on mozilla-beta after the last beta but before the merge and RC1
-
-                $hg_end_points[$rc_version] =
-                    'releases/mozilla-release/json-pushes?fromchange='
-                    . $rc_start
-                    . '&amp;tochange='
-                    . $rc_end
-                    . '&amp;full&amp;version=2';
             }
         }
 
@@ -164,6 +167,7 @@ readonly class Beta
 
         $beta_logs = [];
         foreach ($responses as $key => $json_log) {
+            Utils::dump($this->getLogEndpoints());
             $data = $json_log['value']->getBody()->getContents();
             $beta_logs[$key] = Bugzilla::getBugsFromHgWeb($data, true, 3600*24);
         }
