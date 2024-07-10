@@ -303,3 +303,16 @@ footer {
   margin-left:0.5em;
 }
 
+/* override Bootstrap striped styles as they don't allow background images */
+#nightly table  tr:nth-child(odd) td {
+    box-shadow: none !important;
+    background-color: #ecedee !important;
+}
+
+#nightly td.android {
+     background-image: url("/assets/img/android.svg");
+     background-repeat: no-repeat;
+     background-size: 1em;
+     background-position-x: 10px;
+     background-position-y: center;
+}
