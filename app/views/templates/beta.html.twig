@@ -83,9 +83,16 @@
       </thead>
       <tbody>
         {%- for details in bug_list[key] -%}
+
             {%- set alert_link = '' -%}
             {%- set alert_title = '' -%}
             {%- set alert_row = '' -%}
+            {%- set product = '' -%}
+
+            {%- if details.product == 'Fenix' or details.product == 'GeckoView' or details.product == 'Focus' -%}
+                {%- set product = 'android' -%}
+            {%- endif -%}
+
             {%- set pill_level = 'text-bg-light border' -%}
             {%- if details.type == 'enhancement' -%}
                 {%- set alert_link ='bz-enhancement' -%}
@@ -101,7 +108,7 @@
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
         <tr class="small {{ alert_row }}">
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+            <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.component }}</td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.summary }}</a></td>
         </tr>
