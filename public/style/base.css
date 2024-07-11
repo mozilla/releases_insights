@@ -304,22 +304,24 @@ footer {
 }
 
 /* override Bootstrap striped styles as they don't allow background images */
-#beta table  tr:nth-child(odd) td,
-#nightly table  tr:nth-child(odd) td {
+:is(#beta, #nightly) table tr:nth-child(odd) td {
     box-shadow: none !important;
     background-color: #ecedee !important;
 }
 
-#beta td.android,
-#nightly td.android {
-     background-image: url("/assets/img/android.svg");
-     background-repeat: no-repeat;
-     background-size: 1em;
-     background-position-x: 10px;
-     background-position-y: center;
+:is(#beta, #nightly) td.android {
+    background-image: url("/assets/img/android.svg");
+    background-repeat: no-repeat;
+    background-size: 1em;
+    background-position: right 4px center;
 }
 
 #beta table tr td:nth-child(1) {
-    width: 7em;
-    text-align: right;
+    width: 8em;
+    text-align: left;
+    padding-left: 10px;
+}
+
+#beta table tr td:nth-child(2) {
+    width: 18em;
 }
