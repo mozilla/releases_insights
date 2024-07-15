@@ -271,25 +271,6 @@ class Utils
     }
 
     /**
-     * Utility function to get symfony dump() function output to the CLI
-     * http://symfony.com/doc/current/components/var_dumper/
-     *
-     * @codeCoverageIgnore
-     */
-    public static function dump(): void
-    {
-        if (! class_exists(\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
-            return;
-        }
-
-        $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
-        $dumper = new \Symfony\Component\VarDumper\Dumper\CliDumper();
-        foreach (func_get_args() as $arg) {
-            $dumper->dump($cloner->cloneVar($arg));
-        }
-    }
-
-    /**
      * @param DateTime $date Date that is to be checked if it falls between $startDate and $endDate
      * @param DateTime $startDate Date should be after this date to return true
      * @param DateTime $endDate Date should be before this date to return true

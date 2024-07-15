@@ -29,7 +29,7 @@ class Performance
     public static function log(): void
     {
         [$memory_peak_B, $memory_peak_MB, $computation_time] = self::getData();
-        Utils::dump(
+        Debug::dump(
             "Memory peak: {$memory_peak_B} ({$memory_peak_MB}MB)",
             "Elapsed time (s): {$computation_time}",
             debug_backtrace()[0]['file'] . ': ' . (string) debug_backtrace()[0]['line']
