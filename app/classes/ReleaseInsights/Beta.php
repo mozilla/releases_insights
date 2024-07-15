@@ -64,7 +64,6 @@ readonly class Beta
 
             if ($beta_number == $this->count) {
                 $beta_end = 'tip';
-                error_log((string) $beta_number);
                 // Just after merge day, we don't want to use tip for beta_end but the newly created tag
                 if ($this->beta_cycle_ended) {
                     $beta_end = 'FIREFOX_BETA_' . BETA . '_END';
