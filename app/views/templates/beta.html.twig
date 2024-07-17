@@ -64,7 +64,10 @@
         </li>
         {% if values['bug_fixes']|length > 0 %}
         <li class="list-group-item text-light bg-primary border-0">
-              <a class="text-light" data-bs-toggle="collapse" href="#collapse{{ key }}">Show list of bugs</a>
+            <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapse{{ key }}">
+                <span class="text-collapsed">Show list of bugs</span>
+                <span class="text-expanded">Hide list of bugs</span>
+            </a>
         </li>
         {% endif %}
     </ul>

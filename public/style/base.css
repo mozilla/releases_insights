@@ -327,5 +327,13 @@ footer {
 }
 
 #beta table .btn .badge {
-  top: -4px;
+    top: -4px;
+}
+
+:is(#beta, #nightly) a[aria-expanded=false] .text-expanded {
+    display: none;
+}
+
+:is(#beta, #nightly) a[aria-expanded=true] .text-collapsed {
+    display: none;
 }

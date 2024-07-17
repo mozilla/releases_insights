@@ -36,7 +36,10 @@
             <a href="{{ bug_list[dataset.buildid].url }}" class="text-light">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
         </li>
         <li class="list-group-item text-light bg-primary border-0">
-              <a class="text-light" data-bs-toggle="collapse" href="#collapse{{ dataset.buildid }}">Show list of bugs</a>
+            <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapse{{ dataset.buildid }}">
+                <span class="text-collapsed">Show list of bugs</span>
+                <span class="text-expanded">Hide list of bugs</span>
+            </a>
         </li>
         <li class="list-group-item text-light bg-danger border-0">
             <a href="https://crash-stats.mozilla.org/api/SuperSearch/?build_id={{ dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
