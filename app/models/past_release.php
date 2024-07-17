@@ -141,8 +141,19 @@ if ($requested_version == '14.0') {
 
 // Number of bugs fixed in nightly
 if ($requested_version == '126.0') {
-    // 126 was the big merge to mercurial for Android, parsing the log exhausts the memory allocated by Nginx
-    $nightly_fixes = 0;
+    /*
+        126 was the big merge to mercurial for Firefox Android.
+        We start from the commit after this merge
+    */
+    $nightly_fixes = Bz::getBugsFromHgWeb(
+        URL::Mercurial->value
+        . 'mozilla-central/json-pushes'
+        . '?fromchange=d14f32147b8133ced41921f303d0c9f22e2d4d8a'
+        . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
+        . '&full&version=2',
+        true,
+        -1
+    );
 } else {
     $nightly_fixes = Bz::getBugsFromHgWeb(
         URL::Mercurial->value
