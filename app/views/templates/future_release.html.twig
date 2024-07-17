@@ -58,7 +58,7 @@
   '%}
 {% endif %}
 
-{% if release == '135' %}
+{% if release == '135' or release == '147' %}
   {% set alert = alert ~ '
 
 <div class="alert alert-warning d-flex align-top p-2" role="alert">
@@ -70,7 +70,7 @@
 </svg>
 </svg>
   <div>
-    135 nightly milestones might be adjusted to EOY staff availability.
+    This release milestones might be adjusted to EOY staff availability.
   </div>
 </div>
 

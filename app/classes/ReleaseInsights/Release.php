@@ -65,14 +65,14 @@ class Release
 
         // Transform all the DateTime objects in the $schedule array into formated date strings
         $date = fn(string|object $day): string => is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
-
         $schedule = [
             'nightly_start'       => $date($nightly),
             'qa_request_deadline' => $date('Friday'),
             'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
             'qa_feature_done_2'   => match ($this->version->normalized) {
-                '135.0' => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
-                default => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+                '135.0'          => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
+                '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),
+                default          => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
             },
             'soft_code_freeze'    => $date('Thursday 08:00'),
             'qa_pre_merge_done'   => $date('Friday 14:00'),
@@ -91,7 +91,10 @@ class Release
             'beta_8'              => $date('Wednesday 13:00'),
             'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
             'beta_9'              => $date('Friday 13:00'),
-            'rc_gtb'              => $date('Monday 21:00'),
+            'rc_gtb'              => match ($this->version) {
+                '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                default => $date('Monday 21:00'),
+            },
             'rc'                  => $date('Tuesday'),
             'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
