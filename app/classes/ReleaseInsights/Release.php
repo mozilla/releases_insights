@@ -68,7 +68,10 @@ class Release
         $schedule = [
             'nightly_start'       => $date($nightly),
             'qa_request_deadline' => $date('Friday'),
-            'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
+            'qa_feature_done_1'   => match ($this->version->normalized) {
+                '142.0' => $date('July 3 21:00'),
+                default => $date('Friday +1 week 21:00'),
+            },
             'qa_feature_done_2'   => match ($this->version->normalized) {
                 '135.0'          => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
                 '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),
@@ -99,8 +102,12 @@ class Release
             'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
-        if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
-            $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
+        if (! in_array( (int) $this->version->int, $this->no_planned_dot_releases)) {
+            if ($this->version === '146.0') {
+                $schedule += ['planned_dot_release' => $date($release->modify('December 18 00:00'))];
+            } else {
+                $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
+            }
        }
 
         // Sort the schedule by date, needed for schedules with a fixup
