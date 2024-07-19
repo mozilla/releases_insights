@@ -20,9 +20,9 @@ use ReleaseInsights\URL;
 
 readonly class Beta
 {
-    public readonly int $count;
-    public readonly int $number_betas;
-    public readonly bool $beta_cycle_ended;
+    public int $count;
+    public int $number_betas;
+    public bool $beta_cycle_ended;
 
     public function __construct(public int $release = BETA) {
         $this->count = (int) explode('b', FIREFOX_BETA)[1];
@@ -33,15 +33,15 @@ readonly class Beta
         $schedule = array_filter($schedule, fn($label) => str_starts_with($label, 'beta_'));
         $this->number_betas = count($schedule);
 
-        // Check if the beta cycle is over
-        if (defined('TESTING_CONTEXT')) {
-            $this->beta_cycle_ended = true;
-        } else {
+        // Check if the beta cycle is over, this avoids a miscount for RC builds
+        if ($this->count >= $this->number_betas && ! defined('TESTING_CONTEXT')) {
             // @codeCoverageIgnoreStart
             $this->beta_cycle_ended = str_contains((string) get_headers(
                 URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
                 '200');
             // @codeCoverageIgnoreEnd
+        } else {
+            $this->beta_cycle_ended = false;
         }
     }
 
