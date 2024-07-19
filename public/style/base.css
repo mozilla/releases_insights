@@ -313,7 +313,7 @@ footer {
     background-image: url("/assets/img/android.svg");
     background-repeat: no-repeat;
     background-size: 1em;
-    background-position: right 4px center;
+    background-position: right 4px top 8px;
 }
 
 #beta table tr td:nth-child(1) {
