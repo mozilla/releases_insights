@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Json, Release, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla as Bz, Json, Nightly, Release, URL, Utils, Version};
 
 // Historical data from Product Details
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -26,15 +26,9 @@ if ($requested_version == 15) {
 } else {
     $previous_release_date = $firefox_releases['firefox-' . number_format((int) $requested_version - 1.0, 1)]['date'];
 }
+
 // Needed for nightly cycle length calculation
-if ($requested_version == 16) {
-    // We never had a 14.0 release, so this is hardcoded
-    $nightly_start_date = '2012-06-04';
-} elseif ($requested_version == 127) {
-    $nightly_start_date = $firefox_releases['firefox-125.0.1']['date'];
-} else {
-    $nightly_start_date = $firefox_releases['firefox-' . number_format((int) $requested_version - 2.0, 1)]['date'];
-}
+$nightly_start_date = Nightly::cycleStart((int) $requested_version);
 
 // Calculate the number of weeks between the 2 releases
 $date1 = new DateTime($last_release_date);
@@ -50,7 +44,7 @@ $nightly_cycle_length = $date2->diff($date3)->days / 7;
 // Before 4 week schedule, uplifts started with beta 3
 $uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' : '_0b3_RELEASE';
 
-$beta_changelog = URL::Mercurial->value
+$beta_changelog = URL::Mercurial->target()
     . 'releases/mozilla-beta/json-pushes'
     . '?fromchange=FIREFOX_' . (int) $requested_version . $uplift_start
     . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'

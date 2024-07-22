@@ -66,7 +66,7 @@ readonly class Beta
                 $beta_end = 'tip';
                 // Just after merge day, we don't want to use tip for beta_end but the newly created tag
                 if ($this->beta_cycle_ended) {
-                    $beta_end = 'FIREFOX_BETA_' . BETA . '_END';
+                    $beta_end = 'FIREFOX_BETA_' . BETA . '_END'; // @codeCoverageIgnore
                 }
             }
 
