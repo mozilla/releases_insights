@@ -8,24 +8,37 @@ test('Release->getSchedule()', function () {
     $obj = new Release('102.0', TEST_FILES);
     expect($obj->getSchedule())
         ->toBeArray();
+
     $obj = new Release('110.0');
     expect($obj->getSchedule())
         ->toBeArray();
+
     $obj = new Release('97.0');
     expect($obj->getSchedule())
         ->toBeArray();
-    $obj = new Release('error');
+
+    $obj = new Release('1200');
     expect($obj->getSchedule())
-        ->toBeArray();
+        ->toBeArray()
+        ->toHaveKey('error');
+
+    $obj = new Release('-1');
+    expect($obj->getSchedule())
+        ->toBeArray()
+        ->toHaveKey('error');
+
     $obj = new Release('15.0'); // Beta is 14.0 that we didn't ship, fall back to 14.0.1
     expect($obj->getSchedule())
-        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
+        ->toHaveKeys(['version', 'nightly_start', 'beta_1', 'beta_2', 'beta_3', 'beta_4', 'beta_5', 'beta_6', 'release',]);
+
     $obj = new Release('16.0'); // Nightly is 14.0 that we didn't ship, fall back to 14.0.1
     expect($obj->getSchedule())
-        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
+        ->toHaveKeys(['version', 'nightly_start', 'beta_1', 'beta_2', 'beta_3', 'beta_4', 'beta_5', 'beta_6', 'release',]);
+
     $obj = new Release('110.0');
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
+
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])
         ->toBe('2023-02-13 00:00:00+00:00');

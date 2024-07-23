@@ -55,6 +55,9 @@ class Nightly
         $releases = Json::load(URL::ProductDetails->target() . 'firefox.json')['releases'];
 
         return match($version) {
+            1   => '2004-11-09',
+            2   => '2006-10-24',
+            4   => '2010-01-21',
             16  => '2012-06-04', // We never had a 14.0 release, so this is hardcoded
             127 => '2024-04-16', // We never had a 125.0 release, so this is hardcoded
             default => $releases['firefox-' . (string) ($version - 2) . '.0']['date'],

@@ -6,9 +6,6 @@ include 'init.php';
 $paths = [
     ['external/', 200, 'Verif:skip'],
     ['nightly/?date=20220101&nocache', 200, '{"20220101095322":"521f2f0038436e8f0a83146ea6c32eb419049b57","20220101231829":"1fe0ce6b31654726691145ca9dc5f2f15114316c"}'],
-    ['release/schedule/?version=95', 400, '{
-    "error": "API only works with future release."
-}'],
     ['release/schedule/?version=1200', 400, '{
     "error": "Not enough data for this version number."
 }'],

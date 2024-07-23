@@ -14,14 +14,14 @@ class Release
     /* @phpstan-ignore-next-line */
     private readonly Status $release_status;
 
-    private readonly string $version;
+    private readonly Version $version;
 
     public function __construct(
         string $version,
         public readonly string $product_details = URL::ProductDetails->value,
     )
     {
-        $this->version = (new Version($version))->normalized;
+        $this->version = new Version($version);
     }
 
     /**
@@ -31,19 +31,33 @@ class Release
      */
     public function getSchedule(): array
     {
+        if ($this->version->int < 1) {
+            return ['error' => 'Invalid version number.'];
+        }
+
+        if ($this->version->int < BETA) {
+            return $this->getPastSchedule();
+        }
+        return $this->getFutureSchedule();
+    }
+
+
+    /**
+     * Get The schedule for a future Release
+     *
+     * @return array<string, string>
+     */
+    public function getFutureSchedule(): array
+    {
         $all_releases = (new Data($this->product_details))->getMajorReleases();
-        if (! array_key_exists($this->version, $all_releases)) {
+        if (! array_key_exists($this->version->normalized, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
         }
 
         // Future release date object
-        $release = new DateTime($all_releases[$this->version] . ' 06:00 PST');
+        $release = new DateTime($all_releases[$this->version->normalized] . ' 06:00 PST');
 
-        $nightly_target = Version::decrement($this->version, 2);
-
-        if ($nightly_target == '14.0') {
-            $nightly_target = '14.0.1';
-        }
+        $nightly_target = Version::decrement($this->version->normalized, 2);
 
         // Calculate 1st day of the nightly cycle
         $nightly = new DateTime($all_releases[$nightly_target]);
@@ -56,7 +70,7 @@ class Release
             'nightly_start'       => $date($nightly),
             'qa_request_deadline' => $date('Friday'),
             'qa_feature_done_1'   => $date('Friday +1 week 21:00'),
-            'qa_feature_done_2'   => match ($this->version) {
+            'qa_feature_done_2'   => match ($this->version->normalized) {
                 '135.0' => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
                 default => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
             },
@@ -82,7 +96,7 @@ class Release
             'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
-        if (! in_array( (int) $this->version, $this->no_planned_dot_releases)) {
+        if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
             $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
        }
 
@@ -101,7 +115,59 @@ class Release
         );
 
         // The schedule starts with the release version number
-        return ['version' => $this->version] + $schedule;
+        return ['version' => $this->version->normalized] + $schedule;
+    }
+
+    /**
+     * Get The schedule for a past Release
+     *
+     * @return array<string, string>
+     */
+    public function getPastSchedule() : array
+    {
+        $data = new Data($this->product_details);
+        $releases = $data->getMajorReleases();
+
+        $release = new DateTime($releases[$this->version->normalized] . ' 06:00 PST');
+        $betas = $data->getPastBetas();
+        $betas = array_filter(
+            $betas,
+            fn($k) => str_starts_with($k, $this->version->normalized),
+            ARRAY_FILTER_USE_KEY
+        );
+
+        $dot_releases = $data->getPastReleases();
+        $dot_releases = array_filter(
+            $dot_releases,
+            fn($k) => $k != $this->version->normalized && str_starts_with($k, $this->version->normalized),
+            ARRAY_FILTER_USE_KEY
+        );
+
+        // Transform all the DateTime objects in the $schedule array into formated date strings
+        $format_date = fn(string $day): string => (new DateTime($day))->format('Y-m-d H:i:sP');
+
+        $schedule = [
+            'nightly_start'  => $format_date(Nightly::cycleStart($this->version->int)),
+        ];
+
+        $count = 0;
+        foreach ($betas as $k => $date) {
+            $count++;
+            $schedule['beta_' . (string) $count] = $format_date($date);
+        }
+
+        $schedule += [
+            'release' => $release->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:sP'),
+        ];
+
+        $count = 0;
+        foreach ($dot_releases as $k => $date) {
+            $count++;
+            $schedule['dot_release_' . (string) $count] = $format_date($date);
+        }
+
+        // The schedule starts with the release version number
+        return ['version' => $this->version->normalized] + $schedule;
     }
 
     public static function getNiceLabel(string $version, string $label, bool $short=true): string

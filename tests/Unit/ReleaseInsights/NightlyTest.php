@@ -15,4 +15,7 @@ test('cycleStart()', function () {
     expect(Nightly::cycleStart(127))->toEqual('2024-04-16');
     expect(Nightly::cycleStart(16))->toEqual('2012-06-04');
     expect(Nightly::cycleStart(94))->toEqual('2021-09-07');
+    expect(Nightly::cycleStart(1))->toEqual('2004-11-09');
+    expect(Nightly::cycleStart(2))->toEqual('2006-10-24');
+    expect(Nightly::cycleStart(4))->toEqual('2010-01-21');
 });
