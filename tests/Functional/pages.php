@@ -16,6 +16,7 @@ $paths = [
     ['calendar/monthly/', 200, '', 'id="calendar_monthly"'],
     ['release/', 200, 'Release Owner', 'id="release"'],
     ['release/?version=beta', 200, '', '<meta http-equiv="refresh" content="7200">'], // Auto-refresh the Future Release page every 2 hours
+    ['release/?version=94', 200, '<td title="Tuesday, September 7, 2021">September 7</td>', ''], // Test Nightly start date is correct
     ['', 200, 'Firefox Trains', '<meta http-equiv="refresh" content="21600">'], // Auto-refresh the Home page every 6 hours
     ['release/owners/', 200, 'Major releases per release owner', 'version=3.6'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],

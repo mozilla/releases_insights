@@ -44,15 +44,20 @@ class Nightly
         }
     }
 
+    /**
+     * Determine the start of the cycle.
+     * This is almost always the release date of the release-2
+     * In our train model.
+     * Exceptions to this rule are hardcoded
+     */
     public static function cycleStart(int $version): string
     {
-        // This is external data
-        $firefox_releases = Json::load(URL::ProductDetails->target() . 'firefox.json')['releases'];
+        $releases = Json::load(URL::ProductDetails->target() . 'firefox.json')['releases'];
 
         return match($version) {
-            16 =>  '2012-06-04', // We never had a 14.0 release, so this is hardcoded
-            125 => '2024-04-16', // We never had a 125.0 release, so this is hardcoded
-            default => $firefox_releases['firefox-' . (string) $version . '.0']['date'],
+            16  => '2012-06-04', // We never had a 14.0 release, so this is hardcoded
+            127 => '2024-04-16', // We never had a 125.0 release, so this is hardcoded
+            default => $releases['firefox-' . (string) ($version - 2) . '.0']['date'],
         };
     }
 }

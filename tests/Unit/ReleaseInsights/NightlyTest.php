@@ -12,7 +12,7 @@ test('Nightly Class', function () {
 });
 
 test('cycleStart()', function () {
-    expect(Nightly::cycleStart(125))->toEqual('2024-04-16');
+    expect(Nightly::cycleStart(127))->toEqual('2024-04-16');
     expect(Nightly::cycleStart(16))->toEqual('2012-06-04');
-    expect(Nightly::cycleStart(94))->toEqual('2021-11-02');
+    expect(Nightly::cycleStart(94))->toEqual('2021-09-07');
 });
