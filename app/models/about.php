@@ -41,8 +41,14 @@ return <<<"EOD"
         <td>Gives the crashes for a buildID (data from Socorro)</td>
     </tr>
     <tr>
-        <td><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a></td>
-        <td>Gives the forecast release 4 week scheduled milestones for an upcoming major version. Can be a version number or one of the <code>beta</code> or <code>nightly</code> keywords.</td>
+        <td>
+            <ul class="list-unstyled mb-0">
+                <li><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a> (forecast)</li>
+                <li><a href="/api/release/schedule/?version=release">api/release/schedule/?version=release</a> (actual)</li>
+            </ul>
+        </td>
+        <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
+        <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.</td>
     </tr>
     <tr>
         <td><a href="/api/release/owners/">api/release/owners/</a></td>
