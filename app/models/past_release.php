@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Json, Nightly, Release, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla as Bz, Data, Json, Nightly, Release, URL, Utils, Version};
 
 // Historical data from Product Details
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -113,12 +113,15 @@ if ($requested_version == '14.0') {
 } else {
     $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
 }
-// Number of dot releases
-$dot_release_count = count((array) array_filter(
-    $firefox_releases,
-    fn ($key) => str_starts_with((string) $key, 'firefox-' . $requested_version . '.') && ! str_ends_with((string) $key, 'esr'),
+
+$dot_releases = array_filter(
+    (new Data())->getDotReleases(),
+    fn ($key) => str_starts_with($key, $requested_version . '.'),
     ARRAY_FILTER_USE_KEY
-));
+);
+
+// Number of dot releases
+$dot_release_count = count($dot_releases);
 
 // In early days, we occasionnally skipped beta 1 for quality reasons, let's assume b3 is a safe bet
 // We skip Firefox 14.0 because we never shipped it
@@ -184,6 +187,7 @@ return [
     $rc_count,
     $beta_count,
     $dot_release_count,
+    $dot_releases,
     $nightly_start_date,
     $beta_start_date,
     $firefox_releases,

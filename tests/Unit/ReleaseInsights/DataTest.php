@@ -93,6 +93,24 @@ test('Data->getMajorReleases()', function () {
         ->toBeArray();
 });
 
+test('Data->getDotReleases()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getDotReleases())
+        ->toBeArray()
+        ->toHaveKeys(['128.0.1', '128.0.2']);
+
+    expect($obj->getDotReleases()['128.0.2'])
+        ->toBeArray()
+        ->toHaveKeys(['date', 'platform']);
+
+    expect($obj->getDotReleases()['128.0.1'])
+        ->toBe(['date' => '2024-07-16', 'platform' => 'android']);
+
+    expect($obj->getDotReleases()['128.0.2'])
+        ->toBe(['date' => '2024-07-23', 'platform' => 'both']);
+});
+
+
 test('Data->isTodayReleaseDay()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->isTodayReleaseDay())

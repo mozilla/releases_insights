@@ -134,34 +134,51 @@
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date(pattern='MMMM d', locale='en') }}</td>
       {% endif %}
     </tr>
-    {% if release == 128 %}
-            <tr>
-              <th>
-                128.0.1 <sup class="fw-normal fst-italic text-secondary border-bottom">(Android only)</sup>
-              </th>
-              <td title="{{ '2024-07-16'|format_date('full', locale='en') }}">{{ '2024-07-16'|format_date(pattern='MMMM d', locale='en') }}</td>
-            </tr>
-            <tr>
-              <th>
-                128.0.2
-              </th>
-              <td title="{{ '2024-07-24'|format_date('full', locale='en') }}">{{ '2024-07-24'|format_date(pattern='MMMM d', locale='en') }}</td>
-            </tr>
-    {% else %}
         {% if dot_release_count > 0 %}
 
           {% for dot_release in 1..dot_release_count %}
-            {% set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
+            {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern='MMMM d', locale='en') %}
 
             {% if dot_release == 1 %}
-                  {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
+                {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_RELEASE' %}
+
+                {% if dot_releases[release ~ '.0.1']['platform'] == 'android' %}
+                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                    {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
+                    {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE' %}
+                {% elseif dot_releases[release ~ '.0.1']['platform'] == 'desktop' %}
+                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                    {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_1_RELEASE' %}
+                    {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_RELEASE' %}
+                {% else %}
+                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                    {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_1_RELEASE' %}
+                    {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE' %}
+                {% endif %}
             {% else %}
-                  {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_' ~ (dot_release -1) ~ '_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
+                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                {% else %}
+                   {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~  desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                {% endif %}
+
+                {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_' ~  dot_release ~  '_RELEASE' %}
+                {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_' ~  dot_release ~  '_RELEASE' %}
+
             {% endif %}
 
             <tr>
               <th>
-                <a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
+                <a href="{{ dot_release_link }}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
+                {% if release > 125 %}
+                  {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
+                    <sup class="fw-normal fst-italic text-secondary border-bottom">(Android-only)</sup>
+                  {% endif %}
+                  {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
+                    <sup class="fw-normal fst-italic text-secondary border-bottom">(Desktop-only)</sup>
+                  {% endif %}
+                {% endif %}
                 {% if loop.last and release_rollout != -1%}
                   {{ rollout|raw }}
                 {% endif %}
@@ -180,7 +197,6 @@
            {% endif %}
          {% endif %}
 
-       {% endif %}
   </table>
 
 {% endblock %}

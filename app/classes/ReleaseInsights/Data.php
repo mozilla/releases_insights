@@ -82,7 +82,7 @@ class Data
     }
 
     /**
-     * Get all past Releases on the release channel, including dot releases
+     * Get all past Releases on the release channel,
      *
      * @return array<string, string>
      */
@@ -118,6 +118,60 @@ class Data
         };
 
         return array_filter($all_releases, $exclude_esr, ARRAY_FILTER_USE_KEY);
+    }
+
+    /**
+     * Get all Dot Releases for both Desktop and Android
+     * We ignore Android dot releases before 126
+     *
+     * @return array<string, array<string,string>>
+     */
+    public function getDotReleases(): array
+    {
+        // Get source of Data where we can extract dot releases information4
+        $android = Json::load($this->pd_url . 'mobile_android.json', $this->cache_duration)['releases'];
+
+        // Extract all Android minor releases
+        $android = array_filter($android, fn($v) => isset($v['category']) && $v['category'] == 'stability');
+
+        // Rebuild a simplified array: ['128.0.1' => '2024-07-16',...]
+        $android = array_column($android, 'date', 'version');
+
+        // Filter out versions older than 126.
+        // 126 is when we merged android and desktop code and aligned dot release naming.
+        $android = array_filter($android, fn($k) => explode('.', $k)[0] > 125, ARRAY_FILTER_USE_KEY);
+
+        // Get source of Data where we can extract dot releases information4
+        $desktop = Json::load($this->pd_url . 'firefox.json', $this->cache_duration)['releases'];
+
+        // Extract all minor releases
+        $desktop = array_filter($desktop, fn($v) => isset($v['category']) && $v['category'] == 'stability');
+
+        // Filter out ESR releases
+        $desktop = array_filter($desktop, fn($k) => ! str_ends_with($k, 'esr'), ARRAY_FILTER_USE_KEY);
+
+        // Rebuild a simplified array: ['128.0.1' => '2024-07-16',...]
+        $desktop = array_column($desktop, 'date', 'version');
+
+        $all = array_merge($desktop, $android);
+        ksort ($all, SORT_NATURAL);
+
+        $dot_releases = [];
+        foreach ($all as $version => $date) {
+            $platform = 'both';
+
+            if (! array_key_exists($version, $android)) {
+                $platform = 'desktop';
+            }
+
+            if (! array_key_exists($version, $desktop)) {
+                $platform = 'android';
+            }
+
+            $dot_releases[$version] = ['date' => $date, 'platform' => $platform];
+        }
+
+        return $dot_releases;
     }
 
     /**
