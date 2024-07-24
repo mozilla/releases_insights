@@ -134,38 +134,53 @@
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date(pattern='MMMM d', locale='en') }}</td>
       {% endif %}
     </tr>
+    {% if release == 128 %}
+            <tr>
+              <th>
+                128.0.1 <sup class="fw-normal fst-italic text-secondary border-bottom">(Android only)</sup>
+              </th>
+              <td title="{{ '2024-07-16'|format_date('full', locale='en') }}">{{ '2024-07-16'|format_date(pattern='MMMM d', locale='en') }}</td>
+            </tr>
+            <tr>
+              <th>
+                128.0.2
+              </th>
+              <td title="{{ '2024-07-24'|format_date('full', locale='en') }}">{{ '2024-07-24'|format_date(pattern='MMMM d', locale='en') }}</td>
+            </tr>
+    {% else %}
+        {% if dot_release_count > 0 %}
 
-    {% if dot_release_count > 0 %}
+          {% for dot_release in 1..dot_release_count %}
+            {% set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
 
-      {% for dot_release in 1..dot_release_count %}
-        {% set dot_release_date = firefox_releases['firefox-' ~ release ~ '.0.' ~ dot_release].date|format_date(pattern='MMMM d', locale='en') %}
-
-        {% if dot_release == 1 %}
-              {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
-        {% else %}
-              {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_' ~ (dot_release -1) ~ '_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-        {% endif %}
-
-        <tr>
-          <th>
-            <a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
-            {% if loop.last and release_rollout != -1%}
-              {{ rollout|raw }}
+            {% if dot_release == 1 %}
+                  {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+            {% else %}
+                  {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=FIREFOX_' ~  release ~ '_0_' ~ (dot_release -1) ~ '_RELEASE&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
             {% endif %}
-          </th>
-          <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>
-        </tr>
-       {% endfor %}
-     {% endif %}
 
-     {% if release ~ '.0' not in no_planned_dot_releases %}
-       {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
-          <tr>
-            <th>Planned {{ release }}.0.x</th>
-            <td title="">{{ release_date|date_modify("+" ~ ( release == 121 ? '3' : '2' ) ~  " weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
-          </tr>
+            <tr>
+              <th>
+                <a href="{{ dot_release_link}}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
+                {% if loop.last and release_rollout != -1%}
+                  {{ rollout|raw }}
+                {% endif %}
+              </th>
+              <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>
+            </tr>
+           {% endfor %}
+         {% endif %}
+
+         {% if release ~ '.0' not in no_planned_dot_releases %}
+           {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
+              <tr>
+                <th>Planned {{ release }}.0.x</th>
+                <td title="">{{ release_date|date_modify("+" ~ ( release == 121 ? '3' : '2' ) ~  " weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
+              </tr>
+           {% endif %}
+         {% endif %}
+
        {% endif %}
-     {% endif %}
   </table>
 
 {% endblock %}
