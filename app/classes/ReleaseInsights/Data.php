@@ -128,30 +128,34 @@ class Data
      */
     public function getDotReleases(): array
     {
-        // Get source of Data where we can extract dot releases information4
-        $android = Json::load($this->pd_url . 'mobile_android.json', $this->cache_duration)['releases'];
+        $filter = function(string $platform) {
+            $target = $platform == 'desktop' ? 'firefox.json' : 'mobile_android.json';
 
-        // Extract all Android minor releases
-        $android = array_filter($android, fn($v) => isset($v['category']) && $v['category'] == 'stability');
+            // Get source of Data where we can extract dot releases information
+            $data = Json::load($this->pd_url . $target, $this->cache_duration)['releases'];
 
-        // Rebuild a simplified array: ['128.0.1' => '2024-07-16',...]
-        $android = array_column($android, 'date', 'version');
+            // Extract all minor releases
+            $data = array_filter($data, fn($v) => isset($v['category']) && $v['category'] == 'stability');
 
-        // Filter out versions older than 126.
-        // 126 is when we merged android and desktop code and aligned dot release naming.
-        $android = array_filter($android, fn($k) => explode('.', $k)[0] > 125, ARRAY_FILTER_USE_KEY);
+            if ($platform === 'desktop') {
+               // Filter out ESR releases
+                $data = array_filter($data, fn($k) => ! str_ends_with($k, 'esr'), ARRAY_FILTER_USE_KEY);
+            }
 
-        // Get source of Data where we can extract dot releases information4
-        $desktop = Json::load($this->pd_url . 'firefox.json', $this->cache_duration)['releases'];
+            // Rebuild a simplified array: ['128.0.1' => '2024-07-16',...]
+            $data = array_column($data, 'date', 'version');
 
-        // Extract all minor releases
-        $desktop = array_filter($desktop, fn($v) => isset($v['category']) && $v['category'] == 'stability');
+            if ($platform === 'android') {
+                // Filter out versions older than 126.
+                // 126 is when we merged android and desktop code and aligned dot release naming.
+                $data = array_filter($data, fn($k) => explode('.', $k)[0] > 125, ARRAY_FILTER_USE_KEY);
+            }
 
-        // Filter out ESR releases
-        $desktop = array_filter($desktop, fn($k) => ! str_ends_with($k, 'esr'), ARRAY_FILTER_USE_KEY);
+            return $data;
+        };
 
-        // Rebuild a simplified array: ['128.0.1' => '2024-07-16',...]
-        $desktop = array_column($desktop, 'date', 'version');
+        $desktop = $filter('desktop');
+        $android = $filter('android');
 
         $all = array_merge($desktop, $android);
         ksort ($all, SORT_NATURAL);
