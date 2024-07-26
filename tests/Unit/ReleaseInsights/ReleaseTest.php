@@ -54,6 +54,14 @@ test('Release->getSchedule()', function () {
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done_1', 'qa_feature_done_2', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
     expect($obj->getSchedule()['soft_code_freeze'])
         ->toBe("2025-01-02 08:00:00+00:00");
+
+    $obj = new Release('141.0');
+    expect($obj->getSchedule()['qa_feature_done_1'])
+        ->toBe("2025-06-06 21:00:00+00:00");
+
+    $obj = new Release('146.0');
+    expect($obj->getSchedule()['planned_dot_release'])
+        ->toBe("2025-12-18 00:00:00+00:00");
 });
 
 test('Release->getNiceLabel()', function () {

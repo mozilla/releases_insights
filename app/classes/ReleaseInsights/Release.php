@@ -94,7 +94,7 @@ class Release
             'beta_8'              => $date('Wednesday 13:00'),
             'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
             'beta_9'              => $date('Friday 13:00'),
-            'rc_gtb'              => match ($this->version) {
+            'rc_gtb'              => match ($this->version->normalized) {
                 '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
                 default => $date('Monday 21:00'),
             },
@@ -102,8 +102,8 @@ class Release
             'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
-        if (! in_array( (int) $this->version->int, $this->no_planned_dot_releases)) {
-            if ($this->version === '146.0') {
+        if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
+            if ($this->version->normalized === '146.0') {
                 $schedule += ['planned_dot_release' => $date($release->modify('December 18 00:00'))];
             } else {
                 $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
