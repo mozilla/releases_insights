@@ -44,7 +44,13 @@
 
     <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto">
 
-        <li class="list-group-item bg-info border-0">{{ key }}</li>
+        <li class="list-group-item bg-info border-0 version">
+            {% if key == constant('BETA') ~ ".0rc0" %}
+                Merge
+            {% else %}
+                {{ key }}
+            {% endif %}
+        </li>
         <li class="list-group-item text-light bg-secondary border-0">
             <a href="{{ values['hg_link'] }}" class="text-light">Changelog</a>
         </li>
@@ -53,14 +59,18 @@
                 <a href="{{ values['bugzilla'] }}" class="text-light">1 bug uplifted</a>
            {% elseif bug_list[key]|length > 1 %}
                 <a href="{{ values['bugzilla'] }}" class="text-light">{{ bug_list[key]|length }} bugs uplifted</a>
-              {% if key == "128.0rc0" %} <small class="fst-italic"> (on the beta branch before the merge, those will ship in rc1)</small>{% endif %}
+                {% if key == constant('BETA') ~ ".0rc0" %}
+                  <small class="fst-italic"> (on the beta branch, those will ship in rc1)</small>
+                {% endif %}
             {% else %}
-                No uplift
+                No uplifts
             {% endif %}
             {% if loop.first %}
                 <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
             {% endif %}
-            {% if key > constant('FIREFOX_BETA') %}<small class="fst-italic">(upcoming beta, not shipped yet)</small>{% endif %}
+            {% if key > constant('FIREFOX_BETA') and not key matches '/\.0rc\d$/' %}
+                <small class="fst-italic">(upcoming beta, not shipped yet)</small>
+            {% endif %}
         </li>
         {% if values['bug_fixes']|length > 0 %}
         <li class="list-group-item text-light bg-primary border-0">
