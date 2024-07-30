@@ -337,3 +337,8 @@ footer {
 :is(#beta, #nightly) a[aria-expanded=true] .text-collapsed {
     display: none;
 }
+
+#beta li.version {
+    width: 6em;
+    text-align: center;
+}
