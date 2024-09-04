@@ -69,12 +69,21 @@ class ESR
             )-1
         ];
 
-        // We support 2 ESR branches for 3 releases only since Version 68.
-        // Before that, we had 2 cycles only with 2 ESR branches
-        // because cycles lasted longer
-        if (($version - $current_ESR) > ($version < 78 ? 1 : 2)) {
+        /*
+            1. We support 2 ESR branches for 3 releases only since Version 68.
+            2. Before that, we had 2 cycles only with 2 ESR branches as cycles lasted longer
+            3. We extended the 115 ESR cycle because of a still large Windows 7/8.1 population
+        */
+        $esr_minor_releases = match(true) {
+                $version < 78        => 1,
+                $current_ESR === 128 => 8,
+                default              => 2,
+        };
+
+        if (($version - $current_ESR) > $esr_minor_releases) {
             return null;
         }
+
         return (string) $previous_ESR . '.' . ($version - $previous_ESR) . '.0';
     }
 

@@ -50,7 +50,19 @@
       {% set check = values.quarter %}
     {% endif %}
       <td><a href="/release/?version={{ values.version }}">{{ values.version }}</a></td>
-      <td class="text-muted">{{ values.esr }}</td>
+      <td class="text-muted">
+        {% if values.esr starts with '115' %}
+          <span
+          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+          title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2025</b>."
+          class='text-muted'>
+          {{ values.esr }}<sup class="text-danger">?</sup></span>
+
+        {% else %}
+          {{ values.esr }}
+        {% endif %}
+
+      </td>
       <td>{{ values.owner }}</td>
       <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
       <td title="{{ values.soft_freeze|format_date('full', locale='en') }}">{{ values.soft_freeze|format_date(pattern=date_pattern, locale='en')}}</td>
@@ -112,6 +124,9 @@
   </tbody>
 </table>
 </details>
+    <script src="/assets/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}
 
 {% block footer %}
@@ -119,6 +134,9 @@
 {% include 'footer_UTC_warning.html.twig' %}
 
 <script nonce="{{constant('NONCE')}}">
+  $(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+  })
   function openTarget() {
     var hash = location.hash.substring(1);
     if (hash) var details = document.getElementById(hash);
