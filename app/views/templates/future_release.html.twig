@@ -160,7 +160,7 @@
     </tr>
     {% endif %}
 
-    {% if release == '91' %}
+    {% if release == '140' %}
     <tr class="table-warning">
       <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
     </tr>
@@ -169,7 +169,18 @@
     {% if OLDER_ESR %}
     <tr>
       <th>Corresponding ESR releases</th>
+      {% if OLDER_ESR|number_format == 115 %}
+      <td>{{ ESR }} &middot;
+        <span
+          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+          title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2025</b>."
+          class='text-muted'>
+          {{ OLDER_ESR }}<sup class="text-danger">?</sup></span>
+
+      </td>
+      {% else %}
       <td>{{ ESR }} &middot; {{ OLDER_ESR }} </td>
+      {% endif %}
     </tr>
 
     {% else %}
