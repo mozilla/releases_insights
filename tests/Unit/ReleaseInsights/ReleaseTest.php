@@ -78,7 +78,7 @@ test('Release::getMilestonesNames()', function () {
         ->toHaveCount(3)
         ->toHaveKeys(['nightly', 'beta', 'release',]);
     expect(Release::getMilestonesNames()['nightly'])
-        ->toHaveLength(8);
+        ->toHaveLength(9);
     expect(Release::getMilestonesNames()['beta'])
         ->toHaveLength(19);
     expect(Release::getMilestonesNames()['release'])
