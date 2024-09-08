@@ -16,7 +16,8 @@ class Duration
 
     public function __construct(
         public readonly Datetime $start,
-        public readonly Datetime $end)
+        public readonly Datetime $end
+    )
     {
         $this->wellness_days = include DATA . 'wellness_days.php';
     }
@@ -50,9 +51,22 @@ class Duration
      */
     public function isWorkDay(DateTime $day): bool
     {
-        // We substract week-ends and wellness days.
-        return ! in_array($day->format('l'), ['Saturday','Sunday'])
-            && ! in_array($day->format('Y-m-d'), $this->wellness_days);
+        // We don't consider the current day as a working day
+        if ($day->format('Y-m-d') === (new DateTime())->format('Y-m-d')) {
+            return false;
+        }
+
+        // We substract week-end days
+        if (in_array($day->format('l'), ['Saturday','Sunday'])) {
+            return false;
+        }
+
+        // We substract wellness days
+        if (in_array($day->format('Y-m-d'), $this->wellness_days)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -66,13 +80,13 @@ class Duration
         $range = new DatePeriod(start: $this->start, end: $this->end, interval: new DateInterval('P1D'));
 
         foreach($range as $date){
+
             if ($this->isWorkDay($date)) {
                 $count++;
             }
         }
 
-        // We substract 1 because we don't count the first day of the period
-        return $count - 1;
+        return $count;
     }
 
     /**
