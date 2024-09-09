@@ -3,7 +3,7 @@
 .vscode
 .php-cs-fixer.cache
 .phpactor.json
-.phplint-cache
+.phplint.cache/
 .phpunit.result.cache
 cache/*.cache
 # Temporary ignore the 56MB log file caused by the merge of firefox-android from Github to mozilla-central
