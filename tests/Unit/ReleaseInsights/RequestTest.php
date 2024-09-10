@@ -24,6 +24,7 @@ test('Request->getController()', function ($input, $output) {
     ['/api/nightly/crashes',        'api/nightly_crashes'],
     ['/api/firefox/releases/',      'api/firefox_releases'],
     ['/api/esr/releases',           'api/esr_releases'],
+    ['/api/wellness/days',          'api/wellness_days'],
     ['/calendar/',                  'calendar'],
     ['/calendar/monthly/',          'calendar_monthly'],
     ['/calendar/release/schedule',  'ics_release_schedule'],

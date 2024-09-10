@@ -15,6 +15,9 @@ class Data
     /** @var array<string, string> $release_duty */
     private readonly array $release_duty;
 
+    /** @var array<string> $1wellness_days */
+    private readonly array $wellness_days;
+
     public function __construct(
         private readonly string $pd_url = URL::ProductDetails->value,
         public int $cache_duration = 900 // 15 minutes
@@ -22,6 +25,7 @@ class Data
         $this->release_owners  = include DATA . 'release_owners.php';
         $this->release_duty    = include DATA . 'release_duty.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
+        $this->wellness_days   = include DATA . 'wellness_days.php';
     }
 
     /** @return array<string, string> */
@@ -44,6 +48,12 @@ class Data
             fn(string $key) => (int) $key > RELEASE,
             ARRAY_FILTER_USE_KEY
         );
+    }
+
+    /** @return array<string> */
+    public function getWellnessDays(): array
+    {
+        return $this->wellness_days;
     }
 
     /** @return array<string, string> */

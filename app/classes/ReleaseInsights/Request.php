@@ -74,6 +74,7 @@ class Request
             '/api/release/owners/'        => 'api/release_owners',
             '/api/release/duty/'          => 'api/release_duty',
             '/api/nightly/crashes/'       => 'api/nightly_crashes',
+            '/api/wellness/days/'         => 'api/wellness_days',
             '/calendar/'                  => 'calendar',
             '/calendar/monthly/'          => 'calendar_monthly',
             '/calendar/release/schedule/' => 'ics_release_schedule',

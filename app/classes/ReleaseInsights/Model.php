@@ -23,6 +23,7 @@ readonly class Model
             'api_release_duty'      => 'api/release_duty.php',
             'api_release_owners'    => 'api/release_owners.php',
             'api_release_schedule'  => 'api/release_schedule.php',
+            'api_wellness_days'     => 'api/wellness_days.php',
             'beta'                  => 'beta.php',
             'calendar'              => 'calendar.php',
             'calendar_monthly'      => 'calendar_monthly.php',

@@ -30,6 +30,14 @@ test('Data->getOwners()', function () {
         ->each->toBeString();
 });
 
+test('Data->getWellnessDays()', function () {
+    $obj = new Data();
+    expect($obj->getWellnessDays())
+        ->toBeArray()
+
+        ->each->toBeString();
+});
+
 test('Data->getReleaseDuty()', function () {
     $obj = new Data();
     expect($obj->getReleaseDuty())
