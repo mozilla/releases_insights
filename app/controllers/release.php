@@ -128,6 +128,7 @@ if ($requested_version_int <= RELEASE) {
         $cycle_dates,
         $deadlines,
         $rollout,
+        $wellness_days,
     ] = (new Model('future_release'))->get();
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -140,6 +141,7 @@ if ($requested_version_int <= RELEASE) {
         'cycle_dates'          => $cycle_dates,
         'deadlines'            => $deadlines,
         'beta_rollout'         => $rollout,
+        'wellness_days'        => $wellness_days,
     ]);
 } else {
     $template_file = 'future_release.html.twig';

@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block main %}
+
 {% if not fallback_content %}
   {% if release == constant('BETA') %}
     {% set alert = 'Version shipping to users on the <b class="text-danger">Beta</b> channel' %}
@@ -366,8 +367,12 @@
           data-bs-placement="left"
           data-bs-html="true"
           title="{{ value|format_date('relative_full', locale='en')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
-        >
-        {{ value|format_date(pattern='MMMM d', locale='en') }}</span>
+        >{{ value|format_date(pattern='MMMM d', locale='en') }}</span>{% if value|format_date(pattern='YYYY-MM-dd', locale='en') in wellness_days %}<span
+          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+          title="Wellness day. <br>Reduced availability of Mozilla Staff."
+          class='text-muted'><sup class="text-danger">?</sup></span>
+          {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd', locale='en')) %}
+          {%  endif %}
         <br><small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
 
       </td>
