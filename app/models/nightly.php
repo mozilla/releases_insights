@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use BzKarma\Scoring;
-use ReleaseInsights\{Bugzilla as Bz, Json, URL, Utils};
+use ReleaseInsights\{Bugzilla, Json, URL, Utils};
 
 /*
     We need previous and next days for navigation and changelog
@@ -115,7 +115,7 @@ $bug_list_karma = [];
 $bug_list_karma_details = [];
 
 foreach ($nightly_pairs as $dataset) {
-    $bugs = Bz::getBugsFromHgWeb(
+    $bugs = Bugzilla::getBugsFromHgWeb(
         URL::Mercurial->value
         . 'mozilla-central/json-pushes?fromchange='
         . $dataset['prev_changeset']
@@ -136,7 +136,7 @@ foreach ($nightly_pairs as $dataset) {
         continue;
     }
 
-    $url = Bz::getBugListLink($bugs);
+    $url = Bugzilla::getBugListLink($bugs);
 
     // Bugzilla REST API https://wiki.mozilla.org/Bugzilla:REST_API
     $bug_list_details = Json::load(URL::Bugzilla->value . 'rest/bug?include_fields=id,summary,priority,severity,keywords,product,component,type,duplicates,regressions,cf_webcompat_priority,cf_performance_impact,cf_tracking_firefox' . NIGHTLY . ',cf_tracking_firefox' . BETA . ',cf_tracking_firefox' . RELEASE . ',cf_status_firefox' . NIGHTLY . ',cf_status_firefox' . BETA . ',cf_status_firefox' . RELEASE . ',cc,see_also&bug_id=' . implode('%2C', $bugs))['bugs'] ?? [];

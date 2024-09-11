@@ -1,6 +1,10 @@
 <?php
+arch()
+   ->preset()
+   ->php()
+   ->ignoring(['debug_backtrace', 'die']);
 
-test('Classes don\'t have stray debug calls')
+test("Classes don't have stray debug calls")
     ->expect(['dd', 'dump', 'var_dump', 'error_log', 'ReleaseInsights\Debug'])
     ->not->toBeUsed()
     ->ignoring('ReleaseInsights\Performance');

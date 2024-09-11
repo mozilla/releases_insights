@@ -8,7 +8,7 @@ $data = (new Model('404'))->get();
 
 http_response_code(404);
 
-(new ReleaseInsights\Template(
+(new Template(
     'regular.html.twig',
     [
         'page_title'   => '404: Page Not Found',

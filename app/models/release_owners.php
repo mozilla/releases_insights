@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-$release_owners = (new ReleaseInsights\Data())->getOwners();
+use ReleaseInsights\Data;
 
 // We need to remove the releases still in planning
 $releases = array_filter(
-    $release_owners,
+    (new Data())->getOwners(),
     fn ($k) => $k <= RELEASE,
     ARRAY_FILTER_USE_KEY
 );

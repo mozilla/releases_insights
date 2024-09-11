@@ -60,10 +60,10 @@ class Json
     public function render(): void
     {
         if (array_key_exists('error', $this->data)) {
-            print_r($this->outputError());
+            echo $this->outputError();
         } else {
             $this->jsonp = $_GET['callback'] ?? false;
-            print_r($this->output());
+            echo $this->output();
         }
     }
 

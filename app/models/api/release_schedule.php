@@ -9,8 +9,4 @@ if (! isset($requested_version)) {
     $requested_version = Version::get();
 }
 
-if ((int) $requested_version < BETA) {
-    // return ['error' => 'API only works with future release.'];
-}
-
 return (new Release($requested_version))->getSchedule();

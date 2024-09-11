@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla as Bz, Data, Json, Nightly, Release, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla, Data, Json, Nightly, Release, URL, Version};
 
 // Historical data from Product Details
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -65,10 +65,10 @@ if ((int) $requested_version === 119) {
 }
 
 if ($requested_version !== 53 && $requested_version > 46) {
-    $beta_uplifts      = Bz::getBugsFromHgWeb($beta_changelog, true, -1);
+    $beta_uplifts      = Bugzilla::getBugsFromHgWeb($beta_changelog, true, -1);
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
-    $beta_uplifts_url  = Bz::getBugListLink($beta_uplifts['total']);
-    $beta_backouts_url = Bz::getBugListLink($beta_uplifts['backouts']);
+    $beta_uplifts_url  = Bugzilla::getBugListLink($beta_uplifts['total']);
+    $beta_backouts_url = Bugzilla::getBugListLink($beta_uplifts['backouts']);
     if ($beta_uplifts['no_data']) {
         $beta_uplifts = false;
     }
@@ -92,11 +92,11 @@ if ((int) $requested_version == 125) {
     );
 }
 
-$rc_uplifts = Bz::getBugsFromHgWeb($rc_changelog, true, -1);
+$rc_uplifts = Bugzilla::getBugsFromHgWeb($rc_changelog, true, -1);
 $rc_changelog = str_replace('json-pushes', 'pushloghtml', $rc_changelog);
 
-$rc_uplifts_url  = Bz::getBugListLink($rc_uplifts['total']);
-$rc_backouts_url = Bz::getBugListLink($rc_uplifts['backouts']);
+$rc_uplifts_url  = Bugzilla::getBugListLink($rc_uplifts['total']);
+$rc_backouts_url = Bugzilla::getBugListLink($rc_uplifts['backouts']);
 
 // Number of Beta builds
 $beta_count = count((array) array_filter(
@@ -142,7 +142,7 @@ if ($requested_version == '126.0') {
         126 was the big merge to mercurial for Firefox Android.
         We start from the commit after this merge
     */
-    $nightly_fixes = Bz::getBugsFromHgWeb(
+    $nightly_fixes = Bugzilla::getBugsFromHgWeb(
         URL::Mercurial->value
         . 'mozilla-central/json-pushes'
         . '?fromchange=d14f32147b8133ced41921f303d0c9f22e2d4d8a'
@@ -152,7 +152,7 @@ if ($requested_version == '126.0') {
         -1
     );
 } else {
-    $nightly_fixes = Bz::getBugsFromHgWeb(
+    $nightly_fixes = Bugzilla::getBugsFromHgWeb(
         URL::Mercurial->value
         .'mozilla-central/json-pushes'
         . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
