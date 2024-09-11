@@ -15,27 +15,29 @@
   {% endif %}
 
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>
-  <table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center">
-    {% if constant('ESR_NEXT') != "" %}
-    <tr>
-      <th class="w-auto">Latest version (old branch)</th>
-      <td> {{ current_ESR }}</td>
-    </tr>
-    <tr>
-      <th class="w-auto">Latest version (new branch)</th>
-      <td> {{ next_ESR }}</td>
-    </tr>
-    <tr>
-    {% else %}
-    <tr>
-      <th class="w-auto">Latest version</th>
-      <td> {{ current_ESR }}</td>
-    </tr>
-    <tr>
-    {% endif %}
-      <th class="w-auto">Release Date</th>
+
+ {% set table_header = 'text-secondary-emphasis fw-semibold' %}
+
+  <table class="table table-light table-fxt-clean table-bordered table-sm w-50 justify-content-center">
+    <tr class="table-warning">
+      <th class="{{ table_header }}">Last release</th>
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
+    {% if constant('ESR_NEXT') != "" %}
+    <tr class="bg-warning">
+      <th class="{{ table_header }}">Latest version (old branch)</th>
+      <td> {{ current_ESR }}</td>
+    </tr>
+    <tr>
+      <th class="{{ table_header }}">Latest version (new branch)</th>
+      <td> {{ next_ESR }}</td>
+    </tr>
+    {% else %}
+    <tr>
+      <th class="{{ table_header }}">Latest version</th>
+      <td> {{ current_ESR }}</td>
+    </tr>
+    {% endif %}
   </table>
 
 {% if current_ESR|number_format == 115 %}
@@ -61,15 +63,15 @@
 <div class="w-50 mt-4 mx-auto " role="alert">{{ alert|raw }}</div>
 
 
-<table class="table table-light table-striped table-bordered table-sm w-50 justify-content-center mt-4">
+<table class="table table-light table-fxt-clean table-bordered table-sm w-50 justify-content-center mt-4">
   <tr>
     <th colspan="4" class="text-center table-warning force-default-bg">Releases calendar</th>
   </tr>
   <tr>
-    <th>Firefox</th>
-    <th>ESR</th>
-    <th>Old ESR</th>
-    <th>Date</th>
+    <th class="text-center">Firefox</th>
+    <th class="text-center">ESR</th>
+    <th class="text-center">Old ESR</th>
+    <th class="text-end">Date</th>
   </tr>
 
 {% for key, values in esr_calendar %}

@@ -126,50 +126,17 @@
     {% endif %}
   </div>
   {% endif %}
-
-  <table class="table table-light table-striped table-sm w-50 justify-content-center">
-    <tr>
-      <th class="w-auto">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
+  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
+  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center">
+    <tr class='table-warning'>
+      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
     <tr>
-      <th class="w-auto">Release Owner</th><td>{{ release_owner }}</td>
+      <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
     </tr>
-    <tr>
-      <th>Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
-    </tr>
-    <tr>
-      <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
-    </tr>
-
-    {% if channel == 'beta' %}
-    <tr>
-      <th>Bugs fixed in Nightly</th>
-      <td>{{ nightly_fixes.bug_fixes|length }}</td>
-    </tr>
-    <tr>
-      <th>Current Beta</th>
-      <td>
-      {% if date() > date(cycle_dates.rc_gtb) %}
-        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
-      {% else %}
-        {{ constant('FIREFOX_BETA') }}
-      {% endif %}
-      {% if beta_rollout != -1 %}
-        {{ rollout|raw }}
-      {% endif %}
-      </td>
-    </tr>
-    {% endif %}
-
-    {% if release == '140' %}
-    <tr class="table-warning">
-      <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
-    </tr>
-    {% endif %}
-
     {% if OLDER_ESR %}
     <tr>
-      <th>Corresponding ESR releases</th>
+      <th class="{{ table_header }}">Corresponding ESR releases</th>
       {% if OLDER_ESR|number_format == 115 %}
       <td>{{ ESR }} &middot;
         <span
@@ -186,21 +153,54 @@
 
     {% else %}
     <tr>
-      <th>Corresponding ESR release</th>
+      <th class="{{ table_header }}">Corresponding ESR release</th>
       <td>{{ ESR }}</td>
     {% endif %}
     </tr>
 
+    {% if channel == 'beta' %}
+    <tr>
+      <th class="{{ table_header }}">Current Beta</th>
+      <td>
+      {% if date() > date(cycle_dates.rc_gtb) %}
+        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
+      {% else %}
+        {{ constant('FIREFOX_BETA') }}
+      {% endif %}
+      {% if beta_rollout != -1 %}
+        {{ rollout|raw }}
+      {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th class="{{ table_header }}">Bugs fixed in Nightly</th>
+      <td>{{ nightly_fixes.bug_fixes|length }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
+    </tr>
+    <tr>
+      <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
+    </tr>
+
+    {% if release == '140' %}
+    <tr class="table-warning">
+      <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
+    </tr>
+    {% endif %}
+
+
     {% if channel == 'nightly' %}
     <tr>
-      <th>Release notes</th>
+      <th class="{{ table_header }}">Release notes</th>
       <td><a href="https://www.mozilla.org/firefox/nightly/notes/">Nightly notes</a></td>
     </tr>
     {% endif %}
 
     {% if channel == 'beta' %}
     <tr>
-      <th>Release notes</th>
+      <th class="{{ table_header }}">Release notes</th>
       <td><a href="https://www.mozilla.org/firefox/beta/notes/">Beta notes</a></td>
     </tr>
     {% endif %}
@@ -296,32 +296,32 @@
 
   {% set next_milestone = true %}
 
-  <table class="table table-light table-striped table-sm w-50 justify-content-center mt-4">
+  <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mt-4">
   <tr>
-    <th colspan="2" class="text-center table-warning force-default-bg">Milestones<br><small class="fw-normal">Desktop, Android & iOS</small></th>
+    <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones<br><small class="fw-normal">Desktop, Android & iOS</small></th>
   </tr>
   {% for key, value in cycle_dates %}
     {% if key != 'version' %}
       {% set extra = '' %}
 
       {% if key == 'soft_code_freeze' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Draft beta release notes</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
       {% endif %}
 
       {% if release == 116 and key == 'beta_5' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Last early beta</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
       {% endif %}
 
       {% if key == 'beta_6' and release != 116 %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Last early beta</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
       {% endif %}
 
       {% if key == 'beta_9' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
       {% endif %}
 
       {% if key == 'rc' %}
-        {% set extra = ' <small class="badge bg-warning text-dark">Release notes finalized</small>' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
       {% endif %}
 
     <tr>
@@ -351,7 +351,7 @@
         {% endif %}
 
       {% else %}
-        <th>
+        <th class="{{ table_header }}">
           <details{{ next_milestone and channel in ['nightly', 'beta'] ? ' open' }}>
             <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
           <p>{{ cycle_descriptions[key]|raw }}</p>

@@ -109,6 +109,11 @@ h1, h2, h3 {
     text-align: center;
 }
 
+.table-fxt-clean,
+.table-fxt-clean th,
+.table-fxt-clean td  {
+    border-color: lavender;
+}
 
 #release_esr .table + .table td {
     width: 6em;

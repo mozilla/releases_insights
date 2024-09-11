@@ -30,22 +30,36 @@
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
   {% endif %}
 
-  <table class="table table-light table-striped table-sm w-50 justify-content-center">
-    <tr>
-      <th class="w-auto">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
+  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
+  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center">
+    <tr class="table-warning">
+      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
     <tr>
-      <th class="w-auto">Release Owner</th><td>{{ release_owner }}</td>
+      <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
+    </tr>
+    {% if OLDER_ESR %}
+    <tr>
+      <th class="{{ table_header }}">Corresponding ESR releases</th>
+      <td>{{ ESR }} <span class="text-black-50">&#8280;</span> {{ OLDER_ESR }} </td>
+    </tr>
+
+    {% else %}
+    <tr>
+      <th class="{{ table_header }}">Corresponding ESR release</th>
+      <td>{{ ESR }}</td>
+    </tr>
+    {% endif %}
+
+    <tr>
+      <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
     </tr>
     <tr>
-      <th>Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
-    </tr>
-    <tr>
-      <th>Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
+      <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
     </tr>
     {% if release > 57 %}
     <tr>
-      <th>Bugs fixed in nightly</th>
+      <th class="{{ table_header }}">Bugs fixed in nightly</th>
       <td>
           {{ nightly_fixes.bug_fixes|length }}
       </td>
@@ -54,37 +68,37 @@
 
     {% if beta_uplifts %}
     <tr>
-      <th>Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
+      <th class="{{ table_header }}">Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
     </tr>
     {% else %}
     <tr>
-      <th>Uplifts in Beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
+      <th class="{{ table_header }}">Uplifts in Beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
     </tr>
     {% endif %}
 
     {% if rc_uplifts %}
     <tr>
-      <th>Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backout{{ rc_uplifts.backouts|length != 1 ? 's' }})</td>
+      <th class="{{ table_header }}">Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backout{{ rc_uplifts.backouts|length != 1 ? 's' }})</td>
     </tr>
     {% else %}
     <tr>
-      <th>Uplifts in RC</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
+      <th class="{{ table_header }}">Uplifts in RC</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
     </tr>
     {% endif %}
     <tr>
-      <th>Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length}}</td>
+      <th class="{{ table_header }}">Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length}}</td>
     </tr>
     <tr>
-      <th>Betas</th><td>{{ beta_count }}</td>
+      <th class="{{ table_header }}">Betas</th><td>{{ beta_count }}</td>
     </tr>
     <tr>
-      <th>Release Candidates</th><td>{{ rc_count }}</td>
+      <th class="{{ table_header }}">Release Candidates</th><td>{{ rc_count }}</td>
     </tr>
     <tr>
-      <th>Dot releases</th><td>{{ dot_release_count }}</td>
+      <th class="{{ table_header }}">Dot releases</th><td>{{ dot_release_count }}</td>
     </tr>
     <tr>
-      <th>Release notes</th>
+      <th class="{{ table_header }}">Release notes</th>
       <td>
         {% set link_fix = '' %}
         {% if release == 125 or release == 14 %}
@@ -94,35 +108,21 @@
         <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a>
       </td>
     </tr>
-
-    {% if OLDER_ESR %}
-    <tr>
-      <th>Corresponding ESR releases</th>
-      <td>{{ ESR }} <span class="text-black-50">&#8280;</span> {{ OLDER_ESR }} </td>
-    </tr>
-
-    {% else %}
-    <tr>
-      <th>Corresponding ESR release</th>
-      <td>{{ ESR }}</td>
-    </tr>
-    {% endif %}
-
   </table>
-  <table class="table table-light table-striped table-sm w-50 justify-content-center mt-4">
+  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mt-4">
     <tr>
-      <th colspan="2" class="text-center table-warning force-default-bg">Key Milestones</th>
+      <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Key Milestones</th>
     </tr>
     <tr>
-      <th>Nightly start</th>
+      <th class="{{ table_header }}">Nightly start</th>
       <td title="{{ nightly_start_date|format_date('full', locale='en') }}">{{ nightly_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr>
-      <th>Beta start</th>
+      <th class="{{ table_header }}">Beta start</th>
       <td title="{{ beta_start_date|format_date('full', locale='en') }}">{{ beta_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
     </tr>
     <tr>
-      <th>
+      <th class="{{ table_header }}">
         {{ release }}.0
         {% if dot_release_count == 0 %}
           {{ rollout|raw }}
@@ -169,7 +169,7 @@
             {% endif %}
 
             <tr>
-              <th>
+              <th class="{{ table_header }}">
                 <a href="{{ dot_release_link }}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
                 {% if release > 125 %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
@@ -191,7 +191,7 @@
          {% if release ~ '.0' not in no_planned_dot_releases %}
            {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
               <tr>
-                <th>Planned {{ release }}.0.x</th>
+                <th class="{{ table_header }}">Planned {{ release }}.0.x</th>
                 <td title="">{{ release_date|date_modify("+" ~ ( release == 121 ? '3' : '2' ) ~  " weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
               </tr>
            {% endif %}
