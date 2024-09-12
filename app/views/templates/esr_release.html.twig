@@ -18,7 +18,7 @@
 
  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
 
-  <table class="table table-light table-fxt-clean table-bordered table-sm w-50 justify-content-center mb-3">
+  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
     <tr class="table-warning">
       <th class="{{ table_header }}">Last release</th>
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
@@ -61,7 +61,7 @@
 
 <div class="alert alert-danger w-50 mb-3 mx-auto d-flex text-center " role="alert">{{ alert|raw }}</div>
 
-<table class="table table-light table-fxt-clean table-bordered table-sm w-50 justify-content-center mb-3">
+<table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
   <tr>
     <th colspan="4" class="text-center table-warning force-default-bg">Releases calendar</th>
   </tr>

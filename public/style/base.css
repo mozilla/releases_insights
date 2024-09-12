@@ -134,6 +134,14 @@ h1, h2, h3 {
     width: 9em;
 }
 
+#release_esr .table td:last-child {
+    text-align: right;
+}
+
+#release_esr .table td {
+    text-align: center;
+}
+
 #release .table th details p {
     padding: 0.5rem;
     margin: 0.5em;
