@@ -119,7 +119,7 @@
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
 
   {% if channel == 'nightly' and not nightly_updates %}
-  <div class="w-50 alert alert-warning mx-auto text-center" role="alert">
+  <div class="w-50 alert alert-warning mx-auto text-center mb-3" role="alert">
     Automatic Updates are currently <b class="text-danger">disabled</b>.
     {% if nightly_emergency %}
     <br><b>Reason :</b> {{ nightly_emergency|raw}}
@@ -127,7 +127,7 @@
   </div>
   {% endif %}
   {% set table_header = 'text-secondary-emphasis fw-semibold' %}
-  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center">
+  <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
     <tr class='table-warning'>
       <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
     </tr>
@@ -296,7 +296,7 @@
 
   {% set next_milestone = true %}
 
-  <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mt-4">
+  <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
   <tr>
     <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones<br><small class="fw-normal">Desktop, Android & iOS</small></th>
   </tr>

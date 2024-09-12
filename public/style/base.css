@@ -115,6 +115,14 @@ h1, h2, h3 {
     border-color: lavender;
 }
 
+.table-fxt-clean {
+     border-radius: 6px;
+     border-spacing: 0;
+     border-collapse: separate;
+     border: 1px solid black;
+     overflow: hidden;
+}
+
 #release_esr .table + .table td {
     width: 6em;
 }
