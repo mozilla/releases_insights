@@ -1,0 +1,26 @@
+<rss version="2.0">
+   <channel>
+      <title>{{ title }}</title>
+      <description>{{ description }}</description>
+      <link>{{ site_link }}</link>
+      <language>en-US</language>
+      <lastBuildDate>{{ latest_release_date }}</lastBuildDate>
+      <ttl>1440</ttl>
+      {% for release in releases %}
+      <item>
+         <title>Firefox {{ release.version }}</title>
+         <description>
+         Firefox release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY', locale='en') }}
+         {% if release.platform == 'android' %}&lt;br&gt;This is an Android-only release{% endif %}
+         {% if release.platform == 'desktop' %}&lt;br&gt;This is a desktop-only release{% endif %}
+         </description>
+         {% if release.platform == 'android' %}
+         <link>https://www.mozilla.org/en-US/firefox/android/{{ release.version }}/releasenotes/</link>
+         {% else %}
+         <link>{{ release.relnotes }}</link>
+        {% endif %}
+         <pubDate>{{ release.date }}</pubDate>
+      </item>
+      {% endfor %}
+   </channel>
+</rss>

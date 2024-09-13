@@ -79,6 +79,7 @@ class Request
             '/calendar/monthly/'          => 'calendar_monthly',
             '/calendar/release/schedule/' => 'ics_release_schedule',
             '/release/owners/'            => 'release_owners',
+            '/rss/'                       => 'rss',
             '/sitemap/'                   => 'sitemap',
             default                       => '404',
         };
