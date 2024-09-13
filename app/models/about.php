@@ -17,66 +17,10 @@ $main_beta = BETA;
 
 return <<<"EOD"
 
-<h3>Public Json API</h3>
-<p>All APIs are under the <code>api/</code> endpoint.</p>
-<h3>APIs</h3>
-<table class="table table-light table-striped table-bordered table-sm">
-    <colgroup>
-      <col>
-      <col>
-    </colgroup>
-    <tr class="table-dark">
-        <th>URL</th><th>Description</th>
-    </tr>
-    <tr>
-        <td><a href="/api/nightly/?date={$yesterday}">api/nightly/?date={$yesterday}</a></td>
-        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
-    </tr>
-    <tr>
-        <td><a href="/api/external/">api/external/</a></td>
-        <td>Gives the list of external APIs this site depends on to build data.</td>
-    </tr>
-    <tr>
-        <td><a href="/api/nightly/crashes/?buildid=20190927094817">api/nightly/crashes/?buildid=20190927094817</a></td>
-        <td>Gives the crashes for a buildID (data from Socorro)</td>
-    </tr>
-    <tr>
-        <td>
-            <ul class="list-unstyled mb-0">
-                <li><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a> (forecast)</li>
-                <li><a href="/api/release/schedule/?version=release">api/release/schedule/?version=release</a> (actual)</li>
-            </ul>
-        </td>
-        <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
-        <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.</td>
-    </tr>
-    <tr>
-        <td><a href="/api/release/owners/">api/release/owners/</a></td>
-        <td>Historical list of all release managers for Firefox major releases</td>
-    </tr>
-    <tr>
-        <td><a href="/api/release/duty/">api/release/duty/</a></td>
-        <td>Historical list of all release engineers on release duty for the cycle</td>
-    </tr>
-    <tr>
-        <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
-        <td>Release dates for all ESR releases (including dot releases)</td>
-    </tr>
-    <tr>
-        <td><a href="/api/firefox/releases/">api/firefox/releases/</a></td>
-        <td>Release dates for all past Firefox releases (including dot releases)</td>
-    </tr>
-</table>
-
-<h3>Views</h3>
-<table class="table table-light table-striped table-bordered table-sm">
-    <colgroup>
-      <col>
-      <col>
-    </colgroup>
-
-    <tr class="table-dark">
-        <th>URL</th><th>Description</th>
+<h3 class="text-center">Pages</h3>
+<table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
+    <tr class="table-warning">
+        <th class="text-secondary-emphasis fw-semibold">URL</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/">/</a></td>
@@ -126,17 +70,75 @@ return <<<"EOD"
         <td><a href="/release/owners/">release/owners/</a></td>
         <td>List all past releases per release owner</td>
     </tr>
+</table>
+
+
+<h3 class="text-center">Json API</h3>
+<table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
+    <tr class="table-warning">
+        <th class="text-secondary-emphasis fw-semibold">URL</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+    </tr>
     <tr>
-        <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
-        <td>Download an icalendar (.ics) file of future milestones for a future release.</td>
+        <td><a href="/api/nightly/?date={$yesterday}">api/nightly/?date={$yesterday}</a></td>
+        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
+    </tr>
+    <tr>
+        <td><a href="/api/external/">api/external/</a></td>
+        <td>Gives the list of external APIs this site depends on to build data.</td>
+    </tr>
+    <tr>
+        <td><a href="/api/nightly/crashes/?buildid=20190927094817">api/nightly/crashes/?buildid=20190927094817</a></td>
+        <td>Gives the crashes for a buildID (data from Socorro)</td>
+    </tr>
+    <tr>
+        <td>
+            <ul class="list-unstyled mb-0">
+                <li><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a> (forecast)</li>
+                <li><a href="/api/release/schedule/?version=release">api/release/schedule/?version=release</a> (actual)</li>
+            </ul>
+        </td>
+        <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
+        <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.</td>
+    </tr>
+    <tr>
+        <td><a href="/api/release/owners/">api/release/owners/</a></td>
+        <td>Historical list of all release managers for Firefox major releases</td>
+    </tr>
+    <tr>
+        <td><a href="/api/release/duty/">api/release/duty/</a></td>
+        <td>Historical list of all release engineers on release duty for the cycle</td>
+    </tr>
+    <tr>
+        <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
+        <td>Release dates for all ESR releases (including dot releases)</td>
+    </tr>
+    <tr>
+        <td><a href="/api/firefox/releases/">api/firefox/releases/</a></td>
+        <td>Release dates for all past Firefox releases (including dot releases)</td>
     </tr>
 </table>
 
-<h3>Credits</h3>
-<table class="table table-light table-striped table-bordered table-sm">
-    <tr class="table-dark">
-        <th>What</th>
-        <th>Who</th>
+<h3 class="text-center">Other resources</h3>
+<table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
+    <tr class="table-warning">
+        <th class="text-secondary-emphasis fw-semibold">URL</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+    </tr>
+    <tr>
+        <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
+        <td>Download an icalendar (.ics) file of an upcoming release milestones.</td>
+    </tr>
+
+    <tr>
+        <td><a href="/rss/">rss/</a></td>
+        <td><img class="align-text-bottom" src="/assets/img/feed_icon.svg" alt="RSS feed logo">&thinsp;Subscribe to our RSS feed to get a notification when a new Firefox release is out.</td>
+    </tr>
+</table>
+
+<h3 class="text-center">Credits</h3>
+<table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
+    <tr class="table-warning">
+        <th class="text-secondary-emphasis fw-semibold">What</th>
+        <th class="text-secondary-emphasis fw-semibold">Who</th>
     </tr>
     <tr>
         <td>Train favicon</td>
