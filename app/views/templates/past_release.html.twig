@@ -134,6 +134,7 @@
       <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date(pattern='MMMM d', locale='en') }}</td>
       {% endif %}
     </tr>
+        {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
         {% if dot_release_count > 0 %}
 
           {% for dot_release in 1..dot_release_count %}
@@ -188,10 +189,11 @@
            {% endfor %}
          {% endif %}
 
+        {% set planned_dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~  desktop_base ~ '&tochange=tip&full&version=2' %}
          {% if release ~ '.0' not in no_planned_dot_releases %}
            {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
               <tr>
-                <th class="{{ table_header }}">Planned {{ release }}.0.x</th>
+                <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-secondary">Planned {{ release }}.0.x</a></th>
                 <td title="">{{ release_date|date_modify("+" ~ ( release == 121 ? '3' : '2' ) ~  " weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
               </tr>
            {% endif %}
