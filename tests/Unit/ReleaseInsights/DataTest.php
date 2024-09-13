@@ -71,13 +71,13 @@ test('Data->getLatestMajorRelease()', function () {
         ->toBe(['102.0' => '2022-06-28']);
 });
 
-test('Data->getPastReleases()', function () {
+test('Data->getDesktopPastReleases()', function () {
     $obj = new Data(TEST_FILES);
-    expect($obj->getPastReleases())
+    expect($obj->getDesktopPastReleases())
         ->toBeArray();
-    expect($obj->getPastReleases()['3.6'])
+    expect($obj->getDesktopPastReleases()['3.6'])
         ->toBe('2010-01-21');
-    expect($obj->getPastReleases()['102.0.1'])
+    expect($obj->getDesktopPastReleases()['102.0.1'])
         ->toBe('2022-07-13');
 });
 

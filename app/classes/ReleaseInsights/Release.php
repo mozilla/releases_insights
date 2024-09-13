@@ -147,7 +147,7 @@ class Release
             ARRAY_FILTER_USE_KEY
         );
 
-        $dot_releases = $data->getPastReleases();
+        $dot_releases = $data->getDesktopPastReleases();
         $dot_releases = array_filter(
             $dot_releases,
             fn($k) => $k != $this->version->normalized && str_starts_with($k, $this->version->normalized),

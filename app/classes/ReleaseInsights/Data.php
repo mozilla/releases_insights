@@ -92,11 +92,11 @@ class Data
     }
 
     /**
-     * Get all past Releases on the release channel,
+     * Get all past Desktop Releases on the release channel,
      *
      * @return array<string, string>
      */
-    public function getPastReleases(bool $dot_releases = true): array
+    public function getDesktopPastReleases(bool $dot_releases = true): array
     {
         // Historical data from Product Details, cache a week
         $major_releases = Json::load($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
