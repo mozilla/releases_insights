@@ -17,7 +17,7 @@
          {% if release.platform == 'android' %}
          <link>https://www.mozilla.org/en-US/firefox/android/{{ release.version }}/releasenotes/</link>
          {% else %}
-         <link>{{ release.relnotes }}</link>
+         <link>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</link>
         {% endif %}
          <pubDate>{{ release.date }}</pubDate>
       </item>
