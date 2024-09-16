@@ -22,7 +22,7 @@ $paths = [
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
     ['sitemap/', 301, '', ''],
     ['sitemap.txt', 200, '', ''],
-    ['rss/', 200, '<rss version="2.0">', '</item>'],
+    ['rss/', 200, '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">', '</item>'],
 ];
 
 $obj = new \pchevrel\Verif('Check public pages HTTP responses and content');
