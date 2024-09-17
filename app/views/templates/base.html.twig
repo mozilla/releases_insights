@@ -8,7 +8,11 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-icons.css" media="screen">
     <link rel="stylesheet" href="/style/base.css?version=37" type="text/css" media="all" />
+{% if branch != '' %}
+    <link rel="icon" type="image/svg+xml" href="/assets/img/site_icon_dev.svg" />
+{% else %}
     <link rel="icon" type="image/svg+xml" href="/assets/img/site_icon.svg" />
+{% endif %}
     <link rel="apple-touch-icon" type="image/png" href="/assets/img/site_icon.png" />
     <link rel="author" href="humans.txt" />
 
