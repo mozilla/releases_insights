@@ -12,16 +12,6 @@
 {% endblock %}
 {% if release == constant('FIREFOX_RELEASE')|number_format %}
   {% set alert = 'Version shipping to users on the <b class="text-danger">Release</b> channel' %}
-  {% set rollout = '
-    <span
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-bs-html="true"
-        title="This is the background update rate.<br><b>Not the uptake rate!</b>"
-      >
-      <sup class="fw-normal fst-italic text-secondary border-bottom">(' ~ release_rollout ~ '% rollout)</sup>
-    </span>
-  ' %}
   {% set channel = 'release' %}
 {% endif %}
 
@@ -109,6 +99,15 @@
       </td>
     </tr>
   </table>
+
+{% if release == constant('FIREFOX_RELEASE')|number_format %}
+  {% set initial_adoption = uptake ~ '% adoption' %}
+{% else %}
+  {% set initial_adoption = '' %}
+{% endif %}
+
+  {% set rollout = release_rollout ~ '% rollout' %}
+
   <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
     <tr>
       <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Key Milestones</th>
@@ -124,9 +123,18 @@
     <tr>
       <th class="{{ table_header }}">
         {{ release }}.0
-        {% if dot_release_count == 0 %}
-          {{ rollout|raw }}
-        {% endif %}
+        <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-html="true">
+          <sup class="fw-normal fst-italic text-secondary border-bottom">
+            {% if dot_release_count == 0 %}
+              {{ rollout|raw ~ initial_adoption|raw }}
+            {% else %}
+              {{ initial_adoption|raw }}
+            {% endif %}
+          </sup>
+        </span>
       </th>
       {% if release == 14 or release == 125 %}
       <td>Version never shipped</td>
@@ -136,9 +144,9 @@
     </tr>
         {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
         {% if dot_release_count > 0 %}
-
           {% for dot_release in 1..dot_release_count %}
             {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern='MMMM d', locale='en') %}
+            {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] ~ '% adoption' %}
 
             {% if dot_release == 1 %}
                 {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
@@ -174,14 +182,23 @@
                 <a href="{{ dot_release_link }}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
                 {% if release > 125 %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
-                    <sup class="fw-normal fst-italic text-secondary border-bottom">(Android-only)</sup>
+                    <sup class="fw-normal fst-italic text-secondary border-bottom">Android-only</sup>
                   {% endif %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
-                    <sup class="fw-normal fst-italic text-secondary border-bottom">(Desktop-only)</sup>
+                    <sup class="fw-normal fst-italic text-secondary border-bottom">Desktop-only</sup>
+                  {% endif %}
+                  {% if release == constant('FIREFOX_RELEASE')|number_format %}
+                    {% if dot_releases[release ~ '.0.' ~ dot_release]['date'] != yesterday|date("Y-m-d") %}
+                      {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' %}
+                        <sup class="fw-normal fst-italic text-secondary border-bottom">{{ adoption }} ⁘ </sup>
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 {% endif %}
                 {% if loop.last and release_rollout != -1%}
+                <sup class="fw-normal fst-italic text-secondary border-bottom">
                   {{ rollout|raw }}
+                </sup>
                 {% endif %}
               </th>
               <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>

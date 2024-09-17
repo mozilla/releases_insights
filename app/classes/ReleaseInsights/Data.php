@@ -228,6 +228,26 @@ class Data
         return Json::load($this->pd_url . 'firefox_versions.json', $this->cache_duration);
     }
 
+    public static function getDesktopAdoptionRate(string $version): int
+    {
+        // Check current uptake rate for the latest release*
+        // @codeCoverageIgnoreStart
+        if (! defined('TESTING_CONTEXT')) {
+            $uptake = Json::load(URL::Pollbot->value
+                    . 'firefox/'
+                    . $version
+                    . '/telemetry/main-summary-uptake')['message'] ?? '0' ;
+        } else {
+        // @codeCoverageIgnoreEnd
+            $uptake = Json::load(URL::Pollbot->target() . 'main-summary-uptake.json')['message'] ?? '0' ;
+        }
+        // This public data is stored as a string, extract only the number
+        $uptake = preg_replace('/Telemetry uptake for version.*\(.*\) is /', '', $uptake);
+        $uptake = str_replace('%', '', $uptake);
+
+        return intval($uptake);
+    }
+
     /**
      * On Release day we have a lot of special cases.
      */

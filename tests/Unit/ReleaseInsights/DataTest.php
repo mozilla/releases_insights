@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use ReleaseInsights\Data;
+use ReleaseInsights\URL;
 
 test('Data->getOwners()', function () {
     $obj = new Data();
@@ -124,3 +125,14 @@ test('Data->isTodayReleaseDay()', function () {
     expect($obj->isTodayReleaseDay())
         ->toBeBool();
 });
+
+
+
+test('Data->getDesktopAdoptionRate()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getDesktopAdoptionRate('130.0'))
+        ->toBe(81)
+        ->toBeInt();
+});
+
+

@@ -120,6 +120,16 @@ $dot_releases = array_filter(
     ARRAY_FILTER_USE_KEY
 );
 
+// Check uptake rate only for the release channel
+$release_uptake = 0;
+if ((int) $requested_version === RELEASE) {
+    $release_uptake = Data::getDesktopAdoptionRate($requested_version);
+}
+
+foreach ($dot_releases as $k => $v) {
+    $dot_releases[$k]['adoption'] = Data::getDesktopAdoptionRate($k);
+}
+
 // Number of dot releases
 $dot_release_count = count($dot_releases);
 
@@ -193,4 +203,5 @@ return [
     $firefox_releases,
     $no_planned_dot_releases,
     $rollout ?? -1,
+    $release_uptake,
 ];

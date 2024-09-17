@@ -13,6 +13,7 @@ enum URL: string
     case Balrog         = 'https://aus-api.mozilla.org/api/v1/';
     case Socorro        = 'https://crash-stats.mozilla.org/api/';
     case Archive        = 'https://archive.mozilla.org/';
+    case Pollbot        = 'https://pollbot.services.mozilla.com/v1/';
 
     public function target(): string
     {

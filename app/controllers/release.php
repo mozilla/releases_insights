@@ -88,7 +88,8 @@ if ($requested_version_int <= RELEASE) {
         $beta_start_date,
         $firefox_releases,
         $no_planned_dot_releases,
-        $release_rollout
+        $release_rollout,
+        $uptake,
     ] = (new Model('past_release'))->get();
 
     $template_file = 'past_release.html.twig';
@@ -115,6 +116,7 @@ if ($requested_version_int <= RELEASE) {
         'firefox_releases'        => $firefox_releases,
         'no_planned_dot_releases' => $no_planned_dot_releases,
         'release_rollout'         => $release_rollout,
+        'uptake'                  => $uptake
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
