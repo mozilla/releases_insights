@@ -183,10 +183,8 @@
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
                     <sup class="fw-normal fst-italic text-info-emphasis">Desktop-only</sup>
                   {% endif %}
-                  {% if release != constant('FIREFOX_RELEASE')|number_format %}
                     {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
                       <sup class="fw-normal fst-italic text-secondary border-bottom" title="{{ adoption }}% &mdash; adoption rate has a 24h latency">{{ adoption|number_format }}% adoption</sup>
-                    {% endif %}
                   {% endif %}
                 {% endif %}
                 {% if loop.last and release_rollout != -1%}
