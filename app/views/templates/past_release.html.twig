@@ -100,12 +100,6 @@
     </tr>
   </table>
 
-{% if release == constant('FIREFOX_RELEASE')|number_format %}
-  {% set initial_adoption = uptake ~ '% adoption' %}
-{% else %}
-  {% set initial_adoption = '' %}
-{% endif %}
-
   {% set rollout = release_rollout ~ '% rollout' %}
 
   <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
@@ -127,11 +121,13 @@
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         data-bs-html="true">
-          <sup class="fw-normal fst-italic text-secondary border-bottom"  title="Adoption rate has a 24h latency">
-            {% if dot_release_count == 0 %}
-              {{ rollout|raw ~ initial_adoption|raw }}
-            {% else %}
-              {{ initial_adoption|raw }}
+          <sup class="fw-normal fst-italic text-secondary border-bottom"  title="{{ uptake }}% &mdash; adoption rate has a 24h latency">
+            {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
+              {% if dot_release_count == 0 %}
+                {{ rollout }} {{ uptake|number_format }}% adoption
+              {% else %}
+                {{ uptake|number_format }}% adoption
+              {% endif %}
             {% endif %}
           </sup>
         </span>
@@ -146,7 +142,7 @@
         {% if dot_release_count > 0 %}
           {% for dot_release in 1..dot_release_count %}
             {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern='MMMM d', locale='en') %}
-            {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] ~ '% adoption' %}
+            {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] %}
 
             {% if dot_release == 1 %}
                 {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
@@ -187,11 +183,9 @@
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
                     <sup class="fw-normal fst-italic text-secondary">Desktop-only</sup>
                   {% endif %}
-                  {% if release == constant('FIREFOX_RELEASE')|number_format %}
-                    {% if dot_releases[release ~ '.0.' ~ dot_release]['date'] != yesterday|date("Y-m-d") %}
-                      {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
-                        <sup class="fw-normal fst-italic text-secondary border-bottom" title="Adoption rate has a 24h latency">{{ adoption }} ⁘ </sup>
-                      {% endif %}
+                  {% if release != constant('FIREFOX_RELEASE')|number_format %}
+                    {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
+                      <sup class="fw-normal fst-italic text-secondary border-bottom" title="{{ adoption }}% &mdash; adoption rate has a 24h latency">{{ adoption|number_format }}% adoption</sup>
                     {% endif %}
                   {% endif %}
                 {% endif %}

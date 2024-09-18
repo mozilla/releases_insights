@@ -120,14 +120,13 @@ $dot_releases = array_filter(
     ARRAY_FILTER_USE_KEY
 );
 
-// Check uptake rate only for the release channel
+// Check uptake rate only for the current release and the previous one
 $release_uptake = 0;
-if ((int) $requested_version === RELEASE) {
+if ((int) $requested_version >= RELEASE - 1) {
     $release_uptake = Data::getDesktopAdoptionRate($requested_version);
-}
-
-foreach ($dot_releases as $k => $v) {
-    $dot_releases[$k]['adoption'] = Data::getDesktopAdoptionRate($k);
+    foreach ($dot_releases as $k => $v) {
+        $dot_releases[$k]['adoption'] = Data::getDesktopAdoptionRate($k);
+    }
 }
 
 // Number of dot releases

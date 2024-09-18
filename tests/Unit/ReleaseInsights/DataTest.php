@@ -131,8 +131,8 @@ test('Data->isTodayReleaseDay()', function () {
 test('Data->getDesktopAdoptionRate()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getDesktopAdoptionRate('130.0'))
-        ->toBe(81)
-        ->toBeInt();
+        ->toBe(81.5)
+        ->toBeFloat();
 });
 
 

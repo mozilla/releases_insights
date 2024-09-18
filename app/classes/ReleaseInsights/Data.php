@@ -228,7 +228,7 @@ class Data
         return Json::load($this->pd_url . 'firefox_versions.json', $this->cache_duration);
     }
 
-    public static function getDesktopAdoptionRate(string $version): int
+    public static function getDesktopAdoptionRate(string $version): float
     {
         // Check current uptake rate for the latest release*
         // @codeCoverageIgnoreStart
@@ -245,7 +245,7 @@ class Data
         $uptake = preg_replace('/Telemetry uptake for version.*\(.*\) is /', '', $uptake);
         $uptake = str_replace('%', '', $uptake);
 
-        return intval($uptake);
+        return (float) $uptake;
     }
 
     /**
