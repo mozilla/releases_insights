@@ -178,10 +178,10 @@
                 <a href="{{ dot_release_link }}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
                 {% if release > 125 %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
-                    <sup class="fw-normal fst-italic text-secondary">Android-only</sup>
+                    <sup class="fw-normal fst-italic text-info-emphasis">Android-only</sup>
                   {% endif %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
-                    <sup class="fw-normal fst-italic text-secondary">Desktop-only</sup>
+                    <sup class="fw-normal fst-italic text-info-emphasis">Desktop-only</sup>
                   {% endif %}
                   {% if release != constant('FIREFOX_RELEASE')|number_format %}
                     {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
