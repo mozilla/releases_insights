@@ -127,7 +127,7 @@
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         data-bs-html="true">
-          <sup class="fw-normal fst-italic text-secondary border-bottom">
+          <sup class="fw-normal fst-italic text-secondary border-bottom"  title="Adoption rate has a 24h latency">
             {% if dot_release_count == 0 %}
               {{ rollout|raw ~ initial_adoption|raw }}
             {% else %}
@@ -182,21 +182,21 @@
                 <a href="{{ dot_release_link }}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
                 {% if release > 125 %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
-                    <sup class="fw-normal fst-italic text-secondary border-bottom">Android-only</sup>
+                    <sup class="fw-normal fst-italic text-secondary">Android-only</sup>
                   {% endif %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
-                    <sup class="fw-normal fst-italic text-secondary border-bottom">Desktop-only</sup>
+                    <sup class="fw-normal fst-italic text-secondary">Desktop-only</sup>
                   {% endif %}
                   {% if release == constant('FIREFOX_RELEASE')|number_format %}
                     {% if dot_releases[release ~ '.0.' ~ dot_release]['date'] != yesterday|date("Y-m-d") %}
-                      {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' %}
-                        <sup class="fw-normal fst-italic text-secondary border-bottom">{{ adoption }} ⁘ </sup>
+                      {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
+                        <sup class="fw-normal fst-italic text-secondary border-bottom" title="Adoption rate has a 24h latency">{{ adoption }} ⁘ </sup>
                       {% endif %}
                     {% endif %}
                   {% endif %}
                 {% endif %}
                 {% if loop.last and release_rollout != -1%}
-                <sup class="fw-normal fst-italic text-secondary border-bottom">
+                <sup class="fw-normal fst-italic text-secondary">
                   {{ rollout|raw }}
                 </sup>
                 {% endif %}
