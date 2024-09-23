@@ -56,6 +56,7 @@
     },
     "scripts": {
         "cache:clear": "rm cache/*.cache ; rm -rf cache/twig/*; rm -rf cache/guzzle/*",
+        "cache:clean": "composer cache:clear",
         "test:unit": "vendor/bin/pest",
         "test:unitcov": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
         "test:coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage | tail -15",
