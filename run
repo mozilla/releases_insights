@@ -9,9 +9,10 @@ NORMAL=$(tput sgr0)
 SERVER="localhost:8082"
 
 SUPPORTED_COMMANDS=(
-    '-help'
-    '-tests'
-    '-browser-sync'
+    'help'
+    'tests'
+    'browser-sync'
+    'status'
 )
 
 function ctrl_c() {
@@ -53,6 +54,25 @@ fi
 if [ $# -gt 0 ] && [ $1 = '-tests' ]
 then
     composer test:all
+    exit 1
+fi
+
+if [ $# -gt 0 ] && [ $1 = 'status' ]
+then
+    local=`git rev-parse HEAD`
+    prod=`curl -s https://whattrainisitnow.com/deployed-version.txt`
+    echo -e "$GREEN""Checking if the latest commit is what we have in production""$NORMAL"
+    echo "Local : $local"
+    echo -n "Prod  : $prod"
+    if [ $local == $prod ]
+    then
+        echo ""
+        echo -en "$GREEN""Yes, we are good""$NORMAL"
+    elif [[ condition ]]; then
+        x=$(($(git rev-list --count $prod..$local)))
+        echo ""
+        echo -en "$ORANGE""No, production is $x commit(s) behind""$NORMAL"
+    fi
     exit 1
 fi
 
