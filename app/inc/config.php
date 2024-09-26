@@ -68,7 +68,7 @@ define('PRODUCTION',
 );
 
 // Define a Nonce for inline scripts
-define('NONCE', bin2hex(random_bytes(10)));
+define('NONCE', bin2hex(random_bytes(20)));
 
 // Set up Sentry endpoint, don't send errors while in dev mode
 if (STAGING) {
