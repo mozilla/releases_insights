@@ -25,12 +25,12 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 
 1. Clone this repository
 2. Install dependencies: `composer install`
-3. Start the PHP development server in a terminal either by launching the `run` bash script or with this command:<br>
+3. Start the PHP development server in a terminal either by launching the `./run` bash script or with this command:<br>
   `php -S localhost:8082 -t public/`
 
 The website will be available at http://localhost:8082
 
-If you have intalled the npm package [browser-sync](https://browsersync.io/) (`sudo npm install -g browser-sync`) and want to use it, start with the `run -browser-sync` command, it will launch the website at http://localhost:3000 and any change to a file in the repository will automatically refresh the page in the browser. Note that this workflow will break if you make backend changes that break the site.
+If you have intalled the npm package [browser-sync](https://browsersync.io/) (`sudo npm install -g browser-sync`) and want to use it, start with the `./run -browser-sync` command, it will launch the website at http://localhost:3000 and any change to a file in the repository will automatically refresh the page in the browser. Note that this workflow will break if you make backend changes that break the site.
 
 If you want to set the site up with an Apache virtual host, make it point to the `public` folder and make sure that the `cache` folder is writable by Apache.
 
@@ -81,7 +81,9 @@ composer test:unitcov   # Run unit tests + code coverage (requires Xdebug)
 
 ```
 
-You can also run locally all the tests we run in CI with the `run -tests` command.
+You can also run locally all the tests we run in CI with the `./run tests` command.
+
+Yuo can check if the local state of the branch is in production with the `./run status` command.
 
 If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.
 
