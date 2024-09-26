@@ -68,7 +68,10 @@ class Release
         $schedule = [
             'nightly_start'         => $date($nightly),
             'a11y_request_deadline' => $date('Friday'),
-            'qa_request_deadline'   => $date('Friday'),
+            'qa_request_deadline'   => match ($this->version->normalized) {
+                '133.0' => $date('yesterday'),
+                default => $date('Friday'),
+            },
             'qa_feature_done_1'     => match ($this->version->normalized) {
                 '142.0' => $date('July 3 21:00'),
                 default => $date('Friday +1 week 21:00'),
