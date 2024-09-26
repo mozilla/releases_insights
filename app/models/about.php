@@ -59,6 +59,7 @@ return <<<"EOD"
                 <li><a href="/release/?version=release">release/?version=release</a></li>
                 <li><a href="/release/?version=esr">release/?version=esr</a></li>
                 <li><a href="/release/?version=90">release/?version=90</a></li>
+            </ul>
         </td>
         <td>
         Provides historical data for past releases and basic release date information for future releases.<br>

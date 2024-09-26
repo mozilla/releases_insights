@@ -19,7 +19,7 @@
 <div class="container h-100">
   <div class="row text-center">
     <div class="col-sm">
-      <div><img src="/assets/img/firefox-logo-esr.svg" width="70%" alt="Firefox ESR logo"></div>
+      <div><img src="/assets/img/firefox-logo-esr.svg" alt="Firefox ESR logo"></div>
       {% if constant('ESR') and constant('ESR_NEXT') %}
       <h2 {{ tooltip_defaults|raw }} title="Latest versions:<br><b>{{ constant('ESR') }}</b> and <b>{{ constant('ESR_NEXT') }}</b>">{{ constant('OLD_ESR') }} / {{ constant('MAIN_ESR')|number_format }}</h2>
       {% else %}
@@ -28,7 +28,7 @@
       <h3><a href="/release/?version=esr" {{ tooltip_defaults|raw }} title="Click this link to get the schedule of releases on the <b>ESR</b> channel." class="link-info">ESR</a></h3>
     </div>
     <div class="col-sm">
-      <div><img src="/assets/img/firefox-logo.svg" width="70%" alt="Firefox logo"></div>
+      <div><img src="/assets/img/firefox-logo.svg" alt="Firefox logo"></div>
       <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('FIREFOX_RELEASE') }}</b>">{{ constant('FIREFOX_RELEASE')|number_format }}</h2>
       <h3><a href="/release/?version=release" {{ tooltip_defaults|raw }} title="Click this link to get past data about the version currently shipped to users on the <b>release</b> channel." class="link-info">Release</a></h3>
     </div>
@@ -38,7 +38,7 @@
     {% endif %}
 
     <div class="col-sm">
-      <div><img src="/assets/img/firefox-logo-beta.svg" width="70%" alt="Firefox Beta logo"></div>
+      <div><img src="/assets/img/firefox-logo-beta.svg" alt="Firefox Beta logo"></div>
       <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>
       {% if rc_build and rc_week %}
         {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
@@ -55,7 +55,7 @@
       {% endif %}
     </div>
     <div class="col-sm">
-      <div><img src="/assets/img/firefox-logo-nightly.svg" width="70%" alt="Firefox Nightly logo"></div>
+      <div><img src="/assets/img/firefox-logo-nightly.svg" alt="Firefox Nightly logo"></div>
       <h2 {{ tooltip_defaults|raw }} title="Latest buildID:<br><b>{{ latest_nightly }}</b>">{{ constant('FIREFOX_NIGHTLY')|number_format }}</h2>
       <h3><a href="/release/?version=nightly" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Nightly</b> cycle." class="link-info">Nightly</a></h3>
     </div>
@@ -68,7 +68,7 @@
 
 
   {% if rc_week %}
-    <h3 class="text-center mt-5" role="alert"><span class="alert alert-primary" role="alert"><i class="bi bi-info-circle-fill"></i> We are in <abbr title="Release Candidate" class="initialism">RC</abbr>&nbsp;week</span></h3>
+    <h3 class="text-center mt-5"><span class="alert alert-primary" role="alert"><i class="bi bi-info-circle-fill"></i> We are in <abbr title="Release Candidate" class="initialism">RC</abbr>&nbsp;week</span></h3>
   {% endif %}
 
   {% if release_day %}
