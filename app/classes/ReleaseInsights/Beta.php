@@ -191,7 +191,6 @@ readonly class Beta
      */
     public function report(): array
     {
-
         $uplifts_per_beta = $this->getBugsFromLogs();
         $log_links = array_map(fn($query) => URL::Mercurial->value . $query, $this->getLogEndpoints());
         $log_links = array_map(fn($query) => str_replace('json-pushes', 'pushloghtml', $query), $log_links);
@@ -208,6 +207,49 @@ readonly class Beta
         ksort($uplifts_per_beta, SORT_NATURAL);
 
         return $uplifts_per_beta;
+    }
+
+    /**
+     * Return all beta crashes
+     * @return array<mixed>
+     */
+    public function getCrashes(): array
+    {
+        $data = [];
+        foreach (range(1, $this->count) as $beta_number) {
+            $beta_number = (string) $this->release . '.0b' . (string) $beta_number;
+            if (defined('TESTING_CONTEXT')) {
+                $beta_number = str_replace('94', '131', $beta_number);
+                $target = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $beta_number . '.json';
+            } else {
+                $target = URL::Socorro->value . 'SuperSearch/?version=' . $beta_number . '&_facets=signature&product=Firefox';  // @codeCoverageIgnore
+            }
+
+            $temp = Json::load($target, 3600);
+
+            // In local tests, we always have test data
+            // @codeCoverageIgnoreStart
+            if (empty($temp)) {
+                $data[$beta_number] = [
+                    'total'      => 0,
+                    'signatures' => [],
+                ];
+                continue;
+            }
+            // @codeCoverageIgnoreEnd
+
+            $data[$beta_number] = [
+                'total'      => $temp['total'],
+                'signatures' => $temp['facets']['signature'],
+            ];
+        }
+
+        // Create a summary of the crashes across betas
+        $data['summary'] = [
+           'total'   => array_sum(array_column($data, 'total')),
+        ];
+
+        return $data;
     }
 }
 
