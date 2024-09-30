@@ -4,6 +4,5 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Json, Model};
 
-$data = (new Model('api_release_owners'))->get();
+(new Json((new Model('api_release_owners'))->get()))->render();
 
-(new Json($data))->render();
