@@ -15,6 +15,7 @@ readonly class Model
     public function __construct(public string $model) {
         $this->list = [
             'about'                 => 'about.php',
+            'api_beta_crashes'      => 'api/beta_crashes.php',
             'api_esr_releases'      => 'api/esr_releases.php',
             'api_external'          => 'api/external.php',
             'api_firefox_releases'  => 'api/firefox_releases.php',

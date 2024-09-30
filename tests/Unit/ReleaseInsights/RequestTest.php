@@ -16,6 +16,7 @@ test('Request->getController()', function ($input, $output) {
     ['/release',                    'release'],
     ['/release//',                  'release'],
     ['/release/?version=100',       'release'],
+    ['/api/beta/crashes',           'api/beta_crashes'],
     ['/api/external',               'api/external'],
     ['/api/nightly',                'api/nightly'],
     ['/api/release/duty/',          'api/release_duty'],
@@ -37,8 +38,8 @@ test('Request->getController()', function ($input, $output) {
 ]);
 
 
-test('Request::cleanPath', function ($input, $output) {
-    expect($output)->toEqual(Request::cleanPath($input));
+test('Request->cleanPath()', function ($input, $output) {
+    expect($output)->toEqual((new Request($input))->cleanPath($input));
 })->with([
     ['/',       '/'],
     ['//',      '/'],

@@ -32,7 +32,7 @@ class Request
                 $this->request = $path;
 
                 if (isset($request['path'])) {
-                    $this->path = static::cleanPath($request['path']);
+                    $this->path = $this->cleanPath($request['path']);
                 }
 
                 if (isset($request['query'])) {
@@ -66,14 +66,15 @@ class Request
             '/beta/'                      => 'beta',
             '/nightly/'                   => 'nightly',
             '/release/'                   => 'release',
+            '/api/beta/crashes/'          => 'api/beta_crashes',
             '/api/external/'              => 'api/external',
             '/api/nightly/'               => 'api/nightly',
+            '/api/nightly/crashes/'       => 'api/nightly_crashes',
             '/api/release/schedule/'      => 'api/release_schedule',
             '/api/esr/releases/'          => 'api/esr_releases',
             '/api/firefox/releases/'      => 'api/firefox_releases',
             '/api/release/owners/'        => 'api/release_owners',
             '/api/release/duty/'          => 'api/release_duty',
-            '/api/nightly/crashes/'       => 'api/nightly_crashes',
             '/api/wellness/days/'         => 'api/wellness_days',
             '/calendar/'                  => 'calendar',
             '/calendar/monthly/'          => 'calendar_monthly',
@@ -88,7 +89,7 @@ class Request
     /**
      * Normalize path before comparing the string to a list of valid paths
      */
-    public static function cleanPath(string $path): string
+    public function cleanPath(string $path): string
     {
         if ($path == '/' || $path == '//') {
             return '/';

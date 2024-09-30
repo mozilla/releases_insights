@@ -4,7 +4,6 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/beta/">
 {% endblock %}
 
@@ -42,8 +41,7 @@
     <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Beta to release merge</small></p>
    {% endif %}
 
-    <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto">
-
+    <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto mb-3">
         <li class="list-group-item bg-info border-0 version">
             {% if key == constant('BETA') ~ ".0rc0" %}
                 No build
@@ -73,18 +71,33 @@
             {% endif %}
         </li>
         {% if values['bug_fixes']|length > 0 %}
-        <li class="list-group-item text-light bg-primary border-0">
-            <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapse{{ key }}">
-                <span class="text-collapsed">Show list of bugs</span>
-                <span class="text-expanded">Hide list of bugs</span>
+        <li class="list-group-item text-light border-0 bg-primary">
+            <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
+                <span class="text-collapsed">Show bug fixes</span>
+                <span class="text-expanded">Hide bug fixes</span>
             </a>
         </li>
         {% endif %}
+        <!--
+        <li class="list-group-item text-light border-0  bg-secondary">
+           <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
+                <span class="text-collapsed ">Show crashes</span>
+                <span class="text-expanded ">Hide crashes</span>
+            </a>
+        </li>
+        -->
     </ul>
-    <p>
-</p>
+        <!--
+<div class="collapse" id="collapseCrashes{{ key }}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</div>
+        -->
 
-<div class="collapse" id="collapse{{ key }}">
+<div class="collapse" id="collapseBugs{{ key }}">
     <table class="table table-light table-striped table-bordered table-sm mb-3 w-75 caption-top">
         <caption class="table-dark text-center fw-bold">Uplifts and Backouts</caption>
        <thead>
@@ -122,7 +135,7 @@
             {%- endif -%}
         <tr class="small {{ alert_row }}">
             <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.component }}</a></td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.summary }}</a></td>
         </tr>
         {% endfor %}
