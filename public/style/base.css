@@ -325,7 +325,8 @@ footer {
 }
 
 /* override Bootstrap striped styles as they don't allow background images */
-:is(#beta, #nightly) table tr:nth-child(odd) td {
+:is(#beta, #nightly) table tr:nth-child(odd) td,
+:is(#beta, #nightly) table tr:nth-child(even) td {
     box-shadow: none !important;
     background-color: #ecedee !important;
 }

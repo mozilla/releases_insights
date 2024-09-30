@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block head_additions %}
-    {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
+    {% set meta_description = 'State of Firefox Beta for Desktop' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
     <meta property="og:url" content="https://whattrainisitnow.com/beta/">
@@ -9,12 +9,11 @@
 
 {% block header %}
   <header class="mx-auto">
-    <h1>Current beta cycle: <a href="/release/?version=beta" class="link-info">{{ constant('BETA') }}</a></h1>
+    <h1>Current Desktop beta cycle: <a href="/release/?version=beta" class="link-info">{{ constant('BETA') }}</a></h1>
   </header>
 {% endblock %}
 
 {% block main %}
-
  <table class="table table-light table-striped table-sm w-75">
     <tr>
       <th class="w-auto align-middle">Uplifts by Product</th>
@@ -70,6 +69,15 @@
                 <small class="fst-italic">(upcoming beta, not shipped yet)</small>
             {% endif %}
         </li>
+        {% if key != constant('BETA') ~ ".0rc0" %}
+        <li class="list-group-item text-light border-0 bg-success-subtle">
+           <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
+                <span class="text-collapsed ">Show crashes</span>
+                <span class="text-expanded ">Hide crashes</span>
+            </a>
+        </li>
+        {% endif %}
+
         {% if values['bug_fixes']|length > 0 %}
         <li class="list-group-item text-light border-0 bg-primary">
             <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
@@ -78,30 +86,43 @@
             </a>
         </li>
         {% endif %}
-        <!--
-        <li class="list-group-item text-light border-0  bg-secondary">
-           <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
-                <span class="text-collapsed ">Show crashes</span>
-                <span class="text-expanded ">Hide crashes</span>
-            </a>
-        </li>
-        -->
+
+
+
     </ul>
-        <!--
-<div class="collapse" id="collapseCrashes{{ key }}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</div>
-        -->
+    <div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
+        <ol class="w-75 m-auto">
+        {% for sig in crashes[key].signatures|slice(0, 7) %}
+        {% if sig.term in known_top_crashes %}
+            {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
+        {% elseif ((sig.count/crashes[key].total)*100)|number_format(2) > 10 %}
+            {% set button, alert = 'btn btn-danger btn-sm', 'Top crash' %}
+        {% else %}
+            {% set button, alert = '', '' %}
+        {% endif %}
+
+        {% if sig.term in crash_bugs|keys  %}
+            {% set crash_bug_button, crash_bug_link = 'btn btn-success btn-sm', '<a class="text-light" href="https://bugzilla.mozilla.org/' ~ crash_bugs[sig.term] ~ '">' ~ crash_bugs[sig.term] ~ '</a>' %}
+        {% else %}
+            {% set crash_bug_button, crash_bug_link = '', '' %}
+        {% endif %}
+
+
+        {% if crashes[key].signatures %}
+        <li class="mb-1">
+            <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a  class="text-info" href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a>  <b title="{{ sig.count }}">({{ ((sig.count/crashes[key].total)*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span> <span class="{{ crash_bug_button }}">{{ crash_bug_link|raw }}</span>
+        </li>
+        {% endif %}
+
+        {% endfor %}
+        </ol>
+    </div>
 
 <div class="collapse" id="collapseBugs{{ key }}">
-    <table class="table table-light table-striped table-bordered table-sm mb-3 w-75 caption-top">
-        <caption class="table-dark text-center fw-bold">Uplifts and Backouts</caption>
+    <table class="table table-light table-fxt-clean table-hover table-sm w-75 justify-content-center mb-3">
+        <caption class="text-center text-light caption-top fw-bold">Uplifts and Backouts</caption>
        <thead>
-        <tr class="table-dark">
+        <tr class="text-center table-warning force-default-bg fw-semibold">
             <th>Bug</th>
             <th>Component</th>
             <th>Summary</th>

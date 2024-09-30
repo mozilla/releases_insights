@@ -9,7 +9,7 @@ $beta = new Beta();
 $uplift_counter = 0;
 $bug_list_details = [];
 
-foreach ($beta->report() as $version => $details) {
+foreach ($beta->uplifts() as $version => $details) {
     // We count all uplifts, including backouts
     $uplifts = count($details['total']);
     $uplift_counter += $uplifts;
@@ -74,9 +74,19 @@ foreach ($stats as $product => $bugs) {
     $stats[$product]['bugzilla'] = Bugzilla::getBugListLink($stats[$product]['bugs']);
 }
 
+$known_top_crashes = [
+    'IPCError-browser | ShutDownKill | mozilla::ipc::MessagePump::Run',
+    'IPCError-browser | ShutDownKill | NtYieldExecution',
+    'IPCError-browser | ShutDownKill | EMPTY: no crashing thread identified; ERROR_NO_MINIDUMP_HEADER',
+    'IPCError-browser | ShutDownKill',
+    'OOM | small',
+];
+
 return [
-    $beta->report(),
+    $beta->uplifts(),
     $bug_list_details,
     $uplift_counter,
     $stats,
+    $beta->getCrashes(),
+    $known_top_crashes,
 ];
