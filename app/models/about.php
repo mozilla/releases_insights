@@ -20,7 +20,7 @@ return <<<"EOD"
 <h3 class="text-center">Pages</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/">/</a></td>
@@ -77,7 +77,7 @@ return <<<"EOD"
 <h3 class="text-center">Json API</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
 
     <tr>
@@ -113,8 +113,8 @@ return <<<"EOD"
     <tr>
         <td>
             <ul class="list-unstyled mb-0">
-                <li><a href="/api/release/schedule/?version=beta"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=beta</a> (forecast)</li>
-                <li><a href="/api/release/schedule/?version=release"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=release</a> (actual)</li>
+                <li><a href="/api/release/schedule/?version=beta"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=beta</a> <span class="text-body-tertiary">(forecast)</span></li>
+                <li><a href="/api/release/schedule/?version=release"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=release</a> <span class="text-body-tertiary">(actual)</span></li>
             </ul>
         </td>
         <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
@@ -135,7 +135,7 @@ return <<<"EOD"
 <h3 class="text-center">Other resources</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
@@ -151,7 +151,7 @@ return <<<"EOD"
 <h3 class="text-center">Credits</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">What</th>
+        <th class="text-secondary-emphasis fw-semibold w-25">What</th>
         <th class="text-secondary-emphasis fw-semibold">Who</th>
     </tr>
     <tr>
