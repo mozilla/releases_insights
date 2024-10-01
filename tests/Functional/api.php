@@ -29,6 +29,7 @@ $obj
 $check = function ($object, $paths) {
     foreach ($paths as $values) {
         [$path, $http_code, $content] = $values;
+        echo "- $path\n";
         $object
             ->setPath($path)
             ->fetchContent()
@@ -38,6 +39,7 @@ $check = function ($object, $paths) {
     }
 };
 
+echo "\nTesting API path:\n";
 $check($obj, $paths);
 
 $obj->report();

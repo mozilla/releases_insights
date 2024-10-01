@@ -33,6 +33,7 @@ $obj
 $check = function ($object, $paths) {
     foreach ($paths as $values) {
         [$path, $http_code, $content, $content2] = $values;
+        echo "- $path\n";
         $object
             ->setPath($path)
             ->fetchContent()
@@ -42,6 +43,7 @@ $check = function ($object, $paths) {
     }
 };
 
+echo "\nTesting page path:\n";
 $check($obj, $paths);
 
 $obj->report();
