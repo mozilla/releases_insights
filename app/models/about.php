@@ -20,7 +20,7 @@ return <<<"EOD"
 <h3 class="text-center">Pages</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">URL</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/">/</a></td>
@@ -39,7 +39,7 @@ return <<<"EOD"
         <td>Overview of our upcoming releases</td>
     </tr>
     <tr>
-        <td><a href="/calendar/monthly/">calendar/monthly/</a></td>
+        <td><a href="/calendar/monthly/">calendar/monthly</a></td>
         <td>General calendar view of milestones for upcoming releases</td>
     </tr>
     <tr>
@@ -68,7 +68,7 @@ return <<<"EOD"
         </td>
     </tr>
     <tr>
-        <td><a href="/release/owners/">release/owners/</a></td>
+        <td><a href="/release/owners/">release/owners</a></td>
         <td>List all past releases per release owner</td>
     </tr>
 </table>
@@ -77,52 +77,65 @@ return <<<"EOD"
 <h3 class="text-center">Json API</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">URL</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
+
     <tr>
-        <td><a href="/api/nightly/?date={$yesterday}">api/nightly/?date={$yesterday}</a></td>
-        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
+        <td><a href="/api/beta/crashes/"><span class="text-body-tertiary me-1">api/</span>beta/crashes</a></td>
+        <td>Gives the crashes for all our current betas (data from Socorro)</td>
     </tr>
+
     <tr>
-        <td><a href="/api/external/">api/external/</a></td>
+        <td><a href="/api/esr/releases/"><span class="text-body-tertiary me-1">api/</span>esr/releases</a></td>
+        <td>Release dates for all ESR releases (including dot releases)</td>
+    </tr>
+
+    <tr>
+        <td><a href="/api/external/"><span class="text-body-tertiary me-1">api/</span>external</a></td>
         <td>Gives the list of external APIs this site depends on to build data.</td>
     </tr>
+
     <tr>
-        <td><a href="/api/nightly/crashes/?buildid=20190927094817">api/nightly/crashes/?buildid=20190927094817</a></td>
+        <td><a href="/api/firefox/releases/"><span class="text-body-tertiary me-1">api/</span>firefox/releases</a></td>
+        <td>Release dates for all past Firefox releases (including dot releases)</td>
+    </tr>
+
+    <tr>
+        <td><a href="/api/nightly/?date={$yesterday}"><span class="text-body-tertiary me-1">api/</span>nightly/?date={$yesterday}</a></td>
+        <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
+    </tr>
+
+    <tr>
+        <td><a href="/api/nightly/crashes/?buildid=20190927094817"><span class="text-body-tertiary me-1">api/</span>nightly/crashes/?buildid=20190927094817</a></td>
         <td>Gives the crashes for a buildID (data from Socorro)</td>
     </tr>
+
     <tr>
         <td>
             <ul class="list-unstyled mb-0">
-                <li><a href="/api/release/schedule/?version=beta">api/release/schedule/?version=beta</a> (forecast)</li>
-                <li><a href="/api/release/schedule/?version=release">api/release/schedule/?version=release</a> (actual)</li>
+                <li><a href="/api/release/schedule/?version=beta"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=beta</a> (forecast)</li>
+                <li><a href="/api/release/schedule/?version=release"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=release</a> (actual)</li>
             </ul>
         </td>
         <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
         <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.</td>
     </tr>
+
     <tr>
-        <td><a href="/api/release/owners/">api/release/owners/</a></td>
-        <td>Historical list of all release managers for Firefox major releases</td>
-    </tr>
-    <tr>
-        <td><a href="/api/release/duty/">api/release/duty/</a></td>
+        <td><a href="/api/release/duty/"><span class="text-body-tertiary me-1">api/</span>release/duty</a></td>
         <td>Historical list of all release engineers on release duty for the cycle</td>
     </tr>
+
     <tr>
-        <td><a href="/api/esr/releases/">api/esr/releases/</a></td>
-        <td>Release dates for all ESR releases (including dot releases)</td>
-    </tr>
-    <tr>
-        <td><a href="/api/firefox/releases/">api/firefox/releases/</a></td>
-        <td>Release dates for all past Firefox releases (including dot releases)</td>
+        <td><a href="/api/release/owners/"><span class="text-body-tertiary me-1">api/</span>release/owners</a></td>
+        <td>Historical list of all release managers for Firefox major releases</td>
     </tr>
 </table>
 
 <h3 class="text-center">Other resources</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold">URL</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
@@ -130,7 +143,7 @@ return <<<"EOD"
     </tr>
 
     <tr>
-        <td><a href="/rss/">rss/</a></td>
+        <td><a href="/rss/">rss</a></td>
         <td><img class="align-text-bottom" src="/assets/img/feed_icon.svg" alt="RSS feed logo">&thinsp;Subscribe to our RSS feed to get a notification when a new Firefox release is out.</td>
     </tr>
 </table>
