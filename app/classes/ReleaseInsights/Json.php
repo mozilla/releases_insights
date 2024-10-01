@@ -75,6 +75,7 @@ class Json
     public static function load(string $url, int $ttl = 0): array
     {
         if (! $data = Cache::getKey($url, $ttl)) {
+        error_log($url);
             $data = Utils::getFile($url);
 
             // Error fetching external data, don't cache. Safety net

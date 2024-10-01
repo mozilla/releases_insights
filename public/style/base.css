@@ -165,8 +165,10 @@ h1, h2, h3 {
 }
 
 @media only screen and (max-width: 460px) {
-    .w-50 {
-        width: 100% !important;
+    /* deactivate bootstrap 50% & 75% width on narrow screens */
+    .w-50,
+    .w-75 {
+        width: auto !important;
     }
 
     #homepage h1 {
