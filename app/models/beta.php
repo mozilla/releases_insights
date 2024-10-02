@@ -125,7 +125,6 @@ if (! empty($top_sigs_worth_a_bug)) {
     }
 }
 
-\ReleaseInsights\Debug::dump($crash_bugs);
 return [
     $beta, // this is the whole Beta object
     $bug_list_details,
