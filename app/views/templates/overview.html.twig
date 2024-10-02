@@ -20,7 +20,7 @@
   <div class="row text-center">
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-esr.svg" alt="Firefox ESR logo"></div>
-      {% if constant('ESR') and constant('ESR_NEXT') %}
+      {% if constant('MAIN_ESR') and constant('OLD_ESR') %}
       <h2 {{ tooltip_defaults|raw }} title="Latest versions:<br><b>{{ constant('ESR') }}</b> and <b>{{ constant('ESR_NEXT') }}</b>">{{ constant('OLD_ESR') }} / {{ constant('MAIN_ESR')|number_format }}</h2>
       {% else %}
       <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('ESR') }}</b>">{{ constant('MAIN_ESR') }}</h2>

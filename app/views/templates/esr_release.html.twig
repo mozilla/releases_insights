@@ -40,7 +40,7 @@
     {% endif %}
   </table>
 
-{% if current_ESR|number_format == 115 %}
+{% if constant('OLD_ESR')|number_format == 115 %}
   {% set alert = alert ~ '
 
 <div class="me-4">

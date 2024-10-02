@@ -33,6 +33,7 @@ $firefox_versions = (new Data())->getFirefoxVersions();
 // Exact version numbers (strings) from product-details
 define('ESR',             $firefox_versions['FIREFOX_ESR']);
 define('ESR_NEXT',        $firefox_versions['FIREFOX_ESR_NEXT']);
+define('ESR115',          $firefox_versions['FIREFOX_ESR115']);
 define('FIREFOX_NIGHTLY', $firefox_versions['FIREFOX_NIGHTLY']);
 define('DEV_EDITION',     $firefox_versions['FIREFOX_DEVEDITION']);
 define('FIREFOX_BETA',    $firefox_versions['LATEST_FIREFOX_RELEASED_DEVEL_VERSION']);
@@ -43,7 +44,7 @@ define('NIGHTLY',  (int) FIREFOX_NIGHTLY);
 define('BETA',     (int) FIREFOX_BETA);
 define('RELEASE',  (int) FIREFOX_RELEASE);
 define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
-define('OLD_ESR',  (int) (ESR_NEXT != '' ? ESR : ESR_NEXT));
+define('OLD_ESR',  (int) (ESR115 != '' ? ESR115 : (ESR_NEXT != '' ? ESR : ESR_NEXT)));
 
 // Are we on one of our staging sites
 $http_host = isset($_SERVER['HTTP_HOST']) ? (string) $_SERVER['HTTP_HOST'] : null;
