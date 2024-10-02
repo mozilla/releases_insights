@@ -330,7 +330,7 @@ footer {
 :is(#beta, #nightly) table:not(#summary)  tr:nth-child(odd) td,
 :is(#beta, #nightly) table:not(#summary) tr:nth-child(even) td {
     box-shadow: none !important;
-    background-color: #ecedee !important;
+    background-color: white !important;
 }
 
 :is(#beta, #nightly) td.android {
@@ -365,4 +365,9 @@ footer {
 #beta li.version {
     width: 6em;
     text-align: center;
+}
+
+.w-10 {
+    width: 10%;
+    outline-right: 10px solid red;
 }
