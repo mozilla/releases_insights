@@ -32,7 +32,8 @@
    </table>
 
 <br>
-{% for key, values in betas_data %}
+{% for key, values in beta.uplifts %}
+
    {% if key == constant('BETA') ~ ".0rc0" %}
     <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Last beta shipped</small></p>
    {% endif %}
@@ -65,17 +66,22 @@
             {% if loop.first %}
                 <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
             {% endif %}
-            {% if key > constant('FIREFOX_BETA') and not key matches '/\.0rc\d$/' %}
-                <small class="fst-italic">(upcoming beta, not shipped yet)</small>
+            {% if not key matches '/\.0rc\d$/' %}
+                {% if key|split('b')[1] > beta.count %}
+                    <small class="fst-italic">(upcoming beta, not shipped yet)</small>
+                {% endif %}
             {% endif %}
         </li>
+
         {% if key != constant('BETA') ~ ".0rc0" %}
+            {% if key|split('b')[1] <= beta.count %}
         <li class="list-group-item text-light border-0 bg-success-subtle">
            <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
                 <span class="text-collapsed ">Show crashes</span>
                 <span class="text-expanded ">Hide crashes</span>
             </a>
         </li>
+            {% endif %}
         {% endif %}
 
         {% if values['bug_fixes']|length > 0 %}
@@ -92,10 +98,10 @@
     </ul>
     <div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
         <ol class="w-75 m-auto">
-        {% for sig in crashes[key].signatures|slice(0, 7) %}
+        {% for sig in beta.crashes[key].signatures|slice(0, 7) %}
         {% if sig.term in known_top_crashes %}
             {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
-        {% elseif ((sig.count/crashes[key].total)*100)|number_format(2) > 10 %}
+        {% elseif ((sig.count/beta.crashes[key].total)*100)|number_format(2) > 10 %}
             {% set button, alert = 'btn btn-danger btn-sm', 'Top crash' %}
         {% else %}
             {% set button, alert = '', '' %}
@@ -107,10 +113,9 @@
             {% set crash_bug_button, crash_bug_link = '', '' %}
         {% endif %}
 
-
-        {% if crashes[key].signatures %}
+        {% if beta.crashes[key].signatures %}
         <li class="mb-1">
-            <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a  class="text-info" href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a>  <b title="{{ sig.count }}">({{ ((sig.count/crashes[key].total)*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span> <span class="{{ crash_bug_button }}">{{ crash_bug_link|raw }}</span>
+            <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a  class="text-info" href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a>  <b title="{{ sig.count }}">({{ ((sig.count/beta.crashes[key].total)*100)|number_format(2) }}%)</b> <span class="{{ button }}">{{ alert }}</span> <span class="{{ crash_bug_button }}">{{ crash_bug_link|raw }}</span>
         </li>
         {% endif %}
 

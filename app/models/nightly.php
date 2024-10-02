@@ -161,7 +161,7 @@ $bug_list_karma_details = array_combine(array_column($bug_list_karma_details, 'i
 
 $scores = new Scoring($bug_list_karma_details, RELEASE);
 
-//  The $bug_list_karma array has bug numbers as keys and score (ints) as values
+// The $bug_list_karma array has bug numbers as keys and score (ints) as values
 foreach ($bug_list_karma as $key => $value) {
     $bug_list_karma[$key] = [
         'score'   => $scores->getBugScore($key),
@@ -177,11 +177,11 @@ $known_top_crashes = [
     'OOM | small',
 ];
 
-// $top_signatures_only = array_column(array_values($top_sigs), 'term');
+\ReleaseInsights\Debug::dump($top_sigs);
 $top_sigs_worth_a_bug = [];
 foreach ($top_sigs as $k => $values) {
     foreach ($values as $target) {
-        if (in_array($target['term']    , $known_top_crashes)) {
+        if (in_array($target['term'], $known_top_crashes)) {
             continue;
         }
         if (isset($top_sigs_worth_a_bug[$target['term']])){
@@ -198,7 +198,6 @@ $top_sigs_worth_a_bug = array_filter($top_sigs_worth_a_bug, fn($n) => $n > 10);
 $top_sigs_worth_a_bug = array_keys($top_sigs_worth_a_bug);
 $top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
 
-// dd($top_sigs_worth_a_bug);
 // Query bugs for signatures
 $crash_bugs = [];
 if (! empty($top_sigs_worth_a_bug)) {

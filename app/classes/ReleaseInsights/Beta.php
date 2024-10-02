@@ -202,7 +202,7 @@ readonly class Beta
      * Return all beta crashes
      * @return array<mixed>
      */
-    public function getCrashes(): array
+    public function crashes(): array
     {
         $data = [];
         foreach (range(1, $this->count) as $beta_number) {

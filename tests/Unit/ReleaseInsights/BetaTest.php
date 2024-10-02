@@ -11,9 +11,9 @@ test('Beta->getLogEndpoints()', function () {
         ->each->toBeString();
 });
 
-test('Beta->getCrashes()', function () {
+test('Beta->crashes()', function () {
     $obj = new Beta();
-    expect($obj->getCrashes())
+    expect($obj->crashes())
         ->toBeArray()
         ->toHaveKeys(['summary', '131.0b1']);
 });

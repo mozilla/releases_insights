@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Beta, Bugzilla, Json, URL};
+use ReleaseInsights\{Beta, Bugzilla, Json, Utils, URL};
+use ReleaseInsights\Debug as D;
 
 $beta = new Beta();
+D::dump($beta);
+
 
 $uplift_counter = 0;
 $bug_list_details = [];
@@ -82,11 +85,52 @@ $known_top_crashes = [
     'OOM | small',
 ];
 
+$top_sigs_worth_a_bug = [];
+
+foreach ($beta->crashes() as $k => $values) {
+    if ($k == 'summary') {
+        continue;
+    }
+    foreach ($values['signatures'] as $target) {
+        if (in_array($target['term'], $known_top_crashes)) {
+            continue;
+        }
+        if (isset($top_sigs_worth_a_bug[$target['term']])){
+            $top_sigs_worth_a_bug[$target['term']] += $target['count'];
+        } else {
+            $top_sigs_worth_a_bug[$target['term']] = $target['count'];
+        }
+    }
+}
+// We take 10 crashes for a day as a treshold
+$top_sigs_worth_a_bug = array_filter($top_sigs_worth_a_bug, fn($n) => $n > 10);
+
+// We escape weird crash signature characters for url use
+$top_sigs_worth_a_bug = array_keys($top_sigs_worth_a_bug);
+$top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
+
+// Query bugs for signatures
+$crash_bugs = [];
+if (! empty($top_sigs_worth_a_bug)) {
+    foreach ($top_sigs_worth_a_bug as $sig) {
+        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig)['hits'];
+        $tmp = array_column($bugs_for_top_sigs, 'id');
+        if (!empty($tmp)) {
+            $crash_bugs[urldecode($sig)] = max(
+                array_unique(
+                    array_column($bugs_for_top_sigs, 'id')
+                )
+            );
+        }
+    }
+}
+
+\ReleaseInsights\Debug::dump($crash_bugs);
 return [
-    $beta->uplifts(),
+    $beta, // this is the whole Beta object
     $bug_list_details,
     $uplift_counter,
     $stats,
-    $beta->getCrashes(),
     $known_top_crashes,
+    $crash_bugs,
 ];
