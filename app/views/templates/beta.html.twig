@@ -14,20 +14,17 @@
 {% endblock %}
 
 {% block main %}
- <table class="table table-light table-striped table-sm w-75">
+ <table class="table table-fxt-clean table-sm w-75 justify-content-center" id="summary">
     <tr>
-      <th class="w-auto align-middle">Uplifts by Product</th>
-      <td>
+      <th class="align-middle w-auto text-center table-warning force-default-bg fw-semibold">Uplifts by Product<br><span class="badge text-bg-info">{{ uplift_count }} uplifts</span></th>
+      <td class="align-middle w-75 force-default-bg bg-light">
         <ul class="list-group list-group-horizontal mx-auto btn-group   ">
         {% for product, data in stats %}
             <li class="btn btn-light p-0 m-0">
-                <small><a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50">{{ product }} </a><span class="badge text-bg-primary fw-normal d-inline-block mt-2">{{ data['bugs']|length }}</span></small></li>
+                <small><a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50">{{ product }} </a><span class="badge text-bg-info fw-normal d-inline-block mt-2">{{ data['bugs']|length }}</span></small></li>
         {% endfor %}
         </ul>
       </td>
-    </tr>
-    <tr>
-      <th class="w-auto text-start" colspan="2"><span class="badge text-bg-info">{{ uplift_count }}</span> uplifts</th>
     </tr>
    </table>
 
@@ -127,7 +124,7 @@
     <table class="table table-light table-fxt-clean table-hover table-sm w-75 justify-content-center mb-3">
         <caption class="text-center text-light caption-top fw-bold">Uplifts and Backouts</caption>
        <thead>
-        <tr class="text-center table-warning force-default-bg fw-semibold">
+        <tr class="text-start table-warning force-default-bg fw-semibold">
             <th>Bug</th>
             <th>Component</th>
             <th>Summary</th>
