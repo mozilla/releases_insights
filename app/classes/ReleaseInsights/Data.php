@@ -228,7 +228,7 @@ class Data
         return Json::load($this->pd_url . 'firefox_versions.json', $this->cache_duration);
     }
 
-    public static function getDesktopAdoptionRate(string $version): float
+    public static function getDesktopAdoptionRate(string $version): ?float
     {
         // Check current uptake rate for the latest release*
         // @codeCoverageIgnoreStart
@@ -239,13 +239,22 @@ class Data
                     . '/telemetry/main-summary-uptake')['message'] ?? '0' ;
         } else {
         // @codeCoverageIgnoreEnd
-            $uptake = Json::load(URL::Pollbot->target() . 'main-summary-uptake.json')['message'] ?? '0' ;
+            if ($version == '130.0') {
+                $uptake = Json::load(URL::Pollbot->target() . 'main-summary-uptake.json')['message'] ?? '0' ;
+            } else {
+                $uptake = 'Query results contained no rows.';
+            }
         }
+
+        if ($uptake == 'Query results contained no rows.') {
+            return null;
+        }
+
         // This public data is stored as a string, extract only the number
         $uptake = preg_replace('/Telemetry uptake for version.*\(.*\) is /', '', $uptake);
         $uptake = str_replace('%', '', $uptake);
 
-        return (float) $uptake;
+        return  (float) $uptake;
     }
 
     /**

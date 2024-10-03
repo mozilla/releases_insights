@@ -119,20 +119,21 @@ test('Data->getDotReleases()', function () {
         ->toBe(['date' => '2024-07-23', 'platform' => 'both']);
 });
 
-
 test('Data->isTodayReleaseDay()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->isTodayReleaseDay())
         ->toBeBool();
 });
 
-
-
 test('Data->getDesktopAdoptionRate()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getDesktopAdoptionRate('130.0'))
         ->toBe(81.5)
         ->toBeFloat();
+
+    $obj = new Data(TEST_FILES);
+    expect($obj->getDesktopAdoptionRate('131.0'))
+        ->toBeNull();
 });
 
 

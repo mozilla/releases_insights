@@ -124,9 +124,10 @@
           <sup class="fw-normal fst-italic text-secondary border-bottom"  title="{{ uptake }}% &mdash; adoption rate has a 24h latency">
             {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
               {% if dot_release_count == 0 %}
-                {{ rollout }} {{ uptake|number_format }}% adoption
+                {{ rollout }}
+                {% if uptake is not null %}{{ uptake|number_format }}% adoption{% else %}(adoption rate unavailable){% endif %}
               {% else %}
-                {{ uptake|number_format }}% adoption
+               {% if uptake is not null %}{{ uptake|number_format }}% adoption{% else %}(adoption rate unavailable){% endif %}
               {% endif %}
             {% endif %}
           </sup>
