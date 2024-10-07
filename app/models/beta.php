@@ -3,11 +3,8 @@
 declare(strict_types=1);
 
 use ReleaseInsights\{Beta, Bugzilla, Json, Utils, URL};
-use ReleaseInsights\Debug as D;
 
 $beta = new Beta();
-D::dump($beta);
-
 
 $uplift_counter = 0;
 $bug_list_details = [];

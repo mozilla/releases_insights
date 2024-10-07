@@ -16,8 +16,16 @@ if ($requested_version == '0.0') {
 $upcoming_releases = (new Data())->getFutureReleases();
 $owners = (new Data())->getOwners();
 
+$css_page_id = match (true) {
+    $requested_version_int === NIGHTLY => 'release_nightly',
+    $requested_version_int === BETA    => 'release_beta',
+    $requested_version_int === RELEASE => 'release_current',
+    $requested_version_int < RELEASE   => 'release_past',
+    default                            => 'release_future',
+};
+
 $template_data = [
-    'css_page_id'      => 'release',
+    'css_page_id'      => $css_page_id,
     'page_title'       => 'Milestones and key data for Firefox ' . $requested_version_int,
     'release'          => $requested_version_int,
     'release_owner'    => $owners[$requested_version] ?? 'TBD',

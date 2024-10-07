@@ -10,8 +10,6 @@
 {% set tooltip_defaults = ' data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" ' %}
 
 {% block header %}
-  <a href="/about" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Get the list of views and APIs available in this application."><span class="information bi bi-info-square-fill fs-2"></span></a>
-
   <h1 class="text-center fw-bold">Firefox Trains</h1>
 {% endblock %}
 
@@ -102,8 +100,6 @@
     <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h4>
   {% endif %}
 
-    <script src="/assets/jquery/jquery.slim.min.js"></script>
-    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
 
 {% block footer %}

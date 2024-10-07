@@ -100,8 +100,7 @@ h1, h2, h3 {
 }
 
 /* Milestones caption on top of list */
-#release caption,
-#release_esr caption {
+body[id^='release_'] caption {
     caption-side: top;
 }
 
@@ -127,8 +126,7 @@ h1, h2, h3 {
     width: 6em;
 }
 
-#release .table td,
-#release_esr .table td {
+body[id^='release_']  .table td {
     text-align: right;
     white-space: nowrap;
     width: 9em;
@@ -142,7 +140,7 @@ h1, h2, h3 {
     text-align: center;
 }
 
-#release .table th details p {
+body[id^='release_'] .table th details p {
     padding: 0.5rem;
     margin: 0.5em;
     border-left: 3px solid lightgray;
@@ -151,15 +149,15 @@ h1, h2, h3 {
 }
 
 /* hide working days when <details> tag not popen */
-#release th:has(details) + td small {
+body[id^='release_']:not(#release_esr) th:has(details) + td small {
     display:none;
 }
 
-#release th:has(details[open]) + td small {
+body[id^='release_']:not(#release_esr) th:has(details[open]) + td small {
     display: inline;
 }
 
-#release .table th summary::marker {
+body[id^='release_']:not(#release_esr) .table th summary::marker {
     color: lightgray;
     font-size:  small;
 }
@@ -198,13 +196,13 @@ h1, h2, h3 {
     }
 
     /* Split the Last uplift tag on mobile */
-    #release .table th small span::before{
+    body[id^='release_']:not(#release_esr) .table th small span::before{
         content: "\a";
         white-space: pre;
     }
 
     /* limit horizontal scroll */
-    #release .table td {
+    body[id^='release_']:not(#release_esr) .table td {
         text-wrap: auto;
     }
 
@@ -371,3 +369,14 @@ footer {
     width: 10%;
     outline-right: 10px solid red;
 }
+
+/* Global dropdown menu spacing utility */
+.fxt-ps-2 {
+    padding-left: 2rem;
+}
+
+/* hover effect on the menu icon */
+nav svg:hover {
+    fill: #0d6efd   ;
+}
+

@@ -177,7 +177,6 @@ $known_top_crashes = [
     'OOM | small',
 ];
 
-\ReleaseInsights\Debug::dump($top_sigs);
 $top_sigs_worth_a_bug = [];
 foreach ($top_sigs as $k => $values) {
     foreach ($values as $target) {

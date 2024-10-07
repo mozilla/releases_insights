@@ -1,0 +1,42 @@
+<nav class="nav navbar dropdown">
+    <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="32" height="32" fill="white" fill-opacity="context-fill-opacity">
+          <path d="m13.375 4.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
+          <path d="m13.375 8.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
+          <path d="m13.375 12.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
+        </svg>
+    </button>
+    {% if css_page_id == 'homepage' %}
+        {% set active_home = 'active' %}
+    {% elseif css_page_id == 'release_current' %}
+        {% set active_rel_release = 'active' %}
+    {% elseif css_page_id == 'release_beta' %}
+        {% set active_rel_beta = 'active' %}
+    {% elseif css_page_id == 'release_nightly' %}
+        {% set active_rel_nightly = 'active' %}
+    {% elseif css_page_id == 'release_esr' %}
+        {% set active_rel_esr = 'active' %}
+    {% elseif css_page_id == 'nightly' %}
+        {% set active_nightly = 'active' %}
+    {% elseif css_page_id == 'beta' %}
+        {% set active_beta = 'active' %}
+    {% elseif css_page_id == 'calendar_main' %}
+        {% set active_calendar = 'active' %}
+    {% elseif css_page_id == 'about' %}
+        {% set active_about = 'active' %}
+    {% endif %}
+
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item {{ active_home }}" href="/">Home</a></li>
+        <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Trains</li>
+        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_release }}" href="/release/?version=release">Release</a></li>
+        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_beta }}" href="/release/?version=beta">Beta</a></li>
+        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_nightly }}" href="/release/?version=nightly">Nightly</a></li>
+        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_esr }}" href="/release/?version=esr">ESR</a></li>
+        <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Bug landings and crashes</li>
+        <li><a class="dropdown-item fxt-ps-2 {{ active_nightly }}" href="/nightly/">In Nightly</a></li>
+        <li><a class="dropdown-item fxt-ps-2 {{ active_beta }}" href="/beta/">In Beta</a></li>
+        <li><a class="dropdown-item {{ active_calendar }}" href="/calendar/">Calendar</a></li>
+        <li><a class="dropdown-item {{ active_about }}" href="/about/">About</a></li>
+    </ul>
+</nav>
