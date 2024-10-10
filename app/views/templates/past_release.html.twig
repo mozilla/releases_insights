@@ -204,7 +204,7 @@
            {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
               <tr>
                 <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-secondary">Planned {{ release }}.0.x</a></th>
-                <td title="">{{ release_date|date_modify("+" ~ ( release == 121 ? '3' : '2' ) ~  " weeks")|format_date(pattern='MMMM d', locale='en') }}</td>
+                <td title="">{{ release_date|date_modify("+" ~ ( release == 131 ? '13 days' : '2 weeks' ))|format_date(pattern='MMMM d', locale='en') }}</td>
               </tr>
            {% endif %}
          {% endif %}
