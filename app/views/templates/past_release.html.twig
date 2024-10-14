@@ -201,7 +201,7 @@
 
         {% set planned_dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~  desktop_base ~ '&tochange=tip&full&version=2' %}
          {% if release ~ '.0' not in no_planned_dot_releases %}
-           {% if "now"|date('Y-m-d') < release_date|date_modify("+2 weeks")|date('Y-m-d') %}
+           {% if "now"|date('Y-m-d') < release_date|date_modify("+" ~ ( release == 131 ? '13 days' : '2 weeks' ))|date('Y-m-d') %}
               <tr>
                 <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-secondary">Planned {{ release }}.0.x</a></th>
                 <td title="">{{ release_date|date_modify("+" ~ ( release == 131 ? '13 days' : '2 weeks' ))|format_date(pattern='MMMM d', locale='en') }}</td>
