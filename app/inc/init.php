@@ -22,10 +22,8 @@ if (! LOCALHOST) {
     header("Content-Security-Policy: default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE . "'; frame-ancestors 'none'");
 }
 
-// Dispatch urls
-$url = new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
-
-include CONTROLLERS . $url->getController() . '.php';
+// Dispatch urls. The $url object is defined in router.php
+$url->loadController();
 
 // Send the last error to Sentry
 captureLastError();

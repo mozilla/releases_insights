@@ -6,7 +6,11 @@ parameters:
         - public
     ignoreErrors:
         -
-            message: "#^Comparison operation \"\\>\" between int\\<[0-9]+, max\\> and [0-9]+ is always true\\.$#"
+            message: "#^Variable \\$url might not be defined\\.#"
+            count: 1
+            path: app/inc/init.php
+        -
+            message: "#^Comparison operation \"\\>\" between int\\<[0-9]+, max\\> and [0-9]+ is always true\\.#"
             count: 1
             path: app/controllers/release.php
         -
@@ -16,6 +20,5 @@ parameters:
         - '#.+?function array_multisort is passed by reference, so it expects variables only#'
     reportUnmatchedIgnoredErrors: false
     level: 6
-
 
 

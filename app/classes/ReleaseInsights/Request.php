@@ -55,6 +55,15 @@ class Request
     }
 
     /**
+     * Load the controller file
+     * @codeCoverageIgnore
+     */
+    public function loadController(): void
+    {
+        include CONTROLLERS . $this->getController() . '.php';
+    }
+
+    /**
      * Return the name of the controller file for the requested URL
      * If the path is unknown, we send a 404 response
      */
