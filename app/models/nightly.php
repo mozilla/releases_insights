@@ -156,9 +156,6 @@ $bug_list_karma = array_map('intval', $bug_list_karma);
 $bug_list_karma = array_values($bug_list_karma);
 $bug_list_karma = array_flip($bug_list_karma);
 
-// Prepare the list for use by the Scoring object
-$bug_list_karma_details = array_combine(array_column($bug_list_karma_details, 'id'), $bug_list_karma_details);
-
 $scores = new Scoring($bug_list_karma_details, RELEASE);
 
 // The $bug_list_karma array has bug numbers as keys and score (ints) as values

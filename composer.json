@@ -33,7 +33,7 @@
         "components/jquery": "^3.4",
         "twbs/bootstrap": "^5.3",
         "twbs/bootstrap-icons": "^1.8",
-        "pchevrel/bzkarma": "^0.7",
+        "pchevrel/bzkarma": "^0.9",
         "eluceo/ical": "^0.18.0",
         "benhall14/php-calendar": "^1.4",
         "symfony/cache": "^6.4",
