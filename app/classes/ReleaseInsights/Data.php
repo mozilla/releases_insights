@@ -15,7 +15,7 @@ class Data
     /** @var array<string, string> $release_duty */
     private readonly array $release_duty;
 
-    /** @var array<string> $1wellness_days */
+    /** @var array<string> $wellness_days */
     private readonly array $wellness_days;
 
     public function __construct(
