@@ -13,6 +13,8 @@ use ReleaseInsights\{Model, Template};
     $latest_nightly,
     $firefox_version_on_release_day,
     $beta_is_the_next_ESR,
+    $nightly_auto_updates,
+    $nightly_emergency_message,
 ] = (new Model('home'))->get();
 
 (new Template(
@@ -28,5 +30,7 @@ use ReleaseInsights\{Model, Template};
         'latest_nightly'         => $latest_nightly,
         'version_on_release_day' => $firefox_version_on_release_day,
         'beta_is_the_next_ESR'   => $beta_is_the_next_ESR,
+        'nightly_auto_updates'   => $nightly_auto_updates,
+        'nightly_emergency'      => $nightly_emergency_message,
     ]
 ))->render();

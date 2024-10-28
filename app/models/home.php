@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR, Json, URL, Utils, Version};
+use ReleaseInsights\{Bugzilla, Data, ESR, Json, Nightly, URL, Utils, Version};
 
 // Get the schedule for the current nightly
 $requested_version = Version::get(FIREFOX_NIGHTLY);
@@ -57,6 +57,11 @@ $latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['
 $beta_version = (new Version(FIREFOX_BETA))->int;
 $beta_is_the_next_ESR = $beta_version == (int) ESR::getVersion($beta_version);
 
+/* Only for the current Nightly view, this makes an HTTP request */
+$nightly_state = new Nightly();
+$nightly_auto_updates = $nightly_state->auto_updates;
+$nightly_emergency_message = Bugzilla::linkify($nightly_state->emergency_message);
+
 return [
     $beta_cycle_dates,
     $nightly_cycle_dates,
@@ -66,4 +71,6 @@ return [
     $latest_nightly,
     $firefox_version_on_release_day,
     $beta_is_the_next_ESR,
+    $nightly_auto_updates,
+    $nightly_emergency_message,
 ];

@@ -43,6 +43,12 @@
 }
 
 /* General structure */
+
+:root {
+  --bg-purple: #20123a;
+}
+
+
 body {
     font-family: Inter,X-LocaleSpecific,sans-serif;
     background-color: #20123a;
@@ -380,3 +386,6 @@ nav svg:hover {
     fill: #0d6efd   ;
 }
 
+.bg-purple {
+    background-color: var(--bg-purple);
+}

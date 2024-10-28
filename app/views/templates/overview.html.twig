@@ -100,6 +100,18 @@
     <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h4>
   {% endif %}
 
+  {% if not nightly_auto_updates %}
+    <div class="card w-50 bg-info-subtle mx-auto mt-3 border">
+        <div class="card-header text-center">Nightly automatic Updates are currently <b class="text-danger fw-semibold">disabled</b></div>
+            {% if nightly_emergency != '' %}
+            <div class="card-body bg-purple text-white border">
+              <p class="card-text"><b class="text-white fw-semibold">Cause</b>: {{ nightly_emergency|raw}}</p>
+            </div>
+            {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
 {% endblock %}
 
 {% block footer %}
