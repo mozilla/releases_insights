@@ -389,3 +389,8 @@ nav svg:hover {
 .bg-purple {
     background-color: var(--bg-purple);
 }
+
+
+#homepage .card-text a {
+    color: var(--bs-info);
+}
