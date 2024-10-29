@@ -164,6 +164,9 @@
 </div>
 {% endfor %}
 
+{% endblock %}
+{% block footer %}
+<footer></footer>
 <script nonce="{{constant('NONCE')}}">
 $(document).ready(function() {
     $(document).on("click", "table thead tr th", function() {
@@ -193,10 +196,5 @@ $(document).ready(function() {
           return ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
       }
   }
-
 </script>
-
-{% endblock %}
-{% block footer %}
-<footer></footer>
 {% endblock %}
