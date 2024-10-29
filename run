@@ -60,7 +60,7 @@ fi
 
 if [ $# -gt 0 ] && [ $1 = 'status' ]
 then
-    local=`git rev-parse HEAD`
+    local=`git rev-parse master`
     prod=`curl -s https://whattrainisitnow.com/deployed-version.txt`
     echo -e "$GREEN""Checking if the latest commit is what we have in production""$NORMAL"
     echo "Local : $local"
