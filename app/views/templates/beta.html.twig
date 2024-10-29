@@ -91,7 +91,7 @@
 
     </ul>
     <div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
-        <ol class="w-75 m-auto text-dark bg-white">
+        <ol class="w-75 m-auto pt-1 mb-3 text-dark bg-white table-fxt-clean ">
         {% for sig in beta.crashes[key].signatures|slice(0, 7) %}
         {% if sig.term in known_top_crashes %}
             {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
