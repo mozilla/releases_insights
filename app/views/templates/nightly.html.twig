@@ -206,7 +206,11 @@
 {% else %}
 <p>No Nightly build released yet today</p>
 {% endfor %}
-    <script nonce="{{constant('NONCE')}}">
+{% endblock %}
+
+{% block footer %}
+  <footer></footer>
+      <script nonce="{{constant('NONCE')}}" defer>
     $(document).ready(function() {
         $(document).on("click", "table thead tr th", function() {
             var table = $(this).parents("table");
@@ -237,9 +241,4 @@
     }
 
 </script>
-
-{% endblock %}
-
-{% block footer %}
-  <footer></footer>
 {% endblock %}
