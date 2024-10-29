@@ -198,7 +198,7 @@ $top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
 $crash_bugs = [];
 if (! empty($top_sigs_worth_a_bug)) {
     foreach ($top_sigs_worth_a_bug as $sig) {
-        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig)['hits'];
+        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig, 30)['hits']; // short 30s cache intended
         $tmp = array_column($bugs_for_top_sigs, 'id');
         if (!empty($tmp)) {
             $crash_bugs[urldecode($sig)] = max(

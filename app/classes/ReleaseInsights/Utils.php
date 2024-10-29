@@ -36,9 +36,10 @@ class Utils
      * Get the list of bugs for a Build ID from Socorro
      *
      * @param string $signature Crash signature
-     * @return array<mixed> a list of crashes
+     * @param int    $ttl       caching time in seconds
+     * @return array<mixed>     a list of crashes
      */
-    public static function getBugsforCrashSignature(string $signature): array
+    public static function getBugsforCrashSignature(string $signature, int $ttl = 21_600): array
     {
         // The signature in the string varies so we create a unique file name in cache
         $cache_id = URL::Socorro->value . 'Bugs/?signatures=' . $signature;
@@ -53,7 +54,7 @@ class Utils
 
         // If we can't retrieve cached data, we create and cache it.
         // We cache because we want to avoid http request latency
-        if (! $data = Cache::getKey($cache_id, 30)) {
+        if (! $data = Cache::getKey($cache_id, $ttl)) {
             $data = file_get_contents($cache_id);
 
             // Error fetching data, don't cache.
