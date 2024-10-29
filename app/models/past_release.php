@@ -111,7 +111,7 @@ if ($requested_version == '14.0') {
 } elseif ($requested_version == '125.0') {
     $rc_count = 1;
 } else {
-    $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'];
+    $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'] ?? 'N/A';
 }
 
 $dot_releases = array_filter(
