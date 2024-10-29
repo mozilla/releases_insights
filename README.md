@@ -19,7 +19,7 @@ The requirements are very simple, no database, no framework.
 
 - [Composer](https://getcomposer.org/) to install dependencies
 
-The application is set up to be deployed on Heroku with Apache but there is no need to install Apache for development work, the PHP built-in development server is fine for that purpose.
+The application is set up by default to be deployed on Heroku with Apache but there is no need to install Apache for development work, the PHP built-in development server is fine for that purpose.
 
 ### Installation
 
@@ -30,7 +30,7 @@ The application is set up to be deployed on Heroku with Apache but there is no n
 
 The website will be available at http://localhost:8082
 
-If you have intalled the npm package [browser-sync](https://browsersync.io/) (`sudo npm install -g browser-sync`) and want to use it, start with the `./run -browser-sync` command, it will launch the website at http://localhost:3000 and any change to a file in the repository will automatically refresh the page in the browser. Note that this workflow will break if you make backend changes that break the site.
+If you have intalled the npm package [browser-sync](https://browsersync.io/) (`sudo npm install -g browser-sync`) and want to use it, start with the `./run -browser-sync` command, it will launch the website at http://localhost:3000 and any change to a file in the repository will automatically refresh the page in the browser. Note that this workflow will break if you make back-end changes that prevent the front-end from loading.
 
 If you want to set the site up with an Apache virtual host, make it point to the `public` folder and make sure that the `cache` folder is writable by Apache.
 
@@ -68,30 +68,29 @@ We use [Pest](https://pestphp.com/Pest) for unit testing, [PHPStan](https://phps
 All tests can be launched via Composer action scripts:
 
 ```bash
-composer test:all       # Run all tests except mutation tests
+composer test:all       # Run all tests
 composer test:api       # Run functional tests of external JSON API points
 composer test:content   # Run functional tests of pages + external JSON API points
-composer test:coverage  # Run unit tests, only display coverage (requires Xdebug)
+composer test:coverage  # Run unit tests, only display coverage (requires the Xdebug extension)
 composer test:lint      # Run linter to ensure all PHP files are valid
-composer test:mutation  # Run Infection mutation tests (requires Xdebug)
-composer test:pages     # Run functional tests of all pages
+composer test:pages     # Run basic functional tests of all pages
 composer test:static    # Run PHPStan static analysis
 composer test:unit      # Run unit tests
-composer test:unitcov   # Run unit tests + code coverage (requires Xdebug)
+composer test:unitcov   # Run unit tests + code coverage (requires the Xdebug extension)
 
 ```
 
 You can also run locally all the tests we run in CI with the `./run tests` command.
 
-Yuo can check if the local state of the branch is in production with the `./run status` command.
+You can check if the local state of the branch is in production with the `./run status` command.
 
-If you want to contribute a patch to an existing class, please make sure that unit tests pass. If there is no unit test yet for the method you are modifying, please add one thanks.
+If you want to contribute a patch to an existing class, please make sure that unit tests pass and add tests for new methods.
 
 ## Bugs
 > **Warning**
-If you find a bug, please open an issue.
+If you find a bug, please open an issue here or on [Bugzilla][https://bugzilla.mozilla.org/enter_bug.cgi?product=Websites&component=whattrainisitnow.com].
 
-If the application is malfunctionning, the solution is to either flush the cache folder or to restart it as the restart flushes the cache. The most likely cause is that one of the remote source of data was down and the data fetch is missing.
+If the application is malfunctionning, the most likely solution is to either flush the cache folder or to restart it as the restart flushes the cache. This application fetches and mixes a lot of remote source of data so it mainly depends on these resources to behave correctly.
 
 ## Production playbook
 
@@ -109,7 +108,7 @@ List of external sources that the app is pulling data from:
 - https://bugzilla.mozilla.org/rest/
 - https://aus-api.mozilla.org/api/v1/
 - https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/
-- https://pollbot.services.mozilla.com//v1/
+- https://pollbot.services.mozilla.com/v1/
 
 The list of domains used to get data is listed at this API endpoint:
 https://whattrainisitnow.com/api/external/
@@ -118,7 +117,7 @@ Emptying the mutable data in the cache folder (either via the `composer cache:cl
 
 Restarting the app should solve most problems on production.
 
-If the app is slow, this is most likely because the app can't write to the `cache` folder and makes http requests to external servers for every page load. Make sure that the `cache` folder is writable by the web server.
+If the app is slow, this is likely to be because the app can't write to the `cache` folder and makes multiple http requests to external servers for every page load. Make sure that the `cache` folder is writable by the web server.
 
 
 This app is on GCP with Nginx. The deployment servers are:
@@ -151,7 +150,7 @@ Deployment time is about 5mn.
 
 We also keep a test version of the app on Heroku at https://fx-trains.herokuapp.com used for demos.
 
-If there is a dependabot PR for a security vulnerability on a single dependency, it's preferable to update all dependencies and redeploy than to merge this single PR:
+If there is a dependabot PR for a security vulnerability on a single dependency, merge it and redeploy:
 
 ```bash
 composer update
