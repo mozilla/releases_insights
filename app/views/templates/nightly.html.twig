@@ -81,25 +81,23 @@
             {%- endif -%}
         <tr class="small {{ alert_row }}">
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</a></td>
             <td class="text-center {{ alert_row }}">
                 <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
                 <div class="card text-bg-primary mb-3 score-card">
-                        <div class="card-body p-2">
-                            <table class="table table-borderless table-sm">
-                            {%- for key, score_detail in bug_list_karma[details.id].details -%}
-                                {%- if score_detail != 0 -%}
-                                <tr class="small text-light bg-primary">
-                                    <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
-                                    <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
-                                </tr>
-                                {%- endif -%}
-
-                            {%- endfor -%}
-                            </table>
-                        </div>
+                    <div class="card-body p-2">
+                        <table class="table table-borderless table-sm">
+                        {%- for key, score_detail in bug_list_karma[details.id].details -%}
+                            {%- if score_detail != 0 -%}
+                            <tr class="small text-light bg-primary">
+                                <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
+                                <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
+                            </tr>
+                            {%- endif -%}
+                        {%- endfor -%}
+                        </table>
                     </div>
-              </div>
+                </div>
             </td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
         </tr>
@@ -150,25 +148,23 @@
             {% else %}
         <tr class="small {{ alert_row }}">
             <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</td>
+            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</a></td>
             <td class="text-center {{ alert_row }}">
                 <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
                 <div class="card text-bg-primary mb-3 score-card">
-                        <div class="card-body p-2">
-                            <table class="table table-borderless table-sm">
-                            {%- for key, score_detail in bug_list_karma[details.id].details -%}
-                                {%- if score_detail != 0 -%}
-                                <tr class="small text-light bg-primary">
-                                    <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
-                                    <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
-                                </tr>
-                                {%- endif -%}
-
-                            {%- endfor -%}
-                            </table>
-                        </div>
+                    <div class="card-body p-2">
+                        <table class="table table-borderless table-sm">
+                        {%- for key, score_detail in bug_list_karma[details.id].details -%}
+                            {%- if score_detail != 0 -%}
+                            <tr class="small text-light bg-primary">
+                                <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
+                                <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
+                            </tr>
+                            {%- endif -%}
+                        {%- endfor -%}
+                        </table>
                     </div>
-              </div>
+                </div>
             </td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
         </tr>
@@ -209,36 +205,35 @@
 {% endblock %}
 
 {% block footer %}
-  <footer></footer>
-      <script nonce="{{constant('NONCE')}}" defer>
-    $(document).ready(function() {
-        $(document).on("click", "table thead tr th", function() {
-            var table = $(this).parents("table");
-            var rows  = table.find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
-            var header_direction = $(this).hasClass("sort-asc") ? "sort-desc" : "sort-asc";
+    <footer></footer>
+    <script nonce="{{constant('NONCE')}}">
+        $(document).ready(function() {
+            $(document).on("click", "table thead tr th", function() {
+                var table = $(this).parents("table");
+                var rows  = table.find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
+                var header_direction = $(this).hasClass("sort-asc") ? "sort-desc" : "sort-asc";
 
-            if (header_direction == "sort-desc") {
-                rows = rows.reverse();
-            }
-            table.append(rows);
-            table.find("th").removeClass("sort-asc sort-desc");
+                if (header_direction == "sort-desc") {
+                    rows = rows.reverse();
+                }
+                table.append(rows);
+                table.find("th").removeClass("sort-asc sort-desc");
 
-            $(this).addClass(header_direction);
+                $(this).addClass(header_direction);
+            });
+
         });
 
-    });
+        function TableComparer(index) {
+            var value = function (row, index) {
+                return $(row).children("td").eq(index).children(":first-child").text();
+            };
 
-    function TableComparer(index) {
-        var value = function (row, index) {
-            return $(row).children("td").eq(index).children(":first-child").text();
-        };
-
-        return function(a, b) {
-            var val_a  = value(a, index);
-            var val_b  = value(b, index);
-            return ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
+            return function(a, b) {
+                var val_a  = value(a, index);
+                var val_b  = value(b, index);
+                return ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
+            }
         }
-    }
-
-</script>
+    </script>
 {% endblock %}
