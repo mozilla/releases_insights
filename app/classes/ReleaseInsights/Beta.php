@@ -36,6 +36,7 @@ readonly class Beta
         // Check if the beta cycle is over, this avoids a miscount for RC builds
         if ($this->count >= $this->number_betas && ! defined('TESTING_CONTEXT')) {
             // @codeCoverageIgnoreStart
+            // TODO: cache this request as it can take multiple seconds when hg is slow
             $this->beta_cycle_ended = str_contains((string) get_headers(
                 URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
                 '200');
