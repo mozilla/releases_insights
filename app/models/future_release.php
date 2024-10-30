@@ -13,7 +13,7 @@ if ($data->isTodayReleaseDay()) {
     $data->cache_duration = 1;
 }
 
-$all_releases = (new Data())->getMajorReleases();
+$all_releases = $data->getMajorReleases();
 
 // Avoid a warning when we have a race condition in product-details
 $release_date = $all_releases[(string) $requested_version] ?? '';
@@ -113,5 +113,6 @@ return [
     $cycle_dates,
     $deadlines,
     $rollout ?? -1,
-    $wellness_days = (new Data())->getWellnessDays()
+    $wellness_days = (new Data())->getWellnessDays(),
+    Nightly::getLatestBuildID(),
 ];

@@ -52,14 +52,12 @@ $latest_nightly = Json::load(
     900
 );
 
-$latest_nightly = $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'] ?? 'N/A';
 
 $beta_version = (new Version(FIREFOX_BETA))->int;
 $beta_is_the_next_ESR = $beta_version == (int) ESR::getVersion($beta_version);
 
 /* Only for the current Nightly view, this makes an HTTP request */
 $nightly_state = new Nightly();
-$nightly_auto_updates = $nightly_state->auto_updates;
 $nightly_emergency_message = Bugzilla::linkify($nightly_state->emergency_message);
 
 return [
@@ -68,9 +66,9 @@ return [
     $today_is_release_day,
     $is_rc_week,
     $rc_build,
-    $latest_nightly,
+    $nightly_state->getLatestBuildID(),
     $firefox_version_on_release_day,
     $beta_is_the_next_ESR,
-    $nightly_auto_updates,
+    $nightly_state->auto_updates,
     $nightly_emergency_message,
 ];

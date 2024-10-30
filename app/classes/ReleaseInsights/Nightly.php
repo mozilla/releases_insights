@@ -63,4 +63,18 @@ class Nightly
             default => $releases['firefox-' . (string) ($version - 2) . '.0']['date'],
         };
     }
+
+    /**
+     * Get the latest BuildID from Balrog
+     */
+    public static function getLatestBuildID(): string
+    {
+        // Get the latest nightly build ID, used as a tooltip on the nightly version number
+        $latest_nightly = Json::load(
+            URL::Balrog->target() . 'releases/Firefox-mozilla-central-nightly-latest',
+            1800
+        );
+
+        return $latest_nightly['platforms']['WINNT_x86_64-msvc']['locales']['en-US']['buildID'] ?? 'N/A';
+    }
 }

@@ -177,6 +177,12 @@
       <td>{{ nightly_fixes.bug_fixes|length }}</td>
     </tr>
     {% endif %}
+    {% if channel == 'nightly' %}
+    <tr>
+      <th class="{{ table_header }}">Latest BuildID</th>
+      <td>{{ latest_nightly }}</td>
+    </tr>
+    {% endif %}
     <tr>
       <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
     </tr>

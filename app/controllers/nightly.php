@@ -20,6 +20,7 @@ use ReleaseInsights\{Model, Template};
     $known_top_crashes,
     $fallback_nightly,
     $warning,
+    $latest_nightly,
 ] = (new Model('nightly'))->get();
 
 (new Template(
@@ -42,5 +43,6 @@ use ReleaseInsights\{Model, Template};
         'known_top_crashes' => $known_top_crashes,
         'fallback_nightly'  => $fallback_nightly,
         'warning_message'   => $warning,
+        'latest_nightly'    => $latest_nightly,
     ]
 ))->render();

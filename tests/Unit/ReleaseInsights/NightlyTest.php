@@ -19,3 +19,7 @@ test('cycleStart()', function () {
     expect(Nightly::cycleStart(2))->toEqual('2006-10-24');
     expect(Nightly::cycleStart(4))->toEqual('2010-01-21');
 });
+
+test('getLatestBuildID()', function () {
+    expect(Nightly::getLatestBuildID())->toEqual('20241029155057');
+});
