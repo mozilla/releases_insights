@@ -16,7 +16,7 @@
 
 {% if not fallback_content %}
   {% if release == constant('BETA') %}
-    {% set alert = 'Version shipping to users on the <b class="text-danger">Beta</b> channel' %}
+    {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Beta</b> channel' %}
     {% set channel = 'beta' %}
     {% set rollout = '
       <span
@@ -30,7 +30,7 @@
     '
     %}
   {% elseif release == constant('NIGHTLY') %}
-    {% set alert = 'Version shipping to users on the <b class="text-danger">Nightly</b> channel' %}
+    {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Nightly</b> channel' %}
     {% set channel = 'nightly' %}
   {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') +1 %}
     {% set alert = '<b class="text-danger">Release candidate</b> about to be released.' %}
@@ -116,16 +116,20 @@
   '%}
 {% endif %}
 
-  <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}</div>
-
-  {% if channel == 'nightly' and not nightly_updates %}
-  <div class="w-50 alert alert-warning mx-auto text-center mb-3" role="alert">
-    Automatic Updates are currently <b class="text-danger">disabled</b>.
-    {% if nightly_emergency %}
-    <br><b>Reason :</b> {{ nightly_emergency|raw}}
-    {% endif %}
+  <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}
+      {% if channel == 'nightly'%}
+        {% if nightly_updates %}
+            <div class="text-success"><small>Automatic Updates are enabled</small></div>
+        {% else %}
+          <div>
+           <small class="text-danger">Automatic Updates are temporarily disabled</small>
+            {% if nightly_emergency %}
+                <br class="mt-2"><small>&rarr; {{ nightly_emergency|raw }}</small>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endif %}
   </div>
-  {% endif %}
   {% set table_header = 'text-secondary-emphasis fw-semibold' %}
   <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
     <tr class='table-warning'>
