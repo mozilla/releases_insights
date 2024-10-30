@@ -40,25 +40,6 @@
     {% set channel = 'future' %}
   {% endif %}
 
-{% if release == '125' %}
-  {% set alert = alert ~ '
-
-<div class="alert alert-warning d-flex align-top p-2" role="alert">
-  <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
-    <use xlink:href="#exclamation-triangle-fill"/>
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </symbol>
-</svg>
-</svg>
-  <div>
-    125 release date is postponed. Read more details <a href="https://groups.google.com/a/mozilla.org/g/release-drivers/c/0BTL4apNlqA">here</a>.
-  </div>
-</div>
-
-  '%}
-{% endif %}
-
 {% if release == '135' %}
   {% set alert = alert ~ '
 
@@ -96,26 +77,6 @@
 
   '%}
 {% endif %}
-
-{% if release == 124 %}
-  {% set alert = alert ~ '
-
-<div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
-  <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
-    <use xlink:href="#exclamation-triangle-fill"/>
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </symbol>
-</svg>
-</svg>
-  <div>
-    <a href="https://www.zerodayinitiative.com/blog/2024/1/16/pwn2own-vancouver-2024-bring-cloud-nativecontainer-security-to-pwn2own">pwn2own</a> (March 20-22) may affect our planned dot release date.
-  </div>
-</div>
-
-  '%}
-{% endif %}
-
   <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}
       {% if channel == 'nightly'%}
         {% if nightly_updates %}
@@ -289,21 +250,6 @@
     }
   %}
 
-{% if release == 124 %}
-  {%
-    set pwn2own_text = "<br><br><span class=\"fw-bold\">Please note:</span><span> Pwn2Own 2024 takes place on March 20-22. If there are any Firefox exploits announced, then we may need to chemspill prior to the planned dot release. The timing of the chemspill may impact the planned dot release. We will send further communication closer to the planned dot release date.</span>"
-  %}
-  {%
-    set cycle_descriptions = cycle_descriptions|merge({'planned_dot_release': cycle_descriptions.planned_dot_release ~ pwn2own_text })
-  %}
-{% endif %}
-
-{% if release == 125 %}
-    {% set cycle_descriptions = cycle_descriptions|merge({'release': 'The 125.0 release is postponed due to the late discovery of a blocker bug. We will release a 125.0.1 with a fix as a replacement.' }) %}
-    {% set cycle_labels = cycle_labels|merge({'release': 'Release postponed!'  }) %}
-{% endif %}
-
-
   {% set next_milestone = true %}
 
   <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
@@ -318,11 +264,7 @@
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
       {% endif %}
 
-      {% if release == 116 and key == 'beta_5' %}
-        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-      {% endif %}
-
-      {% if key == 'beta_6' and release != 116 %}
+      {% if key == 'beta_6' %}
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
       {% endif %}
 
