@@ -33,7 +33,7 @@
         "components/jquery": "^3.4",
         "twbs/bootstrap": "^5.3",
         "twbs/bootstrap-icons": "^1.8",
-        "pchevrel/bzkarma": "^0.9",
+        "pchevrel/bzkarma": "^1.0",
         "eluceo/ical": "^0.18.0",
         "benhall14/php-calendar": "^1.4",
         "symfony/cache": "^6.4",
@@ -64,7 +64,6 @@
         "test:pages": "php tests/Functional/pages.php",
         "test:api": "php tests/Functional/api.php",
         "test:content": "php tests/Functional/pages.php;php tests/Functional/api.php",
-        "test:mutation": "XDEBUG_MODE=coverage ./vendor/bin/infection --test-framework=pest",
         "test:lint": "vendor/bin/phplint . --exclude vendor",
         "test:all": [
             "@test:lint",
