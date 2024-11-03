@@ -678,16 +678,16 @@
         },
         {
             "name": "pchevrel/bzkarma",
-            "version": "v1.0",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pascalchevrel/bzkarma/",
-                "reference": "72100f2dcb6975a33dbcfc6ebc9d8139491d70eb"
+                "reference": "a94cfb47f8ad5bffe0479d948e14f8f7c3726d73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pascalchevrel/bzkarma/zipball/72100f2dcb6975a33dbcfc6ebc9d8139491d70eb",
-                "reference": "72100f2dcb6975a33dbcfc6ebc9d8139491d70eb",
+                "url": "https://api.github.com/repos/pascalchevrel/bzkarma/zipball/a94cfb47f8ad5bffe0479d948e14f8f7c3726d73",
+                "reference": "a94cfb47f8ad5bffe0479d948e14f8f7c3726d73",
                 "shasum": ""
             },
             "require": {
@@ -716,7 +716,7 @@
                 "bugzilla",
                 "firefox"
             ],
-            "time": "2024-11-01T16:07:11+00:00"
+            "time": "2024-11-03T15:34:50+00:00"
         },
         {
             "name": "psr/cache",
