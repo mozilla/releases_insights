@@ -46,6 +46,7 @@
 
 :root {
   --bg-purple: #20123a;
+  --bg-table-hover: #f2e9ff;
 }
 
 html {
@@ -126,7 +127,7 @@ body[id^='release_'] caption {
 .table-fxt-clean,
 .table-fxt-clean th,
 .table-fxt-clean td  {
-    border-color: #320f640d;
+    border-color: #f2e9ff;
 }
 
 .table-fxt-clean {
@@ -402,4 +403,9 @@ nav svg:hover {
 
 #homepage .card-text a {
     color: var(--bs-info);
+}
+
+/* Override default bootstrap hover to match our theme */
+.table-hover > tbody > tr:hover > * {
+  --bs-table-bg-state: var(--bg-table-hover);
 }
