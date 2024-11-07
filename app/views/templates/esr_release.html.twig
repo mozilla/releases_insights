@@ -9,9 +9,9 @@
 
 {% block main %}
   {% if constant('ESR_NEXT') %}
-  <h2 class="mx-auto w-50  mb-3 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h2>
+  <h1 class="mx-auto w-50  mb-3 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h1>
   {% else %}
-  <h2 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h2>
+  <h1 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h1>
   {% endif %}
 
   <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>

@@ -48,10 +48,14 @@
   --bg-purple: #20123a;
 }
 
+html {
+    height: 100%;
+    background-color: #2a0c55;
+}
 
 body {
     font-family: Inter,X-LocaleSpecific,sans-serif;
-    background-color: #20123a;
+    background-color: #2a0c55;
     color: white;
 }
 
@@ -72,6 +76,14 @@ nav svg {
     margin-top: 0.5em;
 }
 
+h1 {
+    font-weight: 400;
+}
+
+h2, h3 {
+    font-weight: 300;
+}
+
 .table {
     margin: 0 auto;
     width: 100%;
@@ -87,11 +99,8 @@ nav svg {
     box-shadow: unset !important;
 }
 
-/* home page */
-h1, h2, h3 {
-    font-weight: 300;
-}
 
+/* home page */
 #homepage h1 {
     font-size: 3.5rem;
     margin-bottom: 2em;
@@ -117,7 +126,7 @@ body[id^='release_'] caption {
 .table-fxt-clean,
 .table-fxt-clean th,
 .table-fxt-clean td  {
-    border-color: lavender;
+    border-color: #320f640d;
 }
 
 .table-fxt-clean {
