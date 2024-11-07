@@ -68,9 +68,14 @@
             {%- set alert_title = '' -%}
             {%- set alert_row = '' -%}
             {%- set pill_level = 'text-bg-light border' -%}
+            {%- set product = '' -%}
+
             {%- if details.type == 'enhancement' -%}
                 {%- set alert_link =' text-success fw-bold' -%}
                 {%- set alert_title =' title="Bug marked as Enhancement"' -%}
+            {%- endif -%}
+            {%- if details.product == 'Fenix' or details.product == 'GeckoView' or details.product == 'Focus' -%}
+                {%- set product = 'android' -%}
             {%- endif -%}
             {%- if bug_list_karma[details.id].score > 8 -%}
                 {%- set pill_level ='text-bg-warning' -%}
@@ -80,7 +85,7 @@
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
         <tr class="small {{ alert_row }}">
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+            <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
             <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</a></td>
             <td class="text-center {{ alert_row }}">
                 <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
