@@ -2,7 +2,14 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Beta, Bugzilla, Json, Utils, URL};
+use ReleaseInsights\{Beta, Bugzilla, Json, Request, Utils, URL};
+
+$waiting_page = false;
+$lock_file = CACHE_PATH . 'beta_lock.cache';
+if (! file_exists($lock_file) OR time()-filemtime($lock_file) > 900) {
+    $waiting_page = true;
+    Request::waitingPage('load');
+}
 
 $beta = new Beta();
 
@@ -120,6 +127,13 @@ if (! empty($top_sigs_worth_a_bug)) {
             );
         }
     }
+}
+
+// Write a lock file for the page to keep track of its age
+file_put_contents($lock_file, '');
+
+if ($waiting_page) {
+    Request::waitingPage('leave');
 }
 
 return [

@@ -10,7 +10,7 @@ $paths = [
     ['//yolo', 302, '', ''], // Test that we redirect pages starting with multiple slashes to the homepage
     ['', 200, 'Firefox Trains', 'id="homepage"'],
     ['about/', 200, 'Other resources', 'id="about"'],
-    ['beta/', 200, 'Current Desktop beta cycle:', 'id="beta"'],
+    ['beta/', 200, '', ''],
     ['nightly/', 200, '', 'id="nightly"'],
     ['calendar/', 200, '', 'id="calendar_main"'],
     ['calendar/monthly/', 200, '', 'id="calendar_monthly"'],
