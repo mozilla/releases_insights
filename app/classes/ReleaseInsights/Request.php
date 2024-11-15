@@ -132,6 +132,7 @@ class Request
             // Disable gzip compression to allow sending a chunk of html
             header('Content-Encoding: none');
             // Fill the buffer to be able to flush it
+            ob_start();
             echo str_repeat(' ', 4096);
             readfile(VIEWS . 'waiting_page.html');
             flush();
