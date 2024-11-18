@@ -71,3 +71,7 @@
     </div>
 </body>
 </html>
+<?php
+// Hack, fill the buffer fully to make sure the flush() method will work
+echo str_repeat(' ', 4096);
+flush();
