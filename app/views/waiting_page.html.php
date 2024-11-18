@@ -1,3 +1,6 @@
+<?php
+    // This is a pure old-schol PHP template as the waiting page doesn't depend on Twig
+?>
 <!DOCTYPE html>
 <html>
 <head>
