@@ -11,9 +11,6 @@ class Release
     /** @var array<int> $no_planned_dot_releases */
     public array $no_planned_dot_releases = [108, 111, 115, 120];
 
-    /* @phpstan-ignore-next-line */
-    private readonly Status $release_status;
-
     private readonly Version $version;
 
     public function __construct(
@@ -79,7 +76,7 @@ class Release
             'qa_feature_done_2'  => match ($this->version->normalized) {
                 '135.0'          => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
                 '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),
-                default          => $date($nightly->modify('+1 week')   ->modify('Thursday 08:00')),
+                default          => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
             },
             'soft_code_freeze'    => $date('Thursday 08:00'),
             'qa_pre_merge_done'   => $date('Friday 14:00'),
