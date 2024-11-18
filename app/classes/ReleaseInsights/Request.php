@@ -119,6 +119,7 @@ class Request
     public static function waitingPage(string $action): void
     {
         if ($action == 'load') {
+
             // This is a long-running process when we fetch and generate data
             set_time_limit(0);
             // We need to set the encoding or the browser will wait to parse the content
@@ -137,6 +138,9 @@ class Request
             // heavy processing is done, let the browser refresh the page
             echo '<meta http-equiv="refresh" content="0">';
             exit;
+        } elseif ($action == 'hide') {
+            // heavy processing is done, let the browser refresh the page
+            echo '<style nonce="' . NONCE . '">.waitingpage .container { display:none; }</style>';
         }
     }
 }

@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use BzKarma\Scoring;
-use ReleaseInsights\{Bugzilla, Json, URL, Utils};
+use ReleaseInsights\{Bugzilla, Json, URL, Request, Utils};
+
+Request::waitingPage('load');
 
 /*
     We need previous and next days for navigation and changelog
@@ -237,6 +239,7 @@ foreach ($bug_list as $key => $values) {
     }
 }
 
+Request::waitingPage('hide');
 return [
     $display_date,
     $nightly_pairs,
