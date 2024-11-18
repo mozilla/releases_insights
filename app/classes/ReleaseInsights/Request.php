@@ -120,7 +120,6 @@ class Request
         if ($action == 'load') {
             // This is a long-running process when we fetch and generate data
             set_time_limit(0);
-            ob_start();
             header('Content-type: text/html; charset=utf-8');
             // Display a waiting page while we process data
             header("HTTP/1.1 206 Partial Content; Content-Type: text/html; charset=utf-8");
@@ -133,10 +132,11 @@ class Request
             // Disable gzip compression to allow sending a chunk of html
             header('Content-Encoding: none');
             flush();
-            ob_implicit_flush(true);
             // Fill the buffer to be able to flush it
             echo str_repeat(' ', 4096);
-            include VIEWS . 'waiting_page.php';
+            flush();
+            ob_start();
+            include VIEWS . 'waiting_page.html.php';
             ob_flush();
             flush();
             ob_end_flush();
