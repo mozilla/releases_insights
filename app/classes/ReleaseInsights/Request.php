@@ -120,26 +120,21 @@ class Request
         if ($action == 'load') {
             // This is a long-running process when we fetch and generate data
             set_time_limit(0);
+            // We need to set the encoding or the browser will wait to parse the content
             header('Content-type: text/html; charset=utf-8');
-            // Display a waiting page while we process data
-            header("HTTP/1.1 206 Partial Content; Content-Type: text/html; charset=utf-8");
+            // Explicitly disable caching so Varnish and other upstreams won't cache.
+            header("Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
             // Emulate the header BigPipe sends so we can test through Varnish.
             header('Surrogate-Control: BigPipe/1.0');
-            // Explicitly disable caching so Varnish and other upstreams won't cache.
-            header("Cache-Control: no-cache, must-revalidate");
-            // Setting this header instructs Nginx to disable fastcgi_buffering and disable gzip for this request.
-            header('X-Accel-Buffering: no');
             // Disable gzip compression to allow sending a chunk of html
             header('Content-Encoding: none');
-            flush();
+            // Setting this header instructs Nginx to disable fastcgi_buffering and disable gzip for this request.
+            header('X-Accel-Buffering: no');
+            // Display a waiting page while we process data
+            include VIEWS . 'waiting_page.html.php';
             // Fill the buffer to be able to flush it
             echo str_repeat(' ', 4096);
             flush();
-            ob_start();
-            include VIEWS . 'waiting_page.html.php';
-            ob_flush();
-            flush();
-            ob_end_flush();
         } elseif ($action == 'leave') {
             // heavy processing is done, let the browser refresh the page
             echo '<meta http-equiv="refresh" content="0">';
