@@ -3,7 +3,7 @@
 <head>
     <title>Processing data…</title>
     <meta charset="utf-8" />
-    <style>
+    <style nonce="<?=NONCE?>">
         html, body {
             margin: 0;
             padding: 0;

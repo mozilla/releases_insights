@@ -132,11 +132,13 @@ class Request
             header('X-Accel-Buffering: no');
             // Disable gzip compression to allow sending a chunk of html
             header('Content-Encoding: none');
+            flush();
+            ob_implicit_flush(true);
             // Fill the buffer to be able to flush it
             echo str_repeat(' ', 4096);
-            flush();
-            readfile(VIEWS . 'waiting_page.html');
+            include VIEWS . 'waiting_page.php';
             ob_flush();
+            flush();
             ob_end_flush();
         } elseif ($action == 'leave') {
             // heavy processing is done, let the browser refresh the page
