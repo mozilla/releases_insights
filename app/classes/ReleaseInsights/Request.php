@@ -112,7 +112,8 @@ class Request
     }
 
     /**
-     * Generate a static page. Send all the necessary headers
+     * Display a static page.
+     * Send all the necessary headers to bypass http server caching
      * @codeCoverageIgnore
      */
     public static function waitingPage(string $action): void
@@ -130,10 +131,10 @@ class Request
             header('Content-Encoding: none');
             // Setting this header instructs Nginx to disable fastcgi_buffering and disable gzip for this request.
             header('X-Accel-Buffering: no');
+            // Hack, fill the buffer fully to make sure the flush() method will work
+            echo str_repeat(' ', 4096);
             // Display a waiting page while we process data
             include VIEWS . 'waiting_page.html.php';
-            // Fill the buffer to be able to flush it
-            echo str_repeat(' ', 4096);
             flush();
         } elseif ($action == 'leave') {
             // heavy processing is done, let the browser refresh the page
