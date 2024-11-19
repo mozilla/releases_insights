@@ -360,12 +360,23 @@ footer {
     padding-left: 10px;
 }
 
+#beta #summary th span.badge {
+    top:1em;
+    position:relative;
+    font-weight:normal;
+}
+
+#beta #summary td li a {
+    padding: 0 4px !important;
+}
+
 #beta table tr:not(:first-child)  td:nth-child(2) {
     width: 18em;
 }
 
 #beta table .btn .badge {
-    top: -4px;
+    top: 0.5em;
+    vertical-align: bottom;
 }
 
 :is(#beta, #nightly) a[aria-expanded=false] .text-expanded {
@@ -377,7 +388,7 @@ footer {
 }
 
 #beta li.version {
-    width: 6em;
+    width: 7em;
     text-align: center;
 }
 
