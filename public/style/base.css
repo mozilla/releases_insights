@@ -425,4 +425,5 @@ nav svg:hover {
 #homepage .card-header:first-child,
 #homepage .border {
     border-color: var(--bg-alert-purple-light) !important;
+    opacity: 0.9;
 }
