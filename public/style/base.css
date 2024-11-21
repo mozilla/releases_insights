@@ -45,8 +45,9 @@
 /* General structure */
 
 :root {
-  --bg-purple: #20123a;
+  --bg-purple: #2a0c55;
   --bg-table-hover: #f2e9ff;
+  --bg-alert-purple-light: #cfe2ff;
 }
 
 html {
@@ -56,7 +57,7 @@ html {
 
 body {
     font-family: Inter,X-LocaleSpecific,sans-serif;
-    background-color: #2a0c55;
+    background-color: var(--bg-purple);
     color: white;
 }
 
@@ -361,13 +362,9 @@ footer {
 }
 
 #beta #summary th span.badge {
-    top:1em;
+    top: 5px;
     position:relative;
     font-weight:normal;
-}
-
-#beta #summary td li a {
-    padding: 0 4px !important;
 }
 
 #beta table tr:not(:first-child)  td:nth-child(2) {
@@ -375,8 +372,7 @@ footer {
 }
 
 #beta table .btn .badge {
-    top: 0.5em;
-    vertical-align: bottom;
+    top: 0;
 }
 
 :is(#beta, #nightly) a[aria-expanded=false] .text-expanded {
@@ -394,7 +390,6 @@ footer {
 
 .w-10 {
     width: 10%;
-    outline-right: 10px solid red;
 }
 
 /* Global dropdown menu spacing utility */
@@ -419,4 +414,15 @@ nav svg:hover {
 /* Override default bootstrap hover to match our theme */
 .table-hover > tbody > tr:hover > * {
   --bs-table-bg-state: var(--bg-table-hover);
+}
+
+
+.bg-card-color-purple-fxt {
+    background-color: var(--bg-alert-purple-light) !important;
+    border-color: var(--bg-alert-purple-light) !important;
+}
+
+#homepage .card-header:first-child,
+#homepage .border {
+    border-color: var(--bg-alert-purple-light) !important;
 }
