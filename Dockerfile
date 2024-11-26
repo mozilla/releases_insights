@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine3.19 as builder
+FROM php:8.4-fpm-alpine3.20 as builder
 
 ENV TZ="UTC"
 # Composer no longer allows plugins to run as a superuser as of release 2.7 which prevents us from patching upstream libraries
@@ -15,7 +15,7 @@ RUN apk add --no-cache patch && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # use install-php-extensions to install required php extensions and composer
-RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/2.2.14/install-php-extensions \
+RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/2.7.1/install-php-extensions \
     --location --output /usr/local/bin/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions && \
     /usr/local/bin/install-php-extensions opcache mbstring intl curl dom @composer
@@ -38,7 +38,7 @@ RUN apk del git && \
 
 ###
 
-FROM php:8.3-fpm-alpine3.19 as runner
+FROM php:8.4-fpm-alpine3.20 as runner
 
 ENV TZ="UTC"
 RUN apk add --no-cache nginx supervisor && \
