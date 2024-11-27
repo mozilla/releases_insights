@@ -98,6 +98,12 @@
     },
     "extra": {
         "patches": {
+            "eluceo/ical": [
+                "patches/eluceo-ical-src-util-dateutil-php.patch",
+                "patches/eluceo-ical-src-component-event-php.patch",
+                "patches/eluceo-ical-src-property-event-recurrenceid-php.patch",
+                "patches/eluceo-ical-src-property-datetimeproperty-php.patch"
+            ],
             "benhall14/php-calendar": {
                 "Make calendar.css use more neutral styles": "patches/benhall14-php-calendar-html-css-calendar-css.patch"
             }

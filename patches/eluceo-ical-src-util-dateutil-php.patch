@@ -1,0 +1,20 @@
+--- /dev/null
++++ ../src/Util/DateUtil.php
+@@ -13,7 +13,7 @@
+ 
+ class DateUtil
+ {
+-    public static function getDefaultParams(\DateTimeInterface $dateTime = null, $noTime = false, $useTimezone = false, $timezoneString = '')
++    public static function getDefaultParams(\DateTimeInterface|null $dateTime = null, $noTime = false, $useTimezone = false, $timezoneString = '')
+     {
+         $params = [];
+ 
+@@ -39,7 +39,7 @@
+      *
+      * @return mixed
+      */
+-    public static function getDateString(\DateTimeInterface $dateTime = null, $noTime = false, $useTimezone = false, $useUtc = false)
++    public static function getDateString(\DateTimeInterface|null $dateTime = null, $noTime = false, $useTimezone = false, $useUtc = false)
+     {
+         if (empty($dateTime)) {
+             $dateTime = new \DateTimeImmutable();
