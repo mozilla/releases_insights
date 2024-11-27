@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Model, Template};
 
-[$beta, $bug_details, $uplift_counter, $stats, $known_top_crashes, $crash_bugs] = (new Model('beta'))->get();
+[$beta, $bug_details, $uplift_counter, $stats, $known_top_crashes, $crash_bugs] = new Model('beta')->get();
 
-(new Template(
+new Template(
     'beta.html.twig',
     [
         'page_title'        => 'Betas this cycle',
@@ -18,4 +18,4 @@ use ReleaseInsights\{Model, Template};
         'known_top_crashes' => $known_top_crashes,
         'crash_bugs'        => $crash_bugs,
     ]
-))->render();
+)->render();

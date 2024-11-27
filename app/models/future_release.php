@@ -32,7 +32,7 @@ $beta_cycle_length = $release->diff($previous_release)->days / 7;
 $nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;
 
 // Get the schedule for the release requested
-$cycle_dates = (new Release($requested_version))->getSchedule();
+$cycle_dates = new Release($requested_version)->getSchedule();
 
 $nightly_fixes = 0;
 /* Only for the current Beta view */
@@ -68,7 +68,7 @@ foreach ($cycle_dates as $k => $date) {
     }
 
     // let's ignore hours and only consider full days for simplicity
-    $reference_date = (new DateTime($date))->setTime(0, 0);
+    $reference_date = new DateTime($date)->setTime(0, 0);
     $time = new Duration(new DateTime(), $reference_date);
     $deadlines[$k] = $time->report();
 
@@ -113,6 +113,6 @@ return [
     $cycle_dates,
     $deadlines,
     $rollout ?? -1,
-    $wellness_days = (new Data())->getWellnessDays(),
+    $wellness_days = new Data()->getWellnessDays(),
     Nightly::getLatestBuildID(),
 ];

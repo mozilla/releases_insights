@@ -9,4 +9,4 @@ if (! isset($requested_version)) {
     $requested_version = Version::get();
 }
 
-return (new Release($requested_version))->getSchedule();
+return new Release($requested_version)->getSchedule();

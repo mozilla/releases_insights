@@ -12,14 +12,14 @@ $events = [];
 // Check if we have a planned dot release coming for the current cycle
 $current_release = key($releases->getLatestMajorRelease());
 
-$current_release_schedule = (new Release($current_release))->getSchedule();
+$current_release_schedule = new Release($current_release)->getSchedule();
 
 if (isset($current_release_schedule['planned_dot_release'])) {
-    $date = (new DateTime($current_release_schedule['planned_dot_release']))->format('Y-m-d');
+    $date = new DateTime($current_release_schedule['planned_dot_release'])->format('Y-m-d');
     $events[] = [
         'start'   => $date,
         'end'     => $date,
-        'summary' => Release::getNiceLabel((new Version($current_release))->normalized, 'planned_dot_release') . "<br>\n",
+        'summary' => Release::getNiceLabel(new Version($current_release)->normalized, 'planned_dot_release') . "<br>\n",
         'mask'    => true,
     ];
 }
@@ -30,12 +30,12 @@ foreach (array_keys($releases->getFutureReleases()) as $version) {
         continue;
     }
 
-    foreach ((new Release($version))->getSchedule() as $event => $date) {
+    foreach (new Release($version)->getSchedule() as $event => $date) {
         if ($event === 'version') {
             continue;
         }
 
-        $date = (new DateTime($date))->format('Y-m-d');
+        $date = new DateTime($date)->format('Y-m-d');
 
         $events[] = [
             'start'   => $date,

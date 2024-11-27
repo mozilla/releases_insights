@@ -6,7 +6,7 @@ use ReleaseInsights\Data;
 
 // We need to remove the releases still in planning
 $releases = array_filter(
-    (new Data())->getOwners(),
+    new Data()->getOwners(),
     fn ($k) => $k <= RELEASE,
     ARRAY_FILTER_USE_KEY
 );

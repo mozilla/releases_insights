@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Model, Template};
 
-[$latest_release_date, $releases] = (new Model('rss'))->get();
+[$latest_release_date, $releases] = new Model('rss')->get();
 
 header("Content-Type: application/xml; charset=UTF-8");
 
-(new Template(
+new Template(
     'releases.rss.twig',
     [
         'title'                  => 'Firefox Desktop and Android releases',
@@ -17,4 +17,4 @@ header("Content-Type: application/xml; charset=UTF-8");
         'latest_release_date'    => $latest_release_date,
         'releases'               => $releases,
        ]
-))->render();
+)->render();

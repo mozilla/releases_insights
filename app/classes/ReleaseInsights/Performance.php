@@ -10,7 +10,7 @@ class Performance
      * Utility function to return the memory used by a script
      * and the time needed to compute the data.
      *
-     * @return array<int> [Memory peak in bytes, Memory peak in MB, Computation time]
+     * @return array<int, float|int<1, max>> [Memory peak in bytes, Memory peak in MB, Computation time]
      */
     public static function getData(): array
     {

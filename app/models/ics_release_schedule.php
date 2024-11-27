@@ -9,7 +9,7 @@ if (! isset($requested_version)) {
 }
 
 // Get the schedule for the release requested
-$releases = (new Release($requested_version))->getSchedule();
+$releases = new Release($requested_version)->getSchedule();
 
 $short_version = (string) (int) $releases['version'];
 

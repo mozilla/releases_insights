@@ -13,8 +13,8 @@ if ($requested_version == '0.0') {
 }
 
 // Planned releases
-$upcoming_releases = (new Data())->getFutureReleases();
-$owners = (new Data())->getOwners();
+$upcoming_releases = new Data()->getFutureReleases();
+$owners = new Data()->getOwners();
 
 $css_page_id = match (true) {
     $requested_version_int === NIGHTLY => 'release_nightly',
@@ -34,10 +34,10 @@ $template_data = [
 
 // Releases before version 4 were handled completely differently
 if ($requested_version_int < 4) {
-    [$dot_release_count, $release_date] = (new Model('pre_firefox4_release'))->get();
+    [$dot_release_count, $release_date] = new Model('pre_firefox4_release')->get();
     $template_data += ['dot_release_count' => $dot_release_count];
     $template_data += ['release_date' => $release_date];
-    (new Template('pre4_release.html.twig', $template_data))->render();
+    new Template('pre4_release.html.twig', $template_data)->render();
     return;
 }
 
@@ -55,7 +55,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         $current_ESR,
         $release_date,
         $esr_calendar,
-    ] = (new Model('esr_release'))->get();
+    ] = new Model('esr_release')->get();
 
     $template_data = array_merge($template_data, [
         'page_title'   => 'Firefox ESR schedule',
@@ -67,7 +67,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         'esr_majors'   => ESR::$esr_releases,
     ]);
 
-    (new Template('esr_release.html.twig', $template_data))->render();
+    new Template('esr_release.html.twig', $template_data)->render();
 
     return;
 }
@@ -98,7 +98,7 @@ if ($requested_version_int <= RELEASE) {
         $no_planned_dot_releases,
         $release_rollout,
         $uptake,
-    ] = (new Model('past_release'))->get();
+    ] = new Model('past_release')->get();
 
     $template_file = 'past_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -140,7 +140,7 @@ if ($requested_version_int <= RELEASE) {
         $rollout,
         $wellness_days,
         $latest_nightly,
-    ] = (new Model('future_release'))->get();
+    ] = new Model('future_release')->get();
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
         'release_date'         => $release_date,
@@ -163,4 +163,4 @@ if ($requested_version_int <= RELEASE) {
     ]);
 }
 
-(new Template($template_file, $template_data))->render();
+new Template($template_file, $template_data)->render();

@@ -64,7 +64,7 @@ if ((int) $requested_version === 119) {
     );
 }
 
-if ($requested_version !== 53 && $requested_version > 46) {
+if ($requested_version != 53 && $requested_version > 46) {
     $beta_uplifts      = Bugzilla::getBugsFromHgWeb($beta_changelog, true, -1);
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bugzilla::getBugListLink($beta_uplifts['total']);
@@ -115,7 +115,7 @@ if ($requested_version == '14.0') {
 }
 
 $dot_releases = array_filter(
-    (new Data())->getDotReleases(),
+    new Data()->getDotReleases(),
     fn ($key) => str_starts_with($key, $requested_version . '.'),
     ARRAY_FILTER_USE_KEY
 );
@@ -172,7 +172,7 @@ if ($requested_version == '126.0') {
     );
 }
 
-$no_planned_dot_releases = (new Release($requested_version))->no_planned_dot_releases;
+$no_planned_dot_releases = new Release($requested_version)->no_planned_dot_releases;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {

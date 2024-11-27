@@ -28,7 +28,7 @@ define('CACHE_TIME', 900); // 15 minutes
 require_once INSTALL_ROOT . 'vendor/autoload.php';
 
 // Get Firefox Versions from Product Details library, default cache duration
-$firefox_versions = (new Data())->getFirefoxVersions();
+$firefox_versions = new Data()->getFirefoxVersions();
 
 // Exact version numbers (strings) from product-details
 define('ESR',             $firefox_versions['FIREFOX_ESR']);

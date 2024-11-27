@@ -12,10 +12,10 @@ $nightly_cycle_dates = include MODELS . 'api/release_schedule.php';
 $requested_version = Version::get(FIREFOX_BETA);
 $beta_cycle_dates = include MODELS . 'api/release_schedule.php';
 
-$today_is_release_day = (new Data())->isTodayReleaseDay();
+$today_is_release_day = new Data()->isTodayReleaseDay();
 
 if ($today_is_release_day) {
-    $firefox_version_on_release_day = array_search(date('Y-m-d'), (new Data())->getMajorReleases());
+    $firefox_version_on_release_day = array_search(date('Y-m-d'), new Data()->getMajorReleases());
 } else {
     $firefox_version_on_release_day = FIREFOX_BETA;
 }
@@ -53,7 +53,7 @@ $latest_nightly = Json::load(
 );
 
 
-$beta_version = (new Version(FIREFOX_BETA))->int;
+$beta_version = new Version(FIREFOX_BETA)->int;
 $beta_is_the_next_ESR = $beta_version == (int) ESR::getVersion($beta_version);
 
 /* Only for the current Nightly view, this makes an HTTP request */

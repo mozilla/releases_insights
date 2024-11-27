@@ -17,7 +17,7 @@ class CalendarMonthly
      */
     public static function getMonthsToLastPlannedRelease(): array
     {
-        $start = (new DateTime('now'))->modify('first day of this month');
+        $start = new DateTime('now')->modify('first day of this month');
 
         /* For unit tests which work on stale data, we fake a past date */
         if (defined('TESTING_CONTEXT')) {
@@ -25,9 +25,9 @@ class CalendarMonthly
         }
 
         /* The end date is the last planned major release */
-        $end = array_key_last((new Data())->getFutureReleases());
-        $end = (new Data())->getFutureReleases()[$end];
-        $end = (new DateTime($end))->modify('first day of next month');
+        $end = array_key_last(new Data()->getFutureReleases());
+        $end = new Data()->getFutureReleases()[$end];
+        $end = new DateTime($end)->modify('first day of next month');
         $period = new DatePeriod(
             $start,
             DateInterval::createFromDateString('1 month'),

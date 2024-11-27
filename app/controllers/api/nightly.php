@@ -6,8 +6,8 @@ use ReleaseInsights\{Json, Model};
 
 // We want to send simplified Json data for our public API
 $data = [];
-foreach ((new Model('api_nightly'))->get() as $key => $values) {
+foreach (new Model('api_nightly')->get() as $key => $values) {
     $data[$key] = $values['revision'];
 }
 
-(new Json($data))->render();
+new Json($data)->render();

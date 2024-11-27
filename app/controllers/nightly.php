@@ -20,9 +20,9 @@ use ReleaseInsights\{Model, Template};
     $known_top_crashes,
     $fallback_nightly,
     $warning,
-] = (new Model('nightly'))->get();
+] = new Model('nightly')->get();
 
-(new Template(
+new Template(
     'nightly.html.twig',
     [
         'page_title'        => 'Nightly builds (crashes and bug fixes)',
@@ -43,4 +43,4 @@ use ReleaseInsights\{Model, Template};
         'fallback_nightly'  => $fallback_nightly,
         'warning_message'   => $warning,
     ]
-))->render();
+)->render();

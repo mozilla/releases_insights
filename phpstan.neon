@@ -19,6 +19,7 @@ parameters:
             path: app/models/home.php
         - '#.+?function array_multisort is passed by reference, so it expects variables only#'
     reportUnmatchedIgnoredErrors: false
+    treatPhpDocTypesAsCertain: false
     level: 6
 
 

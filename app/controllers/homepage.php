@@ -15,9 +15,9 @@ use ReleaseInsights\{Model, Template};
     $beta_is_the_next_ESR,
     $nightly_auto_updates,
     $nightly_emergency_message,
-] = (new Model('home'))->get();
+] = new Model('home')->get();
 
-(new Template(
+new Template(
     'overview.html.twig',
     [
         'page_title'             => 'What Firefox trains are we in?',
@@ -33,4 +33,4 @@ use ReleaseInsights\{Model, Template};
         'nightly_auto_updates'   => $nightly_auto_updates,
         'nightly_emergency'      => $nightly_emergency_message,
     ]
-))->render();
+)->render();

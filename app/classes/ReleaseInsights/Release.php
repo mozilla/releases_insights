@@ -46,7 +46,7 @@ class Release
      */
     public function getFutureSchedule(): array
     {
-        $all_releases = (new Data($this->product_details))->getMajorReleases();
+        $all_releases = new Data($this->product_details)->getMajorReleases();
         if (! array_key_exists($this->version->normalized, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
         }
@@ -155,7 +155,7 @@ class Release
         );
 
         // Transform all the DateTime objects in the $schedule array into formated date strings
-        $format_date = fn(string $day): string => (new DateTime($day))->format('Y-m-d H:i:sP');
+        $format_date = fn(string $day): string => new DateTime($day)->format('Y-m-d H:i:sP');
 
         $schedule = [
             'nightly_start'  => $format_date(Nightly::cycleStart($this->version->int)),

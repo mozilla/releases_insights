@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Model, Template};
 
-$data = (new Model('calendar'))->get();
+$data = new Model('calendar')->get();
 
-(new Template(
+new Template(
     'calendar.html.twig',
     [
         'page_title'        => 'Firefox Release Calendar',
@@ -15,4 +15,4 @@ $data = (new Model('calendar'))->get();
         'upcoming_releases' => $data['future'],
         'upcoming_quarters' => array_count_values(array_column($data['future'], 'quarter')),
     ]
-))->render();
+)->render();

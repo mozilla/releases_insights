@@ -40,7 +40,7 @@
         "kevinrob/guzzle-cache-middleware": "^5.1"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan": "^2.0",
         "pestphp/pest": "^3.0",
         "symfony/var-dumper": "^6",
         "pchevrel/verif": "^0.5.1",

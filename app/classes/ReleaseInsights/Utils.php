@@ -135,8 +135,8 @@ class Utils
         }
 
         // The date shouldn't be in the future
-        $date  = (new DateTime($buildid))->format('Ymd');
-        $today = (new DateTime())->format('Ymd');
+        $date  = new DateTime($buildid)->format('Ymd');
+        $today = new DateTime()->format('Ymd');
 
         if ($date > $today) {
             return false;

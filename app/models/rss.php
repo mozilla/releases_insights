@@ -22,7 +22,7 @@ krsort($releases, SORT_NATURAL);
 // Limit our RSS feed to 30 items, roughly a year of releases
 $releases = array_slice($releases, 0, 30);
 
-$set_time = fn(string $date) => (new DateTime($date))->setTime(13, 0)->format(DateTime::RSS);
+$set_time = fn(string $date) => new DateTime($date)->setTime(13, 0)->format(DateTime::RSS);
 
 $rss = [];
 foreach ($releases as $key => $values) {

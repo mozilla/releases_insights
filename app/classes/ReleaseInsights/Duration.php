@@ -52,7 +52,7 @@ class Duration
     public function isWorkDay(DateTime $day): bool
     {
         // We don't consider the current day as a working day
-        if ($day->format('Y-m-d') === (new DateTime())->format('Y-m-d')) {
+        if ($day->format('Y-m-d') === new DateTime()->format('Y-m-d')) {
             return false;
         }
 

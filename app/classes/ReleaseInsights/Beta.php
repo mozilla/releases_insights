@@ -28,7 +28,7 @@ readonly class Beta
         $this->count = (int) explode('b', FIREFOX_BETA)[1];
 
         // We get the number of betas from the planned schedule
-        $schedule = (new Release((string) $release))->getSchedule();
+        $schedule = new Release((string) $release)->getSchedule();
         $schedule = array_keys($schedule);
         $schedule = array_filter($schedule, fn($label) => str_starts_with($label, 'beta_'));
         $this->number_betas = count($schedule);
