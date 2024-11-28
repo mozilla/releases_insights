@@ -113,6 +113,6 @@ return [
     $cycle_dates,
     $deadlines,
     $rollout ?? -1,
-    $wellness_days = new Data()->getWellnessDays(),
+    $wellness_days = new Data()->wellness_days,
     Nightly::getLatestBuildID(),
 ];

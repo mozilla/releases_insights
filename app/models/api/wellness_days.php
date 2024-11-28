@@ -2,4 +2,4 @@
 
 declare(strict_types=1);
 
-return new ReleaseInsights\Data()->getWellnessDays();
+return new ReleaseInsights\Data()->wellness_days;

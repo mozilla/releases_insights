@@ -14,7 +14,7 @@ if ($requested_version == '0.0') {
 
 // Planned releases
 $upcoming_releases = new Data()->getFutureReleases();
-$owners = new Data()->getOwners();
+$owners = new Data()->release_owners;
 
 $css_page_id = match (true) {
     $requested_version_int === NIGHTLY => 'release_nightly',

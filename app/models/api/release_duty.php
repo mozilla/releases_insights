@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$owners = new ReleaseInsights\Data()->getReleaseDuty();
+$owners = new ReleaseInsights\Data()->release_duty;
 
 // Reconstruct the array to have integers as version numbers in keys
 return array_combine(

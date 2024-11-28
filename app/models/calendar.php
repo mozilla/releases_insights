@@ -9,7 +9,7 @@ $future = [];
 foreach (new Data()->getFutureReleases() as $version => $date) {
     $version_data = new Release($version)->getSchedule();
 
-    $owner = new Data()->getOwners()[$version] ?? 'TBD';
+    $owner = new Data()->release_owners[$version] ?? 'TBD';
     // Display the first name only, we don't need family names for active release managers
     $owner = explode(' ', $owner)[0];
 
@@ -85,7 +85,7 @@ foreach ($obj->getDesktopPastReleases(dot_releases: false) as $version => $date)
             'nightly_start' => $nightly_start,
             'beta_start'    => $beta_date,
             'esr'           => $esr,
-            'owner'         => new Data()->getOwners()[$version] ?? 'TBD',
+            'owner'         => new Data()->release_owners[$version] ?? 'TBD',
         ],
     ];
 }

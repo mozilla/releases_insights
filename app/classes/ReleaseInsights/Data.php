@@ -10,13 +10,13 @@ class Data
     private readonly array $future_releases;
 
     /** @var array<string, string> $release_owners */
-    private readonly array $release_owners;
+    private(set) array $release_owners;
 
     /** @var array<string, string> $release_duty */
-    private readonly array $release_duty;
+    private(set) array $release_duty;
 
     /** @var array<string> $wellness_days */
-    private readonly array $wellness_days;
+    private(set) array $wellness_days;
 
     public function __construct(
         private readonly string $pd_url = URL::ProductDetails->value,
@@ -29,18 +29,6 @@ class Data
     }
 
     /** @return array<string, string> */
-    public function getOwners(): array
-    {
-        return $this->release_owners;
-    }
-
-    /** @return array<string, string> */
-    public function getReleaseDuty(): array
-    {
-        return $this->release_duty;
-    }
-
-    /** @return array<string, string> */
     public function getFutureReleases(): array
     {
         return array_filter(
@@ -48,12 +36,6 @@ class Data
             fn(string $key) => (int) $key > RELEASE,
             ARRAY_FILTER_USE_KEY
         );
-    }
-
-    /** @return array<string> */
-    public function getWellnessDays(): array
-    {
-        return $this->wellness_days;
     }
 
     /** @return array<string, string> */

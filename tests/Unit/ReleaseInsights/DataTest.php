@@ -5,9 +5,9 @@ declare(strict_types=1);
 use ReleaseInsights\Data;
 use ReleaseInsights\URL;
 
-test('Data->getOwners()', function () {
+test('Data->release_owners', function () {
     $obj = new Data();
-    expect($obj->getOwners())
+    expect($obj->release_owners)
         ->toBeArray()
         ->toHaveKeys(['1.0', '108.0'])
         ->toContain(
@@ -31,17 +31,16 @@ test('Data->getOwners()', function () {
         ->each->toBeString();
 });
 
-test('Data->getWellnessDays()', function () {
+test('Data->wellness_days', function () {
     $obj = new Data();
-    expect($obj->getWellnessDays())
+    expect($obj->wellness_days)
         ->toBeArray()
-
         ->each->toBeString();
 });
 
-test('Data->getReleaseDuty()', function () {
+test('Data->release_duty', function () {
     $obj = new Data();
-    expect($obj->getReleaseDuty())
+    expect($obj->release_duty)
         ->toBeArray()
         ->toHaveKeys(['1.0', '108.0'])
         ->each->toBeArray();
