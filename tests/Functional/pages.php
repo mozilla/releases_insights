@@ -3,7 +3,7 @@
 include 'init.php';
 
 $paths = [
-    ['404/', 404, '404: Page Not Found', 'id="notfound"'],
+    ['404/', 404, 'The page cannot be found', 'id="notfound"'],
     ['somerandomfile.png', 404, '', ''], // missing files, not pages, don't get a 404 page, just a 404 http response code
     ['yolo', 302, '', ''], // Test that we redirect yolo to yolo/
     ['//', 302, '', ''], // Test that we redirect pages starting with multiple slases to the homepage
