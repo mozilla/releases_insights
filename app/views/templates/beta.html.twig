@@ -60,10 +60,8 @@
             {% if loop.first %}
                 <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
             {% endif %}
-            {% if not key matches '/\.0rc\d$/' %}
-                {% if key|split('b')[1] > beta.count %}
-                    <small class="fst-italic">(upcoming beta, not shipped yet)</small>
-                {% endif %}
+            {% if key|split('b')[1] > beta.count and 'rc' not in key %}
+                <small class="fst-italic">(upcoming beta, not shipped yet)</small>
             {% endif %}
         </li>
 
