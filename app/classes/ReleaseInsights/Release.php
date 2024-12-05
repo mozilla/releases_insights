@@ -64,7 +64,7 @@ class Release
         $date = fn(string|object $day): string => is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
 
         #️⃣ TODO: remove this conditional once 135.0 has shipped
-        if ($this->version->normalized == '135.0') {
+        if ($this->version->int < 136) {
             $schedule = [
                 'nightly_start'         => $date($nightly),
                 'a11y_request_deadline' => $date('Friday'),
