@@ -224,7 +224,7 @@ class Release
             'qa_request_deadline'   => $short_version . ' QA request deadline',
             'nightly_start'         => 'Nightly ' . $short_version . ' starts',
             'a11y_request_deadline' => $short_version . ' a11y engineering request deadline for Nightly',
-            'qa_feature_done'       => $short_version .' build ready for QA',
+            'qa_feature_done'       => $short_version .' build ready for QA', #️⃣ AKA Feature Complete Milestone
             'qa_feature_done_1'     => $short_version .' build ready for nightly QA',
             'qa_feature_done_2'     => $short_version .' build ready for beta QA',
             'soft_code_freeze'      => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC',
