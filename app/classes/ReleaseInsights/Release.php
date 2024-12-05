@@ -63,6 +63,7 @@ class Release
         // Transform all the DateTime objects in the $schedule array into formated date strings
         $date = fn(string|object $day): string => is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
 
+        #️⃣ TODO: remove this conditional once 135.0 has shipped
         if ($this->version->normalized == '135.0') {
             $schedule = [
                 'nightly_start'         => $date($nightly),
@@ -106,13 +107,11 @@ class Release
             ];
         } else {
             $schedule = [
+                #️⃣ Starting with Firefox 136, QA request deadline is before the start of the nightly cycle
                 'qa_request_deadline'   => $date($nightly->modify('-3 days')),
                 'nightly_start'         => $date($nightly->modify('+3 days')),
                 'a11y_request_deadline' => $date('Friday'),
-                'qa_feature_done'     => match ($this->version->normalized) {
-                    '142.0' => $date('July 3 21:00'),
-                    default => $date('Friday +1 week 21:00'),
-                },
+                'qa_feature_done'     => $date('Friday +1 week 21:00'),
                 'qa_test_plan_due'    => $date('Friday 21:00'),
                 'soft_code_freeze'    => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
                 'qa_pre_merge_done'   => $date('Friday 14:00'),

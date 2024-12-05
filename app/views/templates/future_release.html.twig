@@ -180,9 +180,10 @@
 
   {% set btb = ' <small class="text-secondary fw-light">Go to build</small>' %}
   {% set cycle_labels = {
-    nightly_start:       'Nightly starts',
+    nightly_start:         'Nightly starts',
     a11y_request_deadline: 'Deadline to request accessibility engineering review',
     qa_request_deadline:   'Deadline to request manual QA',
+    qa_feature_done:       'Build ready for QA',
     qa_feature_done_1:     'Build ready for QA in nightly',
     qa_feature_done_2:     'Build ready for QA in beta',
     soft_code_freeze:      'Soft Code Freeze starts',
@@ -218,11 +219,12 @@
     nightly_start: 'The first day of the cycle is <i>Merge Day</i>. After merging mozilla-central to mozilla-beta, we bump the nightly version number on mozilla-central and a new development cycle starts for Firefox. A new Firefox Nightly is shipped every 12 hours.',
     a11y_request_deadline: 'Accessibility engineering review has been requested (<a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/accessibility-review.html#requesting-engineering-review">using the <code>a11y-review</code> flag on Bugzilla</a>) for new (or significantly redesigned) UI that requires assessment to determine whether it is accessible to people with disabilities.',
     qa_request_deadline: 'QA has been informed (via a Jira ticket) about features that require manual testing during the nightly and/or beta cycle. <br>Feature technical documentation is also required to draft Test Plans and Test Cases.',
+    qa_feature_done: 'Features with a QA request are ready for testing to assess feature quality and provide a formal test report by the end of Week 3 of the nightly cycle.',
     qa_feature_done_1: 'Features with a QA request are ready for testing to assess feature quality and provide a formal test report by the end of Week 3 of the nightly cycle.',
     qa_feature_done_2: 'If nightly testing was skipped then features should be in a testable state by this date for beta testing.',
     soft_code_freeze: 'We are nearing the end of the nightly cycle. Don\'t land new untested features. Risky changes should be avoided after 8:00 AM UTC until after the nightly version bump on <i>Merge Day</i>.',
     qa_pre_merge_done: 'QA assess build readiness for shipping to Beta by running a set of Regression test cases and shares a test report. Nightly Regression coverage is limited compared to Beta Regression testing throughout the Beta cycle.',
-    qa_test_plan_due: 'For features requiring Nightly testing, the QA team appreciates an earlier sign-off from the project teams. If an early sign-off is not available or testing is required only in Beta, the approval milestone will be the final deadline for any feature Test Plan sign-offs. No feedback/sign-off on QAs Feature Test Plan could result in misalignment on testing scope, incomplete test coverage and invalid bugs.',
+    qa_test_plan_due: 'The QA team appreciates an earlier sign-off from the project teams. The approval milestone will be the final deadline for any feature Test Plan sign-offs. No feedback/sign-off on QAs Feature Test Plan could result in misalignment on testing scope, incomplete test coverage and invalid bugs.',
     string_freeze: 'In order to ensure that our localizers have adequate time to translate strings, please make sure that all string changes have landed by end of day.',
     merge_day: 'This is the day in the release cycle when we merge mozilla-central into mozilla-beta. This is the end of the development cycle for Firefox ' ~ release ~ ' and the beginning of our Beta stabilization cycle.',
     beta_1: 'Built manually just after the merge. It is rolled out to 25% of our beta population. Some experimental features are still activated to watch their behavior on a wider population. These experimental features will be deactivated mid-cycle. Uplift requests are open.',
