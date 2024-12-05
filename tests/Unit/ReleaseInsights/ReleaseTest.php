@@ -56,7 +56,7 @@ test('Release->getSchedule()', function () {
         ->toBe("2025-01-02 08:00:00+00:00");
 
     $obj = new Release('141.0');
-    expect($obj->getSchedule()['qa_feature_done_1'])
+    expect($obj->getSchedule()['qa_feature_done'])
         ->toBe("2025-06-06 21:00:00+00:00");
 
     $obj = new Release('146.0');
@@ -71,16 +71,4 @@ test('Release->getNiceLabel()', function () {
         ->toEqual('104 Release');
     expect(Release::getNiceLabel('104', 'release', false))
         ->toEqual('Firefox 104 go-live @ 6AM PT');
-});
-
-test('Release::getMilestonesNames()', function () {
-    expect(Release::getMilestonesNames())
-        ->toHaveCount(3)
-        ->toHaveKeys(['nightly', 'beta', 'release',]);
-    expect(Release::getMilestonesNames()['nightly'])
-        ->toHaveLength(9);
-    expect(Release::getMilestonesNames()['beta'])
-        ->toHaveLength(19);
-    expect(Release::getMilestonesNames()['release'])
-        ->toHaveLength(4);
 });

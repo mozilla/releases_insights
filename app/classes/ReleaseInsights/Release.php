@@ -62,46 +62,81 @@ class Release
 
         // Transform all the DateTime objects in the $schedule array into formated date strings
         $date = fn(string|object $day): string => is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
-        $schedule = [
-            'nightly_start'         => $date($nightly),
-            'a11y_request_deadline' => $date('Friday'),
-            'qa_request_deadline'   => match ($this->version->normalized) {
-                '133.0' => $date('yesterday'),
-                default => $date('Friday'),
-            },
-            'qa_feature_done_1'     => match ($this->version->normalized) {
-                '142.0' => $date('July 3 21:00'),
-                default => $date('Friday +1 week 21:00'),
-            },
-            'qa_feature_done_2'  => match ($this->version->normalized) {
-                '135.0'          => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
-                '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),
-                default          => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
-            },
-            'soft_code_freeze'    => $date('Thursday 08:00'),
-            'qa_pre_merge_done'   => $date('Friday 14:00'),
-            'qa_test_plan_due'    => $date('Friday'),
-            'string_freeze'       => $date('Friday'),
-            'merge_day'           => $date('Monday'),
-            'beta_1'              => $date('Monday'),
-            'beta_2'              => $date('Wednesday 13:00'),
-            'beta_3'              => $date('Friday 13:00'),
-            'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
-            'beta_4'              => $date('Monday 13:00'),
-            'beta_5'              => $date('Wednesday 13:00'),
-            'beta_6'              => $date('Friday 13:00'),
-            'beta_7'              => $date('Monday 13:00'),
-            'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
-            'beta_8'              => $date('Wednesday 13:00'),
-            'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
-            'beta_9'              => $date('Friday 13:00'),
-            'rc_gtb'              => match ($this->version->normalized) {
-                '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
-                default => $date('Monday 21:00'),
-            },
-            'rc'                  => $date('Tuesday'),
-            'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
-        ];
+
+        #️⃣ TODO: remove this conditional once 135.0 has shipped
+        if ($this->version->int < 136) {
+            $schedule = [
+                'nightly_start'         => $date($nightly),
+                'a11y_request_deadline' => $date('Friday'),
+                'qa_request_deadline'   => match ($this->version->normalized) {
+                    '133.0' => $date('yesterday'),
+                    default => $date('Friday'),
+                },
+                'qa_feature_done_1'     => match ($this->version->normalized) {
+                    '142.0' => $date('July 3 21:00'),
+                    default => $date('Friday +1 week 21:00'),
+                },
+                'qa_feature_done_2'  => match ($this->version->normalized) {
+                    '135.0'          => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
+                    '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),// @codeCoverageIgnore
+                    default          => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+                },
+                'soft_code_freeze'    => $date('Thursday 08:00'),
+                'qa_pre_merge_done'   => $date('Friday 14:00'),
+                'qa_test_plan_due'    => $date('Friday'),
+                'string_freeze'       => $date('Friday'),
+                'merge_day'           => $date('Monday'),
+                'beta_1'              => $date('Monday'),
+                'beta_2'              => $date('Wednesday 13:00'),
+                'beta_3'              => $date('Friday 13:00'),
+                'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
+                'beta_4'              => $date('Monday 13:00'),
+                'beta_5'              => $date('Wednesday 13:00'),
+                'beta_6'              => $date('Friday 13:00'),
+                'beta_7'              => $date('Monday 13:00'),
+                'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
+                'beta_8'              => $date('Wednesday 13:00'),
+                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
+                'beta_9'              => $date('Friday 13:00'),
+                'rc_gtb'              => match ($this->version->normalized) {
+                    '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                    default => $date('Monday 21:00'),
+                },
+                'rc'                  => $date('Tuesday'),
+                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
+            ];
+        } else {
+            $schedule = [
+                #️⃣ Starting with Firefox 136, QA request deadline is before the start of the nightly cycle
+                'qa_request_deadline'   => $date($nightly->modify('-3 days')),
+                'nightly_start'         => $date($nightly->modify('+3 days')),
+                'a11y_request_deadline' => $date('Friday'),
+                'qa_feature_done'     => $date('Friday +1 week 21:00'),
+                'qa_test_plan_due'    => $date('Friday 21:00'),
+                'soft_code_freeze'    => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+                'qa_pre_merge_done'   => $date('Friday 14:00'),
+                'string_freeze'       => $date('Friday'),
+                'merge_day'           => $date('Monday'),
+                'beta_1'              => $date('Monday'),
+                'beta_2'              => $date('Wednesday 13:00'),
+                'beta_3'              => $date('Friday 13:00'),
+                'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
+                'beta_4'              => $date('Monday 13:00'),
+                'beta_5'              => $date('Wednesday 13:00'),
+                'beta_6'              => $date('Friday 13:00'),
+                'beta_7'              => $date('Monday 13:00'),
+                'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
+                'beta_8'              => $date('Wednesday 13:00'),
+                'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
+                'beta_9'              => $date('Friday 13:00'),
+                'rc_gtb'              => match ($this->version->normalized) {
+                    '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                    default => $date('Monday 21:00'),
+                },
+                'rc'                  => $date('Tuesday'),
+                'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
+            ];
+        }
 
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
             if ($this->version->normalized === '146.0') {
@@ -186,9 +221,10 @@ class Release
         $short_version = (string) (int) $version;
 
         $labels = [
+            'qa_request_deadline'   => $short_version . ' QA request deadline',
             'nightly_start'         => 'Nightly ' . $short_version . ' starts',
             'a11y_request_deadline' => $short_version . ' a11y engineering request deadline for Nightly',
-            'qa_request_deadline'   => $short_version . ' QA request deadline for Nightly',
+            'qa_feature_done'       => $short_version .' build ready for QA', #️⃣ AKA Feature Complete Milestone
             'qa_feature_done_1'     => $short_version .' build ready for nightly QA',
             'qa_feature_done_2'     => $short_version .' build ready for beta QA',
             'soft_code_freeze'      => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC',
@@ -221,58 +257,5 @@ class Release
         ];
 
         return $labels[$label];
-    }
-
-    /**
-     * Get The list of existing milestones per sub-cycle
-     *
-     * @return array<string, array<string>>
-     */
-    public static function getMilestonesNames(): array
-    {
-        $nightly_milestones = [
-            'nightly_start',
-            'a11_request_deadline',
-            'qa_request_deadline',
-            'qa_feature_done_1',
-            'qa_feature_done_2',
-            'soft_code_freeze',
-            'qa_pre_merge_done',
-            'qa_test_plan_due',
-            'string_freeze',
-        ];
-        $beta_milestones = [
-            'merge_day',
-            'beta_1',
-            'beta_2',
-            'beta_3',
-            'sumo_1',
-            'beta_4',
-            'beta_5',
-            'beta_6',
-            'beta_7',
-            'sumo_2',
-            'beta_8',
-            'qa_pre_rc_signoff',
-            'beta_9',
-            'beta_10',
-            'beta_11',
-            'beta_12',
-            'beta_13',
-            'beta_14',
-            'beta_15',
-        ];
-        $release_milestones = [
-            'rc_gtb',
-            'rc',
-            'release',
-            'planned_dot_release',
-        ];
-
-        return [
-            'nightly' => $nightly_milestones,
-            'beta'    => $beta_milestones,
-            'release' => $release_milestones,
-        ];
     }
 }
