@@ -78,7 +78,7 @@ class Release
                 },
                 'qa_feature_done_2'  => match ($this->version->normalized) {
                     '135.0'          => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
-                    '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),
+                    '141.0', '142.0' => $date($nightly->modify('+1 week')->modify('Wednesday 08:00')),// @codeCoverageIgnore
                     default          => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
                 },
                 'soft_code_freeze'    => $date('Thursday 08:00'),

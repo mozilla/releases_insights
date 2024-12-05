@@ -56,7 +56,7 @@ test('Release->getSchedule()', function () {
         ->toBe("2025-01-02 08:00:00+00:00");
 
     $obj = new Release('141.0');
-    expect($obj->getSchedule()['qa_feature_done_1'])
+    expect($obj->getSchedule()['qa_feature_done'])
         ->toBe("2025-06-06 21:00:00+00:00");
 
     $obj = new Release('146.0');
