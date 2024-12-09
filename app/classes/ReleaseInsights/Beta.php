@@ -64,6 +64,19 @@ readonly class Beta
 
             $beta_end = 'FIREFOX_' . BETA . '_0b' . (string) ($beta_number + 1) . '_RELEASE';
 
+            if ($this->release == 134 && $beta_number == 5) {
+                // TODO: remove this condition after 134 is shipped
+                // We didn't have a 134.0b6 for desktop
+                continue;
+            }
+
+            if ($this->release ==134 && $beta_number == 6) {
+                // TODO: remove this condition after 134 is shipped
+                // We went straight from beta 5 to beta 7
+                $beta_start = 'FIREFOX_134_0b5_RELEASE';
+                $beta_end   = 'FIREFOX_134_0b7_RELEASE';
+            }
+
             if ($beta_number == $this->count) {
                 $beta_end = 'tip';
                 // Just after merge day, we don't want to use tip for beta_end but the newly created tag
