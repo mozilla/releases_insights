@@ -322,9 +322,12 @@
                     </span>
                     Go to build{{ extra|raw }}
                   </a></summary>
+                  {% elseif release == '134' and cycle_labels[key]|raw starts with 'Beta'  %}
+                    {%  set temp_beta_number = 'beta_' ~ (key|trim('beta_', 'left') + 1) %}
+                    <summary>{{ cycle_labels[temp_beta_number]|raw }}{{ extra|raw }}</summary>
                   {% else %}
                     <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
-                    {% endif %}
+                  {% endif %}
                     <p>{{ cycle_descriptions[key]|raw }}</p>
                   </details>
                 </th>
@@ -343,7 +346,7 @@
 
           {% if release == '134' and cycle_labels[key]|raw starts with 'Beta' %}
             {%  set temp_beta_number = 'beta_' ~ (key|trim('beta_', 'left') + 1) %}
-            <summary>{{ temp_beta_number }}{{ extra|raw }}</summary>
+            <summary>{{ cycle_labels[temp_beta_number]|raw }}{{ extra|raw }}</summary>
           {% else %}
             <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
           {% endif %}
