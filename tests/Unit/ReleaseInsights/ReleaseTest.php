@@ -52,10 +52,6 @@ test('Release->getSchedule()', function () {
     $obj = new Release('134.0'); // RC gtb is 2 weeks later
     expect($obj->getSchedule()['rc_gtb'])
         ->toBe("2024-12-30 21:00:00+00:00");
-    $obj = new Release('134.0'); // RC gtb is 2 weeks later
-    expect($obj->getSchedule()['rc_gtb'])
-        ->toBe("2024-12-30 21:00:00+00:00");
-
 
     $obj = new Release('135.0'); // merge day is Tuesday and we have one beta left
     expect($obj->getSchedule())
@@ -73,9 +69,9 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule()['rc_gtb'])
         ->toBe("2025-12-01 21:00:00+00:00");
 
-    // $obj = new Release('147.0');
-    // expect($obj->getSchedule()['rc_gtb'])
-    //     ->toBe("2026-01-05 21:00:00+00:00");
+    $obj = new Release('147.0');
+    expect($obj->getSchedule()['rc_gtb'])
+        ->toBe("2026-01-05 21:00:00+00:00");
 });
 
 test('Release->getNiceLabel()', function () {
