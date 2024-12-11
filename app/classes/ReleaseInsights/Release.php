@@ -99,6 +99,7 @@ class Release
                 'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
                 'beta_9'              => $date('Friday 13:00'),
                 'rc_gtb'              => match ($this->version->normalized) {
+                    '134.0' => $date($nightly->modify('+2 week')->modify('Monday 21:00')),
                     '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
                     default => $date('Monday 21:00'),
                 },
