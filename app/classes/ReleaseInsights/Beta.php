@@ -70,7 +70,7 @@ readonly class Beta
                 continue;
             }
 
-            if ($this->release ==134 && $beta_number == 6) {
+            if ($this->release == 134 && $beta_number == 6) {
                 // TODO: remove this condition after 134 is shipped
                 // We went straight from beta 5 to beta 7
                 $beta_start = 'FIREFOX_134_0b5_RELEASE';
@@ -91,6 +91,13 @@ readonly class Beta
             $beta_version = ($beta_number == $this->number_betas)
                 ?  (string) BETA . '.0rc0' // @codeCoverageIgnore
                 :  (string) BETA . '.0b' . (string) ($beta_number + 1);
+
+            if ($this->release == 134) {
+                // This is what landed on mozilla-beta after the last beta but before the merge and RC1
+                $beta_version = ($beta_number == $this->number_betas + 1)
+                    ?  (string) BETA . '.0rc0' // @codeCoverageIgnore
+                    :  (string) BETA . '.0b' . (string) ($beta_number + 1);
+            }
 
             $hg_end_points[$beta_version] =
                 'releases/mozilla-beta/json-pushes?fromchange='
@@ -316,4 +323,3 @@ readonly class Beta
         return [false, 0];// @codeCoverageIgnore
     }
 }
-

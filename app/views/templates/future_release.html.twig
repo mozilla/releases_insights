@@ -270,7 +270,16 @@
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
       {% endif %}
 
-      {% if key == 'beta_9' %}
+      {% if release == '134' and key == 'beta_7' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+      {% endif %}
+
+      {% if release == '134' and key == 'beta_10'%}
+        {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'On a regular 4 weeks beta cycle, this is the last beta and thus the end of beta uplifts, including <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> for this release (<code>sec-approval+</code> on Bugzilla). Build starts at 13:00 UTC.'}) %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+      {% endif %}
+
+      {% if key == 'beta_9' and release != '134' %}
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
       {% endif %}
 
@@ -291,7 +300,7 @@
         {% elseif key starts with 'beta' and key != 'beta_1' %}
           <th class="text-muted fw-light">
               <details>
-                {% if release == '134' and key == 'beta_6' %}
+                {% if release == '134' and key == 'beta_7' %}
                   <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary">
                     <strike>Beta 6</strike>
                     <b class="fw-semibold">Beta 7</b>
@@ -303,9 +312,6 @@
                     </span>
                     Go to build{{ extra|raw }}
                   </a></summary>
-                  {% elseif release == '134' and cycle_labels[key]|raw starts with 'Beta'  %}
-                    {%  set temp_beta_number = 'beta_' ~ (key|trim('beta_', 'left') + 1) %}
-                    <summary>{{ cycle_labels[temp_beta_number]|raw }}{{ extra|raw }}</summary>
                   {% else %}
                     <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
                   {% endif %}
@@ -324,14 +330,8 @@
       {% else %}
         <th class="{{ table_header }}">
           <details{{ next_milestone and channel in ['nightly', 'beta'] ? ' open' }}>
-
-          {% if release == '134' and cycle_labels[key]|raw starts with 'Beta' %}
-            {%  set temp_beta_number = 'beta_' ~ (key|trim('beta_', 'left') + 1) %}
-            <summary>{{ cycle_labels[temp_beta_number]|raw }}{{ extra|raw }}</summary>
-          {% else %}
             <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
-          {% endif %}
-          <p>{{ cycle_descriptions[key]|raw }}</p>
+            <p>{{ cycle_descriptions[key]|raw }}</p>
           </details>
         </th>
         {% set next_milestone = false %}

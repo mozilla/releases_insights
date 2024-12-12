@@ -50,7 +50,12 @@ $release_schedule_labels = [
 ];
 
 // Add end of early betas to the schedule
-$releases['early_beta_end'] = $releases['beta_6'];
+if ((int) $requested_version == 134) {
+    $releases['early_beta_end'] = $releases['beta_7'];
+} else {
+    $releases['early_beta_end'] = $releases['beta_6'];
+}
+
 $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER (post beta 6)';
 
 // Add draft release notes to the schedule

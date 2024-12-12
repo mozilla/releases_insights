@@ -139,6 +139,16 @@ class Release
             ];
         }
 
+        if ($this->version->int == 134) {
+            #️⃣ TODO: remove this conditional once 134.0 has shipped
+            $schedule['beta_10'] = $schedule['beta_9'];
+            $schedule['beta_9'] = $schedule['beta_8'];
+            $schedule['beta_8'] = $schedule['beta_7'];
+            $schedule['beta_7'] = $schedule['beta_6'];
+            unset($schedule['beta_6']);
+            // $schedule += ['beta_10' => '2024-12-13 13:00:00+00:00'];
+        }
+
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
             if ($this->version->normalized === '146.0') {
                 $schedule += ['planned_dot_release' => $date($release->modify('December 18 00:00'))];
