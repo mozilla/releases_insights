@@ -77,16 +77,13 @@
         {% endif %}
 
         {% if values['bug_fixes']|length > 0 %}
-        <li class="list-group-item text-dark border-0 bg-info">
-            <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
-                <span class="text-collapsed">Show bug fixes</span>
-                <span class="text-expanded">Hide bug fixes</span>
-            </a>
-        </li>
+            <li class="list-group-item text-dark border-0 bg-info">
+                <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
+                    <span class="text-collapsed">Show bug fixes</span>
+                    <span class="text-expanded">Hide bug fixes</span>
+                </a>
+            </li>
         {% endif %}
-
-
-
     </ul>
     <div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
         <ol class="w-75 m-auto pt-1 mb-3 text-dark bg-white table-fxt-clean ">
@@ -117,7 +114,13 @@
 
 <div class="collapse" id="collapseBugs{{ key }}">
     <table class="table table-light table-fxt-clean table-hover table-sm w-75 justify-content-center mb-3">
-        <caption class="text-center text-light caption-top fw-semibold">Uplifts and Backouts</caption>
+        <caption class="text-center text-light caption-top fw-semibold">
+
+            Uplifts and Backouts
+            {% if values['bug_fixes']|length > 0 %}
+            <a href="">Bugzilla</a>
+            {% endif %}
+        </caption>
        <thead>
         <tr class="text-start table-warning force-default-bg fw-semibold">
             <th>Bug</th>

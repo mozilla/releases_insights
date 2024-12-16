@@ -132,10 +132,19 @@ if (! empty($top_sigs_worth_a_bug)) {
 // Write a lock file for the page to keep track of its age
 file_put_contents($lock_file, '');
 
+// Generate Bugzilla links per beta of all the bugs fixed/backedout
+$bugzilla_links = [];
+foreach ($bug_list_details as $version => $details) {
+    $bugzilla_links[$version] =
+    Bugzilla::getBugListLink(array_column($details, 'id'))
+    . '&title=' . $version . 'Uplifts%20and%20backouts';
+}
+
 if ($waiting_page) {
     Request::waitingPage('leave');
 }
 
+\ReleaseInsights\Debug::dump($bugzilla_links);
 return [
     $beta, // this is the whole Beta object
     $bug_list_details,
@@ -143,4 +152,5 @@ return [
     $stats,
     $known_top_crashes,
     $crash_bugs,
+    $bugzilla_links,
 ];
