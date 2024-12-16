@@ -388,6 +388,12 @@ footer {
     text-align: center;
 }
 
+ #beta .bzlink:hover {
+    display:inline-block;
+    transform: rotate(45deg);
+ }
+
+
 .w-10 {
     width: 10%;
 }

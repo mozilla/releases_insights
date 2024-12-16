@@ -137,7 +137,7 @@ $bugzilla_links = [];
 foreach ($bug_list_details as $version => $details) {
     $bugzilla_links[$version] =
     Bugzilla::getBugListLink(array_column($details, 'id'))
-    . '&title=' . $version . 'Uplifts%20and%20backouts';
+    . '&title=' . $version . '%20:%20Uplifts%20and%20backouts';
 }
 
 if ($waiting_page) {

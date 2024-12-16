@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Model, Template};
 
-[$beta, $bug_details, $uplift_counter, $stats, $known_top_crashes, $crash_bugs] = new Model('beta')->get();
+[$beta, $bug_details, $uplift_counter, $stats,
+$known_top_crashes, $crash_bugs, $bugzilla_links] = new Model('beta')->get();
+
+// dd($bugzilla_links);
 
 new Template(
     'beta.html.twig',
@@ -17,5 +20,6 @@ new Template(
         'stats'             => $stats,
         'known_top_crashes' => $known_top_crashes,
         'crash_bugs'        => $crash_bugs,
+        'bugs_link'         => $bugzilla_links,
     ]
 )->render();
