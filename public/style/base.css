@@ -223,6 +223,10 @@ body[id^='release_']:not(#release_esr) .table th summary::marker {
         text-wrap: auto;
     }
 
+    #beta table#summary ul {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 /* About tooltip */
@@ -387,8 +391,11 @@ footer {
     width: 7em;
     text-align: center;
 }
+#beta .bzlink svg {
+    vertical-align: top;
+}
 
- #beta .bzlink:hover {
+#beta .bzlink:hover {
     display:inline-block;
     transform: rotate(45deg);
  }
