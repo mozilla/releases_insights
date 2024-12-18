@@ -82,7 +82,7 @@
   </h3>
   {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}
-      <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ beta_cycle_dates.release|format_date(pattern='MMMM d', locale='en') }}
+      <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ beta_cycle_dates.release|format_date(pattern='MMMM d') }}
       {% set difference = date(beta_cycle_dates.release).diff(date('today')) %}
       {% set leftDays = difference.days %}
       {% if leftDays == 1 %}
@@ -97,7 +97,7 @@
   {% if merge_day %}
     <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
   {% elseif nightly_cycle_dates.merge_day|date > now|date %}
-    <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d', locale='en') }}</h4>
+    <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d') }}</h4>
   {% endif %}
 
   {% if not nightly_auto_updates %}

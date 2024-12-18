@@ -11,6 +11,9 @@ mb_internal_encoding('UTF-8');
 // Make sure we have a timezone set
 date_default_timezone_set('UTC');
 
+// Set locale to en-US, avoids setting it in every twig template
+locale_set_default('en-US');
+
 // Application globals paths
 define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
 const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';

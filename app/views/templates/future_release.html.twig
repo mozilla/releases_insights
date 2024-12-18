@@ -94,7 +94,7 @@
   {% set table_header = 'text-secondary-emphasis fw-semibold' %}
   <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
     <tr class='table-warning'>
-      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
+      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
     </tr>
     <tr>
       <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
@@ -247,7 +247,7 @@
     beta_15: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build a second Release Candidate to fix a major quality or business critical issue.',
     rc: 'Our Release Candidate is shipped to all of our beta population.',
-    release: 'We ship Firefox ' ~ release ~ ' at ' ~ date(cycle_dates.release)|format_date(pattern='HH:mm', locale='en') ~ ' UTC (6AM PST) at 25% rollout.',
+    release: 'We ship Firefox ' ~ release ~ ' at ' ~ date(cycle_dates.release)|format_date(pattern='HH:mm') ~ ' UTC (6AM PST) at 25% rollout.',
     planned_dot_release: 'Two weeks after the release, we ship a dot release to address identified quality issues if needed. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.'
     }
   %}
@@ -343,12 +343,12 @@
           data-bs-toggle="tooltip"
           data-bs-placement="left"
           data-bs-html="true"
-          title="{{ value|format_date('relative_full', locale='en')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
-        >{{ value|format_date(pattern='MMMM d', locale='en') }}</span>{% if value|format_date(pattern='YYYY-MM-dd', locale='en') in wellness_days %}<span
+          title="{{ value|format_date('relative_full')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
+        >{{ value|format_date(pattern='MMMM d') }}</span>{% if value|format_date(pattern='YYYY-MM-dd') in wellness_days %}<span
           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
           title="Wellness day. <br>Reduced availability of Mozilla Staff."
           class='text-muted'><sup class="text-danger">?</sup></span>
-          {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd', locale='en')) %}
+          {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd')) %}
           {%  endif %}
         <br><small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
 

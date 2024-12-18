@@ -10,7 +10,7 @@
 {% for release in releases %}
       <item>
          <title>Firefox {{ release.version }}</title>
-         <description>Firefox release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY', locale='en') }}
+         <description>Firefox release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY') }}
 {%- if release.platform == 'android' -%}&lt;br&gt;This is an Android-only release{% endif %}
 {%- if release.platform == 'desktop' -%}&lt;br&gt;This is a desktop-only release{% endif %}</description>
 {% if release.platform == 'android' %}

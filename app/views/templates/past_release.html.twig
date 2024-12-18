@@ -23,7 +23,7 @@
   {% set table_header = 'text-secondary-emphasis fw-semibold' %}
   <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
     <tr class="table-warning">
-      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
+      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
     </tr>
     <tr>
       <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
@@ -101,6 +101,8 @@
   </table>
 
   {% set rollout = release_rollout ~ '% rollout' %}
+  {% set hg_web_base = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' %}
+  {% set date_pattern = 'MMMM d' %}
 
   <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
     <tr>
@@ -108,11 +110,11 @@
     </tr>
     <tr>
       <th class="{{ table_header }}">Nightly start</th>
-      <td title="{{ nightly_start_date|format_date('full', locale='en') }}">{{ nightly_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
+      <td title="{{ nightly_start_date|format_date('full') }}">{{ nightly_start_date|format_date(pattern=date_pattern) }}</td>
     </tr>
     <tr>
       <th class="{{ table_header }}">Beta start</th>
-      <td title="{{ beta_start_date|format_date('full', locale='en') }}">{{ beta_start_date|format_date(pattern='MMMM d', locale='en') }}</td>
+      <td title="{{ beta_start_date|format_date('full') }}">{{ beta_start_date|format_date(pattern=date_pattern) }}</td>
     </tr>
     <tr>
       <th class="{{ table_header }}">
@@ -123,11 +125,15 @@
         data-bs-html="true">
           <sup class="fw-normal fst-italic text-secondary border-bottom"  title="{{ uptake }}% &mdash; adoption rate has a 24h latency">
             {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
-              {% if dot_release_count == 0 %}
-                {{ rollout }}
-                {% if uptake is not null %}{{ uptake|number_format }}% adoption{% else %}(adoption rate unavailable){% endif %}
+              {% if uptake is not null %}
+                  {% set uptake_msg = uptake|number_format ~ '% adoption' %}
               {% else %}
-               {% if uptake is not null %}{{ uptake|number_format }}% adoption{% else %}(adoption rate unavailable){% endif %}
+                  {% set uptake_msg = '(adoption rate unavailable)' %}
+              {% endif %}
+              {% if dot_release_count == 0 %}
+                {{ rollout ~ ' - ' ~ uptake_msg }}
+                {% else %}
+                  {{ rollout ~ ' - ' ~ uptake_msg }}
               {% endif %}
             {% endif %}
           </sup>
@@ -136,13 +142,13 @@
       {% if release == 14 or release == 125 %}
       <td>Version never shipped</td>
       {% else %}
-      <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date(pattern='MMMM d', locale='en') }}</td>
+      <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date(pattern=date_pattern) }}</td>
       {% endif %}
     </tr>
         {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
         {% if dot_release_count > 0 %}
           {% for dot_release in 1..dot_release_count %}
-            {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern='MMMM d', locale='en') %}
+            {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern=date_pattern) %}
             {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] %}
 
             {% if dot_release == 1 %}
@@ -150,23 +156,23 @@
                 {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_RELEASE' %}
 
                 {% if dot_releases[release ~ '.0.1']['platform'] == 'android' %}
-                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                    {% set dot_release_link = hg_web_base ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
                     {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
                     {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE' %}
                 {% elseif dot_releases[release ~ '.0.1']['platform'] == 'desktop' %}
-                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                    {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
                     {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_1_RELEASE' %}
                     {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_RELEASE' %}
                 {% else %}
-                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
+                    {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
                     {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_1_RELEASE' %}
                     {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE' %}
                 {% endif %}
             {% else %}
                 {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
-                    {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                    {% set dot_release_link = hg_web_base ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
                 {% else %}
-                   {% set dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~  desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                   {% set dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
                 {% endif %}
 
                 {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_' ~  dot_release ~  '_RELEASE' %}
@@ -188,23 +194,23 @@
                       <sup class="fw-normal fst-italic text-secondary border-bottom" title="{{ adoption }}% &mdash; adoption rate has a 24h latency">{{ adoption|number_format }}% adoption</sup>
                   {% endif %}
                 {% endif %}
-                {% if loop.last and release_rollout != -1%}
+                {% if loop.last and release_rollout != -1 %}
                 <sup class="fw-normal fst-italic text-secondary">
                   {{ rollout|raw }}
                 </sup>
                 {% endif %}
               </th>
-              <td title="{{ dot_release_date|format_date('full', locale='en') }}">{{ dot_release_date }}</td>
+              <td title="{{ dot_release_date|format_date('full') }}">{{ dot_release_date }}</td>
             </tr>
            {% endfor %}
          {% endif %}
 
-        {% set planned_dot_release_link = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' ~  desktop_base ~ '&tochange=tip&full&version=2' %}
+        {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
          {% if release ~ '.0' not in no_planned_dot_releases %}
            {% if "now"|date('Y-m-d') < release_date|date_modify("+" ~ ( release == 131 ? '13 days' : '2 weeks' ))|date('Y-m-d') %}
               <tr>
                 <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-secondary">Planned {{ release }}.0.x</a></th>
-                <td title="">{{ release_date|date_modify("+" ~ ( release == 131 ? '13 days' : '2 weeks' ))|format_date(pattern='MMMM d', locale='en') }}</td>
+                <td title="">{{ release_date|date_modify('+2 weeks')|format_date(pattern=date_pattern) }}</td>
               </tr>
            {% endif %}
          {% endif %}

@@ -21,7 +21,7 @@
   <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
     <tr class="table-warning">
       <th class="{{ table_header }}">Last release</th>
-      <td title="{{ release_date|format_date('full', locale='en') }}">{{ release_date|format_date('long', locale='en') }}</td>
+      <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
     </tr>
     {% if constant('ESR_NEXT') != "" %}
     <tr class="bg-warning">
@@ -77,7 +77,7 @@
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
     <td  class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>{{ values.old_esr }}</td>
-    <td title="{{ values.date|format_date('full', locale='en') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
+    <td title="{{ values.date|format_date('full') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
 
     {% if values.release|number_format in esr_majors %}
       <small class="badge bg-warning text-dark">New ESR branch!</small>
@@ -96,7 +96,7 @@
       {% endif %}
     {% endif %}
 
-    {{ values.date|format_date(pattern='MMMM d', locale='en') }}
+    {{ values.date|format_date(pattern='MMMM d') }}
     </td>
   </tr>
 {% endfor %}

@@ -38,11 +38,11 @@
   {% set check = 0 %}
   {% set date_pattern = 'MMMM d' %}
   {% for values in upcoming_releases %}
-    {% if values.release_date|format_date(pattern='YYYY' , locale='en') != year %}
+    {% if values.release_date|format_date(pattern='YYYY') != year %}
     <tr>
-      <th colspan="8" class="text-center table-warning force-default-bg">{{ values.release_date|format_date(pattern='YYYY' , locale='en') }}</th>
+      <th colspan="8" class="text-center table-warning force-default-bg">{{ values.release_date|format_date(pattern='YYYY') }}</th>
     </tr>
-      {% set year = values.release_date|format_date(pattern='YYYY' , locale='en') %}
+      {% set year = values.release_date|format_date(pattern='YYYY') %}
     {% endif %}
 
     <tr>
@@ -66,10 +66,10 @@
 
       </td>
       <td>{{ values.owner }}</td>
-      <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
-      <td title="{{ values.soft_freeze|format_date('full', locale='en') }}">{{ values.soft_freeze|format_date(pattern=date_pattern, locale='en')}}</td>
-      <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
-      <td title="{{ values.release_date|format_date('full', locale='en') }}" class="text-color-1">{{ values.release_date|format_date(pattern=date_pattern, locale='en') }}</td>
+      <td title="{{ values.nightly_start|format_date('full') }}">{{ values.nightly_start|format_date(pattern=date_pattern)}}</td>
+      <td title="{{ values.soft_freeze|format_date('full') }}">{{ values.soft_freeze|format_date(pattern=date_pattern)}}</td>
+      <td title="{{ values.beta_start|format_date('full') }}">{{ values.beta_start|format_date(pattern=date_pattern) }}</td>
+      <td title="{{ values.release_date|format_date('full') }}" class="text-color-1">{{ values.release_date|format_date(pattern=date_pattern) }}</td>
     </tr>
   {% endfor %}
   </tbody>
@@ -117,10 +117,10 @@
       {%  if values.version < 6 %}
       <td></td>
       {% else %}
-      <td title="{{ values.nightly_start|format_date('full', locale='en') }}">{{ values.nightly_start|format_date(pattern=date_pattern, locale='en')}}</td>
+      <td title="{{ values.nightly_start|format_date('full') }}">{{ values.nightly_start|format_date(pattern=date_pattern)}}</td>
       {%  endif %}
-      <td title="{{ values.beta_start|format_date('full', locale='en') }}">{{ values.beta_start|format_date(pattern=date_pattern, locale='en') }}</td>
-      <td title="{{ values.release_date|format_date('full', locale='en') }}">{{ values.release_date|format_date(pattern=date_pattern , locale='en') }}</td>
+      <td title="{{ values.beta_start|format_date('full') }}">{{ values.beta_start|format_date(pattern=date_pattern) }}</td>
+      <td title="{{ values.release_date|format_date('full') }}">{{ values.release_date|format_date(pattern=date_pattern ) }}</td>
     </tr>
   {% endfor %}
   </tbody>
