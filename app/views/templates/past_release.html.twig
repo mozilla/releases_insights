@@ -145,39 +145,48 @@
       <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date(pattern=date_pattern) }}</td>
       {% endif %}
     </tr>
-        {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
+        {% set last_android = 0 %}
+        {% set last_desktop = 0 %}
+
         {% if dot_release_count > 0 %}
           {% for dot_release in 1..dot_release_count %}
+
+            {% set target_platform = dot_releases[release ~ '.0.' ~ dot_release]['platform'] %}
             {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern=date_pattern) %}
             {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] %}
 
+            {% set product = 'FIREFOX_' %}
+            {% if target_platform == 'android' %}
+              {% set product = 'FIREFOX-ANDROID_' %}
+            {% endif %}
+
             {% if dot_release == 1 %}
-                {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
-                {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_RELEASE' %}
+              {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
+              {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
 
-                {% if dot_releases[release ~ '.0.1']['platform'] == 'android' %}
-                    {% set dot_release_link = hg_web_base ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
-                    {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
-                    {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE' %}
-                {% elseif dot_releases[release ~ '.0.1']['platform'] == 'desktop' %}
-                    {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
-                    {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_1_RELEASE' %}
-                    {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_RELEASE' %}
+              {% if target_platform == 'android' %}
+                  {% set last_android = 1 %}
+              {% else %}
+                  {% set last_desktop = 1 %}
+              {% endif %}
+            {% endif %}
+
+            {% if dot_release > 1 %}
+              {% if target_platform == 'android' %}
+                {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_' ~  last_android ~  '_RELEASE' %}
+                {% set base = android_base %}
+                {% set last_android = dot_release %}
+              {% else %}
+                {% if last_desktop == 0 %}
+                  {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
                 {% else %}
-                    {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_1_RELEASE&full&version=2' %}
-                    {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_1_RELEASE' %}
-                    {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_1_RELEASE' %}
+                  {% set desktop_base = 'FIREFOX_' ~ release ~ '_0_' ~  last_desktop ~  '_RELEASE' %}
                 {% endif %}
-            {% else %}
-                {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
-                    {% set dot_release_link = hg_web_base ~ android_base ~ '&tochange=FIREFOX-ANDROID_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-                {% else %}
-                   {% set dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=FIREFOX_' ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-                {% endif %}
+                {% set base = desktop_base %}
+                {% set last_desktop = dot_release %}
+              {% endif %}
 
-                {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_' ~  dot_release ~  '_RELEASE' %}
-                {% set android_base = 'FIREFOX-ANDROID_' ~  release ~ '_0_' ~  dot_release ~  '_RELEASE' %}
-
+              {% set dot_release_link = hg_web_base ~ base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
             {% endif %}
 
             <tr>
