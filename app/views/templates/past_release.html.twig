@@ -131,9 +131,9 @@
                   {% set uptake_msg = '(adoption rate unavailable)' %}
               {% endif %}
               {% if dot_release_count == 0 %}
-                {{ rollout ~ ' - ' ~ uptake_msg }}
-                {% else %}
-                  {{ rollout ~ ' - ' ~ uptake_msg }}
+                {{ uptake_msg ~ ' - ' ~ rollout }}
+              {% else %}
+                {{ uptake_msg }}
               {% endif %}
             {% endif %}
           </sup>
