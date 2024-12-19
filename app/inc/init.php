@@ -9,7 +9,7 @@ use function Sentry\captureLastError;
 if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
     if (class_exists(\Spatie\Ignition\Ignition::class)) {
         \Spatie\Ignition\Ignition::make()
-            ->setEditor('sublime')
+            ->setEditor('vscode')
             ->register();
     }
 }
