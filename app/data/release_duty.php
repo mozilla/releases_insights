@@ -10,14 +10,15 @@ declare(strict_types=1);
 $releng = [
     '??'         => 'Undocumented',
     'TBD'        => 'To be determined',
+    /* Current releng team */
     'jlorenzo'   => 'Johan Lorenzo',
     'bhearsum'   => 'Ben Hearsum',
     'jcristau'   => 'Julien Cristau',
     'ahal'       => 'Andrew Halberstadt',
-    'gbrown'     => 'Geoff Brown',
     'gabriel'    => 'Gabriel Bustamante',
     'hneiva'     => 'Heitor Neiva',
-    /* Past release engineering  members below */
+    'eijebong'   => 'Bastien Orivel',
+    /* Past release engineering members below */
     'jlund'      => 'Jordan Lund',
     'mtabara'    => 'Mihai Tabara',
     'aki'        => 'Aki Sasaki',
@@ -32,6 +33,7 @@ $releng = [
     'tomprince'  => 'Tom Prince',
     'sclements'  => 'Sarah Clements',
     'jmaher'     => 'Joel Maher',
+    'gbrown'     => 'Geoff Brown',
 ];
 
 $rotation = function(array $releng, array $data):array {
@@ -182,5 +184,5 @@ return $rotation($releng, [
     '132.0'   => ['ahal', 'gabriel'],
     '133.0'   => ['bhearsum', 'gbrown'],
     '134.0'   => ['jcristau', 'hneiva'],
-    '135.0'   => ['ahal', 'gabriel'],
+    '135.0'   => ['hneiva', 'eijebong'],
 ]);
