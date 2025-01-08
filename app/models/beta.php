@@ -144,7 +144,6 @@ if ($waiting_page) {
     Request::waitingPage('leave');
 }
 
-\ReleaseInsights\Debug::dump($bugzilla_links);
 return [
     $beta, // this is the whole Beta object
     $bug_list_details,

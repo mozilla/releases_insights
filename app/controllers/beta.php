@@ -7,8 +7,6 @@ use ReleaseInsights\{Model, Template};
 [$beta, $bug_details, $uplift_counter, $stats,
 $known_top_crashes, $crash_bugs, $bugzilla_links] = new Model('beta')->get();
 
-// dd($bugzilla_links);
-
 new Template(
     'beta.html.twig',
     [

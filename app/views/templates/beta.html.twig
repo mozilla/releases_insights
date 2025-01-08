@@ -50,9 +50,9 @@
         </li>
         <li class="list-group-item text-dark bg-white border-0 flex-fill w-25">
             {% if bug_list[key]|length == 1 %}
-                <a href="{{ values['bugzilla'] }}" class="text-dark">1 bug uplifted</a>
+                <a href="{{ bugs_link[key] }}" class="text-dark">1 bug uplifted</a>
            {% elseif bug_list[key]|length > 1 %}
-                <a href="{{ values['bugzilla'] }}" class="text-dark">{{ bug_list[key]|length }} bugs uplifted</a>
+                <a href="{{ bugs_link[key] }}" class="text-dark">{{ bug_list[key]|length }} bugs uplifted</a>
                 {% if key == constant('BETA') ~ ".0rc0" %}
                   <small class="fst-italic"> (on the beta branch, those will ship in rc1)</small>
                 {% endif %}
@@ -78,7 +78,7 @@
             {% endif %}
         {% endif %}
 
-        {% if values['bug_fixes']|length > 0 %}
+        {% if values['total']|length > 0 %}
             <li class="list-group-item text-dark border-0 bg-info">
                 <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
                     <span class="text-collapsed">Show bug fixes</span>
@@ -119,7 +119,7 @@
         <caption class="text-center text-light caption-top fw-semibold">
 
             Uplifts and Backouts
-            {% if values['bug_fixes']|length > 0 %}
+            {% if values['total']|length > 0 %}
             <a href="{{ bugs_link[key] }}" {{ tooltip_defaults|raw }} title="Open this list on <b>Bugzilla</b>" class="bzlink" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="orange"><path d="M480-200q66 0 113-47t47-113v-160q0-66-47-113t-113-47q-66 0-113 47t-47 113v160q0 66 47 113t113 47Zm-80-120h160v-80H400v80Zm0-160h160v-80H400v80Zm80 40Zm0 320q-65 0-120.5-32T272-240H160v-80h84q-3-20-3.5-40t-.5-40h-80v-80h80q0-20 .5-40t3.5-40h-84v-80h112q14-23 31.5-43t40.5-35l-64-66 56-56 86 86q28-9 57-9t57 9l88-86 56 56-66 66q23 15 41.5 34.5T688-640h112v80h-84q3 20 3.5 40t.5 40h80v80h-80q0 20-.5 40t-3.5 40h84v80H688q-32 56-87.5 88T480-120Z"/></svg></a>
             {% endif %}
         </caption>

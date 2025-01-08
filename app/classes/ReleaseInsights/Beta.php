@@ -194,7 +194,7 @@ readonly class Beta
         }
 
         foreach ($log_links as $beta => $url) {
-            $uplifts_per_beta[$beta]['bugzilla'] = Bugzilla::getBugListLink($uplifts_per_beta[$beta]['bug_fixes']);
+            $uplifts_per_beta[$beta]['bugzilla'] = Bugzilla::getBugListLink($uplifts_per_beta[$beta]['total']);
         }
 
         // We use a natural sort to avoid having a beta 10 listed after beta 1
