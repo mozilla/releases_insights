@@ -46,7 +46,8 @@
         "pchevrel/verif": "^0.5.1",
         "overtrue/phplint": "^9.0",
         "spatie/laravel-ignition": "^2.0",
-        "symplify/vendor-patches": "*"
+        "symplify/vendor-patches": "*",
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {

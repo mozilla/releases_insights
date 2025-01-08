@@ -66,7 +66,7 @@ foreach ($beta->uplifts() as $version => $details) {
 }
 
 $stats = [];
-foreach ($bug_list_details as $build => $bugs) {
+foreach ($bug_list_details as $bugs) {
     foreach($bugs as $fields) {
         if (! isset($stats[$fields['product']])) {
             $stats[$fields['product']] = [];

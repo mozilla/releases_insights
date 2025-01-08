@@ -177,7 +177,7 @@ $known_top_crashes = [
 ];
 
 $top_sigs_worth_a_bug = [];
-foreach ($top_sigs as $k => $values) {
+foreach ($top_sigs as $values) {
     foreach ($values as $target) {
         if (in_array($target['term'], $known_top_crashes)) {
             continue;

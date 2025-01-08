@@ -207,7 +207,7 @@ class Release
         ];
 
         $count = 0;
-        foreach ($dot_releases as $k => $date) {
+        foreach ($dot_releases as $date) {
             $count++;
             $schedule['dot_release_' . (string) $count] = $format_date($date);
         }
