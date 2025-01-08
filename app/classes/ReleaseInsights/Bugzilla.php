@@ -80,7 +80,7 @@ class Bugzilla
 
                 $matches[0] = array_map('trim', $matches[0]);
             }
-            return $matches[0];
+            return count($matches[0]) > 1 ? [$matches[0][0]] : $matches[0];
         };
 
         foreach ($changesets as $items) {
@@ -106,7 +106,7 @@ class Bugzilla
                     continue;
                 }
 
-                if (Utils::inString($subitem, ['backed out', 'back out', 'Back out']) && $detect_backouts === true) {
+                if (Utils::inString($subitem, ['Backed out', 'backed out', 'back out', 'Back out']) && $detect_backouts === true) {
                     $counter = count($bug_fixes);
                     $bug_fixes = array_diff($bug_fixes, $get_bugs($subitem));
                     if ($counter === count($bug_fixes)) {
