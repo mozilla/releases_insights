@@ -99,7 +99,6 @@ class Release
                 'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
                 'beta_9'              => $date('Friday 13:00'),
                 'rc_gtb'              => match ($this->version->normalized) {
-                    '134.0' => $date($nightly->modify('+2 week')->modify('Monday 21:00')),
                     '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
                     default => $date('Monday 21:00'),
                 },
@@ -137,16 +136,6 @@ class Release
                 'rc'                  => $date('Tuesday'),
                 'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
             ];
-        }
-
-        if ($this->version->int == 134) {
-            #️⃣ TODO: remove this conditional once 134.0 has shipped
-            $schedule['beta_10'] = $schedule['beta_9'];
-            $schedule['beta_9'] = $schedule['beta_8'];
-            $schedule['beta_8'] = $schedule['beta_7'];
-            $schedule['beta_7'] = $schedule['beta_6'];
-            unset($schedule['beta_6']);
-            // $schedule += ['beta_10' => '2024-12-13 13:00:00+00:00'];
         }
 
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
