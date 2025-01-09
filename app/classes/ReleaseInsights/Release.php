@@ -138,11 +138,17 @@ class Release
             ];
         }
 
+        // Add the Android weekly release before the planned dot release mid-cycle
+        if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
+            $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
+       }
+
+        // Add the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
             if ($this->version->normalized === '146.0') {
                 $schedule += ['planned_dot_release' => $date($release->modify('December 18 00:00'))];
             } else {
-                $schedule += ['planned_dot_release' => $date($release->modify('+2 weeks 00:00'))];
+                $schedule += ['planned_dot_release' => $date($release->modify('+1 week 00:00'))];
             }
        }
 
@@ -253,6 +259,7 @@ class Release
             'rc_gtb'                => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
             'rc'                    => ($short ? '' : 'Firefox ') . 'RC',
             'release'               => ($short ? '' : 'Firefox ') . $short_version . ($short ? ' Release' : ' go-live @ 6AM PT'),
+            'mobile_dot_release'    => ($short ? 'Potential mobile ' : 'Potential mobile ') . $version . ($short ? '.x' : ' dot release'),
             'planned_dot_release'   => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
         ];
 
