@@ -163,11 +163,11 @@
 
             {% if dot_release == 1 %}
               {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-
               {% if target_platform == 'android' %}
                   {% set last_android = 1 %}
               {% else %}
                   {% set last_desktop = 1 %}
+                  {% set desktop_base = 'FIREFOX_' ~ release ~ '_0_' ~  last_desktop ~  '_RELEASE' %}
               {% endif %}
             {% endif %}
 
