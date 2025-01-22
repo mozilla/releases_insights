@@ -18,9 +18,8 @@ if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
 header('X-Content-Type-Options: nosniff');
 
 // Allow http ressources when ran locally
-if (! LOCALHOST) {
-    header("Content-Security-Policy: default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; frame-ancestors 'none'");
-}
+$https_only = LOCALHOST ? '' : 'default-src https:;';
+header("Content-Security-Policy: $https_only object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; style-src-attr 'unsafe-inline'; frame-ancestors 'none'");
 
 // Dispatch urls. The $url object is defined in router.php
 $url->loadController();

@@ -17,8 +17,9 @@ $main_beta = BETA;
 $nonce = NONCE;
 
 return <<<"EOD"
-<div class="w-75     alert alert-primary mx-auto text-center mb-3" role="alert">
-This website is the official reference for all things related to the Firefox release schedule. It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Team_members">Release Management team</a>.
+<div class="w-75 alert alert-primary mx-auto text-center mb-3" role="alert">
+This website is Mozilla's official reference for all things related to the Firefox release schedule.<br>
+It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Team_members">Release Management team</a>.
 </div>
 <p class="mt-3 mb-3 w-75 justify-content-center mx-auto text-center fw-normal fs-5">
 
