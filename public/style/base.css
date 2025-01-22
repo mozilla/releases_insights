@@ -410,6 +410,16 @@ footer {
     padding-left: 2rem;
 }
 
+#nav nav + div a svg {
+    width: 100px;
+    fill: white;
+}
+
+#nav nav + div a svg:hover  {
+    fill: #00d230 !important;
+    color:  red;
+}
+
 /* hover effect on the menu icon */
 nav svg:hover {
     fill: #0d6efd   ;

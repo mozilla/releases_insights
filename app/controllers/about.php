@@ -9,7 +9,7 @@ $data = new Model('about')->get();
 new Template(
     'regular.html.twig',
     [
-        'page_title'   => 'Firefox Trains - List of public APIs and pages',
+        'page_title'   => 'Firefox Trains ressources',
         'css_page_id'  => 'about',
         'page_content' => $data,
     ]

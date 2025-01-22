@@ -14,8 +14,15 @@ if ($flush_cache === date('Ymd')) {
 
 // No data to prepare yet
 $main_beta = BETA;
+$nonce = NONCE;
 
 return <<<"EOD"
+<div class="w-75     alert alert-primary mx-auto text-center mb-3" role="alert">
+This website is the official reference for all things related to the Firefox release schedule. It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Team_members">Release Management team</a>.
+</div>
+<p class="mt-3 mb-3 w-75 justify-content-center mx-auto text-center fw-normal fs-5">
+
+</p>
 
 <h3 class="text-center">Pages</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
@@ -146,6 +153,7 @@ return <<<"EOD"
         <td><a href="/rss/">rss</a></td>
         <td><img class="align-text-bottom" src="/assets/img/feed_icon.svg" alt="RSS feed logo">&thinsp;Subscribe to our RSS feed to get a notification when a new Firefox release is out.</td>
     </tr>
+
 </table>
 
 <h3 class="text-center">Credits</h3>
@@ -155,8 +163,12 @@ return <<<"EOD"
         <th class="text-secondary-emphasis fw-semibold">Who</th>
     </tr>
     <tr>
-        <td>Train favicon</td>
-        <td><a href="https://www.iconfinder.com/iconsets/circle-icons-1" target="_blank">Circle Icons</a> by Nick Roach</td>
+        <td><a href="https://www.iconfinder.com/iconsets/circle-icons-1" target="_blank">Circle Icons</a></td>
+        <td><img class="align-text-bottom" src="/assets/img/site_icon.svg" style="width:20px" nonce="{$nonce}">&thinsp;Train favicon by Nick Roach</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/mozilla/releases_insights">Code</a></td>
+        <td><img class="align-text-bottom" src="/assets/img/github-mark.svg" alt="GitHub logo" style="width:20px" nonce="{$nonce}">&thinsp;Source code for this website.</td>
     </tr>
 </table>
 EOD;

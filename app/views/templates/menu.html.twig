@@ -1,42 +1,51 @@
-<nav class="nav navbar dropdown">
-    <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="32" height="32" fill="white" fill-opacity="context-fill-opacity">
-          <path d="m13.375 4.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
-          <path d="m13.375 8.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
-          <path d="m13.375 12.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
-        </svg>
-    </button>
-    {% if css_page_id == 'homepage' %}
-        {% set active_home = 'active' %}
-    {% elseif css_page_id == 'release_current' %}
-        {% set active_rel_release = 'active' %}
-    {% elseif css_page_id == 'release_beta' %}
-        {% set active_rel_beta = 'active' %}
-    {% elseif css_page_id == 'release_nightly' %}
-        {% set active_rel_nightly = 'active' %}
-    {% elseif css_page_id == 'release_esr' %}
-        {% set active_rel_esr = 'active' %}
-    {% elseif css_page_id == 'nightly' %}
-        {% set active_nightly = 'active' %}
-    {% elseif css_page_id == 'beta' %}
-        {% set active_beta = 'active' %}
-    {% elseif css_page_id == 'calendar_main' %}
-        {% set active_calendar = 'active' %}
-    {% elseif css_page_id == 'about' %}
-        {% set active_about = 'active' %}
-    {% endif %}
+<div class="d-flex justify-content-between" id="nav">
+    <nav class="nav navbar dropdown">
+        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="32" height="32" fill="white" fill-opacity="context-fill-opacity">
+            <path d="m13.375 4.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
+            <path d="m13.375 8.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
+            <path d="m13.375 12.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
+            </svg>
+        </button>
+        {% if css_page_id == 'homepage' %}
+            {% set active_home = 'active' %}
+        {% elseif css_page_id == 'release_current' %}
+            {% set active_rel_release = 'active' %}
+        {% elseif css_page_id == 'release_beta' %}
+            {% set active_rel_beta = 'active' %}
+        {% elseif css_page_id == 'release_nightly' %}
+            {% set active_rel_nightly = 'active' %}
+        {% elseif css_page_id == 'release_esr' %}
+            {% set active_rel_esr = 'active' %}
+        {% elseif css_page_id == 'nightly' %}
+            {% set active_nightly = 'active' %}
+        {% elseif css_page_id == 'beta' %}
+            {% set active_beta = 'active' %}
+        {% elseif css_page_id == 'calendar_main' %}
+            {% set active_calendar = 'active' %}
+        {% elseif css_page_id == 'about' %}
+            {% set active_about = 'active' %}
+        {% endif %}
 
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item {{ active_home }}" href="/">Home</a></li>
-        <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Trains</li>
-        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_release }}" href="/release/?version=release">Release</a></li>
-        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_beta }}" href="/release/?version=beta">Beta</a></li>
-        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_nightly }}" href="/release/?version=nightly">Nightly</a></li>
-        <li><a class="dropdown-item fxt-ps-2 {{ active_rel_esr }}" href="/release/?version=esr">ESR</a></li>
-        <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Bug landings and crashes</li>
-        <li><a class="dropdown-item fxt-ps-2 {{ active_nightly }}" href="/nightly/">In Nightly</a></li>
-        <li><a class="dropdown-item fxt-ps-2 {{ active_beta }}" href="/beta/">In Beta</a></li>
-        <li><a class="dropdown-item {{ active_calendar }}" href="/calendar/">Calendar</a></li>
-        <li><a class="dropdown-item {{ active_about }}" href="/about/">About</a></li>
-    </ul>
-</nav>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item {{ active_home }}" href="/">Home</a></li>
+            <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Trains</li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_release }}" href="/release/?version=release">Release</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_beta }}" href="/release/?version=beta">Beta</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_nightly }}" href="/release/?version=nightly">Nightly</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_esr }}" href="/release/?version=esr">ESR</a></li>
+            <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Bug landings and crashes</li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_nightly }}" href="/nightly/">In Nightly</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_beta }}" href="/beta/">In Beta</a></li>
+            <li><a class="dropdown-item {{ active_calendar }}" href="/calendar/">Calendar</a></li>
+            <li><a class="dropdown-item {{ active_about }}" href="/about/">About</a></li>
+        </ul>
+    </nav>
+    <div class="pt-4 pe-2">
+        <a href="https://mozilla.org">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 703.5 147" style="enable-background:new 0 0 703.5 147" xml:space="preserve">
+                <path d="m54.6 0 18.7 92H80L98.7 0h54.6v144.9h-29.8V25.4h-6.7l-26 119.5H62.6l-26-119.5h-6.7v119.5H0V0h54.6zm171.1 30.7c34.4 0 54.4 20.6 54.4 58.2S260.2 147 225.7 147s-54.4-20.6-54.4-58.2 20-58.1 54.4-58.1zm0 93.2c15.5 0 22.9-8.4 22.9-26.9V80.6c0-18.5-7.3-26.9-22.9-26.9s-22.9 8.4-22.9 26.9V97c.1 18.5 7.4 26.9 22.9 26.9zm66.6-.6 56.9-68.9h-56.1V32.8h91.6v21.6l-56.9 68.9h57.7v21.6h-93.2v-21.6zm108.8-90.5h42v112.1h-29.8V54.4h-12.2V32.8zM413.3 0h29.8v21.6h-29.8V0zm49.5 0h42v144.9H475V21.6h-12.2V0zm61.8 0h42v144.9h-29.8V21.6h-12.2V0zm106 30.7c16.6 0 27.5 8.2 30.7 22.5h6.7V32.8h35.5v21.6h-12.2v68.9h12.2v21.6h-17c-12 0-18.5-6.5-18.5-18.5v-1.9h-6.7c-3.2 14.3-14.1 22.5-30.7 22.5-26.2 0-44.7-22.3-44.7-58.2 0-35.9 18.5-58.1 44.7-58.1zm8.8 93.2c15.1 0 22-8.4 22-26.9V80.6c0-18.5-6.9-26.9-22-26.9s-22 8.4-22 26.9V97c0 18.5 6.9 26.9 22 26.9z"/>
+            </svg>
+        </a>
+    </div>
+</div>
