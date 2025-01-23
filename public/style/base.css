@@ -1,53 +1,17 @@
-/* Fonts */
-@font-face {
- font-display:swap;
- font-family:Inter;
- font-style:normal;
- font-weight:400;
- src:url("/assets/fonts/Inter/Inter-Regular.d55e957612a3.woff2") format("woff2");
-}
-@font-face {
- font-display:swap;
- font-family:Inter;
- font-style:normal;
- font-weight:700;
- src:url("/assets/fonts/Inter/Inter-Bold.0564381b22b2.woff2") format("woff2");
-}
-@font-face {
- font-display:swap;
- font-family:Inter;
- font-style:italic;
- font-weight:400;
- src:url("/assets/fonts/Inter/Inter-Italic.d6a4e2b82a0b.woff2") format("woff2");
-}
-@font-face {
- font-display:swap;
- font-family:Inter;
- font-style:italic;
- font-weight:700;
- src:url("/assets/fonts/Inter/Inter-BoldItalic.9d1b867e3416.woff2") format("woff2");
-}
-@font-face {
- font-display:swap;
- font-family:'Zilla Slab';
- font-style:normal;
- font-weight:400;
- src:url("/assets/fonts/Inter/ZillaSlab-Regular.f9de6143fdfa.woff2") format("woff2");
-}
-@font-face {
- font-display:swap;
- font-family:'Zilla Slab';
- font-style:normal;
- font-weight:700;
- src:url("/assets/fonts/Inter/ZillaSlab-Bold.8d7f01331d2b.woff2") format("woff2");
-}
-
 /* General structure */
-
 :root {
-  --bg-purple: #2a0c55;
-  --bg-table-hover: #f2e9ff;
-  --bg-alert-purple-light: #cfe2ff;
+    --bg-purple: #2a0c55;
+    --bg-table-hover: #f2e9ff;
+    --bg-alert-purple-light: #cfe2ff;
+}
+
+/* Fonts */
+:root {
+    font-family: "Inter", sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+    :root { font-family: "InterVariable", sans-serif; font-optical-sizing: auto; }
 }
 
 html {
@@ -56,7 +20,7 @@ html {
 }
 
 body {
-    font-family: Inter,X-LocaleSpecific,sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: var(--bg-purple);
     color: white;
 }

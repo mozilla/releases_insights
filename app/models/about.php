@@ -167,6 +167,11 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <td><a href="https://www.iconfinder.com/iconsets/circle-icons-1" target="_blank">Circle Icons</a></td>
         <td><img class="align-text-bottom" src="/assets/img/site_icon.svg" style="width:20px" nonce="{$nonce}">&thinsp;Train favicon by Nick Roach</td>
     </tr>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/rsms/inter/" target="_blank">Inter Font</a></td>
+        <td>A⃝&thinsp;Inter Font by Rasmus</td>
+    </tr>
     <tr>
         <td><a href="https://github.com/mozilla/releases_insights">Code</a></td>
         <td><img class="align-text-bottom" src="/assets/img/github-mark.svg" alt="GitHub logo" style="width:20px" nonce="{$nonce}">&thinsp;Source code for this website.</td>
