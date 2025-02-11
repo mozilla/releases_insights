@@ -12,9 +12,6 @@ class Data
     /** @var array<string, string> $release_owners */
     private(set) array $release_owners;
 
-    /** @var array<string, string> $release_duty */
-    private(set) array $release_duty;
-
     /** @var array<string> $wellness_days */
     private(set) array $wellness_days;
 
@@ -23,7 +20,6 @@ class Data
         public int $cache_duration = 900 // 15 minutes
     ) {
         $this->release_owners  = include DATA . 'release_owners.php';
-        $this->release_duty    = include DATA . 'release_duty.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
         $this->wellness_days   = include DATA . 'wellness_days.php';
     }

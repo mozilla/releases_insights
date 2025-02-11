@@ -130,11 +130,6 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
     </tr>
 
     <tr>
-        <td><a href="/api/release/duty/"><span class="text-body-tertiary me-1">api/</span>release/duty</a></td>
-        <td>Historical list of all release engineers on release duty for the cycle</td>
-    </tr>
-
-    <tr>
         <td><a href="/api/release/owners/"><span class="text-body-tertiary me-1">api/</span>release/owners</a></td>
         <td>Historical list of all release managers for Firefox major releases</td>
     </tr>

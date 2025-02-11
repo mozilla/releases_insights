@@ -38,13 +38,6 @@ test('Data->wellness_days', function () {
         ->each->toBeString();
 });
 
-test('Data->release_duty', function () {
-    $obj = new Data();
-    expect($obj->release_duty)
-        ->toBeArray()
-        ->toHaveKeys(['1.0', '108.0'])
-        ->each->toBeArray();
-});
 test('Data->getFutureReleases()', function () {
     $obj = new Data();
     expect($obj->getFutureReleases())

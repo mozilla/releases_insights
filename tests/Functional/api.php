@@ -16,7 +16,6 @@ $paths = [
     ['nightly/crashes/?buildid=20191014213051', 200, '{"buildid":"20191014213051","total":0,"signatures":[]}'],
     ['release/schedule/?version=beta', 200, 'Verif:skip'],
     ['release/schedule/?version=nightly', 200, 'Verif:skip'],
-    ['release/duty/', 200, 'Verif:skip'],
     ['release/owners/', 200, 'Verif:skip'],
     ['wellness/days/', 200, 'Verif:skip'],
 ];

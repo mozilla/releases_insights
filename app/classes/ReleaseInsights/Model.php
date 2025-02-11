@@ -21,7 +21,6 @@ readonly class Model
             'api_firefox_releases'  => 'api/firefox_releases.php',
             'api_nightly'           => 'api/nightly.php',
             'api_nightly_crashes'   => 'api/nightly_crashes.php',
-            'api_release_duty'      => 'api/release_duty.php',
             'api_release_owners'    => 'api/release_owners.php',
             'api_release_schedule'  => 'api/release_schedule.php',
             'api_wellness_days'     => 'api/wellness_days.php',

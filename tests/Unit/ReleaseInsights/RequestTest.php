@@ -19,7 +19,6 @@ test('Request->getController()', function ($input, $output) {
     ['/api/beta/crashes',           'api/beta_crashes'],
     ['/api/external',               'api/external'],
     ['/api/nightly',                'api/nightly'],
-    ['/api/release/duty/',          'api/release_duty'],
     ['/api/release/schedule',       'api/release_schedule'],
     ['/api/release/owners',         'api/release_owners'],
     ['/api/nightly/crashes',        'api/nightly_crashes'],
