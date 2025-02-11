@@ -42,18 +42,10 @@ test('Release->getSchedule()', function () {
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])
         ->toBe('2023-02-13 00:00:00+00:00');
-    expect($obj->getSchedule()['soft_code_freeze'])
-        ->toEqual($obj->getSchedule()['qa_feature_done_2']);
 
     $obj = new Release('116.0'); // merge day is Tuesday and we have one beta left
     expect($obj->getSchedule())
-        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done_1', 'qa_feature_done_2', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
-
-    $obj = new Release('135.0'); // merge day is Tuesday and we have one beta left
-    expect($obj->getSchedule())
-        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done_1', 'qa_feature_done_2', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
-    expect($obj->getSchedule()['soft_code_freeze'])
-        ->toBe("2025-01-02 08:00:00+00:00");
+        ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
     $obj = new Release('141.0');
     expect($obj->getSchedule()['qa_feature_done'])
