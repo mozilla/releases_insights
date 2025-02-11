@@ -34,6 +34,13 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [1000, null],
 ]);
 
+test('ESR::getWin7SupportedVersion', function ($input, $output) {
+    expect($output)->toEqual(ESR::getWin7SupportedVersion($input));
+})->with([
+    [143, ''],
+    [142, '115.27.0'],
+]);
+
 test('ESR::getMainDotVersion', function ($input, $output) {
     expect($output)->toEqual(ESR::getMainDotVersion($input));
 })->with([

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR, Model, Template, Utils, Version};
+use ReleaseInsights\{Data, ESR, Model, Template, Version};
 
 $requested_version = Version::get();
 $requested_version_int = (int) Version::get();
@@ -46,6 +46,7 @@ $template_data = array_merge(
     [
         'ESR'       => ESR::getVersion($requested_version_int),
         'OLDER_ESR' => ESR::getOlderSupportedVersion($requested_version_int),
+        'ESR_115'   => ESR::getWin7SupportedVersion($requested_version_int),
     ]
 );
 

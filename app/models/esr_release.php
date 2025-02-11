@@ -17,6 +17,7 @@ foreach ($upcoming_releases as $k => $v) {
         'old_esr' => is_null(ESR::getOlderSupportedVersion((int) $k))
             ? ''
             : ESR::getMainDotVersion(ESR::getOlderSupportedVersion((int) $k)),
+        'esr_115' => ESR::getMainDotVersion(ESR::getWin7SupportedVersion((int) $k)),
         'date'    => $v,
     ];
 }

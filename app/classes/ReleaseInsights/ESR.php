@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 namespace ReleaseInsights;
-
 class ESR
 {
     /**
@@ -76,7 +75,7 @@ class ESR
         */
         $esr_minor_releases = match(true) {
                 $version < 78        => 1,
-                $current_ESR === 128 => 8,
+                $current_ESR === 128 => 11,
                 default              => 2,
         };
 
@@ -85,6 +84,23 @@ class ESR
         }
 
         return (string) $previous_ESR . '.' . ($version - $previous_ESR) . '.0';
+    }
+
+    /**
+     * Get the ESR 115 release that corresponds to the Rapid release version
+     * and that is still supported. Return an empty string if there is none.
+     * This method should be removed when we stop supporting the ESR 115 branch
+     */
+    public static function getWin7SupportedVersion(int $version): string
+    {
+        /*
+            We should ship our last ESR 115 with Firefox 142
+        */
+        if ($version > 142) {
+            return '';
+        }
+
+        return (string) '115.' . ($version - 115) . '.0';
     }
 
     /**
