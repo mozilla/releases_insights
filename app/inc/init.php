@@ -17,7 +17,7 @@ if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
 // Send HTTP security headers (not set by the server)
 header('X-Content-Type-Options: nosniff');
 
-// Allow http ressources when ran locally
+// Allow http resources when ran locally
 $https_only = LOCALHOST ? '' : 'default-src https:;';
 header("Content-Security-Policy: $https_only object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; style-src-attr 'unsafe-inline'; frame-ancestors 'none'");
 

@@ -16,7 +16,7 @@ $requested_date = Utils::getDate();
 $previous_date  = date('Ymd', strtotime($requested_date . ' -1 day'));
 $next_date      = date('Ymd', strtotime($requested_date . ' +1 day'));
 
-// We may have to display a warning message because an external ressource is down
+// We may have to display a warning message because an external resource is down
 $warning = '';
 
 // Get nightlies for the GET Request (or today's nightly)

@@ -195,7 +195,7 @@ class Utils
         // Request to Product-details failed (no answer from remote)
         // We prefer to die here because this data is essential to the whole app.
         if ($response->getStatusCode() != 200 && str_contains($url, 'product-details.mozilla.org')) {
-            die("Key external ressource {$url} currently not available, please try reloading the page.");
+            die("Key external resource {$url} currently not available, please try reloading the page.");
         }
 
         // Request failed, let's return an empty string for now
