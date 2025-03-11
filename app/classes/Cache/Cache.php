@@ -141,7 +141,7 @@ class Cache
             return false;
         }
 
-        return unlink($file);
+        return @unlink($file);
     }
 
     /**
