@@ -18,6 +18,7 @@ locale_set_default('en-US');
 define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
 define('INSTALL_ROOT2', realpath(dirname(__DIR__, 2)) . '/');
 define('INSTALL_ROOT3', realpath('.') . '/');
+define('INSTALL_ROOT4', realpath(__DIR__ . '/../../') . '/');
 
 const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';
 const DATA        = INSTALL_ROOT . 'app/data/';
