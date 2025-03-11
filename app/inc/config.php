@@ -16,6 +16,8 @@ locale_set_default('en-US');
 
 // Application globals paths
 define('INSTALL_ROOT', dirname(__DIR__, 2) . '/');
+define('INSTALL_ROOT2', realpath(dirname(__DIR__, 2)) . '/');
+
 const CONTROLLERS = INSTALL_ROOT . 'app/controllers/';
 const DATA        = INSTALL_ROOT . 'app/data/';
 const MODELS      = INSTALL_ROOT . 'app/models/';
