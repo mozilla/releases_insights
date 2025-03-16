@@ -70,27 +70,29 @@ class Request
     public function getController(): string
     {
         return match ($this->path) {
-            '/'                           => 'homepage',
-            '/about/'                     => 'about',
-            '/beta/'                      => 'beta',
-            '/nightly/'                   => 'nightly',
-            '/release/'                   => 'release',
-            '/api/beta/crashes/'          => 'api/beta_crashes',
-            '/api/external/'              => 'api/external',
-            '/api/nightly/'               => 'api/nightly',
-            '/api/nightly/crashes/'       => 'api/nightly_crashes',
-            '/api/release/schedule/'      => 'api/release_schedule',
-            '/api/esr/releases/'          => 'api/esr_releases',
-            '/api/firefox/releases/'      => 'api/firefox_releases',
-            '/api/release/owners/'        => 'api/release_owners',
-            '/api/wellness/days/'         => 'api/wellness_days',
-            '/calendar/'                  => 'calendar',
-            '/calendar/monthly/'          => 'calendar_monthly',
-            '/calendar/release/schedule/' => 'ics_release_schedule',
-            '/release/owners/'            => 'release_owners',
-            '/rss/'                       => 'rss',
-            '/sitemap/'                   => 'sitemap',
-            default                       => '404',
+            '/'                              => 'homepage',
+            '/about/'                        => 'about',
+            '/beta/'                         => 'beta',
+            '/nightly/'                      => 'nightly',
+            '/release/'                      => 'release',
+            '/api/beta/crashes/'             => 'api/beta_crashes',
+            '/api/external/'                 => 'api/external',
+            '/api/nightly/'                  => 'api/nightly',
+            '/api/nightly/crashes/'          => 'api/nightly_crashes',
+            '/api/release/schedule/'         => 'api/release_schedule',
+            '/api/esr/releases/'             => 'api/esr_releases',
+            '/api/firefox/releases/'         => 'api/firefox_releases',
+            '/api/firefox/releases/future/'  => 'api/firefox_releases_future',
+            '/api/firefox/calendar/future/'  => 'api/future_calendar',
+            '/api/release/owners/'           => 'api/release_owners',
+            '/api/wellness/days/'            => 'api/wellness_days',
+            '/calendar/'                     => 'calendar',
+            '/calendar/monthly/'             => 'calendar_monthly',
+            '/calendar/release/schedule/'    => 'ics_release_schedule',
+            '/release/owners/'               => 'release_owners',
+            '/rss/'                          => 'rss',
+            '/sitemap/'                      => 'sitemap',
+            default                          => '404',
         };
     }
 
@@ -118,7 +120,6 @@ class Request
     public static function waitingPage(string $action): void
     {
         if ($action == 'load') {
-
             // This is a long-running process when we fetch and generate data
             set_time_limit(0);
             // We need to set the encoding or the browser will wait to parse the content
