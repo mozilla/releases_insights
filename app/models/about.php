@@ -109,6 +109,11 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
     </tr>
 
     <tr>
+        <td><a href="/api/firefox/releases/future/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/future/</a></td>
+        <td>Release dates for all future Firefox releases (including planned dot releases)</td>
+    </tr>
+
+    <tr>
         <td><a href="/api/nightly/?date={$yesterday}"><span class="text-body-tertiary me-1">api/</span>nightly/?date={$yesterday}</a></td>
         <td>Provides the list of nightly build IDs for a day and the changeset they were built from (data from buildhub)</td>
     </tr>
