@@ -149,7 +149,7 @@ foreach ($nightly_pairs as $dataset) {
         'count' => is_countable($bugs) ? count($bugs) : 0,
     ];
 
-    $bug_list_karma_details = [...$bug_list_details, ...$bug_list_karma_details];
+    $bug_list_karma_details = [...$bug_list_details['bugs'], ...$bug_list_karma_details];
 }
 
 // Create the real bug list Karma
