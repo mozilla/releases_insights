@@ -25,7 +25,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 
 </p>
 
-<h3 class="text-center">Pages</h3>
+<h3 class="text-center w-75 mx-auto" id="pages"><a href="#pages" class="bi-link-45deg anchor-link link-info"></a>Pages</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
         <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
@@ -82,7 +82,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 </table>
 
 
-<h3 class="text-center">Json API</h3>
+<h3 class="text-center w-75 mx-auto" id="json"><a href="#json" class="bi-link-45deg anchor-link link-info"></a>Json API</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
         <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
@@ -140,7 +140,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
     </tr>
 </table>
 
-<h3 class="text-center">Other resources</h3>
+<h3 class="text-center w-75 mx-auto" id="other"><a href="#other" class="bi-link-45deg anchor-link link-info"></a>Other resources</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
         <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
@@ -157,7 +157,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 
 </table>
 
-<h3 class="text-center">Credits</h3>
+<h3 class="text-center w-75 mx-auto" id="credits"><a href="#credits" class="bi-link-45deg anchor-link link-info"></a>Credits</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
         <th class="text-secondary-emphasis fw-semibold w-25">What</th>

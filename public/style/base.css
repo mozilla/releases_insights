@@ -217,6 +217,26 @@ footer {
     text-shadow: -1px 0px 0px lightgray;
 }
 
+.anchor-link {
+    visibility: hidden;
+    display: inline-block;
+    margin-left: -1em;
+}
+
+h3:hover .anchor-link {
+    visibility: visible;
+}
+
+h3:target {
+/*   background-color: #ffa;*/
+   color: #0dcaf0;
+}
+
+h3:target + table {
+    box-shadow: 0px 0px 14px -1px #0dcaf0;
+}
+
+
 /* Nightly Page */
 #nightly table {
     table-layout: fixed;
