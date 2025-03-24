@@ -261,11 +261,19 @@
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
       {% endif %}
 
-      {% if key == 'beta_9' %}
+      {% if key == 'beta_9' and not release == '137' %}
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
       {% endif %}
 
-      {% if key == 'rc' %}
+      {% if key == 'beta_10' and release == '137' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+      {% endif %}
+
+      {% if key == 'rc' and not release == '137' %}
+        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
+      {% endif %}
+
+      {% if key == 'rc_gtb' and release == '137' %}
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
       {% endif %}
 
