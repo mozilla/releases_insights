@@ -9,6 +9,7 @@ $paths = [
     ['//', 302, '', ''], // Test that we redirect pages starting with multiple slases to the homepage
     ['//yolo', 302, '', ''], // Test that we redirect pages starting with multiple slashes to the homepage
     ['', 200, 'Firefox Trains', 'id="homepage"'],
+    ['', 200, 'Firefox Trains', '<meta http-equiv="refresh" content="21600">'], // Auto-refresh the Home page every 6 hours
     ['about/', 200, 'Other resources', 'id="about"'],
     ['beta/', 200, '', ''],
     ['nightly/', 200, '', 'id="nightly"'],
@@ -17,7 +18,7 @@ $paths = [
     ['release/', 200, 'Release Owner', 'id="release_beta"'],
     ['release/?version=beta', 200, '', '<meta http-equiv="refresh" content="7200">'], // Auto-refresh the Future Release page every 2 hours
     ['release/?version=94', 200, '<td title="Tuesday, September 7, 2021">September 7</td>', ''], // Test Nightly start date is correct
-    ['', 200, 'Firefox Trains', '<meta http-equiv="refresh" content="21600">'], // Auto-refresh the Home page every 6 hours
+    ['release/?version=131', 200, '<b>Chemspill</b><br>Urgent security release', ''], // Test Nightly start date is correct
     ['release/owners/', 200, 'Major releases per release owner', 'version=3.6'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
     ['sitemap/', 301, '', ''],

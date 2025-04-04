@@ -20,6 +20,7 @@ $paths = [
     ['wellness/days/', 200, 'Verif:skip'],
     ['firefox/releases/future/', 200, 'Verif:skip'],
     ['firefox/calendar/future/', 200, 'Verif:skip'],
+    ['firefox/chemspills/', 200, 'Verif:skip'],
 ];
 
 $obj = new \pchevrel\Verif('Check API HTTP responses');

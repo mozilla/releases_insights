@@ -104,6 +104,11 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
     </tr>
 
     <tr>
+        <td><a href="/api/firefox/chemspills/"><span class="text-body-tertiary me-1">api/</span>firefox/chemspills</a></td>
+        <td>List Firefox dot releases which were in immediate response to a security incident or major incident.</td>
+    </tr>
+
+    <tr>
         <td><a href="/api/firefox/releases/"><span class="text-body-tertiary me-1">api/</span>firefox/releases</a></td>
         <td>Release dates for all past Firefox releases (including dot releases)</td>
     </tr>
@@ -124,6 +129,11 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
     </tr>
 
     <tr>
+        <td><a href="/api/release/owners/"><span class="text-body-tertiary me-1">api/</span>release/owners</a></td>
+        <td>Historical list of all release managers for Firefox major releases</td>
+    </tr>
+
+    <tr>
         <td>
             <ul class="list-unstyled mb-0">
                 <li><a href="/api/release/schedule/?version=beta"><span class="text-body-tertiary me-1">api/</span>release/schedule/?version=beta</a> <span class="text-body-tertiary">(forecast)</span></li>
@@ -132,11 +142,6 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         </td>
         <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
         <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.</td>
-    </tr>
-
-    <tr>
-        <td><a href="/api/release/owners/"><span class="text-body-tertiary me-1">api/</span>release/owners</a></td>
-        <td>Historical list of all release managers for Firefox major releases</td>
     </tr>
 </table>
 

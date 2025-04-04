@@ -203,4 +203,5 @@ return [
     $no_planned_dot_releases,
     $rollout ?? -1,
     $release_uptake,
+    new Data()->chemspills,
 ];

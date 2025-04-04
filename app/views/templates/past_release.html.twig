@@ -199,6 +199,18 @@
                  <a href="{{ dot_release_link }}" class="link-secondary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
                 {% endif %}
 
+                {#  Was this dot release a chemspill? #}
+                {% if release ~ '.0.' ~ dot_release in chemspills %}
+                    <sup class="fw-semibold fst-italic text-danger-emphasis" >Chemspill
+                    <span
+                        data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true"
+                        title="<b>Chemspill</b><br>Urgent security release"
+                        class='text-muted'>
+                        <sup class="text-danger">?</sup>
+                      </span>
+                </sup>
+                {% endif %}
+
                 {% if release > 125 %}
                   {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
                     <sup class="fw-normal fst-italic text-info-emphasis">Android-only</sup>

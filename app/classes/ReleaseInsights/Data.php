@@ -15,6 +15,9 @@ class Data
     /** @var array<string> $wellness_days */
     private(set) array $wellness_days;
 
+    /** @var array<string> $chemspills */
+    private(set) array $chemspills;
+
     public function __construct(
         private readonly string $pd_url = URL::ProductDetails->value,
         public int $cache_duration = 900 // 15 minutes
@@ -22,6 +25,7 @@ class Data
         $this->release_owners  = include DATA . 'release_owners.php';
         $this->future_releases = include DATA . 'upcoming_releases.php';
         $this->wellness_days   = include DATA . 'wellness_days.php';
+        $this->chemspills      = include DATA . 'chemspill_releases.php';
     }
 
     /** @return array<string, string> */

@@ -22,6 +22,7 @@ test('Request->getController()', function ($input, $output) {
     ['/api/release/schedule',       'api/release_schedule'],
     ['/api/release/owners',         'api/release_owners'],
     ['/api/nightly/crashes',        'api/nightly_crashes'],
+    ['/api/firefox/chemspills/',    'api/chemspill_releases'],
     ['/api/firefox/releases/',      'api/firefox_releases'],
     ['/api/firefox/calendar/future/', 'api/future_calendar'],
     ['/api/firefox/releases/future/', 'api/firefox_releases_future'],
