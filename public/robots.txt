@@ -2,3 +2,19 @@ User-agent: *
 Disallow: /nightly/ # content there is temporary
 Disallow: /beta/ # content there is temporary
 Disallow: /ads.txt # we don't have adsense, prevent GoogleBot 404s
+
+User-agent: bingbot
+User-agent: Amazonbot
+User-agent: DataForSeoBot
+User-agent: SiteAuditBot
+User-agent: SemrushBot-BA
+User-agent: SemrushBot-SI
+User-agent: SemrushBot-SWA
+User-agent: SplitSignalBot
+User-agent: SemrushBot-OCOB
+User-agent: SemrushBot-FT
+User-agent: AhrefsBot
+User-agent: meta-externalagent
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+Disallow: /
