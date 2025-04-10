@@ -31,6 +31,7 @@
    </table>
 
 <br>
+{%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
 {% for key, values in beta.uplifts %}
 
    {% if key == constant('BETA') ~ ".0rc0" %}
@@ -138,7 +139,7 @@
             {%- set alert_row = '' -%}
             {%- set product = '' -%}
 
-            {%- if details.product == 'Fenix' or details.product == 'GeckoView' or details.product == 'Focus' -%}
+            {%- if details.product in android_products -%}
                 {%- set product = 'android' -%}
             {%- endif -%}
 

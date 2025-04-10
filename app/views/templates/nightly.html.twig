@@ -21,6 +21,7 @@
   </header>
 {% endblock %}
 {% block main %}
+{%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
 {% for dataset in nightly_pairs %}
     <a href="#buildid_{{ dataset.buildid }}" name="buildid_{{ dataset.buildid }}" class="buildid pe-2 pt-2 text-light float-start bg-transparent">#</a>
     <ul class="list-group list-group-horizontal">
@@ -74,7 +75,7 @@
                 {%- set alert_link =' text-success fw-bold' -%}
                 {%- set alert_title =' title="Bug marked as Enhancement"' -%}
             {%- endif -%}
-            {%- if details.product == 'Fenix' or details.product == 'GeckoView' or details.product == 'Focus' -%}
+            {%- if details.product in android_products -%}
                 {%- set product = 'android' -%}
             {%- endif -%}
             {%- if bug_list_karma[details.id].score > 8 -%}
@@ -138,7 +139,7 @@
                 {%- set alert_link =' text-success fw-bold' -%}
                 {%- set alert_title =' title="Bug marked as Enhancement"' -%}
             {%- endif -%}
-            {%- if details.product == 'Fenix' or details.product == 'GeckoView' or details.product == 'Focus' -%}
+            {%- if details.product in android_products -%}
                 {%- set product = 'android' -%}
             {%- endif -%}
             {%- if bug_list_karma[details.id].score > 8 -%}
