@@ -228,7 +228,6 @@ h3:hover .anchor-link {
 }
 
 h3:target {
-/*   background-color: #ffa;*/
    color: #0dcaf0;
 }
 
@@ -236,10 +235,17 @@ h3:target + table {
     box-shadow: 0px 0px 14px -1px #0dcaf0;
 }
 
-
 /* Nightly Page */
-#nightly table {
-    table-layout: fixed;
+#nightly ul.list-group {
+    word-break: break-word;
+}
+
+#nightly table  {
+/*    table-layout: fixed;*/
+}
+
+#nightly table td a {
+    word-wrap: break-word;
 }
 
 #nightly table tr th:nth-child(1) {
@@ -248,6 +254,10 @@ h3:target + table {
 
 #nightly table tr th:nth-child(2){
     width: 15em;
+}
+
+#nightly table tr td:nth-child(2){
+    word-break: break-word;
 }
 
 #nightly table tr th:nth-child(3) {
@@ -259,12 +269,13 @@ h3:target + table {
    white-space: nowrap;
 }
 
-#nightly table tr td a {
-  overflow: hidden;
-  text-overflow: " ✁";
+#nightly table thead tr th.sort-asc:after {
+    content: "\00A0\25be";
 }
 
-/* Nightly page */
+#nightly table thead tr th.sort-desc:after {
+    content: "\00A0\25b4";
+}
 
 #nightly .buildid {
     margin-left: -2em;
@@ -282,19 +293,10 @@ h3:target + table {
     filter: none;
 }
 
-#nightly table thead tr th.sort-asc:after {
-    content: "\00A0\25be";
-}
-
-#nightly table thead tr th.sort-desc:after {
-    content: "\00A0\25b4";
-}
-
 #nightly .bug-link {
     display:inline-block;
     width:100%;
     height:100%;
-    white-space: nowrap;
 }
 
 #nightly .score-card {
