@@ -15,7 +15,7 @@ The requirements are very simple, no database, no framework.
 
 - Linux (should work fine on macOS and Windows too, but I didn't test it)
 
-- PHP >=8.3 with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
+- PHP >=8.4 (Default in Ubuntu 25.04, Fedora 42, Manjaro 25.0) with the `ext-mbstring`, `ext-intl`, `ext-curl`, `ext-dom` extensions
 
 - [Composer](https://getcomposer.org/) to install dependencies
 
