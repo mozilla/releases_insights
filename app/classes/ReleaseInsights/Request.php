@@ -83,6 +83,7 @@ class Request
             '/api/release/schedule/'         => 'api/release_schedule',
             '/api/esr/releases/'             => 'api/esr_releases',
             '/api/firefox/releases/'         => 'api/firefox_releases',
+            '/api/firefox/releases/esr/'     => 'api/esr_release_pairs',
             '/api/firefox/releases/future/'  => 'api/firefox_releases_future',
             '/api/firefox/calendar/future/'  => 'api/future_calendar',
             '/api/release/owners/'           => 'api/release_owners',

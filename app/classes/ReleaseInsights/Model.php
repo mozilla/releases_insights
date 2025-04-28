@@ -18,6 +18,7 @@ readonly class Model
             'api_beta_crashes'            => 'api/beta_crashes.php',
             'api_chemspills'              => 'api/chemspill_releases.php',
             'api_esr_releases'            => 'api/esr_releases.php',
+            'api_esr_release_pairs'       => 'api/esr_release_pairs.php',
             'api_external'                => 'api/external.php',
             'api_firefox_releases'        => 'api/firefox_releases.php',
             'api_firefox_releases_future' => 'api/firefox_future_releases.php',
