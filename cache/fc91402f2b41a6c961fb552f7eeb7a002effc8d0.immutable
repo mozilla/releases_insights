@@ -1,0 +1,4 @@
+s:955:"{
+"lastpushid": 3858,
+"pushes": {"3852": {"changesets": [{"author": "Mike Kaply \u003cmozilla@kaply.com\u003e", "branch": "default", "desc": "Bug 1961163 - SkipTermsOfUse should be toplevel policy.  a=diannaS\n\nOriginal Revision: https://phabricator.services.mozilla.com/D245928\n\nDifferential Revision: https://phabricator.services.mozilla.com/D246104", "files": ["browser/components/enterprisepolicies/Policies.sys.mjs", "browser/components/enterprisepolicies/schemas/policies-schema.json", "browser/components/enterprisepolicies/tests/browser/browser_policy_usermessaging.js", "browser/components/enterprisepolicies/tests/xpcshell/test_simple_pref_policies.js"], "node": "c3bba5162c988aa7e1791df8827c1a1575eddcc1", "parents": ["7a8941c8c2cbdd3a4d352d8b732f7b5eeefbfd2d"], "tags": ["FIREFOX-ANDROID_138_0_BUILD1", "FIREFOX-ANDROID_138_0_RELEASE", "FIREFOX_138_0_BUILD1", "FIREFOX_138_0_RELEASE"]}], "date": 1745253416, "user": "dsmith@mozilla.com"}}
+}";
