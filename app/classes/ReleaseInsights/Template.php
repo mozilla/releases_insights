@@ -57,5 +57,6 @@ class Template
 
         $twig->addExtension(new IntlExtension());
         echo $twig->render($this->template, $this->data);
+        die;
     }
 }
