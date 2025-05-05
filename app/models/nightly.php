@@ -53,11 +53,17 @@ $_GET['date'] = $previous_date;
 $nightlies_day_before = include MODELS . 'api/nightly.php';
 
 /*
-    If we didn't ship any nightly the day before, check 2 days ago.
+    If we didn't ship any nightly the day before, check previous days.
+    We don't go further than 7 days back.
  */
 if (empty($nightlies_day_before)) {
-    $_GET['date'] = date('Ymd', strtotime($requested_date . ' -2 days'));
-    $nightlies_day_before = include MODELS . 'api/nightly.php';
+    for ($i = 1; $i < 8 ; $i++) {
+        $_GET['date'] = date('Ymd', strtotime($requested_date . " -{$i} days"));
+        $nightlies_day_before = include MODELS . 'api/nightly.php';
+        if (! empty($nightlies_day_before)) {
+            break;
+        }
+    }
 }
 
 // Associate nightly with nightly-1
