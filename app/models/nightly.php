@@ -57,7 +57,7 @@ $nightlies_day_before = include MODELS . 'api/nightly.php';
     We don't go further than 7 days back.
  */
 if (empty($nightlies_day_before)) {
-    for ($i = 1; $i < 8 ; $i++) {
+    foreach(range(1,7) as $i) {
         $_GET['date'] = date('Ymd', strtotime($requested_date . " -{$i} days"));
         $nightlies_day_before = include MODELS . 'api/nightly.php';
         if (! empty($nightlies_day_before)) {

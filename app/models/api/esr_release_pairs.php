@@ -5,8 +5,8 @@ declare(strict_types=1);
 use ReleaseInsights\ESR;
 
 $data = [];
-for($i = 75 ; $i <= RELEASE; $i++) {
-    $data[$i] = [ESR::getVersion($i), ESR::getOlderSupportedVersion($i)];
+foreach(range(75, RELEASE) as $version) {
+    $data[$version] = [ESR::getVersion($version), ESR::getOlderSupportedVersion($version)];
 }
 
 /*
