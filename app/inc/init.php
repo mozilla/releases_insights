@@ -32,5 +32,5 @@ $url->loadController();
 // Send the last error to Sentry
 captureLastError();
 
-// Make sure web request stops here
+// Web request stops here
 exit;

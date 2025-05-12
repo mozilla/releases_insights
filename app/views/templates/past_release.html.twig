@@ -173,7 +173,11 @@
 
             {% if dot_release > 1 %}
               {% if target_platform == 'android' %}
-                {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_' ~  last_android ~  '_RELEASE' %}
+                {%  if last_android == 0 %}
+                  {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_RELEASE' %}
+                {% else %}
+                  {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_' ~  last_android ~  '_RELEASE' %}
+                {% endif %}
                 {% set base = android_base %}
                 {% set last_android = dot_release %}
               {% else %}
