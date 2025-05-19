@@ -94,6 +94,11 @@ class Release
             'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
+        // Extra beta release for chemspill 138.0.4 (pwn2own 2025)
+        if ($this->version->normalized === '139.0') {
+            $schedule += ['beta_10' => '2025-05-17 13:00:00+00:00' ];
+        }
+
         // Add the Android weekly release before the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
             $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
