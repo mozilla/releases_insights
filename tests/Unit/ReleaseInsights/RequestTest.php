@@ -12,7 +12,7 @@ test('Request->getController()', function ($input, $output) {
     ['//yolo',                        'homepage'],
     ['/about',                        'about'],
     ['/nightly',                      'nightly'],
-    ['/beta',                         'maintenance'],
+    ['/beta',                         'beta_crashes'],
     ['/release',                      'release'],
     ['/release//',                    'release'],
     ['/release/?version=100',         'release'],
