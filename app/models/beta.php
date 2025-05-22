@@ -50,11 +50,16 @@ foreach ($beta->uplifts() as $version => $details) {
 
     // Create a blank template for bugs not populated by Bugzilla
     $bug_template = function () use ($bz_fields) {
-        $bug = array_flip($bz_fields);
-        foreach ($bug as $key => $value) {
-            $bug[$key] = 'N/A';
+        $fields = array_flip($bz_fields);
+        foreach ($fields as $key => $value) {
+            if ($key == 'product' || $key == 'component' ) {
+                $fields[$key] = 'Other';
+                $fields['summary'] = '…';
+                continue;
+            }
+            $fields[$key] = 'N/A';
         }
-        return $bug;
+        return $fields;
     };
 
     foreach ($hidden_bugs as $key => $value) {
