@@ -39,11 +39,20 @@ $nightly_fixes = 0;
 $nightly_fixes = 0;
 if ((int) $requested_version === BETA) {
     // Number of bugs fixed in nightly
+    $tag   = fn(int $v) => 'FIREFOX_NIGHTLY_' .  (string) ((int) $v). '_END';
+    $start = $tag((int) $requested_version - 1);
+    $end   = $tag((int) $requested_version);
+
+    // We lack 140 tags on mozilla-central due to a hg-git migration bug
+    if ((int) $requested_version === 140 ) {
+        $end = '44e4e213379b4264a44d0103ef2c3d07db295a04';
+    }
+
     $nightly_fixes = Bugzilla::getBugsFromHgWeb(
         URL::Mercurial->value
         . 'mozilla-central/json-pushes'
-        . '?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END'
-        . '&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version .'_END'
+        . '?fromchange=' . $start
+        . '&tochange=' . $end
         . '&full&version=2',
         true,
         -1 // Immutable external data, store forever
