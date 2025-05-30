@@ -5,8 +5,6 @@ declare(strict_types=1);
 use BzKarma\Scoring;
 use ReleaseInsights\{Bugzilla, Json, URL, Request, Utils};
 
-Request::waitingPage('load');
-
 /*
     We need previous and next days for navigation and changelog
     The requester date is already in the $date variable
@@ -21,6 +19,10 @@ $warning = '';
 
 // Get nightlies for the GET Request (or today's nightly)
 $nightlies = include MODELS . 'api/nightly.php';
+
+if (! empty($nightlies)) {
+    Request::waitingPage('load');
+}
 
 // Store a value for the View title
 $display_date = strtotime($requested_date);
@@ -245,7 +247,10 @@ foreach ($bug_list as $key => $values) {
     }
 }
 
-Request::waitingPage('hide');
+if (! empty($nightlies)) {
+    Request::waitingPage('hide');
+}
+
 return [
     $display_date,
     $nightly_pairs,
