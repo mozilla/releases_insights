@@ -2,12 +2,25 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Model, Version};
+use ReleaseInsights\{Model, Release, Version};
 
-if ((int) Version::get() < BETA) {
-    exit("We don't provide schedule calendars for past releases.");
+$requested_version = new Version(Version::get());
+$release_schedule  = new Release($requested_version->normalized)->getSchedule();
+
+if ($requested_version->int < BETA) {
+    $error = 'We don\'t provide predictive schedules for <i>past</i> releases';
 }
 
+if (array_key_exists('error', $release_schedule)) {
+    $error = 'Release is not scheduled yet';
+}
+
+if (isset($error)) {
+    include CONTROLLERS . 'user_error.php';
+    exit;
+}
+
+// All good, we can generate an ICS
 [$filename, $ics_calendar] = new Model('ics')->get();
 
 header('Content-Type: text/calendar; charset=utf-8');

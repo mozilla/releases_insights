@@ -21,6 +21,8 @@ $paths = [
     ['release/?version=131', 200, '<b>Chemspill</b><br>Urgent security release', ''], // Test Nightly start date is correct
     ['release/owners/', 200, 'Major releases per release owner', 'version=3.6'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
+    ['calendar/release/schedule/?version=1', 400, 'provide predictive schedules for <i>past</i> releases', ''],
+    ['calendar/release/schedule/?version=5000', 400, 'Release is not scheduled yet', ''],
     ['sitemap/', 301, '', ''],
     ['sitemap.txt', 200, '', ''],
     ['rss/', 200, '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">', '</item>'],
