@@ -98,6 +98,35 @@ $rc_changelog = str_replace('json-pushes', 'pushloghtml', $rc_changelog);
 $rc_uplifts_url  = Bugzilla::getBugListLink($rc_uplifts['total']);
 $rc_backouts_url = Bugzilla::getBugListLink($rc_uplifts['backouts']);
 
+$dot_releases = array_filter(
+    new Data()->getDotReleases(),
+    fn ($key) => str_starts_with($key, $requested_version . '.'),
+    ARRAY_FILTER_USE_KEY
+);
+
+// Number of dot releases
+$dot_release_count = count($dot_releases);
+
+// No dot release yet scenario
+$dot_uplifts = [
+    'bug_fixes' => [],
+    'backouts'  => [],
+    'total'     => [],
+    'no_data'   => true,
+];
+
+// Get dot release uplifts
+if ($dot_release_count > 0) {
+    $dot_changelog = URL::Mercurial->value
+        . 'releases/mozilla-release/json-pushes'
+        . '?fromchange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
+        . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_' . (string) $dot_release_count .  '_RELEASE'
+        . '&full&version=2';
+    $dot_uplifts      = Bugzilla::getBugsFromHgWeb($dot_changelog, true, 3600 * 24 * 6);
+    $dot_uplifts_url  = Bugzilla::getBugListLink($dot_uplifts['total']);
+    $dot_backouts_url = Bugzilla::getBugListLink($dot_uplifts['backouts']);
+}
+
 // Number of Beta builds
 $beta_count = count((array) array_filter(
     $firefox_releases,
@@ -114,11 +143,7 @@ if ($requested_version == '14.0') {
     $rc_count = $firefox_releases['firefox-' . $requested_version]['build_number'] ?? 'N/A';
 }
 
-$dot_releases = array_filter(
-    new Data()->getDotReleases(),
-    fn ($key) => str_starts_with($key, $requested_version . '.'),
-    ARRAY_FILTER_USE_KEY
-);
+
 
 // Check uptake rate only for the current release and the previous one
 $release_uptake = 0;
@@ -128,9 +153,6 @@ if ((int) $requested_version >= RELEASE - 1) {
         $dot_releases[$k]['adoption'] = Data::getDesktopAdoptionRate($k);
     }
 }
-
-// Number of dot releases
-$dot_release_count = count($dot_releases);
 
 // In early days, we occasionnally skipped beta 1 for quality reasons, let's assume b3 is a safe bet
 // We skip Firefox 14.0 because we never shipped it
@@ -193,6 +215,10 @@ return [
     $rc_backouts_url,
     $beta_uplifts_url,
     $beta_backouts_url,
+    $dot_uplifts,
+    $dot_uplifts_url,
+    $dot_backouts_url,
+    $dot_changelog,
     $rc_count,
     $beta_count,
     $dot_release_count,

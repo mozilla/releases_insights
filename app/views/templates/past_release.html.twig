@@ -58,11 +58,11 @@
 
     {% if beta_uplifts %}
     <tr>
-      <th class="{{ table_header }}">Uplifts in <a href="{{ beta_changelog }}">Beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
+      <th class="{{ table_header }}">Uplifts in <a href="{{ beta_changelog }}">beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
     </tr>
     {% else %}
     <tr>
-      <th class="{{ table_header }}">Uplifts in Beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
+      <th class="{{ table_header }}">Uplifts in beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
     </tr>
     {% endif %}
 
@@ -75,8 +75,16 @@
       <th class="{{ table_header }}">Uplifts in RC</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
     </tr>
     {% endif %}
+
+    {# {% if dot_uplifts %} #}
     <tr>
-      <th class="{{ table_header }}">Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length}}</td>
+      <th class="{{ table_header }}">Uplifts in <a href="{{ dot_changelog }}">dot releases</a></th><td><a href="{{ dot_uplifts_url }}">{{ dot_uplifts.total|length }}</a> ({{ dot_uplifts.backouts|length }} backout{{ dot_uplifts.backouts|length != 1 ? 's' }})</td>
+    </tr>
+    {# {% endif %} #}
+
+
+    <tr>
+      <th class="{{ table_header }}">Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length + + dot_uplifts.total|length}}</td>
     </tr>
     <tr>
       <th class="{{ table_header }}">Betas</th><td>{{ beta_count }}</td>
