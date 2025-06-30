@@ -115,6 +115,8 @@ $dot_uplifts = [
     'no_data'   => true,
 ];
 
+$dot_changelog = $dot_uplifts_url = $dot_backouts_url = '';
+
 // Get dot release uplifts
 if ($dot_release_count > 0) {
     $dot_changelog = URL::Mercurial->value
