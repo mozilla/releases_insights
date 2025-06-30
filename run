@@ -89,7 +89,7 @@ if command -v browser-sync &> /dev/null; then
     fi
 fi
 
-php -S ${SERVER} -t public/ app/inc/router.php
+php -d opcache.jit=disable -S ${SERVER} -t public/ app/inc/router.php
 
 # trap ctrl-c and call ctrl_c()
 trap ctrl_c INT
