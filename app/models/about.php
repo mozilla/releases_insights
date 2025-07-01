@@ -112,9 +112,13 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <td><a href="/api/firefox/releases/"><span class="text-body-tertiary me-1">api/</span>firefox/releases</a></td>
         <td>Release dates for all past Firefox releases (including dot releases)</td>
     </tr>
+    <tr>
+        <td><a href="/api/firefox/calendar/future/"><span class="text-body-tertiary me-1">api/</span>firefox/calendar/future</a></td>
+        <td>Upcoming major releases with pre-release main milestones details</td>
+    </tr>
 
     <tr>
-        <td><a href="/api/firefox/releases/future/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/future/</a></td>
+        <td><a href="/api/firefox/releases/future/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/future</a></td>
         <td>Release dates for all future Firefox releases (including planned dot releases)</td>
     </tr>
 
