@@ -35,7 +35,7 @@ then
     done
     if [ "${supported_command}" = false ];
     then
-        echo -e "Unknown parameter ${ORANGE}${BOLD}${1}${NORMAL}${NOCOLOR}. Type ${GREEN}${BOLD}run -help${NORMAL} to know what the valid parameters are."
+        echo -e "Unknown parameter ${ORANGE}${BOLD}${1}${NORMAL}${NOCOLOR}. Type ${GREEN}${BOLD}./run help${NORMAL} to know what the valid parameters are."
         exit 1
     fi
 fi
