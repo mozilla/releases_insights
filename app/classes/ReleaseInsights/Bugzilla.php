@@ -106,7 +106,10 @@ class Bugzilla
                     continue;
                 }
 
-                if (Utils::inString($subitem, ['Backed out', 'backed out', 'back out', 'Back out']) && $detect_backouts === true) {
+                if (Utils::inString(
+                        $subitem,
+                        ['Revert "Bug', 'Backed out', 'backed out', 'back out', 'Back out']
+                    ) && $detect_backouts === true) {
                     $counter = count($bug_fixes);
                     $bug_fixes = array_diff($bug_fixes, $get_bugs($subitem));
                     if ($counter === count($bug_fixes)) {
