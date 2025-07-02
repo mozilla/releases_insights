@@ -43,11 +43,6 @@ if ((int) $requested_version === BETA) {
     $start = $tag((int) $requested_version - 1);
     $end   = $tag((int) $requested_version);
 
-    // We lack 140 tags on mozilla-central due to a hg-git migration bug
-    if ((int) $requested_version === 140 ) {
-        $end = '44e4e213379b4264a44d0103ef2c3d07db295a04';
-    }
-
     $nightly_fixes = Bugzilla::getBugsFromHgWeb(
         URL::Mercurial->value
         . 'mozilla-central/json-pushes'
