@@ -18,12 +18,12 @@
 {% block main %}
  <table class="table table-fxt-clean table-sm w-75 justify-content-center" id="summary">
     <tr>
-      <th class="align-middle w-10 text-center force-default-bg  fw-semibold">Uplifts by Product<br><span class="badge text-dark bg-warning-subtle fw-semibold">{{ uplift_count }} uplifts</span></th>
+      <th class="align-middle w-10 text-center force-default-bg fw-semibold fs-6">Uplifts by Product<br><span class="badge text-dark bg-warning-subtle fw-semibold">{{ uplift_count }} uplifts</span></th>
       <td class="align-middle w-75 force-default-bg">
         <ul class="list-group list-group-horizontal mx-auto btn-group bg-success">
         {% for product, data in stats %}
-            <li class="btn btn-light p-0 m-0">
-                <a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50">{{ product }} </a><span class="badge text-dark bg-warning-subtle fw-semibold d-inline-block mt-2">{{ data['bugs']|length }}</span></li>
+            <li class="btn btn-light p-1 m-0">
+                <a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50 fs-7">{{ product }}</a><span class="badge text-dark bg-warning-subtle fw-semibold d-inline-block mt-2">{{ data['bugs']|length }}</span></li>
         {% endfor %}
         </ul>
       </td>

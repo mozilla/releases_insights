@@ -387,8 +387,14 @@ h3:target + table {
  }
 
 
+/* bootstrap extension */
 .w-10 {
     width: 10%;
+}
+
+/* bootstrap extension */
+.fs-7 {
+  font-size: 0.8rem !important;
 }
 
 /* Global dropdown menu spacing utility */
