@@ -72,7 +72,12 @@ then
     elif [[ condition ]]; then
         x=$(($(git rev-list --count $prod..$local)))
         echo ""
-        echo -en "$ORANGE""No, production is $x commit(s) behind""$NORMAL"
+        if [ $x == 1 ]
+        then
+            echo -en "$ORANGE""No, production is 1 commit behind""$NORMAL"
+        else
+            echo -en "$ORANGE""No, production is $x commits behind""$NORMAL"
+        fi
     fi
     exit 1
 fi
