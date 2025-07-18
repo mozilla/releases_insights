@@ -64,40 +64,44 @@ class Release
         $date = fn(string|object $day): string => is_object($day) ? $day->format('Y-m-d H:i:sP') : $nightly->modify($day)->format('Y-m-d H:i:sP');
 
         $schedule = [
-            #️⃣ Starting with Firefox 136, QA request deadline is before the start of the nightly cycle
+            # Starting with Firefox 136, QA request deadline is before the start of the nightly cycle
             'qa_request_deadline'   => $date($nightly->modify('-3 days')),
             'nightly_start'         => $date($nightly->modify('+3 days')),
             'a11y_request_deadline' => $date('Friday'),
-            'qa_feature_done'     => $date('Friday +1 week 21:00'),
-            'qa_test_plan_due'    => $date('Friday 21:00'),
-            'soft_code_freeze'    => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
-            'qa_pre_merge_done'   => $date('Friday 14:00'),
-            'string_freeze'       => $date('Friday'),
-            'merge_day'           => $date('Monday'),
-            'beta_1'              => $date('Monday'),
-            'beta_2'              => $date('Wednesday 13:00'),
-            'beta_3'              => $date('Friday 13:00'),
-            'sumo_1'              => $date('Friday 21:00'), // Friday of Beta week 1
-            'beta_4'              => $date('Monday 13:00'),
-            'beta_5'              => $date('Wednesday 13:00'),
-            'beta_6'              => $date('Friday 13:00'),
-            'beta_7'              => $date('Monday 13:00'),
-            'sumo_2'              => $date('Monday 21:00'), // Monday of Beta Week 3
-            'beta_8'              => $date('Wednesday 13:00'),
-            'qa_pre_rc_signoff'   => $date('Wednesday 14:00'),
-            'beta_9'              => $date('Friday 13:00'),
-            'rc_gtb'              => match ($this->version->normalized) {
-                '147.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+            'qa_feature_done'       => $date('Friday +1 week 21:00'),
+            'qa_test_plan_due'      => $date('Friday 21:00'),
+            'soft_code_freeze'      => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+            'qa_pre_merge_done'     => $date('Friday 14:00'),
+            'string_freeze'         => $date('Friday'),
+            'merge_day'             => $date('Monday'),
+            'beta_1'                => $date('Monday'),
+            'beta_2'                => $date('Wednesday 13:00'),
+            'beta_3'                => $date('Friday 13:00'),
+            'sumo_1'                => $date('Friday 21:00'), // Friday of Beta week 1
+            'beta_4'                => $date('Monday 13:00'),
+            'beta_5'                => $date('Wednesday 13:00'),
+            'beta_6'                => $date('Friday 13:00'),
+            'beta_7'                => $date('Monday 13:00'),
+            'sumo_2'                => $date('Monday 21:00'), // Monday of Beta Week 3
+            'beta_8'                => match ($this->version->normalized) {
+                '147.0' => $date($nightly->modify('+1 week')->modify('Monday 13:00')),
+                default => $date('Wednesday 13:00'),
+            },
+            'qa_pre_rc_signoff' => match ($this->version->normalized) {
+                '147.0' => $date('Monday 14:00'),
+                default => $date('Wednesday 14:00'),
+            },
+            'beta_9' =>  match ($this->version->normalized) {
+                '147.0' => $date('Wednesday 13:00'),
+                default => $date('Friday 13:00'),
+            },
+            'rc_gtb' => match ($this->version->normalized) {
+                '147.0' => $date('Monday 21:00'),
                 default => $date('Monday 21:00'),
             },
-            'rc'                  => $date('Tuesday'),
-            'release'             => $date($release->setTimezone(new \DateTimeZone('UTC'))),
+            'rc'      => $date('Tuesday'),
+            'release' => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
-
-        // Extra beta release for chemspill 138.0.4 (pwn2own 2025)
-        if ($this->version->normalized === '139.0') {
-            $schedule += ['beta_10' => '2025-05-17 13:00:00+00:00' ];
-        }
 
         // Add the Android weekly release before the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
@@ -119,7 +123,6 @@ class Release
         // Dev mode: assert that qa_pre_rc_signoff happens before the last beta
         // If not, this causes a 1 week shift in rc_gtb calculation
         $post_qa_step = array_search('qa_pre_rc_signoff', array_keys($schedule)) + 1;
-
         assert(
             str_starts_with(
                 array_keys($schedule)[$post_qa_step],

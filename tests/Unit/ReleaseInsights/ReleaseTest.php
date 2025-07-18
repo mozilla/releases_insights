@@ -47,10 +47,6 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2', 'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
-    $obj = new Release('139.0');
-    expect($obj->getSchedule()['beta_10'])
-        ->toBe("2025-05-17 13:00:00+00:00");
-
     $obj = new Release('141.0');
     expect($obj->getSchedule()['qa_feature_done'])
         ->toBe("2025-06-06 21:00:00+00:00");
