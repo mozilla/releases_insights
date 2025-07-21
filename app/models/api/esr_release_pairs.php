@@ -5,15 +5,19 @@ declare(strict_types=1);
 use ReleaseInsights\ESR;
 
 $data = [];
-foreach(range(75, RELEASE) as $version) {
-    $data[$version] = [ESR::getVersion($version), ESR::getOlderSupportedVersion($version)];
-}
 
 /*
-'ESR'       => ESR::getVersion($requested_version_int),
-'OLDER_ESR' => ESR::getOlderSupportedVersion($requested_version_int),
-'ESR_115'   => ESR::getWin7SupportedVersion($requested_version_int),
+    Our very first ESR release was 10.0.0
 */
+foreach(range(10, RELEASE) as $version) {
+    $data[$version] = [
+        ESR::getVersion($version),
+        ESR::getOlderSupportedVersion($version),
+        ESR::getWin7SupportedVersion($version),
+    ];
+    $data[$version] = array_filter($data[$version]); // Remove NULL values
+    $data[$version] = array_unique($data[$version]); // Remove duplicate ESR versions
+    sort($data[$version]); // Sort ESR numbersfrom oldest to newest branch
+}
 
-// Rebuild a version_number => date array
 return $data;

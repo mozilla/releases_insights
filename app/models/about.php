@@ -113,6 +113,10 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <td>Release dates for all past Firefox releases (including dot releases)</td>
     </tr>
     <tr>
+        <td><a href="/api/firefox/releases/esr/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/esr</a></td>
+        <td>For each Firefox release, list all the corresponding ESR versions that we shipped</td>
+    </tr>
+    <tr>
         <td><a href="/api/firefox/calendar/future/"><span class="text-body-tertiary me-1">api/</span>firefox/calendar/future</a></td>
         <td>Upcoming major releases with pre-release main milestones details</td>
     </tr>

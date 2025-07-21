@@ -91,16 +91,20 @@ class ESR
      * and that is still supported. Return an empty string if there is none.
      * This method should be removed when we stop supporting the ESR 115 branch
      */
-    public static function getWin7SupportedVersion(int $version): string
+    public static function getWin7SupportedVersion(int $version): ?string
     {
         /*
             We should ship our last ESR 115 with Firefox 142
         */
         if ($version > 142) {
-            return '';
+            return null;
         }
 
-        return (string) '115.' . ($version - 115) . '.0';
+        $dot = $version - 115;
+        /*
+            Don't use a negative dot release
+        */
+        return $dot >= 0 ? '115.' . (string) $dot . '.0' : null;
     }
 
     /**
