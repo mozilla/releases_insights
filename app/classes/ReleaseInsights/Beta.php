@@ -37,9 +37,12 @@ readonly class Beta
         if ($this->count >= $this->number_betas && ! defined('TESTING_CONTEXT')) {
             // @codeCoverageIgnoreStart
             // TODO: cache this request as it can take multiple seconds when hg is slow
-            $this->beta_cycle_ended = str_contains((string) get_headers(
-                URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END')[0],
-                '200');
+            $http_code = get_headers(
+                URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END'
+            );
+            $http_code = array_filter($http_code, fn($v) => str_starts_with($v, 'HTTP/'));
+            $http_code = end($http_code); // We want the last HTTP code to workaropung the hg-edge 302 redirect
+            $this->beta_cycle_ended = str_contains($http_code, '200');
             // @codeCoverageIgnoreEnd
         } else {
             $this->beta_cycle_ended = false;
