@@ -68,7 +68,11 @@ class Release
             'qa_request_deadline'   => $date($nightly->modify('-3 days')),
             'nightly_start'         => $date($nightly->modify('+3 days')),
             'a11y_request_deadline' => $date('Friday'),
-            'qa_feature_done'       => $date('Friday +1 week 21:00'),
+            'qa_feature_done'       => match ($this->version->normalized) {
+                '148.0' => $date('Friday +2 weeks 21:00'),
+                '154.0' => $date('Friday +2 weeks 21:00'),
+                default => $date('Friday +1 week 21:00'),
+            },
             'qa_test_plan_due'      => $date('Friday 21:00'),
             'soft_code_freeze'      => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
             'qa_pre_merge_done'     => $date('Friday 14:00'),
@@ -80,8 +84,12 @@ class Release
             'sumo_1'                => $date('Friday 21:00'), // Friday of Beta week 1
             'beta_4'                => $date('Monday 13:00'),
             'beta_5'                => $date('Wednesday 13:00'),
-            'beta_6'                => $date('Friday 13:00'),
-            'beta_7'                => $date('Monday 13:00'),
+            'beta_6'                => match ($this->version->normalized) {
+                default => $date('Friday 13:00'),
+            },
+            'beta_7'                => match ($this->version->normalized) {
+                default => $date('Monday 13:00'),
+            },
             'sumo_2'                => $date('Monday 21:00'), // Monday of Beta Week 3
             'beta_8'                => match ($this->version->normalized) {
                 '147.0' => $date($nightly->modify('+1 week')->modify('Monday 13:00')),
@@ -96,12 +104,28 @@ class Release
                 default => $date('Friday 13:00'),
             },
             'rc_gtb' => match ($this->version->normalized) {
-                '147.0' => $date('Monday 21:00'),
+                '148.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                '153.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                '159.0' => $date($nightly->modify('+2 week')->modify('Monday 21:00')),
                 default => $date('Monday 21:00'),
             },
             'rc'      => $date('Tuesday'),
             'release' => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
+
+        // Add extra betas for 148
+        if ($this->version->normalized === '148.0') {
+            $schedule += ['beta_10' => '2026-02-02 00:00:00+00:00'];
+            $schedule += ['beta_11' => '2026-02-04 00:00:00+00:00'];
+            $schedule += ['beta_12' => '2026-02-06 00:00:00+00:00'];
+        }
+
+        // Add extra betas for 153
+        if ($this->version->normalized === '153.0') {
+            $schedule += ['beta_10' => '2026-06-29 00:00:00+00:00'];
+            $schedule += ['beta_11' => '2026-07-01 00:00:00+00:00'];
+            $schedule += ['beta_12' => '2026-07-03 00:00:00+00:00'];
+        }
 
         // Add the Android weekly release before the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {

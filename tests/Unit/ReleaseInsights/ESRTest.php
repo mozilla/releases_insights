@@ -7,6 +7,7 @@ use ReleaseInsights\ESR;
 test('ESR::getVersion', function ($input, $output) {
     expect($output)->toEqual(ESR::getVersion($input));
 })->with([
+    [160, '153.7.0'],
     [100, '91.9.0'],
     [95, '91.4.0'],
     [91, '91.0.0'],
@@ -31,6 +32,7 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [10, null],
     [102, '91.11.0'],
     [136, '115.21.0'],
+    [155, '140.15.0'],
     [1000, null],
 ]);
 

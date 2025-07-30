@@ -78,11 +78,15 @@
     <td  class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
 
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>
-    {% if (values.old_esr == values.esr_115) %}
+
+      {%  if values.old_esr %}
         {{ values.old_esr }}
-    {% else %}
-        {{ values.old_esr }} - {{ values.esr_115 }}
-    {% endif %}
+      {%  endif %}
+
+      {%  if values.esr_115 %}
+        - {{ values.esr_115 }}
+      {%  endif %}
+
     </td>
 
     <td title="{{ values.date|format_date('full') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
@@ -91,17 +95,22 @@
       <small class="badge bg-warning text-dark">New ESR {{values.release}} branch!</small>
     {% endif %}
 
-
     {% if values.release|number_format == 143 %}
         <small class="badge bg-warning text-dark">ESR 115 branch is EOL</small>
     {% endif %}
 
-    {%  if
+    {% if
         values.release|number_format > values.esr|number_format
         and values.release|number_format - values.esr|number_format == 3
         and values.old_esr|number_format != 115
     %}
-        <small class="badge bg-warning text-dark">ESR 128 branch is EOL</small>
+        {% set eol_esr = 128 %}
+        {% set offset = 15 %}
+        {% if values.release|number_format == 156 %}
+            {% set offset = 16 %}
+        {% endif %}
+
+        <small class="badge bg-warning text-dark">ESR {{ values.release|number_format - offset }} branch is EOL</small>
     {% endif %}
 
     {{ values.date|format_date(pattern='MMMM d') }}
