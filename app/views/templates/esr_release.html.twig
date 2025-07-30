@@ -95,7 +95,6 @@
       <small class="badge bg-warning text-dark">New ESR {{values.release}} branch!</small>
     {% endif %}
 
-
     {% if values.release|number_format == 143 %}
         <small class="badge bg-warning text-dark">ESR 115 branch is EOL</small>
     {% endif %}
@@ -105,7 +104,13 @@
         and values.release|number_format - values.esr|number_format == 3
         and values.old_esr|number_format != 115
     %}
-        <small class="badge bg-warning text-dark">ESR 128 branch is EOL</small>
+        {% set eol_esr = 128 %}
+        {% set offset = 15 %}
+        {% if values.release|number_format == 156 %}
+            {% set offset = 16 %}
+        {% endif %}
+
+        <small class="badge bg-warning text-dark">ESR {{ values.release|number_format - offset }} branch is EOL</small>
     {% endif %}
 
     {{ values.date|format_date(pattern='MMMM d') }}
