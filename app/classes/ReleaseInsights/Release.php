@@ -80,19 +80,28 @@ class Release
             'sumo_1'                => $date('Friday 21:00'), // Friday of Beta week 1
             'beta_4'                => $date('Monday 13:00'),
             'beta_5'                => $date('Wednesday 13:00'),
-            'beta_6'                => $date('Friday 13:00'),
-            'beta_7'                => $date('Monday 13:00'),
+            'beta_6'                => match ($this->version->normalized) {
+                '160.0' => $date($nightly->modify('Monday 13:00')),
+                default => $date('Friday 13:00'),
+            },
+            'beta_7'                => match ($this->version->normalized) {
+                '160.0' => $date($nightly->modify('Wednesday 13:00')),
+                default => $date('Monday 13:00'),
+            },
             'sumo_2'                => $date('Monday 21:00'), // Monday of Beta Week 3
             'beta_8'                => match ($this->version->normalized) {
                 '147.0' => $date($nightly->modify('+1 week')->modify('Monday 13:00')),
+                '160.0' => $date($nightly->modify('Monday 13:00')),
                 default => $date('Wednesday 13:00'),
             },
             'qa_pre_rc_signoff' => match ($this->version->normalized) {
                 '147.0' => $date('Monday 14:00'),
+                '160.0' => $date('Wednesday 12:00'),
                 default => $date('Wednesday 14:00'),
             },
             'beta_9' =>  match ($this->version->normalized) {
                 '147.0' => $date('Wednesday 13:00'),
+                '160.0' => $date('Wednesday 13:00'),
                 default => $date('Friday 13:00'),
             },
             'rc_gtb' => match ($this->version->normalized) {
