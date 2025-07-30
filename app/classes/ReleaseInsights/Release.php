@@ -112,6 +112,8 @@ class Release
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
             if ($this->version->normalized === '146.0') {
                 $schedule += ['planned_dot_release' => $date($release->modify('December 18 00:00'))];
+            } elseif ($this->version->normalized === '158.0') {
+                $schedule += ['planned_dot_release' => $date($release->modify('December 2 00:00'))];
             } else {
                 $schedule += ['planned_dot_release' => $date($release->modify('+1 week 00:00'))];
             }
