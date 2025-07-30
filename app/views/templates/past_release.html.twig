@@ -29,15 +29,33 @@
       <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
     </tr>
       <th class="{{ table_header }}">Corresponding ESR releases</th>
-      <td>{{ ESR }} &middot; {{ OLDER_ESR }}
-      {% if ESR_115 != '' and ESR_115 != OLDER_ESR %}
-        &middot;
-      <span
-          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-          title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
-          class='text-muted'>
-          {{ ESR_115 }}<sup class="text-danger">?</sup></span>
-      {% endif%}
+      <td>
+      {{ ESR }}
+      {% if OLDER_ESR is not null %}
+          {% if release > 130 and release < 140 %}
+            &middot; <span
+            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+            title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
+            class='text-muted'>
+           {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+          {% else %}
+             &middot; {{ OLDER_ESR }}
+          {% endif %}
+      {% endif %}
+
+      {# Cases where we have an ESR 115 release active (>=115 and before ESR115 is EOL) #}
+      {# it's unclear if the esr115 field will remain with the latest esr 115 release forever or null #}
+      {% if ESR_115 is not null %}
+        {% if ESR_115 != ESR and ESR_115 != OLDER_ESR %}
+          {% if release > 130 %}
+            &middot; <span
+            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+            title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
+            class='text-muted'>
+           {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+          {% endif %}
+        {% endif %}
+      {% endif %}
       </td>
     </tr>
 
