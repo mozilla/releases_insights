@@ -29,26 +29,16 @@
       <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
     </tr>
       <th class="{{ table_header }}">Corresponding ESR releases</th>
-      {% if OLDER_ESR|number_format == 115 %}
-      <td>{{ ESR }} &middot;
-        <span
-          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-          title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
-          class='text-muted'>
-          {{ OLDER_ESR }}<sup class="text-danger">?</sup></span>
-
-      </td>
-      {% elseif ESR_115 != '' %}
-      <td>{{ ESR }} &middot; {{ OLDER_ESR }} &middot;
+      <td>{{ ESR }} &middot; {{ OLDER_ESR }}
+      {% if ESR_115 != '' and ESR_115 != OLDER_ESR %}
+        &middot;
       <span
           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
           title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
           class='text-muted'>
           {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+      {% endif%}
       </td>
-      {% else %}
-      <td>{{ ESR }} &middot; {{ OLDER_ESR }}</td>
-      {% endif %}
     </tr>
 
     <tr>
