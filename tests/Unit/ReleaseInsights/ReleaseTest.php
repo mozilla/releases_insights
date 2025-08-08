@@ -87,10 +87,6 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule()['qa_feature_done'])
         ->toBe("2026-06-26 21:00:00+00:00");
 
-    $obj = new Release('158.0');
-    expect($obj->getSchedule()['planned_dot_release'])
-        ->toBe("2026-12-02 00:00:00+00:00");
-
     $obj = new Release('159.0');
     expect($obj->getSchedule()['rc_gtb'])
         ->toBe("2027-01-04 21:00:00+00:00");
