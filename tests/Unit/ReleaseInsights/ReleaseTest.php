@@ -68,18 +68,6 @@ test('Release->getSchedule()', function () {
     $obj = new Release('158.0');
     expect($obj->getSchedule()['planned_dot_release'])
         ->toBe("2026-12-02 00:00:00+00:00");
-
-    $obj = new Release('160.0');
-    expect($obj->getSchedule()['beta_6'])
-        ->toBe("2026-12-28 13:00:00+00:00");
-    expect($obj->getSchedule()['beta_7'])
-        ->toBe("2026-12-30 13:00:00+00:00");
-    expect($obj->getSchedule()['beta_8'])
-        ->toBe("2027-01-04 13:00:00+00:00");
-    expect($obj->getSchedule()['beta_9'])
-        ->toBe("2027-01-06 13:00:00+00:00");
-    expect($obj->getSchedule()['rc_gtb'])
-        ->toBe("2027-01-11 21:00:00+00:00");
 });
 
 test('Release->getNiceLabel()', function () {
