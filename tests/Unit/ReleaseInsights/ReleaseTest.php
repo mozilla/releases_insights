@@ -64,10 +64,20 @@ test('Release->getSchedule()', function () {
     $obj = new Release('148.0');
     expect($obj->getSchedule()['qa_feature_done'])
         ->toBe("2025-12-26 21:00:00+00:00");
+    expect($obj->getSchedule()['beta_10'])
+        ->toBe("2026-02-02 00:00:00+00:00");
+    expect($obj->getSchedule()['beta_11'])
+        ->toBe("2026-02-04 00:00:00+00:00");
+    expect($obj->getSchedule()['beta_12'])
+        ->toBe("2026-02-06 00:00:00+00:00");
 
     $obj = new Release('158.0');
     expect($obj->getSchedule()['planned_dot_release'])
         ->toBe("2026-12-02 00:00:00+00:00");
+
+    $obj = new Release('159.0');
+    expect($obj->getSchedule()['rc_gtb'])
+        ->toBe("2027-01-04 21:00:00+00:00");
 });
 
 test('Release->getNiceLabel()', function () {

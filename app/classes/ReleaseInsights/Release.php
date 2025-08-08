@@ -103,12 +103,20 @@ class Release
                 default => $date('Friday 13:00'),
             },
             'rc_gtb' => match ($this->version->normalized) {
-                '147.0' => $date('Monday 21:00'),
+                '148.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                '159.0' => $date($nightly->modify('+2 week')->modify('Monday 21:00')),
                 default => $date('Monday 21:00'),
             },
             'rc'      => $date('Tuesday'),
             'release' => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
+
+        // Add extra betas for 148
+        if ($this->version->normalized == '148.0') {
+            $schedule += ['beta_10' => '2026-02-02 00:00:00+00:00'];
+            $schedule += ['beta_11' => '2026-02-04 00:00:00+00:00'];
+            $schedule += ['beta_12' => '2026-02-06 00:00:00+00:00'];
+        }
 
         // Add the Android weekly release before the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
