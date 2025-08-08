@@ -64,12 +64,24 @@ test('Release->getSchedule()', function () {
     $obj = new Release('148.0');
     expect($obj->getSchedule()['qa_feature_done'])
         ->toBe("2025-12-26 21:00:00+00:00");
+    expect($obj->getSchedule())
+        ->toHaveKeys(['beta_10', 'beta_11', 'beta_12']);
     expect($obj->getSchedule()['beta_10'])
         ->toBe("2026-02-02 00:00:00+00:00");
     expect($obj->getSchedule()['beta_11'])
         ->toBe("2026-02-04 00:00:00+00:00");
     expect($obj->getSchedule()['beta_12'])
         ->toBe("2026-02-06 00:00:00+00:00");
+
+    $obj = new Release('153.0');
+        expect($obj->getSchedule())
+        ->toHaveKeys(['beta_10', 'beta_11', 'beta_12']);
+        expect($obj->getSchedule()['beta_10'])
+            ->toBe("2026-06-29 00:00:00+00:00");
+        expect($obj->getSchedule()['beta_11'])
+            ->toBe("2026-07-01 00:00:00+00:00");
+        expect($obj->getSchedule()['beta_12'])
+            ->toBe("2026-07-03 00:00:00+00:00");
 
     $obj = new Release('158.0');
     expect($obj->getSchedule()['planned_dot_release'])
