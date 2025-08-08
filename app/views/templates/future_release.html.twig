@@ -40,10 +40,10 @@
     {% set channel = 'future' %}
   {% endif %}
 
-{% if release == '147' %}
+{% if release == '147' or release == '159' %}
   {% set alert = alert ~ '
 
-<div class="alert alert-warning d-flex align-top p-2" role="alert">
+<div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
   <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
     <use xlink:href="#exclamation-triangle-fill"/>
     <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -51,7 +51,7 @@
   </symbol>
 </svg>
 </svg>
-  <div>
+  <div class="text-center">
     Beta milestones might be adjusted to EOY staff availability.
   </div>
 </div>
@@ -257,12 +257,20 @@
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
       {% endif %}
 
-      {% if key == 'beta_6' %}
-        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-      {% endif %}
-
-      {% if key == 'beta_9' %}
-        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+      {% if release == '148' or release == '153' %}
+        {% if key == 'beta_9' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+        {% endif %}
+        {% if key == 'beta_12' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+        {% endif %}
+      {% else %}
+        {% if key == 'beta_6' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+        {% endif %}
+        {% if key == 'beta_9' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+        {% endif %}
       {% endif %}
 
       {% if key == 'rc' %}
