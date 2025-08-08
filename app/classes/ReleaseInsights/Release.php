@@ -70,6 +70,7 @@ class Release
             'a11y_request_deadline' => $date('Friday'),
             'qa_feature_done'       => match ($this->version->normalized) {
                 '148.0' => $date('Friday +2 weeks 21:00'),
+                '154.0' => $date('Friday +2 weeks 21:00'),
                 default => $date('Friday +1 week 21:00'),
             },
             'qa_test_plan_due'      => $date('Friday 21:00'),
