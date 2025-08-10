@@ -52,8 +52,8 @@
   </svg>
 </div>
 <div class="w-100">
-  We decided to extend support for ESR 115 <b>only</b> on <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>.<br>
-  We will re-evaluate this decision in August 2025 and announce any updates on ESR 115\'s end-of-life then.
+  We decided to extend support for ESR 115 <b>only</b> on <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>.<br>
+  We will re-evaluate this decision in February 2026 and announce any updates on ESR 115\'s end-of-life then.
 </div>
 
   '%}
@@ -71,22 +71,24 @@
     <th class="text-center">Old ESR</th>
     <th class="text-end">Date</th>
   </tr>
-
 {% for key, values in esr_calendar %}
   <tr>
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
-    <td  class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
+    <td class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
 
     <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>
-
-      {%  if values.old_esr %}
-        {{ values.old_esr }}
-      {%  endif %}
-
-      {%  if values.esr_115 %}
-        - {{ values.esr_115 }}
-      {%  endif %}
-
+    {# Remove the first part of this condition when esr 115 is EOL #}
+    {% if values.esr_115 %}
+        {% if (values.old_esr) %}
+            {{ values.old_esr }} - {{ values.esr_115 }}
+        {% else %}
+            {{ values.esr_115 }}
+        {% endif %}
+    {% else %}
+        {% if (values.old_esr) %}
+            {{ values.old_esr }}
+        {% endif %}
+    {% endif %}
     </td>
 
     <td title="{{ values.date|format_date('full') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
@@ -95,27 +97,22 @@
       <small class="badge bg-warning text-dark">New ESR {{values.release}} branch!</small>
     {% endif %}
 
-    {% if values.release|number_format == 143 %}
+    {% if values.release|number_format == esr_115_eol +1 %}
         <small class="badge bg-warning text-dark">ESR 115 branch is EOL</small>
     {% endif %}
 
-    {% if
+    {%  if
         values.release|number_format > values.esr|number_format
         and values.release|number_format - values.esr|number_format == 3
-        and values.old_esr|number_format != 115
     %}
-        {% set eol_esr = 128 %}
-        {% set offset = 15 %}
-        {% if values.release|number_format == 156 %}
-            {% set offset = 16 %}
-        {% endif %}
-
-        <small class="badge bg-warning text-dark">ESR {{ values.release|number_format - offset }} branch is EOL</small>
+        <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag }} branch is EOL</small>
     {% endif %}
 
     {{ values.date|format_date(pattern='MMMM d') }}
     </td>
   </tr>
+    {#  We use a temp variable to store the EOL ESR version for the visual bubble #}
+    {% set esr_eol_tag =  values.old_esr|number_format %}
 {% endfor %}
 </table>
 

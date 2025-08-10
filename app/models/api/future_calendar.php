@@ -19,6 +19,11 @@ foreach (new Data()->getFutureReleases() as $version => $date) {
              . ' + '
              . ESR::getMainDotVersion(ESR::getVersion((int) $version));
 
+    // Do we still have an esr 115 release for this version?
+    if (ESR::getWin7SupportedVersion((int)$version) !== null ) {
+        $ESR .= ' + ' . ESR::getWin7SupportedVersion((int) $version);
+    }
+
     $future += [
         $version => [
             'version'       => new Version($version)->int,

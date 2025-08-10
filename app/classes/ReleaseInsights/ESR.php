@@ -8,7 +8,14 @@ class ESR
     /**
      *  @var array<int> $esr_releases
      */
-    public static array $esr_releases = [10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102, 115, 128, 140, 153];
+    public static array $esr_releases = [
+        10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102, 115, 128, 140, 153,
+    ];
+
+    /**
+     *  This is the last version of Firefox that will have an associated ESR 115 release
+     */
+    public static int $esr115_EOL = 148;
 
     /**
      * Get the ESR release that corresponds to the Rapid release version.
@@ -96,7 +103,7 @@ class ESR
         /*
             We should ship our last ESR 115 with Firefox 142
         */
-        if ($version > 142) {
+        if ($version > self::$esr115_EOL) {
             return null;
         }
 

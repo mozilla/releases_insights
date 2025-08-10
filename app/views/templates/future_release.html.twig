@@ -80,38 +80,24 @@
     <tr>
       <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
     </tr>
-    {% if OLDER_ESR %}
     <tr>
       <th class="{{ table_header }}">Corresponding ESR releases</th>
-      {% if OLDER_ESR|number_format == 115 %}
-      <td>{{ ESR }} &middot;
-        <span
-          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-          title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
-          class='text-muted'>
-          {{ OLDER_ESR }}<sup class="text-danger">?</sup></span>
+      <td>
+        {{ ESR }}
+        {% if OLDER_ESR %}
+            &middot; {{ OLDER_ESR }}
+        {% endif %}
 
+        {% if ESR_115 %}
+            &middot;
+            <span
+              data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+              title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
+              class='text-muted'>
+              {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+        {% endif %}
       </td>
-      {% elseif ESR_115 != '' %}
-      <td>{{ ESR }} &middot; {{ OLDER_ESR }} &middot;
-      <span
-          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-          title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>September 2025</b>."
-          class='text-muted'>
-          {{ ESR_115 }}<sup class="text-danger">?</sup></span>
-      </td>
-      {% else %}
-      <td>{{ ESR }} &middot; {{ OLDER_ESR }}</td>
-      {% endif %}
     </tr>
-
-    {% else %}
-    <tr>
-      <th class="{{ table_header }}">Corresponding ESR release</th>
-      <td>{{ ESR }}</td>
-    </tr>
-    {% endif %}
-
     {% if channel == 'beta' %}
     <tr>
       <th class="{{ table_header }}">Current Beta</th>
