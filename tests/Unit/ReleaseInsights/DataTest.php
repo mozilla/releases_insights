@@ -42,6 +42,16 @@ test('Data->getFutureReleases()', function () {
     $obj = new Data();
     expect($obj->getFutureReleases())
         ->toBeArray();
+
+    // Check that dates are in sequential order
+    $previous_date = null;
+    foreach ($obj->getFutureReleases() as $date) {
+        if ($previous_date !== null) {
+            expect(new DateTime($date))
+                ->toBeGreaterThan($previous_date);
+        }
+        $previous_date = new DateTime($date);
+    }
 });
 
 test('Data->getFirefoxVersions()', function () {
