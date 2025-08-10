@@ -66,6 +66,7 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         'release_date' => $release_date,
         'esr_calendar' => $esr_calendar,
         'esr_majors'   => ESR::$esr_releases,
+        'esr_115_eol'  => ESR::$esr115_EOL,
     ]);
 
     new Template('esr_release.html.twig', $template_data)->render();
