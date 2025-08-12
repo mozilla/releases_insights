@@ -18,11 +18,29 @@
   <div class="row text-center">
     <div class="col-sm">
       <div><img src="/assets/img/firefox-logo-esr.svg" alt="Firefox ESR logo"></div>
-      {% if constant('MAIN_ESR') and constant('OLD_ESR') %}
-      <h2 {{ tooltip_defaults|raw }} title="Latest versions:<br><b>{{ constant('ESR') }}</b> and <b>{{ constant('ESR_NEXT') }}</b>">{{ constant('OLD_ESR') }} / {{ constant('MAIN_ESR')|number_format }}</h2>
-      {% else %}
-      <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>{{ constant('ESR') }}</b>">{{ constant('MAIN_ESR') }}</h2>
+
+    <h2 {{ tooltip_defaults|raw }} title="
+        Latest versions:<br><b>
+        {% if constant('ESR_NEXT') %}
+        {{ constant('ESR_NEXT') }}<br>
+        {% endif %}
+        {% if constant('ESR') %}
+        {{ constant('ESR') }}<br>
+        {% endif %}
+        {% if constant('ESR115') %}
+        {{ constant('ESR115') }}
+        {% endif %}
+        </b>
+    ">
+      {{ constant('ESR_NEXT')|number_format }}
+      {% if constant('ESR') %}
+        / {{ constant('ESR')|number_format }}
       {% endif %}
+      {% if constant('ESR115') %}
+        / {{ constant('ESR115')|number_format }}
+      {% endif %}
+      </h2>
+
       <h3><a href="/release/?version=esr" {{ tooltip_defaults|raw }} title="Click this link to get the schedule of releases on the <b>ESR</b> channel." class="link-info">ESR</a></h3>
     </div>
     <div class="col-sm">
