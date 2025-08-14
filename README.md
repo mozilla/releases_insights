@@ -1,5 +1,3 @@
-
-[![License](https://badgen.net/github/license/mozilla/releases_insights)]
 [![Tests](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml/badge.svg)](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml)
 # Release Insights / Firefox Trains Dashboard
 
