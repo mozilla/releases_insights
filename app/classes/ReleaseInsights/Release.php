@@ -128,9 +128,9 @@ class Release
 
         // Add extra betas for 153
         if ($this->version->normalized === '153.0') {
-            $schedule += ['beta_10' => '2026-06-29 00:00:00+00:00'];
-            $schedule += ['beta_11' => '2026-07-01 00:00:00+00:00'];
-            $schedule += ['beta_12' => '2026-07-03 00:00:00+00:00'];
+            $schedule += ['beta_10' => '2026-07-06 00:00:00+00:00'];
+            $schedule += ['beta_11' => '2026-07-08 00:00:00+00:00'];
+            $schedule += ['beta_12' => '2026-07-10 00:00:00+00:00'];
         }
 
         // Add the Android weekly release before the planned dot release mid-cycle
