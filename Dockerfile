@@ -1,4 +1,4 @@
-FROM php:8.4-fpm-alpine3.20 as builder
+FROM php:8.4-fpm-alpine3.22 AS builder
 
 ENV TZ="UTC"
 # Composer no longer allows plugins to run as a superuser as of release 2.7 which prevents us from patching upstream libraries
@@ -38,7 +38,7 @@ RUN apk del git && \
 
 ###
 
-FROM php:8.4-fpm-alpine3.20 as runner
+FROM php:8.4-fpm-alpine3.22 AS runner
 
 ENV TZ="UTC"
 RUN apk add --no-cache nginx supervisor && \
