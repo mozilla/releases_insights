@@ -80,6 +80,6 @@ test('Release->getSchedule()', function () {
 
 test('Release->getNiceLabel()', function () {
     expect(Release::getNiceLabel('103', 'soft_code_freeze'))->toEqual('103 soft Code Freeze starts at 08:00 UTC');
-    expect(Release::getNiceLabel('104', 'release'))->toEqual('104 Release');
+    expect(Release::getNiceLabel('104', 'release'))->toEqual('<b>104 Release</b>');
     expect(Release::getNiceLabel('104', 'release', false))->toEqual('Firefox 104 go-live @ 6AM PT');
 });

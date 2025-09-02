@@ -442,3 +442,53 @@ nav svg:hover {
     border-color: var(--bg-alert-purple-light) !important;
     opacity: 0.9;
 }
+
+/* Override some styles from calendar.css */
+@scope (#calendar_monthly) {
+    .calendar {
+        table-layout: auto !important;
+        border-radius: 6px !important;
+        background-color: white;
+        color: var(--bs-secondary-text-emphasis);
+    }
+
+    .calendar .calendar-title {
+        background-color: var(--bs-primary-bg-subtle);
+    }
+
+    .calendar tr td.today {
+        background-color: var(--bg-table-hover) !important;
+    }
+
+    .calendar .cal-th {
+        background-color: #fff3cd !important;
+    }
+
+    .calendar th {
+        font-weight: 400 !important;
+    }
+
+    .calendar-title th {
+        font-size: 1.5em;
+        text-transform: unset !important;
+    }
+    .calendar tr td .cal-day-box {
+        color: darkorange !important;
+    }
+
+    .calendar tr td {
+        width: 18%;
+        color: var(--bs-secondary-text-emphasis) !important;
+    }
+
+    *[class*="saturday"],
+    *[class*="sunday"] {
+        width: 5% !important;
+        color: var(--bg-purple) !important;
+        opacity: 0.6;
+    }
+
+    .calendar tr td:is(.mask-start, .mask, .mask_end) {
+        background: #f8f9fa;
+    }
+}

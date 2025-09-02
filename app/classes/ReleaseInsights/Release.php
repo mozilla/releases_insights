@@ -246,7 +246,7 @@ class Release
             'beta_15'               => ($short ? '' : 'Firefox ') . $short_version . ' b15' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
             'rc_gtb'                => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
             'rc'                    => ($short ? '' : 'Firefox ') . 'RC',
-            'release'               => ($short ? '' : 'Firefox ') . $short_version . ($short ? ' Release' : ' go-live @ 6AM PT'),
+            'release'               => ($short ? '<b>' : 'Firefox ') . $short_version . ($short ? ' Release</b>' : ' go-live @ 6AM PT'),
             'mobile_dot_release'    => ($short ? 'Potential mobile ' : 'Potential mobile ') . $version . ($short ? '.x' : ' dot release'),
             'planned_dot_release'   => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
         ];

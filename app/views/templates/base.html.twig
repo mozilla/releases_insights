@@ -4,11 +4,16 @@
         <title>{{ page_title }}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
         <link rel="alternate" type="application/rss+xml" title="Feed to get alerted of Firefox releases" href="/rss/">
         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" media="screen">
         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-icons.css" media="screen">
         <link rel="stylesheet" href="/assets/fonts/Inter-4.1/inter.css">
-        <link rel="stylesheet" href="/style/base.css?version=53" type="text/css" media="all">
+
+        {% block head_additions %}{% endblock %}
+
+        <link rel="stylesheet" href="/style/base.css?version=54" type="text/css" media="all">
 
         {% if branch != '' %}
         <link rel="icon" type="image/svg+xml" href="/assets/img/site_icon_dev.svg">
@@ -27,7 +32,6 @@
         <meta property="twitter:title" content="{{ page_title }}">
         <meta property="twitter:image" content="https://whattrainisitnow.com/assets/img/site-sharing-header.png">
 
-        {% block head_additions %}{% endblock %}
     </head>
     <body id="{{ css_page_id }}" class="container-fluid px-lg-5">
         {% if branch != '' %}
