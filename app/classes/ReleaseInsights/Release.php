@@ -70,6 +70,7 @@ class Release
             'a11y_request_deadline' => $date('Friday'),
             'qa_feature_done'       => match ($this->version->normalized) {
                 '148.0' => $date('Friday +2 weeks 21:00'),
+                '149.0' => $date('Friday +3 weeks 21:00'),
                 '154.0' => $date('Friday +2 weeks 21:00'),
                 default => $date('Friday +1 week 21:00'),
             },
@@ -101,12 +102,13 @@ class Release
             },
             'beta_9' =>  match ($this->version->normalized) {
                 '147.0' => $date('Wednesday 13:00'),
+                '159.0' => $date($nightly->modify('+1 week')->modify('Monday 13:00')),
                 default => $date('Friday 13:00'),
             },
             'rc_gtb' => match ($this->version->normalized) {
-                '148.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                '148.0' => $date($nightly->modify('+2 weeks')->modify('Monday 21:00')),
                 '153.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
-                '159.0' => $date($nightly->modify('+2 week')->modify('Monday 21:00')),
+                '159.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
                 default => $date('Monday 21:00'),
             },
             'rc'      => $date('Tuesday'),
@@ -118,13 +120,22 @@ class Release
             $schedule += ['beta_10' => '2026-02-02 00:00:00+00:00'];
             $schedule += ['beta_11' => '2026-02-04 00:00:00+00:00'];
             $schedule += ['beta_12' => '2026-02-06 00:00:00+00:00'];
+            $schedule += ['beta_13' => '2026-02-09 00:00:00+00:00'];
+            $schedule += ['beta_14' => '2026-02-11 00:00:00+00:00'];
+            $schedule += ['beta_15' => '2026-02-13 00:00:00+00:00'];
         }
 
         // Add extra betas for 153
         if ($this->version->normalized === '153.0') {
-            $schedule += ['beta_10' => '2026-06-29 00:00:00+00:00'];
-            $schedule += ['beta_11' => '2026-07-01 00:00:00+00:00'];
-            $schedule += ['beta_12' => '2026-07-03 00:00:00+00:00'];
+            $schedule += ['beta_10' => '2026-07-06 00:00:00+00:00'];
+            $schedule += ['beta_11' => '2026-07-08 00:00:00+00:00'];
+            $schedule += ['beta_12' => '2026-07-10 00:00:00+00:00'];
+        }
+
+        // Add extra betas for 159
+        if ($this->version->normalized === '159.0') {
+            $schedule += ['beta_10' => '2027-01-06 00:00:00+00:00'];
+            $schedule += ['beta_11' => '2027-01-08 00:00:00+00:00'];
         }
 
         // Add the Android weekly release before the planned dot release mid-cycle
