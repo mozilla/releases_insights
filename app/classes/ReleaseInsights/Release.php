@@ -74,7 +74,10 @@ class Release
                 default => $date('Friday +1 week 21:00'),
             },
             'qa_test_plan_due'      => $date('Friday 21:00'),
-            'soft_code_freeze'      => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+            'soft_code_freeze'      => match ($this->version->normalized) {
+                '149.0' => $date($nightly->modify('+3 weeks')->modify('Thursday 08:00')),
+                default => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
+            },
             'qa_pre_merge_done'     => $date('Friday 14:00'),
             'string_freeze'         => $date('Friday'),
             'merge_day'             => $date('Monday'),
@@ -104,7 +107,7 @@ class Release
                 default => $date('Friday 13:00'),
             },
             'rc_gtb' => match ($this->version->normalized) {
-                '148.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
+                '148.0' => $date($nightly->modify('+2 weeks')->modify('Monday 21:00')),
                 '153.0' => $date($nightly->modify('+1 week')->modify('Monday 21:00')),
                 '159.0' => $date($nightly->modify('+2 week')->modify('Monday 21:00')),
                 default => $date('Monday 21:00'),
@@ -118,6 +121,9 @@ class Release
             $schedule += ['beta_10' => '2026-02-02 00:00:00+00:00'];
             $schedule += ['beta_11' => '2026-02-04 00:00:00+00:00'];
             $schedule += ['beta_12' => '2026-02-06 00:00:00+00:00'];
+            $schedule += ['beta_13' => '2026-02-09 00:00:00+00:00'];
+            $schedule += ['beta_14' => '2026-02-11 00:00:00+00:00'];
+            $schedule += ['beta_15' => '2026-02-13 00:00:00+00:00'];
         }
 
         // Add extra betas for 153
