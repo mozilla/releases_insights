@@ -224,7 +224,7 @@ class Release
             'soft_code_freeze'      => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC',
             'qa_pre_merge_done'     => $short_version . ' regression testing completed',
             'qa_test_plan_due'      => 'Final deadline for QA’s Feature Test Plan approval',
-            'string_freeze'         => 'String Freeze' . ($short ? '' : ' starts'),
+            'string_freeze'         => $short_version . ' string freeze starts',
             'merge_day'             => 'Merge day',
             'beta_1'                => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB',
             'beta_2'                => ($short ? '' : 'Firefox ') . $short_version . ' b2' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
