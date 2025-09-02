@@ -75,9 +75,7 @@ class Release
                 default => $date('Friday +1 week 21:00'),
             },
             'qa_test_plan_due'      => $date('Friday 21:00'),
-            'soft_code_freeze'      => match ($this->version->normalized) {
-                default => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
-            },
+            'soft_code_freeze'      => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
             'qa_pre_merge_done'     => $date('Friday 14:00'),
             'string_freeze'         => $date('Friday'),
             'merge_day'             => $date('Monday'),
