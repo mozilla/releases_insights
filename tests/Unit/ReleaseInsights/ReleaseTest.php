@@ -72,10 +72,10 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule()['beta_12'])->toBe("2026-07-03 00:00:00+00:00");
 
     $obj = new Release('154.0');
-    expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-06-26 21:00:00+00:00");
+    expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-07-03 21:00:00+00:00");
 
     $obj = new Release('159.0');
-    expect($obj->getSchedule()['rc_gtb'])->toBe("2027-01-04 21:00:00+00:00");
+    expect($obj->getSchedule()['rc_gtb'])->toBe("2027-01-11 21:00:00+00:00");
 });
 
 test('Release->getNiceLabel()', function () {
