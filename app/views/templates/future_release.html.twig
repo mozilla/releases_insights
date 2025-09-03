@@ -263,11 +263,25 @@
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
       {% endif %}
 
-      {% if release == '148' or release == '153' %}
-        {% if key == 'beta_9' %}
+      {% if release == '153' %}
+        {% if key == 'beta_6' %}
           {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
         {% endif %}
         {% if key == 'beta_12' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+        {% endif %}
+      {% elseif release == '148' %}
+        {% if key == 'beta_9' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+        {% endif %}
+        {% if key == 'beta_15' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+        {% endif %}
+      {% elseif release == '159' %}
+        {% if key == 'beta_6' %}
+          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+        {% endif %}
+        {% if key == 'beta_11' %}
           {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
         {% endif %}
       {% else %}
