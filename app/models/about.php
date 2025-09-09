@@ -117,13 +117,17 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <td>For each Firefox release, list all the corresponding ESR versions that we shipped</td>
     </tr>
     <tr>
+        <td><a href="/api/firefox/releases/esr/future/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/esr/future</a></td>
+        <td>For each future Firefox release, list all the corresponding ESR versions that we will ship <span class="text-body-tertiary">(forecast)</span></td>
+    </tr>
+    <tr>
         <td><a href="/api/firefox/calendar/future/"><span class="text-body-tertiary me-1">api/</span>firefox/calendar/future</a></td>
-        <td>Upcoming major releases with pre-release main milestones details</td>
+        <td>Upcoming major releases with pre-release main milestones details <span class="text-body-tertiary">(forecast)</span></td>
     </tr>
 
     <tr>
         <td><a href="/api/firefox/releases/future/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/future</a></td>
-        <td>Release dates for all future Firefox releases (including planned dot releases)</td>
+        <td>Release dates for all future Firefox releases, including planned dot releases <span class="text-body-tertiary">(forecast)</span></td>
     </tr>
 
     <tr>
