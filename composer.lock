@@ -1077,16 +1077,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.15.1",
+            "version": "4.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "0d09baf3700869ec4b723c95eb466de56c3d74b6"
+                "reference": "61a2d918e8424b6de4a2e265c15133a00c17db51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/0d09baf3700869ec4b723c95eb466de56c3d74b6",
-                "reference": "0d09baf3700869ec4b723c95eb466de56c3d74b6",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/61a2d918e8424b6de4a2e265c15133a00c17db51",
+                "reference": "61a2d918e8424b6de4a2e265c15133a00c17db51",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1150,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.15.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.15.2"
             },
             "funding": [
                 {
@@ -1162,7 +1162,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-08-28T15:45:14+00:00"
+            "time": "2025-09-03T07:23:48+00:00"
         },
         {
             "name": "symfony/cache",
@@ -2570,16 +2570,16 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v12.26.4",
+            "version": "v12.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "a6d56e21c12040d49a5f5fec7316d990b515cbf4"
+                "reference": "2737a0477a3f4855a71bf8f3d0b8d32596ded628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/a6d56e21c12040d49a5f5fec7316d990b515cbf4",
-                "reference": "a6d56e21c12040d49a5f5fec7316d990b515cbf4",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/2737a0477a3f4855a71bf8f3d0b8d32596ded628",
+                "reference": "2737a0477a3f4855a71bf8f3d0b8d32596ded628",
                 "shasum": ""
             },
             "require": {
@@ -2625,11 +2625,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-08-29T13:30:10+00:00"
+            "time": "2025-09-02T15:31:06+00:00"
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v12.26.4",
+            "version": "v12.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -2675,7 +2675,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v12.26.4",
+            "version": "v12.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -2723,7 +2723,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v12.26.4",
+            "version": "v12.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -2769,7 +2769,7 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v12.26.4",
+            "version": "v12.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -2821,16 +2821,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v12.26.4",
+            "version": "v12.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "7952d50ab6a91a9c2f2e21eed41a00d1f53e5ae9"
+                "reference": "487bbe527806615b818e87c364d93ba91f27db9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/7952d50ab6a91a9c2f2e21eed41a00d1f53e5ae9",
-                "reference": "7952d50ab6a91a9c2f2e21eed41a00d1f53e5ae9",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/487bbe527806615b818e87c364d93ba91f27db9b",
+                "reference": "487bbe527806615b818e87c364d93ba91f27db9b",
                 "shasum": ""
             },
             "require": {
@@ -2896,7 +2896,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-08-29T13:27:38+00:00"
+            "time": "2025-09-03T16:23:04+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2960,16 +2960,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.10.2",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "76b5c07b8a9d2025ed1610e14cef1f3fd6ad2c24"
+                "reference": "8e3643dcd149ae0fe1d2ff4f2c8e4bbfad7c165f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/76b5c07b8a9d2025ed1610e14cef1f3fd6ad2c24",
-                "reference": "76b5c07b8a9d2025ed1610e14cef1f3fd6ad2c24",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/8e3643dcd149ae0fe1d2ff4f2c8e4bbfad7c165f",
+                "reference": "8e3643dcd149ae0fe1d2ff4f2c8e4bbfad7c165f",
                 "shasum": ""
             },
             "require": {
@@ -2987,13 +2987,13 @@
             "require-dev": {
                 "doctrine/dbal": "^3.6.3 || ^4.0",
                 "doctrine/orm": "^2.15.2 || ^3.0",
-                "friendsofphp/php-cs-fixer": "^3.75.0",
+                "friendsofphp/php-cs-fixer": "^v3.87.1",
                 "kylekatarnls/multi-tester": "^2.5.3",
                 "phpmd/phpmd": "^2.15.0",
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.1.17",
-                "phpunit/phpunit": "^10.5.46",
-                "squizlabs/php_codesniffer": "^3.13.0"
+                "phpstan/phpstan": "^2.1.22",
+                "phpunit/phpunit": "^10.5.53",
+                "squizlabs/php_codesniffer": "^3.13.4"
             },
             "bin": [
                 "bin/carbon"
@@ -3061,7 +3061,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-02T09:36:06+00:00"
+            "time": "2025-09-06T13:39:36+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4745,16 +4745,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.1.4",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "fe613c528819222f8686a9a037a315ef9d4915b3"
+                "reference": "729aabc0ec66e700ef164e26454a1357f222a2f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/fe613c528819222f8686a9a037a315ef9d4915b3",
-                "reference": "fe613c528819222f8686a9a037a315ef9d4915b3",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/729aabc0ec66e700ef164e26454a1357f222a2f3",
+                "reference": "729aabc0ec66e700ef164e26454a1357f222a2f3",
                 "shasum": ""
             },
             "require": {
@@ -4793,7 +4793,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.1.4"
+                "source": "https://github.com/rectorphp/rector/tree/2.1.6"
             },
             "funding": [
                 {
@@ -4801,7 +4801,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-15T14:41:36+00:00"
+            "time": "2025-09-05T15:43:08+00:00"
         },
         {
             "name": "sebastian/cli-parser",
