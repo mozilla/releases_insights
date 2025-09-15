@@ -25,6 +25,7 @@ $release_schedule_labels = [
     'qa_test_plan_due'    => 'Firefox ' . $short_version . ' QA Test Plan approval due',
     'string_freeze'       => 'Firefox ' . $short_version . ' String Freeze starts',
     'merge_day'           => 'Merge day',
+    'beta_1_gtb'          => 'Firefox ' . $releases['version'] . 'b1 GTB',
     'beta_1'              => 'Firefox ' . $releases['version'] . 'b1',
     'beta_2'              => 'Firefox ' . $releases['version'] . 'b2 (GTB: 13:00 UTC)',
     'beta_3'              => 'Firefox ' . $releases['version'] . 'b3 (GTB: 13:00 UTC)',

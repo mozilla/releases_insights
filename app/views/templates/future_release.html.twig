@@ -186,7 +186,8 @@
     qa_test_plan_due:      'QA Test Plan approval due',
     string_freeze:         'String Freeze starts',
     merge_day:             'Merge day',
-    beta_1:                'Beta 1' ~ btb,
+    beta_1_gtb:            'Beta 1' ~ btb,
+    beta_1:                'Beta 1 shipping',
     beta_2:                'Beta 2' ~ btb,
     beta_3:                'Beta 3' ~ btb,
     sumo_1:                '<abbr title="support.mozilla.org">SUMO</abbr> content creation',
@@ -223,7 +224,8 @@
     qa_test_plan_due: 'The QA team appreciates an earlier sign-off from the project teams. The approval milestone will be the final deadline for any feature Test Plan sign-offs. No feedback/sign-off on QAs Feature Test Plan could result in misalignment on testing scope, incomplete test coverage and invalid bugs.',
     string_freeze: 'In order to ensure that our localizers have adequate time to translate strings, please make sure that all string changes have landed by end of day.',
     merge_day: 'This is the day in the release cycle when we merge mozilla-central into mozilla-beta. This is the end of the development cycle for Firefox ' ~ release ~ ' and the beginning of our Beta stabilization cycle.',
-    beta_1: 'Built manually just after the merge. It is rolled out to 25% of our beta population. Some experimental features are still activated to watch their behavior on a wider population. These experimental features will be deactivated mid-cycle. Uplift requests are open.',
+    beta_1_gtb: 'Built manually just after the merge. It ships on Tuesday. Uplift requests are open.',
+    beta_1: 'Rolled out to 25% of our beta population. Some experimental features are still activated to watch their behavior on a wider population. These experimental features will be deactivated mid-cycle.',
     beta_2: 'First automated beta of the cycle. It is rolled out to 50% of our beta population. Build starts at 13:00 UTC. <br>Stabilization work via uplifts.',
     beta_3: 'Beta rollout bumped to 100% provided stability is good. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     sumo_1: 'User affecting changes were identified and provided to the support.mozilla.org team. The support content for this release can now be created and will be translated before RC week.',
@@ -299,7 +301,7 @@
 
     <tr>
     {% if date(value) < date() %}
-        {% if key starts with 'beta' and key == 'beta_1' %}
+        {% if key starts with 'beta' and key in ['beta_1_gtb', 'beta_1'] %}
             <th class="text-muted fw-light">
               <details>
                 <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
