@@ -171,7 +171,17 @@ body[id^='release_']:not(#release_esr) .table th summary::marker {
     body[id^='release_']:not(#release_esr) td,
     body[id^='release_']:not(#release_esr) th {
         padding: 4px;
-        width: 50%;
+    }
+
+    body[id^='release_']:not(#release_esr) table:first-of-type th {
+        width: 50% !important;
+    }
+
+    body[id^='release_']:not(#release_esr) header {
+        margin-bottom: 8px !important;
+    }
+    body[id^='release_']:not(#release_esr) div.w-50 {
+        padding: 8px 0 !important;
     }
 
     body[id^='release_']:not(#release_esr) .w-50,
