@@ -21,7 +21,7 @@
 
     <h2 {{ tooltip_defaults|raw }} title="
         Latest versions:<br><b>
-        {% if constant('ESR_NEXT') %}
+        {% if constant('ESR_NEXT') != "" %}
         {{ constant('ESR_NEXT') }}<br>
         {% endif %}
         {% if constant('ESR') %}
@@ -32,12 +32,14 @@
         {% endif %}
         </b>
     ">
-      {{ constant('ESR_NEXT')|number_format }}
+      {% if constant('ESR_NEXT') != "" %}
+          {{ constant('ESR_NEXT')|number_format }} /
+      {% endif %}
       {% if constant('ESR') %}
-        / {{ constant('ESR')|number_format }}
+        {{ constant('ESR')|number_format }} /
       {% endif %}
       {% if constant('ESR115') %}
-        / {{ constant('ESR115')|number_format }}
+        {{ constant('ESR115')|number_format }}
       {% endif %}
       </h2>
 
