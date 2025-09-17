@@ -35,6 +35,7 @@ test('Request->getController()', function ($input, $output) {
     ['/calendar/release/schedule',        'ics_release_schedule'],
     ['/release/owners',                   'release_owners'],
     ['/release/owners',                   'release_owners'],
+    ['/release-notes',                    'relnotes_doc'],
     ['/rss',                              'rss'],
     ['/sitemap/',                         'sitemap'],
     ['not a good path',                   '404'],
