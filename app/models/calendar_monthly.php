@@ -9,22 +9,25 @@ $releases = new Data();
 $calendar = new Calendar();
 $events = [];
 
-// Check if we have a planned dot release coming for the current cycle
+// Check if we have planned dot releases coming for the current cycle
 $current_release = key($releases->getLatestMajorRelease());
-
 $current_release_schedule = new Release($current_release)->getSchedule();
+$extra_milestone = function (string $milestone) use ($current_release_schedule, $current_release) {
+    if (isset($current_release_schedule[$milestone])) {
+        $date = new DateTime($current_release_schedule[$milestone])->format('Y-m-d');
+        return [
+            'start'   => $date,
+            'end'     => $date,
+            'summary' => Release::getNiceLabel(new Version($current_release)->normalized, $milestone) . "<br>\n",
+            'mask'    => true,
+        ];
+    }
+};
 
-if (isset($current_release_schedule['planned_dot_release'])) {
-    $date = new DateTime($current_release_schedule['planned_dot_release'])->format('Y-m-d');
-    $events[] = [
-        'start'   => $date,
-        'end'     => $date,
-        'summary' => Release::getNiceLabel(new Version($current_release)->normalized, 'planned_dot_release') . "<br>\n",
-        'mask'    => true,
-    ];
-}
+$events[] = $extra_milestone('mobile_dot_release');
+$events[] = $extra_milestone('planned_dot_release');
 
-// loop through future releases
+// Loop through future releases
 foreach (array_keys($releases->getFutureReleases()) as $version) {
     if ((int) $version < RELEASE) {
         continue;

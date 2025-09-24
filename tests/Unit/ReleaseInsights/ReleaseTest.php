@@ -36,7 +36,7 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
-            'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release',]);
+            'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'mobile_dot_release']);
 
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-13 00:00:00+00:00');
@@ -76,7 +76,6 @@ test('Release->getSchedule()', function () {
 
     $obj = new Release('154.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-07-03 21:00:00+00:00");
-
     $obj = new Release('159.0');
     expect($obj->getSchedule()['rc_gtb'])->toBe("2027-01-11 21:00:00+00:00");
 });

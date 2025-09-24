@@ -71,7 +71,7 @@ test('Data->getESRReleases()', function () {
 test('Data->getLatestMajorRelease()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getLatestMajorRelease())
-        ->toBe(['102.0' => '2022-06-28']);
+        ->toBe(['143.0' => '2025-09-16']);
 });
 
 test('Data->getDesktopPastReleases()', function () {

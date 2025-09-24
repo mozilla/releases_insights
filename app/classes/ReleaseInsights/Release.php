@@ -56,6 +56,10 @@ class Release
 
         $nightly_target = Version::decrement($this->version->normalized, 2);
 
+        // Major version replaced by a dot release, make sure we don't pass NULL to DateTime
+
+        $all_releases['14.0'] = $all_releases['14.0.1'];
+        $all_releases['125.0'] = $all_releases['125.0.1'];
         // Calculate 1st day of the nightly cycle
         $nightly = new DateTime($all_releases[$nightly_target]);
         $nightly->modify('-1 day');
@@ -140,9 +144,7 @@ class Release
         }
 
         // Add the Android weekly release before the planned dot release mid-cycle
-        if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
-            $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
-       }
+        $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
 
         // Add the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
@@ -218,6 +220,19 @@ class Release
             $schedule['dot_release_' . (string) $count] = $format_date($date);
         }
 
+        // Add planned mobile dot release, useful only for the current release cycle (monthly calendar)
+        $schedule['mobile_dot_release'] = $this->getFutureSchedule()['mobile_dot_release'];
+
+        // Add desktop/android planned dot release if we haven't shipped it yet
+        $shipped_dot_releases = array_filter(
+            $schedule,
+            fn($key) => str_starts_with($key, 'dot_release'), ARRAY_FILTER_USE_KEY
+        );
+
+        if (! in_array($this->getFutureSchedule()['planned_dot_release'], $shipped_dot_releases)) {
+            $schedule['planned_dot_release'] = $this->getFutureSchedule()['planned_dot_release'];
+        }
+
         // The schedule starts with the release version number
         return ['version' => $this->version->normalized] + $schedule;
     }
@@ -260,7 +275,7 @@ class Release
             'rc_gtb'                => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
             'rc'                    => ($short ? '' : 'Firefox ') . 'RC',
             'release'               => ($short ? '<b>' : 'Firefox ') . $short_version . ($short ? ' Release</b>' : ' go-live @ 6AM PT'),
-            'mobile_dot_release'    => ($short ? 'Potential mobile ' : 'Potential mobile ') . $version . ($short ? '.x' : ' dot release'),
+            'mobile_dot_release'    => ($short ? 'Potential Android ' : 'Potential Android ') . $version . ($short ? '.x' : ' dot release'),
             'planned_dot_release'   => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
         ];
 
