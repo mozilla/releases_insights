@@ -440,7 +440,7 @@ h3:target + table {
 
 /* bootstrap extension */
 .fs-7 {
-  font-size: 0.8rem !important;
+  font-size: 0.75rem !important;
 }
 
 /* Global dropdown menu spacing utility */
