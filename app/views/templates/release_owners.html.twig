@@ -28,7 +28,7 @@
           We add 0 as a hack to remove only leading zeros,
           see https://copyprogramming.com/howto/php-remove-0-after-decimal-from-number-php
       -->
-      <a href="/release/?version={{release}}">{{ release + 0 }}</a>
+      <a href="/release/?version={{release}}">{{ release|number_format + 0 }}</a>
        {% if not loop.last %}<span class="
         text-secondary"> · </span>{% endif %}
       {% endfor %}
