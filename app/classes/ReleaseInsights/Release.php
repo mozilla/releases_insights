@@ -57,9 +57,9 @@ class Release
         $nightly_target = Version::decrement($this->version->normalized, 2);
 
         // Major version replaced by a dot release, make sure we don't pass NULL to DateTime
-
         $all_releases['14.0'] = $all_releases['14.0.1'];
         $all_releases['125.0'] = $all_releases['125.0.1'];
+
         // Calculate 1st day of the nightly cycle
         $nightly = new DateTime($all_releases[$nightly_target]);
         $nightly->modify('-1 day');
@@ -180,9 +180,12 @@ class Release
     public function getPastSchedule() : array
     {
         $data = new Data($this->product_details);
-        $releases = $data->getMajorReleases();
+        $all_releases = $data->getMajorReleases();
 
-        $release = new DateTime($releases[$this->version->normalized] . ' 06:00 PST');
+        // Major version replaced by a dot release, make sure we don't pass NULL to DateTime
+        $all_releases['14.0'] = $all_releases['14.0.1'];
+        $all_releases['125.0'] = $all_releases['125.0.1'];
+        $release = new DateTime($all_releases[$this->version->normalized] . ' 06:00 PST');
         $betas = $data->getPastBetas();
         $betas = array_filter(
             $betas,
@@ -221,7 +224,7 @@ class Release
         }
 
         // Add planned mobile dot release, useful only for the current release cycle (monthly calendar)
-        $schedule['mobile_dot_release'] = $this->getFutureSchedule()['mobile_dot_release'];
+        $schedule['mobile_dot_release'] = $this->getFutureSchedule()['mobile_dot_release'] ?? '';
 
         // Add desktop/android planned dot release if we haven't shipped it yet
         $shipped_dot_releases = array_filter(
@@ -229,7 +232,8 @@ class Release
             fn($key) => str_starts_with($key, 'dot_release'), ARRAY_FILTER_USE_KEY
         );
 
-        if (! in_array($this->getFutureSchedule()['planned_dot_release'], $shipped_dot_releases)) {
+        if (isset($this->getFutureSchedule()['planned_dot_release'])
+            && ! in_array($this->getFutureSchedule()['planned_dot_release'], $shipped_dot_releases)) {
             $schedule['planned_dot_release'] = $this->getFutureSchedule()['planned_dot_release'];
         }
 
