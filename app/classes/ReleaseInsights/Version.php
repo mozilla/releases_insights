@@ -37,10 +37,6 @@ class Version
      */
     public static function get(?string $version = null): string
     {
-        if ($version === '125' || $version === '125.0' ) {
-            return  '125.0';
-        }
-
         if (! $version) {
             if (! isset($_GET['version']) || $_GET['version'] === 'beta') {
                 $version = FIREFOX_BETA;
