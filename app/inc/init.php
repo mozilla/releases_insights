@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use ReleaseInsights\Request;
 use function Sentry\captureLastError;
+use Tracy\Debugger;
 
 // Allow http resources when ran locally in tests
 $https_only = LOCALHOST ? '' : 'default-src https:;';
@@ -12,12 +13,10 @@ $https_only = LOCALHOST ? '' : 'default-src https:;';
 $csp_headers = "Content-Security-Policy: $https_only object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; style-src-attr 'unsafe-inline'; frame-ancestors 'none'";
 
 // Catch errors via Ignition library in dev mode only
-if (getenv('TESTING_CONTEXT') === false  && LOCALHOST) {
-    if (class_exists(\Spatie\Ignition\Ignition::class)) {
-        \Spatie\Ignition\Ignition::make()
-            ->setEditor('sublime')
-            ->register();
-    }
+if (LOCALHOST) {
+    Debugger::$strictMode = true;
+    Debugger::$editor = 'subl://open?url=file://%file&line=%line';
+    Debugger::enable();
     // Error handler page is blocked by our production CSP rules
     $csp_headers = '';
 }
