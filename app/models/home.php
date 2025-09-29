@@ -60,6 +60,10 @@ $beta_is_the_next_ESR = $beta_version == (int) ESR::getVersion($beta_version);
 $nightly_state = new Nightly();
 $nightly_emergency_message = Bugzilla::linkify($nightly_state->emergency_message);
 
+// Temp test to check that we now DO get a 500 on the home page in CI only
+// We try to open a file to workaround the static analyzer
+fopen('/some/file', 'z');
+
 return [
     $beta_cycle_dates,
     $nightly_cycle_dates,
