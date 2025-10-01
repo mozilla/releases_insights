@@ -1,19 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block head_additions %}
-    {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
-    <meta name="description" content="{{ meta_description }}">
-    <meta property="twitter:description" content="{{ meta_description }}">
-    <meta property="og:url" content="https://whattrainisitnow.com/release/">
+{% if release == constant('FIREFOX_RELEASE')|number_format %}
+  {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Release</b> channel' %}
+  {% set channel = 'release' %}
+{% endif %}
+
+{% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
+{% block head_additions -%}
+        <meta name="description" content="{{ meta_description }}">
+        <meta property="twitter:description" content="{{ meta_description }}">
+        <meta property="og:url" content="https://whattrainisitnow.com/release/">
+        {% if channel == 'release' %}<meta http-equiv="refresh" content="3600">{% endif %}
+
 {% endblock %}
 
 {% block header %}
   {% include 'release_nav.html.twig' %}
 {% endblock %}
-{% if release == constant('FIREFOX_RELEASE')|number_format %}
-  {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Release</b> channel' %}
-  {% set channel = 'release' %}
-{% endif %}
+
 
 {% block main %}
   {% if channel == 'release' %}
