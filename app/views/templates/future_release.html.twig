@@ -251,6 +251,11 @@
     }
   %}
 
+ {% if release == '144' %}
+    {# We had a last minute Android-Only last beta #}
+    {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Android-only unplanned beta to fix <a href="https://bugzilla.mozilla.org/1992436">bug 1992436</a>.'}) %}
+ {% endif %}
+
   {% set next_milestone = true %}
 
   <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
