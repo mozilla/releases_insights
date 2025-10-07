@@ -2,23 +2,22 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\Request;
 use function Sentry\captureLastError;
 use Tracy\Debugger;
 
-// Allow http resources when ran locally in tests
-$https_only = LOCALHOST ? '' : 'default-src https:;';
-
 // This is our production CSP
-$csp_headers = "Content-Security-Policy: $https_only object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; style-src-attr 'unsafe-inline'; frame-ancestors 'none'";
+$csp_headers = "Content-Security-Policy: default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; style-src-attr 'unsafe-inline'; frame-ancestors 'none'";
 
-// Catch errors via Ignition library in dev mode only
 if (LOCALHOST) {
-    Debugger::$strictMode = true;
-    Debugger::$editor = 'subl://open?url=file://%file&line=%line';
-    Debugger::enable();
     // Error handler page is blocked by our production CSP rules
     $csp_headers = '';
+
+    // Catch errors via Tracy library in dev mode only
+    if (class_exists(Tracy\Debugger::class)) {
+        Debugger::$strictMode = true;
+        Debugger::$editor = 'subl://open?url=file://%file&line=%line';
+        Debugger::enable();
+     }
 }
 
 // Send HTTP security headers (not set by the server)
@@ -31,5 +30,5 @@ $url->loadController();
 // Send the last error to Sentry
 captureLastError();
 
-// Web request stops here
+// Make sure web request stops here
 exit;
