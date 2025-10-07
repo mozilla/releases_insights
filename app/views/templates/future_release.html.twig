@@ -252,8 +252,9 @@
   %}
 
  {% if release == '144' %}
-    {# We had a last minute Android-Only last beta #}
+    {# We had last minute Android-Only extra betas #}
     {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Android-only unplanned beta to fix <a href="https://bugzilla.mozilla.org/1992436">bug 1992436</a>.'}) %}
+    {% set cycle_descriptions = cycle_descriptions|merge({'beta_11': 'Android-only unplanned beta to fix <a href="https://bugzilla.mozilla.org/1992436">bug 1992436</a>.'}) %}
  {% endif %}
 
   {% set next_milestone = true %}

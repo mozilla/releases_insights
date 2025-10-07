@@ -120,9 +120,10 @@ class Release
             'release' => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
-        // Add an extra (Android) 144 beta for https://bugzilla.mozilla.org/1992436
+        // Add extra (Android) 144 betas for https://bugzilla.mozilla.org/1992436
         if ($this->version->normalized === '144.0') {
             $schedule += ['beta_10' => '2025-10-06 17:00:00+00:00']; // @codeCoverageIgnore
+            $schedule += ['beta_11' => '2025-10-07 17:00:00+00:00']; // @codeCoverageIgnore
         }
 
         // Add extra betas for 148
