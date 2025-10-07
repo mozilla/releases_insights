@@ -15,7 +15,7 @@ RUN apk add --no-cache patch && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # use install-php-extensions to install required php extensions and composer
-RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/2.7.1/install-php-extensions \
+RUN curl https://github.com/mlocati/docker-php-extension-installer/releases/download/2.9.11/install-php-extensions \
     --location --output /usr/local/bin/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions && \
     /usr/local/bin/install-php-extensions opcache mbstring intl curl dom @composer
