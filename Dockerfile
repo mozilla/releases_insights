@@ -43,6 +43,7 @@ FROM php:8.4-fpm-alpine3.22 AS runner
 ENV TZ="UTC"
 RUN apk add --no-cache nginx supervisor && \
     apk add --no-cache icu-dev icu-libs icu-data-full && \
+    apk add --no-cache git && \
     apk add --no-cache tzdata
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
