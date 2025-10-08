@@ -9,112 +9,109 @@
 
 {% block main %}
   {% if constant('ESR_NEXT') %}
-  <h1 class="mx-auto w-50  mb-3 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h1>
+    <h1 class="mx-auto w-50  mb-3 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h1>
   {% else %}
-  <h1 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h1>
+    <h1 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h1>
   {% endif %}
 
-  <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>
+    <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>
 
  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
 
-  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
-    <tr class="table-warning">
-      <th class="{{ table_header }}">Last release</th>
-      <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
-    </tr>
+    <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
+        <tr class="table-warning">
+            <th class="{{ table_header }}">Last release</th>
+            <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
+        </tr>
     {% if constant('ESR_NEXT') != "" %}
-    <tr class="bg-warning">
-      <th class="{{ table_header }}">Latest version (old branch)</th>
-      <td> {{ current_ESR }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Latest version (new branch)</th>
-      <td> {{ next_ESR }}</td>
-    </tr>
+        <tr class="bg-warning">
+            <th class="{{ table_header }}">Latest version (old branch)</th>
+            <td> {{ current_ESR }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Latest version (new branch)</th>
+            <td> {{ next_ESR }}</td>
+        </tr>
     {% else %}
-    <tr>
-      <th class="{{ table_header }}">Latest version</th>
-      <td> {{ current_ESR }}</td>
-    </tr>
+        <tr>
+            <th class="{{ table_header }}">Latest version</th>
+            <td> {{ current_ESR }}</td>
+        </tr>
     {% endif %}
-  </table>
+    </table>
 
 {% if constant('OLD_ESR')|number_format == 115 %}
   {% set alert = alert ~ '
 
-<div class="me-4">
-  <svg class="text-danger" width="48" height="48" role="img" aria-label="Warning:">
-    <use xlink:href="#exclamation-triangle-fill"/>
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </symbol>
-  </svg>
-</div>
-<div class="w-100">
-  We decided to <a href="https://blog.mozilla.org/futurereleases/2025/09/04/firefox-esr-115-support-for-windows-7-8-and-8-1-and-old-mac-os-versions-extended-until-march-2026/">extend support</a> for ESR 115 <b>only</b> on <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>.<br>
-  We will re-evaluate this decision in February 2026 and announce any updates on ESR 115\'s end-of-life then.
-</div>
+    <div class="me-4">
+      <svg class="text-danger" width="48" height="48" role="img" aria-label="Warning:">
+        <use xlink:href="#exclamation-triangle-fill"/>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+      </svg>
+    </div>
+    <div class="w-100">
+      We decided to <a href="https://blog.mozilla.org/futurereleases/2025/09/04/firefox-esr-115-support-for-windows-7-8-and-8-1-and-old-mac-os-versions-extended-until-march-2026/">extend support</a> for ESR 115 <b>only</b> on <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>.<br>
+      We will re-evaluate this decision in February 2026 and announce any updates on ESR 115\'s end-of-life then.
+    </div>
 
   '%}
 {% endif %}
 
-<div class="alert alert-danger w-50 mb-3 mx-auto d-flex text-center " role="alert">{{ alert|raw }}</div>
+    <div class="alert alert-danger w-50 mb-3 mx-auto d-flex text-center " role="alert">{{ alert|raw }}</div>
 
-<table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
-  <tr>
-    <th colspan="4" class="text-center table-warning force-default-bg">Releases calendar</th>
-  </tr>
-  <tr>
-    <th class="text-center">Firefox</th>
-    <th class="text-center">ESR</th>
-    <th class="text-center">Old ESR</th>
-    <th class="text-end">Date</th>
-  </tr>
-{% for key, values in esr_calendar %}
-  <tr>
-    <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
-    <td class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
-
-    <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>
-    {# Remove the first part of this condition when esr 115 is EOL #}
-    {% if values.esr_115 %}
-        {% if (values.old_esr) %}
-            {{ values.old_esr }} - {{ values.esr_115 }}
+    <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
+        <tr>
+            <th colspan="4" class="text-center table-warning force-default-bg">Releases calendar</th>
+        </tr>
+        <tr>
+            <th class="text-center">Firefox</th>
+            <th class="text-center">ESR</th>
+            <th class="text-center">Old ESR</th>
+            <th class="text-end">Date</th>
+        </tr>
+    {% for key, values in esr_calendar %}
+        <tr>
+            <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
+            <td class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
+            <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>
+        {# Remove the first part of this condition when esr 115 is EOL #}
+        {% if values.esr_115 %}
+            {% if (values.old_esr) %}
+                {{ values.old_esr }} - {{ values.esr_115 }}
+            {% else %}
+                {{ values.esr_115 }}
+            {% endif %}
         {% else %}
-            {{ values.esr_115 }}
+            {% if (values.old_esr) %}
+                {{ values.old_esr }}
+            {% endif %}
         {% endif %}
-    {% else %}
-        {% if (values.old_esr) %}
-            {{ values.old_esr }}
+            </td>
+            <td title="{{ values.date|format_date('full') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
+        {% if values.release|number_format in esr_majors %}
+                <small class="badge bg-warning text-dark">New ESR {{values.release}} branch!</small>
         {% endif %}
-    {% endif %}
-    </td>
 
-    <td title="{{ values.date|format_date('full') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
+        {% if values.release|number_format == esr_115_eol +1 %}
+                <small class="badge bg-warning text-dark">ESR 115 branch is EOL</small>
+        {% endif %}
 
-    {% if values.release|number_format in esr_majors %}
-      <small class="badge bg-warning text-dark">New ESR {{values.release}} branch!</small>
-    {% endif %}
+        {% if
+            values.release|number_format > values.esr|number_format
+            and values.release|number_format - values.esr|number_format == 3
+        %}
+                <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag }} branch is EOL</small>
+        {% endif %}
 
-    {% if values.release|number_format == esr_115_eol +1 %}
-        <small class="badge bg-warning text-dark">ESR 115 branch is EOL</small>
-    {% endif %}
-
-    {%  if
-        values.release|number_format > values.esr|number_format
-        and values.release|number_format - values.esr|number_format == 3
-    %}
-        <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag }} branch is EOL</small>
-    {% endif %}
-
-    {{ values.date|format_date(pattern='MMMM d') }}
-    </td>
-  </tr>
-    {#  We use a temp variable to store the EOL ESR version for the visual bubble #}
-    {% set esr_eol_tag =  values.old_esr|number_format %}
-{% endfor %}
-</table>
+        {{ values.date|format_date(pattern='MMMM d') }}
+            </td>
+        </tr>
+        {#  We use a temp variable to store the EOL ESR version for the visual bubble #}
+        {% set esr_eol_tag =  values.old_esr|number_format %}
+    {% endfor %}
+    </table>
 
 {% endblock %}
 

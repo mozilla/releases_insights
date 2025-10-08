@@ -9,17 +9,16 @@
 {% endblock %}
 
 {% block header %}
-  <header class="mx-auto">
-    <h1>Upcoming Firefox release milestones</h1>
-  </header>
+    <header class="mx-auto">
+        <h1>Upcoming Firefox release milestones</h1>
+    </header>
 {% endblock %}
 
 {% block main %}
 <div class="row fix justify-content-center">
     {% for month in upcoming_months %}
     <div class="col-sm-12 col-sm-2 col-md-8">
-        {{ calendar.draw(month)|raw }}
-    <br>
+        {{ calendar.draw(month)|raw }}<br>
     </div>
     {% endfor %}
 </div>

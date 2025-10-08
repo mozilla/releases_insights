@@ -8,29 +8,29 @@
 {% endblock %}
 
 {% block header %}
-  {% include 'release_nav.html.twig' %}
+    {% include 'release_nav.html.twig' %}
 {% endblock %}
 
 {% block main %}
-  <table class="table table-light table-striped table-sm w-50 justify-content-center">
-    <tr>
-      <th class="w-auto">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
-    </tr>
-    <tr>
-      <th class="w-auto">Release Owner</th><td>{{ release_owner }}</td>
-    </tr>
-    <tr>
-      <th>Dot releases</th><td>{{ dot_release_count }}</td>
-    </tr>
-    <tr>
-      <th class="">Release notes</th>
-      <td class="w-auto">
-      <ul class="list-inline mb-0">
-        <li class="list-inline-item m-0"><a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}/releasenotes/">Consumer notes</a></li>
-        <li class="list-inline-item m-0"><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a></li>
-      </ul>
-    </td>
-    </tr>
+    <table class="table table-light table-striped table-sm w-50 justify-content-center">
+        <tr>
+            <th class="w-auto">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
+        </tr>
+        <tr>
+            <th class="w-auto">Release Owner</th><td>{{ release_owner }}</td>
+        </tr>
+        <tr>
+            <th>Dot releases</th><td>{{ dot_release_count }}</td>
+        </tr>
+        <tr>
+            <th class="">Release notes</th>
+            <td class="w-auto">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item m-0"><a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}/releasenotes/">Consumer notes</a></li>
+                    <li class="list-inline-item m-0"><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a></li>
+                </ul>
+            </td>
+        </tr>
     </table>
 {% endblock %}
 

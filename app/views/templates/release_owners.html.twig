@@ -8,36 +8,35 @@
 {% endblock %}
 
 {% block main %}
-<h2 class="mx-auto w-75 text-center">{{ page_title }}</h2>
+    <h2 class="mx-auto w-75 text-center">{{ page_title }}</h2>
 
-<table class="table table-light table-striped table-bordered table-sm w-75 justify-content-center mt-4">
-    <tr class="table-dark">
-      <th>Release Owner</th>
-      <th>Number of releases</th>
-      <th>Releases</th>
-    </tr>
+    <table class="table table-light table-striped table-bordered table-sm w-75 justify-content-center mt-4">
+        <tr class="table-dark">
+            <th>Release Owner</th>
+            <th>Number of releases</th>
+            <th>Releases</th>
+        </tr>
 
-  {% set counter = 0 %}
-  {% for key, values in owners %}
-    <tr>
-      <td>{{ values.owner }}</td>
-      <td class='text-center'>{{ values.total }}</td>
-      <td>
-      {% for release in values.releases %}
-      <!--
-          We add 0 as a hack to remove only leading zeros,
-          see https://copyprogramming.com/howto/php-remove-0-after-decimal-from-number-php
-      -->
-      <a href="/release/?version={{release}}">{{ release|number_format + 0 }}</a>
-       {% if not loop.last %}<span class="
-        text-secondary"> · </span>{% endif %}
+      {% set counter = 0 %}
+      {% for key, values in owners %}
+        <tr>
+            <td>{{ values.owner }}</td>
+            <td class='text-center'>{{ values.total }}</td>
+            <td>
+            {% for release in values.releases %}
+              <!--
+                  We add 0 as a hack to remove only leading zeros,
+                  see https://copyprogramming.com/howto/php-remove-0-after-decimal-from-number-php
+              -->
+                <a href="/release/?version={{release}}">{{ release|number_format + 0 }}</a>
+                   {% if not loop.last %}<span class=" text-secondary"> · </span>{% endif %}
+            {% endfor %}
+            </td>
+        </tr>
       {% endfor %}
-      </td>
-    </tr>
-  {% endfor %}
-</table>
+    </table>
 {% endblock %}
 
 {% block footer %}
-  <footer></footer>
+    <footer></footer>
 {% endblock %}

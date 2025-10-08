@@ -9,129 +9,129 @@
 
 {% block header %}
   <header class="mx-auto">
-    <h1>Current Desktop beta cycle: <a href="/release/?version=beta" class="link-info">{{ constant('BETA') }}</a></h1>
+      <h1>Current Desktop beta cycle: <a href="/release/?version=beta" class="link-info">{{ constant('BETA') }}</a></h1>
   </header>
 {% endblock %}
 
 {% set tooltip_defaults = ' data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" ' %}
 
 {% block main %}
- <table class="table table-fxt-clean table-sm w-75 justify-content-center" id="summary">
+<table class="table table-fxt-clean table-sm w-75 justify-content-center" id="summary">
     <tr>
-      <th class="align-middle w-10 text-center force-default-bg fw-semibold fs-6">Uplifts by Product<br><span class="badge text-dark bg-warning-subtle fw-semibold">{{ uplift_count }} uplifts</span></th>
-      <td class="align-middle w-75 force-default-bg">
-        <ul class="list-group list-group-horizontal mx-auto btn-group bg-success">
+        <th class="align-middle w-10 text-center force-default-bg fw-semibold fs-6">Uplifts by Product<br><span class="badge text-dark bg-warning-subtle fw-semibold">{{ uplift_count }} uplifts</span></th>
+        <td class="align-middle w-75 force-default-bg">
+            <ul class="list-group list-group-horizontal mx-auto btn-group bg-success">
         {% for product, data in stats %}
-            <li class="btn btn-light p-1 m-0">
-                <a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50 fs-7">{{ product }}</a><span class="badge text-dark bg-warning-subtle fw-semibold d-inline-block mt-2">{{ data['bugs']|length }}</span></li>
+                <li class="btn btn-light p-1 m-0"><a href="{{ data['bugzilla'] }}" class="d-block w-100 h-50 fs-7">{{ product }}</a><span class="badge text-dark bg-warning-subtle fw-semibold d-inline-block mt-2">{{ data['bugs']|length }}</span></li>
         {% endfor %}
-        </ul>
-      </td>
+            </ul>
+        </td>
     </tr>
-   </table>
+</table>
 
 <br>
 {%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
 {% for key, values in beta.uplifts %}
 
-   {% if key == constant('BETA') ~ ".0rc0" %}
-    <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Last beta shipped</small></p>
-   {% endif %}
-   {% if key == constant('BETA') ~ ".0rc1" %}
-    <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Beta to release merge</small></p>
-   {% endif %}
+{% if key == constant('BETA') ~ ".0rc0" %}
+<p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Last beta shipped</small></p>
+{% endif %}
 
-    <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto mb-3">
-        <li class="list-group-item bg-success-subtle fw-semibold border-0 version">
-            {% if key == constant('BETA') ~ ".0rc0" %}
-                No build
-            {% else %}
-                <a href="{{ values['hg_link'] }}" class="text-dark">{{ key }}</a>
-            {% endif %}
-        </li>
-        <li class="list-group-item text-dark bg-white border-0 flex-fill w-25">
-            {% if bug_list[key]|length == 1 %}
-                <a href="{{ bugs_link[key] }}" class="text-dark">1 bug uplifted</a>
-           {% elseif bug_list[key]|length > 1 %}
-                <a href="{{ bugs_link[key] }}" class="text-dark">{{ bug_list[key]|length }} bugs uplifted</a>
-                {% if key == constant('BETA') ~ ".0rc0" %}
-                  <small class="fst-italic"> (on the beta branch, those will ship in rc1)</small>
-                {% endif %}
-            {% else %}
-                No uplifts
-            {% endif %}
-            {% if loop.first %}
-                <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
-            {% endif %}
-            {% if key|split('b')[1] > beta.count and 'rc' not in key %}
-                <small class="fst-italic">(upcoming beta, not shipped yet)</small>
-            {% endif %}
-        </li>
+{% if key == constant('BETA') ~ ".0rc1" %}
+<p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Beta to release merge</small></p>
+{% endif %}
 
-        {% if key != constant('BETA') ~ ".0rc0" %}
-            {% if key|split('b')[1] <= beta.count %}
-        <li class="list-group-item text-light border-0 bg-warning-subtle">
-           <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
-                <span class="text-collapsed ">Show crashes</span>
-                <span class="text-expanded ">Hide crashes</span>
-            </a>
-        </li>
-            {% endif %}
+<ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto mb-3">
+    <li class="list-group-item bg-success-subtle fw-semibold border-0 version">
+    {% if key == constant('BETA') ~ ".0rc0" %}
+        No build
+    {% else %}
+        <a href="{{ values['hg_link'] }}" class="text-dark">{{ key }}</a>
+    {% endif %}
+    </li>
+    <li class="list-group-item text-dark bg-white border-0 flex-fill w-25">
+    {% if bug_list[key]|length == 1 %}
+        <a href="{{ bugs_link[key] }}" class="text-dark">1 bug uplifted</a>
+    {% elseif bug_list[key]|length > 1 %}
+        <a href="{{ bugs_link[key] }}" class="text-dark">{{ bug_list[key]|length }} bugs uplifted</a>
+        {% if key == constant('BETA') ~ ".0rc0" %}
+        <small class="fst-italic"> (on the beta branch, those will ship in rc1)</small>
         {% endif %}
+    {% else %}
+        No uplifts
+    {% endif %}
+    {% if loop.first %}
+        <small class="fst-italic">(contains all the patches landed during the nightly cycle)</small>
+    {% endif %}
+    {% if key|split('b')[1] > beta.count and 'rc' not in key %}
+        <small class="fst-italic">(upcoming beta, not shipped yet)</small>
+    {% endif %}
+    </li>
 
-        {% if values['total']|length > 0 %}
-            <li class="list-group-item text-dark border-0 bg-info">
-                <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
-                    <span class="text-collapsed">Show bug fixes</span>
-                    <span class="text-expanded">Hide bug fixes</span>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-    <div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
-        <ol class="w-75 m-auto pt-1 mb-3 text-dark bg-white table-fxt-clean ">
-        {% for sig in beta.crashes[key].signatures|slice(0, 7) %}
-        {% if sig.term in known_top_crashes %}
-            {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
-        {% elseif ((sig.count/beta.crashes[key].total)*100)|number_format(2) > 10 %}
-            {% set button, alert = 'btn btn-danger btn-sm', 'Top crash' %}
-        {% else %}
-            {% set button, alert = '', '' %}
-        {% endif %}
+{% if key != constant('BETA') ~ ".0rc0" %}
+    {% if key|split('b')[1] <= beta.count %}
+    <li class="list-group-item text-light border-0 bg-warning-subtle">
+       <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
+            <span class="text-collapsed ">Show crashes</span>
+            <span class="text-expanded ">Hide crashes</span>
+        </a>
+    </li>
+    {% endif %}
+{% endif %}
 
-        {% if sig.term in crash_bugs|keys  %}
-            {% set crash_bug_button, crash_bug_link = 'btn btn-success btn-sm', '<a class="text-light" href="https://bugzilla.mozilla.org/' ~ crash_bugs[sig.term] ~ '">' ~ crash_bugs[sig.term] ~ '</a>' %}
-        {% else %}
-            {% set crash_bug_button, crash_bug_link = '', '' %}
-        {% endif %}
+{% if values['total']|length > 0 %}
+    <li class="list-group-item text-dark border-0 bg-info">
+        <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseBugs{{ key }}">
+            <span class="text-collapsed">Show bug fixes</span>
+            <span class="text-expanded">Hide bug fixes</span>
+        </a>
+    </li>
+{% endif %}
+</ul>
 
-        {% if beta.crashes[key].signatures %}
-        <li class="mb-1">
-            <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a  class="text-dark" href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a> <span class="fw-normal" title="{{ sig.count }}">({{ ((sig.count/beta.crashes[key].total)*100)|number_format(2) }}%)</span> <span class="{{ button }}">{{ alert }}</span> <span class="{{ crash_bug_button }}">{{ crash_bug_link|raw }}</span>
-        </li>
-        {% endif %}
+<div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
+    <ol class="w-75 m-auto pt-1 mb-3 text-dark bg-white table-fxt-clean ">
+    {% for sig in beta.crashes[key].signatures|slice(0, 7) %}
+    {% if sig.term in known_top_crashes %}
+        {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
+    {% elseif ((sig.count/beta.crashes[key].total)*100)|number_format(2) > 10 %}
+        {% set button, alert = 'btn btn-danger btn-sm', 'Top crash' %}
+    {% else %}
+        {% set button, alert = '', '' %}
+    {% endif %}
 
-        {% endfor %}
-        </ol>
-    </div>
+    {% if sig.term in crash_bugs|keys  %}
+        {% set crash_bug_button, crash_bug_link = 'btn btn-success btn-sm', '<a class="text-light" href="https://bugzilla.mozilla.org/' ~ crash_bugs[sig.term] ~ '">' ~ crash_bugs[sig.term] ~ '</a>' %}
+    {% else %}
+        {% set crash_bug_button, crash_bug_link = '', '' %}
+    {% endif %}
+
+    {% if beta.crashes[key].signatures %}
+    <li class="mb-1">
+        <a href="https://crash-stats.mozilla.org/signature/?signature={{ sig.term }}" title="Go to Crash Stats"><img src="/assets/img/socorro.png" width="16" height="16" alt=""/></a> <a  class="text-dark" href="https://crash-stop-addon.herokuapp.com/sumup.html?s={{ sig.term }}">{{ sig.term }}</a> <span class="fw-normal" title="{{ sig.count }}">({{ ((sig.count/beta.crashes[key].total)*100)|number_format(2) }}%)</span> <span class="{{ button }}">{{ alert }}</span> <span class="{{ crash_bug_button }}">{{ crash_bug_link|raw }}</span>
+    </li>
+    {% endif %}
+
+    {% endfor %}
+    </ol>
+</div>
 
 <div class="collapse" id="collapseBugs{{ key }}">
     <table class="table table-light table-fxt-clean table-hover table-sm w-75 justify-content-center mb-3">
         <caption class="text-center text-light caption-top fw-semibold">
-
             Uplifts and Backouts
             {% if values['total']|length > 0 %}
             <a href="{{ bugs_link[key] }}" {{ tooltip_defaults|raw }} title="Open this list on <b>Bugzilla</b>" class="bzlink" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="orange"><path d="M480-200q66 0 113-47t47-113v-160q0-66-47-113t-113-47q-66 0-113 47t-47 113v160q0 66 47 113t113 47Zm-80-120h160v-80H400v80Zm0-160h160v-80H400v80Zm80 40Zm0 320q-65 0-120.5-32T272-240H160v-80h84q-3-20-3.5-40t-.5-40h-80v-80h80q0-20 .5-40t3.5-40h-84v-80h112q14-23 31.5-43t40.5-35l-64-66 56-56 86 86q28-9 57-9t57 9l88-86 56 56-66 66q23 15 41.5 34.5T688-640h112v80h-84q3 20 3.5 40t.5 40h80v80h-80q0 20-.5 40t-3.5 40h84v80H688q-32 56-87.5 88T480-120Z"/></svg></a>
             {% endif %}
         </caption>
        <thead>
-        <tr class="text-start table-warning force-default-bg fw-semibold">
-            <th>Bug</th>
-            <th>Component</th>
-            <th>Summary</th>
-        </tr>
-      </thead>
-      <tbody>
+            <tr class="text-start table-warning force-default-bg fw-semibold">
+                <th>Bug</th>
+                <th>Component</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
         {%- for details in bug_list[key] -%}
 
             {%- set alert_link = '' -%}
@@ -157,13 +157,13 @@
                 {%- set alert_row ='fw-bold' -%}
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
-        <tr class="{{ alert_row }}">
-            <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.component }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.summary }}</a></td>
-        </tr>
+            <tr class="{{ alert_row }}">
+                <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-end text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+                <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.component }}</a></td>
+                <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark">{{ details.summary }}</a></td>
+            </tr>
         {% endfor %}
-      </tbody>
+        </tbody>
     </table>
 </div>
 {% endfor %}

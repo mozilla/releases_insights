@@ -9,39 +9,39 @@
 {% endblock %}
 
 {% block header %}
-     {%  include 'release_nav.html.twig' %}
+     {% include 'release_nav.html.twig' %}
 {% endblock %}
 
 {% block main %}
 
 {% if not fallback_content %}
-  {% if release == constant('BETA') %}
-    {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Beta</b> channel' %}
-    {% set channel = 'beta' %}
-    {% set rollout = '
-      <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-html="true"
-          title="This is the background update rate.<br><b>Not the uptake rate!</b>"
-        >
-        <sup class="fw-normal fst-italic text-secondary border-bottom">(' ~ beta_rollout ~ '% rollout)</sup>
-      </span>
-    '
-    %}
-  {% elseif release == constant('NIGHTLY') %}
-    {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Nightly</b> channel' %}
-    {% set channel = 'nightly' %}
-  {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') +1 %}
-    {% set alert = '<b class="text-danger">Release candidate</b> about to be released.' %}
-    {% set channel = 'future' %}
-  {% else %}
-    {% set alert = 'Future version, development not started yet' %}
-    {% set channel = 'future' %}
-  {% endif %}
+    {% if release == constant('BETA') %}
+        {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Beta</b> channel' %}
+        {% set channel = 'beta' %}
+        {% set rollout = '
+          <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-html="true"
+              title="This is the background update rate.<br><b>Not the uptake rate!</b>"
+            >
+            <sup class="fw-normal fst-italic text-secondary border-bottom">(' ~ beta_rollout ~ '% rollout)</sup>
+          </span>
+        '
+        %}
+    {% elseif release == constant('NIGHTLY') %}
+        {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Nightly</b> channel' %}
+        {% set channel = 'nightly' %}
+    {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') +1 %}
+        {% set alert = '<b class="text-danger">Release candidate</b> about to be released.' %}
+        {% set channel = 'future' %}
+    {% else %}
+        {% set alert = 'Future version, development not started yet' %}
+        {% set channel = 'future' %}
+    {% endif %}
 
 {% if release == '147' or release == '159' %}
-  {% set alert = alert ~ '
+    {% set alert = alert ~ '
 
 <div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
   <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
@@ -60,7 +60,7 @@
 {% endif %}
 
 {% if release == '148' or release == '153' %}
-  {% set alert = alert ~ '
+    {% set alert = alert ~ '
 
 <div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
   <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
@@ -78,99 +78,97 @@
   '%}
 {% endif %}
 
-  <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}
-      {% if channel == 'nightly'%}
-        {% if nightly_updates %}
-            <div class="text-success"><small>Automatic Updates are enabled</small></div>
-        {% else %}
-          <div>
+    <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}
+        {% if channel == 'nightly'%}
+            {% if nightly_updates %}
+        <div class="text-success"><small>Automatic Updates are enabled</small></div>
+            {% else %}
+        <div>
            <small class="text-danger">Automatic Updates are temporarily disabled</small>
             {% if nightly_emergency %}
                 <br class="mt-2"><small>&rarr; {{ nightly_emergency|raw }}</small>
             {% endif %}
-          </div>
+        </div>
         {% endif %}
       {% endif %}
-  </div>
+    </div>
   {% set table_header = 'text-secondary-emphasis fw-semibold' %}
-  <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
-    <tr class='table-warning'>
-      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Corresponding ESR releases</th>
-      <td>
-        {{ ESR }}
-        {% if OLDER_ESR %}
-            &middot; {{ OLDER_ESR }}
-        {% endif %}
+    <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
+        <tr class='table-warning'>
+            <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Corresponding ESR releases</th>
+            <td>
+            {{ ESR }}
+            {% if OLDER_ESR %}
+                &middot; {{ OLDER_ESR }}
+            {% endif %}
 
-        {% if ESR_115 %}
-            &middot;
-            <span
-              data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-              title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>."
-              class='text-muted'>
-              {{ ESR_115 }}<sup class="text-danger">?</sup></span>
-        {% endif %}
-      </td>
-    </tr>
+            {% if ESR_115 %}
+                &middot;
+                <span
+                  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                  title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>."
+                  class='text-muted'>
+                  {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+            {% endif %}
+            </td>
+        </tr>
     {% if channel == 'beta' %}
-    <tr>
-      <th class="{{ table_header }}">Current Beta</th>
-      <td>
-      {% if date() > date(cycle_dates.rc_gtb) %}
-        {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
-      {% else %}
-        {{ constant('FIREFOX_BETA') }}
-      {% endif %}
-      {% if beta_rollout != -1 %}
-        {{ rollout|raw }}
-      {% endif %}
-      </td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Bugs fixed in Nightly</th>
-      <td>{{ nightly_fixes.bug_fixes|length }}</td>
-    </tr>
+        <tr>
+            <th class="{{ table_header }}">Current Beta</th>
+            <td>
+          {% if date() > date(cycle_dates.rc_gtb) %}
+            {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
+          {% else %}
+            {{ constant('FIREFOX_BETA') }}
+          {% endif %}
+          {% if beta_rollout != -1 %}
+            {{ rollout|raw }}
+          {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Bugs fixed in Nightly</th>
+            <td>{{ nightly_fixes.bug_fixes|length }}</td>
+        </tr>
     {% endif %}
     {% if channel == 'nightly' %}
-    <tr>
-      <th class="{{ table_header }}">Latest BuildID</th>
-      <td>{{ latest_nightly }}</td>
-    </tr>
+        <tr>
+            <th class="{{ table_header }}">Latest BuildID</th>
+            <td>{{ latest_nightly }}</td>
+        </tr>
     {% endif %}
-    <tr>
-      <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
-    </tr>
+        <tr>
+            <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
+        </tr>
 
     {% if release == '140' %}
-    <tr class="table-warning">
-      <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
-    </tr>
+        <tr class="table-warning">
+            <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
+        </tr>
     {% endif %}
 
-
     {% if channel == 'nightly' %}
-    <tr>
-      <th class="{{ table_header }}">Release notes</th>
-      <td><a href="https://www.mozilla.org/firefox/nightly/notes/">Nightly notes</a></td>
-    </tr>
+        <tr>
+            <th class="{{ table_header }}">Release notes</th>
+            <td><a href="https://www.mozilla.org/firefox/nightly/notes/">Nightly notes</a></td>
+        </tr>
     {% endif %}
 
     {% if channel == 'beta' %}
-    <tr>
-      <th class="{{ table_header }}">Release notes</th>
-      <td><a href="https://www.mozilla.org/firefox/beta/notes/">Beta notes</a></td>
-    </tr>
+        <tr>
+            <th class="{{ table_header }}">Release notes</th>
+            <td><a href="https://www.mozilla.org/firefox/beta/notes/">Beta notes</a></td>
+        </tr>
     {% endif %}
-
   </table>
 
   {% set gtb = ' <small class="text-secondary fw-light">Go to build</small>' %}
@@ -259,60 +257,59 @@
 
   {% set next_milestone = true %}
 
-  <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
-  <tr>
-    <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones<br><small class="fw-normal">Desktop, Android & iOS</small></th>
-  </tr>
-  {% for key, value in cycle_dates %}
+    <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
+        <tr>
+            <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones<br><small class="fw-normal">Desktop, Android & iOS</small></th>
+        </tr>
+{% for key, value in cycle_dates %}
     {% if key != 'version' %}
-      {% set extra = '' %}
+        {% set extra = '' %}
 
-      {% if key == 'soft_code_freeze' %}
-        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
+        {% if key == 'soft_code_freeze' %}
+            {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
+        {% endif %}
+
+        {% if release == '153' %}
+            {% if key == 'beta_6' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+            {% endif %}
+            {% if key == 'beta_12' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+            {% endif %}
+        {% elseif release == '148' %}
+            {% if key == 'beta_9' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+            {% endif %}
+            {% if key == 'beta_15' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+            {% endif %}
+        {% elseif release == '159' %}
+            {% if key == 'beta_6' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+            {% endif %}
+            {% if key == 'beta_11' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+            {% endif %}
+        {% else %}
+            {% if key == 'beta_6' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+            {% endif %}
+            {% if key == 'beta_9' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+            {% endif %}
       {% endif %}
 
-      {% if release == '153' %}
-        {% if key == 'beta_6' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-        {% endif %}
-        {% if key == 'beta_12' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-        {% endif %}
-      {% elseif release == '148' %}
-        {% if key == 'beta_9' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-        {% endif %}
-        {% if key == 'beta_15' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-        {% endif %}
-      {% elseif release == '159' %}
-        {% if key == 'beta_6' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-        {% endif %}
-        {% if key == 'beta_11' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-        {% endif %}
-      {% else %}
-        {% if key == 'beta_6' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-        {% endif %}
-        {% if key == 'beta_9' %}
-          {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-        {% endif %}
-      {% endif %}
-
-      {% if key == 'rc' %}
+    {% if key == 'rc' %}
         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
-      {% endif %}
-
-    <tr>
+    {% endif %}
+        <tr>
     {% if date(value) < date() %}
         {% if key starts with 'beta' and key in ['beta_1_gtb', 'beta_1'] %}
             <th class="text-muted fw-light">
-              <details>
-                <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
+                <details>
+                    <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
               <p>{{ cycle_descriptions[key]|raw }}</p>
-              </details>
+                </details>
             </th>
         {% elseif key starts with 'beta' and key != 'beta_1' %}
             <th class="text-muted fw-light">
@@ -338,26 +335,25 @@
         </th>
         {% set next_milestone = false %}
     {% endif %}
-      <td {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
-        <span
-          class="schedule_date"
-          data-bs-toggle="tooltip"
-          data-bs-placement="left"
-          data-bs-html="true"
-          title="{{ value|format_date('relative_full')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
-        >{{ value|format_date(pattern='MMMM d') }}</span>{% if value|format_date(pattern='YYYY-MM-dd') in wellness_days %}<span
-          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-          title="Wellness day. <br>Reduced availability of Mozilla Staff."
-          class='text-muted'><sup class="text-danger">?</sup></span>
-          {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd')) %}
-          {%  endif %}
-        <br><small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
-
-      </td>
-    </tr>
+        <td {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+            <span
+              class="schedule_date"
+              data-bs-toggle="tooltip"
+              data-bs-placement="left"
+              data-bs-html="true"
+              title="{{ value|format_date('relative_full')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
+            >{{ value|format_date(pattern='MMMM d') }}</span>{% if value|format_date(pattern='YYYY-MM-dd') in wellness_days %}<span
+              data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+              title="Wellness day. <br>Reduced availability of Mozilla Staff."
+              class='text-muted'><sup class="text-danger">?</sup></span>
+              {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd')) %}
+              {% endif %}<br>
+              <small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
+        </td>
+        </tr>
     {% endif %}
-  {% endfor %}
-  </table>
+{% endfor %}
+    </table>
 
 {% endif %}
   {{ fallback_content|raw }}
@@ -366,22 +362,22 @@
 {% block footer %}
 {% if not fallback_content %}
   {%  include 'footer_UTC_warning.html.twig' %}
-  <footer class="d-flex justify-content-center text-white-50 mt-0">Working days exclude week-ends and the current day</footer>
+    <footer class="d-flex justify-content-center text-white-50 mt-0">Working days exclude week-ends and the current day</footer>
 {% endif %}
 
-  <script nonce="{{constant('NONCE')}}">
-  $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
-  })
+    <script nonce="{{constant('NONCE')}}">
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip()
+        })
 
-  $('span.schedule_date').click(function (){
-      var current_row = $(this).closest('tr');
-      var details_in_row = current_row.find('details');
-      if (details_in_row.attr('open')) {
-        details_in_row.removeAttr('open');
-      } else {
-        details_in_row.attr('open', 'open')
-      };
-  });
-  </script>
+        $('span.schedule_date').click(function (){
+            var current_row = $(this).closest('tr');
+            var details_in_row = current_row.find('details');
+            if (details_in_row.attr('open')) {
+                details_in_row.removeAttr('open');
+            } else {
+                details_in_row.attr('open', 'open')
+            };
+        });
+    </script>
 {% endblock %}

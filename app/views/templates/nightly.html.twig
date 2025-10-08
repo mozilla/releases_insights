@@ -4,21 +4,20 @@
     {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
     <meta property="twitter:description" content="{{ meta_description }}">
-
     <meta property="og:url" content="https://whattrainisitnow.com/nightly/">
 {% endblock %}
 
 {% block header %}
-  <header class="mx-auto">
-    <h1>
-      <a href="?date={{ previous_date }}">«</a>
-      &nbsp;{{ display_date|format_datetime('full', 'none') }}&nbsp;
-      {% if requested_date != today %}<a href="?date={{ next_date }}">»</a><br><a href="?date=today" class="btn btn-primary">Today</a>{% endif %}
-    </h1>
+    <header class="mx-auto">
+        <h1>
+          <a href="?date={{ previous_date }}">«</a>
+          &nbsp;{{ display_date|format_datetime('full', 'none') }}&nbsp;
+          {% if requested_date != today %}<a href="?date={{ next_date }}">»</a><br><a href="?date=today" class="btn btn-primary">Today</a>{% endif %}
+        </h1>
     {% if warning_message %}
-    <div class="w-50 alert alert-warning mx-auto text-center" role="alert">{{ warning_message }}</div>
+        <div class="w-50 alert alert-warning mx-auto text-center" role="alert">{{ warning_message }}</div>
     {% endif %}
-  </header>
+    </header>
 {% endblock %}
 {% block main %}
 {%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
@@ -46,24 +45,22 @@
             <a href="https://crash-stats.mozilla.org/api/SuperSearch/?build_id={{ dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
         </li>
     </ul>
-    <p>
-
-</p>
-<div class="collapse" id="collapse{{ dataset.buildid }}">
+    <p></p>
+    <div class="collapse" id="collapse{{ dataset.buildid }}">
 
     <!-- Outstanding bugs -->
     {% if outstanding_bugs[dataset.buildid].bugs %}
-    <table class="table table-light table-striped table-bordered table-sm mb-3 caption-top">
-        <caption class="table-dark text-center fw-bold">Outstanding bugs</caption>
-       <thead>
-        <tr class="table-dark">
-            <th>Bug</th>
-            <th>Component</th>
-            <th>Impact</th>
-            <th>Summary</th>
-        </tr>
-      </thead>
-      <tbody>
+        <table class="table table-light table-striped table-bordered table-sm mb-3 caption-top">
+            <caption class="table-dark text-center fw-bold">Outstanding bugs</caption>
+            <thead>
+                <tr class="table-dark">
+                    <th>Bug</th>
+                    <th>Component</th>
+                    <th>Impact</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+            <tbody>
         {%- for details in outstanding_bugs[dataset.buildid].bugs -%}
             {%- set alert_link = '' -%}
             {%- set alert_title = '' -%}
@@ -85,30 +82,30 @@
                 {%- set alert_row ='fw-bold' -%}
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
-        <tr class="small {{ alert_row }}">
-            <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</a></td>
-            <td class="text-center {{ alert_row }}">
-                <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
-                <div class="card text-bg-primary mb-3 score-card">
-                    <div class="card-body p-2">
-                        <table class="table table-borderless table-sm">
-                        {%- for key, score_detail in bug_list_karma[details.id].details -%}
-                            {%- if score_detail != 0 -%}
-                            <tr class="small text-light bg-primary">
-                                <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
-                                <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
-                            </tr>
-                            {%- endif -%}
-                        {%- endfor -%}
-                        </table>
+            <tr class="small {{ alert_row }}">
+                <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+                <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</a></td>
+                <td class="text-center {{ alert_row }}">
+                    <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
+                    <div class="card text-bg-primary mb-3 score-card">
+                        <div class="card-body p-2">
+                            <table class="table table-borderless table-sm">
+                            {%- for key, score_detail in bug_list_karma[details.id].details -%}
+                                {%- if score_detail != 0 -%}
+                                <tr class="small text-light bg-primary">
+                                    <th class="text-start p-0 text-light bg-primary">{{ key }}</th>
+                                    <td class="text-end p-0 fw-normal text-light bg-primary">{{ score_detail }}</td>
+                                </tr>
+                                {%- endif -%}
+                            {%- endfor -%}
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
-        </tr>
+                </td>
+                <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.summary }}</a></td>
+            </tr>
         {% endfor %}
-      </tbody>
+        </tbody>
     </table>
     {% endif %}
 
@@ -180,7 +177,6 @@
     </table>
 </div>
     <ol>
-
     {%for sig in top_sigs[dataset.buildid] %}
     {% if sig.term in known_top_crashes %}
         {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}

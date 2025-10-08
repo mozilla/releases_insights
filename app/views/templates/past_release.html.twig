@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% if release == constant('FIREFOX_RELEASE')|number_format %}
-  {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Release</b> channel' %}
-  {% set channel = 'release' %}
+    {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Release</b> channel' %}
+    {% set channel = 'release' %}
 {% endif %}
 
 {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
@@ -11,287 +11,275 @@
         <meta property="twitter:description" content="{{ meta_description }}">
         <meta property="og:url" content="https://whattrainisitnow.com/release/">
         {% if channel == 'release' %}<meta http-equiv="refresh" content="3600">{% endif %}
-
 {% endblock %}
 
 {% block header %}
-  {% include 'release_nav.html.twig' %}
+    {% include 'release_nav.html.twig' %}
 {% endblock %}
 
-
 {% block main %}
-  {% if channel == 'release' %}
-  <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">{{ alert|raw }}</div>
-  {% endif %}
+    {% if channel == 'release' %}
+    <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">{{ alert|raw }}</div>
+    {% endif %}
 
-  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
-  <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
-    <tr class="table-warning">
-      <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
-    </tr>
-      <th class="{{ table_header }}">Corresponding ESR releases</th>
-      <td>
-      {{ ESR }}
-      {% if OLDER_ESR is not null %}
-          {% if release > 130 and release < 140 %}
-            &middot; <span
-            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-            title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>."
-            class='text-muted'>
-           {{ ESR_115 }}<sup class="text-danger">?</sup></span>
-          {% else %}
-             &middot; {{ OLDER_ESR }}
-          {% endif %}
-      {% endif %}
+    {% set table_header = 'text-secondary-emphasis fw-semibold' %}
+    <table class="table table-light table-fxt-clean table-sm mb-3 w-50 justify-content-center">
+        <tr class="table-warning">
+            <th class="{{ table_header }}">Release Date</th><td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Release Owner</th><td>{{ release_owner }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Corresponding ESR releases</th>
+            <td>
+            {{ ESR }}
+            {% if OLDER_ESR is not null %}
+                {% if release > 130 and release < 140 %}
+                    &middot; <span
+                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                    title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>."
+                    class='text-muted'>
+                   {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+                {% else %}
+                    &middot; {{ OLDER_ESR }}
+                {% endif %}
+            {% endif %}
 
-      {# Cases where we have an ESR 115 release active (>=115 and before ESR115 is EOL) #}
-      {# it's unclear if the esr115 field will remain with the latest esr 115 release forever or null #}
-      {% if ESR_115 is not null %}
-        {% if ESR_115 != ESR and ESR_115 != OLDER_ESR %}
-          {% if release > 130 %}
-            &middot; <span
-            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-            title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>."
-            class='text-muted'>
-           {{ ESR_115 }}<sup class="text-danger">?</sup></span>
-          {% endif %}
+            {# Cases where we have an ESR 115 release active (>=115 and before ESR115 is EOL) #}
+            {# it's unclear if the esr115 field will remain with the latest esr 115 release forever or null #}
+            {% if ESR_115 is not null %}
+                {% if ESR_115 != ESR and ESR_115 != OLDER_ESR %}
+                    {% if release > 130 %}
+                        &middot; <span
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                        title="ESR 115 support is extended for <i>Windows 7-8.1</i> and <i>macOS 10.12-10.14</i> up to <b>March 2026</b>."
+                        class='text-muted'>
+                       {{ ESR_115 }}<sup class="text-danger">?</sup></span>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
+        </tr>
+        {% if release > 57 %}
+        <tr>
+            <th class="{{ table_header }}">Bugs fixed in nightly</th>
+            <td>{{ nightly_fixes.bug_fixes|length }}</td>
+        </tr>
         {% endif %}
-      {% endif %}
-      </td>
-    </tr>
 
-    <tr>
-      <th class="{{ table_header }}">Nightly cycle length</th><td>{{ nightly_cycle_length|number_format }} weeks</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
-    </tr>
-    {% if release > 57 %}
-    <tr>
-      <th class="{{ table_header }}">Bugs fixed in nightly</th>
-      <td>
-          {{ nightly_fixes.bug_fixes|length }}
-      </td>
-    </tr>
-    {% endif %}
-
-    {% if beta_uplifts %}
-    <tr>
-      <th class="{{ table_header }}">Uplifts in <a href="{{ beta_changelog }}">beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
-    </tr>
-    {% else %}
-    <tr>
-      <th class="{{ table_header }}">Uplifts in beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
-    </tr>
-    {% endif %}
-
-    {% if rc_uplifts %}
-    <tr>
-      <th class="{{ table_header }}">Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backout{{ rc_uplifts.backouts|length != 1 ? 's' }})</td>
-    </tr>
-    {% else %}
-    <tr>
-      <th class="{{ table_header }}">Uplifts in RC</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
-    </tr>
-    {% endif %}
-
-    {# {% if dot_uplifts %} #}
-    <tr>
-      <th class="{{ table_header }}">Uplifts in <a href="{{ dot_changelog }}">dot releases</a></th><td><a href="{{ dot_uplifts_url }}">{{ dot_uplifts.total|length }}</a> ({{ dot_uplifts.backouts|length }} backout{{ dot_uplifts.backouts|length != 1 ? 's' }})</td>
-    </tr>
-    {# {% endif %} #}
-
-
-    <tr>
-      <th class="{{ table_header }}">Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length + + dot_uplifts.total|length}}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Betas</th><td>{{ beta_count }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Release Candidates</th><td>{{ rc_count }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Dot releases</th><td>{{ dot_release_count }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Release notes</th>
-      <td>
-        {% set link_fix = '' %}
-        {% if release == 125 or release == 14 %}
-          {% set link_fix = '.1' %}
+        {% if beta_uplifts %}
+        <tr>
+            <th class="{{ table_header }}">Uplifts in <a href="{{ beta_changelog }}">beta</a></th><td><a href="{{ beta_uplifts_url }}">{{ beta_uplifts.total|length }}</a> ({{ beta_uplifts.backouts|length }} backout{{ beta_uplifts.backouts|length != 1 ? 's' }})</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th class="{{ table_header }}">Uplifts in beta</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
+        </tr>
         {% endif %}
-        <a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}{{ link_fix }}/releasenotes/">Consumer notes</a> <span class="text-black-50">&#8280;</span>
-        <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a>
-      </td>
-    </tr>
-  </table>
+
+        {% if rc_uplifts %}
+        <tr>
+            <th class="{{ table_header }}">Uplifts in <a href="{{ rc_changelog }}">RC</a></th><td><a href="{{ rc_uplifts_url }}">{{ rc_uplifts.total|length }}</a> ({{ rc_uplifts.backouts|length }} backout{{ rc_uplifts.backouts|length != 1 ? 's' }})</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th class="{{ table_header }}">Uplifts in RC</th><td>Data cannot be extracted from mercurial (missing HG tags)</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th class="{{ table_header }}">Uplifts in <a href="{{ dot_changelog }}">dot releases</a></th><td><a href="{{ dot_uplifts_url }}">{{ dot_uplifts.total|length }}</a> ({{ dot_uplifts.backouts|length }} backout{{ dot_uplifts.backouts|length != 1 ? 's' }})</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Total number of uplifts</th><td>{{ beta_uplifts.total|length + rc_uplifts.total|length + + dot_uplifts.total|length}}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Betas</th><td>{{ beta_count }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Release Candidates</th><td>{{ rc_count }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Dot releases</th><td>{{ dot_release_count }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Release notes</th>
+            <td>
+                {% set link_fix = '' %}
+                {% if release == 125 or release == 14 %}
+                  {% set link_fix = '.1' %}
+                {% endif %}
+                <a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}{{ link_fix }}/releasenotes/">Consumer notes</a> <span class="text-black-50">&#8280;</span>
+                <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a>
+            </td>
+        </tr>
+    </table>
 
   {% set rollout = release_rollout ~ '% rollout' %}
   {% set hg_web_base = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' %}
   {% set date_pattern = 'MMMM d' %}
 
-  <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
-    <tr>
-      <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Key Milestones</th>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Nightly start</th>
-      <td title="{{ nightly_start_date|format_date('full') }}">{{ nightly_start_date|format_date(pattern=date_pattern) }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">Beta start</th>
-      <td title="{{ beta_start_date|format_date('full') }}">{{ beta_start_date|format_date(pattern=date_pattern) }}</td>
-    </tr>
-    <tr>
-      <th class="{{ table_header }}">
-        {{ release }}.0
-        <span
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-bs-html="true">
-          <sup class="fw-normal fst-italic text-secondary border-bottom"  title="{{ uptake }}% &mdash; adoption rate has a 24h latency">
-            {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
-              {% if uptake is not null %}
-                  {% set uptake_msg = uptake|number_format ~ '% adoption' %}
-              {% else %}
-                  {% set uptake_msg = '(adoption rate unavailable)' %}
-              {% endif %}
-              {% if dot_release_count == 0 %}
-                {{ uptake_msg ~ ' - ' ~ rollout }}
-              {% else %}
-                {{ uptake_msg }}
-              {% endif %}
-            {% endif %}
-          </sup>
-        </span>
-      </th>
-      {% if release == 14 or release == 125 %}
-      <td>Version never shipped</td>
-      {% else %}
-      <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date(pattern=date_pattern) }}</td>
-      {% endif %}
-    </tr>
-        {% set last_android = 0 %}
-        {% set last_desktop = 0 %}
-        {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
-
-        {% if dot_release_count > 0 %}
-          {% for dot_release in 1..dot_release_count %}
-
-            {% set target_platform = dot_releases[release ~ '.0.' ~ dot_release]['platform'] %}
-            {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern=date_pattern) %}
-            {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] %}
-
-            {% set product = 'FIREFOX_' %}
-            {% if target_platform == 'android' %}
-              {% set product = 'FIREFOX-ANDROID_' %}
-            {% endif %}
-
-            {% if dot_release == 1 %}
-              {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-              {% if target_platform == 'android' %}
-                  {% set last_android = 1 %}
-              {% else %}
-                  {% set last_desktop = 1 %}
-                  {% set desktop_base = 'FIREFOX_' ~ release ~ '_0_' ~  last_desktop ~  '_RELEASE' %}
-              {% endif %}
-            {% endif %}
-
-            {% if dot_release > 1 %}
-              {% if target_platform == 'android' %}
-                {%  if last_android == 0 %}
-                  {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_RELEASE' %}
-                {% else %}
-                  {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_' ~  last_android ~  '_RELEASE' %}
-                {% endif %}
-                {% set base = android_base %}
-                {% set last_android = dot_release %}
-              {% else %}
-                {% if last_desktop == 0 %}
-                  {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
-                {% else %}
-                  {% set desktop_base = 'FIREFOX_' ~ release ~ '_0_' ~  last_desktop ~  '_RELEASE' %}
-                {% endif %}
-                {% set base = desktop_base %}
-                {% set last_desktop = dot_release %}
-              {% endif %}
-
-              {% set dot_release_link = hg_web_base ~ base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
-            {% endif %}
-
-            <tr>
-              <th class="{{ table_header }}">
-
-                {% if release == 136 and dot_release == 4 %}
-                  {# 136.0.4 was a chemspill in 137 RC week on a relbranch, our web pushlog can't output the range, point to the single patch #}
-                 <a href="https://hg.mozilla.org/releases/mozilla-release/rev/338dbe214b58535c49370d8701d6525808233293" class="link-primary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
-                {% else %}
-                 <a href="{{ dot_release_link }}" class="link-primary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
-                {% endif %}
-
-                {#  Was this dot release a chemspill? #}
-                {% if release ~ '.0.' ~ dot_release in chemspills %}
-                    <sup class="fw-semibold fst-italic text-danger-emphasis" >Chemspill
-                    <span
-                        data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true"
-                        title="<b>Chemspill</b><br>Urgent security release"
-                        class='text-muted'>
-                        <sup class="text-danger">?</sup>
-                      </span>
-                </sup>
-                {% endif %}
-
-                {% if release > 125 %}
-                  {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
-                    <sup class="fw-normal fst-italic text-info-emphasis">Android-only</sup>
-                  {% endif %}
-                  {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
-                    <sup class="fw-normal fst-italic text-info-emphasis">Desktop-only</sup>
-                  {% endif %}
-                    {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
-                      <sup class="fw-normal fst-italic text-secondary border-bottom" title="{{ adoption }}% &mdash; adoption rate has a 24h latency">{{ adoption|number_format }}% adoption</sup>
-                  {% endif %}
-                {% endif %}
-                {% if loop.last and release_rollout != -1 %}
-                <sup class="fw-normal fst-italic text-secondary">
-                  {{ rollout|raw }}
-                </sup>
-                {% endif %}
-              </th>
-              <td title="{{ dot_release_date|format_date('full') }}">{{ dot_release_date }}</td>
-            </tr>
-           {% endfor %}
-         {% endif %}
-
-        {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
-        {% if "now"|date('Y-m-d') < release_date|date_modify('+1 week')|date('Y-m-d') %}
-          <tr>
-            <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential mobile {{ release }}.0.x</a></th>
-            <td title="">{{ release_date|date_modify('+1 week')|format_date(pattern=date_pattern) }}</td>
-          </tr>
+    <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
+        <tr>
+            <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Key Milestones</th>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Nightly start</th>
+            <td title="{{ nightly_start_date|format_date('full') }}">{{ nightly_start_date|format_date(pattern=date_pattern) }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">Beta start</th>
+            <td title="{{ beta_start_date|format_date('full') }}">{{ beta_start_date|format_date(pattern=date_pattern) }}</td>
+        </tr>
+        <tr>
+            <th class="{{ table_header }}">
+                {{ release }}.0
+                <span
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-html="true">
+                    <sup class="fw-normal fst-italic text-secondary border-bottom"  title="{{ uptake }}% &mdash; adoption rate has a 24h latency">
+                    {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
+                      {% if uptake is not null %}
+                          {% set uptake_msg = uptake|number_format ~ '% adoption' %}
+                      {% else %}
+                          {% set uptake_msg = '(adoption rate unavailable)' %}
+                      {% endif %}
+                      {% if dot_release_count == 0 %}
+                        {{ uptake_msg ~ ' - ' ~ rollout }}
+                      {% else %}
+                        {{ uptake_msg }}
+                      {% endif %}
+                    {% endif %}
+                    </sup>
+               </span>
+            </th>
+        {% if release == 14 or release == 125 %}
+            <td>Version never shipped</td>
+        {% else %}
+            <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date(pattern=date_pattern) }}</td>
         {% endif %}
-         {% if release ~ '.0' not in no_planned_dot_releases %}
-           {% if "now"|date('Y-m-d') <= release_date|date_modify('+2 weeks')|date('Y-m-d') and "now"|date('Y-m-d') not in dot_releases|column('date') %}
-              <tr>
-                <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
-                <td title="">{{ release_date|date_modify('+2 weeks')|format_date(pattern=date_pattern) }}</td>
-              </tr>
-           {% endif %}
-         {% endif %}
+        </tr>
+            {% set last_android = 0 %}
+            {% set last_desktop = 0 %}
+            {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
 
-  </table>
+            {% if dot_release_count > 0 %}
+                {% for dot_release in 1..dot_release_count %}
+                    {% set target_platform = dot_releases[release ~ '.0.' ~ dot_release]['platform'] %}
+                    {% set dot_release_date = dot_releases[release ~ '.0.' ~ dot_release]['date']|format_date(pattern=date_pattern) %}
+                    {% set adoption = dot_releases[release ~ '.0.' ~ dot_release]['adoption'] %}
+
+                    {% set product = 'FIREFOX_' %}
+                    {% if target_platform == 'android' %}
+                        {% set product = 'FIREFOX-ANDROID_' %}
+                    {% endif %}
+
+                    {% if dot_release == 1 %}
+                        {% set dot_release_link = hg_web_base ~ desktop_base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                        {% if target_platform == 'android' %}
+                            {% set last_android = 1 %}
+                        {% else %}
+                            {% set last_desktop = 1 %}
+                            {% set desktop_base = 'FIREFOX_' ~ release ~ '_0_' ~  last_desktop ~  '_RELEASE' %}
+                        {% endif %}
+                    {% endif %}
+
+                    {% if dot_release > 1 %}
+
+                        {% if target_platform == 'android' %}
+                            {% if last_android == 0 %}
+                                {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_RELEASE' %}
+                            {% else %}
+                                {% set android_base = 'FIREFOX-ANDROID_' ~ release ~ '_0_' ~  last_android ~  '_RELEASE' %}
+                            {% endif %}
+                            {% set base = android_base %}
+                            {% set last_android = dot_release %}
+                        {% else %}
+                            {% if last_desktop == 0 %}
+                                {% set desktop_base = 'FIREFOX_' ~  release ~ '_0_RELEASE' %}
+                            {% else %}
+                                {% set desktop_base = 'FIREFOX_' ~ release ~ '_0_' ~  last_desktop ~  '_RELEASE' %}
+                        {% endif %}
+
+                        {% set base = desktop_base %}
+                        {% set last_desktop = dot_release %}
+                    {% endif %}
+                        {% set dot_release_link = hg_web_base ~ base ~ '&tochange=' ~ product ~  release ~ '_0_' ~ dot_release ~ '_RELEASE&full&version=2' %}
+                {% endif %}
+                <tr>
+                    <th class="{{ table_header }}">
+
+                    {% if release == 136 and dot_release == 4 %}
+                      {# 136.0.4 was a chemspill in 137 RC week on a relbranch, our web pushlog can't output the range, point to the single patch #}
+                        <a href="https://hg.mozilla.org/releases/mozilla-release/rev/338dbe214b58535c49370d8701d6525808233293" class="link-primary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
+                    {% else %}
+                        <a href="{{ dot_release_link }}" class="link-primary" title="Mercurial changelog">{{ release }}.0.{{ dot_release }}</a>
+                    {% endif %}
+
+                    {#  Was this dot release a chemspill? #}
+                    {% if release ~ '.0.' ~ dot_release in chemspills %}
+                        <sup class="fw-semibold fst-italic text-danger-emphasis" >Chemspill
+                            <span
+                                data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true"
+                                title="<b>Chemspill</b><br>Urgent security release"
+                                class='text-muted'><sup class="text-danger">?</sup></span>
+                        </sup>
+                    {% endif %}
+
+                    {% if release > 125 %}
+                        {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'android' %}
+                            <sup class="fw-normal fst-italic text-info-emphasis">Android-only</sup>
+                        {% endif %}
+                        {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] == 'desktop' %}
+                            <sup class="fw-normal fst-italic text-info-emphasis">Desktop-only</sup>
+                        {% endif %}
+                        {% if dot_releases[release ~ '.0.' ~ dot_release]['platform'] != 'android' and dot_releases[release ~ '.0.' ~ dot_release]['adoption'] > 0 %}
+                            <sup class="fw-normal fst-italic text-secondary border-bottom" title="{{ adoption }}% &mdash; adoption rate has a 24h latency">{{ adoption|number_format }}% adoption</sup>
+                        {% endif %}
+                    {% endif %}
+                    {% if loop.last and release_rollout != -1 %}
+                        <sup class="fw-normal fst-italic text-secondary">
+                          {{ rollout|raw }}
+                        </sup>
+                    {% endif %}
+                    </th>
+                    <td title="{{ dot_release_date|format_date('full') }}">{{ dot_release_date }}</td>
+                </tr>
+               {% endfor %}
+             {% endif %}
+
+            {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
+            {% if "now"|date('Y-m-d') < release_date|date_modify('+1 week')|date('Y-m-d') %}
+                <tr>
+                    <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential mobile {{ release }}.0.x</a></th>
+                    <td title="">{{ release_date|date_modify('+1 week')|format_date(pattern=date_pattern) }}</td>
+                </tr>
+            {% endif %}
+             {% if release ~ '.0' not in no_planned_dot_releases %}
+               {% if "now"|date('Y-m-d') <= release_date|date_modify('+2 weeks')|date('Y-m-d') and "now"|date('Y-m-d') not in dot_releases|column('date') %}
+                <tr>
+                    <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                    <td title="">{{ release_date|date_modify('+2 weeks')|format_date(pattern=date_pattern) }}</td>
+                </tr>
+               {% endif %}
+             {% endif %}
+
+      </table>
 
 {% endblock %}
 
 {% block footer %}
-  {% include 'footer_UTC_warning.html.twig' %}
-  <script nonce="{{constant('NONCE')}}">
-  $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
-  });
-  </script>
+    {% include 'footer_UTC_warning.html.twig' %}
+    <script nonce="{{constant('NONCE')}}">
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip()
+        });
+    </script>
 {% endblock %}

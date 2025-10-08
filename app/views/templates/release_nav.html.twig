@@ -1,13 +1,13 @@
 
-  <header class="mx-auto mb-3">
+<header class="mx-auto mb-3">
     <h1>
     {% if release > 1 %}
-    <a href="?version={{ release -1 }}" title="Previous release" class="text-decoration-none">«</a>
+        <a href="?version={{ release -1 }}" title="Previous release" class="text-decoration-none">«</a>
     {% endif %}
-      &nbsp;Firefox&nbsp;{{ release }}&nbsp;
-      <a href="?version={{ release +1 }}" title="Next release" class="text-decoration-none">»</a><br>
+          &nbsp;Firefox&nbsp;{{ release }}&nbsp;
+        <a href="?version={{ release +1 }}" title="Next release" class="text-decoration-none">»</a><br>
     {% if release != constant('FIREFOX_RELEASE')|number_format %}
-      <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to <b>Release</b> channel</a>
+        <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to <b>Release</b> channel</a>
     {% endif %}
     </h1>
-  </header>
+</header>

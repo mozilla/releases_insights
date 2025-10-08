@@ -1,27 +1,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-   <channel>
-      <title>{{ title }}</title>
-      <description>{{ description }}</description>
-      <link>{{ site_link }}</link>
-      <language>en-US</language>
-      <lastBuildDate>{{ latest_release_date }}</lastBuildDate>
-      <ttl>1440</ttl>
-      <atom:link href="https://whattrainisitnow.com/rss/" rel="self" type="application/rss+xml" />
+    <channel>
+        <title>{{ title }}</title>
+        <description>{{ description }}</description>
+        <link>{{ site_link }}</link>
+        <language>en-US</language>
+        <lastBuildDate>{{ latest_release_date }}</lastBuildDate>
+        <ttl>1440</ttl>
+        <atom:link href="https://whattrainisitnow.com/rss/" rel="self" type="application/rss+xml" />
 {% for release in releases %}
-      <item>
-         <title>Firefox {{ release.version }}</title>
-         <description>Firefox release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY') }}
+        <item>
+            <title>Firefox {{ release.version }}</title>
+            <description>Firefox release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY') }}
 {%- if release.platform == 'android' -%}&lt;br&gt;This is an Android-only release{% endif %}
 {%- if release.platform == 'desktop' -%}&lt;br&gt;This is a desktop-only release{% endif %}</description>
 {% if release.platform == 'android' %}
-         <link>https://www.mozilla.org/en-US/firefox/android/{{ release.version }}/releasenotes/</link>
-         <guid>https://www.mozilla.org/en-US/firefox/android/{{ release.version }}/releasenotes/</guid>
+            <link>https://www.mozilla.org/en-US/firefox/android/{{ release.version }}/releasenotes/</link>
+            <guid>https://www.mozilla.org/en-US/firefox/android/{{ release.version }}/releasenotes/</guid>
 {% else %}
-         <link>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</link>
-         <guid>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</guid>
+            <link>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</link>
+            <guid>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</guid>
 {% endif %}
-         <pubDate>{{ release.date }}</pubDate>
-      </item>
+            <pubDate>{{ release.date }}</pubDate>
+        </item>
 {% endfor %}
-   </channel>
+    </channel>
 </rss>
