@@ -538,3 +538,8 @@ nav svg:hover {
         background: #f8f9fa;
     }
 }
+
+
+@view-transition {
+  navigation: auto;
+}
