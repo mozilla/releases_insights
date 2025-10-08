@@ -2,8 +2,9 @@
     // This is a pure old-schol PHP template as the waiting page doesn't depend on Twig
 ?>
 <!DOCTYPE html>
-<html class="waitingpage">
+<html class="waitingpage" lang="en" dir="ltr">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <style nonce="<?=NONCE?>">
         html.waitingpage, html.waitingpage body {
@@ -27,7 +28,7 @@
             text-align: center;
             color:black;
             background-color: white;
-            padding: 10px 0;
+            padding: 10px;
             border-radius: 10px;
             font-weight: normal;
             font-size: 18px;
