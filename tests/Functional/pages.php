@@ -11,6 +11,7 @@ $paths = [
     ['', 200, 'Firefox Trains', 'id="homepage"'],
     ['', 200, 'Firefox Trains', '<meta http-equiv="refresh" content="3600">'], // Auto-refresh the Home page every hour
     ['about/', 200, 'Other resources', 'id="about"'],
+    ['api/', 302, '', 'id="about"'],
     ['beta/', 200, '', ''],
     ['nightly/', 200, '', 'id="nightly"'],
     ['calendar/', 200, '', 'id="calendar_main"'],

@@ -75,6 +75,7 @@ class Request
             '/beta/'                            => 'beta',
             '/nightly/'                         => 'nightly',
             '/release/'                         => 'release',
+            '/api/'                             => 'api_doc',
             '/api/beta/crashes/'                => 'api/beta_crashes',
             '/api/firefox/chemspills/'          => 'api/chemspill_releases',
             '/api/external/'                    => 'api/external',
