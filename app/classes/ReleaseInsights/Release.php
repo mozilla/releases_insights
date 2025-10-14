@@ -220,6 +220,14 @@ class Release
         }
 
         $schedule += [
+            'soft_code_freeze' => new DateTime($schedule['beta_1'])->sub(new \DateInterval('P5D'))->format('Y-m-d H:i:sP'),
+        ];
+
+        $schedule += [
+            'merge_day' => new DateTime($schedule['beta_1'])->sub(new \DateInterval('P1D'))->format('Y-m-d H:i:sP'),
+        ];
+
+        $schedule += [
             'release' => $release->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:sP'),
         ];
 
@@ -242,6 +250,9 @@ class Release
             && ! in_array($this->getFutureSchedule()['planned_dot_release'], $shipped_dot_releases)) {
             $schedule['planned_dot_release'] = $this->getFutureSchedule()['planned_dot_release'];
         }
+
+        // Sort the schedule by date
+        asort($schedule);
 
         // The schedule starts with the release version number
         return ['version' => $this->version->normalized] + $schedule;
