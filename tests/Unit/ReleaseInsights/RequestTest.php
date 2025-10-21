@@ -16,6 +16,7 @@ test('Request->getController()', function ($input, $output) {
     ['/release',                          'release'],
     ['/release//',                        'release'],
     ['/release/?version=100',             'release'],
+    ['/api',                              'api_doc'],
     ['/api/beta/crashes',                 'api/beta_crashes'],
     ['/api/external',                     'api/external'],
     ['/api/nightly',                      'api/nightly'],
