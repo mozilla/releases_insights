@@ -1,6 +1,7 @@
 /* General structure */
 :root {
     --bg-purple: #2a0c55;
+    --bg-purple-lighter: #3f2466;
     --bg-table-hover: #f2e9ff;
     --bg-alert-purple-light: #cfe2ff;
 }
@@ -542,4 +543,8 @@ nav svg:hover {
 
 @view-transition {
   navigation: auto;
+}
+
+.bg-purple-lighter {
+    background-color: var(--bg-purple-lighter) !important;
 }

@@ -59,19 +59,23 @@
   '%}
 {% endif %}
 
-    <div class="alert alert-danger w-50 mb-3 mx-auto d-flex text-center " role="alert">{{ alert|raw }}</div>
+    <div class="alert alert-danger w-50 mb-2 mx-auto d-flex text-center " role="alert">{{ alert|raw }}</div>
 
     <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">
-        <tr>
-            <th colspan="4" class="text-center table-warning force-default-bg">Releases calendar</th>
-        </tr>
-        <tr>
-            <th class="text-center">Firefox</th>
-            <th class="text-center">ESR</th>
-            <th class="text-center">Old ESR</th>
-            <th class="text-end">Date</th>
+        <caption class="h4 text-center text-warning">Upcoming ESR releases</caption>
+        <tr class="table-warning text-center">
+            <th class="px-4 text-secondary-emphasis fw-semibold">Firefox</th>
+            <th class="px-4 text-secondary-emphasis fw-semibold">ESR</th>
+            <th class="px-4 text-secondary-emphasis fw-semibold">Old ESR</th>
+            <th class="px-4 text-secondary-emphasis fw-semibold text-end">Shipping date</th>
         </tr>
     {% for key, values in esr_calendar %}
+        {% if values.date|format_date(pattern='YYYY') != year %}
+            <tr>
+                <th colspan="4" class="text-end table-dark fw-normal bg-purple-lighter border border-0 p-2">{{ values.date|format_date(pattern='YYYY') }}</th>
+            </tr>
+            {% set year = values.date|format_date(pattern='YYYY') %}
+        {% endif %}
         <tr>
             <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
             <td class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
