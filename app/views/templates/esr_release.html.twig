@@ -72,7 +72,7 @@
     {% for key, values in esr_calendar %}
         {% if values.date|format_date(pattern='YYYY') != year %}
             <tr>
-                <th colspan="4" class="text-end table-dark fw-normal bg-purple-lighter border border-0 p-2">{{ values.date|format_date(pattern='YYYY') }}</th>
+                <th colspan="4" class="text-end table-dark fw-normal bg-purple-lighter border border-0 p-2">{{ values.date|format_date(pattern='YYYY') }}&nbsp;↓</th>
             </tr>
             {% set year = values.date|format_date(pattern='YYYY') %}
         {% endif %}
