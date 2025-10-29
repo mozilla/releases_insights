@@ -244,7 +244,7 @@
     rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build a second Release Candidate to fix a major quality or business critical issue.',
     rc: 'Our Release Candidate is shipped to all of our beta population.',
     release: 'We ship Firefox ' ~ release ~ ' at ' ~ date(cycle_dates.release)|format_date(pattern='HH:mm') ~ ' UTC (6AM PST) at 25% rollout.',
-    mobile_dot_release: 'One week after the release, we evaluate shipping a mobile-only dot release to address identified issues. We can also enable new features on a on a case by case basis if they are suitable for uplift. The decision on shipping or not this dot release for Android and/or iOS, is on the release management team.',
+    mobile_dot_release: 'One week after the release, we evaluate shipping a mobile-only dot release to address identified issues. We can also enable new features on a on a case by case basis if they are suitable for uplift. The decision on shipping or not this dot release for Android is on the release management team.',
     planned_dot_release: 'Two weeks after the release, we ship a desktop and/or mobile dot release to address identified quality issues with safe fixes ready. We can also enable new features on a on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.'
     }
   %}
@@ -258,9 +258,14 @@
   {% set next_milestone = true %}
 
     <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
-        <tr>
-            <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones<br><small class="fw-normal">Desktop, Android & iOS</small></th>
-        </tr>
+        <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">
+            Milestones
+            <br><small class="fw-normal">Desktop &amp; Android</small>
+            <br><small class="fw-normal text-muted">
+                iOS branches every Friday and starts a phased rollout on Sunday after a week of stabilization.
+                <br>Major iOS versions match Desktop (e.g., {{ release }}.0), followed by weekly dot releases ({{ release }}.1, {{ release }}.2, {{ release }}.3) before the next major.
+            </small>
+        </th>
 {% for key, value in cycle_dates %}
     {% if key != 'version' %}
         {% set extra = '' %}
