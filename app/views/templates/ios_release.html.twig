@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+  {% set meta_description = 'Firefox iOS milestones (weekly): Merge Day and rollout computed from Desktop NEXT_RELEASE_DATE.' %}
+  <meta name="description" content="{{ meta_description }}">
+  <meta property="twitter:description" content="{{ meta_description }}">
+  <meta property="og:url" content="https://whattrainisitnow.com/release/?iosversion={{ release }}">
+  <meta http-equiv="refresh" content="7200">
+{% endblock %}
+
+{% block header %}
+  {% include 'release_nav.html.twig' %}
+{% endblock %}
+
+{% block main %}
+  <div class="w-50 alert alert-primary mx-auto text-center" role="alert">
+    Firefox iOS {{ release }} schedule
+  </div>
+
+  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
+  <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
+    <tr>
+      <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">
+        Firefox iOS Milestones<br>
+        <small class="fw-normal">Weekly branching &amp; rollout</small><br>
+        <small class="fw-normal text-muted">
+          Major Firefox iOS versions match Desktop (e.g. {{ release }}.0), followed by weekly dot releases
+          ({{ release }}.1, {{ release }}.2, {{ release }}.3) before the next major release.
+        </small>
+      </th>
+    </tr>
+
+    {% for row in ios_schedule %}
+      <tr>
+        <th class="{{ table_header }}">
+          {{ row.version }}
+          <div class="fw-normal">
+            Release Branch and RC builds:
+            <span title="{{ row.merge|format_date('full') }}">{{ row.merge|format_date('long') }}</span><br>
+            Rollout begins:
+            <span title="{{ row.rollout|format_date('full') }}">{{ row.rollout|format_date('long') }}</span>
+          </div>
+        </th>
+        <td class="fw-light text-secondary">
+          One week of stabilization between creating the release branch and release rollout.
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
+
+{% block footer %}
+  {% include 'footer_UTC_warning.html.twig' %}
+  <footer class="d-flex justify-content-center text-white-50 mt-0">
+  </footer>
+{% endblock %}
