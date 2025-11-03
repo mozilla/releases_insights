@@ -33,7 +33,7 @@
 {%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
 {% for key, values in beta.uplifts %}
 
-{% if key == constant('BETA') ~ ".  " %}
+{% if key == constant('BETA') ~ ".0rc0" %}
 <p class="bg-info w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded"><small>Last beta shipped</small></p>
 {% endif %}
 
