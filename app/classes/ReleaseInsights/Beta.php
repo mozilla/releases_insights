@@ -30,7 +30,10 @@ readonly class Beta
         // We get the number of betas from the planned schedule
         $schedule = new Release((string) $release)->getSchedule();
         $schedule = array_keys($schedule);
-        $schedule = array_filter($schedule, fn($label) => str_starts_with($label, 'beta_'));
+        $schedule = array_filter(
+            $schedule,
+            fn($label) => str_starts_with($label, 'beta_') && ! str_ends_with($label, '_gtb')
+        );
         $this->number_betas = count($schedule);
 
         // Check if the beta cycle is over, this avoids a miscount for RC builds
