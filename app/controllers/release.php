@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Data, ESR, Model, Template, Version};
+use ReleaseInsights\{Data, ESR, Model, Template, Version, IosSchedule};
+use DateTimeImmutable;
+use DateTimeInterface;
 
 $requested_version = Version::get();
 $requested_version_int = (int) Version::get();
@@ -15,6 +17,116 @@ if ($requested_version == '0.0') {
 // Planned releases
 $upcoming_releases = new Data()->getFutureReleases();
 $owners = new Data()->release_owners;
+
+// iOS milestones view: /release/?iosversion=NNN
+if (isset($_GET['iosversion'])) {
+    $ios_param = (string) $_GET['iosversion'];
+    $ios_major = (int) preg_replace('/\D+/', '', $ios_param);
+
+    if ($ios_major <= 0) {
+        header('Location: /404/');
+        return;
+    }
+
+    // We’ll reuse the existing models. They key off Version::get(), so temporarily
+    // set ?version to the requested iOS major, call the model, then render & return.
+    $original_version = $_GET['version'] ?? null;
+    $_GET['version']  = (string) $ios_major;
+
+    // Determine whether we should use past or future model based on RELEASE constant
+    if ($ios_major <= RELEASE) {
+        [
+            $last_release_date,
+            $previous_release_date,
+            $beta_cycle_length,
+            $nightly_cycle_length,
+            $nightly_fixes,
+            $beta_changelog,
+            $beta_uplifts,
+            $rc_uplifts,
+            $rc_changelog,
+            $rc_uplifts_url,
+            $rc_backouts_url,
+            $beta_uplifts_url,
+            $beta_backouts_url,
+            $dot_uplifts,
+            $dot_uplifts_url,
+            $dot_backouts_url,
+            $dot_changelog,
+            $rc_count,
+            $beta_count,
+            $dot_release_count,
+            $dot_releases,
+            $nightly_start_date,
+            $beta_start_date,
+            $firefox_releases,
+            $no_planned_dot_releases,
+            $release_rollout,
+            $uptake,
+            $chemspills,
+        ] = new Model('past_release')->get();
+
+        // For already-shipped versions, anchor to Desktop ship day
+        $desktop_next_release = $last_release_date;
+    } else {
+        [
+            $release_date,
+            $beta_cycle_length,
+            $nightly_cycle_length,
+            $nightly_fixes,
+            $nightly_updates,
+            $nightly_emergency,
+            $cycle_dates,
+            $deadlines,
+            $rollout,
+            $wellness_days,
+            $latest_nightly,
+        ] = new Model('future_release')->get();
+
+        // For future versions, anchor to Desktop NEXT_RELEASE_DATE
+        $desktop_next_release = $cycle_dates['release'] ?? $release_date;
+    }
+
+        // Normalize the anchor to DateTimeImmutable for the scheduler
+    if ($desktop_next_release instanceof DateTimeInterface) {
+        $desktopNextRelease = ($desktop_next_release instanceof DateTimeImmutable)
+            ? $desktop_next_release
+            : DateTimeImmutable::createFromInterface($desktop_next_release);
+    } else {
+        $desktopNextRelease = new DateTimeImmutable((string) $desktop_next_release);
+    }
+
+    // Build the iOS weekly schedule from the Desktop anchor
+    $scheduler    = new IosSchedule();
+    $ios_schedule = $scheduler->buildFromDesktopNextReleaseDate(
+        major: $ios_major,
+        desktopNextReleaseDate: $desktopNextRelease,
+        weeks: 4
+    );
+
+    // Owner lookup follows the same pattern as the main page (keys like "146.0")
+    $requested_ios_key = $ios_major . '.0';
+    $ios_owner = $owners[$requested_ios_key] ?? 'TBD';
+
+    // Render the iOS Twig view and stop normal /release rendering
+    (new Template('ios_release.html.twig', [
+        'css_page_id'      => 'release_ios',
+        'page_title'       => 'Firefox iOS milestones for ' . $ios_major,
+        'release'          => $ios_major,
+        'release_owner'    => $ios_owner,
+        'desktop_release'  => $desktopNextRelease,
+        'ios_schedule'     => $ios_schedule,
+        'fallback_content' => '',
+    ]))->render();
+
+    // Restore original ?version just in case and exit this controller
+    if ($original_version === null) {
+        unset($_GET['version']);
+    } else {
+        $_GET['version'] = $original_version;
+    }
+    return;
+}
 
 $css_page_id = match (true) {
     $requested_version_int === NIGHTLY => 'release_nightly',
