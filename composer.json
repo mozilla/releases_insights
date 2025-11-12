@@ -47,7 +47,8 @@
         "overtrue/phplint": "^9.5",
         "tracy/tracy": "^2.10",
         "symplify/vendor-patches": "*",
-        "rector/rector": "^2.0"
+        "rector/rector": "^2.0",
+        "spaze/phpstan-disallowed-calls": "^4.7"
     },
     "autoload": {
         "psr-4": {

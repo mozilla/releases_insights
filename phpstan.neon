@@ -1,3 +1,6 @@
+includes:
+    - vendor/spaze/phpstan-disallowed-calls/extension.neon
+
 parameters:
     bootstrapFiles:
         - app/inc/config.php
@@ -22,4 +25,18 @@ parameters:
     treatPhpDocTypesAsCertain: false
     level: 6
 
-
+    disallowedFunctionCalls:
+        -
+            function:
+                - 'var_dump()'
+                - 'dd()'
+                - 'bdump()'
+                - 'dump()'
+                - 'error_log()'
+            message: 'Do not use Debug calls in production'
+    disallowedStaticCalls:
+        -
+            method: 'ReleaseInsights\Debug::dump()'
+            message: 'Do not use Debug calls in production'
+            allowIn:
+                - app/classes/ReleaseInsights/Performance.php
