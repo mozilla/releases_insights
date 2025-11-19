@@ -14,9 +14,9 @@ $releases = new Release($requested_version)->getSchedule();
 $short_version = (string) (int) $releases['version'];
 
 $release_schedule_labels = [
-    'nightly_start'       => 'Nightly ' . $short_version . ' starts',
     'a11y_request_deadline' => 'Deadline to request accessibility engineering review',
     'qa_request_deadline' => 'Deadline to request manual QA in Nightly',
+    'nightly_start'       => 'Nightly ' . $short_version . ' starts',
     'qa_feature_done'     => 'Build is feature complete for QA',
     'qa_feature_done_1'   => 'Build is feature complete for QA in Nightly',
     'qa_feature_done_2'   => 'Build is feature complete for QA in Beta',

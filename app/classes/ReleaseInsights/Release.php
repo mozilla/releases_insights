@@ -70,8 +70,8 @@ class Release
         $schedule = [
             # Starting with Firefox 136, QA request deadline is before the start of the nightly cycle
             'qa_request_deadline'   => $date($nightly->modify('-3 days')),
+            'a11y_request_deadline' => $date($nightly),
             'nightly_start'         => $date($nightly->modify('+3 days')),
-            'a11y_request_deadline' => $date('Friday'),
             'qa_feature_done'       => match ($this->version->normalized) {
                 '148.0' => $date('Friday +2 weeks 21:00'),
                 '149.0' => $date('Friday +3 weeks 21:00'),
@@ -264,8 +264,8 @@ class Release
 
         $labels = [
             'qa_request_deadline'   => $short_version . ' QA request deadline',
-            'nightly_start'         => 'Nightly ' . $short_version . ' starts',
             'a11y_request_deadline' => $short_version . ' a11y engineering request deadline for Nightly',
+            'nightly_start'         => 'Nightly ' . $short_version . ' starts',
             'qa_feature_done'       => $short_version .' build ready for QA', #️⃣ AKA Feature Complete Milestone
             'qa_feature_done_1'     => $short_version .' build ready for nightly QA',
             'qa_feature_done_2'     => $short_version .' build ready for beta QA',

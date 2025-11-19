@@ -51,6 +51,10 @@ test('Release->getSchedule()', function () {
     $obj = new Release('141.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2025-06-06 21:00:00+00:00");
 
+    // Bug 1999793 - Accessibility Review deadline should match QA deadline - https://bugzil.la/1999793
+    $obj = new Release('145.0')->getSchedule();
+    expect($obj['a11y_request_deadline'])->toEqual($obj['qa_request_deadline']);
+
     $obj = new Release('146.0');
     expect($obj->getSchedule()['planned_dot_release'])->toBe("2025-12-18 00:00:00+00:00");
     expect($obj->getSchedule()['rc_gtb'])->toBe("2025-12-01 21:00:00+00:00");
