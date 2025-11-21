@@ -115,8 +115,11 @@
                 {% if release == 125 or release == 14 %}
                   {% set link_fix = '.1' %}
                 {% endif %}
-                <a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}{{ link_fix }}/releasenotes/">Consumer notes</a> <span class="text-black-50">&#8280;</span>
-                <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer notes</a>
+                <a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}{{ link_fix }}/releasenotes/">General</a>
+                &middot;
+                <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer</a>
+                &middot;
+                <a href="https://support.mozilla.org/kb/firefox-enterprise-{{ release }}-release-notes/">Enterprise</a>
             </td>
         </tr>
     </table>
