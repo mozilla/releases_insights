@@ -73,12 +73,14 @@ class Release
             'a11y_request_deadline' => $date($nightly),
             'nightly_start'         => $date($nightly->modify('+3 days')),
             'qa_feature_done'       => match ($this->version->normalized) {
-                '148.0' => $date('Friday +2 weeks 21:00'),
                 '149.0' => $date('Friday +3 weeks 21:00'),
                 '154.0' => $date('Friday +2 weeks 21:00'),
                 default => $date('Friday +1 week 21:00'),
             },
-            'qa_test_plan_due'      => $date('Friday 21:00'),
+            'qa_test_plan_due'       => match ($this->version->normalized) {
+                '148.0' => $date('Friday +1 weeks 21:00'),
+                default => $date('Friday 21:00'),
+            },
             'soft_code_freeze'      => $date($nightly->modify('+1 week')->modify('Thursday 08:00')),
             'qa_pre_merge_done'     => $date('Friday 14:00'),
             'string_freeze'         => $date('Friday'),
