@@ -261,9 +261,10 @@
         <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">
             Milestones
             <br><small class="fw-normal">Desktop &amp; Android</small>
-            <br><small class="fw-normal text-muted">
-                iOS branches every Friday and starts a phased rollout on Sunday after a week of stabilization.
-                <br>Major iOS versions match Desktop (e.g., {{ release }}.0), followed by weekly dot releases ({{ release }}.1, {{ release }}.2, {{ release }}.3) before the next major.
+            <br><small class="fw-normal">
+                <a class="link-secondary" href="/release/?iosversion={{ release }}">
+                View Firefox iOS milestones for {{ release }}
+                </a>
             </small>
         </th>
 {% for key, value in cycle_dates %}
