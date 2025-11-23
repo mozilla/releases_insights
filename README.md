@@ -108,7 +108,7 @@ List of external sources that the app is pulling data from:
 - https://bugzilla.mozilla.org/rest/
 - https://aus-api.mozilla.org/api/v1/
 - https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/
-- https://pollbot.services.mozilla.com/v1/
+- https://prod.pollbot.prod.webservices.mozgcp.net/v1/
 
 The list of domains used to get data is listed at this API endpoint:
 https://whattrainisitnow.com/api/external/
