@@ -21,6 +21,7 @@ test('Request->getController()', function ($input, $output) {
     ['/api/external',                     'api/external'],
     ['/api/nightly',                      'api/nightly'],
     ['/api/release/schedule',             'api/release_schedule'],
+    ['/api/release/schedule/ios/',             'api/ios_release_schedule'],
     ['/api/release/owners',               'api/release_owners'],
     ['/api/nightly/crashes',              'api/nightly_crashes'],
     ['/api/firefox/chemspills/',          'api/chemspill_releases'],

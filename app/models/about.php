@@ -28,7 +28,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 <h3 class="text-center w-75 mx-auto" id="pages"><a href="#pages" class="bi-link-45deg anchor-link link-info"></a>Pages</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold w-30">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/">/</a></td>
@@ -85,7 +85,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 <h3 class="text-center w-75 mx-auto" id="json"><a href="#json" class="bi-link-45deg anchor-link link-info"></a>Json API</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold w-30">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
 
     <tr>
@@ -155,12 +155,25 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <td>Gives either the scheduled milestones for an upcoming major Desktop version or the actual schedule of builds for a past release.
         <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.</td>
     </tr>
+    <tr>
+        <td>
+            <ul class="list-unstyled mb-0">
+                <li><a href="/api/release/schedule/ios/?version=beta"><span class="text-body-tertiary me-1">api/</span>release/schedule/ios/?version=beta</a> <span class="text-body-tertiary">(forecast)</span></li>
+                <li><a href="/api/release/schedule/ios/?version=release"><span class="text-body-tertiary me-1">api/</span>release/schedule/ios/?version=release</a> <span class="text-body-tertiary">(actual)</span></li>
+            </ul>
+        </td>
+        <td>
+            Gives either the scheduled milestones for an upcoming major iOS version or the actual schedule of builds for a past release.
+            <br>Can be a version number or one of the <code>release</code>, <code>beta</code> or <code>nightly</code> keywords.
+            <br>Major iOS versions match Desktop (e.g., 146.0), followed by weekly dot releases (146.1, 146.2, 146.3) before the next major.
+        </td>
+    </tr>
 </table>
 
 <h3 class="text-center w-75 mx-auto" id="other"><a href="#other" class="bi-link-45deg anchor-link link-info"></a>Other resources</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold w-25">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
+        <th class="text-secondary-emphasis fw-semibold w-30">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
@@ -177,7 +190,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 <h3 class="text-center w-75 mx-auto" id="credits"><a href="#credits" class="bi-link-45deg anchor-link link-info"></a>Credits</h3>
 <table class="table table-light table-fxt-clean table-sm mb-3 w-75 justify-content-center">
     <tr class="table-warning">
-        <th class="text-secondary-emphasis fw-semibold w-25">What</th>
+        <th class="text-secondary-emphasis fw-semibold w-30">What</th>
         <th class="text-secondary-emphasis fw-semibold">Who</th>
     </tr>
     <tr>

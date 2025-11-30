@@ -27,6 +27,7 @@ readonly class Model
             'api_nightly_crashes'         => 'api/nightly_crashes.php',
             'api_release_owners'          => 'api/release_owners.php',
             'api_release_schedule'        => 'api/release_schedule.php',
+            'api_ios_release_schedule'    => 'api/ios_release_schedule.php',
             'api_wellness_days'           => 'api/wellness_days.php',
             'beta'                        => 'beta.php',
             'calendar'                    => 'calendar.php',

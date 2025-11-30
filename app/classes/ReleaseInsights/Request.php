@@ -82,6 +82,7 @@ class Request
             '/api/nightly/'                     => 'api/nightly',
             '/api/nightly/crashes/'             => 'api/nightly_crashes',
             '/api/release/schedule/'            => 'api/release_schedule',
+            '/api/release/schedule/ios/'        => 'api/ios_release_schedule',
             '/api/esr/releases/'                => 'api/esr_releases',
             '/api/firefox/releases/'            => 'api/firefox_releases',
             '/api/firefox/releases/esr/'        => 'api/esr_release_pairs',

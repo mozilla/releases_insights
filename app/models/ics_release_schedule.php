@@ -47,7 +47,7 @@ $release_schedule_labels = [
     'rc_gtb'              => 'Firefox ' . $short_version . ' go to Build',
     'rc'                  => 'RC',
     'release'             => 'Firefox ' . $short_version . ' go-live @ 06:00 AM PT',
-    'mobile_dot_release'  => 'Potential mobile ' . $releases['version'] . '.x planned dot release',
+    'mobile_dot_release'  => 'Potential Android ' . $releases['version'] . '.x planned dot release',
     'planned_dot_release' => 'Firefox ' . $releases['version'] . '.x planned dot release',
 ];
 

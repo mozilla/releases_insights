@@ -46,11 +46,10 @@ class Json
     /**
      * Return HTTP code 400 and an error message if an API call is incorrect
      */
-    public function outputError(): string
+    public function outputError(int $code = 400): string
     {
         $this->pretty_print = true;
-        http_response_code(400);
-
+        http_response_code($code);
         return $this->output();
     }
 

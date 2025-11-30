@@ -6,10 +6,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-const FIREFOX_RELEASE  = '93.0';
-const FIREFOX_BETA     = '94.0b8';
-const FIREFOX_NIGHTLY  = '95.0a1';
-const ESR              = '78.10.0esr';
+const FIREFOX_RELEASE  = '145.0';
+const FIREFOX_BETA     = '146.0b8';
+const FIREFOX_NIGHTLY  = '147.0a1';
+const ESR              = '140.5.0esr';
 const INSTALL_ROOT     = __DIR__ . '/../';
 const CONTROLLERS      = INSTALL_ROOT . 'app/controllers/';
 const MODELS           = INSTALL_ROOT . 'app/models/';

@@ -32,27 +32,27 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule())->toHaveKeys(['version', 'nightly_start', 'beta_1', 'beta_2',
         'beta_3', 'beta_4', 'beta_5', 'beta_6', 'release',]);
 
-    $obj = new Release('110.0');
+    $obj = new Release('146.0');
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
             'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'mobile_dot_release']);
 
     $obj = new Release('112.0');
-    expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-13 00:00:00+00:00');
+    expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-14 00:00:00+00:00');
 
-    $obj = new Release('116.0'); // merge day is Tuesday and we have one beta left
-    expect($obj->getSchedule())
+    $obj = new Release('146.0'); // merge day is Tuesday and we have one beta left
+    expect($obj->getSchedule()) // future release
         ->toHaveKeys(['version', 'nightly_start', 'soft_code_freeze', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
             'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_test_plan_due',
             'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
-    $obj = new Release('141.0');
-    expect($obj->getSchedule()['qa_feature_done'])->toBe("2025-06-06 21:00:00+00:00");
+    $obj = new Release('146.0'); // future release
+    expect($obj->getSchedule()['qa_feature_done'])->toBe("2025-10-24 21:00:00+00:00");
 
     // Bug 1999793 - Accessibility Review deadline should match QA deadline - https://bugzil.la/1999793
-    $obj = new Release('145.0')->getSchedule();
+    $obj = new Release('146.0')->getSchedule();
     expect($obj['a11y_request_deadline'])->toEqual($obj['qa_request_deadline']);
 
     $obj = new Release('146.0');

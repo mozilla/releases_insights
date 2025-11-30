@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Duration, Json, Nightly, Release, URL, Version};
+use ReleaseInsights\{Bugzilla, Data, Duration, IOS, Json, Nightly, Release, URL, Version};
 
 $requested_version = Version::get();
 
@@ -119,4 +119,5 @@ return [
     $rollout ?? -1,
     $wellness_days = new Data()->wellness_days,
     Nightly::getLatestBuildID(),
+    new IOS($requested_version)->getSchedule(),
 ];

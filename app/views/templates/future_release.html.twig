@@ -14,6 +14,7 @@
 
 {% block main %}
 
+{% set date_pattern = 'MMMM d' %}
 {% if not fallback_content %}
     {% if release == constant('BETA') %}
         {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Beta</b> channel' %}
@@ -206,11 +207,66 @@
     rc_gtb:                'Release Candidate' ~ gtb,
     rc:                    'Release Candidate',
     release:               'Release day!',
-    mobile_dot_release:    'Potential mobile dot release',
+    mobile_dot_release:    'Potential Android dot release',
     planned_dot_release:   'Planned dot release'
     }
   %}
- {% set cycle_descriptions = {
+  {% set ios_cycle_labels = {
+    merge_day_0:      release ~ '.0 branch is created',
+    merge_day_1:      release ~ '.1 branch is created',
+    merge_day_2:      release ~ '.2 branch is created',
+    merge_day_3:      release ~ '.3 branch is created',
+    rc_gtb_0:         release ~ '.0 release candidate is created',
+    rc_gtb_1:         release ~ '.1 release candidate is created',
+    rc_gtb_2:         release ~ '.2 release candidate is created',
+    rc_gtb_3:         release ~ '.3 release candidate is created',
+    qa_pre_signoff_0: 'Preliminary QA sign off on ' ~ release ~ '.0',
+    qa_pre_signoff_1: 'Preliminary QA sign off on ' ~ release ~ '.1',
+    qa_pre_signoff_2: 'Preliminary QA sign off on ' ~ release ~ '.2',
+    qa_pre_signoff_3: 'Preliminary QA sign off on ' ~ release ~ '.3',
+    qa_signoff_0:     'Final QA sign off on ' ~ release ~ '.0',
+    qa_signoff_1:     'Final QA sign off on ' ~ release ~ '.1',
+    qa_signoff_2:     'Final QA sign off on ' ~ release ~ '.2',
+    qa_signoff_3:     'Final QA sign off on ' ~ release ~ '.3',
+    appstore_sent_0:  release ~ '.0 sent to Apple Store',
+    appstore_sent_1:  release ~ '.1 sent to Apple Store',
+    appstore_sent_2:  release ~ '.2 sent to Apple Store',
+    appstore_sent_3:  release ~ '.3 sent to Apple Store',
+    release_0:  release ~ '.0 is shipped',
+    release_1:  release ~ '.1 is shipped',
+    release_2:  release ~ '.2 is shipped',
+    release_3:  release ~ '.3 is shipped',
+    }
+  %}
+
+  {% set ios_cycle_descriptions = {
+    merge_day_0:      'The <code>firefox-v' ~ release ~ '.0</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ release ~ '.1 on <code>main</code>. Any further code change for the ' ~ release ~ '.0 release now requires an uplift request.',
+    merge_day_1:      'The <code>firefox-v' ~ release ~ '.1</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ release ~ '.2 on <code>main</code>. Any further code change for the ' ~ release ~ '.1 release now requires an uplift request.',
+    merge_day_2:      'The <code>firefox-v' ~ release ~ '.2</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ release ~ '.3 on <code>main</code>. Any further code change for the ' ~ release ~ '.2 release now requires an uplift request.',
+    merge_day_3:      'The <code>firefox-v' ~ release ~ '.3</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ (release+1)  ~ '.0 on <code>main</code>. Any further code change for the ' ~ release ~ '.3 release now requires an uplift request.',
+    rc_gtb_0:         'The ' ~ release ~ '.0 release candidate is created based on the <code>firefox-v' ~ release ~ '.0</code> branch. This build might contain additional uplifts. Additionaly, the ' ~ (release-1) ~ '.3 release is tagged as shipped.',
+    rc_gtb_1:         'The ' ~ release ~ '.1 release candidate is created based on the <code>firefox-v' ~ release ~ '.0</code> branch. This build might contain additional uplifts. Additionaly, the ' ~ release ~ '.0 release is tagged as shipped.',
+    rc_gtb_2:         'The ' ~ release ~ '.2 release candidate is created based on the <code>firefox-v' ~ release ~ '.0</code> branch. This build might contain additional uplifts. Additionaly, the ' ~ release ~ '.1 release is tagged as shipped.',
+    rc_gtb_3:         'The ' ~ release ~ '.3 release candidate is created based on the <code>firefox-v' ~ release ~ '.0</code> branch. This build might contain additional uplifts. Additionaly, the ' ~ release ~ '.2 release is tagged as shipped.',
+    qa_pre_signoff_0: 'QA gives a preliminary sign off on ' ~ release ~ '.0. If it is green, we push the build to the External Beta Testers group. Otherwise, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_pre_signoff_1: 'QA gives a preliminary sign off on ' ~ release ~ '.1. If it is green, we push the build to the External Beta Testers group. Otherwise, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_pre_signoff_2: 'QA gives a preliminary sign off on ' ~ release ~ '.2. If it is green, we push the build to the External Beta Testers group. Otherwise, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_pre_signoff_3: 'QA gives a preliminary sign off on ' ~ release ~ '.3. If it is green, we push the build to the External Beta Testers group. Otherwise, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_signoff_0:     'QA gives its final sign off on ' ~ release ~ '.0. If the sign off is red, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_signoff_1:     'QA gives its final sign off on ' ~ release ~ '.1. If the sign off is red, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_signoff_2:     'QA gives its final sign off on ' ~ release ~ '.2. If the sign off is red, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    qa_signoff_3:     'QA gives its final sign off on ' ~ release ~ '.3. If the sign off is red, the dev team fixes the issues reported by QA, uplift them to the release branch and we build another Release Candidate.',
+    appstore_sent_0:  'We submit ' ~ release ~ '.0 for review to the Apple Store. If we don`t have a working build by the end of the day, we may not ship this week.',
+    appstore_sent_1:  'We submit ' ~ release ~ '.1 for review to the Apple Store. If we don`t have a working build by the end of the day, we may not ship this week.',
+    appstore_sent_2:  'We submit ' ~ release ~ '.2 for review to the Apple Store. If we don`t have a working build by the end of the day, we may not ship this week.',
+    appstore_sent_3:  'We submit ' ~ release ~ '.3 for review to the Apple Store. If we don`t have a working build by the end of the day, we may not ship this week.',
+    release_0:  release ~ '.0 is shipped on the Apple Store at 3:00 AM UTC with a phased 7 days rollout:<br>Monday: 1%, Tuesday: 2%, Wednesday: 5%, Thursday: 10%, Friday: 20%, Saturday: 50%, Sunday: 100%.',
+    release_1:  release ~ '.1 is shipped on the Apple Store at 3:00 AM UTC with a phased 7 days rollout:<br>Monday: 1%, Tuesday: 2%, Wednesday: 5%, Thursday: 10%, Friday: 20%, Saturday: 50%, Sunday: 100%.',
+    release_2:  release ~ '.2 is shipped on the Apple Store at 3:00 AM UTC with a phased 7 days rollout:<br>Monday: 1%, Tuesday: 2%, Wednesday: 5%, Thursday: 10%, Friday: 20%, Saturday: 50%, Sunday: 100%.',
+    release_3:  release ~ '.3 is shipped on the Apple Store at 3:00 AM UTC with a phased 7 days rollout:<br>Monday: 1%, Tuesday: 2%, Wednesday: 5%, Thursday: 10%, Friday: 20%, Saturday: 50%, Sunday: 100%.',
+    }
+  %}
+  {% set cycle_descriptions = {
     nightly_start: 'The first day of the cycle is <i>Merge Day</i>. After merging mozilla-central to mozilla-beta, we bump the nightly version number on mozilla-central and a new development cycle starts for Firefox. A new Firefox Nightly is shipped every 12 hours.',
     a11y_request_deadline: 'Accessibility engineering review has been requested (<a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/accessibility-review.html#requesting-engineering-review">using the <code>a11y-review</code> flag on Bugzilla</a>) for new (or significantly redesigned) UI that requires assessment to determine whether it is accessible to people with disabilities.',
     qa_request_deadline: 'QA has been informed (via a Jira ticket) about features that require manual testing during the nightly and/or beta cycle. <br>Feature technical documentation is also required to draft Test Plans and Test Cases.',
@@ -241,11 +297,11 @@
     beta_13: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_14: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_15: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
-    rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build a second Release Candidate to fix a major quality or business critical issue.',
+    rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build another Release Candidate to fix a major quality or business critical issue.',
     rc: 'Our Release Candidate is shipped to all of our beta population.',
     release: 'We ship Firefox ' ~ release ~ ' at ' ~ date(cycle_dates.release)|format_date(pattern='HH:mm') ~ ' UTC (6AM PST) at 25% rollout.',
-    mobile_dot_release: 'One week after the release, we evaluate shipping a mobile-only dot release to address identified issues. We can also enable new features on a on a case by case basis if they are suitable for uplift. The decision on shipping or not this dot release for Android is on the release management team.',
-    planned_dot_release: 'Two weeks after the release, we ship a desktop and/or mobile dot release to address identified quality issues with safe fixes ready. We can also enable new features on a on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.'
+    mobile_dot_release: 'One week after the release, we evaluate shipping an Android dot release to address identified issues. We can also enable new features on a on a case by case basis if they are suitable for uplift. The decision on shipping or not this dot release for Android is on the release management team.',
+    planned_dot_release: 'Two weeks after the release, we ship a desktop and/or an Android dot release to address identified quality issues with safe fixes ready. We can also enable new features on a on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.'
     }
   %}
 
@@ -256,110 +312,172 @@
  {% endif %}
 
   {% set next_milestone = true %}
+    <!-- Target element for table 2 (must come first for CSS sibling selector) -->
+    <div id="ios-target"></div>
 
-    <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
-        <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">
-            Milestones
-            <br><small class="fw-normal">Desktop &amp; Android</small>
-            <br><small class="fw-normal text-muted">
-                iOS branches every Friday and starts a phased rollout on Sunday after a week of stabilization.
-                <br>Major iOS versions match Desktop (e.g., {{ release }}.0), followed by weekly dot releases ({{ release }}.1, {{ release }}.2, {{ release }}.3) before the next major.
-            </small>
-        </th>
-{% for key, value in cycle_dates %}
-    {% if key != 'version' %}
-        {% set extra = '' %}
+    <!-- Bootstrap Nav Tabs -->
+    <ul class="nav nav-tabs w-50 mx-auto text-center m-0">
+        <li class="nav-item">
+            <a class="nav-link m-0" href="#gecko">Desktop & Android</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link m-0 no-focus-scroll" href="#ios-target">iOS</a>
+        </li>
+    </ul>
+    <!-- Tab Content Area -->
+    <div class="tab-content no-focus-scroll">
 
-        {% if key == 'soft_code_freeze' %}
-            {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
-        {% endif %}
+        <!-- Table 1 -->
+        <div id="gecko" class="table-container ">
+            <table class="table table-light table-fxt-clean table-hover table-sm w-50 justify-content-center mb-3">
+                <tr>
+                    <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones</th>
+                </tr>
+        {% for key, value in cycle_dates %}
+            {% if key != 'version' %}
+                {% set extra = '' %}
 
-        {% if release == '153' %}
-            {% if key == 'beta_6' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-            {% endif %}
-            {% if key == 'beta_12' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-            {% endif %}
-        {% elseif release == '148' %}
-            {% if key == 'beta_9' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-            {% endif %}
-            {% if key == 'beta_15' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-            {% endif %}
-        {% elseif release == '159' %}
-            {% if key == 'beta_6' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-            {% endif %}
-            {% if key == 'beta_11' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-            {% endif %}
-        {% else %}
-            {% if key == 'beta_6' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-            {% endif %}
-            {% if key == 'beta_9' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-            {% endif %}
-      {% endif %}
+                {% if key == 'soft_code_freeze' %}
+                    {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
+                {% endif %}
 
-    {% if key == 'rc' %}
-        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
-    {% endif %}
-        <tr>
-    {% if date(value) < date() %}
-        {% if key starts with 'beta' and key in ['beta_1_gtb', 'beta_1'] %}
-            <th class="text-muted fw-light">
-                <details>
-                    <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
-              <p>{{ cycle_descriptions[key]|raw }}</p>
-                </details>
-            </th>
-        {% elseif key starts with 'beta' and key != 'beta_1' %}
-            <th class="text-muted fw-light">
-                <details>
-                    <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
-                    <p>{{ cycle_descriptions[key]|raw }}</p>
-                </details>
-            </th>
-        {% else %}
-            <th class="text-muted fw-light">
-                <details>
-                    <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
-                    <p>{{ cycle_descriptions[key]|raw }}</p>
-                </details>
-            </th>
-        {% endif %}
-    {% else %}
-        <th class="{{ table_header }}">
-            <details{{ next_milestone and channel in ['nightly', 'beta'] ? ' open' }}>
-                <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
-                <p>{{ cycle_descriptions[key]|raw }}</p>
-            </details>
-        </th>
-        {% set next_milestone = false %}
-    {% endif %}
-        <td {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
-            <span
-              class="schedule_date"
-              data-bs-toggle="tooltip"
-              data-bs-placement="left"
-              data-bs-html="true"
-              title="{{ value|format_date('relative_full')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
-            >{{ value|format_date(pattern='MMMM d') }}</span>{% if value|format_date(pattern='YYYY-MM-dd') in wellness_days %}<span
-              data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-              title="Wellness day. <br>Reduced availability of Mozilla Staff."
-              class='text-muted'><sup class="text-danger">?</sup></span>
-              {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd')) %}
-              {% endif %}<br>
-              <small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
-        </td>
-        </tr>
-    {% endif %}
-{% endfor %}
-    </table>
+                {% if release == '153' %}
+                    {% if key == 'beta_6' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_12' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% endif %}
+                {% elseif release == '148' %}
+                    {% if key == 'beta_9' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_15' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% endif %}
+                {% elseif release == '159' %}
+                    {% if key == 'beta_6' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_11' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% endif %}
+                {% else %}
+                    {% if key == 'beta_6' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_9' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% endif %}
+              {% endif %}
 
+            {% if key == 'rc' %}
+                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
+            {% endif %}
+                <tr>
+            {% if date(value) < date() %}
+                {% if key starts with 'beta' and key in ['beta_1_gtb', 'beta_1'] %}
+                    <th class="text-muted fw-light">
+                        <details>
+                            <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
+                      <p>{{ cycle_descriptions[key]|raw }}</p>
+                        </details>
+                    </th>
+                {% elseif key starts with 'beta' and key != 'beta_1' %}
+                    <th class="text-muted fw-light">
+                        <details>
+                            <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) -1 }}_RELEASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b{{ key|replace({'beta_':''}) }}_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
+                            <p>{{ cycle_descriptions[key]|raw }}</p>
+                        </details>
+                    </th>
+                {% else %}
+                    <th class="text-muted fw-light">
+                        <details>
+                            <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
+                            <p>{{ cycle_descriptions[key]|raw }}</p>
+                        </details>
+                    </th>
+                {% endif %}
+            {% else %}
+                <th class="{{ table_header }}">
+                    <details{{ next_milestone and channel in ['nightly', 'beta'] ? ' open' }}>
+                        <summary>{{ cycle_labels[key]|raw }}{{ extra|raw }}</summary>
+                        <p>{{ cycle_descriptions[key]|raw }}</p>
+                    </details>
+                </th>
+                {% set next_milestone = false %}
+            {% endif %}
+                <td {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+                    <span
+                      class="schedule_date"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="left"
+                      data-bs-html="true"
+                      title="{{ value|format_date('relative_full')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
+                    >{{ value|format_date(pattern=date_pattern) }}</span>{% if value|format_date(pattern='YYYY-MM-dd') in wellness_days %}<span
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                      title="Wellness day. <br>Reduced availability of Mozilla Staff."
+                      class='text-muted'><sup class="text-danger">?</sup></span>
+                      {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd')) %}
+                      {% endif %}<br>
+                      <small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
+                </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+            </table>
+        </div>
+
+        <!-- Tab Content Area -->
+        <!-- Table 2 -->
+        <div id="ios" class="table-container no-focus-scroll">
+            <table class="table table-light table-sm w-50 justify-content-center mb-3">
+                <tr>
+                    <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">Milestones</th>
+                </tr>
+
+        {% set next_milestone = true %}
+        {% for key, value in ios_schedule %}
+            {% if key == 'version' %}
+                {# do nothing, skip it #}
+            {% else %}
+                {% set extra = '' %}
+                {% if key starts with 'qa_signoff_' %}
+                    {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes ready</small>' %}
+                {% endif %}
+                <tr>
+                    <th {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+                    {% if date(value) < date() or not next_milestone %}
+                        <details>
+                    {% else %}
+                        <details open>
+                        {% set next_milestone = false %}
+                    {% endif %}
+                            <summary>{{ ios_cycle_labels[key]|raw }}{{ extra|raw }}</summary>
+                            <p>{{ ios_cycle_descriptions[key]|raw }}</p>
+                        </details>
+                    </th>
+                    <td {{ date(value) < date() ? ' class="text-muted fw-light"' }}>
+                        <span
+                          class="schedule_date"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="left"
+                          data-bs-html="true"
+                          title="{{ value|format_date('relative_full')}} <br><b> {{ deadlines[key]['message'] ?? '' }}"
+                        >{{ value|format_date(pattern=date_pattern) }}</span>{% if value|format_date(pattern='YYYY-MM-dd') in wellness_days %}<span
+                          data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                          title="Wellness day. <br>Reduced availability of Mozilla Staff."
+                          class='text-muted'><sup class="text-danger">?</sup></span>
+                          {% set wellness_days = wellness_days | filter((v) => v != value|format_date(pattern='YYYY-MM-dd')) %}
+                          {% endif %}<br>
+                          <small class="fst-italic text-end">{{ deadlines[key]['message']}}</small>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endif %}
   {{ fallback_content|raw }}
 {% endblock %}

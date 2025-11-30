@@ -105,6 +105,7 @@ if ($requested_version_int <= RELEASE) {
         $release_rollout,
         $uptake,
         $chemspills,
+        $ios_schedule,
     ] = new Model('past_release')->get();
 
     $template_file = 'past_release.html.twig';
@@ -137,6 +138,7 @@ if ($requested_version_int <= RELEASE) {
         'release_rollout'         => $release_rollout,
         'uptake'                  => $uptake,
         'chemspills'              => $chemspills,
+        'ios_schedule'            => $ios_schedule,
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
@@ -152,6 +154,7 @@ if ($requested_version_int <= RELEASE) {
         $rollout,
         $wellness_days,
         $latest_nightly,
+        $ios_schedule,
     ] = new Model('future_release')->get();
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
@@ -166,6 +169,7 @@ if ($requested_version_int <= RELEASE) {
         'beta_rollout'         => $rollout,
         'wellness_days'        => $wellness_days,
         'latest_nightly'       => $latest_nightly,
+        'ios_schedule'         => $ios_schedule,
     ]);
 } else {
     $template_file = 'future_release.html.twig';

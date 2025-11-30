@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Bugzilla, Data, Json, Nightly, Release, URL, Version};
+use ReleaseInsights\{Bugzilla, Data, IOS, Json, Nightly, Release, URL, Version};
 
 // Historical data from Product Details
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -232,4 +232,5 @@ return [
     $rollout ?? -1,
     $release_uptake,
     new Data()->chemspills,
+    new IOS($requested_version)->getSchedule(),
 ];

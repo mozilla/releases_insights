@@ -219,8 +219,10 @@ readonly class Beta
         foreach (range(1, $this->count) as $beta_number) {
             $beta_number = (string) $this->release . '.0b' . (string) $beta_number;
             if (defined('TESTING_CONTEXT')) {
-                $beta_number = str_replace('94', '131', $beta_number);
+                $beta_number = str_replace('146', '131', $beta_number);
+                // var_dump($beta_number);
                 $target = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $beta_number . '.json';
+                // var_dump($target);
             } else {
                 $target = URL::Socorro->value . 'SuperSearch/?version=' . $beta_number . '&_facets=signature&product=Firefox';  // @codeCoverageIgnore
             }

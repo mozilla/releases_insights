@@ -23,6 +23,9 @@ $paths = [
     ['firefox/releases/future/', 200, 'Verif:skip'],
     ['firefox/calendar/future/', 200, 'Verif:skip'],
     ['firefox/chemspills/', 200, 'Verif:skip'],
+    ['I_am_a_404/', 404, '{
+    "error": "Not Found"
+}'],
 ];
 
 $obj = new \pchevrel\Verif('Check API HTTP responses');

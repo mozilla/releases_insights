@@ -97,11 +97,14 @@ body[id^='release_'] caption {
 }
 
 .table-fxt-clean {
-     border-radius: 6px;
-     border-spacing: 0;
-     border-collapse: separate;
-     border: 1px solid black;
-     overflow: hidden;
+    border-spacing: 0;
+    border-collapse: separate;
+    overflow: hidden;
+}
+
+.rounded-6 {
+    border-radius: 6px;
+    border: 1px solid black;
 }
 
 #release_esr .table + .table td {
@@ -439,6 +442,10 @@ h3:target + table {
     width: 10%;
 }
 
+.w-30 {
+    width: 30%;
+}
+
 /* bootstrap extension */
 .fs-7 {
   font-size: 0.75rem !important;
@@ -547,4 +554,51 @@ nav svg:hover {
 
 .bg-purple-lighter {
     background-color: var(--bg-purple-lighter) !important;
+}
+
+
+/* Tabbed interface on release pages */
+/* Hide all tables by default */
+.table-container {
+    display: none;
+}
+
+/* Show table 1 by default (when no hash in URL) */
+#gecko {
+    display: block;
+}
+
+/* When table 2 is targeted, show table 2 and hide table 1 */
+#ios-target:target ~ .tab-content #ios {
+    display: block;
+}
+
+#ios-target:target ~ .tab-content #gecko {
+    display: none;
+}
+
+/* Bootstrap nav-tabs styling overrides for active state */
+.nav-tabs .nav-link {
+    color: whitesmoke;
+    background-color:var(--bg-purple-lighter)   ;
+}
+
+.nav-tabs .nav-link[href="#gecko"] {
+    color: #0d6efd;
+    background-color: #fff3cd;
+}
+
+#ios-target:target ~ .nav-tabs .nav-link[href="#gecko"] {
+    color: whitesmoke;
+    background-color: var(--bg-purple-lighter) ;
+}
+
+#ios-target:target ~ .nav-tabs .nav-link[href="#ios-target"] {
+    color: #0d6efd;
+    background-color: #fff3cd;
+}
+
+
+.no-focus-scroll {
+    scroll-padding-top: 800px;
 }

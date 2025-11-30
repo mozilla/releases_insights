@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace ReleaseInsights;
 
 use DateTime;
+use DateTimeZone;
 
 class Release
 {
     /** @var array<int> $no_planned_dot_releases */
     public array $no_planned_dot_releases = [108, 111, 115, 120];
 
-    private readonly Version $version;
+    protected Version $version;
+
+    public string $product_details;
 
     public function __construct(
-        string $version,
-        public readonly string $product_details = URL::ProductDetails->value,
+        string $version
     )
     {
         $this->version = new Version($version);
+        $this->product_details = URL::ProductDetails->value;
     }
 
     /**
@@ -208,56 +211,53 @@ class Release
             ARRAY_FILTER_USE_KEY
         );
 
-        // Transform all the DateTime objects in the $schedule array into formated date strings
-        $format_date = fn(string $day): string => new DateTime($day)->format('Y-m-d H:i:sP');
-
-        $schedule = [
-            'nightly_start'  => $format_date(Nightly::cycleStart($this->version->int)),
+        $milestones = [
+            'nightly_start'  => new DateTime(Nightly::cycleStart($this->version->int)),
         ];
 
         $count = 0;
         foreach ($betas as $k => $date) {
             $count++;
-            $schedule['beta_' . (string) $count] = $format_date($date);
+            $milestones['beta_' . (string) $count] = new DateTime($date);
         }
 
-        $schedule += [
-            'soft_code_freeze' => new DateTime($schedule['beta_1'])->sub(new \DateInterval('P5D'))->format('Y-m-d H:i:sP'),
+        $milestones += [
+            'soft_code_freeze' => (clone $milestones['beta_1'])->sub(new \DateInterval('P5D')),
         ];
 
-        $schedule += [
-            'merge_day' => new DateTime($schedule['beta_1'])->sub(new \DateInterval('P1D'))->format('Y-m-d H:i:sP'),
+        $milestones += [
+            'merge_day' => (clone $milestones['beta_1'])->sub(new \DateInterval('P1D')),
         ];
 
-        $schedule += [
-            'release' => $release->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:sP'),
+        $milestones += [
+            'release' => $release->setTimezone(new \DateTimeZone('UTC')),
         ];
 
         $count = 0;
         foreach ($dot_releases as $date) {
             $count++;
-            $schedule['dot_release_' . (string) $count] = $format_date($date);
+            $milestones['dot_release_' . (string) $count] = new DateTime($date . ' 00:00:00');
         }
-
-        // Add planned mobile dot release, useful only for the current release cycle (monthly calendar)
-        $schedule['mobile_dot_release'] = $this->getFutureSchedule()['mobile_dot_release'] ?? '';
 
         // Add desktop/android planned dot release if we haven't shipped it yet
         $shipped_dot_releases = array_filter(
-            $schedule,
+            $milestones,
             fn($key) => str_starts_with($key, 'dot_release'), ARRAY_FILTER_USE_KEY
         );
 
-        if (isset($this->getFutureSchedule()['planned_dot_release'])
-            && ! in_array($this->getFutureSchedule()['planned_dot_release'], $shipped_dot_releases)) {
-            $schedule['planned_dot_release'] = $this->getFutureSchedule()['planned_dot_release'];
+        // Add planned mobile dot release, useful only for the current release cycle (monthly calendar)
+        // $milestones['mobile_dot_release'] = new DateTime($this->getFutureSchedule()['mobile_dot_release']);
+        $mobile_dot_release = $this->getFutureSchedule()['mobile_dot_release'] ?? null;
+        if (isset($mobile_dot_release) && ! in_array(new DateTime($mobile_dot_release), $shipped_dot_releases)) {
+            $milestones['mobile_dot_release'] = new DateTime($mobile_dot_release);
         }
 
-        // Sort the schedule by date
-        asort($schedule);
+        $planned_dot_release = $this->getFutureSchedule()['planned_dot_release'] ?? null;
+        if (isset($planned_dot_release) && ! in_array(new DateTime($planned_dot_release), $shipped_dot_releases)) {
+            $milestones['planned_dot_release'] = new DateTime($planned_dot_release);
+        }
 
-        // The schedule starts with the release version number
-        return ['version' => $this->version->normalized] + $schedule;
+        return $this->normalize($milestones);
     }
 
     public static function getNiceLabel(string $version, string $label, bool $short=true): string
@@ -303,5 +303,28 @@ class Release
         ];
 
         return $labels[$label];
+    }
+
+    /**
+     * Normalize milestones with the same date format,
+     * sort by date and return an array of dates for the release.
+     *
+     * @param array<mixed> $milestones
+     *
+     * @return array<string, string>
+     */
+    protected function normalize(array $milestones): array
+    {
+        // Convert all date objects to a date string
+        $milestones = array_map(
+            fn($date) => is_string($date) ? $date : $date->format('Y-m-d H:i:sP'),
+            $milestones
+        );
+
+        // Sort the schedule by date
+        asort($milestones);
+
+        // The schedule starts with the release version number
+        return ['version' => $this->version->normalized] + $milestones;
     }
 }
