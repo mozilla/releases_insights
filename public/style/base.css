@@ -594,7 +594,7 @@ nav svg:hover {
     background-color: #fff3cd;
 }
 
-
-.no-focus-scroll {
+html:has(body[id^='release_']:not(#release_esr)) {
+    /* Prevent auto-scrolling to anchors on release pages as we use them for ios/gecko tabs */
     scroll-padding-top: 800px;
 }
