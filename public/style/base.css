@@ -177,20 +177,16 @@ body[id^='release_']:not(#release_esr) .table th summary::marker {
         padding: 4px;
     }
 
-    body[id^='release_']:not(#release_esr) table:first-of-type th {
+    body[id^='release_']:not(#release_esr) > table:first-of-type th {
         width: 50% !important;
     }
 
     body[id^='release_']:not(#release_esr) header {
         margin-bottom: 8px !important;
     }
+
     body[id^='release_']:not(#release_esr) div.w-50 {
         padding: 8px 0 !important;
-    }
-
-    body[id^='release_']:not(#release_esr) .w-50,
-    body[id^='release_']:not(#release_esr) table {
-        margin-bottom: 8px !important;
     }
 }
 @media only screen and (max-width: 460px) {
