@@ -106,6 +106,7 @@ if ($requested_version_int <= RELEASE) {
         $uptake,
         $chemspills,
         $ios_schedule,
+        $planned_dot_release,
     ] = new Model('past_release')->get();
 
     $template_file = 'past_release.html.twig';
@@ -139,6 +140,7 @@ if ($requested_version_int <= RELEASE) {
         'uptake'                  => $uptake,
         'chemspills'              => $chemspills,
         'ios_schedule'            => $ios_schedule,
+        'planned_dot_release'     => $planned_dot_release,
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
@@ -156,6 +158,7 @@ if ($requested_version_int <= RELEASE) {
         $latest_nightly,
         $ios_schedule,
     ] = new Model('future_release')->get();
+
     $template_file = 'future_release.html.twig';
     $template_data = array_merge($template_data, [
         'release_date'         => $release_date,

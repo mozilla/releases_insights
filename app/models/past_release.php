@@ -196,6 +196,7 @@ if ($requested_version == '126.0') {
     );
 }
 
+$planned_dot_release = new Release($requested_version)->getSchedule()['planned_dot_release'];
 $no_planned_dot_releases = new Release($requested_version)->no_planned_dot_releases;
 
 // Check current rollout for the release channel
@@ -233,4 +234,5 @@ return [
     $release_uptake,
     new Data()->chemspills,
     new IOS($requested_version)->getSchedule(),
+    $planned_dot_release,
 ];
