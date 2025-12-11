@@ -301,6 +301,12 @@
     {% set ios_cycle_descriptions = ios_cycle_descriptions|merge({ merge_day_3:'The <code>firefox-v' ~ release ~ '.3</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ (release)  ~ '.4 on <code>main</code>. Any further code change for the ' ~ release ~ '.3 release now requires an uplift request.'}) %}
   {% endif %}
 
+  {% if release == '152' %}
+    {# We have one extra weekly iOS releases for the 147 cycle #}
+    {% set ios_cycle_descriptions = ios_cycle_descriptions|merge({ merge_day_3:'The <code>firefox-v' ~ release ~ '.3</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ (release)  ~ '.4 on <code>main</code>. Any further code change for the ' ~ release ~ '.3 release now requires an uplift request.'}) %}
+    {% set ios_cycle_descriptions = ios_cycle_descriptions|merge({ merge_day_4:'The <code>firefox-v' ~ release ~ '.3</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ (release+1)  ~ '.0 on <code>main</code>. Any further code change for the ' ~ release ~ '.3 release now requires an uplift request.'}) %}
+  {% endif %}
+
   {% set cycle_descriptions = {
     nightly_start: 'The first day of the cycle is <i>Merge Day</i>. After merging mozilla-central to mozilla-beta, we bump the nightly version number on mozilla-central and a new development cycle starts for Firefox. A new Firefox Nightly is shipped every 12 hours.',
     a11y_request_deadline: 'Accessibility engineering review has been requested (<a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/accessibility-review.html#requesting-engineering-review">using the <code>a11y-review</code> flag on Bugzilla</a>) for new (or significantly redesigned) UI that requires assessment to determine whether it is accessible to people with disabilities.',
