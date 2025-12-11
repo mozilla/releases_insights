@@ -98,7 +98,6 @@ class IOS extends Release
             $milestones += [
                 'merge_day_4'      => $date('2026-01-30'),
                 'rc_gtb_4'         => $date('+4 hours'),
-                'release_1'        => $date('Monday 02:00 UTC'),
                 'qa_pre_signoff_4' => $date('Monday 17:00 UTC'),
                 'qa_signoff_4'     => $date('Tuesday'),
                 'appstore_sent_4'  => $date('Thursday'),
@@ -118,6 +117,36 @@ class IOS extends Release
             $milestones['rc_gtb_3'] = '2026-03-05 00:04:00+00:00';
         }
 
+        if ($v == '152.0') {
+            // Wellness day on June 5
+            $milestones['merge_day_0'] = '2026-06-04 00:00:00+00:00';
+            $milestones['rc_gtb_0'] = '2026-06-04 00:04:00+00:00';
+        }
+
+        // Extra dot releases only for 152
+        if ($v === '152.0') {
+            $milestones += [
+                'merge_day_4'      => $date('2026-07-03'),
+                'rc_gtb_4'         => $date('+4 hours'),
+                'release_3'        => $date('Monday 02:00 UTC'),
+                'qa_pre_signoff_4' => $date('Monday 17:00 UTC'),
+                'qa_signoff_4'     => $date('Tuesday'),
+                'appstore_sent_4'  => $date('Thursday'),
+                'release_4'        => $date('Monday 02:00 UTC'),
+            ];
+        }
+
+        if ($v == '154.0') {
+            // Wellness day on August 28
+            $milestones['merge_day_3'] = '2026-08-27 00:00:00+00:00';
+            $milestones['rc_gtb_3'] = '2026-08-27 00:04:00+00:00';
+        }
+
+        if ($v == '156.0') {
+            // Wellness day on October 23
+            $milestones['merge_day_3'] = '2026-10-22 00:00:00+00:00';
+            $milestones['rc_gtb_3'] = '2026-10-22 00:04:00+00:00';
+        }
 
         return $this->normalize($milestones);
     }
@@ -149,6 +178,12 @@ class IOS extends Release
             $milestones += [
                 'dot_release_4' => (clone $ios_release)->modify('+28 days'),
                 'dot_release_5' => (clone $ios_release)->modify('+35 days'),
+            ];
+        }
+
+        if ($v === '152.0') {
+            $milestones += [
+                'dot_release_4' => (clone $ios_release)->modify('+28 days'),
             ];
         }
 
