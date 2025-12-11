@@ -58,7 +58,10 @@ class IOS extends Release
             'rc_gtb_0'         => $date('+4 hours'),
             'qa_pre_signoff_0' => $date('Monday 17:00 UTC'),
             'qa_signoff_0'     => $date('Tuesday'),
-            'appstore_sent_0'  => $date('Thursday'),
+            'appstore_sent_0'  => match ($v) {
+                '147.0' => $date('2026-01-08'),
+                default => $date('now'),
+            },
             'merge_day_1'      => $date('Friday'),
             'rc_gtb_1'         => $date('+4 hours'),
             'release_0'        => $date('Monday 02:00 UTC'),
@@ -88,6 +91,25 @@ class IOS extends Release
                     unset($milestones[$value]);
                 }
             }
+        }
+
+        // Extra dot releases only for 147
+        if ($v === '147.0') {
+            $milestones += [
+                'merge_day_4'      => $date('2026-01-30'),
+                'rc_gtb_4'         => $date('+4 hours'),
+                'release_1'        => $date('Monday 02:00 UTC'),
+                'qa_pre_signoff_4' => $date('Monday 17:00 UTC'),
+                'qa_signoff_4'     => $date('Tuesday'),
+                'appstore_sent_4'  => $date('Thursday'),
+                'merge_day_5'      => $date('Friday'),
+                'rc_gtb_5'         => $date('+4 hours'),
+                'release_4'        => $date('Monday 02:00 UTC'),
+                'qa_pre_signoff_5' => $date('Monday 17:00 UTC'),
+                'qa_signoff_5'     => $date('Tuesday'),
+                'appstore_sent_5'  => $date('Thursday'),
+                'release_5'        => $date('Monday 02:00 UTC'),
+            ];
         }
 
         if ($v == '148.0') {
@@ -121,6 +143,13 @@ class IOS extends Release
         //  Longterm adjustments because we don't have the data in product-details
         if ($v == '146.0') {
             unset($milestones['dot_release_2'], $milestones['dot_release_3']);
+        }
+
+        if ($v === '147.0') {
+            $milestones += [
+                'dot_release_4' => (clone $ios_release)->modify('+28 days'),
+                'dot_release_5' => (clone $ios_release)->modify('+35 days'),
+            ];
         }
 
         return $this->normalize($milestones);
