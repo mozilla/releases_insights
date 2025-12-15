@@ -13,8 +13,9 @@ test('IOS->getSchedule()', function () {
     expect($obj->getSchedule())->toHaveKey('error');
 
     $obj = new IOS('145.0'); // From the full schedule
-    expect($obj->getSchedule()['release'])->toBe("2025-11-10 02:00:00+00:00");
-    expect($obj->getSchedule())->toHaveKeys(['version', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3', ]);
+    expect($obj->getPastSchedule()['release'])->toBe("2025-11-10 02:00:00+00:00");
+    expect($obj->getPastSchedule())->toHaveKeys(['version', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3', ]);
+    expect($obj->getSchedule())->not->toHaveKey('release'); // Test that the schedule in flight does not return the PastSchedule() milestones
 
     $obj = new IOS('146.0'); // From the full schedule
     expect($obj->getFutureSchedule())->not()->toHaveKeys(['dot_release_2', 'dot_release_3', 'release_2', 'release_3']);

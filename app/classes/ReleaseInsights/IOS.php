@@ -24,9 +24,9 @@ class IOS extends Release
     {
         $version = $this->version->int;
         return match (true) {
-            $version < 145  => ['error' => 'iOS schedule not supported before version 145.'],
-            $version < BETA => $this->getPastSchedule(),
-            default         => $this->getFutureSchedule(),
+            $version < 145     => ['error' => 'iOS schedule not supported before version 145.'],
+            $version < RELEASE => $this->getPastSchedule(),
+            default            => $this->getFutureSchedule(),
         };
     }
 

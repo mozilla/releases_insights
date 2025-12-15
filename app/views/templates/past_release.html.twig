@@ -300,6 +300,10 @@
 {% if release > 144 %}
         <!-- Tab Content Area -->
         <!-- Table 2 -->
+
+    {% if release == constant('RELEASE') %}
+        {% include "ios_future_milestones.html.twig" %}
+    {% else %}
         <div id="ios" class="table-container">
             <table class="table table-light table-sm w-50 justify-content-center mb-3">
                 <tr>
@@ -330,6 +334,7 @@
 
             </table>
         </div>
+    {% endif %}
 {%  endif %}
     </div>
 
