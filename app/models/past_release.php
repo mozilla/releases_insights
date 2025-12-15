@@ -196,8 +196,8 @@ if ($requested_version == '126.0') {
     );
 }
 
-$planned_dot_release = new Release($requested_version)->getSchedule()['planned_dot_release'];
 $no_planned_dot_releases = new Release($requested_version)->no_planned_dot_releases;
+$planned_dot_release = new Release($requested_version)->getSchedule()['planned_dot_release'] ?? null;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
