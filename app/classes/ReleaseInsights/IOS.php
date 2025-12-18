@@ -56,8 +56,14 @@ class IOS extends Release
                 default => $date('now'),
             },
             'rc_gtb_0'         => $date('+4 hours'),
-            'qa_pre_signoff_0' => $date('Monday 17:00 UTC'),
-            'qa_signoff_0'     => $date('Tuesday'),
+            'qa_pre_signoff_0'  => match ($v) {
+                '147.0' => $date('2025-12-31'),
+                default => $date('Monday 17:00 UTC'),
+            },
+            'qa_signoff_0'     => match ($v) {
+                '147.0' => $date('2026-01-08'),
+                default => $date('Tuesday'),
+            },
             'appstore_sent_0'  => match ($v) {
                 '147.0' => $date('2026-01-08'),
                 default => $date('now'),
