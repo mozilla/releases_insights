@@ -108,6 +108,7 @@ class Release
             },
             'qa_pre_rc_signoff' => match ($this->version->normalized) {
                 '147.0' => $date('Monday 14:00'),
+                '148.0' => '2026-02-04 14:00:00+00:00',
                 default => $date('Wednesday 14:00'),
             },
             'beta_9' =>  match ($this->version->normalized) {
