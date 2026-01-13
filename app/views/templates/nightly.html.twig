@@ -180,7 +180,7 @@
     {%for sig in top_sigs[dataset.buildid] %}
     {% if sig.term in known_top_crashes %}
         {% set button, alert ='btn btn-info btn-sm', 'Known top crash' %}
-    {% elseif ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) > 10 %}
+    {% elseif sig.count > 10 and ((sig.count/build_crashes[dataset.buildid])*100)|number_format(2) > 10 %}
         {% set button, alert = 'btn btn-danger btn-sm', 'Top crash' %}
     {% else %}
         {% set button, alert = '', '' %}
