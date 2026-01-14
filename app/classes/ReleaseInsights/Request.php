@@ -73,6 +73,7 @@ class Request
             '/'                                 => 'homepage',
             '/about/'                           => 'about',
             '/beta/'                            => 'beta',
+            '/changelog/'                       => 'changelog',
             '/nightly/'                         => 'nightly',
             '/release/'                         => 'release',
             '/api/'                             => 'api_doc',

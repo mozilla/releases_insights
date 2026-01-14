@@ -42,6 +42,7 @@ test('Request->getController()', function ($input, $output) {
     ['/sitemap/',                         'sitemap'],
     ['not a good path',                   '404'],
     ['not/a/goodpath',                    '404'],
+    ['/changelog/',                       'changelog'],
 ]);
 
 test('Request->cleanPath()', function ($input, $output) {

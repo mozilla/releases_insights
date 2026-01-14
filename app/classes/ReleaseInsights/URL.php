@@ -14,6 +14,7 @@ enum URL: string
     case Socorro        = 'https://crash-stats.mozilla.org/api/';
     case Archive        = 'https://archive.mozilla.org/';
     case Pollbot        = 'https://prod.pollbot.prod.webservices.mozgcp.net/v1/';
+    case Lando          = 'https://lando.moz.tools/api/hg2git/firefox/';
 
     public function target(): string
     {

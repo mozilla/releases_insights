@@ -147,11 +147,15 @@ class Utils
 
     /**
      * Sanitize a string for security before template use.
-     * This is in addition to twig default sanitizinf for cases
+     * This is in addition to twig default sanitizing for cases
      * where we may want to disable it.
      */
-    public static function secureText(string $string): string
+    public static function secureText(?string $string): string
     {
+        if (is_null($string)) {
+            return '';
+        }
+
         // CRLF XSS
         $string = str_replace(['%0D', '%0A'], '', $string);
         // We want to convert line breaks into spaces

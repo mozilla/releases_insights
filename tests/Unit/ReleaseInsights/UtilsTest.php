@@ -39,6 +39,7 @@ test('Utils::secureText', function ($input, $output) {
     ['<b>foo</b>', '&#60;b&#62;foo&#60;/b&#62;'],
     ['<b>foo%0D</b>', '&#60;b&#62;foo&#60;/b&#62;'],
     ['<b>foo%0A</b>', '&#60;b&#62;foo&#60;/b&#62;'],
+    [null, ''],
 ]);
 
 test('Utils::getDate', function () {

@@ -32,6 +32,7 @@ readonly class Model
             'beta'                        => 'beta.php',
             'calendar'                    => 'calendar.php',
             'calendar_monthly'            => 'calendar_monthly.php',
+            'changelog'                   => 'changelog.php',
             'esr_release'                 => 'esr_release.php',
             'future_release'              => 'future_release.php',
             'home'                        => 'home.php',
