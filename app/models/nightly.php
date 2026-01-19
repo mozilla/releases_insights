@@ -132,9 +132,7 @@ foreach ($nightly_pairs as $dataset) {
         . '&tochange='
         . $dataset['changeset']
         . '&full&version=2'
-    );
-    $files = $bugs['files'];
-    $bugs = $bugs['total'];
+    )['total'];
 
     $bug_list_karma = array_unique([...$bugs,...$bug_list_karma]);
 
@@ -224,7 +222,6 @@ if (! empty($top_sigs_worth_a_bug)) {
 
 // In this section, we extract outstanding bugs
 $outstanding_bugs = [];
-$bug_changed_pref = [];
 foreach ($bug_list as $key => $values) {
 
     if (empty($values['bugs'])) {
@@ -233,43 +230,19 @@ foreach ($bug_list as $key => $values) {
     }
 
     foreach ($values['bugs'] as $bug_details) {
-        // Touches a feature flag file
-        $file_match = false;
-        $key_files = [
-            'modules/libpref/init/StaticPrefList.yaml',
-            'toolkit/components/pdfjs/PdfJsOverridePrefs.js',
-        ];
-        foreach ($files[$bug_details['id']] as $file) {
-            if (in_array($file, $key_files)) {
-                $file_match = true;
-                break;
-            }
-        }
-
-        if ($file_match) {
-            $outstanding_bugs[$key]['bugs'][] = $bug_details;
-            // We keep track of files that modify a pref to expose them in the Twig template
-            $bug_changed_pref[] = $bug_details['id'];
-            continue;
-        }
-
-
         // Old bugs fixed are often interesting
         if ($bug_details['id'] < 1_500_000) {
             $outstanding_bugs[$key]['bugs'][] = $bug_details;
             continue;
         }
-
-        // Enhancements are potential release notes additions
+        // Enhancements are potentiol release notes additions
         if ($bug_details['type'] == 'enhancement') {
             $outstanding_bugs[$key]['bugs'][] = $bug_details;
             continue;
         }
-
         // High karma
         if ($bug_list_karma[$bug_details['id']]['score'] > 15) {
             $outstanding_bugs[$key]['bugs'][] = $bug_details;
-            continue;
         }
     }
 }
@@ -294,5 +267,4 @@ return [
     $known_top_crashes,
     $fallback_nightly,
     $warning,
-    $bug_changed_pref,
 ];

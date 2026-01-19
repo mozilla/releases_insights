@@ -391,13 +391,6 @@ h3:target + table {
     background-position: right 4px top 8px;
 }
 
-:is(#beta, #nightly) td.pref {
-    background-image: url("/assets/img/settings-16.svg");
-    background-repeat: no-repeat;
-    background-size: 1em;
-    background-position: right 4px top 8px;
-}
-
 #beta table tr td:nth-child(1) {
     width: 8em;
     text-align: left;

@@ -82,11 +82,8 @@
                 {%- set alert_row ='fw-bold' -%}
                 {%- set pill_level ='text-bg-danger' -%}
             {%- endif -%}
-            {%- if details.id in bug_changed_pref -%}
-                {%- set pref = 'pref' -%}
-            {%- endif -%}
             <tr class="small {{ alert_row }}">
-                <td class="{{ product }} {{ pref }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
+                <td class="{{ product }}"><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="text-nowrap bug-link link-primary {{ alert_link }}" {{ alert_title|raw }}>{{ details.id }}</a></td>
                 <td><a href="https://bugzilla.mozilla.org/{{ details.id }}" class="bug-link link-dark {{ alert_link }}">{{ details.component }}</a></td>
                 <td class="text-center {{ alert_row }}">
                     <span class="badge rounded-pill {{ pill_level }} score-pill">{{ bug_list_karma[details.id].score }}</span>
