@@ -20,7 +20,7 @@ use ReleaseInsights\{Model, Template};
     $known_top_crashes,
     $fallback_nightly,
     $warning,
-    $bug_changed_pref
+    $bug_changed_pref,
 ] = new Model('nightly')->get();
 
 new Template(

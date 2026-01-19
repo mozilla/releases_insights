@@ -275,6 +275,8 @@ foreach ($bug_list as $key => $values) {
     }
 }
 
+$bug_changed_pref = array_unique($bug_changed_pref);
+
 if (! empty($nightlies)) {
     Request::waitingPage('hide');
 }
