@@ -120,10 +120,10 @@ if ($days_elapsed < 10) {
     }
 }
 
+$files = [];
 $bug_list = [];
 $bug_list_karma = [];
 $bug_list_karma_details = [];
-
 foreach ($nightly_pairs as $dataset) {
     $bugs = Bugzilla::getBugsFromHgWeb(
         URL::Mercurial->value
@@ -133,7 +133,8 @@ foreach ($nightly_pairs as $dataset) {
         . $dataset['changeset']
         . '&full&version=2'
     );
-    $files = $bugs['files'];
+
+    $files = $bugs['files'] + $files;
     $bugs = $bugs['total'];
 
     $bug_list_karma = array_unique([...$bugs,...$bug_list_karma]);
