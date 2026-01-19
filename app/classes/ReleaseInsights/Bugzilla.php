@@ -124,7 +124,9 @@ class Bugzilla
                 // We only include the first bug number mentionned for normal cases
                 $bug = array_slice($get_bugs($subitem), 0, 1);
                 $bug_fixes = array_merge($bug_fixes, $bug);
-                $files_modified[$bug[0]] = $files;
+                if (isset($bug[0])) {
+                    $files_modified[$bug[0]] = $files;
+                }
             }
         }
 
