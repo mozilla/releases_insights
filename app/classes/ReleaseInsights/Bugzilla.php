@@ -62,6 +62,7 @@ class Bugzilla
                 'bug_fixes' => [],
                 'backouts'  => [],
                 'total'     => [],
+                'files'     => [],
                 'no_data'   => true,
             ];
         }
@@ -69,8 +70,9 @@ class Bugzilla
         $changesets = array_column($results, 'changesets');
         $bug_fixes  = [];
         $backouts   = [];
+        $files_modified = [];
 
-        // Extract bug number from commit message
+        // Temp function to extract the bug number from the commit message
         $get_bugs = function (string $str): array {
             if (preg_match_all("/bug \d+/", $str, $matches)) {
                 $matches[0] = array_map(
@@ -85,6 +87,7 @@ class Bugzilla
 
         foreach ($changesets as $items) {
             foreach ($items as $subitem) {
+                $files = $subitem['files'];
                 $subitem = explode("\n", (string) $subitem['desc'])[0];
                 $subitem = strtolower(Utils::mtrim($subitem));
 
@@ -119,7 +122,9 @@ class Bugzilla
                 }
 
                 // We only include the first bug number mentionned for normal cases
-                $bug_fixes = array_merge($bug_fixes, array_slice($get_bugs($subitem), 0, 1));
+                $bug = array_slice($get_bugs($subitem), 0, 1);
+                $bug_fixes = array_merge($bug_fixes, $bug);
+                $files_modified[$bug[0]] = $files;
             }
         }
 
@@ -144,6 +149,7 @@ class Bugzilla
             'bug_fixes' => array_values($clean_bug_fixes),
             'backouts'  => array_values($clean_backed_out_bugs),
             'total'     => array_values([...$clean_bug_fixes, ...$clean_backed_out_bugs]),
+            'files'     => $files_modified,
             'no_data'   => false,
         ];
     }

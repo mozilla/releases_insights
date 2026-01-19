@@ -29,9 +29,10 @@ test('Bugzilla::linkify', function () {
 test('Bugzilla::getBugsFromHgWeb', function () {
     expect(bz::getBugsFromHgWeb(TEST_FILES . 'beta97_json-pushes.json'))
         ->toBeArray()
-        ->toHaveLength(4)
-        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
+        ->toHaveLength(5)
+        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'files', 'no_data'])
         ->sequence(
+            fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
@@ -43,9 +44,10 @@ test('Bugzilla::getBugsFromHgWeb', function () {
         true
     ))
         ->toBeArray()
-        ->toHaveLength(4)
-        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
+        ->toHaveLength(5)
+        ->toHaveKeys(['bug_fixes', 'backouts', 'total',  'files', 'no_data'])
         ->sequence(
+            fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
@@ -57,9 +59,10 @@ test('Bugzilla::getBugsFromHgWeb', function () {
         true
     ))
         ->toBeArray()
-        ->toHaveLength(4)
-        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
+        ->toHaveLength(5)
+        ->toHaveKeys(['bug_fixes', 'backouts', 'total',  'files', 'no_data'])
         ->sequence(
+            fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
@@ -71,8 +74,9 @@ test('Bugzilla::getBugsFromHgWeb', function () {
         true
     ))
         ->toBeArray()
-        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
+        ->toHaveKeys(['bug_fixes', 'backouts', 'total',  'files', 'no_data'])
         ->sequence(
+            fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
@@ -85,8 +89,9 @@ test('Bugzilla::getBugsFromHgWeb', function () {
 }';
     expect(bz::getBugsFromHgWeb($json, true))
         ->toBeArray()
-        ->toHaveKeys(['bug_fixes', 'backouts', 'total', 'no_data'])
+        ->toHaveKeys(['bug_fixes', 'backouts', 'total',  'files', 'no_data'])
         ->sequence(
+            fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
             fn ($value, $key) => $value->toBeArray(),
