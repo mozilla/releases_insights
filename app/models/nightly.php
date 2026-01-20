@@ -239,6 +239,8 @@ foreach ($bug_list as $key => $values) {
         $key_files = [
             'modules/libpref/init/StaticPrefList.yaml',
             'toolkit/components/pdfjs/PdfJsOverridePrefs.js',
+            'browser/app/profile/firefox.js',
+            'modules/libpref/init/all.js',
         ];
         foreach ($files[$bug_details['id']] as $file) {
             if (in_array($file, $key_files)) {
