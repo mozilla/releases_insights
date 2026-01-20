@@ -242,6 +242,7 @@ foreach ($bug_list as $key => $values) {
             'browser/app/profile/firefox.js',
             'modules/libpref/init/all.js',
             'mobile/android/app/geckoview-prefs.js',
+            'widget/windows/GfxInfo.cpp',
         ];
         foreach ($files[$bug_details['id']] as $file) {
             if (in_array($file, $key_files)) {
