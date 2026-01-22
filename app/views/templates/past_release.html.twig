@@ -14,6 +14,14 @@
 {% endblock %}
 
 {% block header %}
+    {% if release == constant('FIREFOX_RELEASE')|number_format %}
+        {% set cycle_uptake = uptake %}
+        {% if dot_release_count > 0 %}
+            {% for dot_release in 1..dot_release_count %}
+                {% set cycle_uptake = cycle_uptake + dot_releases[release ~ '.0.' ~ dot_release]['adoption'] %}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
     {% include 'release_nav.html.twig' %}
 {% endblock %}
 

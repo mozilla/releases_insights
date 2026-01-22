@@ -10,4 +10,7 @@
         <a href="?version={{ constant('FIREFOX_RELEASE')|number_format }}" class="btn btn-primary">Go to <b>Release</b> channel</a>
     {% endif %}
     </h1>
+    {% if release == constant('FIREFOX_RELEASE')|number_format %}
+    <span class="btn btn-primary" title="Note: adoption rate data has a 24h latency"><b>{{ cycle_uptake|number_format }}%</b> adoption rate</span>
+    {% endif %}
 </header>

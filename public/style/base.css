@@ -86,6 +86,12 @@ body[id^='release_'] caption {
     caption-side: top;
 }
 
+/* Button below version number at the top should have consistent width */
+body[id^='release_'] h1 + a,
+body[id^='release_'] h1 + span {
+    min-width: 13em;
+}
+
 #release_esr table + .table  th {
     text-align: center;
 }
