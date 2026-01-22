@@ -1,4 +1,4 @@
-[![Tests](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml/badge.svg)](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml)
+[![Tests](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml/badge.svg)](https://github.com/mozilla/releases_insights/actions/workflows/tests.yml) [![What's deployed on dev//prod?](https://img.shields.io/badge/whatsdeployed-dev/prod-teal.svg)](https://whatsdeployed.io/s/li4/mozilla/releases_insights)
 # Release Insights / Firefox Trains Dashboard
 
 This is the code behind the https://whattrainisitnow.com domain.
