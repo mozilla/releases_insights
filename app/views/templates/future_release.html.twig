@@ -212,10 +212,12 @@
     }
   %}
 
+  {% set jira_issue = 'https://mozilla-hub.atlassian.net/secure/CreateIssueDetails!init.jspa?pid=10212&issuetype=' %}
+  {% set functional_link, remote_link, embedded_link = jira_issue ~ '11461', jira_issue ~ '11290', jira_issue ~ '10064' %}
   {% set cycle_descriptions = {
     nightly_start: 'The first day of the cycle is <i>Merge Day</i>. After merging mozilla-central to mozilla-beta, we bump the nightly version number on mozilla-central and a new development cycle starts for Firefox. A new Firefox Nightly is shipped every 12 hours.',
     a11y_request_deadline: 'Accessibility engineering review has been requested (<a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/accessibility-review.html#requesting-engineering-review">using the <code>a11y-review</code> flag on Bugzilla</a>) for new (or significantly redesigned) UI that requires assessment to determine whether it is accessible to people with disabilities.',
-    qa_request_deadline: 'QA has been informed (via a <a href="https://mozilla-hub.atlassian.net//secure/CreateIssueDetails!init.jspa?pid=10212&issuetype=10059">Jira ticket</a>) about features that require manual testing during the nightly and/or beta cycle. <br>Feature technical documentation is also required to draft Test Plans and Test Cases.',
+    qa_request_deadline: 'QA has been informed via a Jira ticket (<a href="' ~ functional_link ~ '">Functional</a>, <a href="' ~ remote_link ~ '">Nimbus/Remote delivery</a> or <a href="' ~ embedded_link ~ '">Embedded QA</a>) about features needing manual testing — more on how to file a Jira ticket here. Test Plans and Cases also require the technical documentation, which should be attached to the ticket.',
     qa_feature_done: 'Features with a QA request are ready for testing to assess feature quality and provide a formal test report by the end of Week 2 of the nightly cycle.',
     qa_feature_done_1: 'Features with a QA request are ready for testing to assess feature quality and provide a formal test report by the end of Week 3 of the nightly cycle.',
     qa_feature_done_2: 'If nightly testing was skipped then features should be in a testable state by this date for beta testing.',
