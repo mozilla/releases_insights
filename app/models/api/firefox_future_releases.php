@@ -15,7 +15,7 @@ if ($current_dot_release) {
 
     // 2. Check that it is not shipped yet
     if ($date < new DateTime('now')) {
-        $data[FIREFOX_RELEASE . '.x'] = $date;
+        $data[Version::getMajor(FIREFOX_RELEASE) . '.0.x'] = $date;
     }
 }
 
