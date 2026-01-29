@@ -254,6 +254,13 @@ class Release
         }
 
         $planned_dot_release = $this->getFutureSchedule()['planned_dot_release'] ?? null;
+
+        // This is a temporary 147.0.3 hack. TODO: remove after we ship it
+        if ($this->version->normalized === '147.0') {
+            $planned_dot_release = '2026-02-04'; // @codeCoverageIgnore
+            $milestones['planned_dot_release'] = new DateTime($planned_dot_release); // @codeCoverageIgnore
+        }
+
         if (isset($planned_dot_release) && ! in_array(new DateTime($planned_dot_release), $shipped_dot_releases)) {
             $milestones['planned_dot_release'] = new DateTime($planned_dot_release);
         }
