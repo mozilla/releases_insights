@@ -176,6 +176,10 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <th class="text-secondary-emphasis fw-semibold w-30">Endpoint</th><th class="text-secondary-emphasis fw-semibold">Description</th>
     </tr>
     <tr>
+        <td><a href="/calendar/future/releases/">calendar/future/releases/</a></td>
+        <td>Download an icalendar (.ics) file of all planned major releases.</td>
+    </tr>
+    <tr>
         <td><a href="/calendar/release/schedule/?version={$main_beta}">calendar/release/schedule/?version={$main_beta}</a></td>
         <td>Download an icalendar (.ics) file of an upcoming release milestones.</td>
     </tr>

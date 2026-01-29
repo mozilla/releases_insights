@@ -82,4 +82,23 @@ test('ReleaseCalendar::getICS', function () {
     $reference = file_get_contents(__DIR__ . '/../../Files/calendar.ics');
 
     $this->assertEquals($clean_array($data), $clean_array($reference));
+
+
+    // Future releases ICS testing
+    $releases = [
+        '98.0' => '2021-12-07 00:00',
+    ];
+
+    $data = ReleaseCalendar::getICS(
+        $releases,
+        [],
+        'Firefox_major_releases_schedule.ics'
+    );
+
+    expect($data)->toBeString();
+    expect($data)
+        ->toStartWith('BEGIN:VCALENDAR')
+        ->and($data)->toContain('Firefox 98 go-live @ 06:00 AM PT')
+        ->and($data)->toContain('DTSTART;VALUE=DATE:20211207')
+        ->and($data)->toEndWith('END:VCALENDAR');
 });

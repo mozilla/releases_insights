@@ -22,6 +22,7 @@ $paths = [
     ['release/?version=94', 200, '<td title="Tuesday, September 7, 2021">September 7</td>', ''], // Test Nightly start date is correct
     ['release/?version=131', 200, '<b>Chemspill</b><br>Urgent security release', ''], // Test Nightly start date is correct
     ['release/owners/', 200, 'Major releases per release owner', 'version=3.6'],
+    ['calendar/future/releases/', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR', 'PRODID:Firefox_major_releases_schedule.ics'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
     ['calendar/release/schedule/?version=1', 400, 'provide predictive schedules for <i>past</i> releases', ''],
     ['calendar/release/schedule/?version=5000', 400, 'Release is not scheduled yet', ''],

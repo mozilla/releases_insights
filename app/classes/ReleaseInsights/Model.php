@@ -37,6 +37,7 @@ readonly class Model
             'future_release'              => 'future_release.php',
             'home'                        => 'home.php',
             'ics'                         => 'ics_release_schedule.php',
+            'ics_future'                  => 'ics_future_major_releases.php',
             'nightly'                     => 'nightly.php',
             'owners'                      => 'release_owners.php',
             'pre_firefox4_release'        => 'pre4_release.php',

@@ -26,6 +26,11 @@ class ReleaseCalendar
             $start = new DateTime($date);
             $end   = new DateTime($date);
 
+            // This is used only for the Firefox Future Major Versions API
+            if (preg_match('/^\d+\.\d+$/', $label)) {
+                $release_schedule_labels[$label] = 'Firefox ' . Version::getMajor($label) . ' go-live @ 06:00 AM PT';
+            }
+
             if ($label === 'soft_code_freeze') {
                 $end->modify('Sunday');
             }

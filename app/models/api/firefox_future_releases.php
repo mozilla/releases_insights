@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Json, Model, Release, Version};
+use ReleaseInsights\{Model, Release, Version};
 
 $data = [];
 $format = 'Y-m-d';
@@ -26,4 +26,4 @@ foreach (new Model('api_future_calendar')->get() as $key => $values) {
     }
 }
 
-new Json($data)->render();
+return $data;
