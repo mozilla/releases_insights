@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f979c72eab4f35cb501af3083675026",
+    "content-hash": "d0b523874784df92017d982157a07b27",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -154,16 +154,16 @@
         },
         {
             "name": "eluceo/ical",
-            "version": "0.18.0",
+            "version": "0.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markuspoerschke/iCal.git",
-                "reference": "6343bbe724d920e620184b7deac4da11b53d168a"
+                "reference": "6e9e9fbdf94c0b213c233bb2337ea7d3387d7ae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markuspoerschke/iCal/zipball/6343bbe724d920e620184b7deac4da11b53d168a",
-                "reference": "6343bbe724d920e620184b7deac4da11b53d168a",
+                "url": "https://api.github.com/repos/markuspoerschke/iCal/zipball/6e9e9fbdf94c0b213c233bb2337ea7d3387d7ae1",
+                "reference": "6e9e9fbdf94c0b213c233bb2337ea7d3387d7ae1",
                 "shasum": ""
             },
             "require": {
@@ -205,7 +205,7 @@
                 "issues": "https://github.com/markuspoerschke/iCal/issues",
                 "source": "https://github.com/markuspoerschke/iCal"
             },
-            "time": "2023-12-19T19:09:45+00:00"
+            "time": "2026-01-07T21:57:22+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
