@@ -611,3 +611,8 @@ html:has(body[id^='release_']:not(#release_esr)) {
     /* Prevent auto-scrolling to anchors on release pages as we use them for ios/gecko tabs */
     scroll-padding-top: 800px;
 }
+
+/* Specific styling for the adoption button on the release page */
+#release_current .adoption {
+    max-width: 15em;
+}

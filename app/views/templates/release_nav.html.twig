@@ -11,6 +11,6 @@
     {% endif %}
     </h1>
     {% if release == constant('FIREFOX_RELEASE')|number_format %}
-    <span class="btn btn-primary" title="Note: adoption rate data has a 24h latency"><b>{{ cycle_uptake|number_format }}%</b> adoption rate</span>
+    <div class="alert text-bg-primary mx-auto p-1 mb-3 adoption" title="Note: adoption rate data has a 24h latency"><b>{{ cycle_uptake|number_format }}%</b> adoption rate</div>
     {% endif %}
 </header>
