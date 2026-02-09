@@ -9,7 +9,6 @@ test('ReleaseCalendar::getICS', function () {
     $releases = [
         "version" 			=> "95.0",
         "nightly_start" 	=> "2021-10-04 00:00",
-        "soft_code_freeze" 	=> "2021-10-28 00:00",
         "string_freeze" 	=> "2021-10-29 00:00",
         "merge_day" 		=> "2021-11-01 00:00",
         "beta_1" 			=> "2021-11-01 00:00",
@@ -33,7 +32,6 @@ test('ReleaseCalendar::getICS', function () {
 
     $release_schedule_labels = [
         'nightly_start'     => 'Nightly ' . $short_version . ' starts',
-        'soft_code_freeze'  => 'Firefox ' . $short_version . ' soft Code Freeze',
         'string_freeze'     => 'String Freeze starts',
         'merge_day'         => 'Merge day',
         'beta_1'            => 'Firefox ' . $releases['version'] . 'b1',

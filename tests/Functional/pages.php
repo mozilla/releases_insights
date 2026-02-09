@@ -30,8 +30,8 @@ $paths = [
     ['sitemap.txt', 200, '', ''],
     ['release-notes/', 302, '', ''],
     ['rss/', 200, '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">', '</item>'],
-    ['api/firefox/calendar/future/?format=text', 200, 'Version,Nightly Start,Soft Freeze,Beta,Release Date,Release Owner', ''],
-    ['api/firefox/calendar/future/?format=csv', 200, 'Version,Nightly Start,Soft Freeze,Beta,Release Date,Release Owner', ''],
+    ['api/firefox/calendar/future/?format=text', 200, 'Version,Nightly Start,Beta,Release Date,Release Owner', ''],
+    ['api/firefox/calendar/future/?format=csv', 200, 'Version,Nightly Start,Beta,Release Date,Release Owner', ''],
 ];
 
 $obj = new \pchevrel\Verif('Check public pages HTTP responses and content');
