@@ -28,7 +28,6 @@ foreach (new Data()->getFutureReleases() as $version => $date) {
         $version => [
             'version'       => new Version($version)->int,
             'nightly_start' => $version_data['nightly_start'],
-            'soft_freeze'   => $version_data['soft_code_freeze'],
             'beta_start'    => $version_data['merge_day'],
             'release_date'  => $date,
             'dot_release'   => $version_data['planned_dot_release'],

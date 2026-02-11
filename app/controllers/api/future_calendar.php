@@ -20,13 +20,12 @@ if ($output_format == 'csv' || $output_format == 'text') {
         header("Content-type: text/plain");
     }
 
-    $csv_headers = ['Version', 'Nightly Start', 'Soft Freeze', 'Beta', 'Release Date', 'Release Owner'];
+    $csv_headers = ['Version', 'Nightly Start', 'Beta', 'Release Date', 'Release Owner'];
     echo implode(',', $csv_headers) . "\n";
     foreach ($data as $key => $values) {
         $row = [
             $key,
             new DateTime($values['nightly_start'])->format('Y-m-d'),
-            new DateTime($values['soft_freeze'])->format('Y-m-d'),
             new DateTime($values['beta_start'])->format('Y-m-d'),
             $values['release_date'],
             $values['owner'],

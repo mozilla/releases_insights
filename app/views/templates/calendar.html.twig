@@ -27,7 +27,6 @@
             <th scope="col" class="px-4 {{ table_header }}">Matching <abbr title="Extended Support Release">ESR</abbr></th>
             <th scope="col" class="px-4 {{ table_header }}">Release Owner</th>
             <th scope="col" class="px-4 {{ table_header }}">Nightly starts</th>
-            <th scope="col" title="The Nightly soft code freeze is typically during the week prior to merge day. During this period high-risk patches should avoid landing until after the Nightly version bump lands on mozilla-central on merge day" class="px-4 {{ table_header }}">Soft code freeze</th>
             <th scope="col" class="px-4 {{ table_header }}">Beta starts</th>
             <th scope="col" class="px-4 {{ table_header }}">Release day</th>
         </tr>
@@ -63,7 +62,6 @@
             </td>
             <td>{{ values.owner }}</td>
             <td title="{{ values.nightly_start|format_date('full') }}">{{ values.nightly_start|format_date(pattern=date_pattern)}}</td>
-            <td title="{{ values.soft_freeze|format_date('full') }}">{{ values.soft_freeze|format_date(pattern=date_pattern)}}</td>
             <td title="{{ values.beta_start|format_date('full') }}">{{ values.beta_start|format_date(pattern=date_pattern) }}</td>
             <td title="{{ values.release_date|format_date('full') }}" class="text-color-1">{{ values.release_date|format_date(pattern=date_pattern) }}</td>
         </tr>

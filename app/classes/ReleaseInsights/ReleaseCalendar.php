@@ -31,10 +31,6 @@ class ReleaseCalendar
                 $release_schedule_labels[$label] = 'Firefox ' . Version::getMajor($label) . ' go-live @ 06:00 AM PT';
             }
 
-            if ($label === 'soft_code_freeze') {
-                $end->modify('Sunday');
-            }
-
             $event
                 ->setDtStart($start)
                 ->setDtEnd($end)

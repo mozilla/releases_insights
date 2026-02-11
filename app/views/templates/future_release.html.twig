@@ -180,7 +180,8 @@
     qa_feature_done:       'Build ready for QA',
     qa_feature_done_1:     'Build ready for QA in nightly',
     qa_feature_done_2:     'Build ready for QA in beta',
-    soft_code_freeze:      'Soft Code Freeze starts',
+    relnotes_beta_ready:   'Draft beta release notes',
+    soft_code_freeze:      'Soft Code Freeze starts', # TODO: remove after 148 ships
     qa_pre_merge_done:     'QA pre-merge regression testing done',
     qa_test_plan_due:      'QA Test Plan approval due',
     string_freeze:         'String Freeze starts',
@@ -204,6 +205,7 @@
     beta_13:               'Beta 13',
     beta_14:               'Beta 14',
     beta_15:               'Beta 15',
+    relnotes_deadline:     'Release notes submission deadline',
     rc_gtb:                'Release Candidate' ~ gtb,
     rc:                    'Release Candidate',
     release:               'Release day!',
@@ -212,46 +214,58 @@
     }
   %}
 
-  {% set jira_issue = 'https://mozilla-hub.atlassian.net/secure/CreateIssueDetails!init.jspa?pid=10212&issuetype=' %}
-  {% set functional_link, remote_link, embedded_link = jira_issue ~ '11461', jira_issue ~ '11290', jira_issue ~ '10064' %}
-  {% set cycle_descriptions = {
+{% set jira_issue = 'https://mozilla-hub.atlassian.net/secure/CreateIssueDetails!init.jspa?pid=10212&issuetype=' %}
+{% set functional_link, remote_link, embedded_link = jira_issue ~ '11461', jira_issue ~ '11290', jira_issue ~ '10064' %}
+{% set cycle_descriptions = {
     nightly_start: 'The first day of the cycle is <i>Merge Day</i>. After merging mozilla-central to mozilla-beta, we bump the nightly version number on mozilla-central and a new development cycle starts for Firefox. A new Firefox Nightly is shipped every 12 hours.',
     a11y_request_deadline: 'Accessibility engineering review has been requested (<a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/accessibility-review.html#requesting-engineering-review">using the <code>a11y-review</code> flag on Bugzilla</a>) for new (or significantly redesigned) UI that requires assessment to determine whether it is accessible to people with disabilities.',
     qa_request_deadline: 'QA has been informed via a Jira ticket (<a href="' ~ functional_link ~ '">Functional</a>, <a href="' ~ remote_link ~ '">Nimbus/Remote delivery</a> or <a href="' ~ embedded_link ~ '">Embedded QA</a>) about features needing manual testing — more on how to file a Jira ticket here. Test Plans and Cases also require the technical documentation, which should be attached to the ticket.',
     qa_feature_done: 'Features with a QA request are ready for testing to assess feature quality and provide a formal test report by the end of Week 2 of the nightly cycle.',
     qa_feature_done_1: 'Features with a QA request are ready for testing to assess feature quality and provide a formal test report by the end of Week 3 of the nightly cycle.',
     qa_feature_done_2: 'If nightly testing was skipped then features should be in a testable state by this date for beta testing.',
-    soft_code_freeze: 'We are nearing the end of the nightly cycle. Don\'t land new untested features. Risky changes should be avoided after 8:00 AM UTC until after the nightly version bump on <i>Merge Day</i>.',
     qa_pre_merge_done: 'QA assess build readiness for shipping to Beta by running a set of Regression test cases and shares a test report.',
+    relnotes_beta_ready: 'A <a href="/release-notes/" rel="nofollow">draft document</a> was created and shared internally with stakeholders to prepare our final release notes for general availability. This document initially contains a copy of our public beta release notes shipping the week after and will be enriched during the beta cycle with media and final copy.',
+     soft_code_freeze: 'We are nearing the end of the nightly cycle. Don\'t land new untested features. Risky changes should be avoided after 8:00 AM UTC until after the nightly version bump on <i>Merge Day</i>.', # TODO: remove after 148 ships
     qa_test_plan_due: 'The QA team appreciates an earlier sign-off from the project teams. The approval milestone will be the final deadline for any feature Test Plan sign-offs. No feedback/sign-off on QAs Feature Test Plan could result in misalignment on testing scope, incomplete test coverage and invalid bugs.',
     string_freeze: 'In order to ensure that our localizers have adequate time to translate strings, please make sure that all string changes have landed by end of day.',
     merge_day: 'This is the day in the release cycle when we merge mozilla-central into mozilla-beta. This is the end of the development cycle for Firefox ' ~ release ~ ' and the beginning of our Beta stabilization cycle.',
-    beta_1_gtb: 'Built manually just after the merge. It ships on Tuesday. Uplift requests are open.',
-    beta_1: 'Rolled out to 25% of our beta population. Some experimental features are still activated to watch their behavior on a wider population. These experimental features will be deactivated mid-cycle.',
-    beta_2: 'First automated beta of the cycle. It is rolled out to 50% of our beta population. Build starts at 13:00 UTC. <br>Stabilization work via uplifts.',
-    beta_3: 'Beta rollout bumped to 100% provided stability is good. Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    beta_1_gtb: 'Built manually just after the merge. It ships on Wednesday. Uplift requests are open.',
+    beta_1: 'Rolled out to 50% of our beta population. Some experimental features are still activated to watch their behavior on a wider population. These experimental features will be deactivated mid-cycle.',
+    beta_2: 'First automated beta of the cycle. It is rolled out to 100% of our beta population. Build starts at 13:00 UTC. <br>Stabilization work via uplifts.',
+    beta_3: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
     sumo_1: 'User affecting changes were identified and provided to the support.mozilla.org team. The support content for this release can now be created and will be translated before RC week.',
     beta_4: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
-    beta_5: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
-    beta_6: 'On a regular 4 weeks beta cycle, Beta 6 is the last beta with experimental features still activated. Build starts at 13:00 UTC. Stabilization work via uplifts.',
-    beta_7: 'Experimental features are no longer activated at compile time. Build starts at 13:00 UTC. Stabilization work via uplifts.',
-    beta_8: 'Last week of the beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    beta_5: 'On a regular 4 weeks beta cycle, Beta 5 is the last beta with experimental features still activated. Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    beta_6: 'Build starts at 13:00 UTC. Stabilization work via uplifts. Experimental features are no longer activated at compile time.',
+    beta_7: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    beta_8: 'Build starts at 13:00 UTC. Stabilization work via uplifts. <br>Last <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplifts for this release (<code>sec-approval+</code> on Bugzilla).',
     qa_pre_rc_signoff: 'A week before the final sign-off, QA shares preliminary test reports for each feature riding the train. This pre-release sign-off can be <abbr title="No quality concerns">Green</abbr>, <abbr title="Moderate quality concerns">Yellow</abbr> or <abbr title="Severe quality concerns">Red</abbr>.',
-    beta_9: 'On a regular 4 weeks beta cycle, this is the last beta and thus the end of beta uplifts, including <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> for this release (<code>sec-approval+</code> on Bugzilla). Build starts at 13:00 UTC.',
+    beta_9: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
     sumo_2: 'New content on support.mozilla.org team is finalized, uploaded to the server and provided to our localization teams internationally.',
-    beta_10: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    beta_10: 'On a regular 4 weeks beta cycle, this is the last beta and thus the end of beta uplifts. Build starts at 13:00 UTC.',
     beta_11: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_12: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_13: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_14: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_15: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    relnotes_deadline: 'All release notes for Firefox were added to the <a href="/release-notes/" rel="nofollow">draft document</a> or communicated directly with the release manager. Illustrations such as screenshots and videos were provided. Final Release release notes are created by the release manager on firefox.com.',
     rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build another Release Candidate to fix a major quality or business critical issue.',
-    rc: 'Our Release Candidate is shipped to all of our beta population.',
+    rc: 'Our Release Candidate is built and available for testing.',
     release: 'We ship Firefox ' ~ release ~ ' at ' ~ date(cycle_dates.release)|format_date(pattern='HH:mm') ~ ' UTC (6AM PST) at 25% rollout.',
     mobile_dot_release: 'One week after the release, we evaluate shipping an Android dot release to address identified issues. We can also enable new features on a on a case by case basis if they are suitable for uplift. The decision on shipping or not this dot release for Android is on the release management team.',
     planned_dot_release: 'Two weeks after the release, we ship a desktop and/or an Android dot release to address identified quality issues with safe fixes ready. We can also enable new features on a on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.'
     }
-  %}
+%}
+
+{% if channel != 'beta' %}
+    {# We only want to link to the release notes redirect on the beta channel #}
+    {% set cycle_descriptions = cycle_descriptions|merge({
+        relnotes_beta_ready: cycle_descriptions.relnotes_beta_ready|striptags
+    }) %}
+    {% set cycle_descriptions = cycle_descriptions|merge({
+        relnotes_deadline: cycle_descriptions.relnotes_deadline|striptags
+    }) %}
+{% endif%}
 
  {% if release == '144' %}
     {# We had last minute Android-Only extra betas #}
@@ -284,17 +298,17 @@
         {% for key, value in cycle_dates %}
             {% if key != 'version' %}
                 {% set extra = '' %}
-
-                {% if key == 'soft_code_freeze' %}
-                    {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Draft beta release notes</small>' %}
-                {% endif %}
-
                 {% if release == '153' %}
-                    {% if key == 'beta_6' %}
+                    {% set cycle_descriptions = cycle_descriptions|merge({'beta_8': 'Build starts at 13:00 UTC. Stabilization work via uplifts.'}) %}
+                    {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Build starts at 13:00 UTC. Stabilization work via uplifts. <br>Last <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplifts for this release (<code>sec-approval+</code> on Bugzilla).'}) %}
+                    {% if key == 'beta_5' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
                     {% endif %}
-                    {% if key == 'beta_12' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% if key == 'beta_10' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_13' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% elseif release == '148' %}
                     {% if key == 'beta_9' %}
@@ -304,18 +318,26 @@
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
                     {% endif %}
                 {% elseif release == '159' %}
-                    {% if key == 'beta_6' %}
+                    {% set cycle_descriptions = cycle_descriptions|merge({'beta_8': 'Build starts at 13:00 UTC. Stabilization work via uplifts.'}) %}
+                    {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Build starts at 13:00 UTC. Stabilization work via uplifts. <br>Last <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplifts for this release (<code>sec-approval+</code> on Bugzilla).'}) %}
+                    {% if key == 'beta_5' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
                     {% endif %}
-                    {% if key == 'beta_11' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% if key == 'beta_10' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_13' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% else %}
-                    {% if key == 'beta_6' %}
+                    {% if key == 'beta_5' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
                     {% endif %}
-                    {% if key == 'beta_9' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
+                    {% if key == 'beta_8' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
+                    {% endif %}
+                    {% if key == 'beta_10' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
               {% endif %}
 
