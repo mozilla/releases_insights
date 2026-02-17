@@ -241,8 +241,8 @@ readonly class Beta
             // @codeCoverageIgnoreEnd
 
             $data[$beta_number] = [
-                'total'      => $temp['total'],
-                'signatures' => $temp['facets']['signature'],
+                'total'      => $temp['total'] ?? 0,
+                'signatures' => $temp['facets']['signature'] ?? [],
             ];
         }
 
@@ -271,8 +271,8 @@ readonly class Beta
                 }
                 // @codeCoverageIgnoreEnd
                 $data[$rc_number] = [
-                    'total'      => $temp['total'],
-                    'signatures' => $temp['facets']['signature'],
+                    'total'      => $temp['total'] ?? 0,
+                    'signatures' => $temp['facets']['signature'] ?? [],
                 ];
             }
         }
