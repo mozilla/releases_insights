@@ -79,12 +79,16 @@
         <a class="nav-link link-info" title="Low  noise, only contains Merge and Release dates" href="https://www.google.com/calendar/embed?src=mozilla.com_2d37383433353432352d3939%40resource.calendar.google.com">Release dates only</a>
     </li>
     <li class="nav-item opacity-75">
+        <a class="nav-link link-info webcal-link" title="Low  noise, only contains Merge and Release dates" href="https://whattrainisitnow.com/calendar/future/releases/">Release dates only (ICS)</a>
+    </li>
+    <li class="nav-item opacity-75">
         <a class="nav-link link-info" title="Highly detailed - 99.99% up to date" href="https://www.google.com/calendar/embed?src=bW96aWxsYS5jb21fZGJxODRhbnI5aTh0Y25taGFiYXRzdHY1Y29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">Full schedule</a>
     </li>
     <li class="nav-item opacity-75">
-        <a class="nav-link link-info" title="Highly detailed - 99.99% up to date, ICS format" href="https://calendar.google.com/calendar/ical/mozilla.com_dbq84anr9i8tcnmhabatstv5co%40group.calendar.google.com/public/basic.ics">Full schedule (ICS)</a>
+        <a class="nav-link link-info webcal-link" title="Highly detailed - 99.99% up to date, ICS format" href="https://calendar.google.com/calendar/ical/mozilla.com_dbq84anr9i8tcnmhabatstv5co%40group.calendar.google.com/public/basic.ics">Full schedule (ICS)</a>
     </li>
 </ul>
+
 {% set date_pattern = 'YYYY-MM-dd' %}
 <details class="justify-content-center mt-4 text-center" id="Past_branch_dates">
     <summary>Click to toggle past releases table data</summary>
@@ -126,20 +130,37 @@
 {% include 'footer_UTC_warning.html.twig' %}
 
 <script nonce="{{constant('NONCE')}}">
-  $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
-  })
-  function openTarget() {
-    var hash = location.hash.substring(1);
-    if (hash) var details = document.getElementById(hash);
-    if (details && details.tagName.toLowerCase() === 'details') {
-      details.open = true;
-      location.hash = hash;
+    $(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip()
+    })
+    function openTarget() {
+        var hash = location.hash.substring(1);
+        if (hash) var details = document.getElementById(hash);
+        if (details && details.tagName.toLowerCase() === 'details') {
+            details.open = true;
+            location.hash = hash;
+        }
     }
-  }
 
-  window.addEventListener('hashchange', openTarget);
-  openTarget();
+    window.addEventListener('hashchange', openTarget);
+    openTarget();
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Detect if the user is on Android
+        const isAndroid = /Android/i.test(navigator.userAgent);
+
+        // 2. Only attempt the protocol swap if NOT on Android
+        if (!isAndroid) {
+            const calendarLinks = document.querySelectorAll('.webcal-link');
+
+            calendarLinks.forEach(link => {
+                // Replace the protocol while preserving the rest of the URL
+                const originalUrl = link.href;
+                const webcalUrl = originalUrl.replace(/^https?:\/\//i, 'webcal://');
+                link.href = webcalUrl;
+            });
+        }
+    });
 </script>
 
 {% endblock %}
