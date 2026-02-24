@@ -43,11 +43,6 @@ define('DEV_EDITION',     $firefox_versions['FIREFOX_DEVEDITION']);
 define('FIREFOX_BETA',    $firefox_versions['LATEST_FIREFOX_RELEASED_DEVEL_VERSION']);
 define('FIREFOX_RELEASE', $firefox_versions['LATEST_FIREFOX_VERSION']);
 
-/*const FIREFOX_NIGHTLY = '150.0a1';
-const FIREFOX_BETA    = '148.0b10';
-const FIREFOX_RELEASE = '148.0';*/
-
-
 // Major version numbers (integers), used across the app
 define('NIGHTLY',  (int) FIREFOX_NIGHTLY);
 define('BETA',     (int) FIREFOX_BETA);
