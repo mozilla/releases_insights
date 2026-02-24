@@ -59,16 +59,30 @@
                 <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>
                 {% if rc_build and rc_week %}
                     {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
+                {% elseif release_day %}
+                    {{ constant('FIREFOX_BETA') }} is latest <br> {{ constant('FIREFOX_RELEASE')|number_format(1) +1 }}.0b1 is in preparation
                 {% else %}
-                    {{ constant('FIREFOX_BETA') }}
+                    {{ constant('FIREFOX_BETA') }} TOTO
                 {% endif %}
-                    </b>" class="{{ margin }}">{{ constant('FIREFOX_BETA')|number_format }}</h2>
+                    </b>" class="{{ margin }}">
+                {% if release_day %}
+                    {{ constant('FIREFOX_NIGHTLY')|number_format(1) - 1 }}
+                {% else %}
+                    {{ constant('FIREFOX_BETA')|number_format }}
+                {% endif %}
+                </h2>
+                {# On release day, we want to point the beta page to the not yet built beta schedule #}
+                {% if release_day %}
+                    {% set beta_target = constant('FIREFOX_NIGHTLY')|number_format(1) - 1 %}
+                {% else %}
+                    {% set beta_target = 'beta' %}
+                {% endif %}
 
         {% if beta_is_the_next_ESR %}
             <span class="mt-0 mb-0 badge bg-light text-dark">{{ constant('FIREFOX_BETA')|number_format }} is the next ESR!</span>
-            <h3 class="mt-1"><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
+            <h3 class="mt-1"><a href="/release/?version={{ beta_target }}" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
         {% else %}
-            <h3><a href="/release/?version=beta" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
+            <h3><a href="/release/?version={{ beta_target }}" {{ tooltip_defaults|raw }} title="Click this link to get detailed data about the <b>Beta</b> cycle." class="link-info">Beta</a></h3>
         {% endif %}
         </div>
         <div class="col-sm">

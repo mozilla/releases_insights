@@ -18,7 +18,7 @@ use ReleaseInsights\{Model, Template};
 ] = new Model('home')->get();
 
 new Template(
-    'overview.html.twig',
+    'homepage.html.twig',
     [
         'page_title'             => 'What Firefox trains are we in?',
         'css_page_id'            => 'homepage',
