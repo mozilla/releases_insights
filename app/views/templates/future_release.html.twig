@@ -16,7 +16,7 @@
 
 {% set date_pattern = 'MMMM d' %}
 {% if not fallback_content %}
-    {% if release == constant('BETA') %}
+    {% if release == constant('RELEASE') + 1 %}
         {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Beta</b> channel' %}
         {% set channel = 'beta' %}
         {% set rollout = '
@@ -33,7 +33,7 @@
     {% elseif release == constant('NIGHTLY') %}
         {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Nightly</b> channel' %}
         {% set channel = 'nightly' %}
-    {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') +1 %}
+    {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') + 1 %}
         {% set alert = '<b class="text-danger">Release candidate</b> about to be released.' %}
         {% set channel = 'future' %}
     {% else %}

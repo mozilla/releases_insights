@@ -613,7 +613,6 @@ html:has(body[id^='release_']:not(#release_esr)) {
 }
 
 /* Specific styling for the adoption button on the release page */
-#release_beta .adoption,
 #release_current .adoption {
     max-width: 15em;
 }

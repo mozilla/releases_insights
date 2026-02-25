@@ -5,6 +5,15 @@ declare(strict_types=1);
 use ReleaseInsights\{Bugzilla, Data, Duration, IOS, Json, Nightly, Release, URL, Version};
 
 $requested_version = Version::get();
+if (RELEASE == BETA) {
+    /*
+        With the removal of the soft code freeze and a delayed beta 1,
+        we need to adjust our beta page in the timeframe when Release is out but Beta 1 isn't yet out
+    */
+    if (isset($_GET['version']) && $_GET['version'] === 'beta') {
+        $requested_version = (string) RELEASE + 1 . '.0';
+    }
+}
 
 $data = new Data();
 

@@ -17,12 +17,31 @@ $upcoming_releases = new Data()->getFutureReleases();
 $owners = new Data()->release_owners;
 
 $css_page_id = match (true) {
-    $requested_version_int === NIGHTLY => 'release_nightly',
-    $requested_version_int === BETA    => 'release_beta',
     $requested_version_int === RELEASE => 'release_current',
+    $requested_version_int === BETA    => 'release_beta',
+    $requested_version_int === NIGHTLY => 'release_nightly',
     $requested_version_int < RELEASE   => 'release_past',
     default                            => 'release_future',
 };
+
+if (RELEASE == BETA) {
+    /*
+        With the removal of the soft code freeze and a delayed beta 1,
+        we need to adjust our beta page in the timeframe when Release is out but Beta 1 isn't yet out
+    */
+    $v = $_GET['version'] ?? null;
+    $is_beta_requested = ! is_null($v) && in_array($v, ['beta', RELEASE + 1]);
+    $is_beta_alias = $v == 'beta';
+
+    if ($is_beta_requested) {
+        $css_page_id = 'release_beta';
+    }
+
+    if ($is_beta_alias) {
+        $requested_version = (string) RELEASE + 1 . '.0';
+        $requested_version_int++;
+    }
+}
 
 $template_data = [
     'css_page_id'      => $css_page_id,
