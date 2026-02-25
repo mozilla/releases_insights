@@ -59,20 +59,20 @@
                 <h2 {{ tooltip_defaults|raw }} title="Latest version:<br><b>
                 {% if rc_build and rc_week %}
                     {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
-                {% elseif release_day %}
+                {% elseif release_day or constant('RELEASE') == constant('BETA') %}
                     {{ constant('FIREFOX_BETA') }} is latest <br> {{ constant('FIREFOX_NIGHTLY')|number_format(1) - 1 }}.0b1 is in preparation
                 {% else %}
-                    {{ constant('FIREFOX_BETA') }} TOTO
+                    {{ constant('FIREFOX_BETA') }}
                 {% endif %}
                     </b>" class="{{ margin }}">
-                {% if release_day %}
+                {% if release_day or constant('RELEASE') == constant('BETA') %}
                     {{ constant('FIREFOX_NIGHTLY')|number_format(1) - 1 }}
                 {% else %}
                     {{ constant('FIREFOX_BETA')|number_format }}
                 {% endif %}
                 </h2>
-                {# On release day, we want to point the beta page to the not yet built beta schedule #}
-                {% if release_day %}
+                {# On release day and on Wednesday before beta 1, we want to point the beta page to the not yet built beta schedule #}
+                {% if release_day or constant('RELEASE') == constant('BETA')  %}
                     {% set beta_target = constant('FIREFOX_NIGHTLY')|number_format(1) - 1 %}
                 {% else %}
                     {% set beta_target = 'beta' %}
