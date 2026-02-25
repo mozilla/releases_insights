@@ -1,9 +1,11 @@
 /* General structure */
 :root {
-    --bg-purple: #2a0c55;
-    --bg-purple-lighter: #543c76;
+    --bg-purple: #210340;
+    --bg-purple-lighter1: #6132bc;
+    --bg-purple-lighter2: #5e4888;
     --bg-table-hover: #f2e9ff;
-    --bg-alert-purple-light: #cfe2ff;
+    --font-default-color: white;
+    /*--bg-alert-purple-light: #cfe2ff;*/
 }
 
 /* Fonts */
@@ -17,13 +19,13 @@
 
 html {
     height: 100%;
-    background-color: #2a0c55;
+    background-color: --bg-purple;
 }
 
 body {
     font-family: "Inter", sans-serif;
     background-color: var(--bg-purple);
-    color: white;
+    color: var(--font-default-color);
 }
 
 header {
@@ -562,7 +564,7 @@ nav svg:hover {
 }
 
 .bg-purple-lighter {
-    background-color: var(--bg-purple-lighter) !important;
+    background-color: var(--bg-purple-lighter1) !important;
 }
 
 
@@ -589,7 +591,7 @@ nav svg:hover {
 /* Bootstrap nav-tabs styling overrides for active state */
 .nav-tabs .nav-link {
     color: whitesmoke;
-    background-color:var(--bg-purple-lighter)   ;
+    background-color:var(--bg-purple-lighter1)   ;
 }
 
 .nav-tabs .nav-link[href="#gecko"] {
@@ -599,7 +601,7 @@ nav svg:hover {
 
 #ios-target:target ~ .nav-tabs .nav-link[href="#gecko"] {
     color: whitesmoke;
-    background-color: var(--bg-purple-lighter) ;
+    background-color: var(--bg-purple-lighter1) ;
 }
 
 #ios-target:target ~ .nav-tabs .nav-link[href="#ios-target"] {
@@ -615,4 +617,38 @@ html:has(body[id^='release_']:not(#release_esr)) {
 /* Specific styling for the adoption button on the release page */
 #release_current .adoption {
     max-width: 15em;
+}
+
+/* color fixes to bootstrap rules to be more like firefox.com */
+.btn-primary {
+    border-color:  var(--bg-purple-lighter1);
+    background-color:  var(--bg-purple-lighter1);
+}
+
+.alert-primary {
+  --bs-alert-color: var(--font-default-color);
+  --bs-alert-bg: var(--bg-purple-lighter2);
+  --bs-alert-border-color: var(--bg-purple-even-lighter2);
+  --bs-alert-link-color: var(--bs-primary-text-emphasis);
+}
+
+.alert-primary .text-success-emphasis {
+    color: white !important;
+}
+
+.alert-primary .text-success {
+  color: rgb(49, 235, 149) !important;
+}
+
+@media only screen and (min-width: 800px) {
+    body#release_current {
+        background: url("/assets/img/kit-tail.svg");
+        background-position: 50% 0%;
+        background-repeat: no-repeat;
+        background-color: var(--bg-purple);
+       background-size: 70%;
+    }
+    body#release_current .table-fxt-clean {
+        opacity: 0.98;
+    }
 }

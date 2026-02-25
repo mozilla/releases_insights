@@ -12,7 +12,7 @@
             padding: 0;
             height: 100%;
             font-family: sans-serif;
-            background-color: #2a0c55;
+            background-color: #210340;
         }
 
         .waitingpage .container {
