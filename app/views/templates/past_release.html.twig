@@ -123,7 +123,7 @@
                 {% if release == 125 or release == 14 %}
                   {% set link_fix = '.1' %}
                 {% endif %}
-                <a href="https://www.mozilla.org/en-US/firefox/{{ release|number_format(1) }}{{ link_fix }}/releasenotes/">General</a>
+                <a href="https://www.firefox.com/en-US/firefox/{{ release|number_format(1) }}{{ link_fix }}/releasenotes/">General</a>
                 &middot;
                 <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/{{ release }}">Developer</a>
                 &middot;
@@ -354,6 +354,34 @@
     <script nonce="{{constant('NONCE')}}">
         $(function () {
             $('[data-bs-toggle="tooltip"]').tooltip()
+        });
+
+        $(document).ready(function() {
+            const ua = navigator.userAgent;
+            let platform = "";
+            let label = "";
+
+            // 1. Identify the mobile platform
+            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+                platform = "ios";
+                label = ' <sup class="fw-normal fst-italic text-secondary">iOS</sup>';
+
+            } else if (/android/i.test(ua)) {
+                platform = "android";
+                label = ' <sup class="fw-normal fst-italic text-secondary">Android</sup>';;
+            }
+
+            // 2. If a platform was matched, update the links
+            if (platform) {
+                // Targets links containing mozilla.org, firefox, and releasenotes
+                $('a[href*="firefox.com/"][href*="/firefox/"][href*="/releasenotes/"]').each(function() {
+                    // Update the URL using Regex to inject the platform before the version
+                    this.href = this.href.replace(/\/firefox\/([\d\.]+)\//, `/firefox/${platform}/$1/`);
+
+                    // Append the platform label to the link text
+                    $(this).after(label);
+                });
+            }
         });
     </script>
 {% endblock %}
