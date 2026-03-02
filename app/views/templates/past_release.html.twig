@@ -287,28 +287,23 @@
                  {% endif %}
 
                 {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
-                {% if "now"|date('Y-m-d') < release_date|date_modify('+1 week')|date('Y-m-d') %}
-                    {% if release == 148 %}
+                {% set potential_android_interval = (release == 148 ? '+6 days' : '+1 week') %}
+                {% if "now"|date('Y-m-d') < release_date|date_modify(potential_android_interval)|date('Y-m-d') %}
                     <tr>
                         <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential Android {{ release }}.0.x</a></th>
-                        <td title="">{{ release_date|date_modify('+6 days')|format_date(pattern=date_pattern) }}</td>
+                        <td title="">{{ release_date|date_modify(potential_android_interval)|format_date(pattern=date_pattern) }}</td>
                     </tr>
-                    {% else %}
-                    <tr>
-                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential Android {{ release }}.0.x</a></th>
-                        <td title="">{{ release_date|date_modify('+1 week')|format_date(pattern=date_pattern) }}</td>
-                    </tr>
-                    {% endif %}
                 {% endif %}
+
                 {% if release ~ '.0' not in no_planned_dot_releases %}
-                    {%  set nb = (release == 147 ? 3 : 2) %}
-                    {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and "now"|date('Y-m-d') not in dot_releases|column('date') %}
+                    {% set nb = (release == 147 ? 3 : 2) %}
+                    {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
                         <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
                         <td title="">{{ planned_dot_release|format_date(pattern=date_pattern) }}</td>
                     </tr>
-                   {% endif %}
-                 {% endif %}
+                    {% endif %}
+                {% endif %}
           </table>
       </div>
 
