@@ -275,6 +275,10 @@ class Release
             $milestones['mobile_dot_release'] = new DateTime($mobile_dot_release);
         }
 
+        if ($this->version->normalized === '148.0') {
+            $milestones['mobile_dot_release'] = new DateTime('2026-03-02 00:00:00+00:00');
+        }
+
         $planned_dot_release = $this->getFutureSchedule()['planned_dot_release'] ?? null;
 
         // This is a temporary 147.0.3 hack. TODO: remove after we ship it
