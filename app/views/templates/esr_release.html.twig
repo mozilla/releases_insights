@@ -14,7 +14,7 @@
     <h1 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('MAIN_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h1>
   {% endif %}
 
-    <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">Version shipping to end-users on the <b class="text-danger">ESR</b> channel</div>
+    <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">Version shipping to end-users on the <b>ESR</b> channel</div>
 
  {% set table_header = 'text-secondary-emphasis fw-semibold' %}
 
@@ -51,7 +51,7 @@
     {% for key, values in esr_calendar %}
         {% if values.date|format_date(pattern='YYYY') != year %}
             <tr>
-                <th colspan="4" class="text-end table-dark fw-normal bg-purple-lighter border border-0 p-2">{{ values.date|format_date(pattern='YYYY') }}&nbsp;↓</th>
+                <th colspan="4" class="text-end table-dark fw-normal bg-purple-2 border border-0 p-2">{{ values.date|format_date(pattern='YYYY') }}&nbsp;↓</th>
             </tr>
             {% set year = values.date|format_date(pattern='YYYY') %}
         {% endif %}
