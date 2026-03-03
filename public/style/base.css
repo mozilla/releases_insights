@@ -1,13 +1,15 @@
 /* General structure */
 :root {
+    --font-default-color: white;
+    --cyan: #0dcaf0;
+    --orange-light: #ffbe5a;
+    --orange-dark: #ff7f21;
     --purple: #210340;
     --purple-light: #cfe2ff;
     --purple-lighter1: #6132bc;
     --purple-lighter2: #5e4888;
     --purple-very-light: #f2e9ff;
-    --font-default-color: white;
-    --cyan: #0dcaf0;
-    --orange-light: #ffaf33;
+    --text-danger: #bb004b;
     --yellow-pale: #fff3cd;
 }
 
@@ -541,7 +543,7 @@ nav svg:hover {
         text-transform: unset !important;
     }
     .calendar tr td .cal-day-box {
-        color: darkorange !important;
+        color: var(--orange-dark) !important;
     }
 
     .calendar tr td {
@@ -661,5 +663,9 @@ html:has(body[id^='release_']:not(#release_esr)) {
 }
 
 .text-danger {
+    color: var(--text-danger) !important;
+}
+
+.alert-primary .text-danger {
     color: var(--orange-light) !important;
 }
