@@ -1,12 +1,14 @@
 /* General structure */
 :root {
     --purple: #210340;
+    --purple-light: #cfe2ff;
     --purple-lighter1: #6132bc;
     --purple-lighter2: #5e4888;
     --purple-very-light: #f2e9ff;
     --font-default-color: white;
     --cyan: #0dcaf0;
-    /*--bg-alert-purple-light: #cfe2ff;*/
+    --orange-light: #ffaf33;
+    --yellow-pale: #fff3cd;
 }
 
 /* Fonts */
@@ -35,6 +37,7 @@ header {
 
 a {
     text-decoration: none;
+    color: var(--cyan);
 }
 
 a:hover {
@@ -499,14 +502,13 @@ nav svg:hover {
 
 
 .bg-card-color-purple-fxt {
-    background-color: var(--bg-alert-purple-light) !important;
-    border-color: var(--bg-alert-purple-light) !important;
+    background-color: var(--purple-light) !important;
+    border-color: var(--purple-light) !important;
 }
 
 #homepage .card-header:first-child,
 #homepage .border {
-    border-color: var(--bg-alert-purple-light) !important;
-    opacity: 0.9;
+    border-color: var(--purple-light) !important;
 }
 
 /* Override some styles from calendar.css */
@@ -527,7 +529,7 @@ nav svg:hover {
     }
 
     .calendar .cal-th {
-        background-color: #fff3cd !important;
+        background-color: var(--yellow-pale) !important;
     }
 
     .calendar th {
@@ -601,7 +603,7 @@ nav svg:hover {
 
 .nav-tabs .nav-link[href="#gecko"] {
     color: #0d6efd;
-    background-color: #fff3cd;
+    background-color: var(--yellow-pale);
 }
 
 #ios-target:target ~ .nav-tabs .nav-link[href="#gecko"] {
@@ -611,7 +613,7 @@ nav svg:hover {
 
 #ios-target:target ~ .nav-tabs .nav-link[href="#ios-target"] {
     color: #0d6efd;
-    background-color: #fff3cd;
+    background-color: var(--yellow-pale);
 }
 
 html:has(body[id^='release_']:not(#release_esr)) {
@@ -656,4 +658,8 @@ html:has(body[id^='release_']:not(#release_esr)) {
     body#release_current .table-fxt-clean {
         opacity: 0.98;
     }
+}
+
+.text-danger {
+    color: var(--orange-light) !important;
 }
