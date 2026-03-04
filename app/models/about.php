@@ -110,7 +110,7 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 
     <tr>
         <td><a href="/api/firefox/releases/"><span class="text-body-tertiary me-1">api/</span>firefox/releases</a></td>
-        <td>Release dates for all past Firefox releases (including dot releases)</td>
+        <td>Release dates for all past Firefox desktop releases (including dot releases)</td>
     </tr>
     <tr>
         <td><a href="/api/firefox/releases/esr/"><span class="text-body-tertiary me-1">api/</span>firefox/releases/esr</a></td>
