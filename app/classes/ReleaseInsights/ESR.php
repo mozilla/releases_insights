@@ -15,7 +15,7 @@ class ESR
     /**
      *  This is the last version of Firefox that will have an associated ESR 115 release
      */
-    public static int $esr115_EOL = 148;
+    public static int $esr115_EOL = 154;
 
     /**
      * Get the ESR release that corresponds to the Rapid release version.
