@@ -257,7 +257,6 @@
     }
 %}
 
-{{ dump(release_time) }}
 {% if channel != 'beta' %}
     {# We only want to link to the release notes redirect on the beta channel #}
     {% set cycle_descriptions = cycle_descriptions|merge({
