@@ -116,6 +116,16 @@ if ((int) $requested_version === BETA) {
     $rollout = Json::load(URL::Balrog->value . 'rules/firefox-beta')['backgroundRate'];
 }
 
+// We create a date object specifically in SF time because unlike all of our milestones
+// the release hour is set to 6AM by marketing in California, so we need to take DST into account.
+$sf_release_time = new DateTimeImmutable($release_date . ' 06:00 AM', new DateTimeZone('America/Los_Angeles'));
+$utc_release_time = $sf_release_time->setTimezone(new DateTimeZone('UTC'));
+
+$release_time = [
+    'PT'  => $sf_release_time->format('Y-m-d H:i'),
+    'UTC' => $utc_release_time->format('Y-m-d H:i'),
+];
+
 return [
     $release_date,
     $beta_cycle_length,
@@ -129,4 +139,5 @@ return [
     $wellness_days = new Data()->wellness_days,
     Nightly::getLatestBuildID(),
     new IOS($requested_version)->getSchedule(),
+    $release_time,
 ];

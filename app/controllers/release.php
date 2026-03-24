@@ -176,6 +176,7 @@ if ($requested_version_int <= RELEASE) {
         $wellness_days,
         $latest_nightly,
         $ios_schedule,
+        $release_time,
     ] = new Model('future_release')->get();
 
     $template_file = 'future_release.html.twig';
@@ -192,6 +193,7 @@ if ($requested_version_int <= RELEASE) {
         'wellness_days'        => $wellness_days,
         'latest_nightly'       => $latest_nightly,
         'ios_schedule'         => $ios_schedule,
+        'release_time'         => $release_time,
     ]);
 } else {
     $template_file = 'future_release.html.twig';
