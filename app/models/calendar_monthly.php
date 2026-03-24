@@ -24,6 +24,7 @@ $extra_milestone = function (string $milestone) use ($current_release_schedule, 
     }
 };
 
+$events[] = $extra_milestone('release');
 $events[] = $extra_milestone('mobile_dot_release');
 $events[] = $extra_milestone('planned_dot_release');
 
