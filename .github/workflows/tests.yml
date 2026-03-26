@@ -48,6 +48,9 @@ jobs:
     - name: Run linter (parallel-lint)
       run: composer run-script test:lint
 
+    - name: Run Twig linter (twig-lint.sh)
+      run: composer run-script test:twig-lint
+
     - name: Run functional tests (API, pages)
       run: |
         php tests/Functional/pages.php

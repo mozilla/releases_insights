@@ -67,8 +67,10 @@
         "test:api": "php tests/Functional/api.php",
         "test:content": "php tests/Functional/pages.php;php tests/Functional/api.php",
         "test:lint": "vendor/bin/phplint . --exclude vendor",
+        "test:twig-lint": "app/scripts/twig-lint.sh",
         "test:all": [
             "@test:lint",
+            "@test:twig-lint",
             "@test:unitcov",
             "@test:static",
             "@test:pages",
