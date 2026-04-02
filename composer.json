@@ -30,8 +30,13 @@
             "no-api": true
         }
     ],
+    "config": {
+        "platform": {
+            "php": "8.5.4"
+        }
+    },
     "require": {
-        "php": "^8.4",
+        "php": "^8.5",
         "ext-intl": "*",
         "ext-mbstring": "*",
         "ext-curl": "*",
@@ -112,6 +117,9 @@
             "pestphp/pest-plugin": true,
             "cweagans/composer-patches": true,
             "php-http/discovery": true
+        },
+        "platform": {
+            "php": "8.5.0"
         }
     },
     "extra": {
