@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "~8.4.0",
+        "php": "^8.4",
         "ext-intl": "*",
         "ext-mbstring": "*",
         "ext-curl": "*",
@@ -42,11 +42,11 @@
     "require-dev": {
         "phpstan/phpstan": "^2.0",
         "pestphp/pest": "^3.0",
-        "symfony/var-dumper": "^6",
+        "symfony/var-dumper": "^7",
         "pchevrel/verif": "^0.5.1",
         "overtrue/phplint": "^9.5",
         "tracy/tracy": "^2.10",
-        "symplify/vendor-patches": "*",
+        "symplify/vendor-patches": "^12.0",
         "rector/rector": "^2.0",
         "spaze/phpstan-disallowed-calls": "^4.7"
     },
