@@ -61,7 +61,10 @@ class Json
         if (array_key_exists('error', $this->data)) {
             echo $this->outputError();
         } else {
-            $this->jsonp = $_GET['callback'] ?? false;
+            $callback = $_GET['callback'] ?? false;
+            if (is_string($callback) && preg_match('/^[a-zA-Z_$][a-zA-Z0-9_.]*$/', $callback)) {
+                $this->jsonp = $callback;
+            }
             echo $this->output();
         }
     }
