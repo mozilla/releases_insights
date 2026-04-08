@@ -34,26 +34,59 @@ $paths = [
     ['api/firefox/calendar/future/?format=csv', 200, 'Version,Nightly Start,Beta,Release Date,Release Owner', ''],
 ];
 
+// Pre-fetch all responses in parallel using curl_multi.
+// Redirects are followed so content checks work on the final page (matching the original
+// file_get_contents() behavior), but we capture the *first* status code from the raw
+// headers to match the original get_headers() behavior.
 $obj = new \pchevrel\Verif('Check public pages HTTP responses and content');
-$obj
-    ->setHost('localhost:8083')
-    ->setPathPrefix('');
+$obj->setHost('localhost:8083')->setPathPrefix('');
 
-$check = function ($object, $paths) {
-    foreach ($paths as $values) {
-        [$path, $http_code, $content, $content2] = $values;
-        echo "- $path\n";
-        $object
-            ->setPath($path)
-            ->fetchContent()
-            ->hasResponseCode($http_code)
-            ->contains($content)
-            ->contains($content2);
-    }
-};
+$multi = curl_multi_init();
+$handle_to_index = [];
+foreach ($paths as $i => [$path]) {
+    $ch = curl_init('http://localhost:8083/' . $path);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HEADER         => true,
+    ]);
+    $handle_to_index[(int) $ch] = $i;
+    curl_multi_add_handle($multi, $ch);
+}
 
 echo "\nTesting page path:\n";
-$check($obj, $paths);
+do {
+    curl_multi_exec($multi, $still_running);
+    while ($info = curl_multi_info_read($multi)) {
+        if ($info['msg'] !== CURLMSG_DONE) {
+            continue;
+        }
+        $ch = $info['handle'];
+        $i  = $handle_to_index[(int) $ch];
+        [$path, $http_code, $content, $content2] = $paths[$i];
+
+        $raw = curl_multi_getcontent($ch);
+        preg_match('/HTTP\/\d[\d.]* (\d+)/', $raw, $matches);
+        $first_code = isset($matches[1]) ? (int) $matches[1] : 0;
+        $body = substr($raw, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+
+        echo "- $path\n";
+        $obj->setPath($path);
+        if ($first_code !== $http_code) {
+            $obj->setError("HTTP code error for {$path}: expected {$http_code}, got {$first_code}");
+        }
+        $obj->test_count++;
+        $obj->content = $body;
+        $obj->contains($content)->contains($content2);
+
+        curl_multi_remove_handle($multi, $ch);
+        curl_close($ch);
+    }
+    if ($still_running) {
+        curl_multi_select($multi);
+    }
+} while ($still_running);
+curl_multi_close($multi);
 
 $obj->report();
 

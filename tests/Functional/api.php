@@ -29,25 +29,48 @@ $paths = [
 ];
 
 $obj = new \pchevrel\Verif('Check API HTTP responses');
-$obj
-    ->setHost('localhost:8083')
-    ->setPathPrefix('api/');
+$obj->setHost('localhost:8083')->setPathPrefix('api/');
 
-$check = function ($object, $paths) {
-    foreach ($paths as $values) {
-        [$path, $http_code, $content] = $values;
-        echo "- $path\n";
-        $object
-            ->setPath($path)
-            ->fetchContent()
-            ->hasResponseCode($http_code)
-            ->isJson()
-            ->isEqualTo($content);
-    }
-};
+$multi = curl_multi_init();
+$handle_to_index = [];
+foreach ($paths as $i => [$path]) {
+    $ch = curl_init('http://localhost:8083/api/' . $path);
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true]);
+    $handle_to_index[(int) $ch] = $i;
+    curl_multi_add_handle($multi, $ch);
+}
 
 echo "\nTesting API path:\n";
-$check($obj, $paths);
+do {
+    curl_multi_exec($multi, $still_running);
+    while ($info = curl_multi_info_read($multi)) {
+        if ($info['msg'] !== CURLMSG_DONE) {
+            continue;
+        }
+        $ch = $info['handle'];
+        $i  = $handle_to_index[(int) $ch];
+        [$path, $http_code, $content] = $paths[$i];
+
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $body = curl_multi_getcontent($ch);
+
+        echo "- $path\n";
+        $obj->setPath($path);
+        if ($code !== $http_code) {
+            $obj->setError("HTTP code error for {$path}: expected {$http_code}, got {$code}");
+        }
+        $obj->test_count++;
+        $obj->content = $body;
+        $obj->isJson()->isEqualTo($content);
+
+        curl_multi_remove_handle($multi, $ch);
+        curl_close($ch);
+    }
+    if ($still_running) {
+        curl_multi_select($multi);
+    }
+} while ($still_running);
+curl_multi_close($multi);
 
 $obj->report();
 
