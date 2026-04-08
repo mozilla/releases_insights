@@ -12,7 +12,9 @@ require __DIR__ . '/../../vendor/autoload.php';
 chdir(realpath(__DIR__ . '/../../'));
 echo getcwd();
 // We pass an env variable to the php process because we want to disable Ignition in testing mode
-exec('TESTING_CONTEXT=true PHP_CLI_SERVER_WORKERS=8 php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo $!', $output);
+$workers = max(2, (int) shell_exec('nproc'));
+echo " ({$workers} workers)\n";
+exec("TESTING_CONTEXT=true PHP_CLI_SERVER_WORKERS={$workers} php -S localhost:8083 -t public/ > /dev/null 2>&1 & echo \$!", $output);
 
 // We will need the pid to kill it, beware, this is the pid of the bash process started with start.sh
 $processID = $output[0];
