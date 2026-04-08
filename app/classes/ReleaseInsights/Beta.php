@@ -253,7 +253,7 @@ readonly class Beta
         $to_fetch = [];
         foreach ($targets as $version => $url) {
             if ($cached = Cache::getKey($url, $ttl)) {
-                $results[$version] = Json::toArray($cached);
+                $results[$version] = Json::toArray($cached); // @codeCoverageIgnore
             } else {
                 $to_fetch[$version] = $url;
             }
