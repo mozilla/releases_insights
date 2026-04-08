@@ -13,6 +13,7 @@ use Kevinrob\GuzzleCache\Storage\Psr6CacheStorage;
 use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
+use Cache\Cache;
 use ReleaseInsights\Bugzilla;
 use ReleaseInsights\Release;
 use ReleaseInsights\Json;
@@ -39,13 +40,17 @@ readonly class Beta
         // Check if the beta cycle is over, this avoids a miscount for RC builds
         if ($this->count >= $this->number_betas && ! defined('TESTING_CONTEXT')) {
             // @codeCoverageIgnoreStart
-            // TODO: cache this request as it can take multiple seconds when hg is slow
-            $http_code = get_headers(
-                URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END'
-            );
-            $http_code = array_filter($http_code, fn($v) => str_starts_with($v, 'HTTP/'));
-            $http_code = end($http_code); // We want the last HTTP code to workaropung the hg-edge 302 redirect
-            $this->beta_cycle_ended = str_contains($http_code, '200');
+            $cache_key = 'beta_cycle_ended_' . BETA;
+            if (($cached = Cache::getKey($cache_key, 900)) === false) {
+                $http_code = get_headers(
+                    URL::Mercurial->value . 'releases/mozilla-beta/json-pushes?fromchange=' . 'FIREFOX_BETA_' . BETA . '_END'
+                );
+                $http_code = array_filter($http_code, fn($v) => str_starts_with($v, 'HTTP/'));
+                $http_code = end($http_code); // We want the last HTTP code to workaround the hg-edge 302 redirect
+                $cached = str_contains($http_code, '200') ? 'true' : 'false';
+                Cache::setKey($cache_key, $cached, 900);
+            }
+            $this->beta_cycle_ended = $cached === 'true';
             // @codeCoverageIgnoreEnd
         } else {
             $this->beta_cycle_ended = false;
