@@ -15,25 +15,50 @@ $beta = new Beta();
 
 $uplift_counter = 0;
 $bug_list_details = [];
+$bz_fields = ['id', 'summary', 'priority', 'severity', 'product', 'component', 'type'];
 
-foreach ($beta->uplifts() as $version => $details) {
-    // We count all uplifts, including backouts
-    $uplifts = count($details['total']);
-    $uplift_counter += $uplifts;
+$uplifts = $beta->uplifts();
 
-    // We Query Bugzilla for bug details
-    $bz_fields = ['id', 'summary', 'priority', 'severity', 'product', 'component', 'type'];
+// Count uplifts and initialize result structure (no HTTP requests yet)
+foreach ($uplifts as $version => $details) {
+    $uplift_counter += count($details['total']);
     $bug_list_details[$version] = [];
-    if ($uplifts > 0) {
-        $bug_list_details[$version] = Json::load(
-            URL::Bugzilla->value
-            . 'rest/bug?include_fields='
-            . implode(',', $bz_fields)
-            . '&bug_id='
-            . implode('%2C', $details['total']),
-            3600*24
-        )['bugs'] ?? [];
+}
+
+// Collect all bug IDs across all versions and fetch them in a single Bugzilla request
+$all_bug_ids = array_unique(array_merge(...array_map(fn($d) => $d['total'], array_values($uplifts))));
+
+$all_bugs_indexed = [];
+if (! empty($all_bug_ids)) {
+    $bz_response = Json::load(
+        URL::Bugzilla->value
+        . 'rest/bug?include_fields='
+        . implode(',', $bz_fields)
+        . '&bug_id='
+        . implode('%2C', $all_bug_ids),
+        3600*24
+    )['bugs'] ?? [];
+    $all_bugs_indexed = array_column($bz_response, null, 'id');
+}
+
+// Create a blank template for bugs not populated by Bugzilla
+$bug_template = function () use ($bz_fields) {
+    $fields = array_flip($bz_fields);
+    foreach ($fields as $key => $value) {
+        if ($key == 'product' || $key == 'component' ) {
+            $fields[$key] = 'Other';
+            $fields['summary'] = '…';
+            continue;
+        }
+        $fields[$key] = 'N/A';
     }
+    return $fields;
+};
+
+foreach ($uplifts as $version => $details) {
+    $bug_list_details[$version] = array_values(
+        array_intersect_key($all_bugs_indexed, array_flip($details['total']))
+    );
 
     /*
         The Bugzilla API does not send all bug results without auth
@@ -47,20 +72,6 @@ foreach ($beta->uplifts() as $version => $details) {
             array_column($bug_list_details[$version], 'id')
         )
     );
-
-    // Create a blank template for bugs not populated by Bugzilla
-    $bug_template = function () use ($bz_fields) {
-        $fields = array_flip($bz_fields);
-        foreach ($fields as $key => $value) {
-            if ($key == 'product' || $key == 'component' ) {
-                $fields[$key] = 'Other';
-                $fields['summary'] = '…';
-                continue;
-            }
-            $fields[$key] = 'N/A';
-        }
-        return $fields;
-    };
 
     foreach ($hidden_bugs as $key => $value) {
         $hidden_bugs[$key] = $bug_template();
