@@ -70,7 +70,7 @@ do {
         $first_code = isset($matches[1]) ? (int) $matches[1] : 0;
         $body = substr($raw, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
 
-        echo "- $path\n";
+        echo "\e[1;32m✓\e[0m " . ($path ?: '(empty string)') . "\n";
         $obj->setPath($path);
         if ($first_code !== $http_code) {
             $obj->setError("HTTP code error for {$path}: expected {$http_code}, got {$first_code}");

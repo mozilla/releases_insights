@@ -54,7 +54,7 @@ do {
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $body = curl_multi_getcontent($ch);
 
-        echo "- $path\n";
+        echo "\e[1;32m✓\e[0m " . ($path ?: '(empty string)') . "\n";
         $obj->setPath($path);
         if ($code !== $http_code) {
             $obj->setError("HTTP code error for {$path}: expected {$http_code}, got {$code}");
