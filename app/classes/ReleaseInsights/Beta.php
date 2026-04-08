@@ -220,73 +220,97 @@ readonly class Beta
      */
     public function crashes(): array
     {
-        $data = [];
+        $ttl = 3600;
+
+        // Build version -> URL map for all betas
+        $targets = [];
         foreach (range(1, $this->count) as $beta_number) {
-            $beta_number = (string) $this->release . '.0b' . (string) $beta_number;
+            $version = (string) $this->release . '.0b' . $beta_number;
             if (defined('TESTING_CONTEXT')) {
-                $beta_number = str_replace('146', '131', $beta_number);
-                // var_dump($beta_number);
-                $target = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $beta_number . '.json';
-                // var_dump($target);
+                $version = str_replace('146', '131', $version);
+                $targets[$version] = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $version . '.json';
             } else {
-                $target = URL::Socorro->value . 'SuperSearch/?version=' . $beta_number . '&_facets=signature&product=Firefox';  // @codeCoverageIgnore
+                $targets[$version] = URL::Socorro->value . 'SuperSearch/?version=' . $version . '&_facets=signature&product=Firefox'; // @codeCoverageIgnore
             }
+        }
 
-            $temp = Json::load($target, 3600);
+        // Add RC builds
+        [$have_rc, $number_rc_builds] = $this->RCStatus();
+        if ($have_rc) {
+            foreach (range(1, $number_rc_builds) as $rc_number) {
+                $version = (string) $this->release . '.0rc' . $rc_number;
+                if (defined('TESTING_CONTEXT')) {
+                    $version = str_replace('94', '131', $version);
+                    $targets[$version] = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $version . '.json';
+                } else {
+                    $targets[$version] = URL::Socorro->value . 'SuperSearch/?version=' . $version . '&_facets=signature&product=Firefox'; // @codeCoverageIgnore
+                }
+            }
+        }
 
-            // In local tests, we always have test data
+        // Serve from cache where possible, collect misses
+        $results = [];
+        $to_fetch = [];
+        foreach ($targets as $version => $url) {
+            if ($cached = Cache::getKey($url, $ttl)) {
+                $results[$version] = Json::toArray($cached);
+            } else {
+                $to_fetch[$version] = $url;
+            }
+        }
+
+        if (! empty($to_fetch)) {
+            if (defined('TESTING_CONTEXT')) {
+                // Test URLs are local file paths, no HTTP involved
+                foreach ($to_fetch as $version => $url) {
+                    $results[$version] = Json::load($url, $ttl);
+                }
+            } else {
+                // @codeCoverageIgnoreStart
+                // Fetch all cache misses in parallel
+                $client = new Client(['headers' => ['User-Agent' => 'WhatTrainIsItNow/1.0']]);
+                $promises = [];
+                foreach ($to_fetch as $version => $url) {
+                    $promises[$version] = $client->getAsync($url, ['http_errors' => false]);
+                }
+                foreach (Promise::settle($promises)->wait() as $version => $result) {
+                    $url = $to_fetch[$version];
+                    if ($result['state'] === 'fulfilled') {
+                        $body = $result['value']->getBody()->getContents();
+                        if (! empty($body) && json_validate($body)) {
+                            Cache::setKey($url, $body, $ttl);
+                            $results[$version] = Json::toArray($body);
+                        } else {
+                            $results[$version] = [];
+                        }
+                    } else {
+                        $results[$version] = [];
+                    }
+                }
+                // @codeCoverageIgnoreEnd
+            }
+        }
+
+        // Build data array from results
+        $data = [];
+        foreach ($targets as $version => $url) {
+            $temp = $results[$version] ?? [];
+
             // @codeCoverageIgnoreStart
             if (empty($temp)) {
-                $data[$beta_number] = [
-                    'total'      => 0,
-                    'signatures' => [],
-                ];
+                $data[$version] = ['total' => 0, 'signatures' => []];
                 continue;
             }
             // @codeCoverageIgnoreEnd
 
-            $data[$beta_number] = [
+            $data[$version] = [
                 'total'      => $temp['total'] ?? 0,
                 'signatures' => $temp['facets']['signature'] ?? [],
             ];
         }
 
-        // Add crashes per RC
-        [$have_rc, $number_rc_builds] = $this->RCStatus();
-        if ($have_rc) {
-            foreach (range(1, $number_rc_builds) as $rc_number) {
-                $rc_number = (string) $this->release . '.0rc' . (string) $rc_number;
-                if (defined('TESTING_CONTEXT')) {
-                    $rc_number = str_replace('94', '131', $rc_number);
-                    $target = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $rc_number . '.json';
-                } else {
-                    $target = URL::Socorro->value . 'SuperSearch/?version=' . $rc_number . '&_facets=signature&product=Firefox';  // @codeCoverageIgnore
-                }
-
-               $temp = Json::load($target, 3600);
-
-                // In local tests, we always have test data
-                // @codeCoverageIgnoreStart
-                if (empty($temp)) {
-                    $data[$rc_number] = [
-                        'total'      => 0,
-                        'signatures' => [],
-                    ];
-                    continue;
-                }
-                // @codeCoverageIgnoreEnd
-                $data[$rc_number] = [
-                    'total'      => $temp['total'] ?? 0,
-                    'signatures' => $temp['facets']['signature'] ?? [],
-                ];
-            }
-        }
-
-
         // Create a summary of the crashes across betas
-        $data['summary'] = [
-           'total'   => array_sum(array_column($data, 'total')),
-        ];
+        $data['summary'] = ['total' => array_sum(array_column($data, 'total'))];
 
         return $data;
     }

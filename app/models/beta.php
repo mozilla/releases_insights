@@ -29,16 +29,16 @@ foreach ($uplifts as $version => $details) {
 $all_bug_ids = array_unique(array_merge(...array_map(fn($d) => $d['total'], array_values($uplifts))));
 
 $all_bugs_indexed = [];
-if (! empty($all_bug_ids)) {
+foreach (array_chunk($all_bug_ids, 100) as $chunk) {
     $bz_response = Json::load(
         URL::Bugzilla->value
         . 'rest/bug?include_fields='
         . implode(',', $bz_fields)
         . '&bug_id='
-        . implode('%2C', $all_bug_ids),
+        . implode('%2C', $chunk),
         3600*24
     )['bugs'] ?? [];
-    $all_bugs_indexed = array_column($bz_response, null, 'id');
+    $all_bugs_indexed += array_column($bz_response, null, 'id');
 }
 
 // Create a blank template for bugs not populated by Bugzilla
