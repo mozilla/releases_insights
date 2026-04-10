@@ -70,6 +70,7 @@ RUN chown -R app:app /app /run /var/lib/nginx /var/log/nginx
 # copy source from local, and composer-built assets from builder
 COPY --chown=app:app . /app
 COPY --from=builder --chown=app:app /app/public/assets/bootstrap /app/public/assets/bootstrap
+COPY --from=builder --chown=app:app /app/public/assets/chartjs /app/public/assets/chartjs
 COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets/jquery
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
 COPY --from=builder --chown=app:app /app/vendor/benhall14/php-calendar/html/css/calendar.css /app/public/style/
