@@ -10,7 +10,7 @@ $known_top_crashes, $crash_bugs, $bugzilla_links] = new Model('beta')->get();
 new Template(
     'beta.html.twig',
     [
-        'page_title'        => 'Betas this cycle',
+        'page_title'        => $beta->release === BETA ? 'Betas this cycle' : 'Firefox ' . $beta->release . ' beta',
         'css_page_id'       => 'beta',
         'beta'              => $beta,
         'bug_list'          => $bug_details,

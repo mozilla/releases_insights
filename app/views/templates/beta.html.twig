@@ -8,14 +8,27 @@
 {% endblock %}
 
 {% block header %}
-  <header class="mx-auto">
-      <h1>Current Desktop beta cycle: <a href="/release/?version=beta" class="link-info">{{ constant('BETA') }}</a></h1>
-  </header>
+<header class="mx-auto mb-3 no-focus-scroll">
+    <h1>
+    {% if beta.release > 1 %}
+        <a href="?version={{ beta.release - 1 }}" title="Previous beta" class="text-decoration-none">«</a>
+    {% endif %}
+        &nbsp;Firefox&nbsp;{{ beta.release }}&nbsp;beta cycle&nbsp;
+    {% if beta.release < constant('BETA') %}
+        <a href="?version={{ beta.release + 1 }}" title="Next beta" class="text-decoration-none">»</a>
+    {% endif %}
+    <br>
+    {% if beta.release != constant('BETA') %}
+        <a href="/beta/" class="btn btn-primary">Go to <b>Current</b> beta</a>
+    {% endif %}
+    </h1>
+</header>
 {% endblock %}
 
 {% set tooltip_defaults = ' data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" ' %}
 
 {% block main %}
+{% set is_current_beta = (beta.release == constant('BETA')) %}
 <table class="table table-fxt-clean table-sm w-75 justify-content-center" id="summary">
     <tr>
         <th class="align-middle w-10 text-center force-default-bg fw-semibold fs-6">Uplifts by Product<br><span class="badge text-dark bg-warning-subtle fw-semibold">{{ uplift_count }} uplifts</span></th>
@@ -33,17 +46,17 @@
 {%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
 {% for key, values in beta.uplifts %}
 
-{% if key == constant('BETA') ~ ".0rc0" %}
+{% if key == beta.release ~ ".0rc0" %}
 <p class="bg-warning-subtle w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded-1"><small>Last beta shipped</small></p>
 {% endif %}
 
-{% if key == constant('BETA') ~ ".0rc1" %}
+{% if key == beta.release ~ ".0rc1" %}
 <p class="bg-warning-subtle w-25 border-0 text-center mx-auto p-0 text-dark fs-6 rounded-1"><small>Beta to release merge</small></p>
 {% endif %}
 
 <ul class="list-group list-group-horizontal d-flex flex-row w-75 mx-auto mb-3">
     <li class="list-group-item bg-success-subtle fw-semibold border-0 version">
-    {% if key == constant('BETA') ~ ".0rc0" %}
+    {% if key == beta.release ~ ".0rc0" %}
         No build
     {% else %}
         <a href="{{ values['hg_link'] }}" class="text-dark">{{ key }}</a>
@@ -54,7 +67,7 @@
         <a href="{{ bugs_link[key] }}" class="text-dark">1 bug uplifted</a>
     {% elseif bug_list[key]|length > 1 %}
         <a href="{{ bugs_link[key] }}" class="text-dark">{{ bug_list[key]|length }} bugs uplifted</a>
-        {% if key == constant('BETA') ~ ".0rc0" %}
+        {% if key == beta.release ~ ".0rc0" %}
         <small class="fst-italic"> (on the beta branch, those will ship in rc1)</small>
         {% endif %}
     {% else %}
@@ -68,7 +81,7 @@
     {% endif %}
     </li>
 
-{% if key != constant('BETA') ~ ".0rc0" %}
+{% if is_current_beta and key != beta.release ~ ".0rc0" %}
     {% if key|split('b')[1] <= beta.count %}
     <li class="list-group-item text-light border-0 bg-warning-subtle">
        <a class="text-dark" data-bs-toggle="collapse" aria-expanded="false" href="#collapseCrashes{{ key }}">
@@ -89,6 +102,7 @@
 {% endif %}
 </ul>
 
+{% if is_current_beta %}
 <div class="collapse w-75 w-auto" id="collapseCrashes{{ key }}">
     <ol class="w-75 m-auto pt-1 mb-3 text-dark bg-white table-fxt-clean ">
     {% for sig in beta.crashes[key].signatures|slice(0, 7) %}
@@ -115,6 +129,7 @@
     {% endfor %}
     </ol>
 </div>
+{% endif %}
 
 <div class="collapse" id="collapseBugs{{ key }}">
     <table class="table table-light table-fxt-clean table-hover table-sm w-75 justify-content-center mb-3">

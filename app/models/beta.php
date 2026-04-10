@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Beta, Bugzilla, Json, Request, Utils, URL};
 
+$requested_version = isset($_GET['version']) ? (int) $_GET['version'] : BETA;
+$requested_version = max(1, min(BETA, $requested_version));
+$is_current_beta = ($requested_version === BETA);
+
 $waiting_page = false;
-$lock_file = CACHE_PATH . 'beta_lock.cache';
-if (! file_exists($lock_file) OR time()-filemtime($lock_file) > 900) {
+$lock_file = CACHE_PATH . 'beta_lock_' . $requested_version . '.cache';
+$lock_ttl = $is_current_beta ? 900 : PHP_INT_MAX;
+if (! file_exists($lock_file) OR time()-filemtime($lock_file) > $lock_ttl) {
     $waiting_page = true;
     Request::waitingPage('load');
 }
 
-$beta = new Beta();
+$beta = new Beta($requested_version);
 
 $uplift_counter = 0;
 $bug_list_details = [];
@@ -28,6 +33,7 @@ foreach ($uplifts as $version => $details) {
 // Collect all bug IDs across all versions and fetch them in a single Bugzilla request
 $all_bug_ids = array_unique(array_merge(...array_map(fn($d) => $d['total'], array_values($uplifts))));
 
+$bz_ttl = $is_current_beta ? 3600 * 24 : 3600 * 24 * 30;
 $all_bugs_indexed = [];
 foreach (array_chunk($all_bug_ids, 100) as $chunk) {
     $bz_response = Json::load(
@@ -36,7 +42,7 @@ foreach (array_chunk($all_bug_ids, 100) as $chunk) {
         . implode(',', $bz_fields)
         . '&bug_id='
         . implode('%2C', $chunk),
-        3600*24
+        $bz_ttl
     )['bugs'] ?? [];
     $all_bugs_indexed += array_column($bz_response, null, 'id');
 }
@@ -106,41 +112,43 @@ $known_top_crashes = [
 ];
 
 $top_sigs_worth_a_bug = [];
+$crash_bugs = [];
 
-foreach ($beta->crashes() as $k => $values) {
-    if ($k == 'summary') {
-        continue;
-    }
-    foreach ($values['signatures'] as $target) {
-        if (in_array($target['term'], $known_top_crashes)) {
+if ($is_current_beta) {
+    foreach ($beta->crashes() as $k => $values) {
+        if ($k == 'summary') {
             continue;
         }
-        if (isset($top_sigs_worth_a_bug[$target['term']])){
-            $top_sigs_worth_a_bug[$target['term']] += $target['count'];
-        } else {
-            $top_sigs_worth_a_bug[$target['term']] = $target['count'];
+        foreach ($values['signatures'] as $target) {
+            if (in_array($target['term'], $known_top_crashes)) {
+                continue;
+            }
+            if (isset($top_sigs_worth_a_bug[$target['term']])){
+                $top_sigs_worth_a_bug[$target['term']] += $target['count'];
+            } else {
+                $top_sigs_worth_a_bug[$target['term']] = $target['count'];
+            }
         }
     }
-}
-// We take 10 crashes for a day as a treshold
-$top_sigs_worth_a_bug = array_filter($top_sigs_worth_a_bug, fn($n) => $n > 10);
+    // We take 10 crashes for a day as a treshold
+    $top_sigs_worth_a_bug = array_filter($top_sigs_worth_a_bug, fn($n) => $n > 10);
 
-// We escape weird crash signature characters for url use
-$top_sigs_worth_a_bug = array_keys($top_sigs_worth_a_bug);
-$top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
+    // We escape weird crash signature characters for url use
+    $top_sigs_worth_a_bug = array_keys($top_sigs_worth_a_bug);
+    $top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
 
-// Query bugs for signatures
-$crash_bugs = [];
-if (! empty($top_sigs_worth_a_bug)) {
-    foreach ($top_sigs_worth_a_bug as $sig) {
-        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig)['hits'] ?? [];
-        $tmp = array_column($bugs_for_top_sigs, 'id');
-        if (!empty($tmp)) {
-            $crash_bugs[urldecode($sig)] = max(
-                array_unique(
-                    array_column($bugs_for_top_sigs, 'id')
-                )
-            );
+    // Query bugs for signatures
+    if (! empty($top_sigs_worth_a_bug)) {
+        foreach ($top_sigs_worth_a_bug as $sig) {
+            $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig)['hits'] ?? [];
+            $tmp = array_column($bugs_for_top_sigs, 'id');
+            if (!empty($tmp)) {
+                $crash_bugs[urldecode($sig)] = max(
+                    array_unique(
+                        array_column($bugs_for_top_sigs, 'id')
+                    )
+                );
+            }
         }
     }
 }
