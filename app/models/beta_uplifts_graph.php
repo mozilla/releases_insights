@@ -24,7 +24,8 @@ $to_fetch = [];
 for ($version = $first_version; $version <= BETA; $version++) {
     $is_past = ($version < BETA);
 
-    if ($is_past && ($cached = Cache::getKey('uplift_total_v' . $version, 86400 * 365)) !== false) {
+    $cache_ttl = $is_past ? 86400 * 365 : $lock_ttl;
+    if (($cached = Cache::getKey('uplift_total_v' . $version, $cache_ttl)) !== false) {
         $graph_data[$version] = (int) $cached;
         continue;
     }
@@ -84,9 +85,8 @@ if (! empty($to_fetch)) {
             }
         }
 
-        if ($is_past) {
-            Cache::setKey('uplift_total_v' . $version, (string) $total, 86400 * 365);
-        }
+        $cache_ttl = $is_past ? 86400 * 365 : $lock_ttl;
+        Cache::setKey('uplift_total_v' . $version, (string) $total, $cache_ttl);
 
         $graph_data[$version] = $total;
     }
