@@ -38,7 +38,7 @@
 {% endblock %}
 
 {% block footer %}
-<footer></footer>
+<footer class="w-50 mx-auto"><i>The graph counts bugs uplifted for the whole beta cycle, not per beta. <br>That means that the numbers are about 1% lower than what we show for the current beta because in the current beta a single bug uplifted in beta 2 can get a follow up fix in say beta 3 or be backed out later in the cycle.</i></footer>
 <script src="/assets/chartjs/chart.umd.min.js"></script>
 <script nonce="{{constant('NONCE')}}">
 const ctx = document.getElementById('upliftsChart');
