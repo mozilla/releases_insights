@@ -38,5 +38,8 @@ touch(realpath(__DIR__ . '/../../cache/')  . '/devmachine.cache');
 // This is the function to call to stop the test server in sub-scripts
 function killTestServer(string $processID): void {
     unlink(realpath(__DIR__ . '/../../cache/')  . '/devmachine.cache');
-    exec('kill -9 ' . $processID);
+    // Kill the master process (suppress error if already gone)
+    exec('kill -9 ' . (int)$processID . ' 2>/dev/null');
+    // Kill any orphaned worker processes left behind by PHP_CLI_SERVER_WORKERS
+    exec('pkill -f "php -S localhost:8083" 2>/dev/null');
 }
