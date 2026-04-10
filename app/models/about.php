@@ -39,8 +39,21 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
         <td>Get the list of views and public JSON API endpoints</td>
     </tr>
     <tr>
-        <td><a href="/beta">beta</a></td>
-        <td>Get the state of what was uplifted in the current beta cycle</td>
+        <td>
+            <ul class="list-unstyled mb-0">
+                <li><a href="/beta/">beta</a></li>
+                <li><a href="/beta/?version=130">beta/?version=130</a></li>
+            </ul>
+        </td>
+        <td>
+            Get the state of what was uplifted in the beta cycle for any Firefox release<br>
+        </td>
+    <tr>
+        <td><a href="/beta/uplifts/graph/">beta/uplifts/graph</a></td>
+        <td>
+            Graph of total beta and RC uplifts per Firefox release since version 127
+        </td>
+    </tr>
     </tr>
     <tr>
         <td><a href="/calendar">calendar</a></td>

@@ -13,6 +13,7 @@ test('Request->getController()', function ($input, $output) {
     ['/about',                            'about'],
     ['/nightly',                          'nightly'],
     ['/beta',                             'beta'],
+    ['/beta/uplifts/graph/',              'beta_uplifts_graph'],
     ['/release',                          'release'],
     ['/release//',                        'release'],
     ['/release/?version=100',             'release'],

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfc8b70bb0ec72cb156afbab15c860e6",
+    "content-hash": "887c80ecb323a1a786a65ef86afb4e64",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -677,6 +677,15 @@
                 "source": "https://github.com/Kevinrob/guzzle-cache-middleware/tree/6.0.0"
             },
             "time": "2024-10-17T09:11:54+00:00"
+        },
+        {
+            "name": "nnnick/chartjs",
+            "version": "4.5.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/chart.js/-/chart.js-4.5.1.tgz"
+            },
+            "type": "library"
         },
         {
             "name": "pchevrel/bzkarma",

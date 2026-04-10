@@ -30,6 +30,7 @@ readonly class Model
             'api_ios_release_schedule'    => 'api/ios_release_schedule.php',
             'api_wellness_days'           => 'api/wellness_days.php',
             'beta'                        => 'beta.php',
+            'beta_uplifts_graph'          => 'beta_uplifts_graph.php',
             'calendar'                    => 'calendar.php',
             'calendar_monthly'            => 'calendar_monthly.php',
             'changelog'                   => 'changelog.php',

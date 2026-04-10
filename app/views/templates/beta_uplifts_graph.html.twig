@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+    {% set meta_description = 'Total beta uplifts per Firefox release' %}
+    <meta name="description" content="{{ meta_description }}">
+    <meta property="twitter:description" content="{{ meta_description }}">
+    <meta property="og:url" content="https://whattrainisitnow.com/beta/uplifts/graph/">
+{% endblock %}
+
+{% block header %}
+<header class="mx-auto mb-3 no-focus-scroll">
+    <h1>Beta uplifts per release</h1>
+    <p class="fs-6">Total bugs uplifted to beta and RC builds per Firefox release</p>
+</header>
+{% endblock %}
+
+{% block main %}
+<div class="w-75 mx-auto" aria-hidden="true">
+    <canvas id="upliftsChart"></canvas>
+</div>
+<table class="visually-hidden">
+    <caption>Beta uplifts per Firefox release</caption>
+    <thead>
+        <tr>
+            <th scope="col">Firefox version</th>
+            <th scope="col">Uplifts</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for version, count in graph_data %}
+        <tr>
+            <td><a href="/beta/?version={{ version }}">{{ version }}</a></td>
+            <td>{{ count }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block footer %}
+<footer></footer>
+<script src="/assets/chartjs/chart.umd.min.js"></script>
+<script nonce="{{constant('NONCE')}}">
+const ctx = document.getElementById('upliftsChart');
+const style = getComputedStyle(document.documentElement);
+Chart.defaults.color = style.getPropertyValue('--font-default-color').trim();
+Chart.defaults.font.family = style.getPropertyValue('font-family').trim();
+Chart.defaults.font.size = 14;
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ graph_labels|json_encode|raw }},
+        datasets: [{
+            label: 'Uplifts',
+            data: {{ graph_values|json_encode|raw }},
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        devicePixelRatio: window.devicePixelRatio,
+        onClick: (event, elements) => {
+            if (elements.length > 0) {
+                const version = {{ graph_labels|json_encode|raw }}[elements[0].index];
+                window.location.href = '/beta/?version=' + version;
+            }
+        },
+        onHover: (event, elements) => {
+            event.native.target.style.cursor = elements.length > 0 ? 'pointer' : 'default';
+        },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    title: (items) => 'Firefox ' + items[0].label,
+                    label: (item) => item.raw + ' uplifts'
+                }
+            }
+        },
+        scales: {
+            x: { title: { display: true, text: 'Firefox version' } },
+            y: { title: { display: true, text: 'Number of uplifts' }, beginAtZero: true }
+        }
+    }
+});
+</script>
+{% endblock %}

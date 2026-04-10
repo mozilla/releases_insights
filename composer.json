@@ -4,6 +4,17 @@
     "description": "Release Insights / Firefox Trains Dashboard",
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "nnnick/chartjs",
+                "version": "4.5.1",
+                "dist": {
+                    "url": "https://registry.npmjs.org/chart.js/-/chart.js-4.5.1.tgz",
+                    "type": "tar"
+                }
+            }
+        },
+        {
             "type": "vcs",
             "url": "https://github.com/mozilla-l10n/phpclass-json",
             "no-api": true
@@ -37,7 +48,8 @@
         "eluceo/ical": "^0.20.0",
         "benhall14/php-calendar": "^1.4",
         "symfony/cache": "^7",
-        "kevinrob/guzzle-cache-middleware": "^6.0"
+        "kevinrob/guzzle-cache-middleware": "^6.0",
+        "nnnick/chartjs": "^4.5"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.0",
@@ -88,6 +100,8 @@
             "cp -r vendor/components/jquery/ public/assets/jquery",
             "cp vendor/benhall14/php-calendar/html/css/calendar.css public/style/",
             "rm public/assets/jquery/README.md",
+            "mkdir -p public/assets/chartjs",
+            "cp vendor/nnnick/chartjs/dist/chart.umd.min.js public/assets/chartjs/",
             "echo $SOURCE_VERSION > public/deployed-version.txt"
         ]
     },

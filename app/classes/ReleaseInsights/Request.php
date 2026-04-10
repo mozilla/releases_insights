@@ -73,6 +73,7 @@ class Request
             '/'                                 => 'homepage',
             '/about/'                           => 'about',
             '/beta/'                            => 'beta',
+            '/beta/uplifts/graph/'              => 'beta_uplifts_graph',
             '/changelog/'                       => 'changelog',
             '/nightly/'                         => 'nightly',
             '/release/'                         => 'release',

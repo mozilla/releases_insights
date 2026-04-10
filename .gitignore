@@ -12,6 +12,7 @@ cache/twig/
 cache/guzzle/
 composer.phar
 public/assets/bootstrap/
+public/assets/chartjs/
 public/assets/font-awesome/
 public/assets/jquery/
 public/deployed-version.txt

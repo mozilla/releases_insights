@@ -323,10 +323,14 @@ readonly class Beta
      * Results are cached for one week since historical data never changes.
      *
      * @return array<mixed>
-     * @codeCoverageIgnore
      */
-    private function historicalRCStatus(): array
+    public function historicalRCStatus(): array
     {
+        if (defined('TESTING_CONTEXT')) {
+            return [true, 1];
+        }
+
+        // @codeCoverageIgnoreStart
         $cache_key = 'historical_rc_status_' . $this->release;
 
         if (($cached = Cache::getKey($cache_key, 86400 * 365)) !== false) {
@@ -362,6 +366,7 @@ readonly class Beta
             Cache::setKey($cache_key, (string) $number_rc, 86400 * 365);
         }
         return [$number_rc > 0, $number_rc];
+        // @codeCoverageIgnoreEnd
     }
 
     /**

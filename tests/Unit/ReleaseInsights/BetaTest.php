@@ -24,3 +24,17 @@ test('Beta->crashes()', function () {
         ->toBeArray()
         ->toHaveKeys(['summary', '131.0b1']);
 });
+
+test('Beta->getLogEndpoints() for a past beta includes RC endpoints', function () {
+    $obj = new Beta(141);
+    $endpoints = $obj->getLogEndpoints();
+    expect($endpoints)
+        ->toBeArray()
+        ->toHaveKey('141.0rc1');
+});
+
+test('Beta->RCStatus()', function () {
+    [$is_rc, $count] = (new Beta())->RCStatus();
+    expect($is_rc)->toBeBool()->toBeTrue();
+    expect($count)->toBeInt()->toBeGreaterThanOrEqual(1);
+});
