@@ -41,13 +41,10 @@ $nightly_cycle_length = $date2->diff($date3)->days / 7;
     Get Beta uplifts
 */
 
-// Before 4 week schedule, uplifts started with beta 3
-$uplift_start = (int) $requested_version > 72 ? '_0b1_RELEASE' : '_0b3_RELEASE';
-
 $beta_changelog = URL::Mercurial->target()
     . 'releases/mozilla-beta/json-pushes'
-    . '?fromchange=FIREFOX_' . (int) $requested_version . $uplift_start
-    . '&tochange=FIREFOX_BETA_' . (int) $requested_version .'_END'
+    . '?fromchange=FIREFOX_BETA_' . (int) $requested_version . '_BASE'
+    . '&tochange=FIREFOX_BETA_' . (int) $requested_version . '_END'
     . '&full&version=2';
 
 /*
