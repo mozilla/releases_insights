@@ -28,13 +28,25 @@ for ($version = $first_version; $version <= BETA; $version++) {
     }
 
     // Beta URL: start from the nightly-to-beta merge, same as past_release.php
-    $beta_end = $is_past ? 'FIREFOX_BETA_' . $version . '_END' : 'tip';
+    $beta_end = 'FIREFOX_BETA_' . $version . '_END';
 
-    if (! $is_past) {
+    if ($is_past) {
+        // RC URL: use _0_RELEASE (same as past_release.php, shares immutable cache files)
+        $rc_url = URL::Mercurial->value
+            . 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_' . $version . '_BASE'
+            . '&tochange=FIREFOX_' . $version . '_0_RELEASE&full&version=2';
+    } else {
         $beta_obj = new Beta($version);
-        if ($beta_obj->beta_cycle_ended) {
-            $beta_end = 'FIREFOX_BETA_' . $version . '_END';
+        if (! $beta_obj->beta_cycle_ended) {
+            $beta_end = 'tip';
         }
+        // RC URL: use _0_BUILD{N} because _0_RELEASE is not yet tagged during RC week
+        [$have_rc, $number_rc_builds] = $beta_obj->RCStatus();
+        $rc_url = $have_rc
+            ? URL::Mercurial->value
+                . 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_' . $version . '_BASE'
+                . '&tochange=FIREFOX_' . $version . '_0_BUILD' . $number_rc_builds . '&full&version=2'
+            : null;
     }
 
     $beta_url = URL::Mercurial->value
@@ -42,23 +54,9 @@ for ($version = $first_version; $version <= BETA; $version++) {
         . '&tochange=' . $beta_end . '&full&version=2';
 
     // v119: an unwanted central-to-beta merge corrupts the range up to FIREFOX_BETA_119_END
+    // @phpstan-ignore identical.alwaysFalse
     if ($version === 119) {
         $beta_url = str_replace('FIREFOX_BETA_119_END', 'f2a69b23cb0aaf2b36bac4f9f197bf4282f542c4', $beta_url);
-    }
-
-    // RC URL: past versions use _0_RELEASE (same as past_release.php, shares immutable cache files)
-    // Current BETA uses _0_BUILD{N} because _0_RELEASE is not yet tagged during RC week
-    if ($is_past) {
-        $rc_url = URL::Mercurial->value
-            . 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_' . $version . '_BASE'
-            . '&tochange=FIREFOX_' . $version . '_0_RELEASE&full&version=2';
-    } else {
-        [$have_rc, $number_rc_builds] = $beta_obj->RCStatus();
-        $rc_url = $have_rc
-            ? URL::Mercurial->value
-                . 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_' . $version . '_BASE'
-                . '&tochange=FIREFOX_' . $version . '_0_BUILD' . $number_rc_builds . '&full&version=2'
-            : null;
     }
 
     // Use Json::load() so responses are served from cache (immutable for past, lock_ttl for current)
