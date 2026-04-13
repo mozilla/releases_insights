@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use Cache\Cache;
-use GuzzleHttp\Client;
-use GuzzleHttp\Promise\Utils as Promise;
 use ReleaseInsights\{Beta, Bugzilla, Request, URL};
 
 $waiting_page = false;
@@ -18,78 +16,65 @@ if (! file_exists($lock_file) OR time() - filemtime($lock_file) > $lock_ttl) {
 
 $graph_data = [];
 $first_version = 127;
-$to_fetch = [];
 
-// Collect versions not yet in cache; build two endpoints per version (beta cycle + RC)
 for ($version = $first_version; $version <= BETA; $version++) {
     $is_past = ($version < BETA);
-
     $cache_ttl = $is_past ? 86400 * 365 : $lock_ttl;
+
+    // Fast path: per-version count already cached
     if (($cached = Cache::getKey('uplift_total_v' . $version, $cache_ttl)) !== false) {
         $graph_data[$version] = (int) $cached;
         continue;
     }
 
-    $beta_obj = new Beta($version);
+    // Beta URL: start from the nightly-to-beta merge, same as past_release.php
+    $beta_end = $is_past ? 'FIREFOX_BETA_' . $version . '_END' : 'tip';
 
-    $beta_end = $beta_obj->beta_cycle_ended
-        ? 'FIREFOX_BETA_' . $version . '_END'
-        : 'tip';
-
-    $beta_url = 'releases/mozilla-beta/json-pushes?fromchange=FIREFOX_BETA_'
-        . $version . '_BASE&tochange=' . $beta_end . '&full&version=2';
-
-    [$have_rc, $number_rc_builds] = ($version === BETA)
-        ? $beta_obj->RCStatus()
-        : $beta_obj->historicalRCStatus();
-
-    $rc_url = null;
-    if ($have_rc) {
-        $rc_url = 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_'
-            . $version . '_BASE&tochange=FIREFOX_' . $version . '_0_BUILD' . $number_rc_builds
-            . '&full&version=2';
-    }
-
-    $to_fetch[$version] = ['beta' => $beta_url, 'rc' => $rc_url, 'is_past' => $is_past];
-}
-
-// Fetch all pending versions in one parallel Guzzle batch
-if (! empty($to_fetch)) {
-    $client = new Client(['base_uri' => URL::Mercurial->value]);
-    $promises = [];
-
-    foreach ($to_fetch as $version => ['beta' => $beta_url, 'rc' => $rc_url]) {
-        $promises[$version . '_beta'] = $client->getAsync($beta_url, ['http_errors' => false]);
-        if ($rc_url !== null) {
-            $promises[$version . '_rc'] = $client->getAsync($rc_url, ['http_errors' => false]);
+    if (! $is_past) {
+        $beta_obj = new Beta($version);
+        if ($beta_obj->beta_cycle_ended) {
+            $beta_end = 'FIREFOX_BETA_' . $version . '_END';
         }
     }
 
-    $results = Promise::settle($promises)->wait();
+    $beta_url = URL::Mercurial->value
+        . 'releases/mozilla-beta/json-pushes?fromchange=FIREFOX_BETA_' . $version . '_BASE'
+        . '&tochange=' . $beta_end . '&full&version=2';
 
-    foreach ($to_fetch as $version => ['is_past' => $is_past]) {
-        $total = 0;
-
-        foreach (['beta', 'rc'] as $part) {
-            $key = $version . '_' . $part;
-            if (! isset($results[$key])) {
-                continue;
-            }
-            $result = $results[$key];
-            if ($result['state'] === 'fulfilled' && $result['value']->getStatusCode() === 200) {
-                $parsed = Bugzilla::getBugsFromHgWeb(
-                    query: $result['value']->getBody()->getContents(),
-                    detect_backouts: true
-                );
-                $total += count($parsed['total'] ?? []);
-            }
-        }
-
-        $cache_ttl = $is_past ? 86400 * 365 : $lock_ttl;
-        Cache::setKey('uplift_total_v' . $version, (string) $total, $cache_ttl);
-
-        $graph_data[$version] = $total;
+    // v119: an unwanted central-to-beta merge corrupts the range up to FIREFOX_BETA_119_END
+    if ($version === 119) {
+        $beta_url = str_replace('FIREFOX_BETA_119_END', 'f2a69b23cb0aaf2b36bac4f9f197bf4282f542c4', $beta_url);
     }
+
+    // RC URL: past versions use _0_RELEASE (same as past_release.php, shares immutable cache files)
+    // Current BETA uses _0_BUILD{N} because _0_RELEASE is not yet tagged during RC week
+    if ($is_past) {
+        $rc_url = URL::Mercurial->value
+            . 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_' . $version . '_BASE'
+            . '&tochange=FIREFOX_' . $version . '_0_RELEASE&full&version=2';
+    } else {
+        [$have_rc, $number_rc_builds] = $beta_obj->RCStatus();
+        $rc_url = $have_rc
+            ? URL::Mercurial->value
+                . 'releases/mozilla-release/json-pushes?fromchange=FIREFOX_RELEASE_' . $version . '_BASE'
+                . '&tochange=FIREFOX_' . $version . '_0_BUILD' . $number_rc_builds . '&full&version=2'
+            : null;
+    }
+
+    // Use Json::load() so responses are served from cache (immutable for past, lock_ttl for current)
+    // This shares the same immutable files used by past_release.php
+    $json_ttl = $is_past ? -1 : $lock_ttl;
+
+    $beta_result = Bugzilla::getBugsFromHgWeb($beta_url, true, $json_ttl);
+    $total = count($beta_result['total'] ?? []);
+
+    if ($rc_url !== null) {
+        $rc_result = Bugzilla::getBugsFromHgWeb($rc_url, true, $json_ttl);
+        $total += count($rc_result['total'] ?? []);
+    }
+
+    Cache::setKey('uplift_total_v' . $version, (string) $total, $cache_ttl);
+    $graph_data[$version] = $total;
 }
 
 ksort($graph_data);
