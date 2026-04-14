@@ -128,46 +128,17 @@ This app is on GCP with Nginx. The deployment servers are:
 
 Should you want to create those tags easily, here are bash functions that generate and push them:
 ```bash
-
-# Tag and push a staged release to https://github.com/mozilla/releases_insights
-function train_stage()
-{
-    # 1. Verify we are in the correct repository via the remote URL
-    local EXPECTED_REPO="github.com/mozilla/releases_insights"
-    local REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
-
-    if [[ ! "$REMOTE_URL" =~ "$EXPECTED_REPO" ]]; then
-        echo "❌ Error: You are not in the releases_insights repository."
-        echo "Current remote: $REMOTE_URL"
-        return 1
-    fi
-
-    # 2. Generate timestamp (Standard POSIX format works on macOS/Linux)
-    local DATETIME=$(date -u +%Y-%m-%d_%H-%M-%S)
-
-    # 3. Create the staging tag
-    if git tag -a "stage-$DATETIME" -m "Staged release $DATETIME"; then
-        echo "✅ Staged release stage-$DATETIME created locally."
-
-        # 4. Push tag to origin
-        git push origin "stage-$DATETIME"
-    else
-        echo "❌ Error: Failed to create the git tag."
-        return 1
-    fi
-}
-
 # Tag and push to https://whattrainisitnow.com
 function train_ship()
 {
-    local EXPECTED_REPO="github.com/mozilla/releases_insights"
     local REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
+    local ORG="mozilla"
+    local REPO="releases_insights"
 
-    # Use glob matching (*) which is more robust across Bash/Zsh and Linux/macOS
-    if [[ "$REMOTE_URL" != *"$EXPECTED_REPO"* ]]; then
-        echo "❌ Error: You are not in the correct repository."
-        echo "Expected: $EXPECTED_REPO"
-        echo "Current:  $REMOTE_URL"
+    # Check if BOTH the org and repo names exist in the URL string
+    if [[ "$REMOTE_URL" != *"$ORG"* || "$REMOTE_URL" != *"$REPO"* ]]; then
+        echo "❌ Error: You are not in the $ORG/$REPO repository."
+        echo "Current remote: $REMOTE_URL"
         return 1
     fi
 
@@ -176,6 +147,30 @@ function train_ship()
     if git tag -a "release-$DATETIME" -m "Release $DATETIME"; then
         echo "✅ Release release-$DATETIME created locally."
         git push origin "release-$DATETIME"
+    else
+        echo "❌ Error: Failed to create git tag."
+        return 1
+    fi
+}
+
+# Tag and push to staging
+function train_stage()
+{
+    local REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
+    local ORG="mozilla"
+    local REPO="releases_insights"
+
+    if [[ "$REMOTE_URL" != *"$ORG"* || "$REMOTE_URL" != *"$REPO"* ]]; then
+        echo "❌ Error: You are not in the $ORG/$REPO repository."
+        echo "Current remote: $REMOTE_URL"
+        return 1
+    fi
+
+    local DATETIME=$(date -u +%Y-%m-%d_%H-%M-%S)
+
+    if git tag -a "stage-$DATETIME" -m "Staged release $DATETIME"; then
+        echo "✅ Staged release stage-$DATETIME created locally."
+        git push origin "stage-$DATETIME"
     else
         echo "❌ Error: Failed to create git tag."
         return 1
