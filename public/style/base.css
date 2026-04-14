@@ -16,6 +16,7 @@
 /* Fonts */
 :root {
     font-family: "Inter", sans-serif;
+    color-scheme: dark;
 }
 
 @supports (font-variation-settings: normal) {
@@ -24,7 +25,7 @@
 
 html {
     height: 100%;
-    background-color: --purple;
+    background-color: var(--purple);
 }
 
 body {
