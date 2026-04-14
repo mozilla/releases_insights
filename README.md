@@ -128,22 +128,65 @@ This app is on GCP with Nginx. The deployment servers are:
 
 Should you want to create those tags easily, here are bash functions that generate and push them:
 ```bash
-# Tag and push to https://stage.whattrainisitnow.nonprod.webservices.mozgcp.net
+
+# Tag and push a staged release to https://github.com/mozilla/releases_insights
 function train_stage()
 {
-    DATETIME=`date -u +%Y-%m-%d_%H-%M-%S`
-    git tag -a stage-$DATETIME -m "Staged release $DATETIME"
-    echo "Staged release $DATETIME created."
-    git push origin stage-$DATETIME
+    # 1. Verify we are in the correct repository via the remote URL
+    local EXPECTED_REPO="github.com/mozilla/releases_insights"
+    local REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
+
+    if [[ ! "$REMOTE_URL" =~ "$EXPECTED_REPO" ]]; then
+        echo "❌ Error: You are not in the releases_insights repository."
+        echo "Current remote: $REMOTE_URL"
+        return 1
+    fi
+
+    # 2. Generate timestamp (Standard POSIX format works on macOS/Linux)
+    local DATETIME=$(date -u +%Y-%m-%d_%H-%M-%S)
+
+    # 3. Create the staging tag
+    if git tag -a "stage-$DATETIME" -m "Staged release $DATETIME"; then
+        echo "✅ Staged release stage-$DATETIME created locally."
+
+        # 4. Push tag to origin
+        git push origin "stage-$DATETIME"
+    else
+        echo "❌ Error: Failed to create the git tag."
+        return 1
+    fi
 }
 
 # Tag and push to https://whattrainisitnow.com
 function train_ship()
 {
-    DATETIME=`date -u +%Y-%m-%d_%H-%M-%S`
-    git tag -a release-$DATETIME -m "Release $DATETIME"
-    echo "Release $DATETIME created."
-    git push origin release-$DATETIME
+    # 1. Ensure we are inside a git repository at all
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        echo "❌ Error: Not a git repository."
+        return 1
+    fi
+
+    # 2. Verify the remote URL
+    local EXPECTED_REPO="github.com/mozilla/releases_insights"
+    local REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
+
+    if [[ ! "$REMOTE_URL" =~ "$EXPECTED_REPO" ]]; then
+        echo "❌ Error: You are not in the correct repository."
+        echo "Expected: $EXPECTED_REPO"
+        echo "Current:  $REMOTE_URL"
+        return 1
+    fi
+
+    # 3. Create the tag (Compatible with BSD/macOS and GNU/Linux date)
+    DATETIME=$(date -u +%Y-%m-%d_%H-%M-%S)
+
+    if git tag -a "release-$DATETIME" -m "Release $DATETIME"; then
+        echo "✅ Release release-$DATETIME created locally."
+        git push origin "release-$DATETIME"
+    else
+        echo "❌ Error: Failed to create git tag."
+        return 1
+    fi
 }
 ```
 As you can see above, we use a timestamp variant and not a number for tags as we push daily (multiple times).
