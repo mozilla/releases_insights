@@ -160,25 +160,18 @@ function train_stage()
 # Tag and push to https://whattrainisitnow.com
 function train_ship()
 {
-    # 1. Ensure we are inside a git repository at all
-    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-        echo "❌ Error: Not a git repository."
-        return 1
-    fi
-
-    # 2. Verify the remote URL
     local EXPECTED_REPO="github.com/mozilla/releases_insights"
     local REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
 
-    if [[ ! "$REMOTE_URL" =~ "$EXPECTED_REPO" ]]; then
+    # Use glob matching (*) which is more robust across Bash/Zsh and Linux/macOS
+    if [[ "$REMOTE_URL" != *"$EXPECTED_REPO"* ]]; then
         echo "❌ Error: You are not in the correct repository."
         echo "Expected: $EXPECTED_REPO"
         echo "Current:  $REMOTE_URL"
         return 1
     fi
 
-    # 3. Create the tag (Compatible with BSD/macOS and GNU/Linux date)
-    DATETIME=$(date -u +%Y-%m-%d_%H-%M-%S)
+    local DATETIME=$(date -u +%Y-%m-%d_%H-%M-%S)
 
     if git tag -a "release-$DATETIME" -m "Release $DATETIME"; then
         echo "✅ Release release-$DATETIME created locally."
