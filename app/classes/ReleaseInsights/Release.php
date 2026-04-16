@@ -49,49 +49,7 @@ class Release
      */
     public function getFutureSchedule(): array
     {
-        // TODO: remove after 148 ships
-        // @codeCoverageIgnoreStart
-        if ($this->version->normalized === '148.0') {
-            return [
-                'version'               => '148.0',
-                'qa_request_deadline'   => '2025-12-05 00:00:00+00:00',
-                'a11y_request_deadline' => '2025-12-05 00:00:00+00:00',
-                'nightly_start'         => '2025-12-08 00:00:00+00:00',
-                'qa_feature_done'       => '2025-12-19 21:00:00+00:00',
-                'qa_test_plan_due'      => '2025-12-19 21:00:00+00:00',
-                'soft_code_freeze'      => '2026-01-08 21:00:00+00:00',
-                'string_freeze'         => '2026-01-09 00:00:00+00:00',
-                'qa_pre_merge_done'     => '2026-01-09 14:00:00+00:00',
-                'merge_day'             => '2026-01-12 00:00:00+00:00',
-                'beta_1_gtb'            => '2026-01-12 00:00:00+00:00',
-                'beta_1'                => '2026-01-13 00:00:00+00:00',
-                'beta_2'                => '2026-01-14 13:00:00+00:00',
-                'beta_3'                => '2026-01-16 13:00:00+00:00',
-                'sumo_1'                => '2026-01-16 21:00:00+00:00',
-                'beta_4'                => '2026-01-19 13:00:00+00:00',
-                'beta_5'                => '2026-01-21 13:00:00+00:00',
-                'beta_6'                => '2026-01-23 13:00:00+00:00',
-                'beta_7'                => '2026-01-26 13:00:00+00:00',
-                'sumo_2'                => '2026-01-26 21:00:00+00:00',
-                'beta_8'                => '2026-01-28 13:00:00+00:00',
-                'beta_9'                => '2026-01-30 13:00:00+00:00',
-                'beta_10'               => '2026-02-02 00:00:00+00:00',
-                'beta_11'               => '2026-02-04 00:00:00+00:00',
-                'qa_pre_rc_signoff'     => '2026-02-04 14:00:00+00:00',
-                'beta_12'               => '2026-02-06 00:00:00+00:00',
-                'beta_13'               => '2026-02-09 00:00:00+00:00',
-                'beta_14'               => '2026-02-11 00:00:00+00:00',
-                'beta_15'               => '2026-02-13 00:00:00+00:00',
-                'rc_gtb'                => '2026-02-16 21:00:00+00:00',
-                'rc'                    => '2026-02-17 00:00:00+00:00',
-                'release'               => '2026-02-24 14:00:00+00:00',
-                'mobile_dot_release'    => '2026-03-03 00:00:00+00:00',
-                'planned_dot_release'   => '2026-03-10 00:00:00+00:00',
-            ];
-        }
-        // @codeCoverageIgnoreEnd
-
-        $all_releases = new Data($this->product_details)->getMajorReleases();
+         $all_releases = new Data($this->product_details)->getMajorReleases();
         if (! array_key_exists($this->version->normalized, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
         }
