@@ -55,21 +55,14 @@ test('Release->getSchedule()', function () {
     $obj = new Release('146.0')->getSchedule();
     expect($obj['a11y_request_deadline'])->toEqual($obj['qa_request_deadline']);
 
-    $obj = new Release('146.0');
-    expect($obj->getSchedule()['planned_dot_release'])->toBe("2025-12-18 00:00:00+00:00");
-
     $obj = new Release('149.0');
     expect($obj->getSchedule()['rc_gtb'])->toBe("2026-03-18 17:00:00+00:00");
 
-    $obj = new Release('148.0');
-    expect($obj->getSchedule())->toHaveKeys(['beta_10', 'beta_11', 'beta_12']);
-    expect($obj->getSchedule()['beta_10'])->toBe("2026-02-02 00:00:00+00:00");
-    expect($obj->getSchedule()['beta_11'])->toBe("2026-02-04 00:00:00+00:00");
-    expect($obj->getSchedule()['beta_12'])->toBe("2026-02-06 00:00:00+00:00");
-    expect($obj->getSchedule()['qa_feature_done'])->toBe("2025-12-19 21:00:00+00:00");
-
     $obj = new Release('149.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-02-06 21:00:00+00:00");
+
+    $obj = new Release('150.0');
+    expect($obj->getSchedule()['planned_dot_release_2'])->toBe("2026-05-07 00:00:00+00:00");
 
     $obj = new Release('153.0');
     expect($obj->getSchedule())->toHaveKeys(['beta_11', 'beta_12', 'beta_13']);

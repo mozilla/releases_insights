@@ -302,6 +302,14 @@
                         <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
                         <td title="">{{ planned_dot_release|format_date(pattern=date_pattern) }}</td>
                     </tr>
+
+                    {% endif %}
+
+                    {% if planned_dot_release_2 %}
+                    <tr>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Extra planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <td title="">{{ planned_dot_release_2|format_date(pattern=date_pattern) }}</td>
+                    </tr>
                     {% endif %}
                 {% endif %}
           </table>

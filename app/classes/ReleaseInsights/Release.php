@@ -140,16 +140,20 @@ class Release
         $schedule += ['relnotes_deadline' => $date((clone $release)->modify('-7 days'))];
 
         // Add the Android weekly release before the planned dot release mid-cycle
-        $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
+        if ($this->version->normalized !== '150.0') {
+            // 150 planned dot release will replace the mobile one
+            $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
+        }
 
         // Add the planned dot release mid-cycle
         if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
-            if ($this->version->normalized === '146.0') {
-                $schedule += ['planned_dot_release' => $date($release->modify('December 18 00:00'))];
-            } else {
-                $schedule += ['planned_dot_release' => $date($release->modify('+1 week 00:00'))];
-            }
+            $schedule += ['planned_dot_release' => $date($release->modify('+1 week 00:00'))];
        }
+
+       // 150 will have 2 full planned dot releases
+        if ($this->version->normalized === '150.0') {
+            $schedule += $this->normalize(['planned_dot_release_2' => '2026-05-07 00:00:00+00:00']);
+        }
 
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
@@ -295,6 +299,7 @@ class Release
             'release'               => ($short ? '<b>' : 'Firefox ') . $short_version . ($short ? ' Release</b>' : ' go-live @ 6AM PT'),
             'mobile_dot_release'    => ($short ? 'Potential Android ' : 'Potential Android ') . $version . ($short ? '.x' : ' dot release'),
             'planned_dot_release'   => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
+            'planned_dot_release_2' => ($short ? 'Extra planned ' : 'Extra planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
         ];
     }
 

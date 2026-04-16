@@ -294,7 +294,8 @@ if ($nightly_fixes === false) {
 }
 
 $no_planned_dot_releases = new Release($requested_version)->no_planned_dot_releases;
-$planned_dot_release = new Release($requested_version)->getSchedule()['planned_dot_release'] ?? null;
+$planned_dot_release     = new Release($requested_version)->getSchedule()['planned_dot_release'] ?? null;
+$planned_dot_release_2   = new Release($requested_version)->getSchedule()['planned_dot_release_2'] ?? null;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
@@ -332,4 +333,5 @@ return [
     new Data()->chemspills,
     new IOS($requested_version)->getSchedule(),
     $planned_dot_release,
+    $planned_dot_release_2,
 ];

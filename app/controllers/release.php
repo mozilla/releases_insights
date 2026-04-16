@@ -126,6 +126,7 @@ if ($requested_version_int <= RELEASE) {
         $chemspills,
         $ios_schedule,
         $planned_dot_release,
+        $planned_dot_release_2,
     ] = new Model('past_release')->get();
 
     $template_file = 'past_release.html.twig';
@@ -160,6 +161,7 @@ if ($requested_version_int <= RELEASE) {
         'chemspills'              => $chemspills,
         'ios_schedule'            => $ios_schedule,
         'planned_dot_release'     => $planned_dot_release,
+        'planned_dot_release_2'   => $planned_dot_release_2,
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {
