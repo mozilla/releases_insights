@@ -619,9 +619,13 @@ nav svg:hover {
     background-color: var(--yellow-pale);
 }
 
-html:has(body[id^='release_']:not(#release_esr)) {
-    /* Prevent auto-scrolling to anchors on release pages as we use them for ios/gecko tabs */
-    scroll-padding-top: 800px;
+/* Prevent auto-scrolling when switching tabs via #gecko / #ios-target anchors.
+   scroll-margin-top: 100vh makes the browser require a full viewport of space
+   above the element, which it can't satisfy near the top of the page, so it
+   stays at the current scroll position instead of jumping. */
+#ios-target,
+#gecko {
+    scroll-margin-top: 100vh;
 }
 
 /* Specific styling for the adoption button on the release page */
