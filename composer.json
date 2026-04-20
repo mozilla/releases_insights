@@ -53,7 +53,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^2.0",
-        "pestphp/pest": "^3.0",
+        "pestphp/pest": "^4.6",
         "symfony/var-dumper": "^7",
         "pchevrel/verif": "^0.5.1",
         "overtrue/phplint": "^9.5",
