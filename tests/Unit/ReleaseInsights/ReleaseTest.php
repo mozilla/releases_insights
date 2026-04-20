@@ -89,6 +89,7 @@ test('Release->getSchedule(): Milestones are in the right order', function () {
     expect($sched['qa_feature_done'])->toEqual($sched['qa_test_plan_due']);
     expect($sched['qa_test_plan_due'])->toBeLessThan($sched['relnotes_beta_ready']);
     expect($sched['relnotes_beta_ready'])->toBeLessThan($sched['string_freeze']);
+    expect($sched['strings_handoff'])->toBeLessThan($sched['string_freeze']);
     expect($sched['string_freeze'])->toBeLessThan($sched['qa_pre_merge_done']);
     expect($sched['qa_pre_merge_done'])->toBeLessThan($sched['merge_day']);
     expect($sched['merge_day'])->toBeLessThan($sched['beta_1']);

@@ -82,6 +82,7 @@ class Release
             },
             'qa_test_plan_due'      => $date('Friday 21:00'),
             'relnotes_beta_ready'   => $date($nightly->modify('+1 week')->modify('Wednesday')),
+            'strings_handoff'       => $date($nightly),
             'qa_pre_merge_done'     => $date('Friday 14:00'),
             'string_freeze'         => $date('Friday'),
             'merge_day'             => $date('Monday'),
@@ -270,6 +271,7 @@ class Release
             'qa_feature_done_2'     => $short_version .' build ready for beta QA',
             'soft_code_freeze'      => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC', # TODO: remove after 148 ships
             'relnotes_beta_ready'   => $short_version .' beta release notes ready',
+            'strings_handoff'       => $short_version .' strings handed off to Engineering',
             'qa_pre_merge_done'     => $short_version . ' regression testing completed',
             'qa_test_plan_due'      => 'Final deadline for QA’s Feature Test Plan approval',
             'string_freeze'         => $short_version . ' string freeze starts',
