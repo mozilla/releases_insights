@@ -126,7 +126,7 @@ body[id^='release_'] h1 + span {
     width: 6em;
 }
 
-body[id^='release_']  .table td {
+body[id^='release_']:not(#release_owners)  .table td {
     text-align: right;
     white-space: nowrap;
     width: 9em;
@@ -674,3 +674,9 @@ nav svg:hover {
 .alert-primary .text-danger {
     color: var(--orange-light) !important;
 }
+
+#release_owners table > tbody > tr:nth-child(odd) > td,
+#release_owners table > tbody > tr:nth-child(odd) > th {
+   /*background-color: var(--purple-very-light);*/
+   opacity: 0.97;
+ }

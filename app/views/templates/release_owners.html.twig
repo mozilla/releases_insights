@@ -8,29 +8,27 @@
 {% endblock %}
 
 {% block main %}
-    <h2 class="mx-auto w-75 text-center">{{ page_title }}</h2>
+    <h2 class="text-center w-75 mx-auto mb-3">{{ page_title }}</h2>
 
-    <table class="table table-light table-striped table-bordered table-sm w-75 justify-content-center mt-4">
-        <tr class="table-dark">
-            <th>Release Owner</th>
-            <th>Number of releases</th>
-            <th>Releases</th>
+    <table class="table table-light table-fxt-clean table-sm mb-3 w-75">
+        <tr class="table-warning">
+            <th class="text-secondary-emphasis fw-semibold">Release Owner</th>
+            <th class="text-secondary-emphasis fw-semibold">Releases</th>
+            <th class="text-secondary-emphasis fw-semibold">Total</th>
         </tr>
 
       {% set counter = 0 %}
       {% for key, values in owners %}
         <tr>
             <td>{{ values.owner }}</td>
-            <td class='text-center'>{{ values.total }}</td>
             <td>
             {% for release in values.releases %}
-              <!--
-                  The version formatting hack below removes trailink zeros but preserves versions like 1.5 or 3.6
-              -->
+                {# The version formatting hack below removes trailink zeros but preserves versions like 1.5 or 3.6 #}
                 <a href="/release/?version={{release}}">{{ "%g"|format(release) }}</a>
                    {% if not loop.last %}<span class=" text-secondary"> · </span>{% endif %}
             {% endfor %}
             </td>
+            <td class='text-center'>{{ values.total }}</td>
         </tr>
       {% endfor %}
     </table>
