@@ -135,7 +135,7 @@
         </tr>
         <tr>
             <th class="{{ table_header }}">Bugs fixed in Nightly</th>
-            <td>{{ nightly_fixes.bug_fixes|length }}</td>
+            <td>{{ nightly_fixes.bug_fixes|length > 0 ? nightly_fixes.bug_fixes|length : 'n/a' }}</td>
         </tr>
     {% endif %}
     {% if channel == 'nightly' %}
