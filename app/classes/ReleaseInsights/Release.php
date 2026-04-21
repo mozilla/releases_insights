@@ -86,7 +86,6 @@ class Release
             'qa_pre_merge_done'     => $date('Friday 14:00'),
             'string_freeze'         => $date('Friday'),
             'merge_day'             => $date('Monday'),
-            // 'beta_1_gtb'            => $date('Wednesday'),
             'beta_1'                => $date('Wednesday'),
             'beta_2'                => $date('Friday 13:00'),
             'sumo_1'                => $date('Friday 21:00'), // Friday of Beta week 1
@@ -240,12 +239,6 @@ class Release
 
         $planned_dot_release = $this->getFutureSchedule()['planned_dot_release'] ?? null;
 
-        // This is a temporary 147.0.3 hack. TODO: remove after we ship it
-        if ($this->version->normalized === '147.0') {
-            $planned_dot_release = '2026-02-04'; // @codeCoverageIgnore
-            $milestones['planned_dot_release'] = new DateTime($planned_dot_release); // @codeCoverageIgnore
-        }
-
         if (isset($planned_dot_release) && ! in_array(new DateTime($planned_dot_release), $shipped_dot_releases)) {
             $milestones['planned_dot_release'] = new DateTime($planned_dot_release);
         }
@@ -269,14 +262,12 @@ class Release
             'qa_feature_done'       => $short_version .' build ready for QA', #️⃣ AKA Feature Complete Milestone
             'qa_feature_done_1'     => $short_version .' build ready for nightly QA',
             'qa_feature_done_2'     => $short_version .' build ready for beta QA',
-            'soft_code_freeze'      => ($short ? '' : 'Firefox ') . $short_version . ' soft Code Freeze starts at 08:00 UTC', # TODO: remove after 148 ships
             'relnotes_beta_ready'   => $short_version .' beta release notes ready',
             'strings_handoff'       => $short_version .' strings handed off to Engineering',
             'qa_pre_merge_done'     => $short_version . ' regression testing completed',
             'qa_test_plan_due'      => 'Final deadline for QA’s Feature Test Plan approval',
             'string_freeze'         => $short_version . ' string freeze starts',
             'merge_day'             => 'Merge day',
-            'beta_1_gtb'            => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB', # TODO: remove after 148 ships
             'beta_1'                => ($short ? '' : 'Firefox ') . $short_version . ' b1 GTB',
             'beta_2'                => ($short ? '' : 'Firefox ') . $short_version . ' b2' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
             'beta_3'                => ($short ? '' : 'Firefox ') . $short_version . ' b3' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
