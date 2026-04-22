@@ -350,7 +350,7 @@
                     <th class="text-muted fw-light">
                         <details>
                             <summary><a href="https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_BETA_{{constant('FIREFOX_BETA')|number_format}}_BASE&amp;tochange=FIREFOX_{{constant('FIREFOX_BETA')|number_format}}_0b1_RELEASE" class="link-secondary" title="Mercurial changelog">{{ cycle_labels[key]|raw }}{{ extra|raw }}</a></summary>
-                      <p>{{ cycle_descriptions[key]|raw }}TEST</p>
+                      <p>{{ cycle_descriptions[key]|raw }}</p>
                         </details>
                     </th>
                 {% elseif key starts with 'beta' and key != 'beta_1' %}
