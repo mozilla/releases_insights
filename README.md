@@ -84,6 +84,17 @@ You can also run locally all the tests we run in CI with the `./run tests` comma
 
 You can check if the local state of the branch is in production with the `./run status` command.
 
+If you want to avoid typing `./` in front of the `run` command and also want autocomplete for the sub-commands, you can add this to your shell, in my case in .bashrc:
+```bash
+# Allow local 'run' script if it exists
+if [ -f "./run" ]; then
+    alias run='./run'
+    # Source completion if the file exists locally
+    [ -f "./.run-completion.sh" ] && source ./.run-completion.sh
+fi
+```
+
+
 If you want to contribute a patch to an existing class, please make sure that unit tests pass and add tests for new methods.
 
 ## Bugs
