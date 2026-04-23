@@ -243,6 +243,12 @@ class Release
             $milestones['planned_dot_release'] = new DateTime($planned_dot_release);
         }
 
+        // 150 will have 2 full planned dot releases instead of a mobile + a planned one
+        if ($this->version->normalized === '150.0') {
+            unset($milestones['mobile_dot_release']);
+            $milestones['planned_dot_release_2'] = $this->getFutureSchedule()['planned_dot_release_2'];
+        }
+
         return $this->normalize($milestones);
     }
 

@@ -63,6 +63,7 @@ test('Release->getSchedule()', function () {
 
     $obj = new Release('150.0');
     expect($obj->getSchedule()['planned_dot_release_2'])->toBe("2026-05-07 00:00:00+00:00");
+    expect($obj->getPastSchedule()['planned_dot_release_2'])->toBe("2026-05-07 00:00:00+00:00");
 
     $obj = new Release('153.0');
     expect($obj->getSchedule())->toHaveKeys(['beta_11', 'beta_12', 'beta_13']);

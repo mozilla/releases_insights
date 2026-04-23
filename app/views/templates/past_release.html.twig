@@ -287,12 +287,14 @@
                  {% endif %}
 
                 {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
-                {% set potential_android_interval = (release == 148 ? '+6 days' : '+1 week') %}
-                {% if "now"|date('Y-m-d') < release_date|date_modify(potential_android_interval)|date('Y-m-d') %}
-                    <tr>
-                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential Android {{ release }}.0.x</a></th>
-                        <td title="">{{ release_date|date_modify(potential_android_interval)|format_date(pattern=date_pattern) }}</td>
-                    </tr>
+                {% if release != '150.0' %}
+                    {% set potential_android_interval = (release == 148 ? '+6 days' : '+1 week') %}
+                    {% if "now"|date('Y-m-d') < release_date|date_modify(potential_android_interval)|date('Y-m-d') %}
+                        <tr>
+                            <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential Android {{ release }}.0.x</a></th>
+                            <td title="">{{ release_date|date_modify(potential_android_interval)|format_date(pattern=date_pattern) }}</td>
+                        </tr>
+                    {% endif %}
                 {% endif %}
 
                 {% if release ~ '.0' not in no_planned_dot_releases %}
