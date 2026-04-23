@@ -18,6 +18,7 @@ const CACHE_PATH       = INSTALL_ROOT . 'cache/';
 const TEST_FILES       = INSTALL_ROOT . 'tests/Files/';
 const CACHE_ENABLED    = false;
 const TESTING_CONTEXT  = true;
+const IS_DEV_MODE      = true;
 
 // Major version numbers (integers), used across the app
 define('NIGHTLY', (int) FIREFOX_NIGHTLY);

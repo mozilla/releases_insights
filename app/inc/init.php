@@ -11,7 +11,9 @@ $csp_headers = "Content-Security-Policy: default-src https:; object-src 'none'; 
 if (LOCALHOST) {
     // Error handler page is blocked by our production CSP rules
     $csp_headers = '';
+}
 
+if (! IS_DEV_MODE) {
     // Catch errors via Tracy library in dev mode only
     if (class_exists(Tracy\Debugger::class)) {
         Debugger::$strictMode = true;

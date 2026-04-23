@@ -5,6 +5,8 @@ parameters:
     tmpDir: /tmp/phpstan
     bootstrapFiles:
         - app/inc/config.php
+    dynamicConstantNames:
+        - IS_DEV_MODE
     paths:
         - app
         - public

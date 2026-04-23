@@ -73,6 +73,9 @@ define('PRODUCTION',
     && $http_host === 'whattrainisitnow.com'
 );
 
+// Are we in a dev mode where debug is activated and twig templates not cached?
+define('IS_DEV_MODE', getenv('DEV_MODE') === 'true');
+
 // Define a Nonce for inline scripts
 define('NONCE', bin2hex(random_bytes(20)));
 

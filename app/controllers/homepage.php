@@ -17,6 +17,7 @@ use ReleaseInsights\{Model, Template};
     $nightly_emergency_message,
 ] = new Model('home')->get();
 
+
 new Template(
     'homepage.html.twig',
     [

@@ -18,11 +18,11 @@ class Template
     public function __construct(public string $template, public array $data)
     {
         // Cache compiled templates on production in a twig folder (10x difference)
-        $this->template_caching = PRODUCTION ? CACHE_PATH . 'twig/' : false;
+        $this->template_caching = IS_DEV_MODE ? false : CACHE_PATH . 'twig/' ;
 
         // @codeCoverageIgnoreStart
         // Pass extra variables to template in local dev mode
-        if (LOCALHOST && !defined('TESTING_CONTEXT')) {
+        if (IS_DEV_MODE && !defined('TESTING_CONTEXT')) {
             $this->data += [
                 'branch' => trim((string) shell_exec('git rev-parse --abbrev-ref HEAD')),
             ];
@@ -40,7 +40,7 @@ class Template
 
         // @codeCoverageIgnoreStart
         // Allow Twig debug mode in local dev mode
-        if (LOCALHOST && !defined('TESTING_CONTEXT')) {
+        if (IS_DEV_MODE && !defined('TESTING_CONTEXT')) {
             $twig = new Environment(
                 $twig_loader,
                 [

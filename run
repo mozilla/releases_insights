@@ -15,6 +15,10 @@ SUPPORTED_COMMANDS=(
     'status'
 )
 
+# Define it for the whole script session
+# This disables twig caching and activate debugging tools
+export DEV_MODE=true
+
 function ctrl_c() {
     if [ $# -gt 0 ];
     then
