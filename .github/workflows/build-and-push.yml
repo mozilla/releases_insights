@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+
+jobs:
+  build-and-push:
+    secrets: inherit
+    permissions:
+      contents: read
+      id-token: write
+    uses: mozilla/deploy-actions/.github/workflows/build-and-push.yml@v6.2.3
+    with:
+      image_name: whattrainisitnow
+      gar_name: whattrainisitnow-prod
+      project_id: moz-fx-whattrainisitnow-prod
