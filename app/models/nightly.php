@@ -165,9 +165,10 @@ foreach ($nightly_pairs as $dataset) {
 
 // Create the real bug list Karma
 sort($bug_list_karma);
-$bug_list_karma = array_map('intval', $bug_list_karma);
-$bug_list_karma = array_values($bug_list_karma);
-$bug_list_karma = array_flip($bug_list_karma);
+$bug_list_karma = $bug_list_karma
+    |> (fn($x) => array_map('intval', $x))
+    |> array_values(...)
+    |> array_flip(...);
 
 $scores = new Scoring($bug_list_karma_details, RELEASE);
 
