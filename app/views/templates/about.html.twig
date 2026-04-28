@@ -214,5 +214,5 @@ It is maintained by the <a href="https://wiki.mozilla.org/Release_Management/Tea
 {% endblock %}
 
 {% block footer %}
-    <footer></footer>
+    <footer><img class="align-text-bottom" src="/assets/img/github-mark.svg" alt="GitHub logo" style="width:20px; filter: invert(100%)" nonce="{{ constant('NONCE') }}"> Built from <a href="https://github.com/mozilla/releases_insights/commit/{{ sha1 }}">{{ sha1|slice(0, 7) }}</a></footer>
 {% endblock %}

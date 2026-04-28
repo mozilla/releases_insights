@@ -9,8 +9,9 @@ $data = new Model('about')->get();
 new Template(
     'about.html.twig',
     [
-        'page_title' => 'Firefox Trains resources',
+        'page_title'  => 'Firefox Trains resources',
         'css_page_id' => 'about',
-        'yesterday'  => $data['yesterday'],
+        'yesterday'   => $data['yesterday'],
+        'sha1'        => $data['sha1'],
     ]
 )->render();

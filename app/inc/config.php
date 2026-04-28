@@ -23,6 +23,7 @@ const MODELS      = INSTALL_ROOT . 'app/models/';
 const VIEWS       = INSTALL_ROOT . 'app/views/';
 const TEST_FILES  = INSTALL_ROOT . 'tests/Files/';
 const CACHE_PATH  = INSTALL_ROOT . 'cache/';
+const WEB_ROOT    = INSTALL_ROOT . 'public/';
 
 // Prepare caching
 define('CACHE_ENABLED', ! isset($_GET['nocache']));

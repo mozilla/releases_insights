@@ -102,7 +102,7 @@
             "rm public/assets/jquery/README.md",
             "mkdir -p public/assets/chartjs",
             "cp vendor/nnnick/chartjs/dist/chart.umd.min.js public/assets/chartjs/",
-            "echo $SOURCE_VERSION > public/deployed-version.txt"
+            "echo ${SOURCE_VERSION:-$(git rev-parse HEAD)} > public/deployed-version.txt"
         ]
     },
     "config": {
