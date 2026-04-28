@@ -98,11 +98,11 @@ class Data
             $data = explode('.', $version_number);
 
             // We started ESR releases with version 10
-            if (intval($data[0]) < 10) {
+            if ((int) $data[0] < 10) {
                 return true;
             }
 
-            if (intval($data[1]) > 0) {
+            if ((int) $data[1] > 0) {
                 return false;
             }
 
