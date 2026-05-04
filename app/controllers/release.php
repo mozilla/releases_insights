@@ -75,17 +75,19 @@ if (isset($_GET['version']) && $_GET['version'] === 'esr') {
         $current_ESR,
         $release_date,
         $esr_calendar,
+        $planned_dot_releases,
     ] = new Model('esr_release')->get();
 
     $template_data = array_merge($template_data, [
-        'page_title'   => 'Firefox ESR schedule',
-        'css_page_id'  => 'release_esr',
-        'next_ESR'     => $next_ESR,
-        'current_ESR'  => $current_ESR,
-        'release_date' => $release_date,
-        'esr_calendar' => $esr_calendar,
-        'esr_majors'   => ESR::$esr_releases,
-        'esr_115_eol'  => ESR::$esr115_EOL,
+        'page_title'           => 'Firefox ESR schedule',
+        'css_page_id'          => 'release_esr',
+        'next_ESR'             => $next_ESR,
+        'current_ESR'          => $current_ESR,
+        'release_date'         => $release_date,
+        'esr_calendar'         => $esr_calendar,
+        'esr_majors'           => ESR::$esr_releases,
+        'esr_115_eol'          => ESR::$esr115_EOL,
+        'planned_dot_releases' => $planned_dot_releases,
     ]);
 
     new Template('esr_release.html.twig', $template_data)->render();

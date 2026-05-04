@@ -18,22 +18,29 @@ class Data
     /** @var array<string> $chemspills */
     private(set) array $chemspills;
 
+    /** @var array<int, mixed> $planned_dot_releases */
+    private(set) array $planned_dot_releases;
+
     public function __construct(
         private readonly string $pd_url = URL::ProductDetails->value,
         public int $cache_duration = 900 // 15 minutes
     ) {
-        $this->release_owners  = include DATA . 'release_owners.php';
-        $this->future_releases = include DATA . 'upcoming_releases.php';
-        $this->wellness_days   = include DATA . 'wellness_days.php';
-        $this->chemspills      = include DATA . 'chemspill_releases.php';
+        $this->release_owners       = include DATA . 'release_owners.php';
+        $this->future_releases      = include DATA . 'upcoming_releases.php';
+        $this->wellness_days        = include DATA . 'wellness_days.php';
+        $this->chemspills           = include DATA . 'chemspill_releases.php';
+        $this->planned_dot_releases = include DATA . 'planned_dot_releases.php';
     }
 
-    /** @return array<string, string> */
-    public function getFutureReleases(): array
+    /**
+     * @param  bool|boolean $current do we include the current release
+     * @return array<string, string>
+     */
+    public function getFutureReleases(bool $current = false): array
     {
         return array_filter(
             $this->future_releases,
-            fn(string $key) => (int) $key > RELEASE,
+            fn(string $key) => (int) $key > ($current ? RELEASE -1 : RELEASE),
             ARRAY_FILTER_USE_KEY
         );
     }
@@ -189,6 +196,17 @@ class Data
     {
         return Json::load($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
     }
+
+    /**
+     * Get extra planned dot releases
+     *
+     * @return array<int, mixed>
+     */
+    public function getPlannedDotReleases(): array
+    {
+        return $this->planned_dot_releases;
+    }
+
 
     /**
      * Get all past and planned Releases on the release channel, but not dot releases

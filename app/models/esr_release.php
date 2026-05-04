@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Data, ESR, Version};
 
-$esr_releases = new Data()->getESRReleases();
-
-$upcoming_releases = new Data()->getFutureReleases();
-
+$data = new Data();
+$esr_releases = $data->getESRReleases();
+$upcoming_releases = $data->getFutureReleases(current: true);
 $esr_calendar = [];
 
 foreach ($upcoming_releases as $k => $v) {
@@ -29,4 +28,5 @@ return [
     /* @phpstan-ignore-next-line */
     $release_date = ESR_NEXT !== '' ? $esr_releases[$next_ESR] : $esr_releases[$current_ESR],
     $esr_calendar,
+    $data->getPlannedDotReleases(),
 ];

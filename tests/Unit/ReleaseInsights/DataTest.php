@@ -104,6 +104,12 @@ test('Data->getMajorReleases()', function () {
         ->toBeArray();
 });
 
+test('Data->getPlannedDotReleases()', function () {
+    $obj = new Data(TEST_FILES);
+    expect($obj->getPlannedDotReleases())
+        ->toBeArray();
+});
+
 test('Data->getDotReleases()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getDotReleases())
