@@ -299,7 +299,7 @@
 
                 {% if release ~ '.0' not in no_planned_dot_releases %}
                     {% set nb = (release == 147 ? 3 : 2) %}
-                    {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') not in dot_releases|column('date') %}
+                    {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') not in dot_releases|column('date') and release != 150 %}
                     <tr>
                         <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
                         <td title="">{{ planned_dot_release|format_date(pattern=date_pattern) }}</td>
