@@ -76,7 +76,7 @@
         {% endif %}
         <tr>
             <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}><a href="/release/?version={{ values.release }}">{{ values.release }}</a></td>
-            <td class="fw-bold{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
+            <td class="{{ date(values.date) < date() ? ' text-muted fw-light' }}">{{ values.esr }}</td>
             <td {{ date(values.date) < date() ? ' class="text-muted fw-light"' }}>
         {# Remove the first part of this condition when esr 115 is EOL #}
         {% if values.esr_115 %}
@@ -91,7 +91,7 @@
             {% endif %}
         {% endif %}
             </td>
-            <td title="{{ values.date|format_date('full') }}"  {{ date(values.date) < date() ? ' class="text-muted fw-light w-auto"' }} class="w-auto">
+            <td title="{{ values.date|format_date('full') }}"  class="w-auto {{ date(values.date) < date() ? ' text-muted fw-light w-auto' }}">
         {% if values.release|number_format in esr_majors %}
                 <small class="badge bg-warning text-dark">New ESR {{values.release}} branch!</small>
         {% endif %}
@@ -121,6 +121,8 @@
                     {% endif %}
 
                     {% if values.esr_115|number_format in dots.esr %}
+                        <td class="{{ date(key) < date() ? ' text-muted fw-light' }}">{{ values.esr_115 }}.x</td>
+                    {% elseif values.old_esr|number_format in dots.esr %}
                         <td class="{{ date(key) < date() ? ' text-muted fw-light' }}">{{ values.esr_115 }}.x</td>
                     {% else %}
                         <td></td>
