@@ -77,6 +77,7 @@ class Request
             '/changelog/'                       => 'changelog',
             '/nightly/'                         => 'nightly',
             '/release/'                         => 'release',
+            '/release/uplifts/'                 => 'release_uplifts',
             '/api/'                             => 'api_doc',
             '/api/beta/crashes/'                => 'api/beta_crashes',
             '/api/firefox/chemspills/'          => 'api/chemspill_releases',

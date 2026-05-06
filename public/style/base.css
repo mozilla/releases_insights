@@ -433,11 +433,11 @@ h3:target + table {
     top: 0;
 }
 
-:is(#beta, #nightly) a[aria-expanded=false] .text-expanded {
+:is(#beta, #nightly, #release_uplifts) a[aria-expanded=false] .text-expanded {
     display: none;
 }
 
-:is(#beta, #nightly) a[aria-expanded=true] .text-collapsed {
+:is(#beta, #nightly, #release_uplifts) a[aria-expanded=true] .text-collapsed {
     display: none;
 }
 

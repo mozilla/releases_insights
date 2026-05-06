@@ -43,6 +43,7 @@ readonly class Model
             'owners'                      => 'release_owners.php',
             'pre_firefox4_release'        => 'pre4_release.php',
             'past_release'                => 'past_release.php',
+            'release_uplifts'             => 'release_uplifts.php',
             'rss'                         => 'rss.php',
         ];
     }

@@ -21,6 +21,8 @@
             {% set active_nightly = 'active' %}
         {% elseif css_page_id == 'beta' %}
             {% set active_beta = 'active' %}
+        {% elseif css_page_id == 'release_uplifts' %}
+            {% set active_release_uplifts = 'active' %}
         {% elseif css_page_id == 'calendar_main' %}
             {% set active_calendar = 'active' %}
         {% elseif css_page_id == 'about' %}
@@ -37,6 +39,7 @@
             <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Bug landings and crashes</li>
             <li><a class="dropdown-item fxt-ps-2 {{ active_nightly }}" href="/nightly/">In Nightly</a></li>
             <li><a class="dropdown-item fxt-ps-2 {{ active_beta }}" href="/beta/">In Beta</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_release_uplifts }}" href="/release/uplifts/">In Release</a></li>
             <li><a class="dropdown-item {{ active_calendar }}" href="/calendar/">Calendar</a></li>
             <li><a class="dropdown-item {{ active_about }}" href="/about/">About</a></li>
         </ul>
