@@ -126,7 +126,7 @@ body[id^='release_'] h1 + span {
     width: 6em;
 }
 
-body[id^='release_']:not(#release_owners)  .table td {
+body[id^='release_']:not(#release_owners, #release_uplifts)  .table td {
     text-align: right;
     white-space: nowrap;
     width: 9em;
