@@ -7,6 +7,7 @@ namespace ReleaseInsights;
 use Cache\Cache;
 use DateTime;
 use GuzzleHttp\Client;
+use Uri\Rfc3986\Uri;
 
 class Utils
 {
@@ -174,7 +175,7 @@ class Utils
     public static function getFile(string $url): string|bool
     {
         // Local file
-        if (! isset(parse_url($url)['scheme'])) {
+        if ((Uri::parse($url)?->getScheme()) === null) {
             // Does it exist ?
             if (! file_exists($url)) {
                 return '';

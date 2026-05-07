@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+use Uri\Rfc3986\Uri;
+
 class Request
 {
     public string $request = '/';
@@ -13,43 +15,65 @@ class Request
 
     public function __construct(string $path)
     {
-        $request = parse_url($path);
+        $request = Uri::parse($path);
 
-        // Paths that start with multiple slashes don't have a correct (or any) 'path' field via parse_url()
+        // Paths that start with multiple slashes don't have a correct (or any) 'path' field via the URI parser
         if (str_starts_with($path, '//')) {
             $this->invalid_slashes = true;
         }
 
+        if ($request === null) {
+            // The RFC 3986 parser rejects inputs that parse_url() accepts (e.g. paths containing spaces).
+            // Route them through to the 404 controller by setting an unmatchable path.
+            $this->request = $path;
+            $this->path = $path;
+
+            return;
+        }
+
+        // Inputs like '//', '///', '///yolo' parse successfully here but parse_url() rejected them
+        // (authority delimiter without a real host). Skip the block so defaults stand and the request
+        // gets redirected to '/' via invalid_slashes, just like before.
+        if (str_starts_with($path, '//') && $request->getHost() === '') {
+            return;
+        }
+
         // Real files are not processes as paths to route
-        if ($request !== false) {
-            // We sometimes use a fake query on a static asset to force the browser to refresh the cache,
-            // we take the query out when checking if the file path exists
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . explode('?', $path)[0])) {
-                $this->invalid_slashes = false;
-                $this->path = explode('?', $path)[0];
+        // We sometimes use a fake query on a static asset to force the browser to refresh the cache,
+        // we take the query out when checking if the file path exists
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . explode('?', $path)[0])) {
+            $this->invalid_slashes = false;
+            $this->path = explode('?', $path)[0];
+
+            return;
+        }
+
+        // We have a real path to route and clean up before usage
+        $this->request = $path;
+
+        $parsed_path = $request->getPath();
+        $parsed_query = $request->getQuery();
+
+        // The URI parser returns '' for "no path"; parse_url() returned no 'path' key in that case.
+        $has_path = $parsed_path !== '';
+
+        if ($has_path) {
+            $this->path = $this->cleanPath($parsed_path);
+        }
+
+        if ($parsed_query !== null) {
+            $this->query = $parsed_query;
+        }
+
+        if ($has_path) {
+            if (str_ends_with($parsed_path, '//')) {
+                // Multiple slashes at the end of the path
+                $this->invalid_slashes = true;
+            } elseif (! str_ends_with($parsed_path, '/')) {
+                // Missing slash at the end of the path
+                $this->invalid_slashes = true;
             } else {
-                // We have a real path to route and clean up before usage
-                $this->request = $path;
-
-                if (isset($request['path'])) {
-                    $this->path = $this->cleanPath($request['path']);
-                }
-
-                if (isset($request['query'])) {
-                    $this->query = $request['query'];
-                }
-
-                if (isset($request['path'])) {
-                    if (str_ends_with($request['path'], '//')) {
-                        // Multiple slashes at the end of the path
-                        $this->invalid_slashes = true;
-                    } elseif (! str_ends_with($request['path'], '/')) {
-                        // Missing slash at the end of the path
-                        $this->invalid_slashes = true;
-                    } else {
-                        $this->invalid_slashes = false;
-                    }
-                }
+                $this->invalid_slashes = false;
             }
         }
     }
