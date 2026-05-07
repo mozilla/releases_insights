@@ -122,13 +122,13 @@ if ($requested_version_int <= RELEASE) {
         $nightly_start_date,
         $beta_start_date,
         $firefox_releases,
-        $no_planned_dot_releases,
         $release_rollout,
         $uptake,
         $chemspills,
         $ios_schedule,
-        $planned_dot_release,
-        $planned_dot_release_2,
+        $dot_release_1,
+        $dot_release_2,
+        $dot_release_3,
     ] = new Model('past_release')->get();
 
     $template_file = 'past_release.html.twig';
@@ -157,13 +157,13 @@ if ($requested_version_int <= RELEASE) {
         'nightly_start_date'      => $nightly_start_date,
         'beta_start_date'         => $beta_start_date,
         'firefox_releases'        => $firefox_releases,
-        'no_planned_dot_releases' => $no_planned_dot_releases,
         'release_rollout'         => $release_rollout,
         'uptake'                  => $uptake,
         'chemspills'              => $chemspills,
         'ios_schedule'            => $ios_schedule,
-        'planned_dot_release'     => $planned_dot_release,
-        'planned_dot_release_2'   => $planned_dot_release_2,
+        'dot_release_1'           => $dot_release_1,
+        'dot_release_2'           => $dot_release_2,
+        'dot_release_3'           => $dot_release_3,
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 /*
-    Extra planned dot releases
-    The key is the release.
+    Extra planned dot releases that ship with ESR dot releases
+    The esr field indicates which ESR branches get also a dot release.
 */
 
 return [

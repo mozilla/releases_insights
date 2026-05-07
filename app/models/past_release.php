@@ -293,9 +293,9 @@ if ($nightly_fixes === false) {
     Cache::setKey($nightly_parsed_key, $nightly_fixes, 86400 * 365);
 }
 
-$no_planned_dot_releases = new Release($requested_version)->no_planned_dot_releases;
-$planned_dot_release     = new Release($requested_version)->getSchedule()['planned_dot_release'] ?? null;
-$planned_dot_release_2   = new Release($requested_version)->getSchedule()['planned_dot_release_2'] ?? null;
+$dot_release_1 = new Release($requested_version)->getSchedule()['dot_release_1'] ?? null;
+$dot_release_2 = new Release($requested_version)->getSchedule()['dot_release_2'] ?? null;
+$dot_release_3 = new Release($requested_version)->getSchedule()['dot_release_3'] ?? null;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
@@ -327,11 +327,11 @@ return [
     $nightly_start_date,
     $beta_start_date,
     $firefox_releases,
-    $no_planned_dot_releases,
     $rollout ?? -1,
     $release_uptake,
     new Data()->chemspills,
     new IOS($requested_version)->getSchedule(),
-    $planned_dot_release,
-    $planned_dot_release_2,
+    $dot_release_1,
+    $dot_release_2,
+    $dot_release_3,
 ];

@@ -9,9 +9,6 @@ use DateTimeZone;
 
 class Release
 {
-    /** @var array<int> $no_planned_dot_releases */
-    public array $no_planned_dot_releases = [108, 111, 115, 120];
-
     protected Version $version;
 
     public string $product_details;
@@ -116,12 +113,6 @@ class Release
             'release' => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
-        // Add extra (Android) 144 betas for https://bugzilla.mozilla.org/1992436
-        if ($this->version->normalized === '144.0') {
-            $schedule += ['beta_10' => '2025-10-06 17:00:00+00:00']; // @codeCoverageIgnore
-            $schedule += ['beta_11' => '2025-10-07 17:00:00+00:00']; // @codeCoverageIgnore
-        }
-
         // Add extra betas for 153 and reset some dates
         if ($this->version->normalized === '153.0') {
             $schedule += ['beta_11' => '2026-07-10 00:00:00+00:00'];
@@ -139,20 +130,23 @@ class Release
         // Add the release notes deadline after all the beta special cases
         $schedule += ['relnotes_deadline' => $date((clone $release)->modify('-7 days'))];
 
-        // Add the Android weekly release before the planned dot release mid-cycle
-        if ($this->version->normalized !== '150.0') {
-            // 150 planned dot release will replace the mobile one
-            $schedule += ['mobile_dot_release' => $date($release->modify('+1 week 00:00'))];
+        // Add  planned dot releases
+        $schedule += [
+            'dot_release_1' => $date($release->modify('+1 week 00:00')),
+            'dot_release_2' => $date($release->modify('+1 week 00:00')),
+            'dot_release_3' => $date($release->modify('+1 week 00:00')),
+        ];
+
+        // 150 will have 2 planned dot releases, we start 3 planned dot releases with 151
+        // Also, the second dot release is on May 7
+        if ($this->version->normalized === '150.0') {
+            $schedule['dot_release_2'] = '2026-05-07 15:00:00+00:00';
+            unset($schedule['dot_release_3']);
         }
 
-        // Add the planned dot release mid-cycle
-        if (! in_array($this->version->int, $this->no_planned_dot_releases)) {
-            $schedule += ['planned_dot_release' => $date($release->modify('+1 week 00:00'))];
-       }
-
-       // 150 will have 2 full planned dot releases
-        if ($this->version->normalized === '150.0') {
-            $schedule += $this->normalize(['planned_dot_release_2' => '2026-05-07 00:00:00+00:00']);
+        // Don't ship dot releases between Christmas and New year
+        if ($this->version->normalized === '158.0') {
+            $schedule['dot_release_3'] = '2027-01-05     15:00:00+00:00';
         }
 
         // Sort the schedule by date, needed for schedules with a fixup
@@ -230,23 +224,20 @@ class Release
             fn($key) => str_starts_with($key, 'dot_release'), ARRAY_FILTER_USE_KEY
         );
 
-        // Add planned mobile dot release, useful only for the current release cycle (monthly calendar)
-        // $milestones['mobile_dot_release'] = new DateTime($this->getFutureSchedule()['mobile_dot_release']);
-        $mobile_dot_release = $this->getFutureSchedule()['mobile_dot_release'] ?? null;
-        if (isset($mobile_dot_release) && ! in_array(new DateTime($mobile_dot_release), $shipped_dot_releases)) {
-            $milestones['mobile_dot_release'] = new DateTime($mobile_dot_release);
+        $dot_release_1 = $this->getFutureSchedule()['dot_release_1'] ?? null;
+        $dot_release_2 = $this->getFutureSchedule()['dot_release_2'] ?? null;
+        $dot_release_3 = $this->getFutureSchedule()['dot_release_3'] ?? null;
+
+        if (isset($dot_release_1) && ! in_array(new DateTime($dot_release_1), $shipped_dot_releases)) {
+            $milestones['dot_release_1'] = new DateTime($dot_release_1);
         }
 
-        $planned_dot_release = $this->getFutureSchedule()['planned_dot_release'] ?? null;
-
-        if (isset($planned_dot_release) && ! in_array(new DateTime($planned_dot_release), $shipped_dot_releases)) {
-            $milestones['planned_dot_release'] = new DateTime($planned_dot_release);
+        if (isset($dot_release_2) && ! in_array(new DateTime($dot_release_2), $shipped_dot_releases)) {
+            $milestones['dot_release_2'] = new DateTime($dot_release_2);
         }
 
-        // 150 will have 2 full planned dot releases instead of a mobile + a planned one
-        if ($this->version->normalized === '150.0') {
-            unset($milestones['mobile_dot_release']);
-            $milestones['planned_dot_release_2'] = $this->getFutureSchedule()['planned_dot_release_2'];
+        if (isset($dot_release_3) && ! in_array(new DateTime($dot_release_3), $shipped_dot_releases)) {
+            $milestones['dot_release_3'] = new DateTime($dot_release_3);
         }
 
         return $this->normalize($milestones);
@@ -296,9 +287,9 @@ class Release
             'rc_gtb'                => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
             'rc'                    => ($short ? '' : 'Firefox ') . 'RC',
             'release'               => ($short ? '<b>' : 'Firefox ') . $short_version . ($short ? ' Release</b>' : ' go-live @ 6AM PT'),
-            'mobile_dot_release'    => ($short ? 'Potential Android ' : 'Potential Android ') . $version . ($short ? '.x' : ' dot release'),
-            'planned_dot_release'   => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
-            'planned_dot_release_2' => ($short ? 'Extra planned ' : 'Extra planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
+            'dot_release_1'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
+            'dot_release_2'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.y' : ' dot release'),
+            'dot_release_3'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.z' : ' dot release'),
         ];
     }
 
