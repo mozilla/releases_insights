@@ -13,7 +13,7 @@ if (LOCALHOST) {
     $csp_headers = '';
 }
 
-if (! IS_DEV_MODE) {
+if (IS_DEV_MODE) {
     // Catch errors via Tracy library in dev mode only
     if (class_exists(Tracy\Debugger::class)) {
         Debugger::$strictMode = true;
