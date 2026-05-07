@@ -36,7 +36,7 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
-            'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'mobile_dot_release']);
+            'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3',]);
 
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-14 00:00:00+00:00');
@@ -45,7 +45,7 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule()) // future release
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
-            'beta_8', 'rc_gtb', 'rc', 'release', 'planned_dot_release', 'qa_request_deadline', 'qa_test_plan_due',
+            'beta_8', 'rc_gtb', 'rc', 'release', 'qa_request_deadline', 'qa_test_plan_due',
             'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
     $obj = new Release('146.0'); // future release
@@ -62,8 +62,8 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-02-06 21:00:00+00:00");
 
     $obj = new Release('150.0');
-    expect($obj->getSchedule()['planned_dot_release_2'])->toBe("2026-05-07 00:00:00+00:00");
-    expect($obj->getPastSchedule()['planned_dot_release_2'])->toBe("2026-05-07 00:00:00+00:00");
+    expect($obj->getSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
+    expect($obj->getPastSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
 
     $obj = new Release('153.0');
     expect($obj->getSchedule())->toHaveKeys(['beta_11', 'beta_12', 'beta_13']);
@@ -109,9 +109,9 @@ test('Release->getSchedule(): Milestones are in the right order', function () {
     expect($sched['relnotes_deadline'])->toBeLessThan($sched['rc_gtb']);
     expect($sched['rc_gtb'])->toBeLessThan($sched['rc']);
     expect($sched['rc'])->toBeLessThan($sched['release']);
-    expect($sched['release'])->toBeLessThan($sched['mobile_dot_release']);
-    expect($sched['mobile_dot_release'])->toBeLessThan($sched['planned_dot_release']);
-    expect($sched['planned_dot_release'])->toBeGreaterThan($sched['mobile_dot_release']);
+    expect($sched['release'])->toBeLessThan($sched['dot_release_1']);
+    expect($sched['dot_release_1'])->toBeLessThan($sched['dot_release_2']);
+    expect($sched['dot_release_2'])->toBeLessThan($sched['dot_release_3']);
 });
 
 test('Release->getNiceLabel()', function () {

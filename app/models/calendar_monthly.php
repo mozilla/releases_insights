@@ -25,8 +25,9 @@ $extra_milestone = function (string $milestone) use ($current_release_schedule, 
 };
 
 $events[] = $extra_milestone('release');
-$events[] = $extra_milestone('mobile_dot_release');
-$events[] = $extra_milestone('planned_dot_release');
+$events[] = $extra_milestone('dot_release_1');
+$events[] = $extra_milestone('dot_release_2');
+$events[] = $extra_milestone('dot_release_3');
 
 // Loop through future releases
 foreach (array_keys($releases->getFutureReleases()) as $version) {

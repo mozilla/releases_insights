@@ -297,20 +297,35 @@
                     {% endif %}
                 {% endif %}
 
-                {% if release ~ '.0' not in no_planned_dot_releases %}
-                    {% set nb = (release == 147 ? 3 : 2) %}
-                    {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') not in dot_releases|column('date') and release != 150 %}
+                {% set nb = (release == 147 ? 3 : 2) %}
+                {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') not in dot_releases|column('date') and release != 150 %}
+                <tr>
+                    <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                    <td title="">{{ planned_dot_release|format_date(pattern=date_pattern) }}</td>
+                </tr>
+                {% endif %}
+
+                {# Planned dot releases are only for the release in flight #}
+                {% if channel == 'release' %}
+
+                    {% if dot_release_1 and dot_release_1|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
                         <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
-                        <td title="">{{ planned_dot_release|format_date(pattern=date_pattern) }}</td>
+                        <td title="">{{ dot_release_1|format_date(pattern=date_pattern) }}</td>
                     </tr>
-
                     {% endif %}
 
-                    {% if planned_dot_release_2 %}
+                    {% if dot_release_2 and  dot_release_2|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
-                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Extra planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
-                        <td title="">{{ planned_dot_release_2|format_date(pattern=date_pattern) }}</td>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <td title="">{{ dot_release_2|format_date(pattern=date_pattern) }}</td>
+                    </tr>
+                    {% endif %}
+
+                    {% if dot_release_3 and dot_release_3|date('Y-m-d') not in dot_releases|column('date') %}
+                    <tr>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <td title="">{{ dot_release_3|format_date(pattern=date_pattern) }}</td>
                     </tr>
                     {% endif %}
                 {% endif %}

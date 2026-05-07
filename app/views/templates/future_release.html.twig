@@ -208,9 +208,9 @@
     rc_gtb:                'Release Candidate' ~ gtb,
     rc:                    'Release Candidate',
     release:               'Release day!',
-    mobile_dot_release:    'Potential Android dot release',
-    planned_dot_release:   'Planned dot release',
-    planned_dot_release_2: 'Extra planned dot release'
+    dot_release_1: 'Dot release 1',
+    dot_release_2: 'Dot release 2',
+    dot_release_3: 'Dot release 3',
     }
   %}
 
@@ -251,9 +251,9 @@
     rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build another Release Candidate to fix a major quality or business critical issue.',
     rc: 'Our Release Candidate is built and available for testing.',
     release: 'Firefox ' ~ release ~ ' ships at ' ~ date(release_time.UTC)|format_date(pattern='HH:mm') ~ ' UTC (' ~ date(release_time.PT)|format_date(pattern='H') ~' AM PT) with an initial 25% rollout.',
-    mobile_dot_release: 'One week after the release, we evaluate shipping an Android dot release to address identified issues. We can also enable new features on a case by case basis if they are suitable for uplift. The decision on shipping or not this dot release for Android is on the release management team.',
-    planned_dot_release: 'Two weeks after the release, we ship a desktop and/or an Android dot release to address identified quality issues with safe fixes ready. We can also enable new features on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.',
-    planned_dot_release_2: 'An additional scheduled window for Desktop and Android to align with external events, platform updates, or strategic feature activations. Like the first planned release, it incorporates safe fixes or feature uplifts as needed. Release Management maintains the final decision on shipping based on current build quality and whether requirements were met by previous updates.'
+    dot_release_1: 'One week after the release, we ship a desktop and/or an Android dot release to address identified quality issues with safe fixes ready. We can also enable new features on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.',
+    dot_release_2: 'Two weeks after the release, we ship a desktop and/or an Android dot release to address identified quality issues with safe fixes ready. We can also enable new features on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.',
+    dot_release_3: 'Three weeks after the release, we ship a desktop and/or an Android dot release to address identified quality issues with safe fixes ready. We can also enable new features on a case by case basis if they are suitable for uplift. We may have to ship other dot releases before that date. If this is the case and post-release quality issues are already fixed and shipped, the decision on shipping or not the planned dot release is on the release management team.',
     }
 %}
 
