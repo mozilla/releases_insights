@@ -129,6 +129,7 @@ if ($requested_version_int <= RELEASE) {
         $dot_release_1,
         $dot_release_2,
         $dot_release_3,
+        $dot_release_4,
     ] = new Model('past_release')->get();
 
     $template_file = 'past_release.html.twig';
@@ -164,6 +165,7 @@ if ($requested_version_int <= RELEASE) {
         'dot_release_1'           => $dot_release_1,
         'dot_release_2'           => $dot_release_2,
         'dot_release_3'           => $dot_release_3,
+        'dot_release_4'           => $dot_release_4,
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {

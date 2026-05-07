@@ -7,7 +7,6 @@ use ReleaseInsights\{Model, Release, Version};
 $data = [];
 $format = 'Y-m-d';
 
-
 // Check if we have planned dot releases for the current cycle
 $planned_dot_release = function(string $release, string $dot_release) use (&$data, $format) {
     $schedule = new Release(Version::get($release))->getSchedule();
@@ -23,6 +22,7 @@ $planned_dot_release = function(string $release, string $dot_release) use (&$dat
                 '1' => 'x',
                 '2' => 'y',
                 '3' => 'z',
+                '4' => 'a',
                 default => null, // Handle cases where the number doesn't match 1, 2, or 3
             };
 
@@ -34,12 +34,14 @@ $planned_dot_release = function(string $release, string $dot_release) use (&$dat
 $planned_dot_release(FIREFOX_RELEASE, 'dot_release_1');
 $planned_dot_release(FIREFOX_RELEASE, 'dot_release_2');
 $planned_dot_release(FIREFOX_RELEASE, 'dot_release_3');
+$planned_dot_release(FIREFOX_RELEASE, 'dot_release_4');
 
 foreach (new Model('api_future_calendar')->get() as $key => $values) {
     $data[$key] = $values['release_date'];
     $planned_dot_release($key, 'dot_release_1');
     $planned_dot_release($key, 'dot_release_2');
     $planned_dot_release($key, 'dot_release_3');
+    $planned_dot_release($key, 'dot_release_4');
 }
 
 return $data;
