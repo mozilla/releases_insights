@@ -328,6 +328,13 @@
                         <td title="">{{ dot_release_3|format_date(pattern=date_pattern) }}</td>
                     </tr>
                     {% endif %}
+
+                    {% if dot_release_4 and dot_release_4|date('Y-m-d') not in dot_releases|column('date') %}
+                    <tr>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <td title="">{{ dot_release_4|format_date(pattern=date_pattern) }}</td>
+                    </tr>
+                    {% endif %}
                 {% endif %}
           </table>
       </div>

@@ -6,6 +6,7 @@ namespace ReleaseInsights;
 
 use DateTime;
 use DateTimeZone;
+use DateInterval;
 
 class Release
 {
@@ -137,6 +138,12 @@ class Release
             'dot_release_3' => $date($release->modify('+1 week 00:00')),
         ];
 
+        // 152 has an extra dot release because of the long cycle
+        // Ignoring in code coverage for now
+        if ($this->version->normalized === '152.0') {
+            $schedule['dot_release_4'] = $date($release->modify('+1 week 00:00')); // @codeCoverageIgnore
+        }
+
         // 150 will have 2 planned dot releases, we start 3 planned dot releases with 151
         // Also, the second dot release is on May 7
         if ($this->version->normalized === '150.0') {
@@ -146,7 +153,7 @@ class Release
 
         // Don't ship dot releases between Christmas and New year
         if ($this->version->normalized === '158.0') {
-            $schedule['dot_release_3'] = '2027-01-05     15:00:00+00:00';
+            $schedule['dot_release_3'] = '2027-01-05 15:00:00+00:00';
         }
 
         // Sort the schedule by date, needed for schedules with a fixup
@@ -227,6 +234,7 @@ class Release
         $dot_release_1 = $this->getFutureSchedule()['dot_release_1'] ?? null;
         $dot_release_2 = $this->getFutureSchedule()['dot_release_2'] ?? null;
         $dot_release_3 = $this->getFutureSchedule()['dot_release_3'] ?? null;
+        $dot_release_4 = $this->getFutureSchedule()['dot_release_4'] ?? null;
 
         if (isset($dot_release_1) && ! in_array(new DateTime($dot_release_1), $shipped_dot_releases)) {
             $milestones['dot_release_1'] = new DateTime($dot_release_1);
@@ -238,6 +246,10 @@ class Release
 
         if (isset($dot_release_3) && ! in_array(new DateTime($dot_release_3), $shipped_dot_releases)) {
             $milestones['dot_release_3'] = new DateTime($dot_release_3);
+        }
+
+        if (isset($dot_release_4) && ! in_array(new DateTime($dot_release_4), $shipped_dot_releases)) {
+            $milestones['dot_release_4'] = new DateTime($dot_release_4); // @codeCoverageIgnore
         }
 
         return $this->normalize($milestones);
@@ -290,6 +302,7 @@ class Release
             'dot_release_1'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
             'dot_release_2'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.y' : ' dot release'),
             'dot_release_3'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.z' : ' dot release'),
+            'dot_release_4'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.a' : ' dot release'),
         ];
     }
 

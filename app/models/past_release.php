@@ -296,6 +296,7 @@ if ($nightly_fixes === false) {
 $dot_release_1 = new Release($requested_version)->getSchedule()['dot_release_1'] ?? null;
 $dot_release_2 = new Release($requested_version)->getSchedule()['dot_release_2'] ?? null;
 $dot_release_3 = new Release($requested_version)->getSchedule()['dot_release_3'] ?? null;
+$dot_release_4 = new Release($requested_version)->getSchedule()['dot_release_4'] ?? null;
 
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
@@ -334,4 +335,5 @@ return [
     $dot_release_1,
     $dot_release_2,
     $dot_release_3,
+    $dot_release_4,
 ];

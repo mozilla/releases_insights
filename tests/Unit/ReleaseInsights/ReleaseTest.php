@@ -65,6 +65,9 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
     expect($obj->getPastSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
 
+    $obj = new Release('152.0');
+    expect($obj->getFutureSchedule())->toHaveKey('dot_release_4');
+
     $obj = new Release('153.0');
     expect($obj->getSchedule())->toHaveKeys(['beta_11', 'beta_12', 'beta_13']);
     expect($obj->getSchedule()['beta_11'])->toBe("2026-07-10 00:00:00+00:00");
@@ -73,11 +76,13 @@ test('Release->getSchedule()', function () {
     $obj = new Release('154.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-07-03 21:00:00+00:00");
 
+    $obj = new Release('158.0');
+    expect($obj->getSchedule()['dot_release_3'])->toBe("2027-01-05 15:00:00+00:00");
+
     $Ymd = fn($date) => (new DateTime($date))->format('Y-m-d');
     $obj = new Release('159.0');
     expect($obj->getSchedule())->toHaveKeys(['beta_11', 'beta_12']);
     expect($Ymd($obj->getSchedule()['rc_gtb']))->toBe("2027-01-13");
-
 });
 
 test('Release->getSchedule(): Milestones are in the right order', function () {
