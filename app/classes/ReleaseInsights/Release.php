@@ -148,7 +148,6 @@ class Release
         // Also, the second dot release is on May 7
         if ($this->version->normalized === '150.0') {
             $schedule['dot_release_2'] = '2026-05-07 15:00:00+00:00';
-            unset($schedule['dot_release_3']);
         }
 
         // Don't ship dot releases between Christmas and New year
