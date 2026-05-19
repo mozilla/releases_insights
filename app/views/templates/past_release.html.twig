@@ -287,24 +287,7 @@
                  {% endif %}
 
                 {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
-                {% if release != '150.0' %}
-                    {% set potential_android_interval = (release == 148 ? '+6 days' : '+1 week') %}
-                    {% if "now"|date('Y-m-d') < release_date|date_modify(potential_android_interval)|date('Y-m-d') %}
-                        <tr>
-                            <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Potential Android {{ release }}.0.x</a></th>
-                            <td title="">{{ release_date|date_modify(potential_android_interval)|format_date(pattern=date_pattern) }}</td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
                 {% set nb = (release == 147 ? 3 : 2) %}
-                {% if "now"|date('Y-m-d') <= release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') and release_date|date_modify('+' ~ nb ~ ' weeks')|date('Y-m-d') not in dot_releases|column('date') and release != 150 %}
-                <tr>
-                    <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
-                    <td title="">{{ planned_dot_release|format_date(pattern=date_pattern) }}</td>
-                </tr>
-                {% endif %}
-
                 {# Planned dot releases are only for the release in flight #}
                 {% if channel == 'release' %}
 
