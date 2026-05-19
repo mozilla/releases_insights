@@ -80,9 +80,11 @@ foreach ($nightlies as $buildid => $changeset) {
             'buildid'        => $buildid,
             'changeset'      => $changeset['revision'],
             'version'        => $changeset['version'],
+            'prev_version'   => end($nightlies_day_before)['version'],
             'prev_changeset' => end($nightlies_day_before)['revision'],
         ];
         $i = false;
+        $previous_version   = $changeset['version'];
         $previous_changeset = $changeset['revision'];
         continue;
     }
@@ -91,6 +93,7 @@ foreach ($nightlies as $buildid => $changeset) {
         'buildid'        => $buildid,
         'changeset'      => $changeset['revision'],
         'version'        => $changeset['version'],
+        'prev_version'   => $previous_version,
         'prev_changeset' => $previous_changeset,
     ];
     $previous_changeset = $changeset['revision'];

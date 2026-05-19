@@ -21,29 +21,39 @@
 {% endblock %}
 {% block main %}
 {%- set android_products = ['Firefox for Android', 'GeckoView', 'Focus'] -%}
+
 {% for dataset in nightly_pairs %}
     <a href="#buildid_{{ dataset.buildid }}" name="buildid_{{ dataset.buildid }}" class="buildid pe-2 pt-2 text-light float-start bg-transparent">#</a>
     <ul class="list-group list-group-horizontal">
-        {% if fallback_nightly %}
-        <li class="list-group-item bg-warning"></li>
-        {% endif %}
+        {% if fallback_nightly %}<li class="list-group-item bg-warning"></li>{% endif %}
+
         <li class="list-group-item bg-info border-0">
             <a href="/changelog/?from={{ dataset.prev_changeset }}&to={{  dataset.changeset }}&hg2git&files" class="text-light" title="Nightly {{ dataset.version }}">{{ dataset.buildid }}</a>
+        </li>
+
         <li class="list-group-item text-light bg-secondary border-0">
             <a href="https://hg.mozilla.org/mozilla-central/pushloghtml?fromchange={{ dataset.prev_changeset }}&tochange={{  dataset.changeset }}" class="text-light">Changelog</a>
         </li>
+
         <li class="list-group-item text-light bg-success border-0">
             <a href="{{ bug_list[dataset.buildid].url }}" class="text-light">Patches from {{ bug_list[dataset.buildid].count }} bugs</a>
         </li>
+
         <li class="list-group-item text-light bg-primary border-0">
             <a class="text-light" data-bs-toggle="collapse" aria-expanded="false" href="#collapse{{ dataset.buildid }}">
                 <span class="text-collapsed">Show list of bugs</span>
                 <span class="text-expanded">Hide list of bugs</span>
             </a>
         </li>
+
         <li class="list-group-item text-light bg-danger border-0">
             <a href="https://crash-stats.mozilla.org/api/SuperSearch/?build_id={{ dataset.buildid }}&_facets=signature&product=Firefox" class="text-light">{{build_crashes[dataset.buildid] }} crashes</a>
         </li>
+        {% if dataset.version != dataset.prev_version %}
+        <li class="list-group-item text-dark bg-warning-subtle border-0">
+             New {{ dataset.version|split('.')|first }} cycle
+         </li>
+        {% endif %}
     </ul>
     <p></p>
     <div class="collapse" id="collapse{{ dataset.buildid }}">
