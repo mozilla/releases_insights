@@ -73,6 +73,7 @@ $nightly_pairs = [];
 
 $i = true;
 $previous_changeset = null;
+$previous_version = null;
 foreach ($nightlies as $buildid => $changeset) {
     // The first build of the day is to associate with yesterday's last build
     if ($i === true) {
