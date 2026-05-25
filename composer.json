@@ -41,7 +41,7 @@
         "guzzlehttp/guzzle": "^7.0",
         "cweagans/composer-patches": "^1.7",
         "sentry/sentry": "^4.0",
-        "components/jquery": "^3.4",
+        "components/jquery": "^4.0",
         "twbs/bootstrap": "^5.3",
         "twbs/bootstrap-icons": "^1.8",
         "pchevrel/bzkarma": "^1.0",
