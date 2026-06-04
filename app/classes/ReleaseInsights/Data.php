@@ -230,7 +230,8 @@ class Data
 
     public static function getDesktopAdoptionRate(string $version): ?float
     {
-        // Check current uptake rate for the latest release*
+        // Check current uptake rate for the latest release
+        // The underlying data is only updated once a day at 13:00 UTC
         // @codeCoverageIgnoreStart
         if (! defined('TESTING_CONTEXT')) {
             $uptake = Json::load(URL::Pollbot->value
