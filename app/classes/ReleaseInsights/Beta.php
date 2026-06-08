@@ -94,9 +94,9 @@ readonly class Beta
             $hg_end_points[$beta_version] =
                 'releases/mozilla-beta/json-pushes?fromchange='
                 . $beta_start
-                . '&amp;tochange='
+                . '&tochange='
                 . $beta_end
-                . '&amp;full&amp;version=2';
+                . '&full&version=2';
         }
 
         /*
@@ -125,9 +125,9 @@ readonly class Beta
                 $hg_end_points[$rc_version] =
                     'releases/mozilla-release/json-pushes?fromchange='
                     . $rc_start
-                    . '&amp;tochange='
+                    . '&tochange='
                     . $rc_end
-                    . '&amp;full&amp;version=2';
+                    . '&full&version=2';
             }
         }
 

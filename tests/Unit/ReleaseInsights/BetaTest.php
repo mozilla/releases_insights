@@ -18,6 +18,18 @@ test('Beta->getLogEndpoints()', function () {
         ->each->toBeString();
 });
 
+test('Beta->getLogEndpoints() URLs use & not &amp;', function () {
+    $obj = new Beta();
+    $endpoints = $obj->getLogEndpoints();
+
+    expect($endpoints)->toBeArray()->not->toBeEmpty();
+
+    foreach ($endpoints as $url) {
+        expect($url)->not->toContain('&amp;');
+        expect($url)->toContain('&');
+    }
+});
+
 test('Beta->crashes()', function () {
     $obj = new Beta();
     expect($obj->crashes())
