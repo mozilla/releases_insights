@@ -106,6 +106,7 @@ class Request
             '/api/beta/crashes/'                => 'api/beta_crashes',
             '/api/firefox/chemspills/'          => 'api/chemspill_releases',
             '/api/external/'                    => 'api/external',
+            '/api/lando/uplift/train/'          => 'api/lando_uplift_train',
             '/api/nightly/'                     => 'api/nightly',
             '/api/nightly/crashes/'             => 'api/nightly_crashes',
             '/api/release/schedule/'            => 'api/release_schedule',

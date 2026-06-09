@@ -13,11 +13,12 @@ use ReleaseInsights\Release;
 use ReleaseInsights\Json;
 use ReleaseInsights\URL;
 
-readonly class Beta
+class Beta
 {
-    public int $count;
-    public int $number_betas;
-    public bool $beta_cycle_ended;
+    public int  $count;
+    public int  $number_betas;
+    public bool $beta_cycle_ended; // up to tagging the repo
+    public bool $has_betas_left = true;
 
     public function __construct(public int $release = BETA) {
         // We get the number of betas from the planned schedule
@@ -27,6 +28,7 @@ readonly class Beta
             $schedule,
             fn($label) => str_starts_with($label, 'beta_') && ! str_ends_with($label, '_gtb')
         );
+
         $this->number_betas = count($schedule);
 
         if ($this->release < BETA) {
@@ -50,6 +52,7 @@ readonly class Beta
                     Cache::setKey($cache_key, $cached, 900);
                 }
                 $this->beta_cycle_ended = $cached === 'true';
+                $this->has_betas_left = false;
                 // @codeCoverageIgnoreEnd
             } else {
                 $this->beta_cycle_ended = false;
@@ -374,7 +377,7 @@ readonly class Beta
      *
      * @return array<mixed>
      */
-    public function RCStatus() : array
+    public function RCStatus(): array
     {
        if (defined('TESTING_CONTEXT')) {
             $shipping_build = 'Firefox-146.0-build1';
@@ -392,5 +395,14 @@ readonly class Beta
         }
 
         return [false, 0];// @codeCoverageIgnore
+    }
+
+
+    /**
+     *  Have we built our RC yet?
+     */
+    public function hasRC(): bool
+    {
+        return $this->RCStatus()[0];
     }
 }

@@ -15,6 +15,7 @@ $paths = [
     ['firefox/releases/esr/future/', 200, 'Verif:skip'],
     ['nightly/crashes/', 200, 'Verif:skip'],
     ['beta/crashes/', 200, 'Verif:skip'],
+    ['lando/uplift/train/', 200, 'Verif:skip'],
     ['nightly/crashes/?buildid=20191014213051', 200, '{"buildid":"20191014213051","total":0,"signatures":[]}'],
     ['release/schedule/?version=beta', 200, 'Verif:skip'],
     ['release/schedule/?version=nightly', 200, 'Verif:skip'],

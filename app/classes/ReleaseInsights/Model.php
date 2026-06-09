@@ -23,6 +23,7 @@ readonly class Model
             'api_firefox_releases'        => 'api/firefox_releases.php',
             'api_firefox_releases_future' => 'api/firefox_future_releases.php',
             'api_future_calendar'         => 'api/future_calendar.php',
+            'api_lando_uplift_train'      => 'api/lando_uplift_train.php',
             'api_nightly'                 => 'api/nightly.php',
             'api_nightly_crashes'         => 'api/nightly_crashes.php',
             'api_release_owners'          => 'api/release_owners.php',

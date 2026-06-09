@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+use DateInterval;
 use DateTime;
 use DateTimeZone;
-use DateInterval;
 
 class Release
 {
