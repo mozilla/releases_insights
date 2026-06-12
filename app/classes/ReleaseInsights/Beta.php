@@ -377,7 +377,7 @@ readonly class Beta
     public function RCStatus() : array
     {
        if (defined('TESTING_CONTEXT')) {
-            $shipping_build = 'Firefox-94.0-build1';
+            $shipping_build = 'Firefox-146.0-build1';
         } else {
             $shipping_build = Json::load(URL::Balrog->value . 'rules/firefox-release-cdntest', 900)['mapping'] ?? 'N/A';// @codeCoverageIgnore
         }
