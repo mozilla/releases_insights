@@ -379,7 +379,7 @@ readonly class Beta
        if (defined('TESTING_CONTEXT')) {
             $shipping_build = 'Firefox-94.0-build1';
         } else {
-            $shipping_build = Json::load(URL::Balrog->value . 'rules/firefox-beta', 900)['mapping'] ?? 'N/A';// @codeCoverageIgnore
+            $shipping_build = Json::load(URL::Balrog->value . 'rules/firefox-release-cdntest', 900)['mapping'] ?? 'N/A';// @codeCoverageIgnore
         }
 
         if ($shipping_build !== 'N/A') {
