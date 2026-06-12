@@ -385,7 +385,7 @@ readonly class Beta
         if ($shipping_build !== 'N/A') {
             // We have Release candidates
             [$product, $version, $build_number] = explode('-', (string) $shipping_build);
-            $is_rc_build = ! str_contains($version, 'b');
+            $is_rc_build = str_contains($version, (string) BETA . '.0');
             $number_rc_builds = $is_rc_build ? (int) str_replace('build', '', $build_number) : 0;
 
             return [$is_rc_build, $number_rc_builds];
