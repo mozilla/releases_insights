@@ -24,7 +24,7 @@ test('Request->getController()', function ($input, $output) {
     ['/api/lando/uplift/train/',          'api/lando_uplift_train'],
     ['/api/nightly',                      'api/nightly'],
     ['/api/release/schedule',             'api/release_schedule'],
-    ['/api/release/schedule/ios/',             'api/ios_release_schedule'],
+    ['/api/release/schedule/ios/',        'api/ios_release_schedule'],
     ['/api/release/owners',               'api/release_owners'],
     ['/api/nightly/crashes',              'api/nightly_crashes'],
     ['/api/firefox/chemspills/',          'api/chemspill_releases'],

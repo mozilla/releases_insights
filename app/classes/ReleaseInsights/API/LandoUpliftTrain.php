@@ -11,7 +11,7 @@ use ReleaseInsights\Release;
 
 /*
     This is only consumed by our API endpoint /api/lando/uplift/train/
-    This is for use in the Lando target train selection widget
+    This is for use in the Lando target train selection widget.
     See:
         - Bug 2044143 - Improve guidance on target train selection - https://bugzil.la/2044143
         - Bug 2045812 - Add an API endpoint for Lando uplift train selection guidance - https://bugzil.la/2045812
@@ -23,16 +23,7 @@ use ReleaseInsights\Release;
         - A helpful hint for which release their uplift will land in when selecting a specific train. For example, selecting firefox-beta will display a message like "This will land in Firefox v152", or "This will land in Firefox v153" depending on timing in the cycle.
 
         Lando's front-end will send an API request to whattrainisitnow.com and hold the response in the browser, which will then be used to guide the user in selecting the appropriate uplift target.
-
-    TODO:
-        - Define what fields are needed for the widget
-        - Update the About/API page section
-    DONE:
-        - Create a json endpoint for /api/lando/uplift/train/
-        - Check if specific CORS needed if called client-side from Lando in JS?
-        - Add http test
-        - Add unit tests
- */
+*/
 
 
 class LandoUpliftTrain
