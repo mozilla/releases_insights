@@ -91,7 +91,6 @@ class Release
             'beta_4'                => $date('Wednesday 13:00'),
             'beta_5'                => $date('Friday 13:00'),
             'beta_6'                => $date('Monday 13:00'),
-            'sumo_2'                => $date('Monday 21:00'), // Monday of Beta Week 3
             'beta_7'                => $date('Wednesday 13:00'),
             'qa_pre_rc_signoff'     => $date('Wednesday 17:00'),
             'beta_8'                => match ($this->version->normalized) {
@@ -284,7 +283,6 @@ class Release
             'beta_5'                => ($short ? '' : 'Firefox ') . $short_version . ' b5' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
             'beta_6'                => ($short ? '' : 'Firefox ') . $short_version . ' b6' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
             'beta_7'                => ($short ? '' : 'Firefox ') . $short_version . ' b7' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
-            'sumo_2'                => 'SUMO content localization starts',
             'beta_8'                => ($short ? '' : 'Firefox ') . $short_version . ' b8' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
             'qa_pre_rc_signoff'     => $short_version . ' QA sign off',
             'beta_9'                => ($short ? '' : 'Firefox ') . $short_version . ' b9' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),

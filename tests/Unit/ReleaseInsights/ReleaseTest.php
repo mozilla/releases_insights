@@ -35,8 +35,8 @@ test('Release->getSchedule()', function () {
     $obj = new Release('146.0');
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
-            'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
-            'beta_8', 'beta_9', 'rc_gtb', 'rc', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3',]);
+            'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'beta_8',
+            'beta_9', 'rc_gtb', 'rc', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3',]);
 
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-14 00:00:00+00:00');
@@ -44,7 +44,7 @@ test('Release->getSchedule()', function () {
     $obj = new Release('146.0'); // merge day is Tuesday and we have one beta left
     expect($obj->getSchedule()) // future release
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
-            'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'sumo_2',
+            'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7',
             'beta_8', 'rc_gtb', 'rc', 'release', 'qa_request_deadline', 'qa_test_plan_due',
             'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
