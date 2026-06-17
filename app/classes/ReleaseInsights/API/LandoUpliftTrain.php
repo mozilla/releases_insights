@@ -43,28 +43,50 @@ class LandoUpliftTrain
     public function getTrains(): array
     {
         /* Output a 2026-05-01 format string */
-        $date = fn($v) => new DateTime(new Release($v)->getSchedule()['release'])->format('Y-m-d');
+        $date = fn($version, $milestone = 'release') => new DateTime(new Release($version)->getSchedule()[$milestone])->format('Y-m-d');
 
         /*
             Don't use our NIGHTLY & BETA constants from product-details.
             In the case of Lando, we want to plan uplifts and during release week,
-            our version numbers are not always fully sequentials if we have merge
-            problems with beta and it gets delayed.
+            our version numbers in product-details are not always fully sequentials
+            if we have merge problems with beta.
         */
+        $nightly = RELEASE + 2;
+        $beta    = RELEASE + 1;
+
+        /*
+            We need specific logic for this API for the period of time when we are past RC,
+            or have shipped to release, but not yet shipped our first beta. That is about 3 days,
+            from main->beta merge day on Monday to shipping our beta 1 build2 on Wednesday.
+            In this window, the state of the Beta class reflects the state of the previous beta cycle,
+            not the one we are going to enter as the Beta class is built with end-users in mind, not
+            Firefox developers.
+
+            We are going to use merge day as the marker for the values of has_betas_left and is_rc_shipped
+        */
+        $has_betas = $this->beta->has_betas_left;
+        $has_rc    = $this->beta->hasRC();
+
+        // Compare today with beta merge date
+        if (date('Y-m-d') > $date($beta . '.0', 'merge_day')) {
+            $has_betas = true;
+            $has_rc    = false;
+        }
+
         return [
             'nightly' => [
-                'version'       => RELEASE + 2,
-                'release_date'  => $date(RELEASE + 2 .'.0'),
+                'version'      => $nightly,
+                'release_date' => $date($nightly . '.0'),
             ],
             'beta' => [
-                'version'        => RELEASE + 1,
-                'release_date'   => $date(RELEASE + 1 .'.0'),
-                'has_betas_left' => $this->beta->has_betas_left,
-                'is_rc_shipped'  => $this->beta->hasRC(),
+                'version'        => $beta,
+                'release_date'   => $date($beta . '.0'),
+                'has_betas_left' => $has_betas,
+                'is_rc_shipped'  => $has_rc,
             ],
             'release' => [
-                'version'       => RELEASE,
-                'release_date'  => $date(FIREFOX_RELEASE),
+                'version'      => RELEASE,
+                'release_date' => $date(FIREFOX_RELEASE),
             ],
         ];
     }
