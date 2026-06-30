@@ -1,7 +1,7 @@
 /* General structure */
 :root {
     --font-default-color: white;
-    --cyan: #0dcaf0;
+    --link-blue: #0067d5;
     --orange-light: #ffbe5a;
     --orange-dark: #ff7f21;
     --purple: #210340;
@@ -40,7 +40,7 @@ header {
 
 a {
     text-decoration: none;
-    color: var(--cyan);
+    color: var(--link-blue);
 }
 
 a:hover {
@@ -289,11 +289,11 @@ h3:hover .anchor-link {
 }
 
 h3:target {
-   color: var(--cyan);
+   color: var(--link-blue);
 }
 
 h3:target + table {
-    box-shadow: 0px 0px 20px 0px var(--cyan);
+    box-shadow: 0px 0px 20px 0px var(--link-blue);
 }
 
 /* Nightly Page */
