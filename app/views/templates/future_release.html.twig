@@ -41,7 +41,7 @@
         {% set channel = 'future' %}
     {% endif %}
 
-{% if release == '147' or release == '159' %}
+{% if release == '159' %}
     {% set alert = alert ~ '
 
 <div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
@@ -59,26 +59,6 @@
 
   '%}
 {% endif %}
-
-{% if release == '148' %}
-    {% set alert = alert ~ '
-
-<div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
-  <svg class="bi flex-shrink-0 me-2 text-warning" width="24" height="24" role="img" aria-label="Warning:">
-    <use xlink:href="#exclamation-triangle-fill"/>
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </symbol>
-</svg>
-</svg>
-  <div class="text-center">
-    Note: With the longer beta cycle, the number of betas and their dates may change.
-  </div>
-</div>
-
-  '%}
-{% endif %}
-
     <div class="w-50 alert alert-primary mx-auto text-center" role="alert">{{ alert|raw }}
         {% if channel == 'nightly'%}
             {% if nightly_updates %}
@@ -151,7 +131,7 @@
             <th class="{{ table_header }}">Beta cycle length</th><td>{{ beta_cycle_length|number_format }} weeks</td>
         </tr>
 
-    {% if release == '140' %}
+    {% if release == '153' %}
         <tr class="table-warning">
             <td colspan="2" class="text-center fw-bold">{{ release }} is the next <abbr title="Extended Support Release" class="initialism">ESR</abbr></td>
         </tr>
@@ -267,12 +247,6 @@
     }) %}
 {% endif%}
 
- {% if release == '144' %}
-    {# We had last minute Android-Only extra betas #}
-    {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Android-only unplanned beta to fix <a href="https://bugzilla.mozilla.org/1992436">bug 1992436</a>.'}) %}
-    {% set cycle_descriptions = cycle_descriptions|merge({'beta_11': 'Android-only unplanned beta to fix <a href="https://bugzilla.mozilla.org/1992436">bug 1992436</a>.'}) %}
- {% endif %}
-
   {% set next_milestone = true %}
     <!-- Target element for table 2 (must come first for CSS sibling selector) -->
     <div id="ios-target"></div>
@@ -310,19 +284,9 @@
                     {% if key == 'beta_13' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
-                {% elseif release == '148' %}
-                    {% if key == 'beta_9' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-                    {% endif %}
-                    {% if key == 'beta_15' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts <span class="fw-light">(sec-approval request deadline)</span></small>' %}
-                    {% endif %}
                 {% elseif release == '159' %}
                     {% set cycle_descriptions = cycle_descriptions|merge({'beta_8': 'Build starts at 13:00 UTC. Stabilization work via uplifts.'}) %}
                     {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Build starts at 13:00 UTC. Stabilization work via uplifts. <br>Last <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplifts for this release (<code>sec-approval+</code> on Bugzilla).'}) %}
-                    {% if key == 'beta_5' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-                    {% endif %}
                     {% if key == 'beta_10' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
                     {% endif %}
@@ -330,7 +294,7 @@
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% else %}
-                    {% if key == 'beta_5' %}
+                    {% if key == 'beta_5' and release < 155 %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
                     {% endif %}
                     {% if key == 'beta_8' %}

@@ -10,7 +10,7 @@ use DateTimeZone;
 
 class Release
 {
-    protected Version $version;
+    public readonly Version $version;
 
     public string $product_details;
 

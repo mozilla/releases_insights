@@ -16,8 +16,10 @@ $short_version = (string) Version::getMajor($sched['version']);
 $release_schedule_labels = Release:: getLabels($requested_version, short:false);
 
 // Add end of early betas to the schedule
-$sched['early_beta_end'] = $sched['beta_5'];
-$release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER (post beta 5)';
+if ($release->version->int < 155) {
+    $sched['early_beta_end'] = $sched['beta_5'];
+    $release_schedule_labels['early_beta_end'] = 'End of EARLY_BETA_OR_EARLIER (post beta 5)';
+}
 
 // We don't want html tags in out labels as this is an ICS export
 $release_schedule_labels = array_map('strip_tags', $release_schedule_labels);
