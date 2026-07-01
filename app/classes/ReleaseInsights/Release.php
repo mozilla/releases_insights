@@ -47,6 +47,13 @@ class Release
      */
     public function getFutureSchedule(): array
     {
+        // Starting with Firefox 155, we move to a 2-week release cycle.
+        // The logic below is kept only for versions <155 and will be
+        // removed once all those releases are shipped.
+        if ($this->version->int >= 155) {
+            return $this->getTwoWeekSchedule();
+        }
+
          $all_releases = new Data($this->product_details)->getMajorReleases();
         if (! array_key_exists($this->version->normalized, $all_releases)) {
             return ['error' => 'Not enough data for this version number.'];
@@ -166,6 +173,70 @@ class Release
                 'beta'
             ) === true
         );
+
+        // The schedule starts with the release version number
+        return ['version' => $this->version->normalized] + $schedule;
+    }
+
+    /**
+     * Get the schedule for a future release on the 2-week release cycle.
+     *
+     * Used from Firefox 155 onwards. Every milestone is anchored on the
+     * release day (always a Tuesday) and expressed as a number of days
+     * after the first day of the Nightly cycle (a Friday, 32 days before
+     * release day). See milestones2weeksCycle.csv for the source of truth.
+     *
+     * @return array<string, string>
+     */
+    public function getTwoWeekSchedule(): array
+    {
+        $all_releases = new Data($this->product_details)->getMajorReleases();
+        if (! array_key_exists($this->version->normalized, $all_releases)) {
+            return ['error' => 'Not enough data for this version number.'];
+        }
+
+        // Release day object. Marketing ships at 6AM PT.
+        $release_utc = new DateTime($all_releases[$this->version->normalized] . ' 06:00 PST')
+            ->setTimezone(new DateTimeZone('UTC'));
+
+        // The Nightly cycle starts on a Friday, 32 days before release day.
+        // Anchored in UTC so every milestone is a +00:00 date like the rest of the app.
+        $nightly_start = new DateTime($all_releases[$this->version->normalized])
+            ->setTime(0, 0)
+            ->modify('-32 days');
+
+        // A milestone is $days days after the first day of the Nightly cycle.
+        $d = fn(int $days, int $h = 0, int $m = 0): string =>
+            (clone $nightly_start)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
+
+        $schedule = [
+            'qa_request_deadline'   => $d(-3),      // 3 days before Nightly starts
+            'a11y_request_deadline' => $d(-3),      // matches the QA request deadline
+            'nightly_start'         => $d(0),       // Nightly W0 Friday
+            'qa_feature_done'       => $d(7, 21),   // Nightly W1 Friday, build ready for QA
+            'qa_test_plan_due'      => $d(7, 21),   // Nightly W1 Friday
+            'strings_handoff'       => $d(12),      // Nightly W2 Wednesday
+            'relnotes_beta_ready'   => $d(13),      // Nightly W2 Thursday, draft beta release notes
+            'qa_pre_merge_done'     => $d(13, 14),  // Nightly W2 Thursday
+            'string_freeze'         => $d(13),      // Nightly W2 Thursday
+            'merge_day'             => $d(14),      // Nightly W2 Friday
+            'beta_1'                => $d(17, 13),  // Beta W1 Monday
+            'beta_2'                => $d(19, 13),  // Beta W1 Wednesday
+            'sumo_1'                => $d(19, 21),  // Beta W1 Wednesday, SUMO content creation
+            'beta_3'                => $d(21, 13),  // Beta W1 Friday
+            'qa_pre_rc_signoff'     => $d(21, 17),  // Beta W1 Friday, pre-release QA sign-off
+            'beta_4'                => $d(24, 13),  // Beta W2 Monday
+            'beta_5'                => $d(26, 13),  // Beta W2 Wednesday, security uplift deadline & last beta
+            'relnotes_deadline'     => $d(27, 13),  // Beta W2 Thursday, release notes submission deadline
+            'rc_gtb'                => $d(27, 17),  // Beta W2 Thursday, RC go to build
+            'rc'                    => $d(28, 13),  // Beta W2 Friday, release notes finalized
+            'release'               => $release_utc->format('Y-m-d H:i:sP'),
+            // Single planned dot release, one week after the major release.
+            'dot_release_1'         => (clone $release_utc)->modify('+7 days')->format('Y-m-d H:i:sP'),
+        ];
+
+        // Sort the schedule by date, needed for schedules with a fixup
+        asort($schedule);
 
         // The schedule starts with the release version number
         return ['version' => $this->version->normalized] + $schedule;

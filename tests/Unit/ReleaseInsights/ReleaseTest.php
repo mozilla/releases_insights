@@ -76,17 +76,40 @@ test('Release->getSchedule()', function () {
     $obj = new Release('154.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-07-03 21:00:00+00:00");
 
-    $obj = new Release('158.0');
-    expect($obj->getSchedule()['dot_release_3'])->toBe("2027-01-05 15:00:00+00:00");
+    // From Firefox 155 we switch to a 2-week release cycle (see getTwoWeekSchedule())
+    $obj = new Release('155.0');
+    expect($obj->getSchedule())
+        ->toHaveKeys(['version', 'qa_request_deadline', 'a11y_request_deadline', 'nightly_start',
+            'qa_feature_done', 'qa_test_plan_due', 'strings_handoff', 'relnotes_beta_ready',
+            'qa_pre_merge_done', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'sumo_1',
+            'beta_3', 'qa_pre_rc_signoff', 'beta_4', 'beta_5', 'relnotes_deadline', 'rc_gtb',
+            'rc', 'release', 'dot_release_1'])
+        // A single planned dot release, no early beta and no more than 5 betas
+        ->not->toHaveKeys(['beta_6', 'beta_7', 'beta_8', 'beta_9', 'beta_10',
+            'dot_release_2', 'dot_release_3', 'dot_release_4']);
 
-    $Ymd = fn($date) => (new DateTime($date))->format('Y-m-d');
-    $obj = new Release('159.0');
-    expect($obj->getSchedule())->toHaveKeys(['beta_11', 'beta_12']);
-    expect($Ymd($obj->getSchedule()['rc_gtb']))->toBe("2027-01-13");
+    $sched = new Release('155.0')->getSchedule();
+    expect($sched['nightly_start'])->toBe("2026-07-31 00:00:00+00:00");
+    expect($sched['merge_day'])->toBe("2026-08-14 00:00:00+00:00");
+    expect($sched['beta_1'])->toBe("2026-08-17 13:00:00+00:00");
+    expect($sched['beta_5'])->toBe("2026-08-26 13:00:00+00:00");
+    expect($sched['rc_gtb'])->toBe("2026-08-27 17:00:00+00:00");
+    expect($sched['release'])->toBe("2026-09-01 14:00:00+00:00");
+    // The single planned dot release ships one week after the major release
+    expect($sched['dot_release_1'])->toBe("2026-09-08 14:00:00+00:00");
+    // Accessibility Review deadline still matches the QA request deadline (Bug 1999793)
+    expect($sched['a11y_request_deadline'])->toEqual($sched['qa_request_deadline']);
+
+    // 158 is on the 2-week cycle too, only a single planned dot release
+    $obj = new Release('158.0');
+    expect($obj->getSchedule())
+        ->toHaveKey('dot_release_1')
+        ->not->toHaveKeys(['dot_release_2', 'dot_release_3']);
+    expect($obj->getSchedule()['dot_release_1'])->toBe("2026-10-20 14:00:00+00:00");
 });
 
-test('Release->getSchedule(): Milestones are in the right order', function () {
-    $sched = new Release('159.0')->getSchedule();
+test('Release->getSchedule(): Milestones are in the right order (legacy 4-week cycle)', function () {
+    $sched = new Release('154.0')->getSchedule();
     unset($sched['version']); // not a date string
     $sched = array_map(fn($date) => new DateTime($date), $sched);
     expect($sched['qa_request_deadline'])->toEqual($sched['a11y_request_deadline']);
@@ -106,17 +129,44 @@ test('Release->getSchedule(): Milestones are in the right order', function () {
     expect($sched['beta_4'])->toBeLessThan($sched['beta_5']);
     expect($sched['beta_5'])->toBeLessThan($sched['beta_6']);
     expect($sched['beta_6'])->toBeLessThan($sched['beta_7']);
-    expect($sched['beta_7'])->toBeLessThan($sched['beta_8']);
+    expect($sched['beta_7'])->toBeLessThan($sched['qa_pre_rc_signoff']);
+    expect($sched['qa_pre_rc_signoff'])->toBeLessThan($sched['beta_8']);
     expect($sched['beta_8'])->toBeLessThan($sched['beta_9']);
-    expect($sched['beta_9'])->toBeLessThan($sched['qa_pre_rc_signoff']);
-    expect($sched['qa_pre_rc_signoff'])->toBeLessThan($sched['beta_10']);
+    expect($sched['beta_9'])->toBeLessThan($sched['beta_10']);
+    expect($sched['relnotes_deadline'])->toBeLessThan($sched['beta_10']);
     expect($sched['beta_10'])->toBeLessThan($sched['rc_gtb']);
-    expect($sched['relnotes_deadline'])->toBeLessThan($sched['rc_gtb']);
     expect($sched['rc_gtb'])->toBeLessThan($sched['rc']);
     expect($sched['rc'])->toBeLessThan($sched['release']);
     expect($sched['release'])->toBeLessThan($sched['dot_release_1']);
     expect($sched['dot_release_1'])->toBeLessThan($sched['dot_release_2']);
     expect($sched['dot_release_2'])->toBeLessThan($sched['dot_release_3']);
+});
+
+test('Release->getSchedule(): Milestones are in the right order (2-week cycle)', function () {
+    $sched = new Release('155.0')->getSchedule();
+    unset($sched['version']); // not a date string
+    $sched = array_map(fn($date) => new DateTime($date), $sched);
+    expect($sched['qa_request_deadline'])->toEqual($sched['a11y_request_deadline']);
+    expect($sched['a11y_request_deadline'])->toBeLessThan($sched['nightly_start']);
+    expect($sched['nightly_start'])->toBeLessThan($sched['qa_feature_done']);
+    expect($sched['qa_feature_done'])->toEqual($sched['qa_test_plan_due']);
+    expect($sched['qa_test_plan_due'])->toBeLessThan($sched['strings_handoff']);
+    expect($sched['strings_handoff'])->toBeLessThan($sched['relnotes_beta_ready']);
+    expect($sched['relnotes_beta_ready'])->toEqual($sched['string_freeze']);
+    expect($sched['string_freeze'])->toBeLessThan($sched['qa_pre_merge_done']);
+    expect($sched['qa_pre_merge_done'])->toBeLessThan($sched['merge_day']);
+    expect($sched['merge_day'])->toBeLessThan($sched['beta_1']);
+    expect($sched['beta_1'])->toBeLessThan($sched['beta_2']);
+    expect($sched['beta_2'])->toBeLessThan($sched['sumo_1']);
+    expect($sched['sumo_1'])->toBeLessThan($sched['beta_3']);
+    expect($sched['beta_3'])->toBeLessThan($sched['qa_pre_rc_signoff']);
+    expect($sched['qa_pre_rc_signoff'])->toBeLessThan($sched['beta_4']);
+    expect($sched['beta_4'])->toBeLessThan($sched['beta_5']);
+    expect($sched['beta_5'])->toBeLessThan($sched['relnotes_deadline']);
+    expect($sched['relnotes_deadline'])->toBeLessThan($sched['rc_gtb']);
+    expect($sched['rc_gtb'])->toBeLessThan($sched['rc']);
+    expect($sched['rc'])->toBeLessThan($sched['release']);
+    expect($sched['release'])->toBeLessThan($sched['dot_release_1']);
 });
 
 test('Release->getNiceLabel()', function () {

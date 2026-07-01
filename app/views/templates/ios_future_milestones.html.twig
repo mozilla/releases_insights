@@ -100,6 +100,11 @@
     {% set ios_cycle_descriptions = ios_cycle_descriptions|merge({ merge_day_4:'The <code>firefox-v' ~ release ~ '.3</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ (release+1)  ~ '.0 on <code>main</code>. Any further code change for the ' ~ release ~ '.3 release now requires an uplift request.'}) %}
 {% endif %}
 
+{% if release >= 155 %}
+    {# 2-week release cycle: a single .0 major and one .1 dot release, so merge_day_1 bumps main to the next major. #}
+    {% set ios_cycle_descriptions = ios_cycle_descriptions|merge({ merge_day_1:'The <code>firefox-v' ~ release ~ '.1</code> branch is created from the <code>main</code> branch. <code>version.txt</code> is bumped to ' ~ (release+1)  ~ '.0 on <code>main</code>. Any further code change for the ' ~ release ~ '.1 release now requires an uplift request.'}) %}
+{% endif %}
+
 
         <div id="ios" class="table-container no-focus-scroll">
             <table class="table table-light table-fxt-clean table-sm w-50 justify-content-center mb-3">

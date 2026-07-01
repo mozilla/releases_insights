@@ -247,6 +247,14 @@
     }) %}
 {% endif%}
 
+{% if release >= 155 %}
+    {# 2-week release cycle (Firefox 155+): the early beta concept is gone and there are fewer betas. #}
+    {% set cycle_descriptions = cycle_descriptions|merge({
+        beta_1: 'First beta of the cycle, rolled out to our beta population. Build starts at 13:00 UTC. Stabilization work via uplifts.',
+        beta_5: 'Last beta of the cycle and thus the end of beta uplifts. This is also the deadline for <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplift requests (<code>sec-approval+</code> on Bugzilla). Build starts at 13:00 UTC.',
+    }) %}
+{% endif %}
+
   {% set next_milestone = true %}
     <!-- Target element for table 2 (must come first for CSS sibling selector) -->
     <div id="ios-target"></div>
@@ -293,8 +301,9 @@
                     {% if key == 'beta_13' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
-                {% else %}
-                    {% if key == 'beta_5' and release < 155 %}
+                {% elseif release < 155 %}
+                    {# Legacy 4-week cycle #}
+                    {% if key == 'beta_5' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
                     {% endif %}
                     {% if key == 'beta_8' %}
@@ -302,6 +311,11 @@
                     {% endif %}
                     {% if key == 'beta_10' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
+                    {% endif %}
+                {% else %}
+                    {# 2-week cycle (Firefox 155+): beta 5 is the last beta and the security uplift deadline #}
+                    {% if key == 'beta_5' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small> <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
               {% endif %}
 

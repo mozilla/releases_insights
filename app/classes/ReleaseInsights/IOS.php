@@ -37,6 +37,14 @@ class IOS extends Release
      */
     public function getFutureSchedule(): array
     {
+        // Starting with Firefox 155, iOS follows the 2-week release cycle so
+        // that major iOS releases line up with Desktop/Android. The logic
+        // below is kept only for versions <155 and will be removed once all
+        // those releases have shipped.
+        if ($this->version->int >= 155) {
+            return $this->getTwoWeekSchedule();
+        }
+
         $v = $this->version->normalized;
         $desktop_release = $this->getDesktopReleases()[$v] ?? null;
 
@@ -153,6 +161,47 @@ class IOS extends Release
             $milestones['merge_day_3'] = '2026-10-22 00:00:00+00:00';
             $milestones['rc_gtb_3'] = '2026-10-22 00:04:00+00:00';
         }
+
+        return $this->normalize($milestones);
+    }
+
+    /**
+     * Get the schedule for a future release on the 2-week release cycle.
+     *
+     * Used from Firefox 155 onwards. Each 2-week cycle ships a major .0
+     * (the day before the Desktop/Android release) followed by a single
+     * planned .1 dot release one week later.
+     *
+     * @return array<string, string>
+     */
+    public function getTwoWeekSchedule(): array
+    {
+        $v = $this->version->normalized;
+        $desktop_release = $this->getDesktopReleases()[$v] ?? null;
+
+        if (! $desktop_release) {
+            return ['error' => 'Not enough data for this version number.'];
+        }
+
+        $cycle_start = new DateTime($desktop_release . ' 02:00 UTC')->modify('-11 days');
+
+        // Transform all the DateTime objects in the $schedule array into formated date strings
+        $date = fn(string $day): string => $cycle_start->modify($day)->format('Y-m-d H:i:sP');
+
+        $milestones = [
+            'merge_day_0'      => $date('now'),
+            'rc_gtb_0'         => $date('+4 hours'),
+            'qa_pre_signoff_0' => $date('Monday 17:00 UTC'),
+            'qa_signoff_0'     => $date('Tuesday'),
+            'appstore_sent_0'  => $date('now'),
+            'merge_day_1'      => $date('Friday'),
+            'rc_gtb_1'         => $date('+4 hours'),
+            'release_0'        => $date('Monday 02:00 UTC'),
+            'qa_pre_signoff_1' => $date('Monday 17:00 UTC'),
+            'qa_signoff_1'     => $date('Tuesday'),
+            'appstore_sent_1'  => $date('Thursday'),
+            'release_1'        => $date('Monday 02:00 UTC'),
+        ];
 
         return $this->normalize($milestones);
     }
