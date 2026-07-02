@@ -1,3 +1,12 @@
+# Demo-only password protection for the Metronome branch (2-week cycle preview).
+# DO NOT MERGE TO master. On Heroku the app root is /app.
+<IfModule mod_auth_basic.c>
+    AuthType Basic
+    AuthName "Restricted - internal preview"
+    AuthUserFile /app/.htpasswd
+    Require valid-user
+</IfModule>
+
 # Rewrite all requests to the front controller
 <IfModule mod_rewrite.c>
     RewriteEngine On
