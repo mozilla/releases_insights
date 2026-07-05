@@ -233,7 +233,7 @@ class Beta
         foreach (range(1, $this->count) as $beta_number) {
             $version = (string) $this->release . '.0b' . $beta_number;
             if (defined('TESTING_CONTEXT')) {
-                $version = str_replace('146', '131', $version);
+                $version = str_replace((string) $this->release, '131', $version);
                 $targets[$version] = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $version . '.json';
             } else {
                 $targets[$version] = URL::Socorro->value . 'SuperSearch/?version=' . $version . '&_facets=signature&product=Firefox'; // @codeCoverageIgnore
@@ -246,7 +246,7 @@ class Beta
             foreach (range(1, $number_rc_builds) as $rc_number) {
                 $version = (string) $this->release . '.0rc' . $rc_number;
                 if (defined('TESTING_CONTEXT')) {
-                    $version = str_replace('94', '131', $version);
+                    $version = str_replace((string) $this->release, '131', $version);
                     $targets[$version] = URL::Socorro->target() . 'crash-stats.mozilla.org_' . $version . '.json';
                 } else {
                     $targets[$version] = URL::Socorro->value . 'SuperSearch/?version=' . $version . '&_facets=signature&product=Firefox'; // @codeCoverageIgnore
@@ -380,7 +380,7 @@ class Beta
     public function RCStatus(): array
     {
        if (defined('TESTING_CONTEXT')) {
-            $shipping_build = 'Firefox-146.0-build1';
+            $shipping_build = 'Firefox-' . BETA . '.0-build1';
         } else {
             $shipping_build = Json::load(URL::Balrog->value . 'rules/firefox-release-cdntest', 900)['mapping'] ?? 'N/A';// @codeCoverageIgnore
         }

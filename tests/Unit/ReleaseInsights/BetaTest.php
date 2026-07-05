@@ -14,7 +14,7 @@ test('Beta->number_betas', function () {
 test('Beta->getLogEndpoints()', function () {
     $obj = new Beta();
     expect($obj->getLogEndpoints())
-        ->toHaveKeys(['146.0b1', '146.0b2'])
+        ->toHaveKeys([BETA . '.0b1', BETA . '.0b2'])
         ->each->toBeString();
 });
 

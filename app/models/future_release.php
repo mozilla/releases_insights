@@ -140,4 +140,5 @@ return [
     Nightly::getLatestBuildID(),
     new IOS($requested_version)->getSchedule(),
     $release_time,
+    in_array((int) $requested_version, $data->getLastReleasesOfYear(), true),
 ];

@@ -54,6 +54,24 @@ test('Data->getFutureReleases()', function () {
     }
 });
 
+test('Data->getLastReleasesOfYear()', function () {
+    $obj = new Data();
+    $last = $obj->getLastReleasesOfYear();
+
+    expect($last)->toBeArray();
+    foreach ($last as $version) {
+        expect($version)->toBeInt();
+    }
+
+    // 163 (2026-12-22) is the last release of 2026; 164 ships in January 2027.
+    expect($last)->toContain(163);
+
+    // The final scheduled release is never flagged: we can't yet know whether
+    // more releases will be added to its calendar year.
+    $versions = array_map('intval', array_keys($obj->getFutureReleases(current: true)));
+    expect($last)->not->toContain(max($versions));
+});
+
 test('Data->getFirefoxVersions()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getFirefoxVersions())
@@ -71,7 +89,7 @@ test('Data->getESRReleases()', function () {
 test('Data->getLatestMajorRelease()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getLatestMajorRelease())
-        ->toBe(['143.0' => '2025-09-16']);
+        ->toBe([RELEASE . '.0' => '2026-06-16']);
 });
 
 test('Data->getDesktopPastReleases()', function () {

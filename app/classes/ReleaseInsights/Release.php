@@ -19,7 +19,7 @@ class Release
     )
     {
         $this->version = new Version($version);
-        $this->product_details = URL::ProductDetails->value;
+        $this->product_details = URL::ProductDetails->target();
     }
 
     /**
@@ -56,7 +56,7 @@ class Release
 
          $all_releases = new Data($this->product_details)->getMajorReleases();
         if (! array_key_exists($this->version->normalized, $all_releases)) {
-            return ['error' => 'Not enough data for this version number.'];
+            return ['error' => 'Not enough data for this version number.']; // @codeCoverageIgnore
         }
 
         // Future release date object
@@ -100,18 +100,9 @@ class Release
             'beta_6'                => $date('Monday 13:00'),
             'beta_7'                => $date('Wednesday 13:00'),
             'qa_pre_rc_signoff'     => $date('Wednesday 17:00'),
-            'beta_8'                => match ($this->version->normalized) {
-                '159.0' => $date($nightly->modify('+1 week')->modify('Monday 13:00')), // Jan 4, 2026
-                default => $date('Friday 13:00'),
-            },
-            'beta_9' => match ($this->version->normalized) {
-                '159.0' => $date('Wednesday 13:00'),
-                default => $date('Monday 13:00'),
-            },
-            'beta_10' => match ($this->version->normalized) {
-                '159.0' => $date('Friday 13:00'),
-                default => $date('Wednesday 13:00'),
-            },
+            'beta_8'                => $date('Friday 13:00'),
+            'beta_9'                => $date('Monday 13:00'),
+            'beta_10'               => $date('Wednesday 13:00'),
             'rc_gtb' => match ($this->version->normalized) {
                 '153.0' => $date($nightly->modify('+1 week')),
                 default => $date('Wednesday 17:00'),
@@ -125,13 +116,6 @@ class Release
             $schedule += ['beta_11' => '2026-07-10 00:00:00+00:00'];
             $schedule += ['beta_12' => '2026-07-13 00:00:00+00:00'];
             $schedule += ['beta_13' => '2026-07-15 00:00:00+00:00'];
-        }
-
-        // Add extra betas for 159
-        if ($this->version->normalized === '159.0') {
-            $schedule['qa_pre_rc_signoff'] = '2027-01-06 17:00:00+00:00';
-            $schedule += ['beta_11' => '2027-01-11 00:00:00+00:00'];
-            $schedule += ['beta_12' => '2027-01-13 00:00:00+00:00'];
         }
 
         // Add the release notes deadline after all the beta special cases
@@ -156,11 +140,6 @@ class Release
             $schedule['dot_release_2'] = '2026-05-07 15:00:00+00:00';
         }
 
-        // Don't ship dot releases between Christmas and New year
-        if ($this->version->normalized === '158.0') {
-            $schedule['dot_release_3'] = '2027-01-05 15:00:00+00:00';
-        }
-
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
 
@@ -183,8 +162,8 @@ class Release
      *
      * Used from Firefox 155 onwards. Every milestone is anchored on the
      * release day (always a Tuesday) and expressed as a number of days
-     * after the first day of the Nightly cycle (a Friday, 32 days before
-     * release day). See milestones2weeksCycle.csv for the source of truth.
+     * after the first day of the Nightly cycle (a Thursday, 33 days before
+     * release day).
      *
      * @return array<string, string>
      */
@@ -199,37 +178,37 @@ class Release
         $release_utc = new DateTime($all_releases[$this->version->normalized] . ' 06:00 PST')
             ->setTimezone(new DateTimeZone('UTC'));
 
-        // The Nightly cycle starts on a Friday, 32 days before release day.
+        // The Nightly cycle starts on a Thursday, 33 days before release day.
         // Anchored in UTC so every milestone is a +00:00 date like the rest of the app.
         $nightly_start = new DateTime($all_releases[$this->version->normalized])
             ->setTime(0, 0)
-            ->modify('-32 days');
+            ->modify('-33 days');
 
         // A milestone is $days days after the first day of the Nightly cycle.
         $d = fn(int $days, int $h = 0, int $m = 0): string =>
             (clone $nightly_start)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
 
         $schedule = [
-            'qa_request_deadline'   => $d(-3),      // 3 days before Nightly starts
-            'a11y_request_deadline' => $d(-3),      // matches the QA request deadline
-            'nightly_start'         => $d(0),       // Nightly W0 Friday
-            'qa_feature_done'       => $d(7, 21),   // Nightly W1 Friday, build ready for QA
-            'qa_test_plan_due'      => $d(7, 21),   // Nightly W1 Friday
-            'strings_handoff'       => $d(12),      // Nightly W2 Wednesday
-            'relnotes_beta_ready'   => $d(13),      // Nightly W2 Thursday, draft beta release notes
-            'qa_pre_merge_done'     => $d(13, 14),  // Nightly W2 Thursday
-            'string_freeze'         => $d(13),      // Nightly W2 Thursday
-            'merge_day'             => $d(14),      // Nightly W2 Friday
-            'beta_1'                => $d(17, 13),  // Beta W1 Monday
-            'beta_2'                => $d(19, 13),  // Beta W1 Wednesday
-            'sumo_1'                => $d(19, 21),  // Beta W1 Wednesday, SUMO content creation
-            'beta_3'                => $d(21, 13),  // Beta W1 Friday
-            'qa_pre_rc_signoff'     => $d(21, 17),  // Beta W1 Friday, pre-release QA sign-off
-            'beta_4'                => $d(24, 13),  // Beta W2 Monday
-            'beta_5'                => $d(26, 13),  // Beta W2 Wednesday, security uplift deadline & last beta
-            'relnotes_deadline'     => $d(27, 13),  // Beta W2 Thursday, release notes submission deadline
-            'rc_gtb'                => $d(27, 17),  // Beta W2 Thursday, RC go to build
-            'rc'                    => $d(28, 13),  // Beta W2 Friday, release notes finalized
+            'qa_request_deadline'   => $d(0),       // Nightly W0 Thursday, deadline to request manual QA
+            'a11y_request_deadline' => $d(0),       // Nightly W0 Thursday, matches the QA request deadline
+            'nightly_start'         => $d(0),       // Nightly W0 Thursday
+            'qa_feature_done'       => $d(8, 21),   // Nightly W1 Friday, build ready for QA
+            'qa_test_plan_due'      => $d(8, 21),   // Nightly W1 Friday
+            'strings_handoff'       => $d(13),      // Nightly W2 Wednesday
+            'relnotes_beta_ready'   => $d(14),      // Nightly W2 Thursday, draft beta release notes
+            'qa_pre_merge_done'     => $d(14, 14),  // Nightly W2 Thursday
+            'string_freeze'         => $d(14),      // Nightly W2 Thursday
+            'merge_day'             => $d(14, 16),  // Nightly W2 Thursday, after pre-merge QA sign-off
+            'beta_1'                => $d(18, 13),  // Beta W1 Monday
+            'beta_2'                => $d(20, 13),  // Beta W1 Wednesday
+            'sumo_1'                => $d(20, 21),  // Beta W1 Wednesday, SUMO content creation
+            'beta_3'                => $d(22, 13),  // Beta W1 Friday
+            'qa_pre_rc_signoff'     => $d(22, 17),  // Beta W1 Friday, pre-release QA sign-off
+            'beta_4'                => $d(25, 13),  // Beta W2 Monday
+            'beta_5'                => $d(27, 13),  // Beta W2 Wednesday, security uplift deadline & last beta
+            'relnotes_deadline'     => $d(28, 13),  // Beta W2 Thursday, release notes submission deadline
+            'rc_gtb'                => $d(28, 17),  // Beta W2 Thursday, RC go to build
+            'rc'                    => $d(29, 13),  // Beta W2 Friday, release notes finalized
             'release'               => $release_utc->format('Y-m-d H:i:sP'),
             // Single planned dot release, one week after the major release.
             'dot_release_1'         => (clone $release_utc)->modify('+7 days')->format('Y-m-d H:i:sP'),

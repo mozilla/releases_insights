@@ -49,7 +49,7 @@ class IOS extends Release
         $desktop_release = $this->getDesktopReleases()[$v] ?? null;
 
         if (! $desktop_release) {
-            return ['error' => 'Not enough data for this version number.'];
+            return ['error' => 'Not enough data for this version number.']; // @codeCoverageIgnore
         }
 
         // Future release date object
@@ -156,12 +156,6 @@ class IOS extends Release
             $milestones['rc_gtb_3'] = '2026-08-27 00:04:00+00:00';
         }
 
-        if ($v == '156.0') {
-            // Wellness day on October 23
-            $milestones['merge_day_3'] = '2026-10-22 00:00:00+00:00';
-            $milestones['rc_gtb_3'] = '2026-10-22 00:04:00+00:00';
-        }
-
         return $this->normalize($milestones);
     }
 
@@ -252,6 +246,6 @@ class IOS extends Release
      */
     public function getDesktopReleases(): array
     {
-        return new Data(URL::ProductDetails->value)->getMajorReleases();
+        return new Data(URL::ProductDetails->target())->getMajorReleases();
     }
 }

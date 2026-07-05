@@ -21,10 +21,17 @@ class Data
     /** @var array<int, mixed> $planned_dot_releases */
     private(set) array $planned_dot_releases;
 
+    private readonly string $pd_url;
+
     public function __construct(
-        private readonly string $pd_url = URL::ProductDetails->value,
+        ?string $pd_url = null,
         public int $cache_duration = 900 // 15 minutes
     ) {
+        // Method calls aren't valid as constructor default values, so the
+        // Product Details location is resolved here: local fixtures in tests
+        // (via URL::target()), the remote endpoint otherwise.
+        $this->pd_url = $pd_url ?? URL::ProductDetails->target();
+
         $this->release_owners       = include DATA . 'release_owners.php';
         $this->future_releases      = include DATA . 'upcoming_releases.php';
         $this->wellness_days        = include DATA . 'wellness_days.php';
@@ -43,6 +50,34 @@ class Data
             fn(string $key) => (int) $key > ($current ? RELEASE -1 : RELEASE),
             ARRAY_FILTER_USE_KEY
         );
+    }
+
+    /**
+     * Major version numbers (as int) that are the last release of their calendar
+     * year in our upcoming releases schedule. Their beta cycle spans the
+     * end-of-year holidays, so milestones may be adjusted for staff availability.
+     *
+     * A version is only flagged when it is followed by a release in a later year:
+     * we never assume the last entry of the list is a year-end release, as more
+     * releases may still be added to its year.
+     *
+     * @return list<int>
+     */
+    public function getLastReleasesOfYear(): array
+    {
+        $versions = array_keys($this->future_releases);
+        $last = [];
+
+        foreach ($versions as $i => $version) {
+            $year = substr($this->future_releases[$version], 0, 4);
+            $next = $versions[$i + 1] ?? null;
+
+            if ($next !== null && substr($this->future_releases[$next], 0, 4) !== $year) {
+                $last[] = (int) $version;
+            }
+        }
+
+        return $last;
     }
 
     /** @return array<string, string> */

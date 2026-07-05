@@ -41,7 +41,7 @@
         {% set channel = 'future' %}
     {% endif %}
 
-{% if release == '159' %}
+{% if last_release_of_year %}
     {% set alert = alert ~ '
 
 <div class="alert alert-warning d-flex justify-content-center align-top p-2" role="alert">
@@ -287,15 +287,6 @@
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
                     {% endif %}
                     {% if key == 'beta_11' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
-                    {% endif %}
-                    {% if key == 'beta_13' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
-                    {% endif %}
-                {% elseif release == '159' %}
-                    {% set cycle_descriptions = cycle_descriptions|merge({'beta_8': 'Build starts at 13:00 UTC. Stabilization work via uplifts.'}) %}
-                    {% set cycle_descriptions = cycle_descriptions|merge({'beta_10': 'Build starts at 13:00 UTC. Stabilization work via uplifts. <br>Last <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplifts for this release (<code>sec-approval+</code> on Bugzilla).'}) %}
-                    {% if key == 'beta_10' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
                     {% endif %}
                     {% if key == 'beta_13' %}

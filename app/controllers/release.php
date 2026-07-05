@@ -183,6 +183,7 @@ if ($requested_version_int <= RELEASE) {
         $latest_nightly,
         $ios_schedule,
         $release_time,
+        $last_release_of_year,
     ] = new Model('future_release')->get();
 
     $template_file = 'future_release.html.twig';
@@ -200,6 +201,7 @@ if ($requested_version_int <= RELEASE) {
         'latest_nightly'       => $latest_nightly,
         'ios_schedule'         => $ios_schedule,
         'release_time'         => $release_time,
+        'last_release_of_year' => $last_release_of_year,
     ]);
 } else {
     $template_file = 'future_release.html.twig';

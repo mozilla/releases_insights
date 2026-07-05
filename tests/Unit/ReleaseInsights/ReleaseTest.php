@@ -32,8 +32,9 @@ test('Release->getSchedule()', function () {
     expect($obj->getSchedule())->toHaveKeys(['version', 'nightly_start', 'beta_1', 'beta_2',
         'beta_3', 'beta_4', 'beta_5', 'beta_6', 'release',]);
 
+    // 146 is a shipped release; exercise the legacy 4-week future schedule directly
     $obj = new Release('146.0');
-    expect($obj->getSchedule())
+    expect($obj->getFutureSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'beta_8',
             'beta_9', 'rc_gtb', 'rc', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3',]);
@@ -41,28 +42,28 @@ test('Release->getSchedule()', function () {
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-14 00:00:00+00:00');
 
-    $obj = new Release('146.0'); // merge day is Tuesday and we have one beta left
-    expect($obj->getSchedule()) // future release
+    $obj = new Release('146.0');
+    expect($obj->getFutureSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7',
             'beta_8', 'rc_gtb', 'rc', 'release', 'qa_request_deadline', 'qa_test_plan_due',
             'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
-    $obj = new Release('146.0'); // future release
-    expect($obj->getSchedule()['qa_feature_done'])->toBe("2025-10-24 21:00:00+00:00");
+    $obj = new Release('146.0');
+    expect($obj->getFutureSchedule()['qa_feature_done'])->toBe("2025-10-24 21:00:00+00:00");
 
     // Bug 1999793 - Accessibility Review deadline should match QA deadline - https://bugzil.la/1999793
-    $obj = new Release('146.0')->getSchedule();
+    $obj = new Release('146.0')->getFutureSchedule();
     expect($obj['a11y_request_deadline'])->toEqual($obj['qa_request_deadline']);
 
     $obj = new Release('149.0');
-    expect($obj->getSchedule()['rc_gtb'])->toBe("2026-03-18 17:00:00+00:00");
+    expect($obj->getFutureSchedule()['rc_gtb'])->toBe("2026-03-18 17:00:00+00:00");
 
     $obj = new Release('149.0');
-    expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-02-06 21:00:00+00:00");
+    expect($obj->getFutureSchedule()['qa_feature_done'])->toBe("2026-02-06 21:00:00+00:00");
 
     $obj = new Release('150.0');
-    expect($obj->getSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
+    expect($obj->getFutureSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
     expect($obj->getPastSchedule()['dot_release_2'])->toBe("2026-05-07 15:00:00+00:00");
 
     $obj = new Release('152.0');
@@ -89,8 +90,8 @@ test('Release->getSchedule()', function () {
             'dot_release_2', 'dot_release_3', 'dot_release_4']);
 
     $sched = new Release('155.0')->getSchedule();
-    expect($sched['nightly_start'])->toBe("2026-07-31 00:00:00+00:00");
-    expect($sched['merge_day'])->toBe("2026-08-14 00:00:00+00:00");
+    expect($sched['nightly_start'])->toBe("2026-07-30 00:00:00+00:00");
+    expect($sched['merge_day'])->toBe("2026-08-13 16:00:00+00:00");
     expect($sched['beta_1'])->toBe("2026-08-17 13:00:00+00:00");
     expect($sched['beta_5'])->toBe("2026-08-26 13:00:00+00:00");
     expect($sched['rc_gtb'])->toBe("2026-08-27 17:00:00+00:00");
@@ -109,7 +110,7 @@ test('Release->getSchedule()', function () {
 });
 
 test('Release->getSchedule(): Milestones are in the right order (legacy 4-week cycle)', function () {
-    $sched = new Release('154.0')->getSchedule();
+    $sched = new Release('154.0')->getFutureSchedule();
     unset($sched['version']); // not a date string
     $sched = array_map(fn($date) => new DateTime($date), $sched);
     expect($sched['qa_request_deadline'])->toEqual($sched['a11y_request_deadline']);
@@ -147,7 +148,8 @@ test('Release->getSchedule(): Milestones are in the right order (2-week cycle)',
     unset($sched['version']); // not a date string
     $sched = array_map(fn($date) => new DateTime($date), $sched);
     expect($sched['qa_request_deadline'])->toEqual($sched['a11y_request_deadline']);
-    expect($sched['a11y_request_deadline'])->toBeLessThan($sched['nightly_start']);
+    // QA/accessibility requests are due on the first day of the Nightly cycle
+    expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['nightly_start'])->toBeLessThan($sched['qa_feature_done']);
     expect($sched['qa_feature_done'])->toEqual($sched['qa_test_plan_due']);
     expect($sched['qa_test_plan_due'])->toBeLessThan($sched['strings_handoff']);

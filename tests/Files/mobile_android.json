@@ -8694,6 +8694,15 @@
             "product": "firefox-android",
             "version": "128.0.2"
         },
+        "firefox-android-128.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-07-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "128.0.3"
+        },
         "firefox-android-128.0b1": {
             "build_number": 1,
             "category": "dev",
@@ -8775,6 +8784,24 @@
             "product": "firefox-android",
             "version": "128.0b9"
         },
+        "firefox-android-129.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2024-08-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "129.0"
+        },
+        "firefox-android-129.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-08-20",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "129.0.2"
+        },
         "firefox-android-129.0b1": {
             "build_number": 1,
             "category": "dev",
@@ -8846,6 +8873,2751 @@
             "is_security_driven": false,
             "product": "firefox-android",
             "version": "129.0b8"
+        },
+        "firefox-android-129.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-07-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "129.0b9"
+        },
+        "firefox-android-130.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2024-09-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0"
+        },
+        "firefox-android-130.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-09-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0.1"
+        },
+        "firefox-android-130.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b1"
+        },
+        "firefox-android-130.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b2"
+        },
+        "firefox-android-130.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b3"
+        },
+        "firefox-android-130.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b4"
+        },
+        "firefox-android-130.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b5"
+        },
+        "firefox-android-130.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b6"
+        },
+        "firefox-android-130.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b7"
+        },
+        "firefox-android-130.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b8"
+        },
+        "firefox-android-130.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-08-23",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "130.0b9"
+        },
+        "firefox-android-131.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2024-10-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0"
+        },
+        "firefox-android-131.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-10-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0.1"
+        },
+        "firefox-android-131.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-10-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0.2"
+        },
+        "firefox-android-131.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-10-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0.3"
+        },
+        "firefox-android-131.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b1"
+        },
+        "firefox-android-131.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b2"
+        },
+        "firefox-android-131.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b3"
+        },
+        "firefox-android-131.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b4"
+        },
+        "firefox-android-131.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b5"
+        },
+        "firefox-android-131.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b6"
+        },
+        "firefox-android-131.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b7"
+        },
+        "firefox-android-131.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b8"
+        },
+        "firefox-android-131.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-20",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "131.0b9"
+        },
+        "firefox-android-132.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2024-10-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0"
+        },
+        "firefox-android-132.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-11-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0.2"
+        },
+        "firefox-android-132.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-09-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b1"
+        },
+        "firefox-android-132.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b2"
+        },
+        "firefox-android-132.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b3"
+        },
+        "firefox-android-132.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b4"
+        },
+        "firefox-android-132.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b5"
+        },
+        "firefox-android-132.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b6"
+        },
+        "firefox-android-132.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b7"
+        },
+        "firefox-android-132.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b8"
+        },
+        "firefox-android-132.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "132.0b9"
+        },
+        "firefox-android-133.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2024-11-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0"
+        },
+        "firefox-android-133.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-12-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0.1"
+        },
+        "firefox-android-133.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-12-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0.2"
+        },
+        "firefox-android-133.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2024-12-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0.3"
+        },
+        "firefox-android-133.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b1"
+        },
+        "firefox-android-133.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-10-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b2"
+        },
+        "firefox-android-133.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b3"
+        },
+        "firefox-android-133.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b4"
+        },
+        "firefox-android-133.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b5"
+        },
+        "firefox-android-133.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b6"
+        },
+        "firefox-android-133.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b7"
+        },
+        "firefox-android-133.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b8"
+        },
+        "firefox-android-133.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "133.0b9"
+        },
+        "firefox-android-134.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-01-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0"
+        },
+        "firefox-android-134.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-01-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0.1"
+        },
+        "firefox-android-134.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-01-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0.2"
+        },
+        "firefox-android-134.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b1"
+        },
+        "firefox-android-134.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-12-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b10"
+        },
+        "firefox-android-134.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b2"
+        },
+        "firefox-android-134.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-11-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b3"
+        },
+        "firefox-android-134.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-12-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b4"
+        },
+        "firefox-android-134.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-12-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b6"
+        },
+        "firefox-android-134.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-12-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b7"
+        },
+        "firefox-android-134.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-12-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b8"
+        },
+        "firefox-android-134.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2024-12-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "134.0b9"
+        },
+        "firefox-android-135.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2025-02-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0"
+        },
+        "firefox-android-135.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-02-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0.1"
+        },
+        "firefox-android-135.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b1"
+        },
+        "firefox-android-135.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b2"
+        },
+        "firefox-android-135.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b3"
+        },
+        "firefox-android-135.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b4"
+        },
+        "firefox-android-135.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b5"
+        },
+        "firefox-android-135.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b6"
+        },
+        "firefox-android-135.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-20",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b7"
+        },
+        "firefox-android-135.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b8"
+        },
+        "firefox-android-135.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-01-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "135.0b9"
+        },
+        "firefox-android-136.0": {
+            "build_number": 3,
+            "category": "major",
+            "date": "2025-03-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0"
+        },
+        "firefox-android-136.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-03-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0.1"
+        },
+        "firefox-android-136.0.2": {
+            "build_number": 2,
+            "category": "stability",
+            "date": "2025-03-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0.2"
+        },
+        "firefox-android-136.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b1"
+        },
+        "firefox-android-136.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b2"
+        },
+        "firefox-android-136.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b3"
+        },
+        "firefox-android-136.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b4"
+        },
+        "firefox-android-136.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b5"
+        },
+        "firefox-android-136.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b6"
+        },
+        "firefox-android-136.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b7"
+        },
+        "firefox-android-136.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b8"
+        },
+        "firefox-android-136.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-02-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "136.0b9"
+        },
+        "firefox-android-137.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-04-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0"
+        },
+        "firefox-android-137.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-04-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0.2"
+        },
+        "firefox-android-137.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b1"
+        },
+        "firefox-android-137.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b10"
+        },
+        "firefox-android-137.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b2"
+        },
+        "firefox-android-137.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b3"
+        },
+        "firefox-android-137.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b4"
+        },
+        "firefox-android-137.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b5"
+        },
+        "firefox-android-137.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b6"
+        },
+        "firefox-android-137.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b7"
+        },
+        "firefox-android-137.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b8"
+        },
+        "firefox-android-137.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "137.0b9"
+        },
+        "firefox-android-138.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-04-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0"
+        },
+        "firefox-android-138.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-05-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0.2"
+        },
+        "firefox-android-138.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-05-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0.3"
+        },
+        "firefox-android-138.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-05-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0.4"
+        },
+        "firefox-android-138.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-03-31",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b1"
+        },
+        "firefox-android-138.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b2"
+        },
+        "firefox-android-138.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b3"
+        },
+        "firefox-android-138.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b4"
+        },
+        "firefox-android-138.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b5"
+        },
+        "firefox-android-138.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b6"
+        },
+        "firefox-android-138.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b7"
+        },
+        "firefox-android-138.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b8"
+        },
+        "firefox-android-138.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "138.0b9"
+        },
+        "firefox-android-139.0": {
+            "build_number": 3,
+            "category": "major",
+            "date": "2025-05-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0"
+        },
+        "firefox-android-139.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-06-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0.2"
+        },
+        "firefox-android-139.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-06-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0.3"
+        },
+        "firefox-android-139.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-06-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0.4"
+        },
+        "firefox-android-139.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b1"
+        },
+        "firefox-android-139.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b10"
+        },
+        "firefox-android-139.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-04-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b2"
+        },
+        "firefox-android-139.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b3"
+        },
+        "firefox-android-139.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b4"
+        },
+        "firefox-android-139.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b5"
+        },
+        "firefox-android-139.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b6"
+        },
+        "firefox-android-139.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b7"
+        },
+        "firefox-android-139.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b8"
+        },
+        "firefox-android-139.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "139.0b9"
+        },
+        "firefox-android-140.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-06-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0"
+        },
+        "firefox-android-140.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-07-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0.3"
+        },
+        "firefox-android-140.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-07-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0.4"
+        },
+        "firefox-android-140.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b1"
+        },
+        "firefox-android-140.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b10"
+        },
+        "firefox-android-140.0b2": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2025-05-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b2"
+        },
+        "firefox-android-140.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-05-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b3"
+        },
+        "firefox-android-140.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b4"
+        },
+        "firefox-android-140.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b5"
+        },
+        "firefox-android-140.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b6"
+        },
+        "firefox-android-140.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b7"
+        },
+        "firefox-android-140.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b8"
+        },
+        "firefox-android-140.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "140.0b9"
+        },
+        "firefox-android-141.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-07-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0"
+        },
+        "firefox-android-141.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-07-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0.1"
+        },
+        "firefox-android-141.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-08-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0.2"
+        },
+        "firefox-android-141.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-08-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0.3"
+        },
+        "firefox-android-141.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b1"
+        },
+        "firefox-android-141.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b2"
+        },
+        "firefox-android-141.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b3"
+        },
+        "firefox-android-141.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-06-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b4"
+        },
+        "firefox-android-141.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b5"
+        },
+        "firefox-android-141.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b6"
+        },
+        "firefox-android-141.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b7"
+        },
+        "firefox-android-141.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b8"
+        },
+        "firefox-android-141.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "141.0b9"
+        },
+        "firefox-android-142.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-08-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0"
+        },
+        "firefox-android-142.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-08-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0.1"
+        },
+        "firefox-android-142.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b1"
+        },
+        "firefox-android-142.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-23",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b2"
+        },
+        "firefox-android-142.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b3"
+        },
+        "firefox-android-142.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b4"
+        },
+        "firefox-android-142.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-07-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b5"
+        },
+        "firefox-android-142.0b6": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2025-08-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b6"
+        },
+        "firefox-android-142.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b7"
+        },
+        "firefox-android-142.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b8"
+        },
+        "firefox-android-142.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "142.0b9"
+        },
+        "firefox-android-143.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-09-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0"
+        },
+        "firefox-android-143.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-09-23",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0.2"
+        },
+        "firefox-android-143.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-09-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0.3"
+        },
+        "firefox-android-143.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-10-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0.4"
+        },
+        "firefox-android-143.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b1"
+        },
+        "firefox-android-143.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-20",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b2"
+        },
+        "firefox-android-143.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b3"
+        },
+        "firefox-android-143.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b4"
+        },
+        "firefox-android-143.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b5"
+        },
+        "firefox-android-143.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-08-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b6"
+        },
+        "firefox-android-143.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b7"
+        },
+        "firefox-android-143.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b8"
+        },
+        "firefox-android-143.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "143.0b9"
+        },
+        "firefox-android-144.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2025-10-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0"
+        },
+        "firefox-android-144.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-10-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0.1"
+        },
+        "firefox-android-144.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-10-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0.2"
+        },
+        "firefox-android-144.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b1"
+        },
+        "firefox-android-144.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b10"
+        },
+        "firefox-android-144.0b11": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b11"
+        },
+        "firefox-android-144.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b2"
+        },
+        "firefox-android-144.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b3"
+        },
+        "firefox-android-144.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b4"
+        },
+        "firefox-android-144.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b5"
+        },
+        "firefox-android-144.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b6"
+        },
+        "firefox-android-144.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-09-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b7"
+        },
+        "firefox-android-144.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b8"
+        },
+        "firefox-android-144.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "144.0b9"
+        },
+        "firefox-android-145.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2025-11-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0"
+        },
+        "firefox-android-145.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-11-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0.1"
+        },
+        "firefox-android-145.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-11-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0.2"
+        },
+        "firefox-android-145.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b1"
+        },
+        "firefox-android-145.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b2"
+        },
+        "firefox-android-145.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b3"
+        },
+        "firefox-android-145.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-20",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b4"
+        },
+        "firefox-android-145.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b5"
+        },
+        "firefox-android-145.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b6"
+        },
+        "firefox-android-145.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b7"
+        },
+        "firefox-android-145.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b8"
+        },
+        "firefox-android-145.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-10-31",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "145.0b9"
+        },
+        "firefox-android-146.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2025-12-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0"
+        },
+        "firefox-android-146.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2025-12-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0.1"
+        },
+        "firefox-android-146.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b1"
+        },
+        "firefox-android-146.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b2"
+        },
+        "firefox-android-146.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b3"
+        },
+        "firefox-android-146.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b4"
+        },
+        "firefox-android-146.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b5"
+        },
+        "firefox-android-146.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b6"
+        },
+        "firefox-android-146.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b7"
+        },
+        "firefox-android-146.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b8"
+        },
+        "firefox-android-146.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-11-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "146.0b9"
+        },
+        "firefox-android-147.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2026-01-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0"
+        },
+        "firefox-android-147.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-01-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0.1"
+        },
+        "firefox-android-147.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-01-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0.2"
+        },
+        "firefox-android-147.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-02-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0.3"
+        },
+        "firefox-android-147.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-02-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0.4"
+        },
+        "firefox-android-147.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b1"
+        },
+        "firefox-android-147.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b2"
+        },
+        "firefox-android-147.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b3"
+        },
+        "firefox-android-147.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b4"
+        },
+        "firefox-android-147.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b5"
+        },
+        "firefox-android-147.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b6"
+        },
+        "firefox-android-147.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b7"
+        },
+        "firefox-android-147.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b8"
+        },
+        "firefox-android-147.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2025-12-31",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "147.0b9"
+        },
+        "firefox-android-148.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2026-02-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0"
+        },
+        "firefox-android-148.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-03-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0.1"
+        },
+        "firefox-android-148.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-03-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0.2"
+        },
+        "firefox-android-148.0b1": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b1"
+        },
+        "firefox-android-148.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b10"
+        },
+        "firefox-android-148.0b11": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b11"
+        },
+        "firefox-android-148.0b12": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b12"
+        },
+        "firefox-android-148.0b13": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b13"
+        },
+        "firefox-android-148.0b14": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b14"
+        },
+        "firefox-android-148.0b15": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b15"
+        },
+        "firefox-android-148.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-14",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b2"
+        },
+        "firefox-android-148.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b3"
+        },
+        "firefox-android-148.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b4"
+        },
+        "firefox-android-148.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b5"
+        },
+        "firefox-android-148.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-23",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b6"
+        },
+        "firefox-android-148.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b7"
+        },
+        "firefox-android-148.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b8"
+        },
+        "firefox-android-148.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-01-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "148.0b9"
+        },
+        "firefox-android-149.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2026-03-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0"
+        },
+        "firefox-android-149.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-03-31",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0.1"
+        },
+        "firefox-android-149.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-04-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0.2"
+        },
+        "firefox-android-149.0b1": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2026-02-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b1"
+        },
+        "firefox-android-149.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b10"
+        },
+        "firefox-android-149.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-02-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b2"
+        },
+        "firefox-android-149.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b3"
+        },
+        "firefox-android-149.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b4"
+        },
+        "firefox-android-149.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b5"
+        },
+        "firefox-android-149.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b6"
+        },
+        "firefox-android-149.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b7"
+        },
+        "firefox-android-149.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b8"
+        },
+        "firefox-android-149.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "149.0b9"
+        },
+        "firefox-android-150.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2026-04-21",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0"
+        },
+        "firefox-android-150.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-04-28",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0.1"
+        },
+        "firefox-android-150.0.2": {
+            "build_number": 2,
+            "category": "stability",
+            "date": "2026-05-07",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0.2"
+        },
+        "firefox-android-150.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-05-12",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0.3"
+        },
+        "firefox-android-150.0b1": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2026-03-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b1"
+        },
+        "firefox-android-150.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-15",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b10"
+        },
+        "firefox-android-150.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b2"
+        },
+        "firefox-android-150.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-03-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b3"
+        },
+        "firefox-android-150.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b4"
+        },
+        "firefox-android-150.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b5"
+        },
+        "firefox-android-150.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b6"
+        },
+        "firefox-android-150.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b7"
+        },
+        "firefox-android-150.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b8"
+        },
+        "firefox-android-150.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "150.0b9"
+        },
+        "firefox-android-151.0": {
+            "build_number": 1,
+            "category": "major",
+            "date": "2026-05-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0"
+        },
+        "firefox-android-151.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-05-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0.2"
+        },
+        "firefox-android-151.0.3": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-06-02",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0.3"
+        },
+        "firefox-android-151.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-06-09",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0.4"
+        },
+        "firefox-android-151.0b1": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2026-04-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b1"
+        },
+        "firefox-android-151.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-13",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b10"
+        },
+        "firefox-android-151.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b2"
+        },
+        "firefox-android-151.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b3"
+        },
+        "firefox-android-151.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-04-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b4"
+        },
+        "firefox-android-151.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b5"
+        },
+        "firefox-android-151.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-04",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b6"
+        },
+        "firefox-android-151.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-06",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b7"
+        },
+        "firefox-android-151.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b8"
+        },
+        "firefox-android-151.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-11",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "151.0b9"
+        },
+        "firefox-android-152.0": {
+            "build_number": 2,
+            "category": "major",
+            "date": "2026-06-16",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0"
+        },
+        "firefox-android-152.0.1": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-06-18",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0.1"
+        },
+        "firefox-android-152.0.2": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-06-23",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0.2"
+        },
+        "firefox-android-152.0.4": {
+            "build_number": 1,
+            "category": "stability",
+            "date": "2026-06-30",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0.4"
+        },
+        "firefox-android-152.0b1": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2026-05-20",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b1"
+        },
+        "firefox-android-152.0b10": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-10",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b10"
+        },
+        "firefox-android-152.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b2"
+        },
+        "firefox-android-152.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-25",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b3"
+        },
+        "firefox-android-152.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-27",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b4"
+        },
+        "firefox-android-152.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-05-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b5"
+        },
+        "firefox-android-152.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b6"
+        },
+        "firefox-android-152.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b7"
+        },
+        "firefox-android-152.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-05",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b8"
+        },
+        "firefox-android-152.0b9": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-08",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "152.0b9"
+        },
+        "firefox-android-153.0b1": {
+            "build_number": 2,
+            "category": "dev",
+            "date": "2026-06-17",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b1"
+        },
+        "firefox-android-153.0b2": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-19",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b2"
+        },
+        "firefox-android-153.0b3": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-22",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b3"
+        },
+        "firefox-android-153.0b4": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-24",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b4"
+        },
+        "firefox-android-153.0b5": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-26",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b5"
+        },
+        "firefox-android-153.0b6": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-06-29",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b6"
+        },
+        "firefox-android-153.0b7": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-07-01",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b7"
+        },
+        "firefox-android-153.0b8": {
+            "build_number": 1,
+            "category": "dev",
+            "date": "2026-07-03",
+            "description": null,
+            "is_security_driven": false,
+            "product": "firefox-android",
+            "version": "153.0b8"
         }
     }
 }
