@@ -228,6 +228,33 @@ class Release
             'dot_release_1'         => (clone $release_utc)->modify('+7 days')->format('Y-m-d H:i:sP'),
         ];
 
+        // Firefox 155 is the transition release: a 4-week Nightly (the last long
+        // Nightly cycle) followed by a regular 2-week Beta. Nightly opens Mon Jul 20
+        // and merges to Beta on Tue Aug 18 (Firefox 154's release day), then a 2-week
+        // Beta to the Sep 1 release. Betas ship Mon/Wed/Fri; only 4 fit before the RC.
+        if ($this->version->normalized === '155.0') {
+            $schedule = array_merge($schedule, [
+                'qa_request_deadline'   => '2026-07-20 00:00:00+00:00', // Nightly W0 Monday
+                'a11y_request_deadline' => '2026-07-20 00:00:00+00:00', // Nightly W0 Monday
+                'nightly_start'         => '2026-07-20 00:00:00+00:00', // Nightly W0 Monday
+                'qa_feature_done'       => '2026-08-04 21:00:00+00:00', // Nightly W2 Tuesday, feature complete
+                'qa_test_plan_due'      => '2026-08-04 21:00:00+00:00', // Nightly W2 Tuesday
+                'strings_handoff'       => '2026-08-17 00:00:00+00:00', // Nightly W4 Monday
+                'string_freeze'         => '2026-08-17 00:00:00+00:00', // Nightly W4 Monday
+                'relnotes_beta_ready'   => '2026-08-17 00:00:00+00:00', // Nightly W4 Monday
+                'qa_nightly_signoff'    => '2026-08-17 14:00:00+00:00', // Nightly W4 Monday
+                'merge_day'             => '2026-08-18 16:00:00+00:00', // Beta W1 Tuesday, Firefox 154 release day
+                'beta_1'                => '2026-08-19 13:00:00+00:00', // Beta W1 Wednesday
+                'sumo_1'                => '2026-08-20 21:00:00+00:00', // Beta W1 Thursday, SUMO content creation
+                'beta_2'                => '2026-08-21 13:00:00+00:00', // Beta W1 Friday
+                'beta_3'                => '2026-08-24 13:00:00+00:00', // Beta W2 Monday
+                'beta_4'                => '2026-08-26 13:00:00+00:00', // Beta W2 Wednesday, last beta
+                // relnotes_deadline and rc_gtb keep the standard Beta W2 Thursday (Aug 27).
+            ]);
+            // The compressed 2-week Beta only fits 4 betas before the RC.
+            unset($schedule['beta_5']);
+        }
+
         // Firefox 163 straddles the year-end break: Nightly stays 2 weeks but the
         // Beta cycle runs ~5 weeks over the holidays. Betas still ship on the regular
         // Monday/Wednesday/Friday cadence, with the last 2026 beta on Dec 21 and no

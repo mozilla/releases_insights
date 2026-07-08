@@ -77,8 +77,9 @@ test('Release->getSchedule()', function () {
     $obj = new Release('154.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-07-03 21:00:00+00:00");
 
-    // From Firefox 155 we switch to a 2-week release cycle (see getTwoWeekSchedule())
-    $obj = new Release('155.0');
+    // From Firefox 156 the regular 2-week release cycle is in effect (155 is a
+    // transition release, tested separately below). See getTwoWeekSchedule().
+    $obj = new Release('156.0');
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'qa_request_deadline', 'a11y_request_deadline', 'nightly_start',
             'qa_feature_done', 'qa_test_plan_due', 'strings_handoff', 'relnotes_beta_ready',
@@ -91,18 +92,27 @@ test('Release->getSchedule()', function () {
             'dot_release_2', 'dot_release_3', 'dot_release_4',
             'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
+    // In a regular 2-week cycle the manual QA request deadline falls a week before
+    // the Nightly cycle starts, while the a11y review deadline stays on day one.
+    $sched = new Release('156.0')->getSchedule();
+    expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
+    expect($sched['qa_request_deadline'])->toBeLessThan($sched['nightly_start']);
+
+    // Firefox 155 is the transition release: a 4-week Nightly then a 2-week Beta,
+    // with only 4 betas (Mon/Wed/Fri) fitting before the RC.
     $sched = new Release('155.0')->getSchedule();
-    expect($sched['nightly_start'])->toBe("2026-07-30 00:00:00+00:00");
-    expect($sched['merge_day'])->toBe("2026-08-13 16:00:00+00:00");
-    expect($sched['beta_1'])->toBe("2026-08-17 13:00:00+00:00");
-    expect($sched['beta_5'])->toBe("2026-08-26 13:00:00+00:00");
+    expect($sched['nightly_start'])->toBe("2026-07-20 00:00:00+00:00");
+    expect($sched['merge_day'])->toBe("2026-08-18 16:00:00+00:00");
+    expect($sched['qa_nightly_signoff'])->toBe("2026-08-17 14:00:00+00:00");
+    expect($sched['beta_1'])->toBe("2026-08-19 13:00:00+00:00");
+    expect($sched['beta_4'])->toBe("2026-08-26 13:00:00+00:00");
+    expect($sched)->not->toHaveKey('beta_5');
+    expect($sched['relnotes_deadline'])->toBe("2026-08-27 13:00:00+00:00");
     expect($sched['rc_gtb'])->toBe("2026-08-27 17:00:00+00:00");
     expect($sched['release'])->toBe("2026-09-01 14:00:00+00:00");
-    // The single planned dot release ships one week after the major release
     expect($sched['dot_release_1'])->toBe("2026-09-08 14:00:00+00:00");
-    // The manual QA request deadline now falls a week before the Nightly cycle starts,
-    // while the accessibility engineering review deadline stays on the first day of the cycle.
-    expect($sched['qa_request_deadline'])->toBe("2026-07-23 00:00:00+00:00");
+    // Transition release: QA request, a11y review and nightly start share day one.
+    expect($sched['qa_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
 
     // 158 is on the 2-week cycle too, only a single planned dot release
@@ -147,7 +157,8 @@ test('Release->getSchedule(): Milestones are in the right order (legacy 4-week c
 });
 
 test('Release->getSchedule(): Milestones are in the right order (2-week cycle)', function () {
-    $sched = new Release('155.0')->getSchedule();
+    // 156 is the first regular 2-week release (155 is the transition release).
+    $sched = new Release('156.0')->getSchedule();
     unset($sched['version']); // not a date string
     $sched = array_map(fn($date) => new DateTime($date), $sched);
     // The manual QA request deadline is now a week ahead of the accessibility review deadline
