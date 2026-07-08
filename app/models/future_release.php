@@ -35,11 +35,17 @@ $cycle_dates = new Release($requested_version)->getSchedule();
 
 // Cycle lengths are derived from the actual schedule so they stay consistent
 // with the displayed milestones, including around the year-end break where the
-// Nightly cycle runs long while the Beta cycle keeps its regular length.
-$nightly_cycle_length = new DateTime($cycle_dates['nightly_start'])
-    ->diff(new DateTime($cycle_dates['merge_day']))->days / 7;
-$beta_cycle_length = new DateTime($cycle_dates['merge_day'])
-    ->diff(new DateTime($cycle_dates['release']))->days / 7;
+// Nightly cycle runs long while the Beta cycle keeps its regular length. Whole
+// weeks are floored: the beta phase spans merge day (Thursday) to release
+// (Tuesday), i.e. a bit over 2 weeks, but is reported as the nominal 2 weeks.
+$nightly_cycle_length = intdiv(
+    new DateTime($cycle_dates['nightly_start'])->diff(new DateTime($cycle_dates['merge_day']))->days,
+    7
+);
+$beta_cycle_length = intdiv(
+    new DateTime($cycle_dates['merge_day'])->diff(new DateTime($cycle_dates['release']))->days,
+    7
+);
 
 $nightly_fixes = 0;
 /* Only for the current Beta view */

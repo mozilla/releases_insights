@@ -196,8 +196,10 @@ class Release
             ? new DateTime($previous_release)->setTime(0, 0)->modify('-19 days')
             : (clone $release_anchor);
 
-        // $n(): $days after the first day of the Nightly cycle.
-        // $d(): $days after the release anchor (merge/beta side).
+        // $n(): $days after the first day of the Nightly cycle (through merge day).
+        //       The Nightly cycle is always 2 weeks, so merge day = nightly start + 14.
+        // $d(): $days after the release anchor (beta phase). At the year-end break the
+        //       beta phase stretches to the delayed release while Nightly stays 2 weeks.
         $n = fn(int $days, int $h = 0, int $m = 0): string =>
             (clone $nightly_start)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
         $d = fn(int $days, int $h = 0, int $m = 0): string =>
@@ -209,11 +211,11 @@ class Release
             'nightly_start'         => $n(0),       // Nightly W0 Thursday, chained from the previous merge day
             'qa_feature_done'       => $n(8, 21),   // Nightly W1 Friday, build ready for QA
             'qa_test_plan_due'      => $n(8, 21),   // Nightly W1 Friday
-            'strings_handoff'       => $d(13),      // Nightly W2 Wednesday (day before merge)
-            'string_freeze'         => $d(14),      // Nightly W2 Thursday (merge day)
-            'relnotes_beta_ready'   => $d(14),      // Nightly W2 Thursday, draft beta release notes
-            'qa_nightly_signoff'    => $d(14, 14),  // Nightly W2 Thursday, Nightly QA sign-off
-            'merge_day'             => $d(14, 16),  // Nightly W2 Thursday, after the Nightly QA sign-off
+            'strings_handoff'       => $n(13),      // Nightly W2 Wednesday (day before merge)
+            'string_freeze'         => $n(13),      // Nightly W2 Wednesday (day before merge)
+            'relnotes_beta_ready'   => $n(14),      // Nightly W2 Thursday, draft beta release notes
+            'qa_nightly_signoff'    => $n(14, 14),  // Nightly W2 Thursday, Nightly QA sign-off
+            'merge_day'             => $n(14, 16),  // Nightly W2 Thursday, nightly start + 2 weeks
             'beta_1'                => $d(18, 13),  // Beta W1 Monday
             'beta_2'                => $d(20, 13),  // Beta W1 Wednesday
             'sumo_1'                => $d(20, 21),  // Beta W1 Wednesday, SUMO content creation
@@ -227,6 +229,29 @@ class Release
             // Single planned dot release, one week after the major release.
             'dot_release_1'         => (clone $release_utc)->modify('+7 days')->format('Y-m-d H:i:sP'),
         ];
+
+        // Firefox 163 straddles the year-end break: Nightly stays 2 weeks but the
+        // Beta cycle runs ~5 weeks over the holidays. Betas still ship on the regular
+        // Monday/Wednesday/Friday cadence, with the last 2026 beta on Dec 21 and no
+        // build between Dec 22 and Jan 3, resuming Jan 4 before the RC. This matches
+        // the Release Management calendar for the year-end release.
+        if ($this->version->normalized === '163.0') {
+            $schedule = array_merge($schedule, [
+                'beta_1'            => '2026-12-07 13:00:00+00:00', // Beta W1 Monday
+                'beta_2'            => '2026-12-09 13:00:00+00:00', // Beta W1 Wednesday
+                'sumo_1'            => '2026-12-10 21:00:00+00:00', // Beta W1 Thursday, SUMO content creation
+                'beta_3'            => '2026-12-11 13:00:00+00:00', // Beta W1 Friday
+                'beta_4'            => '2026-12-14 13:00:00+00:00', // Beta W2 Monday
+                'beta_5'            => '2026-12-16 13:00:00+00:00', // Beta W2 Wednesday
+                'beta_6'            => '2026-12-18 13:00:00+00:00', // Beta W2 Friday
+                'beta_7'            => '2026-12-21 13:00:00+00:00', // Beta W3 Monday, last 2026 beta
+                // Holiday shutdown: no beta between Dec 22 and Jan 3.
+                'beta_8'            => '2027-01-04 13:00:00+00:00', // Beta W5 Monday, last beta before RC
+                'relnotes_deadline' => '2027-01-06 13:00:00+00:00', // Beta W5 Wednesday, release notes submission deadline
+                'rc_gtb'            => '2027-01-06 17:00:00+00:00', // Beta W5 Wednesday, RC go to build
+                'rc'                => '2027-01-07 13:00:00+00:00', // Beta W5 Thursday, RC available
+            ]);
+        }
 
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
