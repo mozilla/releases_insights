@@ -84,7 +84,7 @@ class ESR
         $esr_minor_releases = match(true) {
                 $version < 78        => 1,
                 $current_ESR === 128 => 11,
-                default              => 2,
+                default              => 3,
         };
 
         if (($version - $current_ESR) > $esr_minor_releases) {
