@@ -30,18 +30,16 @@ $release_date = $all_releases[(string) $requested_version] ?? '';
 // Future release date object
 $release = new DateTime($release_date);
 
-// Previous release object
-$previous_release = new DateTime($all_releases[Version::decrement($requested_version, 1)]);
-
-// Release n-2 Needed for nightly cycle length calculation
-$nightly_start = new DateTime($all_releases[Version::decrement($requested_version, 2)]);
-
-// Calculate the number of weeks between the 2 releases
-$beta_cycle_length = $release->diff($previous_release)->days / 7;
-$nightly_cycle_length = $previous_release->diff($nightly_start)->days / 7;
-
 // Get the schedule for the release requested
 $cycle_dates = new Release($requested_version)->getSchedule();
+
+// Cycle lengths are derived from the actual schedule so they stay consistent
+// with the displayed milestones, including around the year-end break where the
+// Nightly cycle runs long while the Beta cycle keeps its regular length.
+$nightly_cycle_length = new DateTime($cycle_dates['nightly_start'])
+    ->diff(new DateTime($cycle_dates['merge_day']))->days / 7;
+$beta_cycle_length = new DateTime($cycle_dates['merge_day'])
+    ->diff(new DateTime($cycle_dates['release']))->days / 7;
 
 $nightly_fixes = 0;
 /* Only for the current Beta view */

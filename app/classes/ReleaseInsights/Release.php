@@ -178,24 +178,39 @@ class Release
         $release_utc = new DateTime($all_releases[$this->version->normalized] . ' 06:00 PST')
             ->setTimezone(new DateTimeZone('UTC'));
 
-        // The Nightly cycle starts on a Thursday, 33 days before release day.
-        // Anchored in UTC so every milestone is a +00:00 date like the rest of the app.
-        $nightly_start = new DateTime($all_releases[$this->version->normalized])
+        // The beta/merge timeline is anchored on a Thursday 33 days before release
+        // day, in UTC so every milestone is a +00:00 date like the rest of the app.
+        // Merge day, betas and the release keep this anchor.
+        $release_anchor = new DateTime($all_releases[$this->version->normalized])
             ->setTime(0, 0)
             ->modify('-33 days');
 
-        // A milestone is $days days after the first day of the Nightly cycle.
-        $d = fn(int $days, int $h = 0, int $m = 0): string =>
+        // The Nightly cycle starts on the previous version's merge day (release − 19),
+        // so consecutive Nightly cycles are always 2 weeks apart. For a regular cadence
+        // this equals $release_anchor, but around the year-end break it keeps the Nightly
+        // *start* chained to the previous cycle (2 weeks later) and lets the cycle itself
+        // run long, instead of pushing the start out with the delayed release. Falls back
+        // to $release_anchor when the previous release date is unknown.
+        $previous_release = $all_releases[Version::decrement($this->version->normalized, 1)] ?? null;
+        $nightly_start = $previous_release !== null
+            ? new DateTime($previous_release)->setTime(0, 0)->modify('-19 days')
+            : (clone $release_anchor);
+
+        // $n(): $days after the first day of the Nightly cycle.
+        // $d(): $days after the release anchor (merge/beta side).
+        $n = fn(int $days, int $h = 0, int $m = 0): string =>
             (clone $nightly_start)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
+        $d = fn(int $days, int $h = 0, int $m = 0): string =>
+            (clone $release_anchor)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
 
         $schedule = [
-            'qa_request_deadline'   => $d(-7),      // Nightly W-1 Thursday, deadline to request manual QA
-            'a11y_request_deadline' => $d(0),       // Nightly W0 Thursday
-            'nightly_start'         => $d(0),       // Nightly W0 Thursday
-            'qa_feature_done'       => $d(8, 21),   // Nightly W1 Friday, build ready for QA
-            'qa_test_plan_due'      => $d(8, 21),   // Nightly W1 Friday
-            'strings_handoff'       => $d(13),      // Nightly W2 Wednesday
-            'string_freeze'         => $d(14),      // Nightly W2 Thursday
+            'qa_request_deadline'   => $n(-7),      // Nightly W-1 Thursday, deadline to request manual QA
+            'a11y_request_deadline' => $n(0),       // Nightly W0 Thursday
+            'nightly_start'         => $n(0),       // Nightly W0 Thursday, chained from the previous merge day
+            'qa_feature_done'       => $n(8, 21),   // Nightly W1 Friday, build ready for QA
+            'qa_test_plan_due'      => $n(8, 21),   // Nightly W1 Friday
+            'strings_handoff'       => $d(13),      // Nightly W2 Wednesday (day before merge)
+            'string_freeze'         => $d(14),      // Nightly W2 Thursday (merge day)
             'relnotes_beta_ready'   => $d(14),      // Nightly W2 Thursday, draft beta release notes
             'qa_nightly_signoff'    => $d(14, 14),  // Nightly W2 Thursday, Nightly QA sign-off
             'merge_day'             => $d(14, 16),  // Nightly W2 Thursday, after the Nightly QA sign-off
