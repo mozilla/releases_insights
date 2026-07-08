@@ -37,7 +37,7 @@ test('Release->getSchedule()', function () {
     expect($obj->getFutureSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7', 'beta_8',
-            'beta_9', 'rc_gtb', 'rc', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3',]);
+            'beta_9', 'rc_gtb', 'release', 'dot_release_1', 'dot_release_2', 'dot_release_3',]);
 
     $obj = new Release('112.0');
     expect($obj->getSchedule()['nightly_start'])->toBe('2023-02-14 00:00:00+00:00');
@@ -46,7 +46,7 @@ test('Release->getSchedule()', function () {
     expect($obj->getFutureSchedule())
         ->toHaveKeys(['version', 'nightly_start', 'string_freeze', 'merge_day',
             'beta_1', 'beta_2', 'beta_3', 'sumo_1', 'beta_4', 'beta_5', 'beta_6', 'beta_7',
-            'beta_8', 'rc_gtb', 'rc', 'release', 'qa_request_deadline', 'qa_test_plan_due',
+            'beta_8', 'rc_gtb', 'release', 'qa_request_deadline', 'qa_test_plan_due',
             'qa_feature_done', 'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
     $obj = new Release('146.0');
@@ -84,7 +84,7 @@ test('Release->getSchedule()', function () {
             'qa_feature_done', 'qa_test_plan_due', 'strings_handoff', 'relnotes_beta_ready',
             'qa_nightly_signoff', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'sumo_1',
             'beta_3', 'beta_4', 'beta_5', 'relnotes_deadline', 'rc_gtb',
-            'rc', 'release', 'dot_release_1'])
+            'release', 'dot_release_1'])
         // A single planned dot release, no early beta and no more than 5 betas.
         // The 2-week cycle drops the legacy pre-merge / pre-RC QA milestones.
         ->not->toHaveKeys(['beta_6', 'beta_7', 'beta_8', 'beta_9', 'beta_10',
@@ -140,8 +140,7 @@ test('Release->getSchedule(): Milestones are in the right order (legacy 4-week c
     expect($sched['beta_9'])->toBeLessThan($sched['beta_10']);
     expect($sched['relnotes_deadline'])->toBeLessThan($sched['beta_10']);
     expect($sched['beta_10'])->toBeLessThan($sched['rc_gtb']);
-    expect($sched['rc_gtb'])->toBeLessThan($sched['rc']);
-    expect($sched['rc'])->toBeLessThan($sched['release']);
+    expect($sched['rc_gtb'])->toBeLessThan($sched['release']);
     expect($sched['release'])->toBeLessThan($sched['dot_release_1']);
     expect($sched['dot_release_1'])->toBeLessThan($sched['dot_release_2']);
     expect($sched['dot_release_2'])->toBeLessThan($sched['dot_release_3']);
@@ -170,8 +169,7 @@ test('Release->getSchedule(): Milestones are in the right order (2-week cycle)',
     expect($sched['beta_4'])->toBeLessThan($sched['beta_5']);
     expect($sched['beta_5'])->toBeLessThan($sched['relnotes_deadline']);
     expect($sched['relnotes_deadline'])->toBeLessThan($sched['rc_gtb']);
-    expect($sched['rc_gtb'])->toBeLessThan($sched['rc']);
-    expect($sched['rc'])->toBeLessThan($sched['release']);
+    expect($sched['rc_gtb'])->toBeLessThan($sched['release']);
     expect($sched['release'])->toBeLessThan($sched['dot_release_1']);
 });
 

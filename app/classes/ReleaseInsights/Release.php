@@ -107,7 +107,6 @@ class Release
                 '153.0' => $date($nightly->modify('+1 week')),
                 default => $date('Wednesday 17:00'),
             },
-            'rc'      => $date('Wednesday 20:00'),
             'release' => $date($release->setTimezone(new \DateTimeZone('UTC'))),
         ];
 
@@ -223,8 +222,7 @@ class Release
             'beta_4'                => $d(25, 13),  // Beta W2 Monday
             'beta_5'                => $d(27, 13),  // Beta W2 Wednesday, security uplift deadline & last beta
             'relnotes_deadline'     => $d(28, 13),  // Beta W2 Thursday, release notes submission deadline
-            'rc_gtb'                => $d(28, 17),  // Beta W2 Thursday, RC go to build
-            'rc'                    => $d(29, 13),  // Beta W2 Friday, release notes finalized
+            'rc_gtb'                => $d(28, 17),  // Beta W2 Thursday, RC go to build (release notes finalized the same day)
             'release'               => $release_utc->format('Y-m-d H:i:sP'),
             // Single planned dot release, one week after the major release.
             'dot_release_1'         => (clone $release_utc)->modify('+7 days')->format('Y-m-d H:i:sP'),
@@ -247,9 +245,7 @@ class Release
                 'beta_7'            => '2026-12-21 13:00:00+00:00', // Beta W3 Monday, last 2026 beta
                 // Holiday shutdown: no beta between Dec 22 and Jan 3.
                 'beta_8'            => '2027-01-04 13:00:00+00:00', // Beta W5 Monday, last beta before RC
-                'relnotes_deadline' => '2027-01-06 13:00:00+00:00', // Beta W5 Wednesday, release notes submission deadline
-                'rc_gtb'            => '2027-01-06 17:00:00+00:00', // Beta W5 Wednesday, RC go to build
-                'rc'                => '2027-01-07 13:00:00+00:00', // Beta W5 Thursday, RC available
+                // relnotes_deadline and rc_gtb keep the standard release-anchored Thursday (2027-01-07).
             ]);
         }
 
@@ -384,7 +380,6 @@ class Release
             'beta_15'               => ($short ? '' : 'Firefox ') . $short_version . ' b15' . ($short ? ' GTB' : ' (GTB: 13:00 UTC)'),
             'relnotes_deadline'     => $short_version . ' release notes deadline',
             'rc_gtb'                => ($short ? '' : 'Firefox ') . $short_version . ' go to Build',
-            'rc'                    => ($short ? '' : 'Firefox ') . 'RC',
             'release'               => ($short ? '<b>' : 'Firefox ') . $short_version . ($short ? ' Release</b>' : ' go-live @ 6AM PT'),
             'dot_release_1'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.x' : ' dot release'),
             'dot_release_2'         => ($short ? 'Planned ' : 'Planned Firefox ') . $version . ($short ? '.y' : ' dot release'),

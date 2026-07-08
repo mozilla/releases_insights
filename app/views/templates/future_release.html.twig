@@ -186,7 +186,6 @@
     beta_15:               'Beta 15',
     relnotes_deadline:     'Release notes submission deadline',
     rc_gtb:                'Release Candidate' ~ gtb,
-    rc:                    'Release Candidate',
     release:               'Release day!',
     dot_release_1:          'Dot release 1',
     dot_release_2:          'Dot release 2',
@@ -230,7 +229,6 @@
     beta_15: 'Extra beta usually due to a longer beta cycle. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     relnotes_deadline: 'All release notes for Firefox were added to the <a href="/release-notes/" rel="nofollow">draft document</a> or communicated directly with the release manager. Illustrations such as screenshots and videos were provided. Final Release release notes are created by the release manager on firefox.com.',
     rc_gtb:  'We merge our mozilla-beta repository to mozilla-release and close mozilla-beta until the next merge day. We then build our Release Candidate from mozilla-release. This is the build we intend to ship a week later unless we need to build another Release Candidate to fix a major quality or business critical issue.',
-    rc: 'Our Release Candidate is built and available for testing.',
     release: 'Firefox ' ~ release ~ ' ships at ' ~ date(release_time.UTC)|format_date(pattern='HH:mm') ~ ' UTC (' ~ date(release_time.PT)|format_date(pattern='H') ~' AM PT) with an initial 25% rollout.',
     dot_release_1: 'Scheduled for one week after launch, this Desktop and/or Android release targets critical quality fixes and selective feature uplifts. <b>The deadline for uplift requests is EOD on the Friday prior to go-live</b>. Should emergency dot releases ship earlier and resolve pending issues, the Release Management team will determine if this scheduled milestone remains necessary.',
     dot_release_2: 'Scheduled for two weeks after launch, this Desktop and/or Android release targets critical quality fixes and selective feature uplifts. <b>The deadline for uplift requests is EOD on the Friday prior to go-live</b>. Should emergency dot releases ship earlier and resolve pending issues, the Release Management team will determine if this scheduled milestone remains necessary.',
@@ -312,9 +310,6 @@
                     {% endif %}
               {% endif %}
 
-            {% if key == 'rc' %}
-                {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Release notes finalized</small>' %}
-            {% endif %}
                 <tr>
             {% if date(value) < date() %}
                 {% if key starts with 'beta' and key == 'beta_1' %}
