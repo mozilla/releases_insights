@@ -1,19 +1,18 @@
 Milestone,Cycle Week,Day of week
-Deadline to request manual QA,Nightly W0,Thursday
+Deadline to request manual QA,Nightly W-1,Thursday
 Deadline to request accessibility engineering review,Nightly W0,Thursday
 Nightly starts,Nightly W0,Thursday
 Build ready for QA,Nightly W1,Friday
 QA Test Plan approval due,Nightly W1,Friday
 Strings hand-off to engineering,Nightly W2,Wednesday
-Draft beta release notes,Nightly W2,Thursday
-QA pre-merge regression testing done,Nightly W2,Thursday
 String Freeze starts,Nightly W2,Thursday
+Draft beta release notes,Nightly W2,Thursday
+Nightly QA sign-off,Nightly W2,Thursday
 Merge day,Nightly W2,Thursday
 Beta 1,Beta W1,Monday
 Beta 2,Beta W1,Wednesday
 SUMO content creation,Beta W1,Wednesday
 Beta 3,Beta W1,Friday
-Pre-release QA sign-off,Beta W1,Friday
 Beta 4,Beta W2,Monday
 Beta 5, Security bugs uplift request deadline,Beta W2 Wednesday
 Release Candidate Go to build,Beta W2,Thursday

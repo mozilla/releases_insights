@@ -189,21 +189,20 @@ class Release
             (clone $nightly_start)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
 
         $schedule = [
-            'qa_request_deadline'   => $d(0),       // Nightly W0 Thursday, deadline to request manual QA
-            'a11y_request_deadline' => $d(0),       // Nightly W0 Thursday, matches the QA request deadline
+            'qa_request_deadline'   => $d(-7),      // Nightly W-1 Thursday, deadline to request manual QA
+            'a11y_request_deadline' => $d(0),       // Nightly W0 Thursday
             'nightly_start'         => $d(0),       // Nightly W0 Thursday
             'qa_feature_done'       => $d(8, 21),   // Nightly W1 Friday, build ready for QA
             'qa_test_plan_due'      => $d(8, 21),   // Nightly W1 Friday
             'strings_handoff'       => $d(13),      // Nightly W2 Wednesday
-            'relnotes_beta_ready'   => $d(14),      // Nightly W2 Thursday, draft beta release notes
-            'qa_pre_merge_done'     => $d(14, 14),  // Nightly W2 Thursday
             'string_freeze'         => $d(14),      // Nightly W2 Thursday
-            'merge_day'             => $d(14, 16),  // Nightly W2 Thursday, after pre-merge QA sign-off
+            'relnotes_beta_ready'   => $d(14),      // Nightly W2 Thursday, draft beta release notes
+            'qa_nightly_signoff'    => $d(14, 14),  // Nightly W2 Thursday, Nightly QA sign-off
+            'merge_day'             => $d(14, 16),  // Nightly W2 Thursday, after the Nightly QA sign-off
             'beta_1'                => $d(18, 13),  // Beta W1 Monday
             'beta_2'                => $d(20, 13),  // Beta W1 Wednesday
             'sumo_1'                => $d(20, 21),  // Beta W1 Wednesday, SUMO content creation
             'beta_3'                => $d(22, 13),  // Beta W1 Friday
-            'qa_pre_rc_signoff'     => $d(22, 17),  // Beta W1 Friday, pre-release QA sign-off
             'beta_4'                => $d(25, 13),  // Beta W2 Monday
             'beta_5'                => $d(27, 13),  // Beta W2 Wednesday, security uplift deadline & last beta
             'relnotes_deadline'     => $d(28, 13),  // Beta W2 Thursday, release notes submission deadline
@@ -322,6 +321,7 @@ class Release
             'relnotes_beta_ready'   => $short_version .' beta release notes ready',
             'strings_handoff'       => $short_version .' strings handed off to Engineering',
             'qa_pre_merge_done'     => $short_version . ' regression testing completed',
+            'qa_nightly_signoff'    => $short_version . ' Nightly QA sign-off',
             'qa_test_plan_due'      => 'Final deadline for QA’s Feature Test Plan approval',
             'string_freeze'         => $short_version . ' string freeze starts',
             'merge_day'             => 'Merge day',
