@@ -293,15 +293,9 @@
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% elseif release < 155 %}
-                    {# Legacy 4-week cycle #}
-                    {% if key == 'beta_5' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last early beta</small>' %}
-                    {% endif %}
+                {% elseif release == 163%}
                     {% if key == 'beta_8' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small>' %}
-                    {% endif %}
-                    {% if key == 'beta_10' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small> <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% else %}
                     {# 2-week cycle (Firefox 155+): beta 5 is the last beta and the security uplift deadline #}
