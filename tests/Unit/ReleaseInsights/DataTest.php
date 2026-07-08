@@ -63,8 +63,8 @@ test('Data->getLastReleasesOfYear()', function () {
         expect($version)->toBeInt();
     }
 
-    // 163 (2026-12-22) is the last release of 2026; 164 ships in January 2027.
-    expect($last)->toContain(163);
+    // 162 (2026-12-08) is the last release of 2026; 163 ships in January 2027.
+    expect($last)->toContain(162);
 
     // The final scheduled release is never flagged: we can't yet know whether
     // more releases will be added to its calendar year.
