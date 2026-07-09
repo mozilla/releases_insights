@@ -77,9 +77,10 @@ test('Release->getSchedule()', function () {
     $obj = new Release('154.0');
     expect($obj->getSchedule()['qa_feature_done'])->toBe("2026-07-03 21:00:00+00:00");
 
-    // From Firefox 156 the regular 2-week release cycle is in effect (155 is a
-    // transition release, tested separately below). See getTwoWeekSchedule().
-    $obj = new Release('156.0');
+    // From Firefox 160 the regular 2-week release cycle is in effect (155 is the
+    // transition release and 156/164 are year-boundary special cases, tested
+    // separately below). See getTwoWeekSchedule().
+    $obj = new Release('160.0');
     expect($obj->getSchedule())
         ->toHaveKeys(['version', 'qa_request_deadline', 'a11y_request_deadline', 'nightly_start',
             'qa_feature_done', 'qa_test_plan_due', 'strings_handoff', 'relnotes_beta_ready',
@@ -94,9 +95,27 @@ test('Release->getSchedule()', function () {
 
     // In a regular 2-week cycle the manual QA request deadline falls a week before
     // the Nightly cycle starts, while the a11y review deadline stays on day one.
-    $sched = new Release('156.0')->getSchedule();
+    $sched = new Release('160.0')->getSchedule();
     expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['qa_request_deadline'])->toBeLessThan($sched['nightly_start']);
+
+    // Development never stops: each Nightly cycle opens on the previous version's
+    // merge day, so cycles are back-to-back with no gap (dates compared, times differ).
+    $merge_date = fn(string $v) => substr(new Release($v)->getSchedule()['merge_day'], 0, 10);
+    $nightly_date = fn(string $v) => substr(new Release($v)->getSchedule()['nightly_start'], 0, 10);
+    expect($nightly_date('156.0'))->toBe($merge_date('155.0')); // chains off 155's late transition merge
+    expect($nightly_date('160.0'))->toBe($merge_date('159.0')); // regular
+    expect($nightly_date('164.0'))->toBe($merge_date('163.0')); // chains off 163's early year-end merge
+
+    // 156 chains off 155's Aug 18 transition merge -> compressed (~1-week) Nightly.
+    expect(new Release('156.0')->getSchedule()['nightly_start'])->toBe("2026-08-18 00:00:00+00:00");
+
+    // 164 chains off 163's early Dec 3 year-end merge -> long (~5-week) Nightly over
+    // the holidays, then a normal 2-week Beta to the Jan 26 release.
+    $sched = new Release('164.0')->getSchedule();
+    expect($sched['nightly_start'])->toBe("2026-12-03 00:00:00+00:00");
+    expect($sched['merge_day'])->toBe("2027-01-07 16:00:00+00:00");
+    expect($sched['release'])->toBe("2027-01-26 14:00:00+00:00");
 
     // Firefox 155 is the transition release: a 4-week Nightly then a 2-week Beta,
     // with only 4 betas (Mon/Wed/Fri) fitting before the RC.
@@ -157,8 +176,8 @@ test('Release->getSchedule(): Milestones are in the right order (legacy 4-week c
 });
 
 test('Release->getSchedule(): Milestones are in the right order (2-week cycle)', function () {
-    // 156 is the first regular 2-week release (155 is the transition release).
-    $sched = new Release('156.0')->getSchedule();
+    // 160 is a regular 2-week release (155/156/163/164 are year-boundary special cases).
+    $sched = new Release('160.0')->getSchedule();
     unset($sched['version']); // not a date string
     $sched = array_map(fn($date) => new DateTime($date), $sched);
     // The manual QA request deadline is now a week ahead of the accessibility review deadline

@@ -184,21 +184,24 @@ class Release
             ->setTime(0, 0)
             ->modify('-33 days');
 
-        // The Nightly cycle starts on the previous version's merge day (release − 19),
-        // so consecutive Nightly cycles are always 2 weeks apart. For a regular cadence
-        // this equals $release_anchor, but around the year-end break it keeps the Nightly
-        // *start* chained to the previous cycle (2 weeks later) and lets the cycle itself
-        // run long, instead of pushing the start out with the delayed release. Falls back
-        // to $release_anchor when the previous release date is unknown.
-        $previous_release = $all_releases[Version::decrement($this->version->normalized, 1)] ?? null;
-        $nightly_start = $previous_release !== null
-            ? new DateTime($previous_release)->setTime(0, 0)->modify('-19 days')
+        // Development never stops: a Nightly cycle starts on the day the previous
+        // version merges to Beta (the version bump is a merge-day activity), so
+        // consecutive cycles are always back-to-back with no gap. For a regular
+        // release the previous merge is release − 19, but transition (155) and
+        // year-end (163) releases merge off that rhythm, so we read the previous
+        // version's *actual* merge day from its schedule. Falls back to the release
+        // anchor when the previous version's merge day isn't available.
+        $previous = Version::decrement($this->version->normalized, 1);
+        $previous_merge = new Release($previous)->getSchedule()['merge_day'] ?? null;
+        $nightly_start = $previous_merge !== null
+            ? new DateTime($previous_merge)->setTime(0, 0)
             : (clone $release_anchor);
 
-        // $n(): $days after the first day of the Nightly cycle (through merge day).
-        //       The Nightly cycle is always 2 weeks, so merge day = nightly start + 14.
-        // $d(): $days after the release anchor (beta phase). At the year-end break the
-        //       beta phase stretches to the delayed release while Nightly stays 2 weeks.
+        // $n(): $days after the first day of the Nightly cycle — the early Nightly
+        //       milestones, which move with the (possibly long or short) cycle start.
+        // $d(): $days after the release anchor — the merge/Beta side, which stays
+        //       fixed relative to release day (merge day = release − 19). For a
+        //       regular cadence $nightly_start == $release_anchor so the two coincide.
         $n = fn(int $days, int $h = 0, int $m = 0): string =>
             (clone $nightly_start)->modify("+{$days} days")->setTime($h, $m)->format('Y-m-d H:i:sP');
         $d = fn(int $days, int $h = 0, int $m = 0): string =>
@@ -210,11 +213,11 @@ class Release
             'nightly_start'         => $n(0),       // Nightly W0 Thursday, chained from the previous merge day
             'qa_feature_done'       => $n(8, 21),   // Nightly W1 Friday, build ready for QA
             'qa_test_plan_due'      => $n(8, 21),   // Nightly W1 Friday
-            'strings_handoff'       => $n(13),      // Nightly W2 Wednesday (day before merge)
-            'string_freeze'         => $n(13),      // Nightly W2 Wednesday (day before merge)
-            'relnotes_beta_ready'   => $n(14),      // Nightly W2 Thursday, draft beta release notes
-            'qa_nightly_signoff'    => $n(14, 14),  // Nightly W2 Thursday, Nightly QA sign-off
-            'merge_day'             => $n(14, 16),  // Nightly W2 Thursday, nightly start + 2 weeks
+            'strings_handoff'       => $d(13),      // Wednesday before merge (release − 20)
+            'string_freeze'         => $d(13),      // Wednesday before merge (release − 20)
+            'relnotes_beta_ready'   => $d(14),      // Merge day (Thursday), draft beta release notes
+            'qa_nightly_signoff'    => $d(14, 14),  // Merge day (Thursday), Nightly QA sign-off
+            'merge_day'             => $d(14, 16),  // Merge day = release − 19 (Thursday)
             'beta_1'                => $d(18, 13),  // Beta W1 Monday
             'beta_2'                => $d(20, 13),  // Beta W1 Wednesday
             'sumo_1'                => $d(20, 21),  // Beta W1 Wednesday, SUMO content creation
@@ -262,6 +265,14 @@ class Release
         // the Release Management calendar for the year-end release.
         if ($this->version->normalized === '163.0') {
             $schedule = array_merge($schedule, [
+                // 163 merges early (before the holidays), off the release − 19 default,
+                // so the merge-cluster is pinned explicitly. The long Beta then bakes
+                // over the year-end break.
+                'strings_handoff'    => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
+                'string_freeze'      => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
+                'relnotes_beta_ready' => '2026-12-03 00:00:00+00:00', // Nightly W2 Thursday
+                'qa_nightly_signoff' => '2026-12-03 14:00:00+00:00', // Nightly W2 Thursday
+                'merge_day'          => '2026-12-03 16:00:00+00:00', // Nightly W2 Thursday
                 'beta_1'            => '2026-12-07 13:00:00+00:00', // Beta W1 Monday
                 'beta_2'            => '2026-12-09 13:00:00+00:00', // Beta W1 Wednesday
                 'sumo_1'            => '2026-12-10 21:00:00+00:00', // Beta W1 Thursday, SUMO content creation
