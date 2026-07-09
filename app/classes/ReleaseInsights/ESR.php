@@ -102,7 +102,7 @@ class ESR
     public static function getWin7SupportedVersion(int $version): ?string
     {
         /*
-            We should ship our last ESR 115 with Firefox 142
+            We should ship our last ESR 115 with Firefox 168 (see $esr115_EOL)
         */
         if ($version > self::$esr115_EOL) {
             return null;

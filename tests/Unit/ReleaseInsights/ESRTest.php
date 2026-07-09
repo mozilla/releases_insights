@@ -28,7 +28,8 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [90, null],
     [91, '78.13.0'],
     [93, '78.15.0'],
-    [94, null],
+    [94, '78.16.0'],
+    [95, null],
     [10, null],
     [102, '91.11.0'],
     [136, '115.21.0'],
@@ -42,7 +43,9 @@ test('ESR::getWin7SupportedVersion', function ($input, $output) {
     [114, null],
     [142, '115.27.0'],
     [154, '115.39.0'],
-    [155, null],
+    [155, '115.40.0'],
+    [168, '115.53.0'],
+    [169, null],
 ]);
 
 test('ESR::getMainDotVersion', function ($input, $output) {
