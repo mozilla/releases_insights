@@ -169,8 +169,8 @@ test('Release->getSchedule(): Milestones are in the right order (legacy 4-week c
     expect($sched['beta_10'])->toBeLessThan($sched['rc_gtb']);
     expect($sched['rc_gtb'])->toBeLessThan($sched['release']);
     expect($sched['release'])->toBeLessThan($sched['dot_release_1']);
-    expect($sched['dot_release_1'])->toBeLessThan($sched['dot_release_2']);
-    expect($sched['dot_release_2'])->toBeLessThan($sched['dot_release_3']);
+    // 154 has a single planned dot release
+    expect($sched)->not->toHaveKeys(['dot_release_2', 'dot_release_3']);
 });
 
 test('Release->getSchedule(): Milestones are in the right order (2-week cycle)', function () {

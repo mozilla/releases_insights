@@ -38,9 +38,12 @@ test('IOS->getSchedule()', function () {
     expect($obj->getSchedule())->toHaveKeys(['version', 'merge_day_0', 'rc_gtb_0', 'qa_pre_signoff_0', 'qa_signoff_0', 'appstore_sent_0', 'merge_day_1', 'rc_gtb_1', 'qa_pre_signoff_1', 'release_0', 'qa_signoff_1', 'appstore_sent_1', 'merge_day_2', 'rc_gtb_2', 'qa_pre_signoff_2', 'release_1', 'qa_signoff_2', 'appstore_sent_2', 'merge_day_3', 'rc_gtb_3', 'qa_pre_signoff_3', 'release_2', 'qa_signoff_3', 'appstore_sent_3', 'merge_day_4', 'rc_gtb_4', 'qa_pre_signoff_4', 'release_3', 'qa_signoff_4', 'appstore_sent_4', 'release_4',]);
     expect($obj->getPastSchedule())->toHaveKeys(['dot_release_4',]);
 
-    $obj = new IOS('154.0'); // Wellness
-    expect($obj->getSchedule()['merge_day_3'])->toBe('2026-08-27 00:00:00+00:00');
-    expect($obj->getSchedule()['rc_gtb_3'])->toBe('2026-08-27 00:04:00+00:00');
+    $obj = new IOS('154.0'); // Only two iOS releases: 154.0 and 154.1
+    expect($obj->getSchedule())
+        ->toHaveKeys(['version', 'merge_day_0', 'rc_gtb_0', 'qa_pre_signoff_0', 'qa_signoff_0',
+            'appstore_sent_0', 'merge_day_1', 'rc_gtb_1', 'release_0', 'qa_pre_signoff_1',
+            'qa_signoff_1', 'appstore_sent_1', 'release_1'])
+        ->not->toHaveKeys(['merge_day_2', 'rc_gtb_2', 'release_2', 'merge_day_3', 'rc_gtb_3', 'release_3']);
 
     // From Firefox 155, iOS follows the 2-week cycle: a single .0 major and one .1 dot release
     $obj = new IOS('155.0');
@@ -52,11 +55,19 @@ test('IOS->getSchedule()', function () {
     // iOS ships its .0 the day before the Desktop/Android release, .1 one week later
     expect($obj->getSchedule()['release_0'])->toBe('2026-08-31 02:00:00+00:00');
     expect($obj->getSchedule()['release_1'])->toBe('2026-09-07 02:00:00+00:00');
+    // 155.1 branch and RC move off the August 28 wellness day to August 27
+    expect($obj->getSchedule()['merge_day_1'])->toBe('2026-08-27 00:00:00+00:00');
+    expect($obj->getSchedule()['rc_gtb_1'])->toBe('2026-08-27 04:00:00+00:00');
 
     // Major iOS releases stay aligned with Desktop/Android every 2 weeks
     $obj = new IOS('156.0');
     expect($obj->getSchedule()['release_0'])->toBe('2026-09-14 02:00:00+00:00');
     expect($obj->getSchedule())->not->toHaveKey('release_2');
+
+    // 159.1 branch and RC move off the October 23 wellness day to October 22
+    $obj = new IOS('159.0');
+    expect($obj->getSchedule()['merge_day_1'])->toBe('2026-10-22 00:00:00+00:00');
+    expect($obj->getSchedule()['rc_gtb_1'])->toBe('2026-10-22 04:00:00+00:00');
 });
 
 
