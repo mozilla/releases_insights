@@ -151,9 +151,12 @@ class IOS extends Release
         }
 
         if ($v == '154.0') {
-            // Wellness day on August 28
-            $milestones['merge_day_3'] = '2026-08-27 00:00:00+00:00';
-            $milestones['rc_gtb_3'] = '2026-08-27 00:04:00+00:00';
+            // Only two iOS releases: 154.0 and 154.1. Cancel dot releases 2 and 3.
+            foreach (array_keys($milestones) as $value) {
+                if (str_ends_with($value, '_2') || str_ends_with($value, '_3')) {
+                    unset($milestones[$value]);
+                }
+            }
         }
 
         return $this->normalize($milestones);
@@ -196,6 +199,20 @@ class IOS extends Release
             'appstore_sent_1'  => $date('Thursday'),
             'release_1'        => $date('Monday 02:00 UTC'),
         ];
+
+        if ($v === '155.0') {
+            // 155.1 branch creation and release candidate fall on the
+            // August 28 wellness day; move them to August 27.
+            $milestones['merge_day_1'] = '2026-08-27 00:00:00+00:00';
+            $milestones['rc_gtb_1'] = '2026-08-27 04:00:00+00:00';
+        }
+
+        if ($v === '159.0') {
+            // 159.1 branch creation and release candidate fall on the
+            // October 23 wellness day; move them to October 22.
+            $milestones['merge_day_1'] = '2026-10-22 00:00:00+00:00';
+            $milestones['rc_gtb_1'] = '2026-10-22 04:00:00+00:00';
+        }
 
         return $this->normalize($milestones);
     }

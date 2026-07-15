@@ -139,6 +139,11 @@ class Release
             $schedule['dot_release_2'] = '2026-05-07 15:00:00+00:00';
         }
 
+        // 154 has a single planned dot release
+        if ($this->version->normalized === '154.0') {
+            unset($schedule['dot_release_2'], $schedule['dot_release_3']);
+        }
+
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
 
