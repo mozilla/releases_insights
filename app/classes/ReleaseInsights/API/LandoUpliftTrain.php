@@ -8,6 +8,7 @@ use DateTime;
 use ReleaseInsights\Beta;
 use ReleaseInsights\Data;
 use ReleaseInsights\Release;
+use ReleaseInsights\Debug;
 
 /*
     This is only consumed by our API endpoint /api/lando/uplift/train/
@@ -67,11 +68,12 @@ class LandoUpliftTrain
         $has_betas = $this->beta->has_betas_left;
         $has_rc    = $this->beta->hasRC();
 
-        // Compare today with beta merge date
-        if (date('Y-m-d') > $date($beta . '.0', 'merge_day')) {
+        // Compare today with new nightly to beta merge date
+        if (date('Y-m-d') > $date($nightly . '.0', 'merge_day')) {
             $has_betas = true;
             $has_rc    = false;
         }
+
 
         return [
             'nightly' => [
