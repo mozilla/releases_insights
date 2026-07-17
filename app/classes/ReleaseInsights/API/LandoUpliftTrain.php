@@ -8,7 +8,6 @@ use DateTime;
 use ReleaseInsights\Beta;
 use ReleaseInsights\Data;
 use ReleaseInsights\Release;
-use ReleaseInsights\Debug;
 
 /*
     This is only consumed by our API endpoint /api/lando/uplift/train/
