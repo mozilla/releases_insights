@@ -77,14 +77,17 @@ class ESR
         ];
 
         /*
-            1. We support 2 ESR branches for 3 releases only since Version 68.
-            2. Before that, we had 2 cycles only with 2 ESR branches as cycles lasted longer
+            1. We support 2 ESR branches for 5 releases by default since we moved to a 2 week cadence from Firefox 155, this is what the next transition (from ESR 153) will use.
+            ESR 140 is an exception with 4 releases because Firefox 154 was still 4 weeks after 153 before the switch to 2 week cycles at 155, this keeps ESR 140 EOL on October 13 (Firefox 158).
+            2. Before that, we had 2 ESR branches for 3 releases only since Version 68 and before that we had 2 cycles only with 2 ESR branches as cycles lasted longer
             3. We extended the 115 ESR cycle because of a still large Windows 7/8.1 population
         */
         $esr_minor_releases = match(true) {
-                $version < 78        => 1,
-                $current_ESR === 128 => 11,
-                default              => 3,
+                $version < 78         => 1,
+                $current_ESR === 128  => 11,
+                $previous_ESR < 140   => 3,
+                $previous_ESR === 140 => 4,
+                default               => 5,
         };
 
         if (($version - $current_ESR) > $esr_minor_releases) {

@@ -33,7 +33,13 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     [10, null],
     [102, '91.11.0'],
     [136, '115.21.0'],
+    // ESR 128 (retired in the 4-week cadence) is supported for 3 releases, until Firefox 143, then EOL.
+    [143, '128.15.0'],
+    [144, null],
     [155, '140.15.0'],
+    // ESR 140's last release is 140.17 (Firefox 157); it is EOL from Firefox 158 (2026-10-13).
+    [157, '140.17.0'],
+    [158, null],
     [1000, null],
 ]);
 
