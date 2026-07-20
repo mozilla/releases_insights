@@ -98,11 +98,9 @@
                 <small class="badge bg-warning text-dark">ESR 115 branch is EOL</small>
         {% endif %}
 
-        {% if
-            values.release|number_format > values.esr|number_format
-            and values.release|number_format - values.esr|number_format == 3
-        %}
-                <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag }} branch is EOL</small>
+        {# The previous row still shipped the old ESR but this one no longer does: it is now EOL #}
+        {% if esr_eol_tag is defined and esr_eol_tag is not empty and values.old_esr is empty %}
+                <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag|number_format }} branch is EOL</small>
         {% endif %}
 
         {{ values.date|format_date(pattern='MMMM d') }}
@@ -130,8 +128,8 @@
                 </tr>
             {% endif %}
         {% endfor %}
-        {#  We use a temp variable to store the EOL ESR version for the visual bubble #}
-        {% set esr_eol_tag =  values.old_esr|number_format %}
+        {#  We use a temp variable to store the previous row's old ESR (raw, so an empty value stays empty) #}
+        {% set esr_eol_tag = values.old_esr %}
     {% endfor %}
     </table>
 
