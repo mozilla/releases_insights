@@ -200,7 +200,8 @@ class Release
         $previous_merge = new Release($previous)->getSchedule()['merge_day'] ?? null;
         $nightly_start = $previous_merge !== null
             ? new DateTime($previous_merge)->setTime(0, 0)
-            : (clone $release_anchor);
+            : (clone $release_anchor); // @codeCoverageIgnore
+            // ^ is defensive code, should not be reachable
 
         // $n(): $days after the first day of the Nightly cycle — the early Nightly
         //       milestones, which move with the (possibly long or short) cycle start.

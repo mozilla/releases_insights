@@ -29,8 +29,8 @@ class ESR
             return null;
         }
 
-        // For very future versions, safeguard to ESR + 13 versions
-        if ($version > self::$esr_releases[count(self::$esr_releases)-1] + 13) {
+        // For very future versions, safeguard to ESR + 26 versions
+        if ($version > self::$esr_releases[count(self::$esr_releases)-1] + 26) {
             return null;
         }
 
@@ -81,13 +81,15 @@ class ESR
             ESR 140 is an exception with 4 releases because Firefox 154 was still 4 weeks after 153 before the switch to 2 week cycles at 155, this keeps ESR 140 EOL on October 13 (Firefox 158).
             2. Before that, we had 2 ESR branches for 3 releases only since Version 68 and before that we had 2 cycles only with 2 ESR branches as cycles lasted longer
             3. We extended the 115 ESR cycle because of a still large Windows 7/8.1 population
+
+            TODO: remove codeCoverageIgnore on default value for 2027 next ESR when the release is decided. Activate the commented out unit test.
         */
         $esr_minor_releases = match(true) {
                 $version < 78         => 1,
                 $current_ESR === 128  => 11,
                 $previous_ESR < 140   => 3,
                 $previous_ESR === 140 => 4,
-                default               => 5,
+                default               => 5, // @codeCoverageIgnore
         };
 
         if (($version - $current_ESR) > $esr_minor_releases) {

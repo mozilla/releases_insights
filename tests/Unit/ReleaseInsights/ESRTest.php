@@ -40,6 +40,7 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     // ESR 140's last release is 140.17 (Firefox 157); it is EOL from Firefox 158 (2026-10-13).
     [157, '140.17.0'],
     [158, null],
+    // [178, '153.25.0'], // activate test when 178 is confirmed as the next ESR with a 5 releases overlap with previous ESR
     [1000, null],
 ]);
 
