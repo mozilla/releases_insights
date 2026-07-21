@@ -186,38 +186,5 @@
 {% endblock %}
 {% block footer %}
 <footer></footer>
-<script nonce="{{constant('NONCE')}}">
-$(document).ready(function() {
-    $(document).on("click", "table thead tr th", function() {
-        var table = $(this).parents("table");
-        var rows  = table.find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
-        var header_direction = $(this).hasClass("sort-asc") ? "sort-desc" : "sort-asc";
-
-        if (header_direction == "sort-desc") {
-            rows = rows.reverse();
-        }
-        table.append(rows);
-        table.find("th").removeClass("sort-asc sort-desc");
-
-        $(this).addClass(header_direction);
-    });
-
-  });
-
-  function TableComparer(index) {
-      var value = function (row, index) {
-          return $(row).children("td").eq(index).children(":first-child").text();
-      };
-
-      return function(a, b) {
-          var val_a  = value(a, index);
-          var val_b  = value(b, index);
-          return ($.isNumeric(val_a) && $.isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
-      }
-  }
-
-  $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
-  })
-</script>
+{% include 'table_sort_script.html.twig' %}
 {% endblock %}
