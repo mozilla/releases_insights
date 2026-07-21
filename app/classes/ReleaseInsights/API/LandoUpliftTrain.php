@@ -61,18 +61,25 @@ class LandoUpliftTrain
             In this window, the state of the Beta class reflects the state of the previous beta cycle,
             not the one we are going to enter as the Beta class is built with end-users in mind, not
             Firefox developers.
-
-            We are going to use merge day as the marker for the values of has_betas_left and is_rc_shipped
         */
-        $has_betas = $this->beta->has_betas_left;
-        $has_rc    = $this->beta->hasRC();
 
-        // Compare today with new nightly to beta merge date
-        if (date('Y-m-d') > $date($nightly . '.0', 'merge_day')) {
+        // Safe defaults
+        $has_betas = true;
+        $has_rc    = false;
+
+        // Covers RC week
+        if ($this->beta->hasRC()) {
+            $has_betas = false;
+            $has_rc    = true;
+        }
+
+        // @codeCoverageIgnoreStart
+        // Past RC week, have we shipped release and not bumped our beta version yet?
+        if (BETA !== $beta) {
             $has_betas = true;
             $has_rc    = false;
         }
-
+        // @codeCoverageIgnoreEnd
 
         return [
             'nightly' => [
