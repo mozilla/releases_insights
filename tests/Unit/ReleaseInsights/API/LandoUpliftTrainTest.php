@@ -8,8 +8,8 @@ test('LandoUpliftTrain->getTrains()', function () {
     // Root structure
     expect($obj->getTrains())
         ->toBeArray()
-        ->toHaveCount(3) // We have 3 root keys only
-        ->toHavekeys(['nightly', 'beta', 'release']); // Keys are immutable
+        ->toHaveCount(5) // 3 trains plus the two ESR keys
+        ->toHavekeys(['nightly', 'beta', 'release', 'esr', 'esr_previous']); // Keys are immutable
 
     // Train general structure
     expect($obj->getTrains()['nightly'])
@@ -48,4 +48,17 @@ test('LandoUpliftTrain->getTrains()', function () {
         ->toBeBool();
     expect($obj->getTrains()['beta']['is_rc_shipped'])
         ->toBeBool();
+
+    // ESR entries mirror the other trains; esr_previous is null once the previous ESR is EOL
+    expect($obj->getTrains()['esr'])
+        ->toHaveCount(1)
+        ->toHavekeys(['version']);
+    expect($obj->getTrains()['esr']['version'])
+        ->toBeInt();
+    if ($obj->getTrains()['esr_previous'] !== null) {
+        expect($obj->getTrains()['esr_previous'])
+            ->toHavekeys(['version']);
+        expect($obj->getTrains()['esr_previous']['version'])
+            ->toBeInt();
+    }
 });
