@@ -7,7 +7,9 @@ namespace ReleaseInsights\API;
 use DateTime;
 use ReleaseInsights\Beta;
 use ReleaseInsights\Data;
+use ReleaseInsights\ESR;
 use ReleaseInsights\Release;
+use ReleaseInsights\Version;
 
 /*
     This is only consumed by our API endpoint /api/lando/uplift/train/
@@ -54,6 +56,12 @@ class LandoUpliftTrain
         $nightly = RELEASE + 2;
         $beta    = RELEASE + 1;
 
+        // Current ESR and the previous ESR branch (major versions).
+        // $esr_previous is null once the previous ESR reaches end-of-life.
+        $esr          = (int) Version::getMajor(ESR::getVersion(RELEASE));
+        $older_esr    = ESR::getOlderSupportedVersion(RELEASE);
+        $esr_previous = $older_esr !== null ? (int) Version::getMajor($older_esr) : null;
+
         /*
             We need specific logic for this API for the period of time when we are past RC,
             or have shipped to release, but not yet shipped our first beta. That is about 3 days,
@@ -96,6 +104,10 @@ class LandoUpliftTrain
                 'version'      => RELEASE,
                 'release_date' => $date(FIREFOX_RELEASE),
             ],
+            'esr' => [
+                'version' => $esr,
+            ],
+            'esr_previous' => $esr_previous !== null ? ['version' => $esr_previous] : null,
         ];
     }
 }
