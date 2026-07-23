@@ -49,16 +49,15 @@ test('LandoUpliftTrain->getTrains()', function () {
     expect($obj->getTrains()['beta']['is_rc_shipped'])
         ->toBeBool();
 
-    // ESR entries mirror the other trains; esr_previous is null once the previous ESR is EOL
+    // ESR entries mirror the other trains; esr_previous.version is null once the previous ESR is EOL
     expect($obj->getTrains()['esr'])
         ->toHaveCount(1)
         ->toHavekeys(['version']);
     expect($obj->getTrains()['esr']['version'])
         ->toBeInt();
-    if ($obj->getTrains()['esr_previous'] !== null) {
-        expect($obj->getTrains()['esr_previous'])
-            ->toHavekeys(['version']);
-        expect($obj->getTrains()['esr_previous']['version'])
-            ->toBeInt();
-    }
+    expect($obj->getTrains()['esr_previous'])
+        ->toHaveCount(1)
+        ->toHavekeys(['version']);
+    expect($obj->getTrains()['esr_previous']['version'])
+        ->toBeNullOrInt();
 });

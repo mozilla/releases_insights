@@ -43,3 +43,9 @@ function something()
 {
     // ..
 }
+
+expect()->extend('toBeNullOrInt', function () {
+    expect(is_null($this->value) || is_int($this->value))->toBeTrue();
+
+    return $this; // Allows expectation chaining
+});
