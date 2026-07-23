@@ -10,6 +10,8 @@ const FIREFOX_RELEASE  = '152.0';
 const FIREFOX_BETA     = '153.0b8';
 const FIREFOX_NIGHTLY  = '154.0a1';
 const ESR              = '140.12.0esr';
+const ESR_NEXT         = '';
+const ESR115           = '115.37.0esr';
 const INSTALL_ROOT     = __DIR__ . '/../';
 const CONTROLLERS      = INSTALL_ROOT . 'app/controllers/';
 const MODELS           = INSTALL_ROOT . 'app/models/';
@@ -21,9 +23,12 @@ const TESTING_CONTEXT  = true;
 const IS_DEV_MODE      = true;
 
 // Major version numbers (integers), used across the app
-define('NIGHTLY', (int) FIREFOX_NIGHTLY);
-define('BETA',    (int) FIREFOX_BETA);
-define('RELEASE', (int) FIREFOX_RELEASE);
+define('NIGHTLY',     (int) FIREFOX_NIGHTLY);
+define('BETA',        (int) FIREFOX_BETA);
+define('RELEASE',     (int) FIREFOX_RELEASE);
+define('NEXT_ESR',    (int) (ESR_NEXT ?: null));
+define('CURRENT_ESR', (int) ESR);
+define('WIN7_ESR',    ESR115 ? (int) ESR115 : null);
 
 // Are we on one of our staging sites
 define('LOCALHOST',  isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] === 'localhost');

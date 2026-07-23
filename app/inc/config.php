@@ -45,11 +45,12 @@ define('FIREFOX_BETA',    $firefox_versions['LATEST_FIREFOX_RELEASED_DEVEL_VERSI
 define('FIREFOX_RELEASE', $firefox_versions['LATEST_FIREFOX_VERSION']);
 
 // Major version numbers (integers), used across the app
-define('NIGHTLY',  (int) FIREFOX_NIGHTLY);
-define('BETA',     (int) FIREFOX_BETA);
-define('RELEASE',  (int) FIREFOX_RELEASE);
-define('MAIN_ESR', (int) (ESR_NEXT != '' ? ESR_NEXT : ESR));
-define('OLD_ESR',  (int) (ESR115 != '' ? ESR115 : (ESR_NEXT != '' ? ESR : ESR_NEXT)));
+define('NIGHTLY',     (int) FIREFOX_NIGHTLY);
+define('BETA',        (int) FIREFOX_BETA);
+define('RELEASE',     (int) FIREFOX_RELEASE);
+define('NEXT_ESR',    (int) (ESR_NEXT ?: null));
+define('CURRENT_ESR', (int) ESR);
+define('WIN7_ESR',    ESR115 ? (int) ESR115 : null);
 
 // Are we on one of our staging sites
 $http_host = isset($_SERVER['HTTP_HOST']) ? (string) $_SERVER['HTTP_HOST'] : null;
