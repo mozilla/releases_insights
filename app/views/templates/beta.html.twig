@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+    {% extends 'base.html.twig' %}
 
 {% block head_additions %}
     {% set meta_description = 'State of Firefox Beta for Desktop' %}
@@ -13,7 +13,7 @@
     {% if beta.release > 1 %}
         <a href="?version={{ beta.release - 1 }}" title="Previous beta" class="text-decoration-none">«</a>
     {% endif %}
-        &nbsp;Firefox&nbsp;{{ beta.release }}&nbsp;beta cycle&nbsp;
+        &nbsp;Firefox&nbsp;<a href="/release/?version={{ beta.release }}" class="text-decoration-none">{{ beta.release }}</a>&nbsp;beta cycle&nbsp;
     {% if beta.release < constant('BETA') %}
         <a href="?version={{ beta.release + 1 }}" title="Next beta" class="text-decoration-none">»</a>
     {% endif %}
