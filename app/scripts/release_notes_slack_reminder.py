@@ -23,7 +23,7 @@ MESSAGES = {
         "The DEADLINE for submissions is {relnotes_deadline}. This will give us time to make necessary edits and/or "
         "changes before publishing on {release}.\n\n"
         "Note: We are still monitoring relnote nomination in bugzilla via setting relnote-firefox? for Fx{version}.\n\n"
-        "Fx{version} beta preliminary release notes: https://www.mozilla.org/firefox/{version}.0beta/releasenotes/\n\n"
+        "Fx{version} beta preliminary release notes: https://www.firefox.com/firefox/{version}.0beta/releasenotes/\n\n"
         "If you know of anything worth mentioning but is not yet listed, then please reach out. You can also add it "
         "in the document or nominate it for a release note in Bugzilla.\n\n"
         "If any changes require a Knowledge Base article update, please let the Sumo team know via a "
