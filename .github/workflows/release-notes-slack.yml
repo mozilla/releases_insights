@@ -1,0 +1,39 @@
+name: Release notes Slack reminders
+
+on:
+  schedule:
+    # Runs once a day at 14:00 UTC (7am Pacific / 10am Eastern / 3pm BST)
+    # Adjust time zone as needed for the team
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+    inputs:
+      test_milestone:
+        description: 'Test a specific milestone (beta_1, beta_5, or relnotes_deadline)'
+        required: false
+        type: choice
+        options:
+          - ''
+          - beta_1
+          - beta_5
+          - relnotes_deadline
+
+jobs:
+  check-and-notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check release schedule and notify Slack if today is a milestone
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.RELEASE_NOTES_SLACK_WEBHOOK }}
+          TEST_MILESTONE: ${{ inputs.test_milestone }}
+        run: python3 app/scripts/release_notes_slack_reminder.py
