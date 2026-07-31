@@ -1,0 +1,41 @@
+name: Firefox iOS release Slack announcement
+
+on:
+  schedule:
+    # Mondays at 04:00 UTC — two hours after the 02:00 UTC rollout slot,
+    # which gives the App Store time to flip to the new version.
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print the message instead of posting to Slack'
+        required: false
+        type: boolean
+        default: true
+      test_date:
+        description: 'Pretend today is this date (YYYY-MM-DD), e.g. 2026-07-27'
+        required: false
+        type: string
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Announce the iOS release in Slack if the App Store confirms it is live
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.IOS_RELEASE_SLACK_WEBHOOK }}
+          RELMAN_WEBHOOK_URL: ${{ secrets.RELMAN_SLACK_WEBHOOK }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TEST_DATE: ${{ inputs.test_date }}
+        run: python3 app/scripts/ios_release_slack_notifier.py
