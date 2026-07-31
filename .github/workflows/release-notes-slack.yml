@@ -8,13 +8,13 @@ on:
   workflow_dispatch:
     inputs:
       test_milestone:
-        description: 'Test a specific milestone (beta_1, beta_5, or relnotes_deadline)'
+        description: 'Test a specific milestone (beta_1, beta_4, or relnotes_deadline)'
         required: false
         type: choice
         options:
           - ''
           - beta_1
-          - beta_5
+          - beta_4
           - relnotes_deadline
 
 jobs:

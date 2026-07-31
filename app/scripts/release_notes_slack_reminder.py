@@ -29,7 +29,7 @@ MESSAGES = {
         "If any changes require a Knowledge Base article update, please let the Sumo team know via a "
         "<https://bugzilla.mozilla.org/enter_bug.cgi?product=support.mozilla.org&component=Knowledge+Base+Content|request in bugzilla>"
     ),
-    "beta_5": (
+    "beta_4": (
         "Hi! We're at the mid-point of the Fx{version} Beta cycle, which means it is time for a release notes reminder!\n\n"
         "Draft template for the Firefox {version} Release Notes are <https://whattrainisitnow.com/release-notes|here>.\n\n"
         "The DEADLINE for submissions is {relnotes_deadline}. This will give us time to make necessary edits and/or "
@@ -80,7 +80,7 @@ def determine_milestone(schedule: dict, today: date) -> tuple[str | None, dict]:
     """
     milestones = {
         "beta_1": parse_date(schedule["beta_1"]),
-        "beta_5": parse_date(schedule["beta_5"]),
+        "beta_4": parse_date(schedule["beta_4"]),
         "relnotes_deadline": parse_date(schedule["relnotes_deadline"]),
     }
 
