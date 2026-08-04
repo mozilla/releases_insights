@@ -1,0 +1,34 @@
+name: REO regression status Slack summary
+
+on:
+  schedule:
+    # Runs Monday and Thursday at 10:00 UTC (3am Pacific / 6am Eastern / 11am BST)
+    - cron: '0 10 * * 1,4'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print the message instead of posting it to Slack'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  summarise-and-notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Summarise regressions per channel and post to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.REO_SLACK_WEBHOOK }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: python3 app/scripts/reo_regression_slack_summary.py
