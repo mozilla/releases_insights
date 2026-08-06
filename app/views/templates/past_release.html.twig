@@ -287,20 +287,35 @@
                  {% endif %}
 
                 {% set planned_dot_release_link = hg_web_base ~  desktop_base ~ '&tochange=tip&full&version=2' %}
-                {% set nb = (release == 147 ? 3 : 2) %}
                 {# Planned dot releases are only for the release in flight #}
                 {% if channel == 'release' %}
+                    {# Show the uplift deadline only for the upcoming planned dot release #}
+                    {% set uplift_deadline = '<br><small class="fw-light">The deadline for uplift requests is EOD on the Friday prior to go-live</small>' %}
 
                     {% if dot_release_1 and dot_release_1|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
-                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">
+                            Planned {{ release }}.0.x</a>
+                            <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup>
+                            {% if uplift_deadline %}
+                                {{ uplift_deadline|raw }}
+                                {% set uplift_deadline = false %}
+                            {% endif %}
+                        </th>
                         <td title="">{{ dot_release_1|format_date(pattern=date_pattern) }}</td>
                     </tr>
                     {% endif %}
 
-                    {% if dot_release_2 and  dot_release_2|date('Y-m-d') not in dot_releases|column('date') %}
+                    {% if dot_release_2 and dot_release_2|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
-                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">
+                            Planned {{ release }}.0.x</a>
+                            <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup>
+                            {% if uplift_deadline %}
+                                {{ uplift_deadline|raw }}
+                                {% set uplift_deadline = false %}
+                            {% endif %}
+                        </th>
                         <td title="">{{ dot_release_2|format_date(pattern=date_pattern) }}</td>
                     </tr>
                     {% endif %}
@@ -308,14 +323,27 @@
                     {% if dot_release_3 and dot_release_3|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
                         <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">
-                        {{ (release == 150) ? 'Unplanned' : 'Planned' }} {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                            Planned {{ release }}.0.x</a>
+                            <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup>
+                            {% if uplift_deadline %}
+                                {{ uplift_deadline|raw }}
+                                {% set uplift_deadline = false %}
+                            {% endif %}
+                        </th>
                         <td title="">{{ dot_release_3|format_date(pattern=date_pattern) }}</td>
                     </tr>
                     {% endif %}
 
                     {% if dot_release_4 and dot_release_4|date('Y-m-d') not in dot_releases|column('date') %}
                     <tr>
-                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">Planned {{ release }}.0.x</a> <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup></th>
+                        <th class="{{ table_header }}"><a href="{{ planned_dot_release_link }}" class="link-primary">
+                            Planned {{ release }}.0.x</a>
+                            <sup class="fw-normal fst-italic text-danger-emphasis">Desktop and Android</sup>
+                            {% if uplift_deadline %}
+                                {{ uplift_deadline|raw }}
+                                {% set uplift_deadline = false %}
+                            {% endif %}
+                        </th>
                         <td title="">{{ dot_release_4|format_date(pattern=date_pattern) }}</td>
                     </tr>
                     {% endif %}
