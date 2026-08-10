@@ -2,9 +2,9 @@ name: Firefox iOS release Slack announcement
 
 on:
   schedule:
-    # Mondays at 04:00 UTC — two hours after the 02:00 UTC rollout slot,
+    # Mondays at 07:00 UTC — several hours after the 02:00 UTC rollout slot,
     # which gives the App Store time to flip to the new version.
-    - cron: '0 4 * * 1'
+    - cron: '0 7 * * 1'
   workflow_dispatch:
     inputs:
       dry_run:
