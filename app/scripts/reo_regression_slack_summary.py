@@ -27,16 +27,21 @@ Env vars for testing:
 """
 import datetime
 import functools
-import json
 import os
 import re
 import sys
-import time
-import urllib.error
 import urllib.parse
-import urllib.request
 
-SCHEDULE_API_URL = "https://whattrainisitnow.com/api/release/schedule/?version={}"
+from lib.env import env_flag
+from lib.fetch import fetch_json
+from lib.schedule import (
+    channel_versions,
+    fetch_schedule,
+    parse_date,
+    today as utc_today,
+)
+from lib.slack import post_to_slack
+
 RELEASE_PAGE_URL = "https://whattrainisitnow.com/release/?version={}"
 
 WELLNESS_API_URL = "https://whattrainisitnow.com/api/wellness/days/"
@@ -104,84 +109,12 @@ CHANNEL_EMOJI = {
     "nightly": ":nightly-browser:",
 }
 
-# The job runs twice a week, so waiting out a blip is cheap next to losing the
-# summary because whattrainisitnow or Bugzilla was briefly unavailable. Matches
-# ios_release_slack_notifier.py.
-TIMEOUT_SECONDS = 15
-RETRIES = 3
-BACKOFF_SECONDS = 5
-
 # Bugzilla searches do real work, so they get longer than the small JSON APIs.
 BZ_TIMEOUT_SECONDS = 60
-
-# HTTPError subclasses URLError, so this covers HTTP errors, connection failures
-# and timeouts. JSONDecodeError catches an error page served in place of JSON.
-RETRYABLE = (urllib.error.URLError, TimeoutError, json.JSONDecodeError)
-
-# Env vars are strings, and every non-empty string is truthy, so bool("0") is True.
-# Spell the accepted values out rather than let DRY_RUN=false enable a dry run.
-TRUTHY = frozenset({"1", "true", "yes", "on"})
-FALSEY = frozenset({"", "0", "false", "no", "off"})
 
 # Slack has no nested lists in message text, so indent sub-bullets by hand.
 # Non-breaking spaces, as Slack collapses runs of regular ones.
 SUB_BULLET = "    ◦ "
-
-
-def env_flag(name: str) -> bool:
-    """Parse a boolean env var. An unrecognised value is an error, not a guess."""
-    value = os.environ.get(name, "").strip().lower()
-    if value in TRUTHY:
-        return True
-    if value in FALSEY:
-        return False
-    raise ValueError(f"{name} must be a boolean-ish value, got {value!r}")
-
-
-def fetch_json(url: str, timeout: int = TIMEOUT_SECONDS) -> dict | list:
-    """GET JSON, retrying transient failures. A 4xx other than 429 fails at once."""
-    for attempt in range(1, RETRIES + 1):
-        try:
-            with urllib.request.urlopen(url, timeout=timeout) as resp:
-                return json.load(resp)
-        except RETRYABLE as error:
-            # A bad URL or a rejected request will not fix itself on a retry.
-            permanent = (
-                isinstance(error, urllib.error.HTTPError)
-                and error.code != 429
-                and error.code < 500
-            )
-            if permanent or attempt == RETRIES:
-                raise
-            wait = BACKOFF_SECONDS * attempt
-            print(
-                f"{url} failed ({error}); retry {attempt}/{RETRIES - 1} in {wait}s",
-                file=sys.stderr,
-            )
-            time.sleep(wait)
-
-    raise AssertionError("unreachable: the loop either returns or raises")
-
-
-_schedules: dict[str, dict] = {}
-
-
-def fetch_schedule(version: str) -> dict:
-    """
-    Fetch a version's milestone dates from the whattrainisitnow API.
-
-    Cached under both the version asked for and the one it turned out to be, so
-    that looking up "nightly" also answers a later lookup by its number.
-    """
-    if version in _schedules:
-        return _schedules[version]
-
-    schedule = fetch_json(SCHEDULE_API_URL.format(version))
-
-    _schedules[version] = schedule
-    _schedules[schedule["version"].split(".")[0]] = schedule
-
-    return schedule
 
 
 @functools.cache
@@ -200,7 +133,7 @@ def work_days_until(end: datetime.date) -> int:
     countdowns on the release pages: weekends, wellness days and the current
     day are all left out.
     """
-    today = datetime.date.today()
+    today = utc_today()
     days = (end - today).days
     if days <= 0:
         return 0
@@ -212,21 +145,6 @@ def work_days_until(end: datetime.date) -> int:
         if (day := today + datetime.timedelta(days=offset)).weekday() < 5  # Mon-Fri
         and day not in wellness_days()
     )
-
-
-def fetch_versions() -> dict[str, int]:
-    """
-    Return the current major version number for each channel.
-
-    Only Nightly is fetched; Beta is Nightly - 1 and Release is Nightly - 2.
-    """
-    nightly = int(fetch_schedule("nightly")["version"].split(".")[0])
-
-    return {
-        "release": nightly - 2,
-        "beta": nightly - 1,
-        "nightly": nightly,
-    }
 
 
 def regressions_query(version: int, carry_over: bool = False) -> dict:
@@ -402,7 +320,7 @@ def milestone_date(schedule: dict, milestone: str) -> datetime.date:
         betas = [key for key in schedule if re.fullmatch(r"beta_\d+", key)]
         milestone = max(betas, key=lambda key: int(key.removeprefix("beta_")))
 
-    return datetime.date.fromisoformat(schedule[milestone].split(" ")[0])
+    return parse_date(schedule[milestone])
 
 
 def cycle_countdown(version: int, channel: str) -> str:
@@ -422,7 +340,7 @@ def cycle_countdown(version: int, channel: str) -> str:
     cycle, milestone = CYCLE_ENDS[channel]
     label = f"End of {cycle}"
     end = milestone_date(fetch_schedule(str(version)), milestone)
-    today = datetime.date.today()
+    today = utc_today()
 
     if end < today:
         return f"{cycle} cycle finished"
@@ -553,46 +471,6 @@ def build_blocks(versions: dict[str, int]) -> list[dict]:
     ]
 
 
-def post_to_slack(webhook_url: str, blocks: list[dict]) -> None:
-    """
-    Post a message to Slack via incoming webhook.
-
-    Not retried, unlike the reads: a POST that times out may well have arrived,
-    so retrying risks posting the summary twice. A failure here fails the job
-    instead, which is visible and harmless to repeat by hand.
-    """
-    # text is the notification/fallback for clients that can't render blocks.
-    # Slack unfurls links by default: the release pages carry Open Graph tags, so
-    # a heading link would add a large preview card below an already dense list.
-    body = json.dumps(
-        {
-            "text": HEADING,
-            "blocks": blocks,
-            "unfurl_links": False,
-            "unfurl_media": False,
-        }
-    ).encode("utf-8")
-    req = urllib.request.Request(
-        webhook_url,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            answer = resp.read().decode().strip()
-    except urllib.error.HTTPError as error:
-        # The reason is in the body, e.g. "no_team" for a webhook that's gone.
-        raise RuntimeError(
-            f"Slack webhook returned HTTP {error.code}: {error.read().decode().strip()}"
-        ) from error
-
-    # A rejected payload still comes back as HTTP 200, with the reason (say
-    # "invalid_blocks") in place of "ok", so the body is what has to be checked.
-    if answer != "ok":
-        raise RuntimeError(f"Slack webhook rejected the message: {answer}")
-
-
 def main() -> int:
     dry_run = env_flag("DRY_RUN")
     webhook_url = os.environ.get("SLACK_WEBHOOK_URL")
@@ -600,7 +478,7 @@ def main() -> int:
         print("SLACK_WEBHOOK_URL is not set — nothing to do.", file=sys.stderr)
         return 1
 
-    versions = fetch_versions()
+    versions = channel_versions()
     blocks = build_blocks(versions)
 
     if dry_run:
@@ -609,7 +487,7 @@ def main() -> int:
             print(block["text"]["text"])
         return 0
 
-    post_to_slack(webhook_url, blocks)
+    post_to_slack(webhook_url, HEADING, blocks=blocks)
     print(
         "Posted regression summary for Firefox "
         f"{versions['release']} / {versions['beta']} / {versions['nightly']}."

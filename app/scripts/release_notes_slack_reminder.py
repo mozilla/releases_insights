@@ -7,14 +7,21 @@ don't match a milestone, so it's safe to run every day of the year.
 
 Requires the SLACK_WEBHOOK_URL environment variable (set from the
 RELEASE_NOTES_SLACK_WEBHOOK repo secret in the workflow).
+
+Env vars for testing:
+  DRY_RUN=1           print the message instead of posting it. Accepts
+                      1/true/yes/on to enable and 0/false/no/off or empty to
+                      disable; anything else is an error rather than a guess.
+  TEST_MILESTONE=x    force a milestone's message (beta_1, beta_4 or
+                      relnotes_deadline) instead of checking today's date
 """
-import json
 import os
 import sys
-import urllib.request
-from datetime import date, datetime
+from datetime import date
 
-API_BASE_URL = "https://whattrainisitnow.com/api/release/schedule/?version={}"
+from lib.env import env_flag
+from lib.schedule import channel_versions, fetch_schedule, parse_date, today as utc_today
+from lib.slack import post_to_slack
 
 MESSAGES = {
     "beta_1": (
@@ -44,31 +51,14 @@ MESSAGES = {
 }
 
 
-def parse_date(value: str) -> date:
-    """Parse API date string (e.g. '2026-07-15 00:00:00+00:00') to date object."""
-    return datetime.strptime(value.split(" ")[0], "%Y-%m-%d").date()
-
-
-def fetch_schedule() -> dict:
+def fetch_beta_schedule() -> dict:
     """
     Fetch the beta release schedule from the API.
 
     First fetches the current nightly version, then fetches the schedule
     for (nightly - 1) to get the beta version's schedule reliably.
     """
-    # Get current nightly version
-    nightly_url = API_BASE_URL.format("nightly")
-    with urllib.request.urlopen(nightly_url, timeout=15) as resp:
-        nightly_data = json.load(resp)
-
-    # Calculate beta version (nightly - 1)
-    nightly_version = int(nightly_data["version"].split(".")[0])
-    beta_version = nightly_version - 1
-
-    # Fetch the beta version's schedule
-    beta_url = API_BASE_URL.format(beta_version)
-    with urllib.request.urlopen(beta_url, timeout=15) as resp:
-        return json.load(resp)
+    return fetch_schedule(str(channel_versions()["beta"]))
 
 
 def determine_milestone(schedule: dict, today: date) -> tuple[str | None, dict]:
@@ -100,28 +90,15 @@ def determine_milestone(schedule: dict, today: date) -> tuple[str | None, dict]:
     return None, format_data
 
 
-def post_to_slack(webhook_url: str, text: str) -> None:
-    """Post a message to Slack via incoming webhook."""
-    body = json.dumps({"text": text}).encode("utf-8")
-    req = urllib.request.Request(
-        webhook_url,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        if resp.status >= 300:
-            raise RuntimeError(f"Slack webhook returned HTTP {resp.status}")
-
-
 def main() -> int:
+    dry_run = env_flag("DRY_RUN")
     webhook_url = os.environ.get("SLACK_WEBHOOK_URL")
-    if not webhook_url:
+    if not webhook_url and not dry_run:
         print("SLACK_WEBHOOK_URL is not set — nothing to do.", file=sys.stderr)
         return 1
 
-    today = date.today()
-    schedule = fetch_schedule()
+    today = utc_today()
+    schedule = fetch_beta_schedule()
 
     # Test mode: force a specific milestone via TEST_MILESTONE env var
     test_milestone = os.environ.get("TEST_MILESTONE")
@@ -141,6 +118,11 @@ def main() -> int:
             return 0
 
     text = MESSAGES[milestone].format(**format_data)
+
+    if dry_run:
+        print(f"DRY RUN — would post:\n{text}")
+        return 0
+
     post_to_slack(webhook_url, text)
 
     mode_label = "TEST MODE" if test_milestone else f"{today}"

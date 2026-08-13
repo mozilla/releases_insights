@@ -36,13 +36,14 @@ import os
 import re
 import sys
 import time
-import urllib.error
-import urllib.request
-from collections.abc import Callable
 from datetime import date, datetime, timezone
 from typing import Any
 
-SCHEDULE_URL = "https://whattrainisitnow.com/api/release/schedule/?version=nightly"
+from lib.env import env_flag
+from lib.fetch import RETRYABLE, fetch, fetch_json
+from lib.schedule import channel_versions, parse_date, today as utc_today
+from lib.slack import post_to_slack
+
 IOS_SCHEDULE_URL = "https://whattrainisitnow.com/api/release/schedule/ios/?version={}"
 # Firefox iOS App Store listing. Unknown query parameters form part of Apple's cache
 # key, so filling the unused one with the current time asks for a URL no edge node
@@ -83,92 +84,26 @@ UNCONFIRMED_MESSAGE = (
     "({reason}), so whether v{expected} is live is unknown. Please check manually."
 )
 
-# The shipping iOS major is behind the current Nightly by two versions. Desktop merge day is a
-# Thursday, so by the Monday rollout Nightly has always moved on.
-NIGHTLY_OFFSET = 2
-
-# The job runs once a week, so a few seconds of waiting is cheap next to missing
-# an announcement because whattrainisitnow or the iTunes API blipped.
-TIMEOUT_SECONDS = 15
-RETRIES = 3
-BACKOFF_SECONDS = 5
-
 
 class AppStorePageError(Exception):
     """The App Store page did not hold a version where one was expected."""
 
 
-# HTTPError subclasses URLError, so this covers HTTP errors, connection failures
-# and timeouts. JSONDecodeError catches an error page served in place of JSON.
-# A truncated page is worth another go too, so AppStorePageError joins them.
-RETRYABLE = (
-    urllib.error.URLError,
-    TimeoutError,
-    json.JSONDecodeError,
-    AppStorePageError,
-)
-
-# Env vars are strings, and every non-empty string is truthy, so bool("0") is True.
-# Spell the accepted values out rather than let DRY_RUN=false enable a dry run.
-TRUTHY = frozenset({"1", "true", "yes", "on"})
-FALSEY = frozenset({"", "0", "false", "no", "off"})
-
-
-def env_flag(name: str) -> bool:
-    """Parse a boolean env var. An unrecognised value is an error, not a guess."""
-    value = os.environ.get(name, "").strip().lower()
-    if value in TRUTHY:
-        return True
-    if value in FALSEY:
-        return False
-    raise ValueError(f"{name} must be a boolean-ish value, got {value!r}")
-
-
-def fetch(url: str, parse: Callable[[Any], Any]) -> Any:
-    """
-    GET url and hand the response to parse, retrying transient failures. A 4xx other
-    than 429 fails at once.
-
-    parse runs inside the retry so that a half-read or error page is retried rather
-    than raised, which is why it takes the response instead of the caller reading it.
-    """
-    for attempt in range(1, RETRIES + 1):
-        try:
-            with urllib.request.urlopen(url, timeout=TIMEOUT_SECONDS) as resp:
-                return parse(resp)
-        except RETRYABLE as error:
-            # A bad URL or a rejected request will not fix itself on a retry.
-            permanent = (
-                isinstance(error, urllib.error.HTTPError)
-                and error.code != 429
-                and error.code < 500
-            )
-            if permanent or attempt == RETRIES:
-                raise
-            wait = BACKOFF_SECONDS * attempt
-            print(
-                f"{url} failed ({error}); retry {attempt}/{RETRIES - 1} in {wait}s",
-                file=sys.stderr,
-            )
-            time.sleep(wait)
-
-    raise AssertionError("unreachable: the loop either returns or raises")
-
-
-def fetch_json(url: str) -> dict:
-    """GET JSON, retrying transient failures."""
-    return fetch(url, json.load)
-
-
-def parse_date(value: str) -> date:
-    """Parse API date string (e.g. '2026-07-27 02:00:00+00:00') to date object."""
-    return datetime.strptime(value.split(" ")[0], "%Y-%m-%d").date()
+# lib.fetch already retries network failures and a JSON body that will not parse. A
+# truncated page is worth another go on the same grounds, so AppStorePageError is
+# named as retryable there, and here as one of the ways confirmation can fail.
+UNCONFIRMABLE = RETRYABLE + (AppStorePageError,)
 
 
 def get_ios_major() -> int:
-    """The iOS major currently shipping, derived from the Nightly version."""
-    nightly = fetch_json(SCHEDULE_URL)
-    return int(nightly["version"].split(".")[0]) - NIGHTLY_OFFSET
+    """
+    The iOS major currently shipping, derived from the Nightly version.
+
+    The shipping iOS major is behind the current Nightly by two versions, which
+    is to say it tracks the desktop release version. Desktop merge day is a
+    Thursday, so by the Monday rollout Nightly has always moved on.
+    """
+    return channel_versions()["release"]
 
 
 def expected_version(major: int, today: date) -> str | None:
@@ -238,7 +173,7 @@ def parse_listing(resp: Any) -> tuple[str, datetime]:
 
 def live_release_from_page() -> tuple[str, datetime]:
     """As live_release, from the web listing. Cached for minutes rather than a day."""
-    return fetch(APPS_URL, parse_listing)
+    return fetch(APPS_URL, parse_listing, retry_on=(AppStorePageError,))
 
 
 def live_release_confirmed(expected: str) -> tuple[str, datetime, str | None]:
@@ -261,7 +196,7 @@ def live_release_confirmed(expected: str) -> tuple[str, datetime, str | None]:
     print(f"Lookup API shows {live}, expected {expected} — checking the page.")
     try:
         page_live, page_rolled_out = live_release_from_page()
-    except RETRYABLE as error:
+    except UNCONFIRMABLE as error:
         # Unreachable or reshaped, so we cannot tell a stale lookup API from a release
         # that really has not shipped. Hand back what the API said along with the
         # reason, so the alert can quote both.
@@ -274,20 +209,6 @@ def live_release_confirmed(expected: str) -> tuple[str, datetime, str | None]:
 def format_rollout(when: datetime) -> str:
     """Render the rollout time for Slack, e.g. '02:11 UTC on 2026-07-27'."""
     return f"{when:%H:%M} UTC on {when:%Y-%m-%d}"
-
-
-def post_to_slack(webhook_url: str, text: str) -> None:
-    """Post a message to Slack via incoming webhook."""
-    body = json.dumps({"text": text}).encode("utf-8")
-    req = urllib.request.Request(
-        webhook_url,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        if resp.status >= 300:
-            raise RuntimeError(f"Slack webhook returned HTTP {resp.status}")
 
 
 def alert_relman(webhook_url: str | None, text: str, dry_run: bool, done: str) -> bool:
@@ -319,8 +240,7 @@ def main() -> int:
         today = datetime.strptime(test_date, "%Y-%m-%d").date()
         print(f"TEST MODE: pretending today is {today}")
     else:
-        # Explicitly UTC: release_* milestones are UTC and runners may not be.
-        today = datetime.now(timezone.utc).date()
+        today = utc_today()
 
     major = get_ios_major()
     expected = expected_version(major, today)
