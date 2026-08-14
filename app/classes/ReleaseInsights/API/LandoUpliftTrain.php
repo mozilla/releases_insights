@@ -32,7 +32,7 @@ class LandoUpliftTrain
     private object $beta;
 
     public function __construct() {
-        $this->beta = new Beta(RELEASE + 1);
+        $this->beta = new Beta(NIGHTLY - 1);
     }
 
     /**
@@ -47,21 +47,29 @@ class LandoUpliftTrain
         $date = fn($version, $milestone = 'release') => new DateTime(new Release($version)->getSchedule()[$milestone])->format('Y-m-d');
 
         /*
-            Don't use our NIGHTLY & BETA constants from product-details.
-            In the case of Lando, we want to plan uplifts and during release week,
-            our version numbers in product-details are not always fully sequentials
-            if we have merge problems with beta.
+            Anchor every train on NIGHTLY, the version mozilla-central carries.
+
+            Lando plans uplifts, so what matters is the version each *branch* holds,
+            not the version users are running. NIGHTLY is bumped by central on merge
+            day, the same day beta moves on to release, so nightly - 1 and nightly - 2
+            name mozilla-beta and mozilla-release for the whole cycle.
+
+            Don't anchor on RELEASE: LATEST_FIREFOX_VERSION only moves on release go-live day,
+            which under the 2 week cadence is up to 5 days after merge day. In that
+            window RELEASE + 1 and RELEASE + 2 still name the previous cycle.
+
+            Don't anchor on BETA either: it only moves once a beta build ships.
         */
-        $nightly = RELEASE + 2;
-        $beta    = RELEASE + 1;
+        $nightly = NIGHTLY;
+        $beta    = NIGHTLY - 1;
+        $release = NIGHTLY - 2;
 
         /*
-            We need specific logic for this API for the period of time when we are past RC,
-            or have shipped to release, but not yet shipped our first beta. That is about 3 days,
-            from main->beta merge day on Monday to shipping our beta 1 build2 on Wednesday.
-            In this window, the state of the Beta class reflects the state of the previous beta cycle,
-            not the one we are going to enter as the Beta class is built with end-users in mind, not
-            Firefox developers.
+            We need specific logic for this API for the period between merge day and
+            shipping beta 1, a few days under the 2 week cadence (Thursday to Monday).
+            In this window, the state of the Beta class reflects the state of the previous
+            beta cycle, not the one we are going to enter as the Beta class is built with
+            end-users in mind, not Firefox developers.
         */
 
         // Safe defaults
@@ -75,7 +83,12 @@ class LandoUpliftTrain
         }
 
         // @codeCoverageIgnoreStart
-        // Past RC week, have we shipped release and not bumped our beta version yet?
+        /*
+            Have we merged to beta but not shipped beta 1 yet? Then BETA still names the
+            previous cycle, so Beta::hasRC() answered about that older version (RCStatus()
+            compares against the BETA constant) and its answer has to be discarded: the
+            branch we are pointing uplifts at is about to start its betas.
+        */
         if (BETA !== $beta) {
             $has_betas = true;
             $has_rc    = false;
@@ -94,8 +107,8 @@ class LandoUpliftTrain
                 'is_rc_shipped'  => $has_rc,
             ],
             'release' => [
-                'version'      => RELEASE,
-                'release_date' => $date(FIREFOX_RELEASE),
+                'version'      => $release,
+                'release_date' => $date($release . '.0'),
             ],
             'esr' => [
                 'version' => NEXT_ESR ?: CURRENT_ESR,
