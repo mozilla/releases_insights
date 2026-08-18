@@ -41,10 +41,14 @@ from typing import Any
 
 from lib.env import env_flag
 from lib.fetch import RETRYABLE, fetch, fetch_json
-from lib.schedule import channel_versions, parse_date, today as utc_today
+from lib.schedule import (
+    channel_versions,
+    fetch_ios_schedule,
+    parse_date,
+    today as utc_today,
+)
 from lib.slack import post_to_slack
 
-IOS_SCHEDULE_URL = "https://whattrainisitnow.com/api/release/schedule/ios/?version={}"
 # Firefox iOS App Store listing. Unknown query parameters form part of Apple's cache
 # key, so filling the unused one with the current time asks for a URL no edge node
 # holds yet, which gets us today's answer rather than yesterday's.
@@ -115,7 +119,7 @@ def expected_version(major: int, today: date) -> str | None:
     Dot releases shipped inbetween release_0 and release_1 use the pattern {major}.N.X, for example 153.0.1
     These versions are not covered by the slack notification automation since they are ad-hoc
     """
-    schedule = fetch_json(IOS_SCHEDULE_URL.format(major))
+    schedule = fetch_ios_schedule(major)
 
     # Sorted numerically once, so the lookup and the log line cannot disagree:
     # a plain sort would order release_10 before release_2.
