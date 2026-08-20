@@ -217,12 +217,12 @@ class Release
             'qa_request_deadline'   => $n(-7),      // Nightly W-1 Thursday, deadline to request manual QA
             'a11y_request_deadline' => $n(0),       // Nightly W0 Thursday
             'nightly_start'         => $n(0),       // Nightly W0 Thursday, chained from the previous merge day
-            'qa_feature_done'       => $n(8, 21),   // Nightly W1 Friday, build ready for QA
+            'qa_feature_done'       => $n(7, 21),   // Nightly W1 Thursday, build ready for QA (was the Friday until 157)
             'qa_test_plan_due'      => $n(8, 21),   // Nightly W1 Friday
             'strings_handoff'       => $d(13),      // Wednesday before merge (release − 20)
             'string_freeze'         => $d(13),      // Wednesday before merge (release − 20)
+            'qa_nightly_signoff'    => $d(13, 14),  // Wednesday before merge, Nightly QA sign-off (was merge day until 157)
             'relnotes_beta_ready'   => $d(14),      // Merge day (Thursday), draft beta release notes
-            'qa_nightly_signoff'    => $d(14, 14),  // Merge day (Thursday), Nightly QA sign-off
             'merge_day'             => $d(14, 16),  // Merge day = release − 19 (Thursday)
             'beta_1'                => $d(18, 13),  // Beta W1 Monday
             'beta_2'                => $d(20, 13),  // Beta W1 Wednesday
@@ -245,11 +245,24 @@ class Release
         // schedule; we only override the Nightly-phase milestones: feature-complete
         // stays around the W2 mark, and the QA request deadline shares day one with
         // a11y review and Nightly start (instead of the usual week before).
+        // 155 also predates the 157 QA milestone shift, so its Nightly QA sign-off
+        // stays on merge day.
         if ($this->version->normalized === '155.0') {
             $schedule = array_merge($schedule, [
                 'qa_request_deadline' => '2026-07-20 00:00:00+00:00', // Nightly W0 Monday, shares day one
                 'qa_feature_done'     => '2026-08-04 21:00:00+00:00', // Nightly W2 Tuesday, feature complete
                 'qa_test_plan_due'    => '2026-08-04 21:00:00+00:00', // Nightly W2 Tuesday
+                'qa_nightly_signoff'  => '2026-08-13 14:00:00+00:00', // Merge day (Thursday), pre-157 slot
+            ]);
+        }
+
+        // Firefox 156 predates the 157 QA milestone shift too, and its dates have
+        // already been communicated, so it keeps the old slots.
+        // TODO: remove this conditional once 156.0 has shipped
+        if ($this->version->normalized === '156.0') {
+            $schedule = array_merge($schedule, [
+                'qa_feature_done'     => '2026-08-21 21:00:00+00:00', // Nightly W1 Friday, pre-157 slot
+                'qa_nightly_signoff'  => '2026-08-27 14:00:00+00:00', // Merge day (Thursday), pre-157 slot
             ]);
         }
 
@@ -265,8 +278,8 @@ class Release
                 // over the year-end break.
                 'strings_handoff'    => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
                 'string_freeze'      => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
+                'qa_nightly_signoff' => '2026-12-02 14:00:00+00:00', // Nightly W2 Wednesday, day before merge
                 'relnotes_beta_ready' => '2026-12-03 00:00:00+00:00', // Nightly W2 Thursday
-                'qa_nightly_signoff' => '2026-12-03 14:00:00+00:00', // Nightly W2 Thursday
                 'merge_day'          => '2026-12-03 16:00:00+00:00', // Nightly W2 Thursday
                 'beta_1'            => '2026-12-07 13:00:00+00:00', // Beta W1 Monday
                 'beta_2'            => '2026-12-09 13:00:00+00:00', // Beta W1 Wednesday

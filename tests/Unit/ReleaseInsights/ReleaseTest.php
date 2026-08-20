@@ -132,6 +132,16 @@ test('Release->getSchedule()', function () {
     expect($sched['qa_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
 
+    // From Firefox 157, "build ready for QA" moves to the Nightly W1 Thursday and
+    // the Nightly QA sign-off to the Wednesday before merge day. 156 and earlier
+    // keep the original Friday / merge-day slots.
+    $sched = new Release('156.0')->getSchedule();
+    expect($sched['qa_feature_done'])->toBe("2026-08-21 21:00:00+00:00");    // Friday
+    expect($sched['qa_nightly_signoff'])->toBe("2026-08-27 14:00:00+00:00"); // merge day
+    $sched = new Release('157.0')->getSchedule();
+    expect($sched['qa_feature_done'])->toBe("2026-09-03 21:00:00+00:00");    // Thursday
+    expect($sched['qa_nightly_signoff'])->toBe("2026-09-09 14:00:00+00:00"); // day before merge
+
     // 158 is on the 2-week cycle too, only a single planned dot release
     $obj = new Release('158.0');
     expect($obj->getSchedule())
@@ -184,11 +194,14 @@ test('Release->getSchedule(): Milestones are in the right order (2-week cycle)',
     // The accessibility request is due on the first day of the Nightly cycle
     expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['nightly_start'])->toBeLessThan($sched['qa_feature_done']);
-    expect($sched['qa_feature_done'])->toEqual($sched['qa_test_plan_due']);
+    // From 157 the build is ready for QA the day before the Test Plan deadline
+    expect($sched['qa_feature_done'])->toBeLessThan($sched['qa_test_plan_due']);
     expect($sched['qa_test_plan_due'])->toBeLessThan($sched['strings_handoff']);
     expect($sched['strings_handoff'])->toBeLessThan($sched['relnotes_beta_ready']);
     expect($sched['string_freeze'])->toBeLessThan($sched['relnotes_beta_ready']);
     expect($sched['string_freeze'])->toBeLessThan($sched['qa_nightly_signoff']);
+    // From 157 the Nightly QA sign-off is the day before merge day
+    expect($sched['qa_nightly_signoff'])->toBeLessThan($sched['relnotes_beta_ready']);
     expect($sched['qa_nightly_signoff'])->toBeLessThan($sched['merge_day']);
     expect($sched['merge_day'])->toBeLessThan($sched['beta_1']);
     expect($sched['beta_1'])->toBeLessThan($sched['beta_2']);
