@@ -1,0 +1,45 @@
+name: Fenix beta cut Slack announcement
+
+on:
+  schedule:
+    # Runs once a day at 12:00 UTC, which is 8am Eastern for the eight months
+    # of the year Eastern is on daylight saving, and 7am for the rest: cron has
+    # no time zone, so one of the two has to drift.
+    #
+    # Ahead of the 16:00 UTC merge on purpose: the version bump lands during
+    # merge day, and after that the API's "nightly" is the next major, not the
+    # one merging today.
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print the message instead of posting it to Slack'
+        required: false
+        type: boolean
+        default: true
+      test_date:
+        description: 'Pretend today is this date (YYYY-MM-DD), e.g. 2026-08-27'
+        required: false
+        type: string
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Announce the Fenix beta cut if today is the Nightly merge day
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.MOBILE_ANDROID_TEAM_SLACK_WEBHOOK }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TEST_DATE: ${{ inputs.test_date }}
+        run: python3 app/scripts/fenix_beta_cut_slack_notifier.py
