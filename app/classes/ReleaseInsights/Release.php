@@ -267,6 +267,10 @@ class Release
             ]);
         }
 
+        // 155 planned dot release cancelled
+        if ($this->version->int === 155) {
+            unset($schedule['dot_release_1']);
+        }
         // Firefox 163 straddles the year-end break: Nightly stays 2 weeks but the
         // Beta cycle runs ~5 weeks over the holidays. Betas still ship on the regular
         // Monday/Wednesday/Friday cadence, with the last 2026 beta on Dec 21 and no
@@ -366,6 +370,12 @@ class Release
         $dot_release_2 = $this->getFutureSchedule()['dot_release_2'] ?? null;
         $dot_release_3 = $this->getFutureSchedule()['dot_release_3'] ?? null;
         $dot_release_4 = $this->getFutureSchedule()['dot_release_4'] ?? null;
+
+        if ($this->version->int === 155) {
+            // We cancelled this planned dot release
+            // TODO: remove condition when 156 ships
+            $dot_release_1 = null; // @codeCoverageIgnore
+        }
 
         if (isset($dot_release_1) && ! in_array(new DateTime($dot_release_1), $shipped_dot_releases)) {
             $milestones['dot_release_1'] = new DateTime($dot_release_1);
