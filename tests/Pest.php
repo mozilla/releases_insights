@@ -49,3 +49,28 @@ expect()->extend('toBeNullOrInt', function () {
 
     return $this; // Allows expectation chaining
 });
+
+/*
+    Milestones must never fall on a week-end. Throw our own exception rather
+    than let PHPUnit append "Failed asserting that 6 is less than 6", which
+    says nothing about which milestone is wrong.
+*/
+expect()->extend('toBeAWeekday', function (string $milestone = 'Date') {
+    $date = new DateTime($this->value);
+
+    if ((int) $date->format('N') > 5) {
+        throw new PHPUnit\Framework\ExpectationFailedException(
+            sprintf(
+                '%s falls on a %s (%s)',
+                $milestone,
+                $date->format('l'),
+                $date->format('Y-m-d')
+            )
+        );
+    }
+
+    // The expectation passed, register it so the test isn't reported as risky
+    PHPUnit\Framework\Assert::assertTrue(true);
+
+    return $this;
+});

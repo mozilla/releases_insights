@@ -191,6 +191,7 @@
     beta_3:                'Beta 3',
     sumo_1:                '<abbr title="support.mozilla.org">SUMO</abbr> content creation',
     beta_4:                'Beta 4',
+    sec_uplifts_deadline:  'Deadline to request security bug uplifts',
     beta_5:                'Beta 5',
     beta_6:                'Beta 6',
     beta_7:                'Beta 7',
@@ -234,6 +235,7 @@
     beta_3: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
     sumo_1: 'User affecting changes were identified and provided to the support.mozilla.org team. The support content for this release can now be created before release day.',
     beta_4: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
+    sec_uplifts_deadline: 'Deadline for <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplift requests (<code>sec-approval+</code> on Bugzilla).',
     beta_5: 'On a regular 4 weeks beta cycle, Beta 5 is the last beta with experimental features still activated. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_6: 'Build starts at 13:00 UTC. Stabilization work via uplifts. Experimental features are no longer activated at compile time.',
     beta_7: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
@@ -270,7 +272,7 @@
     {# 2-week release cycle (Firefox 155+): the early beta concept is gone and there are fewer betas. #}
     {% set cycle_descriptions = cycle_descriptions|merge({
         beta_1: 'First beta of the cycle, rolled out to our beta population. Build starts at 13:00 UTC. Stabilization work via uplifts.',
-        beta_5: 'Last beta of the cycle and thus the end of beta uplifts. This is also the deadline for <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplift requests (<code>sec-approval+</code> on Bugzilla). Build starts at 13:00 UTC.',
+        beta_5: 'Last beta of the cycle and thus the end of beta uplifts. Build starts at 13:00 UTC.',
     }) %}
 {% endif %}
 
@@ -320,12 +322,12 @@
                     {% endif %}
                 {% elseif release == 163 %}
                     {% if key == 'beta_8' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small> <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% else %}
                     {# 2-week cycle (Firefox 155+): beta 5 is the last beta and the security uplift deadline #}
                     {% if key == 'beta_5' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Security bugs uplift request deadline</small> <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
               {% endif %}
 

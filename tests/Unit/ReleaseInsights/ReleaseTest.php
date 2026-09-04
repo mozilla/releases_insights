@@ -80,24 +80,38 @@ test('Release->getSchedule()', function () {
     // From Firefox 160 the regular 2-week release cycle is in effect (155 is the
     // transition release and 163/164 are year-boundary special cases, tested
     // separately below). See getTwoWeekSchedule().
+    $legit_milestones = [
+        'version', 'qa_request_deadline', 'a11y_request_deadline', 'nightly_start',
+        'qa_feature_done', 'qa_test_plan_due', 'strings_handoff', 'relnotes_beta_ready',
+        'qa_nightly_signoff', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'sumo_1',
+        'beta_3', 'beta_4', 'sec_uplifts_deadline','beta_5', 'relnotes_deadline', 'rc_gtb',
+        'release', 'dot_release_1'
+    ];
     $obj = new Release('160.0');
+    // A single planned dot release, no early beta and no more than 5 betas.
+    // The 2-week cycle drops the legacy pre-merge / pre-RC QA milestones.
     expect($obj->getSchedule())
-        ->toHaveKeys(['version', 'qa_request_deadline', 'a11y_request_deadline', 'nightly_start',
-            'qa_feature_done', 'qa_test_plan_due', 'strings_handoff', 'relnotes_beta_ready',
-            'qa_nightly_signoff', 'string_freeze', 'merge_day', 'beta_1', 'beta_2', 'sumo_1',
-            'beta_3', 'beta_4', 'beta_5', 'relnotes_deadline', 'rc_gtb',
-            'release', 'dot_release_1'])
-        // A single planned dot release, no early beta and no more than 5 betas.
-        // The 2-week cycle drops the legacy pre-merge / pre-RC QA milestones.
+        ->toHaveKeys($legit_milestones)
         ->not->toHaveKeys(['beta_6', 'beta_7', 'beta_8', 'beta_9', 'beta_10',
             'dot_release_2', 'dot_release_3', 'dot_release_4',
             'qa_pre_merge_done', 'qa_pre_rc_signoff']);
 
+    // Make sure our milestones don't fall on a week-end.
+    // 163 has a different EOY schedule, so it gets checked too.
+    foreach (['160.0', '163.0'] as $version) {
+        foreach (new Release($version)->getSchedule() as $milestone => $date) {
+            if ($milestone !== 'version') {
+                expect($date)->toBeAWeekday("Firefox {$version} '{$milestone}'");
+            }
+        }
+    }
     // In a regular 2-week cycle the manual QA request deadline falls a week before
     // the Nightly cycle starts, while the a11y review deadline stays on day one.
     $sched = new Release('160.0')->getSchedule();
     expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['qa_request_deadline'])->toBeLessThan($sched['nightly_start']);
+
+
 
     // Development never stops: each Nightly cycle opens on the previous version's
     // merge day, so cycles are back-to-back with no gap (dates compared, times differ).
