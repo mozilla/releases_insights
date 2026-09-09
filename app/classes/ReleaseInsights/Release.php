@@ -219,7 +219,7 @@ class Release
             'nightly_start'         => $n(0),       // Nightly W0 Thursday, chained from the previous merge day
             'qa_feature_done'       => $n(7, 21),   // Nightly W1 Thursday, build ready for QA (was the Friday until 157)
             'qa_test_plan_due'      => $n(8, 21),   // Nightly W1 Friday
-            'strings_handoff'       => $d(13),      // Wednesday before merge (release − 20)
+            'strings_handoff'       => $d(11),      // Wednesday before merge (release − 20)
             'string_freeze'         => $d(13),      // Wednesday before merge (release − 20)
             'qa_nightly_signoff'    => $d(13, 14),  // Wednesday before merge, Nightly QA sign-off (was merge day until 157)
             'relnotes_beta_ready'   => $d(14),      // Merge day (Thursday), draft beta release notes
@@ -281,7 +281,7 @@ class Release
                 // 163 merges early (before the holidays), off the release − 19 default,
                 // so the merge-cluster is pinned explicitly. The long Beta then bakes
                 // over the year-end break.
-                'strings_handoff'      => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
+                'strings_handoff'      => '2026-11-30 00:00:00+00:00', // Nightly W2 Wednesday
                 'string_freeze'        => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
                 'qa_nightly_signoff'   => '2026-12-02 14:00:00+00:00', // Nightly W2 Wednesday, day before merge
                 'relnotes_beta_ready'  => '2026-12-03 00:00:00+00:00', // Nightly W2 Thursday
