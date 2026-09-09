@@ -100,7 +100,7 @@
 
         {# The previous row still shipped the old ESR but this one no longer does: it is now EOL #}
         {% if esr_eol_tag is defined and esr_eol_tag is not empty and values.old_esr is empty %}
-                <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag|number_format }} branch is EOL</small>
+                <small class="badge bg-warning text-dark">ESR {{ esr_eol_tag|number_format }} is EOL → Updates to ESR {{ values.esr|split('.')|first }}</small>
         {% endif %}
 
         {{ values.date|format_date(pattern='MMMM d') }}
