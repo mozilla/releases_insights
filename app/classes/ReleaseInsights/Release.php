@@ -229,8 +229,8 @@ class Release
             'sumo_1'                => $d(20, 21),  // Beta W1 Wednesday, SUMO content creation
             'beta_3'                => $d(22, 13),  // Beta W1 Friday
             'beta_4'                => $d(25, 13),  // Beta W2 Monday
-            'sec_uplifts_deadline'  => $d(26),      // Beta W2 Wednesday, security uplift deadline & last beta
-            'beta_5'                => $d(27, 13),  // Beta W2 Wednesday, security uplift deadline & last beta
+            'sec_uplifts_deadline'  => $d(26),      // Beta W2 Tuesday, security uplift deadline & ESR go to build
+            'beta_5'                => $d(27, 13),  // Beta W2 Wednesday, last beta
             'relnotes_deadline'     => $d(28, 13),  // Beta W2 Thursday, release notes submission deadline
             'rc_gtb'                => $d(28, 17),  // Beta W2 Thursday, RC go to build (release notes finalized the same day)
             'release'               => $release_utc->format('Y-m-d H:i:sP'),
@@ -295,8 +295,8 @@ class Release
                 'beta_6'               => '2026-12-18 13:00:00+00:00', // Beta W2 Friday
                 'beta_7'               => '2026-12-21 13:00:00+00:00', // Beta W3 Monday, last 2026 beta
                 // Holiday shutdown: no beta between Dec 22 and Jan 3.
-                'sec_uplifts_deadline' => '2026-12-31 00:00:00+00:00', // Beta W2 Tuesday, security uplift deadline & last beta
-                'beta_8'               => '2027-01-04 13:00:00+00:00', // Beta W5 Monday, last beta before RC
+                'sec_uplifts_deadline' => '2026-12-31 00:00:00+00:00', // Beta W4 Thursday, security uplift deadline
+                'beta_8'               => '2027-01-04 13:00:00+00:00', // Beta W5 Monday, last beta before RC, ESR go to build
                 // relnotes_deadline and rc_gtb keep the standard release-anchored Thursday (2027-01-07).
             ]);
         }

@@ -235,7 +235,7 @@
     beta_3: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
     sumo_1: 'User affecting changes were identified and provided to the support.mozilla.org team. The support content for this release can now be created before release day.',
     beta_4: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
-    sec_uplifts_deadline: 'Deadline for <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplift requests (<code>sec-approval+</code> on Bugzilla).',
+    sec_uplifts_deadline: 'Deadline for <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplift requests (<code>sec-approval+</code> on Bugzilla). <br>ESR releases go to build on this day, before the last beta and the Release Candidate. Patches for security bugs affecting ESR branches must therefore be ready by this deadline.',
     beta_5: 'On a regular 4 weeks beta cycle, Beta 5 is the last beta with experimental features still activated. Build starts at 13:00 UTC. Stabilization work via uplifts.',
     beta_6: 'Build starts at 13:00 UTC. Stabilization work via uplifts. Experimental features are no longer activated at compile time.',
     beta_7: 'Build starts at 13:00 UTC. Stabilization work via uplifts.',
@@ -273,6 +273,14 @@
     {% set cycle_descriptions = cycle_descriptions|merge({
         beta_1: 'First beta of the cycle, rolled out to our beta population. Build starts at 13:00 UTC. Stabilization work via uplifts.',
         beta_5: 'Last beta of the cycle and thus the end of beta uplifts. Build starts at 13:00 UTC.',
+    }) %}
+{% endif %}
+
+{% if release == 163 %}
+    {# Year-end break: ESRs are built on Monday January 4, after the last beta, instead of on the security uplift deadline. #}
+    {% set cycle_descriptions = cycle_descriptions|merge({
+        sec_uplifts_deadline: 'Deadline for <a href="https://firefox-source-docs.mozilla.org/bug-mgmt/processes/security-approval.html">security bugs</a> uplift requests (<code>sec-approval+</code> on Bugzilla). <br>Because of the year-end break, ESR releases only go to build on Monday January 4, after the last beta. Patches for security bugs affecting ESR branches must be ready by then.',
+        beta_8: 'Last beta of the cycle and thus the end of beta uplifts. Build starts at 13:00 UTC. <br>ESR releases go to build later the same day.',
     }) %}
 {% endif %}
 
@@ -321,11 +329,15 @@
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
                 {% elseif release == 163 %}
+                    {# Year-end break: ESRs go to build on Jan 4, after the last beta, not on the security uplift deadline #}
                     {% if key == 'beta_8' %}
-                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small> <small class="badge bg-warning text-dark fw-semibold">ESR go to build</small>' %}
                     {% endif %}
                 {% else %}
-                    {# 2-week cycle (Firefox 155+): beta 5 is the last beta and the security uplift deadline #}
+                    {# 2-week cycle (Firefox 155+): ESRs go to build on the security uplift deadline, beta 5 is the last beta #}
+                    {% if key == 'sec_uplifts_deadline' %}
+                        {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">ESR patches must be ready</small>' %}
+                    {% endif %}
                     {% if key == 'beta_5' %}
                         {% set extra = ' <small class="badge bg-warning text-dark fw-semibold">Last beta uplifts</small>' %}
                     {% endif %}
