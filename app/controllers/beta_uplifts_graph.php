@@ -14,5 +14,7 @@ new Template(
         'graph_data'   => $graph_data,
         'graph_labels' => array_keys($graph_data),
         'graph_values' => array_values($graph_data),
+        // Firefox switched from a 4-week to a 2-week beta cycle with this version
+        'two_week_cadence_start' => 155,
     ]
 )->render();

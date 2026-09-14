@@ -17,6 +17,10 @@
 {% block main %}
 <div class="w-75 mx-auto" aria-hidden="true">
     <canvas id="upliftsChart"></canvas>
+    <p class="text-center fs-6 mt-3">
+        <span class="uplift-legend uplift-legend-4w"></span> 4-week cycle
+        <span class="uplift-legend uplift-legend-2w ms-4"></span> 2-week cycle (Firefox {{ two_week_cadence_start }} and later)
+    </p>
 </div>
 <table class="visually-hidden">
     <caption>Beta uplifts per Firefox release</caption>
@@ -24,6 +28,7 @@
         <tr>
             <th scope="col">Firefox version</th>
             <th scope="col">Uplifts</th>
+            <th scope="col">Beta cycle</th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +36,7 @@
         <tr>
             <td><a href="/beta/?version={{ version }}">{{ version }}</a></td>
             <td>{{ count }}</td>
+            <td>{{ version >= two_week_cadence_start ? '2 weeks' : '4 weeks' }}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -46,13 +52,29 @@ const style = getComputedStyle(document.documentElement);
 Chart.defaults.color = style.getPropertyValue('--font-default-color').trim();
 Chart.defaults.font.family = style.getPropertyValue('font-family').trim();
 Chart.defaults.font.size = 14;
+
+const labels = {{ graph_labels|json_encode|raw }};
+// Firefox moved from a 4-week to a 2-week beta cycle with this version,
+// bars are colored differently on each side of the switch.
+const twoWeekCadenceStart = {{ two_week_cadence_start }};
+const isTwoWeekCycle = (version) => Number(version) >= twoWeekCadenceStart;
+const cycleColors = {
+    fourWeeks: style.getPropertyValue('--purple-light').trim() || '#cfe2ff',
+    twoWeeks:  style.getPropertyValue('--orange-light').trim() || '#ffbe5a',
+};
+const barColor = (version) => isTwoWeekCycle(version)
+    ? cycleColors.twoWeeks
+    : cycleColors.fourWeeks;
+
 new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: {{ graph_labels|json_encode|raw }},
+        labels: labels,
         datasets: [{
             label: 'Uplifts',
             data: {{ graph_values|json_encode|raw }},
+            backgroundColor: labels.map(barColor),
+            borderColor: labels.map(barColor),
             borderWidth: 1
         }]
     },
@@ -61,7 +83,7 @@ new Chart(ctx, {
         devicePixelRatio: window.devicePixelRatio,
         onClick: (event, elements) => {
             if (elements.length > 0) {
-                const version = {{ graph_labels|json_encode|raw }}[elements[0].index];
+                const version = labels[elements[0].index];
                 window.location.href = '/beta/?version=' + version;
             }
         },
@@ -73,7 +95,10 @@ new Chart(ctx, {
             tooltip: {
                 callbacks: {
                     title: (items) => 'Firefox ' + items[0].label,
-                    label: (item) => item.raw + ' uplifts'
+                    label: (item) => item.raw + ' uplifts',
+                    afterLabel: (item) => isTwoWeekCycle(item.label)
+                        ? '2-week beta cycle'
+                        : '4-week beta cycle'
                 }
             }
         },

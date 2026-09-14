@@ -680,3 +680,21 @@ nav svg:hover {
    /*background-color: var(--purple-very-light);*/
    opacity: 0.97;
  }
+
+/* Legend for the beta uplifts graph: one color per release cadence */
+#beta_uplifts_graph .uplift-legend {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 2px;
+    vertical-align: -0.15em;
+    margin-right: 0.4em;
+}
+
+#beta_uplifts_graph .uplift-legend-4w {
+    background-color: var(--purple-light);
+}
+
+#beta_uplifts_graph .uplift-legend-2w {
+    background-color: var(--orange-light);
+}
