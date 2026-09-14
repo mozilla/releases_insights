@@ -171,7 +171,7 @@
     {% endif %}
   </table>
 
-  {% set gtb = ' <small class="text-secondary fw-light">Go to build</small>' %}
+  {% set rc_QA_ready = ' <small class="text-secondary fw-light">Ready for QA</small>' %}
   {% set cycle_labels = {
     nightly_start:         'Nightly starts',
     a11y_request_deadline: 'Deadline to request accessibility engineering review',
@@ -205,7 +205,7 @@
     beta_14:               'Beta 14',
     beta_15:               'Beta 15',
     relnotes_deadline:     'Release notes submission deadline',
-    rc_gtb:                'Release Candidate' ~ gtb,
+    rc_gtb:                'Release Candidate' ~ rc_QA_ready,
     release:               'Release day!',
     dot_release_1:          'Dot release 1',
     dot_release_2:          'Dot release 2',
