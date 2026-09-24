@@ -155,6 +155,9 @@ test('Release->getSchedule()', function () {
     $sched = new Release('157.0')->getSchedule();
     expect($sched['qa_feature_done'])->toBe("2026-09-03 21:00:00+00:00");    // Thursday
     expect($sched['qa_nightly_signoff'])->toBe("2026-09-09 14:00:00+00:00"); // day before merge
+    expect($sched['sumo_1'])->toBe("2026-09-16 21:00:00+00:00");             // Wednesday
+    // From Firefox 158, SUMO content creation is on Beta W1 Thursday, a week after merge day
+    expect(new Release('158.0')->getSchedule()['sumo_1'])->toBe("2026-10-01 21:00:00+00:00");
 
     // 158 is on the 2-week cycle too, only a single planned dot release
     $obj = new Release('158.0');
