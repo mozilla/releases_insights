@@ -226,7 +226,7 @@ class Release
             'merge_day'             => $d(14, 16),  // Merge day = release − 19 (Thursday)
             'beta_1'                => $d(18, 13),  // Beta W1 Monday
             'beta_2'                => $d(20, 13),  // Beta W1 Wednesday
-            'sumo_1'                => $d(20, 21),  // Beta W1 Wednesday, SUMO content creation
+            'sumo_1'                => $d(21, 21),  // Beta W1 Thursday, SUMO content creation
             'beta_3'                => $d(22, 13),  // Beta W1 Friday
             'beta_4'                => $d(25, 13),  // Beta W2 Monday
             'sec_uplifts_deadline'  => $d(26),      // Beta W2 Tuesday, security uplift deadline & ESR go to build
@@ -264,6 +264,15 @@ class Release
             $schedule = array_merge($schedule, [
                 'qa_feature_done'     => '2026-08-21 21:00:00+00:00', // Nightly W1 Friday, pre-157 slot
                 'qa_nightly_signoff'  => '2026-08-27 14:00:00+00:00', // Merge day (Thursday), pre-157 slot
+            ]);
+        }
+
+        // Firefox 157's SUMO date had already passed when the milestone moved
+        // to Beta W1 Thursday, so it keeps the old Wednesday slot.
+        // TODO: remove this conditional once 157.0 has shipped
+        if ($this->version->normalized === '157.0') {
+            $schedule = array_merge($schedule, [
+                'sumo_1'              => '2026-09-16 21:00:00+00:00', // Beta W1 Wednesday, pre-158 slot
             ]);
         }
 
