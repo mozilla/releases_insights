@@ -310,6 +310,14 @@ class Release
             ]);
         }
 
+        // Firefox 164: Nightly QA sign-off moves one day earlier than the usual
+        // Wednesday before merge due to a holiday in RO.
+        if ($this->version->normalized === '164.0') {
+            $schedule = array_merge($schedule, [
+                'qa_nightly_signoff'   => '2027-01-05 14:00:00+00:00', // Nightly W5 Tuesday, 2 days before merge
+            ]);
+        }
+
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
 

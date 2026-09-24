@@ -130,6 +130,8 @@ test('Release->getSchedule()', function () {
     expect($sched['nightly_start'])->toBe("2026-12-03 00:00:00+00:00");
     expect($sched['merge_day'])->toBe("2027-01-07 16:00:00+00:00");
     expect($sched['release'])->toBe("2027-01-26 14:00:00+00:00");
+    // 164 Nightly QA sign-off is a day earlier than the usual Wednesday (holiday in RO)
+    expect($sched['qa_nightly_signoff'])->toBe("2027-01-05 14:00:00+00:00");
 
     // Firefox 155 is the transition release: a long (~4-week) Nightly then a
     // regular 2-week Beta with the full Mon/Wed/Fri cadence (5 betas before the RC).
