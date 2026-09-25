@@ -10,7 +10,7 @@ class ESR
      *  @var array<int> $esr_releases
      */
     public static array $esr_releases = [
-        10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102, 115, 128, 140, 153,
+        10, 17, 24, 31, 38, 45, 52, 60, 68, 78, 91, 102, 115, 128, 140, 153, 175,
     ];
 
     /**
@@ -77,19 +77,25 @@ class ESR
         ];
 
         /*
-            1. We support 2 ESR branches for 5 releases by default since we moved to a 2 week cadence from Firefox 155, this is what the next transition (from ESR 153) will use.
-            ESR 140 is an exception with 4 releases because Firefox 154 was still 4 weeks after 153 before the switch to 2 week cycles at 155, this keeps ESR 140 EOL on October 13 (Firefox 158).
-            2. Before that, we had 2 ESR branches for 3 releases only since Version 68 and before that we had 2 cycles only with 2 ESR branches as cycles lasted longer
-            3. We extended the 115 ESR cycle because of a still large Windows 7/8.1 population
+            The value is the last dot release of the new ESR that still ships
+            alongside the previous ESR, the previous ESR is EOL from the next one.
 
-            TODO: remove codeCoverageIgnore on default value for 2027 next ESR when the release is decided. Activate the commented out unit test.
+            1. Since the 2 week cadence (Firefox 155), the default is 5:
+               ESR 153's last release is 153.27 (Firefox 180),
+               ESR 175.6 (Firefox 181) replaces it.
+               ESR 140 is an exception with 4: Firefox 154 was still 4 weeks after 153,
+               before the switch to 2 week cycles at 155. ESR 140's last release is
+               140.17 (Firefox 157), ESR 153.5 (Firefox 158, October 13) replaces it.
+            2. Before that, we had 2 ESR branches for 3 releases only since Version 68
+               and before that we had 2 cycles only with 2 ESR branches as cycles lasted longer
+            3. We extended the 115 ESR cycle because of a still large Windows 7/8.1 population
         */
         $esr_minor_releases = match(true) {
                 $version < 78         => 1,
                 $current_ESR === 128  => 11,
                 $previous_ESR < 140   => 3,
                 $previous_ESR === 140 => 4,
-                default               => 5, // @codeCoverageIgnore
+                default               => 5,
         };
 
         if (($version - $current_ESR) > $esr_minor_releases) {

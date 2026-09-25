@@ -133,6 +133,28 @@ test('Release->getSchedule()', function () {
     // 164 Nightly QA sign-off is a day earlier than the usual Wednesday (holiday in RO)
     expect($sched['qa_nightly_signoff'])->toBe("2027-01-05 14:00:00+00:00");
 
+    // 186 merges on Wednesday (Nov 11 holiday); 187 chains off it but keeps its
+    // early Nightly milestones on Thursday/Friday.
+    $sched = new Release('186.0')->getSchedule();
+    expect($sched['qa_feature_done'])->toBe("2027-11-03 21:00:00+00:00");
+    expect($sched['merge_day'])->toBe("2027-11-10 16:00:00+00:00");
+    $sched = new Release('187.0')->getSchedule();
+    expect($sched['nightly_start'])->toBe("2027-11-10 00:00:00+00:00");
+    expect($sched['qa_request_deadline'])->toBe("2027-11-04 00:00:00+00:00");
+    expect($sched['qa_feature_done'])->toBe("2027-11-18 21:00:00+00:00");
+    expect($sched['qa_test_plan_due'])->toBe("2027-11-19 21:00:00+00:00");
+
+    // 188 merges early (Dec 16) before the 2027 year-end break, then a 3-week
+    // Beta; 189 chains off that merge.
+    $sched = new Release('188.0')->getSchedule();
+    expect($sched['qa_request_deadline'])->toBe("2027-11-17 00:00:00+00:00");
+    expect($sched['string_freeze'])->toBe("2027-12-15 00:00:00+00:00");
+    expect($sched['qa_nightly_signoff'])->toBe("2027-12-15 14:00:00+00:00");
+    expect($sched['merge_day'])->toBe("2027-12-16 16:00:00+00:00");
+    expect($sched['sumo_1'])->toBe("2027-12-23 21:00:00+00:00");
+    expect($sched['rc_gtb'])->toBe("2028-01-06 17:00:00+00:00");
+    expect($nightly_date('189.0'))->toBe($merge_date('188.0'));
+
     // Firefox 155 is the transition release: a long (~4-week) Nightly then a
     // regular 2-week Beta with the full Mon/Wed/Fri cadence (5 betas before the RC).
     $sched = new Release('155.0')->getSchedule();

@@ -308,6 +308,41 @@ class Release
             ]);
         }
 
+        // Firefox 186 merges a day early, on Wednesday, because Thursday Nov 11
+        // is a US and Canadian holiday. Build ready for QA moves a day earlier
+        // too, to preserve 5 days for QA before the merge.
+        if ($this->version->normalized === '186.0') {
+            $schedule = array_merge($schedule, [
+                'qa_feature_done'      => '2027-11-03 21:00:00+00:00', // Nightly W1 Wednesday
+                'merge_day'            => '2027-11-10 16:00:00+00:00', // Nightly W2 Wednesday
+            ]);
+        }
+
+        // Firefox 187 starts Nightly on 186's early Wednesday merge, but its early
+        // Nightly milestones stay on the usual Thursday/Friday.
+        if ($this->version->normalized === '187.0') {
+            $schedule = array_merge($schedule, [
+                'qa_request_deadline'  => '2027-11-04 00:00:00+00:00', // Nightly W-1 Thursday
+                'qa_feature_done'      => '2027-11-18 21:00:00+00:00', // Nightly W1 Thursday
+                'qa_test_plan_due'     => '2027-11-19 21:00:00+00:00', // Nightly W1 Friday
+            ]);
+        }
+
+        // Firefox 188 straddles the 2027 year-end break: a 3-week Nightly and an
+        // early merge before the holidays, then a 3-week Beta. The Beta-side
+        // deadlines keep the standard release-anchored dates.
+        if ($this->version->normalized === '188.0') {
+            $schedule = array_merge($schedule, [
+                'qa_request_deadline'  => '2027-11-17 00:00:00+00:00', // Nightly W-1 Wednesday
+                'strings_handoff'      => '2027-12-13 00:00:00+00:00', // Nightly W3 Monday
+                'string_freeze'        => '2027-12-15 00:00:00+00:00', // Nightly W3 Wednesday
+                'qa_nightly_signoff'   => '2027-12-15 14:00:00+00:00', // Nightly W3 Wednesday, day before merge
+                'relnotes_beta_ready'  => '2027-12-16 00:00:00+00:00', // Nightly W3 Thursday
+                'merge_day'            => '2027-12-16 16:00:00+00:00', // Nightly W3 Thursday
+                'sumo_1'               => '2027-12-23 21:00:00+00:00', // Beta W1 Thursday, SUMO content creation
+            ]);
+        }
+
         // Sort the schedule by date, needed for schedules with a fixup
         asort($schedule);
 
