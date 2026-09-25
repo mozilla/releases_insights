@@ -38,11 +38,11 @@ $cycle_dates = new Release($requested_version)->getSchedule();
 // with the displayed milestones, including 155's 4-week Nightly transition and
 // 163's stretched year-end Beta. Measured on calendar days (times stripped) and
 // floored to whole weeks, so e.g. a 14-day beta reads as 2 weeks regardless of
-// the merge/release times of day.
-$nightly_cycle_length = intdiv(
+// the merge/release times of day. The Nightly length is rounded instead, so a
+// Nightly shortened by an early merge (186: 13 days) still reads as 2 weeks.
+$nightly_cycle_length = (int) round(
     new DateTime($cycle_dates['nightly_start'])->setTime(0, 0)
-        ->diff(new DateTime($cycle_dates['merge_day'])->setTime(0, 0))->days,
-    7
+        ->diff(new DateTime($cycle_dates['merge_day'])->setTime(0, 0))->days / 7
 );
 $beta_cycle_length = intdiv(
     new DateTime($cycle_dates['merge_day'])->setTime(0, 0)
