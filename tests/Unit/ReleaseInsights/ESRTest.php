@@ -8,6 +8,9 @@ test('ESR::getVersion', function ($input, $output) {
     expect($output)->toEqual(ESR::getVersion($input));
 })->with([
     [160, '153.7.0'],
+    [174, '153.21.0'],
+    [175, '175.0.0'],
+    [190, '175.15.0'],
     [100, '91.9.0'],
     [95, '91.4.0'],
     [91, '91.0.0'],
@@ -40,7 +43,10 @@ test('ESR::getOlderSupportedVersion', function ($input, $output) {
     // ESR 140's last release is 140.17 (Firefox 157); it is EOL from Firefox 158 (2026-10-13).
     [157, '140.17.0'],
     [158, null],
-    // [178, '153.25.0'], // activate test when 178 is confirmed as the next ESR with a 5 releases overlap with previous ESR
+    // ESR 153's last release is 153.27 (Firefox 180); ESR 175.6 (Firefox 181) replaces it.
+    [175, '153.22.0'],
+    [180, '153.27.0'],
+    [181, null],
     [1000, null],
 ]);
 
