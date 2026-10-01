@@ -14,6 +14,15 @@ class Release
 
     public string $product_details;
 
+    /**
+     * Schedules already computed during this request, keyed by data source and version.
+     * 2-week schedules chain on the previous version's merge day, so without this
+     * cache we would recompute the same schedules many times per request.
+     *
+     * @var array<string, array<string, string>>
+     */
+    private static array $schedules = [];
+
     public function __construct(
         string $version
     )
@@ -33,10 +42,10 @@ class Release
             return ['error' => 'Invalid version number.'];
         }
 
-        if ($this->version->int < BETA) {
-            return $this->getPastSchedule();
-        }
-        return $this->getFutureSchedule();
+        return self::$schedules[$this->product_details . '|' . $this->version->normalized]
+            ??= $this->version->int < BETA
+                ? $this->getPastSchedule()
+                : $this->getFutureSchedule();
     }
 
 
@@ -383,10 +392,11 @@ class Release
             fn($key) => str_starts_with($key, 'dot_release'), ARRAY_FILTER_USE_KEY
         );
 
-        $dot_release_1 = $this->getFutureSchedule()['dot_release_1'] ?? null;
-        $dot_release_2 = $this->getFutureSchedule()['dot_release_2'] ?? null;
-        $dot_release_3 = $this->getFutureSchedule()['dot_release_3'] ?? null;
-        $dot_release_4 = $this->getFutureSchedule()['dot_release_4'] ?? null;
+        $future_schedule = $this->getFutureSchedule();
+        $dot_release_1 = $future_schedule['dot_release_1'] ?? null;
+        $dot_release_2 = $future_schedule['dot_release_2'] ?? null;
+        $dot_release_3 = $future_schedule['dot_release_3'] ?? null;
+        $dot_release_4 = $future_schedule['dot_release_4'] ?? null;
 
         if ($this->version->int === 155) {
             // We cancelled this planned dot release
