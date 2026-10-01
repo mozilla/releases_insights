@@ -5,8 +5,22 @@ declare(strict_types=1);
 use ReleaseInsights\{Data, ESR, Release, Version};
 
 $future = [];
+$releases = new Data()->getFutureReleases();
 
-foreach (new Data()->getFutureReleases() as $version => $date) {
+// Optional ?from=XX parameter to start the list at a specific version, including past ones
+// Pre-Firefox 4 releases didn't follow a train model, we don't have reliable cycle data for them
+if (isset($_GET['from']) && (int) $_GET['from'] > 0) {
+    $from = max(4, (int) $_GET['from']);
+    $releases = [];
+    foreach (new Data()->getMajorReleases() as $version => $date) {
+        if ((int) $version >= $from) {
+            // Some major versions were replaced by a dot release (14.0.1, 125.0.1)
+            $releases[Version::get($version)] = $date;
+        }
+    }
+}
+
+foreach ($releases as $version => $date) {
     $version_data = new Release($version)->getSchedule();
 
     $owner = new Data()->release_owners[$version] ?? 'TBD';
