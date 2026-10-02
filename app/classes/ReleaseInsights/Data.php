@@ -263,16 +263,26 @@ class Data
         return Json::load($this->pd_url . 'firefox_versions.json', $this->cache_duration);
     }
 
+    /**
+     * Pollbot uptake data is only updated once a day at 13:00 UTC
+     * and the endpoint is slow, so we cache it for an hour.
+     */
+    public const int ADOPTION_RATE_CACHE_TTL = 3600;
+
+    public static function getDesktopAdoptionRateUrl(string $version): string
+    {
+        return URL::Pollbot->value . 'firefox/' . $version . '/telemetry/main-summary-uptake';
+    }
+
     public static function getDesktopAdoptionRate(string $version): ?float
     {
         // Check current uptake rate for the latest release
-        // The underlying data is only updated once a day at 13:00 UTC
         // @codeCoverageIgnoreStart
         if (! defined('TESTING_CONTEXT')) {
-            $uptake = Json::load(URL::Pollbot->value
-                    . 'firefox/'
-                    . $version
-                    . '/telemetry/main-summary-uptake')['message'] ?? '0' ;
+            $uptake = Json::load(
+                self::getDesktopAdoptionRateUrl($version),
+                self::ADOPTION_RATE_CACHE_TTL
+            )['message'] ?? '0' ;
         } else {
         // @codeCoverageIgnoreEnd
             if ($version == '130.0') {

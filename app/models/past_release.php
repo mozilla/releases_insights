@@ -39,60 +39,67 @@ $_nightly_url = ((int) $requested_version === 126)
     ? URL::Mercurial->value . 'mozilla-central/json-pushes?fromchange=d14f32147b8133ced41921f303d0c9f22e2d4d8a&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version . '_END&full&version=2'
     : URL::Mercurial->value . 'mozilla-central/json-pushes?fromchange=FIREFOX_NIGHTLY_' . ((int) $requested_version - 1) . '_END&tochange=FIREFOX_NIGHTLY_' . (int) $requested_version . '_END&full&version=2';
 
-// Collect URLs not yet in any cache layer, then fetch them all in one parallel batch.
-// Skipped in TESTING_CONTEXT where Mercurial URLs resolve to local file paths.
-if (! defined('TESTING_CONTEXT')) {
-    $_to_prefetch = [];
-
-    // ProductDetails
-    if (Cache::getKey(URL::ProductDetails->value . 'firefox.json') === false) {
-        $_to_prefetch[URL::ProductDetails->value . 'firefox.json'] = CACHE_TIME;
-    }
-    if (Cache::getKey(URL::ProductDetails->value . 'devedition.json') === false) {
-        $_to_prefetch[URL::ProductDetails->value . 'devedition.json'] = CACHE_TIME;
+// Fetch in one parallel batch the URLs (url => ttl) not yet in cache.
+// Skipped in TESTING_CONTEXT where remote URLs resolve to local file paths.
+$prefetch = function (array $urls): void {
+    if (defined('TESTING_CONTEXT')) {
+        return;
     }
 
-    // Beta uplifts raw JSON — only needed when the parsed result is also absent
-    if ($requested_version != 53 && $requested_version > 46
-        && Cache::getKey($beta_parsed_key, 86400 * 365) === false
-        && Cache::getKey($_beta_url, -1) === false) {
-        $_to_prefetch[$_beta_url] = -1;
+    $urls = array_filter($urls, fn ($ttl, $url) => Cache::getKey($url, $ttl) === false, ARRAY_FILTER_USE_BOTH);
+
+    if (empty($urls)) {
+        return;
     }
 
-    // RC uplifts
-    if (Cache::getKey($_rc_url, -1) === false) {
-        $_to_prefetch[$_rc_url] = -1;
+    $client = Utils::httpClient();
+    $promises = [];
+    foreach (array_keys($urls) as $url) {
+        $promises[$url] = $client->getAsync($url, ['http_errors' => false, 'connect_timeout' => 10, 'timeout' => 30]);
     }
-
-    // Nightly fixes raw JSON — only needed when the parsed result is also absent
-    if (Cache::getKey($nightly_parsed_key, 86400 * 365) === false
-        && Cache::getKey($_nightly_url, -1) === false) {
-        $_to_prefetch[$_nightly_url] = -1;
-    }
-
-    // Balrog (current release only)
-    if ((int) $requested_version === RELEASE
-        && Cache::getKey(URL::Balrog->value . 'rules/firefox-release') === false) {
-        $_to_prefetch[URL::Balrog->value . 'rules/firefox-release'] = CACHE_TIME;
-    }
-
-    if (! empty($_to_prefetch)) {
-        $_client = Utils::httpClient();
-        $_promises = [];
-        foreach ($_to_prefetch as $_url => $_) {
-            $_promises[$_url] = $_client->getAsync($_url, ['http_errors' => false]);
-        }
-        foreach (Promise::settle($_promises)->wait() as $_url => $_result) {
-            if ($_result['state'] === 'fulfilled' && $_result['value']->getStatusCode() === 200) {
-                $_data = $_result['value']->getBody()->getContents();
-                if (! empty($_data) && json_validate($_data)) {
-                    Cache::setKey($_url, $_data, $_to_prefetch[$_url]);
-                }
+    foreach (Promise::settle($promises)->wait() as $url => $result) {
+        if ($result['state'] === 'fulfilled' && $result['value']->getStatusCode() === 200) {
+            $data = $result['value']->getBody()->getContents();
+            if (! empty($data) && json_validate($data)) {
+                Cache::setKey($url, $data, $urls[$url]);
             }
         }
     }
-    unset($_beta_url, $_rc_url, $_nightly_url, $_to_prefetch, $_client, $_promises, $_url, $_result, $_data);
+};
+
+// Product Details files used by this page (directly or via Data/Release/Nightly)
+$_to_prefetch = [];
+foreach (['firefox.json', 'devedition.json', 'mobile_android.json', 'firefox_history_major_releases.json',
+    'firefox_history_development_releases.json', 'firefox_history_stability_releases.json'] as $_file) {
+    $_to_prefetch[URL::ProductDetails->value . $_file] = CACHE_TIME;
 }
+
+// Beta uplifts raw JSON — only needed when the parsed result is also absent
+if ($requested_version != 53 && $requested_version > 46
+    && Cache::getKey($beta_parsed_key, 86400 * 365) === false) {
+    $_to_prefetch[$_beta_url] = -1;
+}
+
+// RC uplifts
+$_to_prefetch[$_rc_url] = -1;
+
+// Nightly fixes raw JSON — only needed when the parsed result is also absent
+if (Cache::getKey($nightly_parsed_key, 86400 * 365) === false) {
+    $_to_prefetch[$_nightly_url] = -1;
+}
+
+// Balrog (current release only)
+if ((int) $requested_version === RELEASE) {
+    $_to_prefetch[URL::Balrog->value . 'rules/firefox-release'] = CACHE_TIME;
+}
+
+// Adoption rate, slow endpoint (current and previous release only)
+if ((int) $requested_version >= RELEASE - 1) {
+    $_to_prefetch[Data::getDesktopAdoptionRateUrl($requested_version)] = Data::ADOPTION_RATE_CACHE_TTL;
+}
+
+$prefetch($_to_prefetch);
+unset($_beta_url, $_rc_url, $_nightly_url, $_to_prefetch, $_file);
 
 // Historical data from Product Details (now served from cache if just pre-fetched)
 $firefox_releases = Json::load(URL::ProductDetails->value . 'firefox.json')['releases'];
@@ -197,6 +204,30 @@ $dot_releases = array_filter(
 // Number of dot releases
 $dot_release_count = count($dot_releases);
 
+$dot_changelog = $dot_release_count > 0
+    ? URL::Mercurial->value
+        . 'releases/mozilla-release/json-pushes'
+        . '?fromchange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
+        . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_' . (string) $dot_release_count .  '_RELEASE'
+        . '&full&version=2'
+    : '';
+
+// Android-only dot releases have no desktop adoption rate
+$desktop_dot_releases = array_filter($dot_releases, fn ($v) => $v['platform'] !== 'android');
+
+// Second parallel batch for the URLs that depend on the list of dot releases
+$_to_prefetch = [];
+if ($dot_release_count > 0) {
+    $_to_prefetch[$dot_changelog] = 3600 * 24 * 6;
+}
+if ((int) $requested_version >= RELEASE - 1) {
+    foreach (array_keys($desktop_dot_releases) as $_version) {
+        $_to_prefetch[Data::getDesktopAdoptionRateUrl((string) $_version)] = Data::ADOPTION_RATE_CACHE_TTL;
+    }
+}
+$prefetch($_to_prefetch);
+unset($_to_prefetch, $_version);
+
 // No dot release yet scenario
 $dot_uplifts = [
     'bug_fixes' => [],
@@ -205,15 +236,10 @@ $dot_uplifts = [
     'no_data'   => true,
 ];
 
-$dot_changelog = $dot_uplifts_url = $dot_backouts_url = '';
+$dot_uplifts_url = $dot_backouts_url = '';
 
 // Get dot release uplifts
 if ($dot_release_count > 0) {
-    $dot_changelog = URL::Mercurial->value
-        . 'releases/mozilla-release/json-pushes'
-        . '?fromchange=FIREFOX_' . ((int) $requested_version) . '_0_RELEASE'
-        . '&tochange=FIREFOX_' . ((int) $requested_version) . '_0_' . (string) $dot_release_count .  '_RELEASE'
-        . '&full&version=2';
     $dot_uplifts      = Bugzilla::getBugsFromHgWeb($dot_changelog, true, 3600 * 24 * 6);
     $dot_uplifts_url  = Bugzilla::getBugListLink($dot_uplifts['total']);
     $dot_backouts_url = Bugzilla::getBugListLink($dot_uplifts['backouts']);
@@ -242,7 +268,9 @@ $release_uptake = 0;
 if ((int) $requested_version >= RELEASE - 1) {
     $release_uptake = Data::getDesktopAdoptionRate($requested_version);
     foreach ($dot_releases as $k => $v) {
-        $dot_releases[$k]['adoption'] = Data::getDesktopAdoptionRate($k);
+        $dot_releases[$k]['adoption'] = isset($desktop_dot_releases[$k])
+            ? Data::getDesktopAdoptionRate((string) $k)
+            : null;
     }
 }
 
