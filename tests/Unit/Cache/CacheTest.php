@@ -30,6 +30,11 @@ test('Cache::getKey', function () {
     expect(Cache::getKey('Unique ID 2', -1))->toEqual('This is immutable data');
     expect(Cache::getKey('Unique ID 3', 1))->toBeFalse();
     expect(Cache::getKey('Unique ID which was never set', -1))->toBeFalse();
+
+    // A truncated cache file (e.g. read during a concurrent write) is a cache miss and is removed
+    file_put_contents(Cache::getKeyPath('Truncated'), substr(serialize(str_repeat('x', 1000)), 0, 500));
+    expect(Cache::getKey('Truncated'))->toBeFalse();
+    expect(file_exists(Cache::getKeyPath('Truncated')))->toBeFalse();
     Cache::$CACHE_ENABLED = false;
 });
 

@@ -48,8 +48,23 @@ class Cache
         }
 
         $immutable = ($ttl === -1) ? true : false;
+        $file = self::getKeyPath($id, $immutable);
 
-        return file_put_contents(self::getKeyPath($id, $immutable), serialize($data)) ? true : false;
+        // Write to a temporary file and rename it so that concurrent readers
+        // never see a partially written cache file (rename() is atomic)
+        $tmp = $file . '.' . bin2hex(random_bytes(4)) . '.tmp';
+
+        if (file_put_contents($tmp, serialize($data)) === false) {
+            return false; // @codeCoverageIgnore
+        }
+
+        if (! rename($tmp, $file)) {
+            @unlink($tmp); // @codeCoverageIgnore
+
+            return false; // @codeCoverageIgnore
+        }
+
+        return true;
     }
 
     /**
@@ -79,9 +94,33 @@ class Cache
             $immutable = true;
         }
 
-        return self::isValidKey($id, $ttl)
-               ? unserialize(file_get_contents(self::getKeyPath($id, $immutable)))
-               : false;
+        if (! self::isValidKey($id, $ttl)) {
+            return false;
+        }
+
+        // Silence warnings on a file deleted concurrently or on corrupted data, we handle
+        // both below. A temporary handler is needed as custom error handlers (Sentry)
+        // still receive warnings silenced with the @ operator.
+        set_error_handler(static fn (): bool => true);
+        try {
+            $content = file_get_contents(self::getKeyPath($id, $immutable));
+            $data = $content === false ? false : unserialize($content);
+        } finally {
+            restore_error_handler();
+        }
+
+        if ($content === false) {
+            return false; // @codeCoverageIgnore
+        }
+
+        // Corrupted cache file, treat it as a cache miss and remove it
+        if ($data === false && $content !== serialize(false)) {
+            self::deleteKey($id, $immutable);
+
+            return false;
+        }
+
+        return $data;
     }
 
     /**
