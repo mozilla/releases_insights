@@ -163,3 +163,8 @@ test('Data->getDesktopAdoptionRate()', function () {
 });
 
 
+
+test('Data::getDesktopAdoptionRateUrl()', function () {
+    expect(Data::getDesktopAdoptionRateUrl('130.0'))
+        ->toBe(URL::Pollbot->value . 'firefox/130.0/telemetry/main-summary-uptake');
+});
