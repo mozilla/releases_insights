@@ -1,11 +1,10 @@
-# Releases Insights (whattrainisitnow.com) — Metronome branch
+# Releases Insights (whattrainisitnow.com)
 
 PHP 8.x app that computes and displays Firefox release schedules ("trains"),
 milestones, ESR data and dashboards. No JS build step; templates are Twig.
 
-> **This is the `Metronome` branch**: it carries the 2-week release cadence work
-> (Firefox 155+) and a Basic-Auth-protected Heroku demo. `master` still has the
-> legacy 4-week model.
+Firefox moves to a 2-week release cadence from version 155; earlier versions
+keep the legacy 4-week model. Both are computed in `Release.php` (see below).
 
 ## Commands
 
@@ -67,13 +66,4 @@ php -r 'require "vendor/autoload.php"; require "tests/bootstrap.php";
   version(s) with the snippet above and check dates, weekdays and ordering.
   (There's a `verify-schedule` skill for exactly this.)
 
-## Deploying the demo
-
-The Heroku demo (`fx-trains`, https://fx-trains.herokuapp.com/) is served from
-this branch and protected by Basic Auth (`.htaccess`).
-
-```sh
-git push heroku Metronome:master
-```
-
-Do **not** merge the demo's auth `.htaccess` into `master`. Only commit/push when asked.
+Only commit/push when asked.
