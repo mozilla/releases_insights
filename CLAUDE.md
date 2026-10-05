@@ -66,4 +66,17 @@ php -r 'require "vendor/autoload.php"; require "tests/bootstrap.php";
   version(s) with the snippet above and check dates, weekdays and ordering.
   (There's a `verify-schedule` skill for exactly this.)
 
+## Servers and deployment
+
+The app must work on both **nginx** and **Apache**: keep `docker/nginx.conf` and
+`public/.htaccess` in sync when changing routing or headers.
+
+- Production: Docker image (`Dockerfile`), nginx + php-fpm (`docker/`).
+- Internal demo: Heroku app `fx-trains` (https://fx-trains.herokuapp.com/),
+  Apache via `heroku-php-apache2` (`Procfile`). Deploy with:
+
+  ```sh
+  git push heroku master:master
+  ```
+
 Only commit/push when asked.
