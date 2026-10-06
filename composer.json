@@ -43,7 +43,6 @@
         "sentry/sentry": "^4.0",
         "components/jquery": "^4.0",
         "twbs/bootstrap": "^5.3",
-        "twbs/bootstrap-icons": "^1.8",
         "pchevrel/bzkarma": "^1.0",
         "eluceo/ical": "^0.20.0",
         "benhall14/php-calendar": "^1.4",
@@ -94,8 +93,6 @@
         "post-install-cmd": [
             "rm -rf public/assets/bootstrap",
             "cp -r vendor/twbs/bootstrap/dist public/assets/bootstrap",
-            "cp vendor/twbs/bootstrap-icons/font/bootstrap-icons.css public/assets/bootstrap/css/",
-            "cp -r vendor/twbs/bootstrap-icons/font/fonts/ public/assets/bootstrap/css/",
             "rm -rf public/assets/jquery",
             "cp -r vendor/components/jquery/ public/assets/jquery",
             "cp vendor/benhall14/php-calendar/html/css/calendar.css public/style/",

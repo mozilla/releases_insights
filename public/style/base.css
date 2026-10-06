@@ -698,3 +698,11 @@ nav svg:hover {
 #beta_uplifts_graph .uplift-legend-2w {
     background-color: var(--orange-light);
 }
+
+/* Inline SVG icons (from Bootstrap Icons), sized like the text around them */
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: -.125em;
+}

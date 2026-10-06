@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4137f4f59e4325099c7b1dedd142997a",
+    "content-hash": "bb92865812f453f58baad3d7d00b47aa",
     "packages": [
         {
             "name": "benhall14/php-calendar",
@@ -2158,45 +2158,6 @@
                 "source": "https://github.com/twbs/bootstrap/tree/v5.3.8"
             },
             "time": "2025-08-26T02:01:02+00:00"
-        },
-        {
-            "name": "twbs/bootstrap-icons",
-            "version": "v1.13.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/icons.git",
-                "reference": "ce0e49dd063243118a115f17ad1fe1fe7576d552"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/ce0e49dd063243118a115f17ad1fe1fe7576d552",
-                "reference": "ce0e49dd063243118a115f17ad1fe1fe7576d552",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                }
-            ],
-            "description": "Official open source SVG icon library for Bootstrap",
-            "homepage": "https://icons.getbootstrap.com/",
-            "keywords": [
-                "bootstrap",
-                "icon font",
-                "icons",
-                "svg"
-            ],
-            "support": {
-                "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.13.1"
-            },
-            "time": "2025-05-09T23:01:19+00:00"
         },
         {
             "name": "twig/intl-extra",
