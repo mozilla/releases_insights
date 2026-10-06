@@ -18,6 +18,7 @@ const MODELS           = INSTALL_ROOT . 'app/models/';
 const DATA             = INSTALL_ROOT . 'app/data/';
 const CACHE_PATH       = INSTALL_ROOT . 'cache/';
 const TEST_FILES       = INSTALL_ROOT . 'tests/Files/';
+const WEB_ROOT         = INSTALL_ROOT . 'public/';
 const CACHE_ENABLED    = false;
 const TESTING_CONTEXT  = true;
 const IS_DEV_MODE      = true;

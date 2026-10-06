@@ -7,6 +7,7 @@ namespace ReleaseInsights;
 use Twig\Environment;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
+use Twig\TwigFunction;
 
 class Template
 {
@@ -56,7 +57,23 @@ class Template
         // @codeCoverageIgnoreEnd
 
         $twig->addExtension(new IntlExtension());
+        $twig->addFunction(new TwigFunction('asset', self::asset(...)));
         echo $twig->render($this->template, $this->data);
         die;
+    }
+
+    /**
+     * Append a version based on the file content to a static asset path, so that
+     * browsers can cache assets for a long time and still get them when they change.
+     */
+    public static function asset(string $path): string
+    {
+        $file = WEB_ROOT . ltrim($path, '/');
+
+        if (! is_file($file)) {
+            return $path;
+        }
+
+        return $path . '?version=' . substr(hash_file('xxh3', $file), 0, 8);
     }
 }

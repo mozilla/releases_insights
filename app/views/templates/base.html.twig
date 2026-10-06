@@ -5,13 +5,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="alternate" type="application/rss+xml" title="Feed to get alerted of Firefox releases" href="/rss/">
-        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" media="screen">
+        <link rel="stylesheet" href="{{ asset('/assets/bootstrap/css/bootstrap.min.css') }}" media="screen">
+        {# No version on the font preload: it must match the URL in inter.css or the font is downloaded twice #}
         <link rel="preload" href="/assets/fonts/Inter-4.1/InterVariable-Latin.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="stylesheet" href="/assets/fonts/Inter-4.1/inter.css?version=2">
+        <link rel="stylesheet" href="{{ asset('/assets/fonts/Inter-4.1/inter.css') }}">
 
         {% block head_additions %}{% endblock %}
 
-        <link rel="stylesheet" href="/style/base.css?version=74" type="text/css" media="all">
+        <link rel="stylesheet" href="{{ asset('/style/base.css') }}" type="text/css" media="all">
 
         {% if branch != '' %}
         <link rel="icon" type="image/svg+xml" href="/assets/img/site_icon_dev.svg">
@@ -43,7 +44,7 @@
         {% include 'menu.html.twig' %}
         {% block header %}{% endblock %}
         {% block main %}{% endblock %}
-        <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         {% block footer %}{% endblock %}
         <script nonce="{{constant('NONCE')}}">
             document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
