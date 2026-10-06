@@ -69,7 +69,8 @@ php -r 'require "vendor/autoload.php"; require "tests/bootstrap.php";
 ## Servers and deployment
 
 The app must work on both **nginx** and **Apache**: keep `docker/nginx.conf` and
-`public/.htaccess` in sync when changing routing or headers.
+`public/.htaccess` in sync when changing routing. Security headers are sent by
+PHP (`app/inc/router.php`, CSP in `app/inc/init.php`), not by the servers.
 
 - Production: Docker image (`Dockerfile`), nginx + php-fpm (`docker/`).
 - Internal demo: Heroku app `fx-trains` (https://fx-trains.herokuapp.com/),

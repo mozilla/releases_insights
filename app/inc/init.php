@@ -8,8 +8,10 @@ use Tracy\Debugger;
 // This is our production CSP
 $csp_headers = "Content-Security-Policy: default-src https:; object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-" . NONCE ."'; style-src 'self' 'nonce-" . NONCE . "'; style-src-attr 'unsafe-inline'; frame-ancestors 'none'";
 
-if (LOCALHOST) {
-    // Error handler page is blocked by our production CSP rules
+// The Tracy error page is blocked by our production CSP rules. LOCALHOST relies on
+// the Host header which clients control, so we also check that we run on PHP's
+// built-in server, which is never used in production.
+if (IS_DEV_MODE || (LOCALHOST && PHP_SAPI === 'cli-server')) {
     $csp_headers = '';
 }
 
@@ -22,9 +24,10 @@ if (IS_DEV_MODE) {
      }
 }
 
-// Send HTTP security headers (not set by the server)
-header('X-Content-Type-Options: nosniff');
-header($csp_headers);
+// Send our CSP, other security headers are sent in router.php
+if ($csp_headers !== '') {
+    header($csp_headers);
+}
 
 // Dispatch urls. The $url object is defined in router.php
 $url->loadController();

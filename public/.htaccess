@@ -71,14 +71,3 @@
     </IfModule>
 
 </IfModule>
-
-# Security headers
-<IfModule mod_headers.c>
-    Header set Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
-    Header set X-Content-Type-Options: nosniff
-    Header set X-XSS-Protection: "1; mode=block"
-    Header set X-Frame-Options: DENY
-    Header always set Permissions-Policy: interest-cohort=()
-    Header always set Referrer-Policy "no-referrer"
-</IfModule>
-
