@@ -266,25 +266,6 @@ class Release
             ]);
         }
 
-        // Firefox 156 predates the 157 QA milestone shift too, and its dates have
-        // already been communicated, so it keeps the old slots.
-        // TODO: remove this conditional once 156.0 has shipped
-        if ($this->version->normalized === '156.0') {
-            $schedule = array_merge($schedule, [
-                'qa_feature_done'     => '2026-08-21 21:00:00+00:00', // Nightly W1 Friday, pre-157 slot
-                'qa_nightly_signoff'  => '2026-08-27 14:00:00+00:00', // Merge day (Thursday), pre-157 slot
-            ]);
-        }
-
-        // Firefox 157's SUMO date had already passed when the milestone moved
-        // to Beta W1 Thursday, so it keeps the old Wednesday slot.
-        // TODO: remove this conditional once 157.0 has shipped
-        if ($this->version->normalized === '157.0') {
-            $schedule = array_merge($schedule, [
-                'sumo_1'              => '2026-09-16 21:00:00+00:00', // Beta W1 Wednesday, pre-158 slot
-            ]);
-        }
-
         // 155 planned dot release cancelled
         if ($this->version->int === 155) {
             unset($schedule['dot_release_1']);
@@ -397,12 +378,6 @@ class Release
         $dot_release_2 = $future_schedule['dot_release_2'] ?? null;
         $dot_release_3 = $future_schedule['dot_release_3'] ?? null;
         $dot_release_4 = $future_schedule['dot_release_4'] ?? null;
-
-        if ($this->version->int === 155) {
-            // We cancelled this planned dot release
-            // TODO: remove condition when 156 ships
-            $dot_release_1 = null; // @codeCoverageIgnore
-        }
 
         if (isset($dot_release_1) && ! in_array(new DateTime($dot_release_1), $shipped_dot_releases)) {
             $milestones['dot_release_1'] = new DateTime($dot_release_1);

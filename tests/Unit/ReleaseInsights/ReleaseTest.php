@@ -148,16 +148,6 @@ test('Release->getSchedule()', function () {
     expect($sched['qa_request_deadline'])->toEqual($sched['nightly_start']);
     expect($sched['a11y_request_deadline'])->toEqual($sched['nightly_start']);
 
-    // From Firefox 157, "build ready for QA" moves to the Nightly W1 Thursday and
-    // the Nightly QA sign-off to the Wednesday before merge day. 156 and earlier
-    // keep the original Friday / merge-day slots.
-    $sched = new Release('156.0')->getSchedule();
-    expect($sched['qa_feature_done'])->toBe("2026-08-21 21:00:00+00:00");    // Friday
-    expect($sched['qa_nightly_signoff'])->toBe("2026-08-27 14:00:00+00:00"); // merge day
-    $sched = new Release('157.0')->getSchedule();
-    expect($sched['qa_feature_done'])->toBe("2026-09-03 21:00:00+00:00");    // Thursday
-    expect($sched['qa_nightly_signoff'])->toBe("2026-09-09 14:00:00+00:00"); // day before merge
-    expect($sched['sumo_1'])->toBe("2026-09-16 21:00:00+00:00");             // Wednesday
     // From Firefox 158, SUMO content creation is on Beta W1 Thursday, a week after merge day
     expect(new Release('158.0')->getSchedule()['sumo_1'])->toBe("2026-10-01 21:00:00+00:00");
 
