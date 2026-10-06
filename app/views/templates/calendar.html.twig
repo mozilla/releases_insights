@@ -130,9 +130,6 @@
 {% include 'footer_UTC_warning.html.twig' %}
 
 <script nonce="{{constant('NONCE')}}">
-    $(function () {
-        $('[data-bs-toggle="tooltip"]').tooltip()
-    })
     function openTarget() {
         var hash = location.hash.substring(1);
         if (hash) var details = document.getElementById(hash);

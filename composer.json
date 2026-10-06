@@ -41,7 +41,6 @@
         "guzzlehttp/guzzle": "^7.0",
         "cweagans/composer-patches": "^1.7",
         "sentry/sentry": "^4.0",
-        "components/jquery": "^4.0",
         "twbs/bootstrap": "^5.3",
         "pchevrel/bzkarma": "^1.0",
         "eluceo/ical": "^0.20.0",
@@ -93,10 +92,7 @@
         "post-install-cmd": [
             "rm -rf public/assets/bootstrap",
             "cp -r vendor/twbs/bootstrap/dist public/assets/bootstrap",
-            "rm -rf public/assets/jquery",
-            "cp -r vendor/components/jquery/ public/assets/jquery",
             "cp vendor/benhall14/php-calendar/html/css/calendar.css public/style/",
-            "rm public/assets/jquery/README.md",
             "mkdir -p public/assets/chartjs",
             "cp vendor/nnnick/chartjs/dist/chart.umd.min.js public/assets/chartjs/",
             "echo ${SOURCE_VERSION:-$(git rev-parse HEAD)} > public/deployed-version.txt"

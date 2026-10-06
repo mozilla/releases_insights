@@ -398,11 +398,7 @@
 {% block footer %}
     {% include 'footer_UTC_warning.html.twig' %}
     <script nonce="{{constant('NONCE')}}">
-        $(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip()
-        });
-
-        $(document).ready(function() {
+        {
             const ua = navigator.userAgent;
             let platform = "";
             let label = "";
@@ -420,14 +416,14 @@
             // 2. If a platform was matched, update the links
             if (platform) {
                 // Targets links containing mozilla.org, firefox, and releasenotes
-                $('a[href*="firefox.com/"][href*="/firefox/"][href*="/releasenotes/"]').each(function() {
+                document.querySelectorAll('a[href*="firefox.com/"][href*="/firefox/"][href*="/releasenotes/"]').forEach(link => {
                     // Update the URL using Regex to inject the platform before the version
-                    this.href = this.href.replace(/\/firefox\/([\d\.]+)\//, `/firefox/${platform}/$1/`);
+                    link.href = link.href.replace(/\/firefox\/([\d\.]+)\//, `/firefox/${platform}/$1/`);
 
                     // Append the platform label to the link text
-                    $(this).after(label);
+                    link.insertAdjacentHTML('afterend', label);
                 });
             }
-        });
+        }
     </script>
 {% endblock %}

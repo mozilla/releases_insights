@@ -1,34 +1,37 @@
 <script nonce="{{constant('NONCE')}}">
-$(document).ready(function() {
-    $(document).on("click", "table thead tr th", function() {
-        var table = $(this).parents("table");
-        var rows  = table.find("> tbody > tr").toArray().sort(TableComparer($(this).index()));
-        var header_direction = $(this).hasClass("sort-asc") ? "sort-desc" : "sort-asc";
+// Sort table rows when clicking on a column header
+document.addEventListener('click', function (event) {
+    const header = event.target.closest('table thead tr th');
+    if (! header) {
+        return;
+    }
 
-        if (header_direction == "sort-desc") {
-            rows = rows.reverse();
-        }
-        table.append(rows);
-        table.find("th").removeClass("sort-asc sort-desc");
+    const table = header.closest('table');
+    const index = Array.from(header.parentElement.children).indexOf(header);
+    let rows = Array.from(table.querySelectorAll(':scope > tbody > tr')).sort(TableComparer(index));
+    const header_direction = header.classList.contains('sort-asc') ? 'sort-desc' : 'sort-asc';
 
-        $(this).addClass(header_direction);
-    });
+    if (header_direction == 'sort-desc') {
+        rows = rows.reverse();
+    }
+    (table.tBodies[0] ?? table).append(...rows);
+    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+
+    header.classList.add(header_direction);
 });
 
 function TableComparer(index) {
-    var value = function (row, index) {
-        return $(row).children("td").eq(index).children(":first-child").text();
+    // Text of the first element in the nth data cell of the row
+    const value = function (row, index) {
+        const cell = Array.from(row.children).filter(child => child.tagName === 'TD')[index];
+        return cell?.firstElementChild?.textContent ?? '';
     };
 
     return function(a, b) {
-        var val_a  = value(a, index);
-        var val_b  = value(b, index);
-        var isNumeric = function (n) { return !isNaN(parseFloat(n)) && isFinite(n); };
+        const val_a  = value(a, index);
+        const val_b  = value(b, index);
+        const isNumeric = function (n) { return !isNaN(parseFloat(n)) && isFinite(n); };
         return (isNumeric(val_a) && isNumeric(val_b)) ? val_a - val_b : val_a.toString().localeCompare(val_b);
     }
 }
-
-$(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
-})
 </script>

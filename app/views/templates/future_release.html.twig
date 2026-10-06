@@ -378,18 +378,11 @@
 {% endif %}
 
     <script nonce="{{constant('NONCE')}}">
-        $(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip()
-        })
-
-        $('span.schedule_date').click(function (){
-            var current_row = $(this).closest('tr');
-            var details_in_row = current_row.find('details');
-            if (details_in_row.attr('open')) {
-                details_in_row.removeAttr('open');
-            } else {
-                details_in_row.attr('open', 'open')
-            };
-        });
+        // Clicking a date toggles the milestone details in the same row
+        document.querySelectorAll('span.schedule_date').forEach(date => date.addEventListener('click', () => {
+            const details = date.closest('tr')?.querySelectorAll('details') ?? [];
+            const open = details[0]?.open ?? false;
+            details.forEach(d => d.open = ! open);
+        }));
     </script>
 {% endblock %}

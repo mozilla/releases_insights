@@ -71,7 +71,6 @@ RUN chown -R app:app /app /run /var/lib/nginx /var/log/nginx
 COPY --chown=app:app . /app
 COPY --from=builder --chown=app:app /app/public/assets/bootstrap /app/public/assets/bootstrap
 COPY --from=builder --chown=app:app /app/public/assets/chartjs /app/public/assets/chartjs
-COPY --from=builder --chown=app:app /app/public/assets/jquery /app/public/assets/jquery
 COPY --from=builder --chown=app:app /app/vendor /app/vendor
 COPY --from=builder --chown=app:app /app/vendor/benhall14/php-calendar/html/css/calendar.css /app/public/style/
 COPY --from=builder --chown=app:app /app/public/deployed-version.txt /app/public/

@@ -43,8 +43,10 @@
         {% include 'menu.html.twig' %}
         {% block header %}{% endblock %}
         {% block main %}{% endblock %}
-        <script src="/assets/jquery/jquery.slim.min.js"></script>
         <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         {% block footer %}{% endblock %}
+        <script nonce="{{constant('NONCE')}}">
+            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+        </script>
     </body>
 </html>
