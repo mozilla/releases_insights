@@ -36,9 +36,13 @@ $options = [
 // The date in the string varies so we create a unique file name in cache
 $cache_id = $options['http']['content'];
 
+// Today's nightlies are cached briefly as a second nightly build may come later,
+// and because Buildhub often lags by hours, during which it returns no builds.
+$ttl = $date === date('Ymd') ? 300 : 900;
+
 // If we can't retrieve cached data, we create and cache it.
 // We cache because we want to avoid http request latency
-if (! $data = Cache::getKey($cache_id, 900)) {
+if (($data = Cache::getKey($cache_id, $ttl)) === false) {
     $data = @file_get_contents(
         URL::BuildHub->value,
         false,
@@ -53,8 +57,10 @@ if (! $data = Cache::getKey($cache_id, 900)) {
 
     $data = array_column(Json::toArray($data)['hits']['hits'] ?? [], '_source');
 
-    // No data returned, bug or incorrect date, don't cache.
+    // No builds (yet) for that day, cache it to not query Buildhub on every request
     if (empty($data)) {
+        Cache::setKey($cache_id, []);
+
         return [];
     }
 
@@ -74,10 +80,7 @@ if (! $data = Cache::getKey($cache_id, 900)) {
 
     $data = $filtered;
 
-    // We don't cache today because we may miss the second nightly build
-    if ($date !== date('Ymd')) {
-        Cache::setKey($cache_id, $data);
-    }
+    Cache::setKey($cache_id, $data);
 }
 
 return $data;
