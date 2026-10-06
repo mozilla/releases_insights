@@ -25,8 +25,10 @@ const TEST_FILES  = INSTALL_ROOT . 'tests/Files/';
 const CACHE_PATH  = INSTALL_ROOT . 'cache/';
 const WEB_ROOT    = INSTALL_ROOT . 'public/';
 
-// Prepare caching
-define('CACHE_ENABLED', ! isset($_GET['nocache']));
+// Prepare caching. The ?nocache bypass is for local development only, it is
+// gated on an env variable (not the Host header, which clients control) so that
+// it can't be used to hammer our upstream data sources in production.
+define('CACHE_ENABLED', ! (isset($_GET['nocache']) && getenv('DEV_MODE') === 'true'));
 define('CACHE_TIME', 900); // 15 minutes
 
 // Autoloading of classes (both /vendor/ and /app/classes)

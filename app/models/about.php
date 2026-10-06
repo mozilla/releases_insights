@@ -2,16 +2,7 @@
 
 declare(strict_types=1);
 
-use Cache\Cache;
-
 $yesterday = date('Ymd', strtotime('yesterday'));
-
-// We also use this page to flush the cache on demand
-$flush_cache = $_GET['flush_cache'] ?? false;
-if ($flush_cache === date('Ymd')) {
-    Cache::flush();
-}
-
 
 // Extract deployed sha1 to link to it
 $filename = WEB_ROOT . 'deployed-version.txt';
