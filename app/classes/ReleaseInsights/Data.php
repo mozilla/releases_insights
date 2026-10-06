@@ -23,6 +23,14 @@ class Data
 
     private readonly string $pd_url;
 
+    /**
+     * Desktop past releases already computed during this request, schedules
+     * for past versions all need this list.
+     *
+     * @var array<string, array<string, string>>
+     */
+    private static array $desktop_past_releases = [];
+
     public function __construct(
         ?string $pd_url = null,
         public int $cache_duration = 900 // 15 minutes
@@ -122,6 +130,11 @@ class Data
      */
     public function getDesktopPastReleases(bool $dot_releases = true): array
     {
+        $memo_key = $this->pd_url . '|' . $this->cache_duration . '|' . (int) $dot_releases;
+        if (isset(self::$desktop_past_releases[$memo_key])) {
+            return self::$desktop_past_releases[$memo_key];
+        }
+
         // Historical data from Product Details, cache a week
         $major_releases = Json::load($this->pd_url . 'firefox_history_major_releases.json', $this->cache_duration);
         $minor_releases =  $dot_releases == true ? Json::load($this->pd_url . 'firefox_history_stability_releases.json', $this->cache_duration) : [];
@@ -151,7 +164,7 @@ class Data
             return true;
         };
 
-        return array_filter($all_releases, $exclude_esr, ARRAY_FILTER_USE_KEY);
+        return self::$desktop_past_releases[$memo_key] = array_filter($all_releases, $exclude_esr, ARRAY_FILTER_USE_KEY);
     }
 
     /**

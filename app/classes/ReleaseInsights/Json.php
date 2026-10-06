@@ -72,10 +72,23 @@ class Json
     // Below are static methods imported from the Utils class, refactoring in progress
 
     /**
+     * Decoded data already loaded during this request, so that a page using the
+     * same resource many times doesn't read and decode it again.
+     *
+     * @var array<string, array<mixed>>
+     */
+    private static array $loaded = [];
+
+    /**
      *  @return array<mixed> $template_data
      */
     public static function load(string $url, int $ttl = 0): array
     {
+        $memo_key = $url . '|' . $ttl;
+        if (isset(self::$loaded[$memo_key])) {
+            return self::$loaded[$memo_key];
+        }
+
         if (! $data = Cache::getKey($url, $ttl)) {
             // $status carries the HTTP status code so that callers can tell the
             // user *why* an external resource didn't provide data (429, 406…).
@@ -107,7 +120,7 @@ class Json
             Cache::setKey($url, $data, $ttl);
         }
 
-        return self::toArray($data);
+        return self::$loaded[$memo_key] = self::toArray($data);
     }
 
     /**
