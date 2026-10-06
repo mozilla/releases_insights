@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Cache\Cache;
 use ReleaseInsights\{Bugzilla, Data, Duration, IOS, Json, Nightly, Release, URL, Version};
 
 $requested_version = Version::get();
@@ -58,15 +59,25 @@ if ((int) $requested_version === BETA) {
     $start = $tag((int) $requested_version - 1);
     $end   = $tag((int) $requested_version);
 
-    $nightly_fixes = Bugzilla::getBugsFromHgWeb(
-        URL::Mercurial->value
-        . 'mozilla-central/json-pushes'
-        . '?fromchange=' . $start
-        . '&tochange=' . $end
-        . '&full&version=2',
-        true,
-        -1 // Immutable external data, store forever
-    );
+    // Parsing the log is slow, cache the result. Same key as in past_release.php
+    // so that the data is already there when this version ships.
+    $nightly_parsed_key = 'parsed_nightly_fixes_' . (int) $requested_version;
+    $nightly_fixes = Cache::getKey($nightly_parsed_key, 86400 * 365);
+    if ($nightly_fixes === false) {
+        $nightly_fixes = Bugzilla::getBugsFromHgWeb(
+            URL::Mercurial->value
+            . 'mozilla-central/json-pushes'
+            . '?fromchange=' . $start
+            . '&tochange=' . $end
+            . '&full&version=2',
+            true,
+            -1 // Immutable external data, store forever
+        );
+        // Don't keep an hg.mozilla.org failure for a year
+        if (! $nightly_fixes['no_data']) {
+            Cache::setKey($nightly_parsed_key, $nightly_fixes, 86400 * 365);
+        }
+    }
 }
 
 $nightly_updates = true;

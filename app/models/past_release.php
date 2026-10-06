@@ -161,7 +161,10 @@ if ($requested_version != 53 && $requested_version > 46) {
     $beta_uplifts = Cache::getKey($beta_parsed_key, 86400 * 365);
     if ($beta_uplifts === false) {
         $beta_uplifts = Bugzilla::getBugsFromHgWeb($beta_changelog, true, -1);
-        Cache::setKey($beta_parsed_key, $beta_uplifts, 86400 * 365);
+        // Don't keep an hg.mozilla.org failure for a year
+        if (! $beta_uplifts['no_data']) {
+            Cache::setKey($beta_parsed_key, $beta_uplifts, 86400 * 365);
+        }
     }
     $beta_changelog    = str_replace('json-pushes', 'pushloghtml', $beta_changelog);
     $beta_uplifts_url  = Bugzilla::getBugListLink($beta_uplifts['total']);
@@ -315,7 +318,10 @@ if ($nightly_fixes === false) {
             -1
         );
     }
-    Cache::setKey($nightly_parsed_key, $nightly_fixes, 86400 * 365);
+    // Don't keep an hg.mozilla.org failure for a year
+    if (! $nightly_fixes['no_data']) {
+        Cache::setKey($nightly_parsed_key, $nightly_fixes, 86400 * 365);
+    }
 }
 
 $dot_release_1 = new Release($requested_version)->getSchedule()['dot_release_1'] ?? null;
