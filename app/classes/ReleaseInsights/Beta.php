@@ -151,16 +151,20 @@ class Beta
         $is_current_cycle = ($this->release === BETA);
 
         // Check cache for each endpoint. Shipped betas are cached for one month.
-        // The latest beta in the current cycle still receives pushes and is never cached.
+        // The latest beta in the current cycle still receives pushes, it is cached for
+        // CACHE_TIME only, under a key based on its query: the query ends at 'tip' until
+        // the beta ships, so a partial log is never reused as the shipped beta log.
         $beta_logs = [];
         $to_fetch = [];
         foreach ($endpoints as $beta => $query) {
-            $cacheable = !($is_current_cycle && $beta === $latest_key);
-            if ($cacheable && ($cached = Cache::getKey('beta_logs_' . $beta, $shipped_ttl)) !== false) {
+            [$cache_key, $ttl] = ($is_current_cycle && $beta === $latest_key)
+                ? ['beta_logs_live_' . $query, 0]
+                : ['beta_logs_' . $beta, $shipped_ttl];
+            if (($cached = Cache::getKey($cache_key, $ttl)) !== false) {
                 $beta_logs[$beta] = $cached;
                 continue;
             }
-            $to_fetch[$beta] = ['query' => $query, 'cacheable' => $cacheable];
+            $to_fetch[$beta] = ['query' => $query, 'cache_key' => $cache_key, 'ttl' => $ttl];
         }
 
         if (empty($to_fetch)) {
@@ -185,9 +189,7 @@ class Beta
             $data = $json_log['value']->getBody()->getContents();
             $result = Bugzilla::getBugsFromHgWeb(query: $data, detect_backouts: true);
 
-            if ($to_fetch[$key]['cacheable']) {
-                Cache::setKey('beta_logs_' . $key, $result, $shipped_ttl);
-            }
+            Cache::setKey($to_fetch[$key]['cache_key'], $result, $to_fetch[$key]['ttl']);
 
             $beta_logs[$key] = $result;
         }
