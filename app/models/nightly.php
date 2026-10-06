@@ -25,7 +25,17 @@ $warnings = [];
 // Get nightlies for the GET Request (or today's nightly)
 $nightlies = include MODELS . 'api/nightly.php';
 
-if (! empty($nightlies)) {
+/*
+    Preparing the page data (crash-stats, hg, Bugzilla) takes seconds when it isn't
+    cached. Display a waiting page only in that case, the page is reloaded once the
+    data is ready. The lock file records when the data for that day was prepared,
+    its lifetime is the one of the crash data, our shortest cache.
+ */
+$waiting_page = false;
+$lock_file = CACHE_PATH . 'nightly_lock_' . $requested_date . '.cache';
+$lock_ttl = 300;
+if (! empty($nightlies) && (! file_exists($lock_file) || time() - filemtime($lock_file) > $lock_ttl)) {
+    $waiting_page = true;
     Request::waitingPage('load');
 }
 
@@ -254,7 +264,7 @@ $top_sigs_worth_a_bug = array_map('urlencode', $top_sigs_worth_a_bug);
 $crash_bugs = [];
 if (! empty($top_sigs_worth_a_bug)) {
     foreach ($top_sigs_worth_a_bug as $sig) {
-        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig, 30)['hits'] ?? []; // short 30s cache intended
+        $bugs_for_top_sigs = Utils::getBugsforCrashSignature($sig, 300)['hits'] ?? []; // short 5mn cache intended
         $tmp = array_column($bugs_for_top_sigs, 'id');
         if (!empty($tmp)) {
             $crash_bugs[urldecode($sig)] = max(
@@ -333,8 +343,9 @@ $bug_changed_pref = array_unique($bug_changed_pref);
 // A single message for all the external resources that let us down
 $warning = implode('. ', array_unique($warnings));
 
-if (! empty($nightlies)) {
-    Request::waitingPage('hide');
+if ($waiting_page) {
+    file_put_contents($lock_file, '');
+    Request::waitingPage('leave');
 }
 
 return [

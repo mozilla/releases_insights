@@ -173,9 +173,6 @@ class Request
             // heavy processing is done, let the browser refresh the page
             echo '<meta http-equiv="refresh" content="0">';
             exit;
-        } elseif ($action == 'hide') {
-            // heavy processing is done, let the browser refresh the page
-            echo '<style nonce="' . NONCE . '">.waitingpage .container { display:none; }</style>';
         }
     }
 }

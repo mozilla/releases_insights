@@ -104,7 +104,7 @@ class Utils
             }
         }
 
-        return Json::load(url: $cache_id, ttl: 30);
+        return Json::load(url: $cache_id, ttl: 300);
     }
 
     /**
