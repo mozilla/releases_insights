@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ReleaseInsights;
 
+use Cache\Cache;
+
 class Nightly
 {
     public string $version;
@@ -25,10 +27,16 @@ class Nightly
         if (filter_var($this->AUS . $this->update_status, FILTER_VALIDATE_URL)) {
             // The JSON file only exists when updates are stopped.
             // If there is no file at the URL, it means that automatic updates are enabled.
-            $this->auto_updates = str_contains(
-                (string) (Utils::getHeaders($this->AUS . $this->update_status)[0] ?? ''),
-                '404'
-            );
+            // Cached for a minute to avoid an HTTP request on every page view.
+            $cache_key = 'nightly_auto_updates_' . $this->AUS . $this->update_status;
+            if (($auto_updates = Cache::getKey($cache_key, 60)) === false) {
+                $auto_updates = str_contains(
+                    (string) (Utils::getHeaders($this->AUS . $this->update_status)[0] ?? ''),
+                    '404'
+                ) ? 'true' : 'false';
+                Cache::setKey($cache_key, $auto_updates, 60);
+            }
+            $this->auto_updates = $auto_updates === 'true';
         }
         // @codeCoverageIgnoreEnd
 
@@ -37,7 +45,7 @@ class Nightly
         }
 
         if ($this->auto_updates === false) {
-            $msg = Json::load($this->AUS . $this->update_status, 1)['comment'] ?? '';
+            $msg = Json::load($this->AUS . $this->update_status, 60)['comment'] ?? '';
             if ($msg !== '') {
                 $this->emergency_message = Utils::secureText($msg);
             }
