@@ -6,8 +6,9 @@ use ReleaseInsights\Model;
 
 $data = new Model('changelog')->get();
 
-if (empty($data['to']) || empty($data['from'])) {
-    echo 'Missing sha1s';
+if (empty($data['to']) || empty($data['from']) || empty($data['repo'])) {
+    http_response_code(400);
+    echo 'Missing or invalid parameters';
     exit;
 }
 
