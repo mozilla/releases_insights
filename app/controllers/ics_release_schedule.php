@@ -2,16 +2,22 @@
 
 declare(strict_types=1);
 
-use ReleaseInsights\{Model, Release, Version};
+use ReleaseInsights\{Data, Model, Release, Version};
 
 $requested_version = new Version(Version::get());
-$release_schedule  = new Release($requested_version->normalized)->getSchedule();
+$release_schedule  = new Release($requested_version->normalized)->getFutureSchedule();
 
-if ($requested_version->int < BETA) {
-    $error = 'We don\'t provide predictive schedules for <i>past</i> releases';
+/*
+    Shipped releases keep their planned schedule for a year, so that calendar
+    subscriptions keep working after release day. Our schedule logic doesn't
+    match the release cycles of older releases.
+ */
+$release_date = new Data()->getMajorReleases()[$requested_version->normalized] ?? null;
+if ($requested_version->int < BETA && $release_date !== null && $release_date < date('Y-m-d', strtotime('-1 year'))) {
+    $error = 'We don\'t provide schedules for releases shipped more than a year ago';
 }
 
-if (array_key_exists('error', $release_schedule)) {
+if (! isset($error) && array_key_exists('error', $release_schedule)) {
     $error = 'Release is not scheduled yet';
 }
 

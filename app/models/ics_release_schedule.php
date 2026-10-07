@@ -8,9 +8,10 @@ if (! isset($requested_version)) {
     $requested_version = Version::get();
 }
 
-// Get the schedule for the release requested
+// Get the planned schedule for the release requested, also for shipped releases
+// so that the events of subscribed calendars don't change after release day
 $release = new Release($requested_version);
-$sched = $release->getSchedule();
+$sched = $release->getFutureSchedule();
 $short_version = (string) Version::getMajor($sched['version']);
 
 $release_schedule_labels = Release:: getLabels($requested_version, short:false);

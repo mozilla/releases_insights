@@ -24,9 +24,10 @@ $paths = [
     ['release/?version=131', 200, '<b>Chemspill</b><br>Urgent security release', ''], // Test Nightly start date is correct
     ['release/owners/', 200, 'Major releases per Release Owner', 'version=3.6', '3 · 3.5 · 3.6 · 4'],
     ['release/uplifts/?version=130', 200, '', ''],
-    ['calendar/future/releases/', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR', 'PRODID:Firefox_major_releases_schedule.ics'],
+    ['calendar/future/releases/', 200, 'BEGIN:VCALENDAR', 'X-WR-CALNAME:Firefox major releases'],
     ['calendar/release/schedule/?version=beta', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'],
-    ['calendar/release/schedule/?version=1', 400, 'provide predictive schedules for <i>past</i> releases', ''],
+    ['calendar/release/schedule/?version=1', 400, 'provide schedules for releases shipped more than a year ago', ''],
+    ['calendar/release/schedule/?version=release', 200, 'BEGIN:VCALENDAR', 'END:VCALENDAR'], // Shipped release, subscriptions keep working
     ['calendar/release/schedule/?version=5000', 400, 'Release is not scheduled yet', ''],
     ['sitemap/', 301, '', ''],
     ['sitemap.txt', 200, '', ''],
