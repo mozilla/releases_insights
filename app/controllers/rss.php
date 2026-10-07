@@ -14,6 +14,7 @@ new Template(
         'title'                  => 'Firefox Desktop and Android releases',
         'description'            => 'Release dates for Firefox Desktop and Android. Includes major and minor releases.',
         'site_link'              => 'https://whattrainisitnow.com',
+        'feed_link'              => 'https://whattrainisitnow.com/rss/',
         'latest_release_date'    => $latest_release_date,
         'releases'               => $releases,
        ]

@@ -46,6 +46,7 @@ readonly class Model
             'past_release'                => 'past_release.php',
             'release_uplifts'             => 'release_uplifts.php',
             'rss'                         => 'rss.php',
+            'rss_esr'                     => 'rss_esr.php',
         ];
     }
 

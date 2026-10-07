@@ -6,9 +6,15 @@
         <language>en-US</language>
         <lastBuildDate>{{ latest_release_date }}</lastBuildDate>
         <ttl>1440</ttl>
-        <atom:link href="https://whattrainisitnow.com/rss/" rel="self" type="application/rss+xml" />
+        <atom:link href="{{ feed_link }}" rel="self" type="application/rss+xml" />
 {% for release in releases %}
         <item>
+{% if release.platform == 'esr' %}
+            <title>Firefox ESR {{ release.version }}</title>
+            <description>Firefox ESR release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY') }}</description>
+            <link>https://www.firefox.com/en-US/firefox/{{ release.version }}/releasenotes/</link>
+            <guid>https://www.firefox.com/en-US/firefox/{{ release.version }}/releasenotes/</guid>
+{% else %}
             <title>Firefox {{ release.version }}</title>
             <description>Firefox release {{ release.version }} shipped on {{ release.date|format_date(pattern='MMMM d, YYYY') }}
 {%- if release.platform == 'android' -%}&lt;br&gt;This is an Android-only release{% endif %}
@@ -19,6 +25,7 @@
 {% else %}
             <link>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</link>
             <guid>https://www.mozilla.org/en-US/firefox/{{ release.version }}/releasenotes/</guid>
+{% endif %}
 {% endif %}
             <pubDate>{{ release.date }}</pubDate>
         </item>

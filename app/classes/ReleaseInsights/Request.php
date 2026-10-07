@@ -126,6 +126,7 @@ class Request
             '/release/owners/'                  => 'release_owners',
             '/release-notes/'                   => 'relnotes_doc',
             '/rss/'                             => 'rss',
+            '/rss/esr/'                         => 'rss_esr',
             '/sitemap/'                         => 'sitemap',
             default                             => '404',
         };
