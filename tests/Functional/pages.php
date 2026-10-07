@@ -14,6 +14,7 @@ $paths = [
     ['api/', 302, '', 'id="about"'],
     ['beta/', 200, '', ''],
     ['nightly/', 200, '', 'id="nightly"'],
+    ['nightly/?date=20261001', 200, '', 'id="nightly"'], // Past date: always goes through the waiting page on a cold cache
     ['calendar/', 200, '', 'id="calendar_main"'],
     ['calendar/monthly/', 200, '', 'id="calendar_monthly"'],
     ['release/', 200, 'Release Owner', 'id="release_'], // could be release_beta or release_current after beta 1
@@ -67,9 +68,25 @@ do {
         [$path, $http_code, $content, $content2] = $paths[$i];
 
         $raw = curl_multi_getcontent($ch);
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+
+        // Pages preparing data display a waiting page that reloads itself once the
+        // data is ready, do what a browser does and request the page again.
+        for ($try = 0; $try < 3 && str_contains($raw, 'class="waitingpage"') && str_contains($raw, 'http-equiv="refresh"'); $try++) {
+            $retry = curl_init('http://localhost:8083/' . $path);
+            curl_setopt_array($retry, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HEADER         => true,
+            ]);
+            $raw = (string) curl_exec($retry);
+            $header_size = curl_getinfo($retry, CURLINFO_HEADER_SIZE);
+            curl_close($retry);
+        }
+
         preg_match('/HTTP\/\d[\d.]* (\d+)/', $raw, $matches);
         $first_code = isset($matches[1]) ? (int) $matches[1] : 0;
-        $body = substr($raw, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+        $body = substr($raw, $header_size);
 
         echo "\e[1;32m✓\e[0m " . ($path ?: '(empty string)') . "\n";
         $obj->setPath($path);
