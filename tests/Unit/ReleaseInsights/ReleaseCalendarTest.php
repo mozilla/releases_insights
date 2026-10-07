@@ -57,21 +57,20 @@ test('ReleaseCalendar::getICS', function () {
     $data = ReleaseCalendar::getICS(
         $releases,
         $release_schedule_labels,
-        'Firefox ' . $short_version
+        'Firefox ' . $short_version . ' schedule',
+        'firefox-' . $short_version . '-schedule'
     );
 
     expect($data)->toBeString();
     expect($data)->toStartWith('BEGIN:VCALENDAR')->and($data)->toEndWith('END:VCALENDAR');
 
-    // Remove random UIDs and test content
-    $func = fn($value) => ! U::startsWith($value, ['UID', 'DTSTAMP']);
-
+    // Remove DTSTAMP (generation time) and test content
     $clean_array = function ($input) {
         $output = explode("\r\n", $input);
         $output = array_filter($output); // remove empty items
         $output = array_filter(
             $output,
-            fn($value) => ! U::startsWith($value, ['UID', 'DTSTAMP'])
+            fn($value) => ! U::startsWith($value, ['DTSTAMP'])
         );
 
         return $output;
@@ -90,12 +89,17 @@ test('ReleaseCalendar::getICS', function () {
     $data = ReleaseCalendar::getICS(
         $releases,
         [],
-        'Firefox_major_releases_schedule.ics'
+        'Firefox major releases',
+        'firefox-major-release'
     );
 
     expect($data)->toBeString();
     expect($data)
         ->toStartWith('BEGIN:VCALENDAR')
+        ->and($data)->toContain("PRODID:-//Mozilla//whattrainisitnow.com//EN\r\n")
+        ->and($data)->toContain("X-WR-CALNAME:Firefox major releases\r\n")
+        ->and($data)->toContain("X-PUBLISHED-TTL:PT6H\r\n")
+        ->and($data)->toContain("UID:firefox-major-release-98.0@whattrainisitnow.com\r\n")
         ->and($data)->toContain('Firefox 98 go-live @ 06:00 AM PT')
         ->and($data)->toContain('DTSTART;VALUE=DATE:20211207')
         ->and($data)->toEndWith('END:VCALENDAR');

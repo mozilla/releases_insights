@@ -10,7 +10,8 @@ $filename = 'Firefox_major_releases_schedule.ics';
 $ics_calendar = ReleaseCalendar::getICS(
     $releases,
     $release_schedule_labels = [],
-    $filename
+    'Firefox major releases',
+    'firefox-major-release'
 );
 
 return [$filename, $ics_calendar];

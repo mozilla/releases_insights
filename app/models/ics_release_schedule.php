@@ -27,7 +27,8 @@ $release_schedule_labels = array_map('strip_tags', $release_schedule_labels);
 $ics_calendar = ReleaseCalendar::getICS(
     $sched,
     $release_schedule_labels,
-    'Firefox ' . $short_version
+    'Firefox ' . $short_version . ' schedule',
+    'firefox-' . $short_version . '-schedule'
 );
 
 $filename = 'Firefox_' . $short_version . '_schedule.ics';
