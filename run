@@ -2,7 +2,15 @@
 
 NOCOLOR='\033[0m'
 GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
+ORANGE='\033[38;5;208m'  # 256-colour palette orange, ANSI 33 is yellow
+GRAY='\e[2;37m'
+BLACK="\033[0;30m"        # Black
+RED="\033[0;31m"          # Red
+YELLOW="\033[0;33m"       # Yellow
+BLUE="\033[0;34m"         # Blue
+PURPLE="\033[0;35m"       # Purple
+CYAN="\033[0;36m"         # Cyan
+WHITE="\033[0;37m"        # White
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 
@@ -19,12 +27,15 @@ SUPPORTED_COMMANDS=(
 # This disables twig caching and activate debugging tools
 export DEV_MODE=true
 
-function ctrl_c() {
-    if [ $# -gt 0 ];
+# Stop browser-sync when the script exits (Ctrl-C on the PHP server included)
+BROWSER_SYNC_PID=''
+function cleanup() {
+    if [ -n "${BROWSER_SYNC_PID}" ];
     then
-        pkill browser-sync
+        kill "${BROWSER_SYNC_PID}" 2> /dev/null
     fi
 }
+trap cleanup EXIT
 
 if [ $# -gt 0 ]
 then
@@ -53,27 +64,29 @@ then
     echo -e " ${BOLD}run status${NORMAL}        Check if the current commit is on production"
     echo ""
     echo "Additional parameters will be ignored."
-    exit 1
+    exit 0
 fi
 
 if [ $# -gt 0 ] && [ $1 = 'tests' ]
 then
     composer test:all
-    exit 1
+    exit $?
 fi
 
 if [ $# -gt 0 ] && [ $1 = 'status' ]
 then
     local=`git rev-parse master`
+    dev=`curl -s https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net/deployed-version.txt`
     prod=`curl -s https://whattrainisitnow.com/deployed-version.txt`
     echo -e "$GREEN""Checking if the latest commit is what we have in production""$NORMAL"
-    echo "Local : $local"
-    echo -n "Prod  : $prod"
+    echo -e "$GRAY""Dev   $dev""$NORMAL"
+    echo "Local $local"
+    echo -n "Prod  $prod"
     if [ $local == $prod ]
     then
         echo ""
         echo -en "$GREEN""Yes, we are good""$NORMAL"
-    elif [[ condition ]]; then
+    else
         x=$(($(git rev-list --count $prod..$local)))
         echo ""
         if [ $x == 1 ]
@@ -83,7 +96,7 @@ then
             echo -en "$ORANGE""No, production is $x commits behind""$NORMAL"
         fi
     fi
-    exit 1
+    exit 0
 fi
 
 echo -e "${GREEN}${BOLD}Launching PHP development server on http://${SERVER}${NORMAL}${NOCOLOR}"
@@ -93,12 +106,10 @@ if command -v browser-sync &> /dev/null; then
     then
         echo -e "${GREEN}browser-sync is installed on the system, launching it in the background${NOCOLOR}"
         browser-sync start --proxy "localhost:8082" --files "**/*" &
+        BROWSER_SYNC_PID=$!
     else
         echo -e "${ORANGE}browser-sync is installed on the system but won't be launched${NOCOLOR}"
     fi
 fi
 
 php -d opcache.jit=disable -S ${SERVER} -t public/ app/inc/router.php
-
-# trap ctrl-c and call ctrl_c()
-trap ctrl_c INT
