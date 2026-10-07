@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use function Sentry\captureLastError;
 use Tracy\Debugger;
 
 // This is our production CSP
@@ -31,9 +30,6 @@ if ($csp_headers !== '') {
 
 // Dispatch urls. The $url object is defined in router.php
 $url->loadController();
-
-// Send the last error to Sentry
-captureLastError();
 
 // Make sure web request stops here
 exit;
