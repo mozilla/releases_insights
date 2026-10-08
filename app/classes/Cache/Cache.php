@@ -225,13 +225,29 @@ class Cache
     {
         $immutable = ($ttl === -1) ? true : false;
 
-        // No cache file
-        if (! file_exists(self::getKeyPath($id, $immutable))) {
+        // A single stat call: another request may delete an expired file at any
+        // time, a file_exists() check followed by filemtime() is not reliable.
+        // False means that there is no cache file. As in getKey(), a temporary
+        // handler silences the warning for a missing file, custom error handlers
+        // (Sentry) still receive warnings silenced with the @ operator.
+        set_error_handler(static fn (): bool => true);
+        try {
+            $modification_time = filemtime(self::getKeyPath($id, $immutable));
+        } finally {
+            restore_error_handler();
+        }
+
+        if ($modification_time === false) {
             return false;
         }
 
-        // Cache is obsolete and was deleted
-        if (self::isObsoleteKey($id, $ttl)) {
+        // Immutable data is never obsolete
+        if ($immutable) {
+            return true;
+        }
+
+        // Cache is obsolete, delete it
+        if ($modification_time < time() - $ttl) {
             self::deleteKey($id);
 
             return false;
@@ -239,24 +255,5 @@ class Cache
 
         // All good, cache is valid
         return true;
-    }
-
-    /**
-     * Check if the data has not expired
-     *
-     * @param string $id  UID of the cached file
-     * @param int    $ttl Number of seconds for time to live
-     *
-     * @return bool True if file is obsolete
-     *              False if it is still usable
-     */
-    private static function isObsoleteKey(string $id, int $ttl): bool
-    {
-        // Immutable data is never obsolete
-        if ($ttl === -1) {
-            return false;
-        }
-
-        return filemtime(self::getKeyPath($id)) < time() - $ttl;
     }
 }
