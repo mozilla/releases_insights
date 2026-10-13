@@ -79,9 +79,10 @@ then
     dev=`curl -s https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net/deployed-version.txt`
     prod=`curl -s https://whattrainisitnow.com/deployed-version.txt`
     echo -e "$GREEN""Checking if the latest commit is what we have in production""$NORMAL"
-    echo -e "$GRAY""Dev   $dev""$NORMAL"
-    echo "Local $local"
-    echo -n "Prod  $prod"
+    echo -e "$GRAY""\e]8;;https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net/  \e\\Dev\e]8;;\e\\   $dev""$NORMAL"
+    echo -e "\e]8;;http://$SERVER/  \e\\Local\e]8;;\e\\   $local"
+    echo -e "\e]8;;https://whattrainisitnow.com/  \e\\Prod\e]8;;\e\\   $prod"
+
     if [ $local == $prod ]
     then
         echo ""
