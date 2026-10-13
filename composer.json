@@ -67,7 +67,7 @@
         }
     },
     "scripts": {
-        "cache:clear": "rm cache/*.cache ; rm -rf cache/twig/*; rm -rf cache/guzzle/*",
+        "cache:clear": "rm -f cache/*.cache ; rm -rf cache/twig/*; rm -rf cache/guzzle/* ; echo \"\\033[0;32mCache cleared\"",
         "cache:clean": "composer cache:clear",
         "test:unit": "php -d zend.assertions=1 vendor/bin/pest",
         "test:unitcov": "XDEBUG_MODE=coverage php -d zend.assertions=1 vendor/bin/pest --coverage",
