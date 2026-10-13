@@ -11,7 +11,7 @@
   {% if constant('ESR_NEXT') %}
     <h1 class="mx-auto w-50  mb-3 text-center">Firefox <abbr title="Extended Support Release ">ESR</abbr> {{ current_ESR|number_format }} & {{ next_ESR|number_format }}</h1>
   {% else %}
-    <h1 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('LATEST_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h1>
+    <h1 class="mx-auto w-50  mb-3 text-center">Firefox {{ constant('CURRENT_ESR') }} <abbr title="Extended Support Release ">ESR</abbr></h1>
   {% endif %}
 
     <div class="w-50 alert alert-primary mx-auto text-center mb-3" role="alert">Version shipping to end-users on the <b>ESR</b> channel</div>
@@ -23,7 +23,7 @@
             <th class="{{ table_header }}">Last release</th>
             <td title="{{ release_date|format_date('full') }}">{{ release_date|format_date('long') }}</td>
         </tr>
-    {% if constant('ESR_NEXT') != "" %}
+    {% if constant('ESR_NEXT') %}
         <tr class="bg-warning">
             <th class="{{ table_header }}">Latest version (old branch)</th>
             <td> {{ current_ESR }}</td>
