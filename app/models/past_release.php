@@ -91,6 +91,7 @@ if (Cache::getKey($nightly_parsed_key, 86400 * 365) === false) {
 // Balrog (current release only)
 if ((int) $requested_version === RELEASE) {
     $_to_prefetch[URL::Balrog->value . 'rules/firefox-release'] = CACHE_TIME;
+    $_to_prefetch[URL::Balrog->value . 'emergency_shutoff'] = CACHE_TIME;
 }
 
 // Adoption rate, slow endpoint (current and previous release only)
@@ -332,6 +333,13 @@ $dot_release_4 = new Release($requested_version)->getSchedule()['dot_release_4']
 // Check current rollout for the release channel
 if ((int) $requested_version === RELEASE) {
     $rollout = Json::load(URL::Balrog->value . 'rules/firefox-release')['backgroundRate'];
+
+    // The Balrog emergency shutoff stops all updates regardless of the rule's backgroundRate
+    $shutoffs = Json::load(URL::Balrog->value . 'emergency_shutoff')['shutoffs'] ?? [];
+    $updates_shutoff = array_any(
+        $shutoffs,
+        fn($s) => ($s['product'] ?? '') === 'Firefox' && ($s['channel'] ?? '') === 'release'
+    );
 }
 
 return [
@@ -360,6 +368,7 @@ return [
     $beta_start_date,
     $firefox_releases,
     $rollout ?? -1,
+    $updates_shutoff ?? false,
     $release_uptake,
     new Data()->chemspills,
     new IOS($requested_version)->getSchedule(),

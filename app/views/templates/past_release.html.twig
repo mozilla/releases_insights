@@ -132,7 +132,11 @@
         </tr>
     </table>
 
-  {% set rollout = release_rollout ~ '% rollout' %}
+  {% if updates_shutoff %}
+    {% set rollout = '<span class="text-danger" title="Emergency shutoff active in Balrog">updates paused</span>' %}
+  {% else %}
+    {% set rollout = release_rollout ~ '% rollout' %}
+  {% endif %}
   {% set hg_web_base = 'https://hg.mozilla.org/releases/mozilla-release/pushloghtml?fromchange=' %}
   {% set date_pattern = 'MMMM d' %}
 
@@ -183,7 +187,7 @@
                               {% set uptake_msg = '(adoption rate unavailable)' %}
                           {% endif %}
                           {% if dot_release_count == 0 %}
-                            {{ uptake_msg ~ ' - ' ~ rollout }}
+                            {{ uptake_msg }} - {{ rollout|raw }}
                           {% else %}
                             {{ uptake_msg }}
                           {% endif %}
