@@ -1,4 +1,13 @@
 {% extends 'base.html.twig' %}
+{% macro days_left(target_date) %}
+    {% set difference = date(target_date).diff(date('today')) %}
+    {% set leftDays = difference.days %}
+    {% if leftDays == 1 %}
+    <small>(in 1 day)</small>
+    {% else %}
+    <small>(in {{ leftDays }} days)</small>
+    {% endif %}
+{%- endmacro %}
 {% block head_additions %}
   {% set meta_description = 'Follow Firefox trains and major milestones easily!' %}
     <meta name="description" content="{{ meta_description }}">
@@ -116,13 +125,7 @@
 {% else %}
     {% if constant('FIREFOX_BETA')|number_format != constant('FIREFOX_RELEASE')|number_format %}
         <h3 class="text-center">Firefox {{ constant('FIREFOX_BETA')|number_format }} ships on {{ beta_cycle_dates.release|format_date(pattern='MMMM d') }}
-          {% set difference = date(beta_cycle_dates.release).diff(date('today')) %}
-          {% set leftDays = difference.days %}
-          {% if leftDays == 1 %}
-            <small>(in 1 day)</small>
-          {% else %}
-            <small>(in {{ leftDays }} days)</small>
-          {% endif %}
+          {{ _self.days_left(beta_cycle_dates.release) }}
         </h3>
     {% endif %}
 {% endif %}
@@ -130,7 +133,9 @@
   {% if merge_day %}
     <h3 class="text-center"><b class="alert alert-primary">Today is Merge Day</b></h3>
   {% elseif nightly_cycle_dates.merge_day|date > now|date %}
-    <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d') }}</h4>
+    <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d') }}
+      {{ _self.days_left(nightly_cycle_dates.merge_day) }}
+    </h4>
   {% endif %}
 
   {% if not nightly_auto_updates %}
