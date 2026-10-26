@@ -3,6 +3,10 @@
     <head>
         <title>{{ page_title }}</title>
         <meta charset="utf-8">
+        {# Paint the dark background before external stylesheets load: Firefox has no paint holding
+           between same-origin navigations (Chrome does), so it would otherwise flash a white canvas #}
+        <meta name="color-scheme" content="dark">
+        <style nonce="{{constant('NONCE')}}">html { background-color: #210340; }</style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="alternate" type="application/rss+xml" title="Feed to get alerted of Firefox releases" href="/rss/">
         <link rel="alternate" type="application/rss+xml" title="Feed to get alerted of Firefox ESR releases" href="/rss/esr/">
