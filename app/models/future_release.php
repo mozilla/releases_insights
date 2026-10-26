@@ -99,30 +99,31 @@ foreach ($cycle_dates as $k => $date) {
 
     // let's ignore hours and only consider full days for simplicity
     $reference_date = new DateTime($date)->setTime(0, 0);
-    $time = new Duration(new DateTime(), $reference_date);
-    $deadlines[$k] = $time->report();
+    // Counting working days loops over every day, compute the report once
+    $report = new Duration(new DateTime(), $reference_date)->report();
+    $deadlines[$k] = $report;
 
     if ($reference_date>= new DateTime()) {
         // Future
-        if ($time->report()['weeks'] >= 2) {
-            $deadlines[$k]['message'] = 'In ' . $time->report()['weeks'] . ' weeks';
+        if ($report['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'In ' . $report['weeks'] . ' weeks';
         } else {
-            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+            $deadlines[$k]['message'] = match($report['workdays']) {
                 0  => 'No working day before milestone',
                 1  => '1 working day',
-                default => 'In ' . $time->report()['workdays'] . ' working days',
+                default => 'In ' . $report['workdays'] . ' working days',
             };
         }
     } else {
         // Past
-        if ($time->report()['weeks'] >= 2) {
-            $deadlines[$k]['message'] = $time->report()['weeks'] . ' weeks ago';
+        if ($report['weeks'] >= 2) {
+            $deadlines[$k]['message'] = $report['weeks'] . ' weeks ago';
         } else {
-            $deadlines[$k]['message'] = match($time->report()['days']) {
+            $deadlines[$k]['message'] = match($report['days']) {
                 -1 => 'yesterday',
                  0 => 'Today',
                  1 => 'Yesterday',
-                default => $time->report()['days'] . ' days ago',
+                default => $report['days'] . ' days ago',
             };
         }
     }

@@ -16,7 +16,7 @@
 
 {% block main %}
 <div class="row fix justify-content-center">
-    {% for month in upcoming_months %}
+    {% for month, calendar in calendars %}
     <div class="col-sm-12 col-sm-2 col-md-8">
         {{ calendar.draw(month)|raw }}<br>
     </div>
