@@ -27,6 +27,20 @@ test('Version::get', function () {
 
 });
 
+test('Version::getForSchedule', function () {
+    unset($_GET['version']);
+    $this->assertEquals(BETA . '.0', Version::getForSchedule());
+
+    // The beta alias targets the version on the Beta channel, even before beta 1
+    $_GET['version'] = 'beta';
+    $this->assertEquals(NIGHTLY - 1 . '.0', Version::getForSchedule());
+    $_GET['version'] = 'nightly';
+    $this->assertEquals(NIGHTLY . '.0', Version::getForSchedule());
+    $_GET['version'] = '90';
+    $this->assertEquals('90.0', Version::getForSchedule());
+    unset($_GET['version']);
+});
+
 test('Version::decrement', function ($version, $number, $output) {
     expect($output)->toEqual(Version::decrement($version, $number));
 })->with([
