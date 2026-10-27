@@ -14,12 +14,15 @@ class Duration
    /** @var array<string> $wellness_days */
     private readonly array $wellness_days;
 
+    private readonly string $today;
+
     public function __construct(
         public readonly Datetime $start,
         public readonly Datetime $end
     )
     {
         $this->wellness_days = include DATA . 'wellness_days.php';
+        $this->today = new DateTime()->format('Y-m-d');
     }
 
     /**
@@ -52,7 +55,7 @@ class Duration
     public function isWorkDay(DateTime $day): bool
     {
         // We don't consider the current day as a working day
-        if ($day->format('Y-m-d') === new DateTime()->format('Y-m-d')) {
+        if ($day->format('Y-m-d') === $this->today) {
             return false;
         }
 

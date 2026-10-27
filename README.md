@@ -201,8 +201,5 @@ git add composer.lock
 git commit -m "Dependencies update"
 git push
 ````
-
 The dependabot PR will autoclose.
-
-
 ----

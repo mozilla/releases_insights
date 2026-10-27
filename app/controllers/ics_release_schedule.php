@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Data, Model, Release, Version};
 
-$requested_version = new Version(Version::get());
+$requested_version = new Version(Version::getForSchedule());
 $release_schedule  = new Release($requested_version->normalized)->getFutureSchedule();
 
 /*

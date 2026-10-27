@@ -5,7 +5,7 @@ declare(strict_types=1);
 use ReleaseInsights\{Release, ReleaseCalendar, Version};
 
 if (! isset($requested_version)) {
-    $requested_version = Version::get();
+    $requested_version = Version::getForSchedule();
 }
 
 // Get the planned schedule for the release requested, also for shipped releases

@@ -45,7 +45,7 @@ MESSAGES = {
     ),
     "relnotes_deadline": (
         "Today is the deadline for Fx{version} release note submissions.\n\n"
-        "Tomorrow we will start adding them to the release notes system. If there are any delays or we need to be "
+        "Later we will start adding them to the release notes system. If there are any delays or we need to be "
         "aware of anything, please let us know."
     ),
 }

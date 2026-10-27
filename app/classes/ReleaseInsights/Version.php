@@ -57,6 +57,24 @@ class Version
 
 
     /**
+     * Same as get() but the beta alias targets the version on the Beta channel,
+     * for release schedule views. NIGHTLY is bumped on merge day while
+     * FIREFOX_BETA is only bumped when beta 1 ships, so between those two events
+     * FIREFOX_BETA still points to the previous release candidate.
+     *
+     * @return string A Firefox version number such as 82.0
+     */
+    public static function getForSchedule(): string
+    {
+        if (isset($_GET['version']) && $_GET['version'] === 'beta') {
+            return self::get((string) (NIGHTLY - 1));
+        }
+
+        return self::get();
+    }
+
+
+    /**
      * Decrement a version number (91) provided as a string such as 91.0
      */
     public static function decrement(string $version, int $decrement): string

@@ -5,16 +5,7 @@ declare(strict_types=1);
 use Cache\Cache;
 use ReleaseInsights\{Bugzilla, Data, Duration, IOS, Json, Nightly, Release, URL, Version};
 
-$requested_version = Version::get();
-if (RELEASE == BETA) {
-    /*
-        With the removal of the soft code freeze and a delayed beta 1,
-        we need to adjust our beta page in the timeframe when Release is out but Beta 1 isn't yet out
-    */
-    if (isset($_GET['version']) && $_GET['version'] === 'beta') {
-        $requested_version = (string) RELEASE + 1 . '.0';
-    }
-}
+$requested_version = Version::getForSchedule();
 
 $data = new Data();
 
@@ -50,10 +41,9 @@ $beta_cycle_length = intdiv(
     7
 );
 
+/* Only for the current Beta view, the Nightly end tag exists from merge day */
 $nightly_fixes = 0;
-/* Only for the current Beta view */
-$nightly_fixes = 0;
-if ((int) $requested_version === BETA) {
+if ((int) $requested_version === NIGHTLY - 1) {
     // Number of bugs fixed in nightly
     $tag   = fn(int $v) => 'FIREFOX_NIGHTLY_' .  (string) ((int) $v). '_END';
     $start = $tag((int) $requested_version - 1);
@@ -99,30 +89,31 @@ foreach ($cycle_dates as $k => $date) {
 
     // let's ignore hours and only consider full days for simplicity
     $reference_date = new DateTime($date)->setTime(0, 0);
-    $time = new Duration(new DateTime(), $reference_date);
-    $deadlines[$k] = $time->report();
+    // Counting working days loops over every day, compute the report once
+    $report = new Duration(new DateTime(), $reference_date)->report();
+    $deadlines[$k] = $report;
 
     if ($reference_date>= new DateTime()) {
         // Future
-        if ($time->report()['weeks'] >= 2) {
-            $deadlines[$k]['message'] = 'In ' . $time->report()['weeks'] . ' weeks';
+        if ($report['weeks'] >= 2) {
+            $deadlines[$k]['message'] = 'In ' . $report['weeks'] . ' weeks';
         } else {
-            $deadlines[$k]['message'] = match($time->report()['workdays']) {
+            $deadlines[$k]['message'] = match($report['workdays']) {
                 0  => 'No working day before milestone',
                 1  => '1 working day',
-                default => 'In ' . $time->report()['workdays'] . ' working days',
+                default => 'In ' . $report['workdays'] . ' working days',
             };
         }
     } else {
         // Past
-        if ($time->report()['weeks'] >= 2) {
-            $deadlines[$k]['message'] = $time->report()['weeks'] . ' weeks ago';
+        if ($report['weeks'] >= 2) {
+            $deadlines[$k]['message'] = $report['weeks'] . ' weeks ago';
         } else {
-            $deadlines[$k]['message'] = match($time->report()['days']) {
+            $deadlines[$k]['message'] = match($report['days']) {
                 -1 => 'yesterday',
                  0 => 'Today',
                  1 => 'Yesterday',
-                default => $time->report()['days'] . ' days ago',
+                default => $report['days'] . ' days ago',
             };
         }
     }

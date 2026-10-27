@@ -102,9 +102,11 @@
       </div>
     </div>
 
-{% if nightly_cycle_dates.merge_day|date == now|date %}
-    {% set merge_day = true %}
-{% endif %}
+{# Compare calendar days (Y-m-d sorts chronologically), not the default
+   'F j, Y H:i' format which sorts alphabetically and includes the time #}
+{% set merge_date = nightly_cycle_dates.merge_day|date('Y-m-d') %}
+{% set today = 'now'|date('Y-m-d') %}
+{% set merge_day = merge_date == today %}
 
 
 {% if rc_week %}
@@ -136,6 +138,8 @@
     <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d') }}
       {{ _self.days_left(nightly_cycle_dates.merge_day) }}
     </h4>
+  {% elseif merge_date > today %}
+    <h4 class="text-center mt-4">Next merge day: {{ nightly_cycle_dates.merge_day|format_date(pattern='MMMM d') }}</h4>
   {% endif %}
 
   {% if not nightly_auto_updates %}
