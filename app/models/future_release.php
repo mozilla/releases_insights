@@ -50,10 +50,9 @@ $beta_cycle_length = intdiv(
     7
 );
 
+/* Only for the current Beta view, the Nightly end tag exists from merge day */
 $nightly_fixes = 0;
-/* Only for the current Beta view */
-$nightly_fixes = 0;
-if ((int) $requested_version === BETA) {
+if ((int) $requested_version === NIGHTLY - 1) {
     // Number of bugs fixed in nightly
     $tag   = fn(int $v) => 'FIREFOX_NIGHTLY_' .  (string) ((int) $v). '_END';
     $start = $tag((int) $requested_version - 1);

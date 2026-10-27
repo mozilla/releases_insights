@@ -16,7 +16,13 @@
 
 {% set date_pattern = 'MMMM d' %}
 {% if not fallback_content %}
-    {% if release == constant('RELEASE') + 1 %}
+    {#
+        NIGHTLY is bumped on merge day while BETA (latest released devel version)
+        is only bumped when beta 1 ships, and RELEASE when the release ships.
+        With the 2-week cadence, beta 1 of N+1 ships before release N, so we
+        can have Beta = Release + 2: anchor the channel detection on Nightly.
+    #}
+    {% if release == constant('NIGHTLY') - 1 %}
         {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Beta</b> channel' %}
         {% set channel = 'beta' %}
         {% set rollout = '
@@ -33,7 +39,7 @@
     {% elseif release == constant('NIGHTLY') %}
         {% set alert = 'Version shipping to users on the <b class="text-success-emphasis">Nightly</b> channel' %}
         {% set channel = 'nightly' %}
-    {% elseif release == constant('BETA') - 1 and release == constant('RELEASE') + 1 %}
+    {% elseif release > constant('RELEASE') and release < constant('NIGHTLY') - 1 %}
         {% set alert = '<b class="text-danger">Release candidate</b> about to be released.' %}
         {% set channel = 'future' %}
     {% else %}
@@ -104,7 +110,9 @@
         <tr>
             <th class="{{ table_header }}">Current Beta</th>
             <td>
-          {% if date() > date(cycle_dates.rc_gtb) %}
+          {% if release != constant('BETA') %}
+            <small class="text-secondary">Beta 1 not yet released</small>
+          {% elseif date() > date(cycle_dates.rc_gtb) %}
             {{ constant('FIREFOX_BETA')|number_format(1) }} <small>Release Candidate</small>
           {% else %}
             {{ constant('FIREFOX_BETA') }}
