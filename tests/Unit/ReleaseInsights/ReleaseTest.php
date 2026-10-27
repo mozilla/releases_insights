@@ -124,6 +124,10 @@ test('Release->getSchedule()', function () {
     // 156 chains off 155's Aug 13 merge -> a regular 2-week Nightly to its Aug 27 merge.
     expect(new Release('156.0')->getSchedule()['nightly_start'])->toBe("2026-08-13 00:00:00+00:00");
 
+    // 161 dot release and 163 build ready for QA move because of holidays in RO
+    expect(new Release('161.0')->getSchedule()['dot_release_1'])->toBe("2026-12-02 14:00:00+00:00");
+    expect(new Release('163.0')->getSchedule()['qa_feature_done'])->toBe("2026-11-25 21:00:00+00:00");
+
     // 164 chains off 163's early Dec 3 year-end merge -> long (~5-week) Nightly over
     // the holidays, then a normal 2-week Beta to the Jan 26 release.
     $sched = new Release('164.0')->getSchedule();

@@ -270,6 +270,13 @@ class Release
         if ($this->version->int === 155) {
             unset($schedule['dot_release_1']);
         }
+
+        // Firefox 161: the planned dot release moves from Tuesday Dec 1 to
+        // Wednesday Dec 2 because Nov 30 and Dec 1 are holidays in RO (QA testing).
+        if ($this->version->normalized === '161.0') {
+            $schedule['dot_release_1'] = '2026-12-02 14:00:00+00:00';
+        }
+
         // Firefox 163 straddles the year-end break: Nightly stays 2 weeks but the
         // Beta cycle runs ~5 weeks over the holidays. Betas still ship on the regular
         // Monday/Wednesday/Friday cadence, with the last 2026 beta on Dec 21 and no
@@ -280,6 +287,9 @@ class Release
                 // 163 merges early (before the holidays), off the release − 19 default,
                 // so the merge-cluster is pinned explicitly. The long Beta then bakes
                 // over the year-end break.
+                // Build ready for QA moves a day earlier (Wednesday) because Nov 30
+                // and Dec 1 are holidays in RO, to start Nightly testing a day earlier.
+                'qa_feature_done'      => '2026-11-25 21:00:00+00:00', // Nightly W1 Wednesday
                 'strings_handoff'      => '2026-11-30 00:00:00+00:00', // Nightly W2 Wednesday
                 'string_freeze'        => '2026-12-02 00:00:00+00:00', // Nightly W2 Wednesday
                 'qa_nightly_signoff'   => '2026-12-02 14:00:00+00:00', // Nightly W2 Wednesday, day before merge
