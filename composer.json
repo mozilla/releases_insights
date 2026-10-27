@@ -76,7 +76,10 @@
         "test:pages": "php tests/Functional/pages.php",
         "test:api": "php tests/Functional/api.php",
         "test:content": "php tests/Functional/pages.php;php tests/Functional/api.php",
-        "test:lint": "vendor/bin/phplint . --exclude vendor",
+        "test:lint": [
+            "@putenv PLINT_DIAGNOSTIC=never",
+            "vendor/bin/phplint lint . --exclude vendor"
+        ],
         "test:twig-lint": "app/scripts/twig-lint.sh",
         "test:all": [
             "@test:lint",
