@@ -1,0 +1,57 @@
+/*
+ * Cross-document view transitions between Firefox version pages
+ * (/release/?version=N). Only the release templates load this file, so both
+ * the old and the new page must be a release page for the transition to run.
+ * The direction type (forward/backward) is set by release_transitions.html.twig.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+        navigation: auto;
+    }
+
+    /* Keep the top menu still, only the page content slides */
+    #nav {
+        view-transition-name: site-nav;
+    }
+
+    ::view-transition-group(root) {
+        animation-duration: .35s;
+        animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* Next version: old page leaves to the left, new one comes from the right */
+    html:active-view-transition-type(forward) {
+        &::view-transition-old(root) {
+            animation: .35s cubic-bezier(.4, 0, .2, 1) both release-slide-to-left;
+        }
+        &::view-transition-new(root) {
+            animation: .35s cubic-bezier(.4, 0, .2, 1) both release-slide-from-right;
+        }
+    }
+
+    /* Previous version: mirror image */
+    html:active-view-transition-type(backward) {
+        &::view-transition-old(root) {
+            animation: .35s cubic-bezier(.4, 0, .2, 1) both release-slide-to-right;
+        }
+        &::view-transition-new(root) {
+            animation: .35s cubic-bezier(.4, 0, .2, 1) both release-slide-from-left;
+        }
+    }
+}
+
+@keyframes release-slide-to-left {
+    to { transform: translateX(-30%); opacity: 0; }
+}
+
+@keyframes release-slide-from-right {
+    from { transform: translateX(30%); opacity: 0; }
+}
+
+@keyframes release-slide-to-right {
+    to { transform: translateX(30%); opacity: 0; }
+}
+
+@keyframes release-slide-from-left {
+    from { transform: translateX(-30%); opacity: 0; }
+}

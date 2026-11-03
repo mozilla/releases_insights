@@ -11,6 +11,7 @@
         <meta property="twitter:description" content="{{ meta_description }}">
         <meta property="og:url" content="https://whattrainisitnow.com/release/">
         {% if channel == 'release' %}<meta http-equiv="refresh" content="3600">{% endif %}
+    {% include 'release_transitions.html.twig' %}
 {% endblock %}
 
 {% block header %}

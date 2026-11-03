@@ -565,10 +565,6 @@ nav svg:hover {
 }
 
 
-@view-transition {
-  navigation: auto;
-}
-
 .bg-purple-1 {
     background-color: var(--purple-lighter1) !important;
 }

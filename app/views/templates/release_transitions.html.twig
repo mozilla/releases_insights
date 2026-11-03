@@ -1,0 +1,23 @@
+{# Directional view transitions between version pages, see /style/release_transitions.css.
+   The old page stores its version on pageswap, the new page compares it with its own
+   on pagereveal: this works with aliases (?version=beta) and back/forward navigation. #}
+<link rel="stylesheet" href="{{ asset('/style/release_transitions.css') }}" type="text/css" media="all">
+<script nonce="{{ constant('NONCE') }}">
+    {
+        const version = {{ release }};
+        addEventListener('pageswap', () => sessionStorage.setItem('vt-from-version', version));
+        addEventListener('pagereveal', e => {
+            const from = Number(sessionStorage.getItem('vt-from-version'));
+            sessionStorage.removeItem('vt-from-version');
+            if (!e.viewTransition) {
+                return;
+            }
+            if (!from || from === version) {
+                // Same version (reload, Release channel button on the same page): no slide
+                e.viewTransition.skipTransition();
+                return;
+            }
+            e.viewTransition.types.add(version > from ? 'forward' : 'backward');
+        });
+    }
+</script>
