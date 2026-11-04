@@ -8,7 +8,8 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 # Alpine also does not install timezone data by default which we need for Date/Time calculation
 # Alpine does not have a patch command by default, we need it when we patch composer dependencies
 # See https://github.com/cweagans/composer-patches/issues/27
-RUN apk add --no-cache patch && \
+RUN apk upgrade --no-cache && \
+    apk add --no-cache patch && \
     apk add --no-cache icu-dev icu-libs icu-data-full && \
     apk add --no-cache tzdata && \
     apk add --no-cache git && \
@@ -41,7 +42,8 @@ RUN apk del git && \
 FROM php:8.5-fpm-alpine3.23 AS runner
 
 ENV TZ="UTC"
-RUN apk add --no-cache nginx supervisor && \
+RUN apk upgrade --no-cache && \
+    apk add --no-cache nginx supervisor && \
     apk add --no-cache icu-dev icu-libs icu-data-full && \
     apk add --no-cache git && \
     apk add --no-cache tzdata
