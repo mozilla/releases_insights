@@ -78,8 +78,15 @@ then
     local=`git rev-parse master`
     dev=`curl -s https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net/deployed-version.txt`
     prod=`curl -s https://whattrainisitnow.com/deployed-version.txt`
-    printf '%b\e]8;;%s\e\\\e[4:4m%s\e[24m\e]8;;\e\\   %s%b\n' "$GRAY" "https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net/" "Dev" "$dev" "$NORMAL"
-    printf '\e]8;;%s\e\\\e[4:4m%s\e[24m\e]8;;\e\\ %s\n' "http://$SERVER/" "Local" "$local"
+    if [ -n "$local" ] && [ "$(echo -n "$dev" | tr -d '[:space:]')" == "$local" ]
+    then
+        dev_mark=" ${GREEN}✔${NOCOLOR}"
+    else
+        dev_mark=" ${RED}✘${NOCOLOR}"
+    fi
+    local_mark="$dev_mark"
+    printf '%b\e]8;;%s\e\\\e[4:4m%s\e[24m\e]8;;\e\\   %s%b%b\n' "$GRAY" "https://dev.whattrainisitnow.nonprod.webservices.mozgcp.net/" "Dev" "$dev" "$NORMAL" "$dev_mark"
+    printf '\e]8;;%s\e\\\e[4:4m%s\e[24m\e]8;;\e\\ %s%b\n' "http://$SERVER/" "Local" "$local" "$local_mark"
     printf '\e]8;;%s\e\\\e[4:4m%s\e[24m\e]8;;\e\\  %s\n' "https://whattrainisitnow.com/" "Prod" "$prod"
 
     if [ $local == $prod ]
