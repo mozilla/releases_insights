@@ -12,6 +12,12 @@ if ($requested_version == '0.0') {
     return;
 }
 
+// Let browsers reuse these pages for 5 minutes: release_nav.html.twig prefetches the
+// previous/next release with Speculation Rules; a cacheable response makes sure the
+// prefetched page can be reused.
+// private: keep shared caches (CDN/load balancer) out, the page embeds a per-response CSP nonce.
+header('Cache-Control: private, max-age=300');
+
 // Planned releases
 $upcoming_releases = new Data()->getFutureReleases();
 $owners = new Data()->release_owners;

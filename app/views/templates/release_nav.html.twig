@@ -1,4 +1,14 @@
-
+{# Prefetch the neighbouring release pages when the user hovers the « » links (moderate eagerness).
+   Speculation Rules: Firefox Nightly (prefetch 155+, moderate eagerness 158+) and Chromium.
+   Firefox only supports explicit "urls" lists, not document rules. Needs the CSP nonce. #}
+<script type="speculationrules" nonce="{{ constant('NONCE') }}">
+{
+  "prefetch": [{
+    "urls": [{% if release > 1 %}"/release/?version={{ release - 1 }}", {% endif %}"/release/?version={{ release + 1 }}"],
+    "eagerness": "moderate"
+  }]
+}
+</script>
 <header class="mx-auto mb-3 no-focus-scroll">
     <h1>
     {% if release > 1 %}
