@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace ReleaseInsights\API;
 
+use Cache\Cache;
 use DateTime;
 use ReleaseInsights\Beta;
 use ReleaseInsights\Data;
 use ReleaseInsights\Release;
+use ReleaseInsights\URL;
+use ReleaseInsights\Utils;
 use ReleaseInsights\Version;
 
 /*
@@ -29,6 +32,10 @@ use ReleaseInsights\Version;
 
 class LandoUpliftTrain
 {
+    // How long we cache main's version.txt during the merge day window, see nightlyVersion()
+    private const int MAIN_CACHE_TTL_BEFORE_BUMP = 10800; // 3 hours
+    private const int MAIN_CACHE_TTL_AFTER_BUMP  = 86400; // 24 hours
+
     private object $beta;
 
     public function __construct() {
@@ -59,10 +66,13 @@ class LandoUpliftTrain
             window RELEASE + 1 and RELEASE + 2 still name the previous cycle.
 
             Don't anchor on BETA either: it only moves once a beta build ships.
+
+            NIGHTLY itself lags on merge day: product-details only moves once a nightly
+            is built with the bumped version. See nightlyVersion().
         */
-        $nightly = NIGHTLY;
-        $beta    = NIGHTLY - 1;
-        $release = NIGHTLY - 2;
+        $nightly = $this->nightlyVersion();
+        $beta    = $nightly - 1;
+        $release = $nightly - 2;
 
         /*
             We need specific logic for this API for the period between merge day and
@@ -117,5 +127,69 @@ class LandoUpliftTrain
                 'version' => NEXT_ESR && CURRENT_ESR ? CURRENT_ESR : null,
             ],
         ];
+    }
+
+    /**
+     *  The version main carries.
+     *
+     *  From merge day until product-details picks up the new nighty bump, FIREFOX_NIGHTLY
+     *  still names the version that just merged to beta. In that merge day window, read
+     *  version.txt on main instead. Outside of the window, this does not depend on GitHub at all.
+     *  gate on the merge day date, before the bump version.txt just agrees with NIGHTLY.
+     */
+    private function nightlyVersion(): int
+    {
+        $merge_day = new Release(NIGHTLY . '.0')->getSchedule()['merge_day'];
+
+        // @codeCoverageIgnoreStart
+        if (date('Y-m-d') < substr($merge_day, 0, 10)) {
+            return NIGHTLY;
+        }
+        // @codeCoverageIgnoreEnd
+
+        $url       = URL::FirefoxMain->target() . 'version.txt';
+        $failed_id = $url . '#failed';
+        $bumped_id = $url . '#bumped';
+
+        // GitHub failed recently, don't make every request wait on it again.
+        if (Cache::getKey($failed_id, 300)) {
+            return NIGHTLY; // @codeCoverageIgnore
+        }
+
+        /*
+            Main is bumped once per window. Until then, recheck every 3 hours. Once
+            bumped, the value is final until product-details catches up and closes
+            the window, so keep it for 24 hours. The cache applies the TTL on read,
+            hence two keys.
+        */
+        if (! $data = Cache::getKey($bumped_id, self::MAIN_CACHE_TTL_AFTER_BUMP) ?: Cache::getKey($url, self::MAIN_CACHE_TTL_BEFORE_BUMP)) {
+            $data = Utils::getFile($url);
+
+            // Fetch failed or unexpected content, fall back for 5 minutes.
+            // @codeCoverageIgnoreStart
+            if (! is_string($data) || ! preg_match('/^\d+\./', $data)) {
+                Cache::setKey($failed_id, true, 300);
+
+                return NIGHTLY;
+            }
+            // @codeCoverageIgnoreEnd
+
+            // The version.txt fixture is always the bumped version (NIGHTLY + 1), so the
+            // "not bumped yet" branch can't be reached in unit tests.
+            (int) $data === NIGHTLY + 1
+                ? Cache::setKey($bumped_id, $data, self::MAIN_CACHE_TTL_AFTER_BUMP)
+                : Cache::setKey($url, $data, self::MAIN_CACHE_TTL_BEFORE_BUMP); // @codeCoverageIgnore
+        }
+
+        /*
+            Main is either still on NIGHTLY or one version ahead, anything else is invalid.
+            Before the version bump main still carries NIGHTLY, after it NIGHTLY + 1, and
+            both are correct answers. Anything else (bad file content, product-details
+            still stuck when the next merge day comes) falls back to NIGHTLY, the answer
+            this API gave before we read main.
+        */
+        $version = (int) $data;
+
+        return in_array($version, [NIGHTLY, NIGHTLY + 1], true) ? $version : NIGHTLY;
     }
 }
