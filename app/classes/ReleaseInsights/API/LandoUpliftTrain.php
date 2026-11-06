@@ -33,8 +33,8 @@ use ReleaseInsights\Version;
 class LandoUpliftTrain
 {
     // How long we cache main's version.txt during the merge day window, see nightlyVersion()
-    private const int MAIN_CACHE_TTL_BEFORE_BUMP = 10800; // 3 hours
-    private const int MAIN_CACHE_TTL_AFTER_BUMP  = 86400; // 24 hours
+    private const int MAIN_CACHE_TTL_BEFORE_BUMP = 900;    // 15 minutes
+    private const int MAIN_CACHE_TTL_AFTER_BUMP  = 86_400; // 24 hours
 
     private object $beta;
 
@@ -132,22 +132,22 @@ class LandoUpliftTrain
     /**
      *  The version main carries.
      *
-     *  From merge day until product-details picks up the new nighty bump, FIREFOX_NIGHTLY
+     *  From merge day until product-details picks up the new nightly bump, FIREFOX_NIGHTLY
      *  still names the version that just merged to beta. In that merge day window, read
      *  version.txt on main instead. Outside of the window, this does not depend on GitHub at all.
      *  gate on the merge day date, before the bump version.txt just agrees with NIGHTLY.
      */
     private function nightlyVersion(): int
     {
-        $merge_day = new Release(NIGHTLY . '.0')->getSchedule()['merge_day'];
+        $merge_day = new Release(NIGHTLY . '.0')->getSchedule()['merge_day'] ?? null;
 
         // @codeCoverageIgnoreStart
-        if (date('Y-m-d') < substr($merge_day, 0, 10)) {
+        if ($merge_day === null || date('Y-m-d') < substr($merge_day, 0, 10)) {
             return NIGHTLY;
         }
         // @codeCoverageIgnoreEnd
 
-        $url       = URL::FirefoxMain->target() . 'version.txt';
+        $url       = URL::FirefoxMain->target() . 'browser/config/version.txt';
         $failed_id = $url . '#failed';
         $bumped_id = $url . '#bumped';
 
@@ -157,7 +157,7 @@ class LandoUpliftTrain
         }
 
         /*
-            Main is bumped once per window. Until then, recheck every 3 hours. Once
+            Main is bumped once per window. Until then, recheck every 15 minutes. Once
             bumped, the value is final until product-details catches up and closes
             the window, so keep it for 24 hours. The cache applies the TTL on read,
             hence two keys.

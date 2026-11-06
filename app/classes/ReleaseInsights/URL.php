@@ -15,7 +15,7 @@ enum URL: string
     case Archive        = 'https://archive.mozilla.org/';
     case Pollbot        = 'https://prod.pollbot.prod.webservices.mozgcp.net/v1/';
     case Lando          = 'https://lando.moz.tools/api/hg2git/firefox/';
-    case FirefoxMain    = 'https://raw.githubusercontent.com/mozilla-firefox/firefox/main/browser/config/';
+    case FirefoxMain    = 'https://raw.githubusercontent.com/mozilla-firefox/firefox/main/';
 
     public function target(): string
     {
