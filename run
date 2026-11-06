@@ -106,7 +106,7 @@ then
     exit 0
 fi
 
-echo -e "${GREEN}${BOLD}Launching PHP development server on http://${SERVER}${NORMAL}${NOCOLOR}"
+echo -e "${GREEN}${BOLD}Launching PHP development server on http://fxtrains.${SERVER}${NORMAL}${NOCOLOR}"
 
 if command -v browser-sync &> /dev/null; then
     if [ $# -gt 0 ] && [ $1 = 'browser-sync' ]
