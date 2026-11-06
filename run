@@ -119,4 +119,8 @@ if command -v browser-sync &> /dev/null; then
     fi
 fi
 
-php -d opcache.jit=disable -S ${SERVER} -t public/ app/inc/router.php
+# The "[date] PHP x.y.z Development Server (http://...) started" banner is
+# hardcoded in PHP, rewrite it without the timestamp and URL (printed above).
+# cli_server.color keeps the colored log output even though stderr is piped.
+php -d opcache.jit=disable -d cli_server.color=1 -S ${SERVER} -t public/ app/inc/router.php 2>&1 \
+    | sed -u -E "s|^\[[^]]*\] (PHP [^ ]+ Development Server) \(http://${SERVER}\) started$|\1 started (CTRL+C to stop)|"
