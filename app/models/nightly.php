@@ -32,7 +32,8 @@ $nightlies = include MODELS . 'api/nightly.php';
     its lifetime is the one of the crash data, our shortest cache.
  */
 $waiting_page = false;
-$lock_file = CACHE_PATH . 'nightly_lock_' . $requested_date . '.cache';
+// Cast to int so that the file name can only contain digits, whatever getDate() returns
+$lock_file = CACHE_PATH . 'nightly_lock_' . (int) $requested_date . '.cache';
 $lock_ttl = 300;
 if (! empty($nightlies) && (! file_exists($lock_file) || time() - filemtime($lock_file) > $lock_ttl)) {
     $waiting_page = true;
