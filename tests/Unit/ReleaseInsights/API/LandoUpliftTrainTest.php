@@ -61,3 +61,11 @@ test('LandoUpliftTrain->getTrains()', function () {
     expect($obj->getTrains()['esr_previous']['version'])
         ->toBeNullOrInt();
 });
+
+test('LandoUpliftTrain uses version.txt on main after merge day', function () {
+    // NIGHTLY (154) is past its merge day in tests, the version.txt fixture says 155.0a1
+    $trains = new LandoUpliftTrain()->getTrains();
+    expect($trains['nightly']['version'])->toBe(NIGHTLY + 1);
+    expect($trains['beta']['version'])->toBe(NIGHTLY);
+    expect($trains['release']['version'])->toBe(NIGHTLY - 1);
+});
