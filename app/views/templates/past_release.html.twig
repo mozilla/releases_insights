@@ -398,11 +398,72 @@
 {%  endif %}
     </div>
 
+{% if esr_branch_releases %}
+    {# Keep the h3 + details order for the :target highlight rules in base.css #}
+    <h3 class="text-center w-50 mx-auto mt-4 fs-4" id="esr"><a href="#esr" class="anchor-link link-info" aria-label="Link to this section">{% include 'anchor_icon.html.twig' %}</a>Firefox {{ release }} was the basis for the ESR {{ release }} branch
+    {% if esr_branch_eol %}
+        <span class="badge text-bg-secondary fs-6 fw-normal align-middle">End of life</span>
+    {% else %}
+        <span class="badge text-bg-success fs-6 fw-normal align-middle">Supported</span>
+    {% endif %}
+    </h3>
+    {# Collapsed by default, like the past releases on the calendar page. Opened by the #esr anchor (see footer script) #}
+    <details class="text-center mb-3" id="esr-branch-details">
+    <summary>Click to toggle ESR releases table data</summary>
+    <table id="esr-branch" class="table table-light table-fxt-clean table-sm w-50 justify-content-center mt-2 mb-3 text-start">
+        <tr>
+            <th colspan="2" class="text-center table-warning force-default-bg fw-semibold">
+                {{ esr_branch_releases|length }} ESR {{ esr_branch_releases|length > 1 ? 'releases' : 'release' }}
+                from {{ esr_branch_releases|first|format_date(pattern='MMMM y') }}
+                to {{ esr_branch_releases|last|format_date(pattern='MMMM y') }}
+                {% if esr_branch_eol %}
+                    <br>Last release: {{ esr_branch_releases|keys|last }} on {{ esr_branch_releases|last|format_date('long') }}
+                {% endif %}
+            </th>
+        </tr>
+        {# Tags on the ESR branch look like FIREFOX_128_3_1esr_RELEASE.
+           Each release links to the changes since the previous ESR release, the X.0esr release has
+           no link, like the X.0 release above. Product Details misses the first ESR releases of some
+           old branches (ex: 17.0esr), so the first release we list starts from the X.0esr tag. #}
+        {% set esr_hg_web_base = 'https://hg.mozilla.org/releases/mozilla-esr' ~ release ~ '/pushloghtml?fromchange=' %}
+        {% set esr_previous_tag = 'FIREFOX_' ~ release ~ '_0esr_RELEASE' %}
+        {% for esr_version, esr_date in esr_branch_releases %}
+        {% set esr_tag = 'FIREFOX_' ~ esr_version|replace({'.': '_'}) ~ 'esr_RELEASE' %}
+        <tr>
+            <th class="{{ table_header }}">
+            {% if esr_tag == esr_previous_tag %}
+                {{ esr_version }}
+            {% else %}
+                <a href="{{ esr_hg_web_base ~ esr_previous_tag ~ '&tochange=' ~ esr_tag ~ '&full&version=2' }}">{{ esr_version }}</a>
+            {% endif %}
+            {% set esr_previous_tag = esr_tag %}
+            </th>
+            <td title="{{ esr_date|format_date('full') }}">{{ esr_date|format_date('long') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </details>
+{% endif %}
+
 {% endblock %}
 
 {% block footer %}
     {% include 'footer_UTC_warning.html.twig' %}
     <script nonce="{{constant('NONCE')}}">
+        // The ESR releases table is collapsed by default, open it when the #esr anchor is targeted
+        {
+            const esrDetails = document.getElementById('esr-branch-details');
+            if (esrDetails) {
+                const openOnAnchor = () => {
+                    if (location.hash === '#esr') {
+                        esrDetails.open = true;
+                    }
+                };
+                openOnAnchor();
+                window.addEventListener('hashchange', openOnAnchor);
+            }
+        }
+
         {
             const ua = navigator.userAgent;
             let platform = "";

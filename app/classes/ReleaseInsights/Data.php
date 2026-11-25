@@ -111,6 +111,25 @@ class Data
     }
 
     /**
+     * ESR releases shipped on the ESR branch based on a major version (ex: 128),
+     * sorted by version number.
+     *
+     * @return array<string, string> version_number => date
+     */
+    public function getESRBranchReleases(int $major): array
+    {
+        $esr_releases = array_filter(
+            $this->getESRReleases(),
+            fn(string $version) => (int) $version === $major,
+            ARRAY_FILTER_USE_KEY
+        );
+
+        uksort($esr_releases, 'version_compare');
+
+        return $esr_releases;
+    }
+
+    /**
      * Get the release date of our Latest Major release
      *
      * @return array<string, string>

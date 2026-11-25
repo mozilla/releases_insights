@@ -21,6 +21,7 @@ $paths = [
     ['release/?version=release', 200, 'id="release_current"', '<meta http-equiv="refresh" content="3600">'], // Auto-refresh release page every hour
     ['release/?version=beta', 200, '', '<meta http-equiv="refresh" content="7200">'], // Auto-refresh the Future Release page every 2 hours
     ['release/?version=94', 200, '<td title="Tuesday, September 7, 2021">September 7</td>', ''], // Test Nightly start date is correct
+    ['release/?version=128', 200, 'Last release: 128.14.0', 'mozilla-esr128/pushloghtml?fromchange=FIREFOX_128_13_0esr_RELEASE&amp;tochange=FIREFOX_128_14_0esr_RELEASE'], // ESR branch section on releases that were the basis for an ESR
     ['release/?version=131', 200, '<b>Chemspill</b><br>Urgent security release', ''], // Test Nightly start date is correct
     ['release/owners/', 200, 'Major releases per Release Owner', 'version=3.6', '3 · 3.5 · 3.6 · 4'],
     ['release/uplifts/?version=130', 200, '', ''],

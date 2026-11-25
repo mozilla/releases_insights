@@ -2,6 +2,7 @@
 :root {
     --font-default-color: white;
     --link-blue: #0067d5;
+    --link-blue-light: #8ec5ff; /* Accessible on --purple backgrounds (10:1 contrast) */
     --orange-light: #ffbe5a;
     --orange-dark: #ff7f21;
     --purple: #210340;
@@ -289,10 +290,11 @@ h3:hover .anchor-link {
 }
 
 h3:target {
-   color: var(--link-blue);
+   color: var(--link-blue-light);
 }
 
-h3:target + table {
+h3:target + table,
+h3:target + details > table {
     box-shadow: 0px 0px 20px 0px var(--link-blue);
 }
 

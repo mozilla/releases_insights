@@ -86,6 +86,20 @@ test('Data->getESRReleases()', function () {
         ->toBe('2022-07-13');
 });
 
+test('Data->getESRBranchReleases()', function () {
+    $obj = new Data(TEST_FILES);
+    $releases = $obj->getESRBranchReleases(128);
+    expect(array_key_first($releases))->toBe('128.0');
+    expect(array_key_last($releases))->toBe('128.14.0');
+    expect($releases)->toHaveCount(20);
+    // Sorted by version number, not as strings: 128.10.0 comes after 128.9.0
+    expect(array_search('128.10.0', array_keys($releases)))
+        ->toBeGreaterThan(array_search('128.9.0', array_keys($releases)));
+    // No releases of the next ESR branch
+    expect($releases)->not->toHaveKey('140.0');
+    expect($obj->getESRBranchReleases(129))->toBe([]);
+});
+
 test('Data->getLatestMajorRelease()', function () {
     $obj = new Data(TEST_FILES);
     expect($obj->getLatestMajorRelease())

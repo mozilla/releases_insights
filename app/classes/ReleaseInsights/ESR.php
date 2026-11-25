@@ -127,6 +127,17 @@ class ESR
     }
 
     /**
+     * Is this ESR branch (ex: 128) still supported?
+     * Supported branches are the ones Product Details lists:
+     * the current ESR, the next ESR during overlap periods and ESR 115.
+     */
+    public static function isSupported(int $branch): bool
+    {
+        // NEXT_ESR is 0 and WIN7_ESR null outside of their support periods
+        return in_array($branch, array_filter([CURRENT_ESR, NEXT_ESR, WIN7_ESR]), true);
+    }
+
+    /**
      * Get a XX.YY version number from a full ESR number like 91.4.1esr
      * We drop the dot release part
      */

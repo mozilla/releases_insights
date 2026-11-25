@@ -155,6 +155,11 @@ if ($requested_version_int <= RELEASE) {
         'dot_release_2'           => $dot_release_2,
         'dot_release_3'           => $dot_release_3,
         'dot_release_4'           => $dot_release_4,
+        // Releases that were the basis for an ESR branch list the ESR releases of that branch
+        'esr_branch_releases'     => in_array($requested_version_int, ESR::$esr_releases, true)
+            ? new Data()->getESRBranchReleases($requested_version_int)
+            : [],
+        'esr_branch_eol'          => ! ESR::isSupported($requested_version_int),
     ]);
 } elseif ($requested_version_int > RELEASE
     && array_key_exists($requested_version, $upcoming_releases)) {

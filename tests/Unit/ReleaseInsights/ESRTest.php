@@ -69,3 +69,13 @@ test('ESR::getMainDotVersion', function ($input, $output) {
     ['68.0.0esr', '68.0'],
     [null, ''],
 ]);
+
+test('ESR::isSupported()', function ($input, $output) {
+    expect(ESR::isSupported($input))->toBe($output);
+})->with([
+    [140, true],  // Current ESR in tests/bootstrap.php
+    [115, true],  // Extended ESR 115 for Windows 7-8.1 and old macOS
+    [128, false],
+    [10, false],
+    [0, false],   // NEXT_ESR is 0 when there is no next ESR, it is not a branch
+]);
