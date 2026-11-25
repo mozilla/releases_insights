@@ -21,7 +21,7 @@
     {% endif %}
     </h1>
     {% if release == constant('FIREFOX_RELEASE')|number_format %}
-        {% if uptake is not null %}
+        {% if uptake > 0.1 %}
             <div class="alert text-bg-primary mx-auto p-1 mb-3 adoption" title="Note: adoption rate data has a 24h latency"><b>{{ cycle_uptake|number_format }}%</b> adoption rate</div>
           {% set uptake_msg = uptake|number_format ~ '% adoption' %}
         {% else %}
