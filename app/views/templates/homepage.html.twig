@@ -80,11 +80,13 @@
                     {{ constant('FIREFOX_BETA')|number_format }}
                 {% endif %}
                 </h2>
-                {# On release day and on Wednesday before beta 1, we want to point the beta page to the not yet built beta schedule #}
+                {# On release day and on Wednesday before beta 1, we want to point the beta page to the not yet built beta schedule.
+                   Otherwise link to the version displayed above, not to the 'beta' alias: the alias resolves to NIGHTLY - 1,
+                   which is already the next version during RC week (merge day happens before the RC ships). #}
                 {% if release_day or constant('RELEASE') == constant('BETA')  %}
                     {% set beta_target = constant('FIREFOX_NIGHTLY')|number_format(1) - 1 %}
                 {% else %}
-                    {% set beta_target = 'beta' %}
+                    {% set beta_target = constant('BETA') %}
                 {% endif %}
 
         {% if beta_is_the_next_ESR %}
