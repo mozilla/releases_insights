@@ -17,14 +17,7 @@ if (new Request(filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL))->path 
 
 $data = [];
 foreach(range($start, $end) as $version) {
-    $data[$version] = [
-        ESR::getVersion($version),
-        ESR::getOlderSupportedVersion($version),
-        ESR::getWin7SupportedVersion($version),
-    ];
-    $data[$version] = array_filter($data[$version]); // Remove NULL values
-    $data[$version] = array_unique($data[$version]); // Remove duplicate ESR versions
-    sort($data[$version]); // Sort ESR numbers from oldest to newest branch
+    $data[$version] = ESR::getVersionsForRelease($version);
 }
 
 return $data;

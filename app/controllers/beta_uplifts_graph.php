@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 use ReleaseInsights\{Model, Template};
 
-[$graph_data] = new Model('beta_uplifts_graph')->get();
+[$beta_uplifts] = new Model('beta_uplifts_graph')->get();
+
+// This graph starts with Firefox 127, the combined beta and ESR graph goes back to 75
+$graph_data = array_filter($beta_uplifts, fn(int $version) => $version >= 127, ARRAY_FILTER_USE_KEY);
 
 new Template(
     'beta_uplifts_graph.html.twig',

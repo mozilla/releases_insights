@@ -99,6 +99,8 @@ class Request
             '/beta/'                            => 'beta',
             '/beta/uplifts/graph/'              => 'beta_uplifts_graph',
             '/changelog/'                       => 'changelog',
+            '/esr/uplifts/'                     => 'esr_uplifts',
+            '/esr/uplifts/graph/'               => 'uplifts_graph',
             '/nightly/'                         => 'nightly',
             '/release/'                         => 'release',
             '/release/uplifts/'                 => 'release_uplifts',
@@ -128,6 +130,7 @@ class Request
             '/rss/'                             => 'rss',
             '/rss/esr/'                         => 'rss_esr',
             '/sitemap/'                         => 'sitemap',
+            '/uplifts/graph/'                   => 'uplifts_graph',
             default                             => '404',
         };
     }

@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+    {% set meta_description = page_title %}
+    <meta name="description" content="{{ meta_description }}">
+    <meta property="twitter:description" content="{{ meta_description }}">
+    <meta property="og:url" content="https://whattrainisitnow.com{{ page_url }}">
+{% endblock %}
+
+{% block header %}
+<header class="mx-auto mb-3 no-focus-scroll">
+    <h1>{{ page_title }}</h1>
+    <p class="fs-6">
+        From Firefox {{ graph_start }}, just after the move to a 4-week release cycle.
+        Cycles from Firefox {{ two_week_cadence_start }} have a 2-week beta cycle.<br>
+        <a href="/esr/uplifts/">ESR uplifts as a table</a> ·
+        {% if with_beta %}
+        <a href="/esr/uplifts/graph/">ESR uplifts only</a> · <a href="/beta/uplifts/graph/">Beta uplifts only</a>
+        {% else %}
+        <a href="/uplifts/graph/">Include beta uplifts</a>
+        {% endif %}
+    </p>
+    {% if missing %}
+    <p class="fs-6 text-danger">Some logs could not be fetched from Mercurial yet, their cycles are missing. Reload the page in 10 minutes.</p>
+    {% endif %}
+</header>
+{% endblock %}
+
+{% block main %}
+{% for chart in charts %}
+<section class="w-75 mx-auto mb-5">
+    <h2 class="fs-4 text-center">{{ chart.title }}</h2>
+    <p class="text-center fs-6">{{ chart.subtitle }}</p>
+    <div aria-hidden="true">
+        <canvas id="{{ chart.id }}"></canvas>
+        <p class="text-center fs-6 mt-3">
+        {% if with_beta %}
+            <span class="uplift-legend uplift-legend-4w"></span> ESR
+            <span class="uplift-legend uplift-legend-2w ms-4"></span> Beta + RC
+        {% else %}
+            <span class="uplift-legend uplift-legend-4w"></span> 4-week cycle
+            <span class="uplift-legend uplift-legend-2w ms-4"></span> 2-week cycle (Firefox {{ two_week_cadence_start }} and later)
+        {% endif %}
+            <span class="uplift-legend uplift-legend-in-progress ms-4"></span> Firefox {{ in_progress_version }} in progress (partial data)
+        </p>
+    </div>
+    <table class="visually-hidden">
+        <caption>{{ chart.title }}</caption>
+        <thead>
+            <tr>
+                <th scope="col">Firefox version</th>
+                {% for dataset in chart.datasets %}
+                <th scope="col">{{ dataset.label }}</th>
+                {% endfor %}
+                <th scope="col">Cycle length in weeks</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for version in chart.labels %}
+            <tr>
+                <td>{{ version }}{{ version == in_progress_version ? ' (in progress)' }}</td>
+                {% for dataset in chart.datasets %}
+                <td>{{ dataset.data[loop.parent.loop.index0] ?? 'n/a' }}</td>
+                {% endfor %}
+                <td>{{ chart.weeks[loop.index0] ?? 'n/a' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endfor %}
+{% endblock %}
+
+{% block footer %}
+<footer class="w-50 mx-auto"><i>The ESR dot releases of cycle N and the beta of Firefox N both ship with Firefox N. Uplifts per week divide a cycle by its length from the previous release, the cycle in progress uses its planned length.</i></footer>
+<script src="{{ asset('/assets/chartjs/chart.umd.min.js') }}"></script>
+<script nonce="{{constant('NONCE')}}">
+const style = getComputedStyle(document.documentElement);
+Chart.defaults.color = style.getPropertyValue('--font-default-color').trim();
+Chart.defaults.font.family = style.getPropertyValue('font-family').trim();
+Chart.defaults.font.size = 14;
+
+const charts = {{ charts|json_encode|raw }};
+const inProgressVersion = {{ in_progress_version }};
+const twoWeekCadenceStart = {{ two_week_cadence_start }};
+const isTwoWeekCycle = (version) => Number(version) >= twoWeekCadenceStart;
+const colors = {
+    purple: style.getPropertyValue('--purple-light').trim() || '#cfe2ff',
+    orange: style.getPropertyValue('--orange-light').trim() || '#ffbe5a',
+};
+
+// The cycle in progress only has partial data, it gets a hatched fill
+const hatch = (color) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 8;
+    const context = canvas.getContext('2d');
+    context.fillStyle = color;
+    context.globalAlpha = 0.35;
+    context.fillRect(0, 0, 8, 8);
+    context.globalAlpha = 1;
+    context.strokeStyle = color;
+    context.lineWidth = 3;
+    context.beginPath();
+    context.moveTo(-2, 10);
+    context.lineTo(10, -2);
+    context.stroke();
+    return context.createPattern(canvas, 'repeat');
+};
+
+const barColor = (dataset, version) => {
+    const color = dataset.color === 'cycle'
+        ? (isTwoWeekCycle(version) ? colors.orange : colors.purple)
+        : colors[dataset.color];
+    return Number(version) === inProgressVersion ? hatch(color) : color;
+};
+
+for (const chart of charts) {
+    const stacked = chart.datasets.length > 1;
+    new Chart(document.getElementById(chart.id), {
+        type: 'bar',
+        data: {
+            labels: chart.labels,
+            datasets: chart.datasets.map((dataset) => ({
+                label: dataset.label,
+                data: dataset.data,
+                backgroundColor: chart.labels.map((version) => barColor(dataset, version)),
+                borderColor: chart.labels.map((version) => barColor(dataset, version)),
+                borderWidth: 1,
+            })),
+        },
+        options: {
+            responsive: true,
+            devicePixelRatio: window.devicePixelRatio,
+            onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    const element = elements[0];
+                    window.location.href = chart.datasets[element.datasetIndex].link + chart.labels[element.index];
+                }
+            },
+            onHover: (event, elements) => {
+                event.native.target.style.cursor = elements.length > 0 ? 'pointer' : 'default';
+            },
+            interaction: { mode: stacked ? 'index' : 'nearest', intersect: true },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: (items) => 'Firefox ' + items[0].label
+                            + (Number(items[0].label) === inProgressVersion ? ' (in progress)' : ''),
+                        label: (item) => item.dataset.label + ': ' + (item.raw ?? 'n/a'),
+                        footer: (items) => {
+                            const lines = [];
+                            if (stacked) {
+                                lines.push('Total: ' + Math.round(items.reduce((sum, item) => sum + (item.raw ?? 0), 0) * 10) / 10);
+                            }
+                            const weeks = chart.weeks[items[0].dataIndex];
+                            lines.push((isTwoWeekCycle(items[0].label) ? '2-week' : '4-week') + ' beta cycle'
+                                + (weeks ? ', ' + Math.round(weeks * 10) / 10 + ' weeks since the previous release' : ''));
+                            return lines;
+                        },
+                    },
+                },
+            },
+            scales: {
+                x: { stacked: stacked, title: { display: true, text: 'Firefox version' } },
+                y: { stacked: stacked, title: { display: true, text: chart.y_title }, beginAtZero: true },
+            },
+        },
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block head_additions %}
+    {% set meta_description = 'Bugs uplifted to ESR branches per Firefox release cycle' %}
+    <meta name="description" content="{{ meta_description }}">
+    <meta property="twitter:description" content="{{ meta_description }}">
+    <meta property="og:url" content="https://whattrainisitnow.com/esr/uplifts/">
+{% endblock %}
+
+{% block header %}
+<header class="mx-auto mb-3 no-focus-scroll">
+    <h1>ESR uplifts per release cycle</h1>
+    <p class="fs-6">
+        Bugs uplifted to each ESR branch, the ESR dot releases of cycle N ship with Firefox N.<br>
+        <a href="/esr/uplifts/graph/">View as graph</a> · <a href="/uplifts/graph/">Graph with beta uplifts</a>
+    </p>
+    {% if missing %}
+    <p class="fs-6 text-danger">Some logs could not be fetched from Mercurial yet (n/a), reload the page in 10 minutes.</p>
+    {% endif %}
+</header>
+{% endblock %}
+
+{% block main %}
+<table class="table table-light table-fxt-clean table-sm table-hover w-auto mx-auto text-center" id="esr_uplifts">
+    <thead class="sticky-top">
+        <tr class="table-warning">
+            <th scope="col">Firefox</th>
+            {% for branch in branches %}
+            <th scope="col">ESR {{ branch }}</th>
+            {% endfor %}
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for fx_version, counts in esr_uplifts %}
+        {% set in_progress = fx_version == in_progress_version %}
+        <tr id="fx{{ fx_version }}">
+            <th scope="row" class="text-nowrap">
+                <a href="/release/?version={{ fx_version }}">{{ fx_version }}</a>
+                {% if in_progress %}<br><span class="badge text-dark bg-warning-subtle fw-semibold">in progress</span>{% endif %}
+            </th>
+            {% for branch in branches %}
+            <td{% if in_progress %} class="fst-italic"{% endif %}>
+                {% if counts[branch] is defined %}
+                    <a href="{{ log_links[fx_version][branch] }}" title="{{ esr_releases[fx_version][branch] }}esr{{ in_progress ? ' (up to tip)' }}">{{ counts[branch] ?? 'n/a' }}</a>
+                {% endif %}
+            </td>
+            {% endfor %}
+            <th>{{ row_totals[fx_version] ?? 'n/a' }}</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="table-warning">
+            <th scope="row">Total</th>
+            {% for branch in branches %}
+            <th>{{ branch_totals[branch] }}</th>
+            {% endfor %}
+            <th>{{ branch_totals|reduce((carry, v) => carry + v, 0) }}</th>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}
+
+{% block footer %}
+<footer class="w-50 mx-auto"><i>Counts are the unique bugs landed between two ESR release tags on the ESR branch, same rules as the <a href="/beta/">beta</a> uplift counts. New ESR branches (x.0) have no uplifts and are not listed. Counts start with Firefox 26.</i></footer>
+{% endblock %}

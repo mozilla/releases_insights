@@ -10,7 +10,8 @@
 {% block header %}
 <header class="mx-auto mb-3 no-focus-scroll">
     <h1>Beta uplifts per release</h1>
-    <p class="fs-6">Total bugs uplifted to beta and RC builds per Firefox release</p>
+    <p class="fs-6">Total bugs uplifted to beta and RC builds per Firefox release<br>
+        <a href="/uplifts/graph/">Include ESR uplifts</a></p>
 </header>
 {% endblock %}
 
@@ -35,7 +36,7 @@
     {% for version, count in graph_data %}
         <tr>
             <td><a href="/beta/?version={{ version }}">{{ version }}</a></td>
-            <td>{{ count }}</td>
+            <td>{{ count ?? 'n/a' }}</td>
             <td>{{ version >= two_week_cadence_start ? '2 weeks' : '4 weeks' }}</td>
         </tr>
     {% endfor %}

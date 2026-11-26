@@ -36,6 +36,7 @@ readonly class Model
             'calendar_monthly'            => 'calendar_monthly.php',
             'changelog'                   => 'changelog.php',
             'esr_release'                 => 'esr_release.php',
+            'esr_uplifts'                 => 'esr_uplifts.php',
             'future_release'              => 'future_release.php',
             'home'                        => 'home.php',
             'ics'                         => 'ics_release_schedule.php',

@@ -679,8 +679,8 @@ nav svg:hover {
    opacity: 0.97;
  }
 
-/* Legend for the beta uplifts graph: one color per release cadence */
-#beta_uplifts_graph .uplift-legend {
+/* Legend for the uplifts graphs: one color per release cadence or per channel */
+.uplift-legend {
     display: inline-block;
     width: 1em;
     height: 1em;
@@ -689,12 +689,18 @@ nav svg:hover {
     margin-right: 0.4em;
 }
 
-#beta_uplifts_graph .uplift-legend-4w {
+.uplift-legend-4w {
     background-color: var(--purple-light);
 }
 
-#beta_uplifts_graph .uplift-legend-2w {
+.uplift-legend-2w {
     background-color: var(--orange-light);
+}
+
+/* Cycle in progress, hatched like its bar */
+.uplift-legend-in-progress {
+    background: repeating-linear-gradient(135deg, var(--purple-light) 0 2px, transparent 2px 5px);
+    outline: 1px solid var(--purple-light);
 }
 
 /* Inline SVG icons (from Bootstrap Icons), sized like the text around them */

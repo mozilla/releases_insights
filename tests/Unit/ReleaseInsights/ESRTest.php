@@ -90,3 +90,13 @@ test('ESR::isSupported()', function ($input, $output) {
     [10, false],
     [0, false],   // NEXT_ESR is 0 when there is no next ESR, it is not a branch
 ]);
+
+test('ESR::getVersionsForRelease', function ($input, $output) {
+    expect(ESR::getVersionsForRelease($input))->toEqual($output);
+})->with([
+    [9, []],
+    [60, ['52.8.0', '60.0.0']],
+    [128, ['115.13.0', '128.0.0']],
+    [141, ['115.26.0', '128.13.0', '140.1.0']],
+    [176, ['153.23.0', '175.1.0']],
+]);

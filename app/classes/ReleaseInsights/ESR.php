@@ -130,6 +130,24 @@ class ESR
     }
 
     /**
+     * ESR releases shipping with a Firefox release, sorted from the oldest
+     * to the newest branch. Ex: 128 => ['115.14.0', '128.0.0']
+     *
+     * @return list<string>
+     */
+    public static function getVersionsForRelease(int $version): array
+    {
+        $versions = array_unique(array_filter([
+            self::getVersion($version),
+            self::getOlderSupportedVersion($version),
+            self::getWin7SupportedVersion($version),
+        ]));
+        sort($versions);
+
+        return $versions;
+    }
+
+    /**
      * Is this ESR branch (ex: 128) still supported?
      * Supported branches are the ones Product Details lists:
      * the current ESR, the next ESR during overlap periods and ESR 115.
