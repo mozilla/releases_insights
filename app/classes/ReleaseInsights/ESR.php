@@ -86,14 +86,17 @@ class ESR
                ESR 140 is an exception with 4: Firefox 154 was still 4 weeks after 153,
                before the switch to 2 week cycles at 155. ESR 140's last release is
                140.17 (Firefox 157), ESR 153.5 (Firefox 158, October 13) replaces it.
-            2. Before that, we had 2 ESR branches for 3 releases only since Version 68
-               and before that we had 2 cycles only with 2 ESR branches as cycles lasted longer
+            2. Before that, we had 2 ESR branches for 3 releases (x.0 to x.2) since Version 78:
+               ESR 68's last release is 68.12 (Firefox 80), alongside ESR 78.2.
+               Before Version 78, we had 2 releases with 2 ESR branches (x.0 and x.1)
+               as cycles lasted longer, except for ESR 45 which shipped until 45.9 (Firefox 54).
             3. We extended the 115 ESR cycle because of a still large Windows 7/8.1 population
         */
         $esr_minor_releases = match(true) {
+                $previous_ESR === 45  => 2,
                 $version < 78         => 1,
                 $current_ESR === 128  => 11,
-                $previous_ESR < 140   => 3,
+                $previous_ESR < 140   => 2,
                 $previous_ESR === 140 => 4,
                 default               => 5,
         };

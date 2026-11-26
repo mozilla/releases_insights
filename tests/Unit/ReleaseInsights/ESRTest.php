@@ -26,19 +26,30 @@ test('ESR::getVersion', function ($input, $output) {
 test('ESR::getOlderSupportedVersion', function ($input, $output) {
     expect($output)->toEqual(ESR::getOlderSupportedVersion($input));
 })->with([
+    [54, '45.9.0'], // ESR 45 shipped alongside ESR 52 for 3 releases
+    [55, null],
+    [61, '52.9.0'],
+    [62, null],
     [68, '60.8.0'],
+    [69, '60.9.0'],
+    [70, null],
     [78, '68.10.0'],
+    [80, '68.12.0'],
+    [81, null],
     [90, null],
     [91, '78.13.0'],
     [93, '78.15.0'],
-    [94, '78.16.0'],
-    [95, null],
+    [94, null],
     [10, null],
     [102, '91.11.0'],
+    [104, '91.13.0'],
+    [105, null],
+    [117, '102.15.0'],
+    [118, null],
     [136, '115.21.0'],
-    // ESR 128 (retired in the 4-week cadence) is supported for 3 releases, until Firefox 143, then EOL.
-    [143, '128.15.0'],
-    [144, null],
+    // ESR 128 (retired in the 4-week cadence) ships alongside ESR 140 for 3 releases, its last release is 128.14 (Firefox 142).
+    [142, '128.14.0'],
+    [143, null],
     [155, '140.15.0'],
     // ESR 140's last release is 140.17 (Firefox 157); it is EOL from Firefox 158 (2026-10-13).
     [157, '140.17.0'],
