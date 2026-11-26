@@ -44,6 +44,11 @@ a {
     color: var(--link-blue);
 }
 
+/* Links in page intros are on the purple background */
+header p a {
+    color: var(--link-blue-light);
+}
+
 a:hover {
     text-decoration: underline;
 }
@@ -701,6 +706,13 @@ nav svg:hover {
 .uplift-legend-in-progress {
     background: repeating-linear-gradient(135deg, var(--purple-light) 0 2px, transparent 2px 5px);
     outline: 1px solid var(--purple-light);
+}
+
+/* Empty top left cell of a table with 2 header rows, shows the page background */
+.table > :not(caption) > * > .table-corner {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: transparent;
 }
 
 /* Inline SVG icons (from Bootstrap Icons), sized like the text around them */

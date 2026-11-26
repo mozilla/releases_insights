@@ -24,9 +24,14 @@
 <table class="table table-light table-fxt-clean table-sm table-hover w-auto mx-auto text-center" id="esr_uplifts">
     <thead class="sticky-top">
         <tr class="table-warning">
-            <th scope="col">Firefox</th>
+            <td class="table-corner"></td>
+            <th scope="colgroup" colspan="{{ branches|length }}">ESR</th>
+            <td class="table-corner"></td>
+        </tr>
+        <tr class="table-warning">
+            <th scope="col">Version</th>
             {% for branch in branches %}
-            <th scope="col">ESR {{ branch }}</th>
+            <th scope="col">{{ branch }}</th>
             {% endfor %}
             <th scope="col">Total</th>
         </tr>
@@ -36,8 +41,10 @@
         {% set in_progress = fx_version == in_progress_version %}
         <tr id="fx{{ fx_version }}">
             <th scope="row" class="text-nowrap">
-                <a href="/release/?version={{ fx_version }}">{{ fx_version }}</a>
-                {% if in_progress %}<br><span class="badge text-dark bg-warning-subtle fw-semibold">in progress</span>{% endif %}
+                <span class="position-relative">
+                    <a href="/release/?version={{ fx_version }}">{{ fx_version }}</a>
+                    {% if in_progress %}<span class="position-absolute top-50 start-100 translate-middle-y ms-1 badge rounded-pill text-dark bg-warning fw-semibold fs-8">in progress</span>{% endif %}
+                </span>
             </th>
             {% for branch in branches %}
             <td{% if in_progress %} class="fst-italic"{% endif %}>
