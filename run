@@ -21,6 +21,7 @@ SUPPORTED_COMMANDS=(
     'tests'
     'browser-sync'
     'status'
+    'completion'
 )
 
 # Define it for the whole script session
@@ -55,6 +56,30 @@ then
     fi
 fi
 
+# Print a bash completion spec for this script. Load it once with:
+#   source <(./run completion)
+# or install it so bash-completion loads it automatically in every shell:
+#   ./run completion > ~/.local/share/bash-completion/completions/run
+# The subcommands are read from the SUPPORTED_COMMANDS array of the script
+# being completed (never executed), so the installed file never gets stale
+# and other scripts named "run" fall back to normal file completion.
+if [ $# -gt 0 ] && [ $1 = 'completion' ]
+then
+    cat <<'COMPLETION'
+_run_subcommands() {
+    local script="${COMP_WORDS[0]}" cmds
+    [[ -f $script ]] || script=$(type -P -- "$script")
+    [[ -f $script ]] && cmds=$(sed -n "/^SUPPORTED_COMMANDS=(/,/^)/s/^ *'\([^']*\)'.*/\1/p" "$script")
+    if [[ -z $cmds ]]; then
+        compopt -o default; COMPREPLY=(); return
+    fi
+    (( COMP_CWORD == 1 )) && COMPREPLY=($(compgen -W "$cmds" -- "${COMP_WORDS[1]}"))
+}
+complete -F _run_subcommands ./run run
+COMPLETION
+    exit 0
+fi
+
 if [ $# -gt 0 ] && [ $1 = 'help' ]
 then
     echo -e "${ORANGE}${BOLD}Usage:${NORMAL}${NOCOLOR}"
@@ -62,6 +87,7 @@ then
     echo -e " ${BOLD}run tests${NORMAL}         Runs application test suite"
     echo -e " ${BOLD}run browser-sync${NORMAL}  Run with browser-sync"
     echo -e " ${BOLD}run status${NORMAL}        Check if the current commit is on production"
+    echo -e " ${BOLD}run completion${NORMAL}    Print bash tab-completion (install: ./run completion > ~/.local/share/bash-completion/completions/run)"
     echo ""
     echo "Additional parameters will be ignored."
     exit 0
