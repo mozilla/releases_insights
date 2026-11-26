@@ -84,15 +84,25 @@ You can also run locally all the tests we run in CI with the `./run tests` comma
 
 You can check if the local state of the branch is in production with the `./run status` command.
 
-If you want to avoid typing `./` in front of the `run` command and also want autocomplete for the sub-commands, you can add this to your shell, in my case in .bashrc:
-```bash
-# Allow local 'run' script if it exists
-if [ -f "./run" ]; then
-    alias run='./run'
-    # Source completion if the file exists locally
-    [ -f "./.run-completion.sh" ] && source ./.run-completion.sh
-fi
-```
+#### Tab-completion for `./run`
+
+`./run` can tab-complete its sub-commands (`./run s<Tab>` → `./run status`). Set it up once:
+
+- **Linux (bash):** with the `bash-completion` package installed (the default on most distributions), it is loaded automatically in every new terminal:
+  ```bash
+  mkdir -p ~/.local/share/bash-completion/completions
+  ./run completion > ~/.local/share/bash-completion/completions/run
+  ```
+- **macOS (zsh, the default shell):** add this to `~/.zshrc`, adjusting the path to your clone:
+  ```zsh
+  autoload -Uz compinit && compinit
+  eval "$(~/path/to/releases_insights/run completion zsh)"
+  ```
+- **macOS (bash):** with Homebrew's `bash` and `bash-completion@2`, use the Linux instructions. With the system bash, add `eval "$(~/path/to/releases_insights/run completion)"` to `~/.bash_profile`.
+
+To try it in the current shell only: `eval "$(./run completion)"` (bash) or `eval "$(./run completion zsh)"` (zsh).
+
+The sub-commands are read from the script itself, so there is nothing to update when new ones are added. If you also want to type `run` instead of `./run`, add `alias run='./run'` to your shell configuration. Completion works for the alias too.
 
 
 If you want to contribute a patch to an existing class, please make sure that unit tests pass and add tests for new methods.
