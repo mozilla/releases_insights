@@ -14,7 +14,7 @@ http_response_code(404);
 new Template(
     'regular.html.twig',
     [
-        'page_title'   => '',
+        'page_title'   => 'Page not found',
         'css_page_id'  => 'notfound',
         'page_content' => new Model('404')->get(),
     ]
