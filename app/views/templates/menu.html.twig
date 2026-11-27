@@ -32,19 +32,19 @@
         {% endif %}
 
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item {{ active_home }}" href="/">Home</a></li>
+            <li><a class="dropdown-item {{ active_home }}" {{ active_home ? 'aria-current=page' }} href="/">Home</a></li>
             <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Trains</li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_release }}" href="/release/?version=release">Release</a></li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_beta }}" href="/release/?version=beta">Beta</a></li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_nightly }}" href="/release/?version=nightly">Nightly</a></li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_esr }}" href="/release/?version=esr">ESR</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_release }}" {{ active_rel_release ? 'aria-current=page' }} href="/release/?version=release">Release</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_beta }}" {{ active_rel_beta ? 'aria-current=page' }} href="/release/?version=beta">Beta</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_nightly }}" {{ active_rel_nightly ? 'aria-current=page' }} href="/release/?version=nightly">Nightly</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_rel_esr }}" {{ active_rel_esr ? 'aria-current=page' }} href="/release/?version=esr">ESR</a></li>
             <li class="dropdown-header fs-6 border-bottom border-1 border-secondary-subtle text-info-emphasis pb-0 fst-italic">Bug landings and crashes</li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_nightly }}" href="/nightly/">In Nightly</a></li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_beta }}" href="/beta/">In Beta</a></li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_release_uplifts }}" href="/release/uplifts/">In Release</a></li>
-            <li><a class="dropdown-item fxt-ps-2 {{ active_esr_uplifts }}" href="/esr/uplifts/">In ESR</a></li>
-            <li><a class="dropdown-item {{ active_calendar }}" href="/calendar/">Calendar</a></li>
-            <li><a class="dropdown-item {{ active_about }}" href="/about/">About</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_nightly }}" {{ active_nightly ? 'aria-current=page' }} href="/nightly/">In Nightly</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_beta }}" {{ active_beta ? 'aria-current=page' }} href="/beta/">In Beta</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_release_uplifts }}" {{ active_release_uplifts ? 'aria-current=page' }} href="/release/uplifts/">In Release</a></li>
+            <li><a class="dropdown-item fxt-ps-2 {{ active_esr_uplifts }}" {{ active_esr_uplifts ? 'aria-current=page' }} href="/esr/uplifts/">In ESR</a></li>
+            <li><a class="dropdown-item {{ active_calendar }}" {{ active_calendar ? 'aria-current=page' }} href="/calendar/">Calendar</a></li>
+            <li><a class="dropdown-item {{ active_about }}" {{ active_about ? 'aria-current=page' }} href="/about/">About</a></li>
         </ul>
     </nav>
     <div class="pt-4 pe-2">

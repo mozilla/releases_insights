@@ -77,6 +77,20 @@
                 }
                 new bootstrap.Tooltip(el);
             });
+
+            // Desktop & Android / iOS tabs on release pages are switched in CSS with :target,
+            // tell assistive technologies which one is shown
+            const tabs = document.querySelectorAll('.nav-tabs .nav-link[href^="#"]');
+            if (tabs.length) {
+                const updateTabs = function () {
+                    const current = location.hash === '#ios-target' ? '#ios-target' : '#gecko';
+                    tabs.forEach(tab => tab.getAttribute('href') === current
+                        ? tab.setAttribute('aria-current', 'true')
+                        : tab.removeAttribute('aria-current'));
+                };
+                updateTabs();
+                window.addEventListener('hashchange', updateTabs);
+            }
         </script>
     </body>
 </html>
