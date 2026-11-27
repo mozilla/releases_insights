@@ -404,7 +404,7 @@
 
 {% if esr_branch_releases %}
     {# Keep the h3 + details order for the :target highlight rules in base.css #}
-    <h3 class="text-center w-50 mx-auto mt-4 fs-4" id="esr"><a href="#esr" class="anchor-link link-info" aria-label="Link to this section">{% include 'anchor_icon.html.twig' %}</a>Firefox {{ release }} was the basis for the ESR {{ release }} branch
+    <h3 class="text-center w-50 mx-auto mt-4 fs-4" id="esr"><a href="#esr" class="anchor-link link-info" aria-label="Link to the ESR section">{% include 'anchor_icon.html.twig' %}</a>Firefox {{ release }} was the basis for the ESR {{ release }} branch
     {% if esr_branch_eol %}
         <span class="badge text-bg-secondary fs-6 fw-normal align-middle">End of life</span>
     {% else %}
