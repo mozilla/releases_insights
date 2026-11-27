@@ -562,8 +562,9 @@ nav svg:hover {
         font-size: 1.5em;
         text-transform: unset !important;
     }
+    /* Day numbers: a darker --orange-dark to be readable (4.9:1 to 5.8:1 on the calendar backgrounds) */
     .calendar tr td .cal-day-box {
-        color: var(--orange-dark) !important;
+        color: #a94800 !important;
     }
 
     .calendar tr td {
@@ -575,7 +576,16 @@ nav svg:hover {
     *[class*="sunday"] {
         width: 5% !important;
         color: var(--purple) !important;
+    }
+
+    *:is([class*="saturday"], [class*="sunday"]):not(.day) {
         opacity: 0.6;
+    }
+
+    /* Weekend days are toned down with a grey: opacity made their text unreadable (1.7:1) */
+    .calendar tr td.day:is([class*="saturday"], [class*="sunday"]),
+    .calendar tr td.day:is([class*="saturday"], [class*="sunday"]) .cal-day-box {
+        color: #5c636a !important;
     }
 
     .calendar tr td:is(.mask-start, .mask, .mask_end) {
