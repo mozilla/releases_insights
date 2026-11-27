@@ -55,7 +55,28 @@
         <script src="{{ asset('/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         {% block footer %}{% endblock %}
         <script nonce="{{constant('NONCE')}}">
-            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+            // Text version of a tooltip title, which can contain HTML (data-bs-html)
+            const tooltipText = html => new DOMParser()
+                .parseFromString(html.replace(/<br\s*\/?>/gi, ' '), 'text/html')
+                .body.textContent.replace(/\s+/g, ' ').trim();
+
+            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+                const text = el.title ? tooltipText(el.title) : '';
+                if (text !== '') {
+                    if (el.textContent.trim() === '' && ! el.hasAttribute('aria-label')) {
+                        // Icon-only element: Bootstrap would use the raw HTML title as aria-label
+                        el.setAttribute('aria-label', text);
+                    } else if (! el.matches('a[href], button, input, select, textarea, [tabindex]')) {
+                        // Keyboard and screen reader users can't open a tooltip on a non-focusable
+                        // element, and Bootstrap removes its title: keep the text for screen readers
+                        const hidden = document.createElement('span');
+                        hidden.className = 'visually-hidden';
+                        hidden.textContent = ` (${text})`;
+                        el.append(hidden);
+                    }
+                }
+                new bootstrap.Tooltip(el);
+            });
         </script>
     </body>
 </html>
