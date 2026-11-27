@@ -179,12 +179,12 @@ body[id^='release_']:not(#release_esr) .table th summary::marker {
         padding-top: 0 !important;
     }
 
-    body[id^='release_']:not(#release_esr) h1 {
+    body[id^='release_']:not(#release_esr) header h1 {
         font-size: x-large; !important;
         padding-bottom: 0;
     }
 
-    body[id^='release_']:not(#release_esr) h1 .btn {
+    body[id^='release_']:not(#release_esr) header h1 .btn {
         font-size: small !important;
         margin-top: 5px;
     }
@@ -270,7 +270,7 @@ body[id^='release_']:not(#release_esr) .table th summary::marker {
  }
 
 /* About page */
-#about h3 {
+#about h2 {
     margin-top: 1em;
 }
 
@@ -290,16 +290,16 @@ footer {
     margin-left: -1em;
 }
 
-h3:hover .anchor-link {
+:is(h2, h3):hover .anchor-link {
     visibility: visible;
 }
 
-h3:target {
+:is(h2, h3):target {
    color: var(--link-blue-light);
 }
 
-h3:target + table,
-h3:target + details > table {
+:is(h2, h3):target + table,
+:is(h2, h3):target + details > table {
     box-shadow: 0px 0px 20px 0px var(--link-blue);
 }
 
