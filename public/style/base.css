@@ -630,7 +630,7 @@ nav svg:hover {
 }
 
 .nav-tabs .nav-link[href="#gecko"] {
-    color: #0d6efd;
+    color: #0a58ca; /* 5.8:1 on --yellow-pale */
     background-color: var(--yellow-pale);
 }
 
@@ -640,7 +640,7 @@ nav svg:hover {
 }
 
 #ios-target:target ~ .nav-tabs .nav-link[href="#ios-target"] {
-    color: #0d6efd;
+    color: #0a58ca; /* 5.8:1 on --yellow-pale */
     background-color: var(--yellow-pale);
 }
 
@@ -743,4 +743,50 @@ nav svg:hover {
     height: 1em;
     fill: currentColor;
     vertical-align: -.125em;
+}
+
+/* Colour contrast (WCAG AA 4.5:1)
+   Bootstrap's grey, blue and pink text are just under 4.5:1 on the light surfaces we use
+   (tables, light alerts, nav tabs): use darker shades of the same hues there */
+:is(.table, .alert-danger, .alert-warning, .nav-tabs) {
+    --bs-primary-rgb: 10, 88, 202;    /* #0a58ca: link-primary, nav links */
+    --bs-link-color-rgb: 10, 88, 202;
+    --bs-link-color: #0a58ca;
+    --bs-secondary-rgb: 86, 94, 100;  /* #565e64: text-secondary, link-secondary */
+    --bs-secondary-color: #565e64;    /* text-muted */
+    --bs-tertiary-color: #646b72;     /* text-body-tertiary */
+    --bs-code-color: #ab296a;
+}
+
+/* --link-blue is 4.0:1 on the pink and yellow alerts */
+:is(.alert-danger, .alert-warning) {
+    --link-blue: #0058b8;
+}
+
+/* White text on Bootstrap's coloured chips and buttons is just under 4.5:1 */
+:is(#nightly, #beta) .list-group-item {
+    --bs-success-rgb: 20, 108, 67;    /* #146c43 */
+    --bs-danger-rgb: 176, 42, 55;     /* #b02a37 */
+    --bs-primary-rgb: 10, 88, 202;    /* #0a58ca */
+    --bs-secondary-rgb: 92, 99, 106;  /* #5c636a */
+}
+
+:is(#nightly, #beta) .btn-success {
+    --bs-btn-bg: #146c43;
+    --bs-btn-border-color: #146c43;
+}
+
+/* Footers are on the purple background, like page intros */
+footer a {
+    color: var(--link-blue-light);
+}
+
+/* .text-info is 3.9:1 on the purple alerts */
+.alert-primary .text-info {
+    color: #9eeaf9 !important;
+}
+
+/* Links in running text are underlined, not identified by colour alone (WCAG 1.4.1) */
+:is(main p, main ol, .alert, .table th.text-secondary-emphasis, footer) a:not(.btn, .btn a, .nav-link) {
+    text-decoration: underline;
 }

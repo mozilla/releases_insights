@@ -28,7 +28,7 @@
         {% if fallback_nightly %}<li class="list-group-item bg-warning"></li>{% endif %}
 
         <li class="list-group-item bg-info border-0">
-            <a href="/changelog/?from={{ dataset.prev_changeset }}&to={{  dataset.changeset }}&hg2git&files" class="text-light" title="Nightly {{ dataset.version }}">{{ dataset.buildid }}</a>
+            <a href="/changelog/?from={{ dataset.prev_changeset }}&to={{  dataset.changeset }}&hg2git&files" class="text-dark" title="Nightly {{ dataset.version }}">{{ dataset.buildid }}</a>
         </li>
 
         <li class="list-group-item text-light bg-secondary border-0">
