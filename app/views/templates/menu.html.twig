@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-between" id="nav">
-    <nav class="nav navbar dropdown">
+<nav class="d-flex justify-content-between" id="nav" aria-label="Site">
+    <div class="nav navbar dropdown">
         <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="32" height="32" fill="white" fill-opacity="context-fill-opacity">
                 <path d="m13.375 4.25-10.75 0a.625.625 0 0 1 0-1.25l10.75 0a.625.625 0 0 1 0 1.25z"/>
@@ -46,7 +46,7 @@
             <li><a class="dropdown-item {{ active_calendar }}" {{ active_calendar ? 'aria-current=page' }} href="/calendar/">Calendar</a></li>
             <li><a class="dropdown-item {{ active_about }}" {{ active_about ? 'aria-current=page' }} href="/about/">About</a></li>
         </ul>
-    </nav>
+    </div>
     <div class="pt-4 pe-2">
         <a href="https://mozilla.org" aria-label="Mozilla">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 703.5 147" style="enable-background:new 0 0 703.5 147" xml:space="preserve">
@@ -54,4 +54,4 @@
             </svg>
         </a>
     </div>
-</div>
+</nav>

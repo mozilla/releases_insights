@@ -379,8 +379,11 @@
 
 {% block footer %}
 {% if not fallback_content %}
-  {%  include 'footer_UTC_warning.html.twig' %}
-    <footer class="d-flex justify-content-center text-white-50 mt-0">Working days exclude week-ends and the current day</footer>
+    {# Both notes in one <footer>: two would be duplicate contentinfo landmarks #}
+    <footer class="text-white-50">
+        <div>Dates are expressed in the UTC timezone</div>
+        <div>Working days exclude week-ends and the current day</div>
+    </footer>
 {% endif %}
 
     <script nonce="{{constant('NONCE')}}">

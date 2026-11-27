@@ -53,7 +53,7 @@ a:hover {
     text-decoration: underline;
 }
 
-nav svg {
+#nav .navbar svg {
     fill: whitesmoke;
     margin-top: 0.5em;
 }
@@ -175,7 +175,7 @@ body[id^='release_']:not(#release_esr) .table th summary::marker {
         font-size: 75%;
     }
 
-    body[id^='release_']:not(#release_esr) nav {
+    body[id^='release_']:not(#release_esr) #nav .navbar {
         padding-top: 0 !important;
     }
 
@@ -493,18 +493,18 @@ th > .th-sort:focus-visible {
     padding-left: 2rem;
 }
 
-#nav nav + div a svg {
+#nav .navbar + div a svg {
     width: 100px;
     fill: white;
 }
 
-#nav nav + div a svg:hover  {
+#nav .navbar + div a svg:hover  {
     fill: #00d230 !important;
     color:  red;
 }
 
 /* hover effect on the menu icon */
-nav svg:hover {
+#nav .navbar svg:hover {
     fill: #0d6efd   ;
 }
 
