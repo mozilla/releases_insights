@@ -176,25 +176,29 @@
             <tr>
                 <th class="{{ table_header }}">
                     {{ release }}.0
-                    <span
+                    {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
+                      {% if uptake is not null %}
+                          {% set uptake_msg = uptake|number_format ~ '% adoption' %}
+                          {% set uptake_title = uptake ~ '% — adoption rate has a 24h latency' %}
+                      {% else %}
+                          {% set uptake_msg = '(adoption rate unavailable)' %}
+                          {% set uptake_title = 'Adoption rate data has a 24h latency' %}
+                      {% endif %}
+                    {# The title must be on the tooltip trigger, not on a child, for Bootstrap to use it #}
+                    <span tabindex="0"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    data-bs-html="true">
-                        <sup class="fw-normal fst-italic text-secondary border-bottom"  title="{{ uptake }}% &mdash; adoption rate has a 24h latency">
-                        {% if release == constant('FIREFOX_RELEASE')|number_format or release == constant('FIREFOX_RELEASE')|number_format - 1 %}
-                          {% if uptake is not null %}
-                              {% set uptake_msg = uptake|number_format ~ '% adoption' %}
-                          {% else %}
-                              {% set uptake_msg = '(adoption rate unavailable)' %}
-                          {% endif %}
+                    data-bs-html="true"
+                    title="{{ uptake_title }}">
+                        <sup class="fw-normal fst-italic text-secondary border-bottom">
                           {% if dot_release_count == 0 %}
                             {{ uptake_msg }} - {{ rollout|raw }}
                           {% else %}
                             {{ uptake_msg }}
                           {% endif %}
-                        {% endif %}
                         </sup>
                    </span>
+                    {% endif %}
                 </th>
             {% if release == 14 or release == 125 %}
                 <td>Version never shipped</td>
