@@ -49,7 +49,9 @@
         {% endif %}
         {% include 'menu.html.twig' %}
         {% block header %}{% endblock %}
+        <main>
         {% block main %}{% endblock %}
+        </main>
         <script src="{{ asset('/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         {% block footer %}{% endblock %}
         <script nonce="{{constant('NONCE')}}">
