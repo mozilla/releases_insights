@@ -338,11 +338,23 @@ h3:target + details > table {
 }
 
 #nightly table thead tr th.sort-asc:after {
-    content: "\00A0\25be";
+    content: "\00A0\25be" / ""; /* empty alt text: aria-sort already conveys the order */
 }
 
 #nightly table thead tr th.sort-desc:after {
-    content: "\00A0\25b4";
+    content: "\00A0\25b4" / "";
+}
+
+/* Sortable column headers (button added by table_sort_script): look like plain header text */
+th > .th-sort {
+    all: unset;
+    cursor: pointer;
+}
+
+th > .th-sort:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 #nightly .buildid {

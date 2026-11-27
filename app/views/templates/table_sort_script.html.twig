@@ -1,4 +1,14 @@
 <script nonce="{{constant('NONCE')}}">
+// Make the column headers keyboard-operable: wrap their content in a button.
+// Done here rather than in the templates since sorting needs JS anyway.
+document.querySelectorAll('table thead tr th').forEach(function (th) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'th-sort';
+    button.append(...th.childNodes);
+    th.append(button);
+});
+
 // Sort table rows when clicking on a column header
 document.addEventListener('click', function (event) {
     const header = event.target.closest('table thead tr th');
@@ -15,9 +25,14 @@ document.addEventListener('click', function (event) {
         rows = rows.reverse();
     }
     (table.tBodies[0] ?? table).append(...rows);
-    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+    table.querySelectorAll('th').forEach(function (th) {
+        th.classList.remove('sort-asc', 'sort-desc');
+        th.removeAttribute('aria-sort');
+    });
 
     header.classList.add(header_direction);
+    // Tell assistive technologies which column is sorted, and in which order
+    header.setAttribute('aria-sort', header_direction == 'sort-asc' ? 'ascending' : 'descending');
 });
 
 function TableComparer(index) {
